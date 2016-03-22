@@ -1,0 +1,5 @@
+node_modules
+
+chrome/app/player
+firefox/data/player
+safari.safariextension/app/player
