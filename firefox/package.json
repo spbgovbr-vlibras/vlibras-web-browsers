@@ -1,0 +1,11 @@
+{
+  "title": "VLibras Plugin",
+  "name": "vlibras-plugin",
+  "version": "2.0.0",
+  "description": "Um tradutor de Português para LIBRAS",
+  "main": "index.js",
+  "author": "LAViD",
+  "engines": {
+    "firefox": ">=38.0a1"
+  }
+}

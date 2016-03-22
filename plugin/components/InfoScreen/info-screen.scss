@@ -1,0 +1,116 @@
+.info-screen {
+  position: absolute;
+  left: 0;
+  top: 0;
+
+  padding: 1em;
+
+  width: 100%;
+  height: 100%;
+
+  background-color: white;
+  color: black;
+  font-family: Arial, sans-serif;
+  text-align: center;
+
+  align-items: center;
+  -webkit-align-items: center;
+  font-size: 16px;
+
+  display: none;
+
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+
+  &.active {
+    display: -webkit-flex;
+    display: flex;
+  }
+
+  .arrow {
+    flex-grow: 1;
+    -webkit-flex-grow: 1;
+    visibility: hidden;
+  }
+
+  .arrow.active {
+    visibility: visible;
+  }
+
+  #info-tabset {
+    flex-grow: 4;
+    display: -webkit-flex;
+    display: flex;
+    flex-direction: column;
+    -webkit-flex-direction: column;
+    padding: 0 1em;
+  }
+
+  #info-main {
+    flex-direction: column;
+    -webkit-flex-direction: column;
+  }
+
+  #info-realizadores {
+    flex-direction: row;
+    -webkit-flex-direction: row;
+    flex-wrap: wrap;
+    -webkit-flex-wrap: wrap;
+    justify-content: center;
+    -webkit-justify-content: center;
+  }
+
+  #info-realizadores .logo {
+    margin-left: 2em;
+    width: 20%;
+    min-width: 60px;
+    max-width: 80px;
+  }
+
+  #gov-logo.logo {
+    width: 100%;
+    margin-left: 0;
+    min-width: 200px;
+    max-width: 500px;
+  }
+
+  #ufpb-logo {
+    width: 10%;
+  }
+
+  .info-tab {
+    flex-grow: 3;
+    -webkit-flex-grow: 3;
+    display: none;
+  }
+
+  .info-tab.active {
+    display: block;
+  }
+
+  #info-meta p {
+    margin: .5em 0 0;
+  }
+
+  #info-meta a {
+    text-decoration: none;
+  }
+
+  .info-bullet:before {
+    content: url(assets/CounterOff.png);
+  }
+
+  .info-bullet.active:before {
+    content: url(assets/CounterOn.png);
+  }
+
+  #info-tab-bullets {
+    width: 100%;
+    height: 16px;
+    text-align: center;
+    flex-grow: 1;
+    -webkit-flex-grow: 1;
+    margin-top: 10%;
+  }
+}
