@@ -5,7 +5,7 @@
 	<key>Author</key>
 	<string>LAViD</string>
 	<key>Builder Version</key>
-	<string>10600.6.3</string>
+	<string>10601.5.17.4</string>
 	<key>CFBundleDisplayName</key>
 	<string>VLibras Plugin</string>
 	<key>CFBundleIdentifier</key>
@@ -13,13 +13,13 @@
 	<key>CFBundleInfoDictionaryVersion</key>
 	<string>6.0</string>
 	<key>CFBundleShortVersionString</key>
-	<string>0.2.0</string>
+	<string>2.0.1</string>
 	<key>CFBundleVersion</key>
 	<string>2</string>
 	<key>Chrome</key>
 	<dict>
 		<key>Database Quota</key>
-		<real>52428800</real>
+		<integer>104857600</integer>
 		<key>Global Page</key>
 		<string>global.html</string>
 	</dict>
