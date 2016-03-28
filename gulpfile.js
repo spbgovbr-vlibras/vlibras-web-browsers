@@ -11,10 +11,10 @@ var options = {
   }
 };
 
-function build(target) {
+function build(target, player_target) {
   var destPath = options.dest[target];
 
-  gulp.src('node_modules/vlibras/src/target/**/*')
+  gulp.src(player_target || 'node_modules/vlibras/src/target/**/*')
     .pipe(gulp.dest(destPath + '/target'));
 
   gulp.src('plugin/index.js')
@@ -34,7 +34,7 @@ gulp.task('build:firefox', function () {
 });
 
 gulp.task('build:safari', function () {
-  build('safari');
+  build('safari', 'plugin/targets/datacache-off/**/*');
 });
 
 gulp.task('build', ['build:chrome', 'build:firefox', 'build:safari']);
