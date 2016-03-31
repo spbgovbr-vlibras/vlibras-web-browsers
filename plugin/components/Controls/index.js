@@ -56,7 +56,7 @@ Controls.prototype.load = function (element) {
     step: 0.05,
     connect: 'lower',
     range: {
-      min: 0,
+      min: 0.2,
       max: 2
     }
   });
