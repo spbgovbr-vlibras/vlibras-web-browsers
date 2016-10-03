@@ -113,4 +113,17 @@
     -webkit-flex-grow: 1;
     margin-top: 10%;
   }
+
+  .close-btn {
+    position: absolute;
+    top: 8px;
+    right: 6px;
+    z-index: 4;
+
+  
+    img.icon {
+      width: 34px;
+      height: 34px;
+    }    
+  }
 }
