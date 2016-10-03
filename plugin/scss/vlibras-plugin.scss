@@ -28,13 +28,6 @@ body {
 
   canvas { width: 100%; height: 100% }
 
-  [vp-info-screen-btn] {
-    position: fixed;
-    top: 7px;
-    right: 5px;
-    z-index: 4;
-  }
-
   [vp-message-box] {
     z-index: 5;
   }
@@ -49,6 +42,14 @@ body {
     max-width: 560px;
     z-index: 2;
   }
+
+  [vp-settings] {
+    
+  }
+
+  [vp-settings-btn] {
+    z-index: 2;
+  }
 }
 
 @media (min-width: 560px) {
@@ -56,4 +57,28 @@ body {
     left: 50%;
     margin-left: -275px;
   }
+}
+
+canvas,
+[vp] [vp-controls] {
+  -webkit-filter: blur(0px);
+  -moz-filter: blur(0px);
+  -ms-filter: blur(0px);
+  -o-filter: blur(0px);
+  filter: blur(0px);
+
+  -webkit-transition: filter 0.3s;
+  transition: filter 0.3s;
+}
+
+canvas.blur,
+[vp] [vp-controls].blur {
+  -webkit-filter: blur(2px);
+  -moz-filter: blur(2px);
+  -ms-filter: blur(2px);
+  -o-filter: blur(2px);
+  filter: blur(2px);
+
+  -webkit-transition: filter 0.3s;
+  transition: filter 0.3s;
 }
