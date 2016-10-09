@@ -13,7 +13,7 @@
   background-size: 100% 100%;
   
 
-  .controls-play, .controls-stop, .controls-slider, .controls-subtitles {
+  .controls-play, .controls-stop, .controls-slider, .controls-subtitles, .controls-dictionary {
     margin: 0 10px;
   }
 
@@ -54,5 +54,52 @@
 
       .noUi-handle:after, .noUi-handle:before { display: none; }
     }
+  }
+}
+
+.controls-dictionary {
+  &:not(.loading-dictionary):before {
+    content: url(assets/Dictionary.png);
+  }
+
+  &.loading-dictionary {
+    min-width: 22px;
+    min-height: 22px;
+    
+    border-left: 3px solid rgba(255, 255, 255, 0.2);
+    border-top: 3px solid rgba(255, 255, 255, 0.6);
+    border-bottom: 3px solid rgba(255, 255, 255, 1);
+    border-right: 3px solid rgba(255, 255, 255, 0.6);
+    border-style: inset;
+    border-radius: 50%;
+    
+    -webkit-animation: spin 1.5s linear infinite;
+    animation: spin 0.8s linear infinite;
+  }
+}
+
+@-webkit-keyframes spin {
+  0% {
+    -webkit-transform: rotate(0deg);  /* Chrome, Opera 15+, Safari 3.1+ */
+    -ms-transform: rotate(0deg);  /* IE 9 */
+    transform: rotate(0deg);  /* Firefox 16+, IE 10+, Opera */
+  }
+  100% {
+    -webkit-transform: rotate(360deg);  /* Chrome, Opera 15+, Safari 3.1+ */
+    -ms-transform: rotate(360deg);  /* IE 9 */
+    transform: rotate(360deg);  /* Firefox 16+, IE 10+, Opera */
+  }
+}
+
+@keyframes spin {
+  0% {
+    -webkit-transform: rotate(0deg);  /* Chrome, Opera 15+, Safari 3.1+ */
+    -ms-transform: rotate(0deg);  /* IE 9 */
+    transform: rotate(0deg);  /* Firefox 16+, IE 10+, Opera */
+  }
+  100% {
+    -webkit-transform: rotate(360deg);  /* Chrome, Opera 15+, Safari 3.1+ */
+    -ms-transform: rotate(360deg);  /* IE 9 */
+    transform: rotate(360deg);  /* Firefox 16+, IE 10+, Opera */
   }
 }

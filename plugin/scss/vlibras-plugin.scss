@@ -50,6 +50,10 @@ body {
   [vp-settings-btn] {
     z-index: 2;
   }
+
+  [vp-dictionary] {
+    z-index: 3;
+  }
 }
 
 @media (min-width: 560px) {

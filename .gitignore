@@ -1,6 +1,7 @@
 node_modules
 .idea
 build
+builds/
 
 chrome/app/player
 firefox/data/player

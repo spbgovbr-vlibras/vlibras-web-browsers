@@ -4,8 +4,9 @@ require('nouislider/distribute/nouislider.min.css');
 var controlsTpl = require('./controls.html');
 require('./controls.scss');
 
-function Controls(player) {
+function Controls(player, dictionary) {
   this.player = player;
+  this.dictionary = dictionary;
 
   this.player.on('animation:play', function () {
     console.log('animation:play');
@@ -36,6 +37,7 @@ Controls.prototype.load = function (element) {
   var stop = this.element.querySelector('.controls-stop');
   var slider = this.element.querySelector('.controls-slider .slider');
   var subtitles = this.element.querySelector('.controls-subtitles');
+  var dictionary = this.element.querySelector('.controls-dictionary');
 
   play.addEventListener('click', function () {
     if (this.element.classList.contains('playing')) {
@@ -68,6 +70,16 @@ Controls.prototype.load = function (element) {
   subtitles.addEventListener('click', function () {
     this.element.classList.toggle('subtitles');
     this.player.toggleSubtitle();
+  }.bind(this));
+
+  dictionary.addEventListener('click', function (event) {
+    console.log(event.target);
+
+    if (!event.target.classList.contains('loading-dictionary'))
+    {
+      this.dictionary.show();
+      this.player.pause();
+    }
   }.bind(this));
 };
 
