@@ -3,6 +3,7 @@ var VLibras = require('vlibras');
 var Settings = require('components/Settings');
 var SettingsBtn = require('components/SettingsBtn');
 var InfoScreen = require('components/InfoScreen');
+var Dictionary = require('components/Dictionary');
 var Controls = require('components/Controls');
 var Progress = require('components/Progress');
 var MessageBox = require('components/MessageBox');
@@ -13,8 +14,9 @@ function Plugin() {
   });
 
   this.element = document.querySelector('[vp]');
-  this.controls = new Controls(this.player);
   this.info = new InfoScreen();
+  this.dictionary = new Dictionary(this.player);
+  this.controls = new Controls(this.player, this.dictionary);
   this.settings = new Settings(this.player, this.info);
   this.settingsBtn = new SettingsBtn(this.player, this.settings);
   this.messageBox = new MessageBox();
@@ -29,6 +31,7 @@ function Plugin() {
     this.settings.load(this.element.querySelector('[vp-settings]'));
     this.settingsBtn.load(this.element.querySelector('[vp-settings-btn]'));
     this.info.load(this.element.querySelector('[vp-info-screen]'));
+    this.dictionary.load(this.element.querySelector('[vp-dictionary]'));
   }.bind(this));
 
   this.info.on('show', function () {
