@@ -61,7 +61,7 @@ Dictionary.prototype.load = function (element) {
 
   // Request and load list
   var xhr = new XMLHttpRequest();
-  xhr.open('get', 'http://150.165.205.206:3000/signs', true);
+  xhr.open('get', 'http://dicionario.vlibras.gov.br/signs', true);
   xhr.responseType = 'text';
   xhr.onload = function()
   {
@@ -73,6 +73,18 @@ Dictionary.prototype.load = function (element) {
       console.log(json);
       
       this.signs = new Trie().fromJSON(json);
+
+      var lettersAndNumbers = [
+        'A', 'B', 'C', 'Ç', 'D', 'E', 'F', 'G', 'H', 'I',
+        'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S',
+        'T', 'U', 'V', 'W', 'X', 'Y', 'Z',
+        '0', '1', '2', '3', '4', '5', '6', '7', '8', '9',
+        ','
+      ];
+
+      for (var i in lettersAndNumbers)
+        this.signs.add(lettersAndNumbers[i]);
+
       console.log(this.signs);
 
       this.signs.feed('', this.list._insert.bind(this.list));
