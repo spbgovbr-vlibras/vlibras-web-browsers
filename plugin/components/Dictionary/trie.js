@@ -4,18 +4,34 @@ function Node(end)
   this.children = [];
 }
 
+function StackItem(trieNode, dataNode, index)
+{
+  this.trieNode = trieNode;
+  this.dataNode = dataNode;
+  this.index = index === undefined ? 0 : index;
+}
+
 function Trie(characters, data)
 {
   this.root = new Node();
+
+  if (characters !== undefined)
+  {
+    this._setCharacters(characters);
+
+    if (data !== undefined)
+      for (var i in data)
+        this.add(data[i]);
+  }
+}
+
+Trie.prototype._setCharacters = function(characters)
+{
   this.characters = characters;
   this.charactersKeys = [];
 
-  for (var i in characters)
-    this.charactersKeys[characters[i]] = i;
-
-  if (data !== undefined)
-    for (var i in data)
-      this.add(data[i]);
+  for (var i in this.characters)
+    this.charactersKeys[this.characters[i]] = i;
 }
 
 Trie.prototype.getKey = function(word, i) {
@@ -74,5 +90,72 @@ Trie.prototype._feed = function(node, word, insert)
   for (var i in node.children)
     this._feed(node.children[i], word + this.characters[i], insert);
 }
+
+Trie.prototype.fromJSON = function(json)
+{
+  this.characters = json.characters;
+  this.charactersKeys = json.keys;
+
+  //console.log('ROOT:', this.root);
+  //console.log('JSON.TRIE:', json.trie);
+
+  this._fromJSON(this.root, json.trie);
+
+  /*var stack = [new StackItem(this.root, json.trie)];
+
+  this._fromJSON(stack);*/
+
+  return this;
+}
+
+Trie.prototype._fromJSON = function(trieNode, dataNode)
+{
+  //console.log('TRIE:', trieNode);
+  //console.log('DATA:', dataNode);
+
+  trieNode.end = dataNode.end;
+
+  for (var i in dataNode.keys)
+  {
+    var key = dataNode.keys[i];
+    // console.log('On key ' + key + ' (' + i + ') that is ' + dataNode.children[key]);
+
+    trieNode.children[key] = new Node();
+    this._fromJSON(trieNode.children[key], dataNode.children[key])
+  }
+}
+
+/*Trie.prototype._fromJSON = function(stack)
+{
+  console.log('TRIE:', trieNode);
+  console.log('DATA:', dataNode);
+
+  var item = stack.top();
+
+  if (item.index === 0)
+    item.trieNode.end = item.dataNode.end;
+
+  if (item.index < item.dataNode.children.length)
+  {
+    for (var i = this.index; i < item.dataNode.children.length; i++)
+      if (item.dataNode.children[i] !== undefined)
+        break;
+
+    item.trieNode.children[key] = new Node();
+    item.
+    
+    stack.push(new StackItem())
+
+    for (var value in dataNode.children)
+    {
+
+      this._fromJSON(trieNode.children[key], dataNode.children[value]);
+    }
+  }
+  else
+  {
+
+  }
+}*/
 
 module.exports = Trie;

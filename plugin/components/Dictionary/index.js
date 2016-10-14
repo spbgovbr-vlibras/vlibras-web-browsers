@@ -25,7 +25,7 @@ Dictionary.prototype.load = function (element) {
     .addEventListener('click', this.hide.bind(this));
 
   // Signs trie
-  this.signs = new Trie(characters);
+  this.signs = null;
 
   // List
   this.list = this.element.querySelector('ul');
@@ -60,29 +60,23 @@ Dictionary.prototype.load = function (element) {
     }.bind(this));
 
   // Request and load list
-  this.process = null;
   var xhr = new XMLHttpRequest();
   xhr.open('get', 'http://150.165.205.206:3000/signs', true);
-  xhr.responseType = 'json';
+  xhr.responseType = 'text';
   xhr.onload = function()
   {
     if (xhr.status == 200)
     {
       console.log('Starting trie processing.');
 
-      this.process = new NonBlockingProcess(
-        xhr.response,
-        this.signs.add.bind(this.signs),
-        4,
-        60,
-        function() {
-          console.log('Starting list processing.');
-          this.signs.feed('', this.list._insert.bind(this.list));
-          document.querySelector('.controls .controls-dictionary')
-            .classList.remove('loading-dictionary');
-        }.bind(this)
-      );
-      this.process.start();
+      var json = JSON.parse(xhr.response);
+      console.log(json);
+      
+      this.signs = new Trie().fromJSON(json);
+      console.log(this.signs);
+
+      this.signs.feed('', this.list._insert.bind(this.list));
+      document.querySelector('.controls-dictionary.loading-dictionary').classList.remove('loading-dictionary');
     }
     else console.log('Bad answer for signs, status: ' + xhr.status);
   }.bind(this);
@@ -114,13 +108,3 @@ Dictionary.prototype.show = function () {
 };
 
 module.exports = Dictionary;
-
-
-var characters = [
-  ',', '_', '!', '?',
-  '0', '1', '2', '3', '4', '5', '6', '7', '8', '9',
-  'A', 'Á', 'Â', 'Ã', 'À', 'B', 'C', 'Ç', 'D', 'E',
-  'É', 'Ê', 'F', 'G', 'H', 'I', 'Í', 'J', 'K', 'L',
-  'M', 'N', 'O', 'Ó', 'Ô', 'Õ', 'P', 'Q', 'R', 'S',
-  'T', 'U', 'Ú', 'V', 'W', 'X', 'Y', 'Z'
-];
