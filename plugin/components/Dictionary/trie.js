@@ -49,6 +49,8 @@ Trie.prototype.add = function(word)
 
     node = node.children[this.getKey(word, i)];
   }
+
+  node.end = true;
 }
 
 Trie.prototype.contains = function(word)
@@ -96,66 +98,22 @@ Trie.prototype.fromJSON = function(json)
   this.characters = json.characters;
   this.charactersKeys = json.keys;
 
-  //console.log('ROOT:', this.root);
-  //console.log('JSON.TRIE:', json.trie);
-
   this._fromJSON(this.root, json.trie);
-
-  /*var stack = [new StackItem(this.root, json.trie)];
-
-  this._fromJSON(stack);*/
 
   return this;
 }
 
 Trie.prototype._fromJSON = function(trieNode, dataNode)
 {
-  //console.log('TRIE:', trieNode);
-  //console.log('DATA:', dataNode);
-
   trieNode.end = dataNode.end;
 
   for (var i in dataNode.keys)
   {
     var key = dataNode.keys[i];
-    // console.log('On key ' + key + ' (' + i + ') that is ' + dataNode.children[key]);
 
     trieNode.children[key] = new Node();
     this._fromJSON(trieNode.children[key], dataNode.children[key])
   }
 }
-
-/*Trie.prototype._fromJSON = function(stack)
-{
-  console.log('TRIE:', trieNode);
-  console.log('DATA:', dataNode);
-
-  var item = stack.top();
-
-  if (item.index === 0)
-    item.trieNode.end = item.dataNode.end;
-
-  if (item.index < item.dataNode.children.length)
-  {
-    for (var i = this.index; i < item.dataNode.children.length; i++)
-      if (item.dataNode.children[i] !== undefined)
-        break;
-
-    item.trieNode.children[key] = new Node();
-    item.
-    
-    stack.push(new StackItem())
-
-    for (var value in dataNode.children)
-    {
-
-      this._fromJSON(trieNode.children[key], dataNode.children[value]);
-    }
-  }
-  else
-  {
-
-  }
-}*/
 
 module.exports = Trie;
