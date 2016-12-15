@@ -74,7 +74,7 @@ Dictionary.prototype.load = function (element) {
       
       this.signs = new Trie().fromJSON(json);
 
-      var lettersAndNumbers = [
+      var basicSigns = [
         'A', 'B', 'C', 'Ç', 'D', 'E', 'F', 'G', 'H', 'I',
         'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S',
         'T', 'U', 'V', 'W', 'X', 'Y', 'Z',
@@ -82,8 +82,8 @@ Dictionary.prototype.load = function (element) {
         ','
       ];
 
-      for (var i in lettersAndNumbers)
-        this.signs.add(lettersAndNumbers[i]);
+      for (var i in basicSigns)
+        this.signs.add(basicSigns[i]);
 
       console.log(this.signs);
 
