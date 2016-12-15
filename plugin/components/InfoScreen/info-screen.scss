@@ -91,11 +91,6 @@
       -webkit-flex-wrap: wrap;
       -webkit-align-items: center;
       -webkit-justify-content: space-around;
-
-      &:last-child .logo {
-        min-height: 14vh;
-        max-width: none !important;
-      }
     }
   }
 
