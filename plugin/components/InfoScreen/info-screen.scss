@@ -51,8 +51,14 @@
   }
 
   #info-main {
+    max-width: 600px;
+
     flex-direction: column;
     -webkit-flex-direction: column;
+  }
+
+  #info-logo img {
+    max-height: 24vh;
   }
 
   #info-realizadores {
@@ -140,5 +146,23 @@
       width: 34px;
       height: 34px;
     }    
+  }
+}
+
+@media only screen and (-moz-min-device-pixel-ratio: 2), 
+    only screen and (-o-min-device-pixel-ratio: 2/1),
+    only screen and (-webkit-min-device-pixel-ratio: 2), 
+    only screen and (min-device-pixel-ratio: 2) {
+  #info-realizadores .logo {
+    margin: 0.5em 0.35em;
+    min-width: 10%;
+    max-width: 50%;
+    max-height: 18vh;
+  }
+}
+
+@media only screen and (max-height: 360px) {
+  #info-main {
+    font-size: 0.84em;
   }
 }
