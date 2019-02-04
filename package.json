@@ -1,6 +1,9 @@
 {
   "name": "vlibras-plugin",
   "version": "3.0.1",
+  "scripts": {
+    "gulp": "gulp"
+  },
   "dependencies": {
     "gulp-install": "^0.6.0",
     "inherits": "^2.0.1",
