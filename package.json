@@ -8,7 +8,7 @@
     "gulp-install": "^0.6.0",
     "inherits": "^2.0.1",
     "nouislider": "^8.3.0",
-    "vlibras": "git+ssh://git@github.com:mateuspiresl/vlibras-js.git"
+    "vlibras": "git+ssh://git@github.com:mateuspiresl/vlibras-js.git#dev"
   },
   "devDependencies": {
     "css-loader": "^0.23.1",
