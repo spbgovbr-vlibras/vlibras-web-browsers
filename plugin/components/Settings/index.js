@@ -76,7 +76,7 @@ Settings.prototype.load = function (element) {
   }
 
   // Elements to apply blur filter
-  this.canvasElement = document.querySelector('canvas.emscripten');
+  this.gameContainer = document.querySelector('div#gameContainer');
   this.controlsElement = document.querySelector('.controls');
 
   this.hide();
@@ -110,7 +110,7 @@ Settings.prototype.hide = function () {
   this.localism.classList.remove('active');
 
   // Removes blur filter
-  this.canvasElement.classList.remove('blur');
+  this.gameContainer.classList.remove('blur');
   this.controlsElement.classList.remove('blur');
   
   this.emit('hide');
@@ -121,7 +121,7 @@ Settings.prototype.show = function () {
   this.element.classList.add('active');
 
   // Apply blur filter
-  this.canvasElement.classList.add('blur');
+  this.gameContainer.classList.add('blur');
   this.controlsElement.classList.add('blur');
   
   this.emit('show');
