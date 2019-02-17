@@ -1,14 +1,11 @@
 const gulp = require('gulp');
 const webpack = require('webpack-stream');
-// const exec = require('gulp-exec');
-const exec = require('child_process').exec;
 
 const webpackConfig = require('./webpack.config.js');
 
 const options = {
   dest: {
-    chrome: 'chrome/app/player',
-    firefox: 'webextensions/app/player',
+    webextensions: 'webextensions/app/player',
     safari: 'safari.safariextension/app/player',
   },
 };
@@ -27,16 +24,12 @@ function build(target, playerTarget) {
     .pipe(gulp.dest(destPath));
 }
 
-gulp.task('build:chrome', () => {
-  build('chrome');
-});
-
-gulp.task('build:firefox', () => {
-  build('firefox');
+gulp.task('build:webextensions', () => {
+  build('webextensions');
 });
 
 gulp.task('build:safari', () => {
   build('safari', 'plugin/targets/datacache-off/**/*');
 });
 
-gulp.task('build', ['build:chrome', 'build:firefox', 'build:safari']);
+gulp.task('build', ['build:webextensions', 'build:safari']);
