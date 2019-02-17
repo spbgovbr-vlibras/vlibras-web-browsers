@@ -63,6 +63,10 @@ body {
   }
 }
 
+#gameContainer {
+  height: 100%;
+}
+
 canvas,
 [vp] [vp-controls] {
   -webkit-filter: blur(0px);
