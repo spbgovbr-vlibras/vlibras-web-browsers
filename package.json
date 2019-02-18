@@ -9,7 +9,7 @@
     "inherits": "^2.0.1",
     "nouislider": "^8.3.0",
     "superagent": "^4.1.0",
-    "vlibras": "git+ssh://git@github.com:mateuspiresl/vlibras-js.git#dev"
+    "vlibras": "file:../vlibras-js"
   },
   "devDependencies": {
     "css-loader": "^0.23.1",
