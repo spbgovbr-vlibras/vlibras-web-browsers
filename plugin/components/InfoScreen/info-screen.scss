@@ -1,0 +1,168 @@
+.info-screen {
+  position: absolute;
+  left: 0;
+  top: 0;
+
+  padding: 1em;
+
+  width: 100%;
+  height: 100%;
+
+  background-color: white;
+  color: black;
+  font-family: Arial, sans-serif;
+  text-align: center;
+
+  align-items: center;
+  -webkit-align-items: center;
+  font-size: 16px;
+
+  display: none;
+
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+
+  &.active {
+    display: -webkit-flex;
+    display: flex;
+  }
+
+  .arrow {
+    flex-grow: 1;
+    -webkit-flex-grow: 1;
+    visibility: hidden;
+  }
+
+  .arrow.active {
+    visibility: visible;
+  }
+
+  #info-tabset {
+    flex-grow: 4;
+    display: -webkit-flex;
+    display: flex;
+    flex-direction: column;
+    -webkit-flex-direction: column;
+    padding: 0 1em;
+
+    align-items: center;
+    -webkit-align-items: center;
+  }
+
+  #info-main {
+    max-width: 600px;
+
+    flex-direction: column;
+    -webkit-flex-direction: column;
+  }
+
+  #info-logo img {
+    max-height: 24vh;
+  }
+
+  #info-realizadores {
+    flex-direction: column;
+    align-items: stretch;
+
+    -webkit-flex-direction: column;
+    -webkit-align-items: stretch;
+
+    &.active {
+      display: flex;
+    }
+
+    .logo {
+      margin: 0.5em 0.35em;
+      min-width: 10%;
+      max-width: 30%;
+      max-height: 15vh;
+
+      .short-ver {
+        max-width: none;
+        min-height: 16px;
+      }
+    }
+
+    .logo-group {
+      display: flex;
+      padding: 0.5% 4%;
+
+      flex-direction: row;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-around;
+
+      -webkit-flex-direction: row;
+      -webkit-flex-wrap: wrap;
+      -webkit-align-items: center;
+      -webkit-justify-content: space-around;
+    }
+  }
+
+  .info-tab {
+    flex-grow: 3;
+    -webkit-flex-grow: 3;
+    display: none;
+  }
+
+  .info-tab.active {
+    display: block;
+  }
+
+  #info-meta p {
+    margin: .5em 0 0;
+  }
+
+  #info-meta a {
+    text-decoration: none;
+  }
+
+  .info-bullet:before {
+    content: url(assets/CounterOff.png);
+  }
+
+  .info-bullet.active:before {
+    content: url(assets/CounterOn.png);
+  }
+
+  #info-tab-bullets {
+    width: 100%;
+    height: 16px;
+    text-align: center;
+    flex-grow: 1;
+    -webkit-flex-grow: 1;
+    margin-top: 4%;
+  }
+
+  .close-btn {
+    position: absolute;
+    top: 8px;
+    right: 6px;
+    z-index: 4;
+
+  
+    img.icon {
+      width: 34px;
+      height: 34px;
+    }    
+  }
+}
+
+@media only screen and (-moz-min-device-pixel-ratio: 2), 
+    only screen and (-o-min-device-pixel-ratio: 2/1),
+    only screen and (-webkit-min-device-pixel-ratio: 2), 
+    only screen and (min-device-pixel-ratio: 2) {
+  #info-realizadores .logo {
+    margin: 0.5em 0.35em;
+    min-width: 10%;
+    max-width: 50%;
+    max-height: 18vh;
+  }
+}
+
+@media only screen and (max-height: 360px) {
+  #info-main {
+    font-size: 0.84em;
+  }
+}

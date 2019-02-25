@@ -1,0 +1,12 @@
+node_modules
+.idea
+build
+builds/
+
+chrome/app/player
+firefox/data/player
+safari.safariextension/app/player
+webextensions/app/player
+
+*.log
+**/.DS_Store
