@@ -1,0 +1,7 @@
+.info-screen-btn:before {
+  content: url(assets/About.png);
+}
+
+.info-screen-btn.active:before {
+  content: url(assets/Close.png);
+}
