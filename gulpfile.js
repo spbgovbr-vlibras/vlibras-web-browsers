@@ -29,7 +29,7 @@ gulp.task('build:webextensions', () => {
 });
 
 gulp.task('build:safari', () => {
-  build('safari', 'plugin/targets/datacache-off/**/*');
+  build('safari');
 });
 
 gulp.task('build', ['build:webextensions', 'build:safari']);
