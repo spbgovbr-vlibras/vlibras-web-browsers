@@ -34,7 +34,6 @@ Controls.prototype.load = function (element) {
   this.element.classList.add('subtitles');
 
   var play = this.element.querySelector('.controls-play');
-  var stop = this.element.querySelector('.controls-stop');
   var slider = this.element.querySelector('.controls-slider .slider');
   var subtitles = this.element.querySelector('.controls-subtitles');
   var dictionary = this.element.querySelector('.controls-dictionary');
@@ -49,23 +48,6 @@ Controls.prototype.load = function (element) {
     }
   }.bind(this));
 
-  stop.addEventListener('click', function () {
-    this.player.stop();
-  }.bind(this));
-
-  noUiSlider.create(slider, {
-    start: 1.1,
-    step: 0.05,
-    connect: 'lower',
-    range: {
-      min: 0.2,
-      max: 2
-    }
-  });
-
-  slider.noUiSlider.on('update', function (value) {
-    this.player.setSpeed(Number(value[0]));
-  }.bind(this));
 
   subtitles.addEventListener('click', function () {
     this.element.classList.toggle('subtitles');

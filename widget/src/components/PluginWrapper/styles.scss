@@ -10,16 +10,18 @@
 
 [vw-plugin-wrapper] {
   display: none;
-  width: 320px;
+  width: 300px;
   height: 100%;
   float: right;
   overflow: hidden;
 
-  background-color: #ebebeb;
+  background-color: white;
 
-  -webkit-box-shadow: 0px 0px 9px 0px rgba(0,0,0,0.75);
-  -moz-box-shadow: 0px 0px 9px 0px rgba(0,0,0,0.75);
-  box-shadow: 0px 0px 9px 0px rgba(0,0,0,0.75);
+ -moz-border-radius: 20px;
+ -webkit-border-radius: 20px;
+  -webkit-box-shadow: 0px 0px 9px 0px rgba(0,0,0,0.15);
+  -moz-box-shadow: 0px 0px 9px 0px rgba(0,0,0,0.15);
+  box-shadow: 0px 0px 9px 0px rgba(0,0,0,0.15);
   
   &.active {
     display: -webkit-flex;
@@ -33,3 +35,4 @@
     overflow: hidden;
   }
 }
+

@@ -7,6 +7,8 @@ var Dictionary = require('components/Dictionary');
 var Controls = require('components/Controls');
 var Progress = require('components/Progress');
 var MessageBox = require('components/MessageBox');
+var Box = require('components/Box');
+
 
 function Plugin() {
   this.player = new VLibras.Player({
@@ -20,9 +22,11 @@ function Plugin() {
   this.settings = new Settings(this.player, this.info);
   this.settingsBtn = new SettingsBtn(this.player, this.settings);
   this.messageBox = new MessageBox();
+  this.Box = new Box();
   this.loadingRef = null;
 
   this.messageBox.load(this.element.querySelector('[vp-message-box]'));
+
   this.player.load(this.element);
 
   this.player.on('load', function () {
@@ -32,6 +36,8 @@ function Plugin() {
     this.settingsBtn.load(this.element.querySelector('[vp-settings-btn]'));
     this.info.load(this.element.querySelector('[vp-info-screen]'));
     this.dictionary.load(this.element.querySelector('[vp-dictionary]'));
+    this.Box.load(this.element.querySelector('[vp-box]'));
+
   }.bind(this));
 
   this.info.on('show', function () {
