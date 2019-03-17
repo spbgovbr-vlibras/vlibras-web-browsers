@@ -14,13 +14,11 @@
   height: 100%;
   float: right;
   overflow: hidden;
-
-  background-color: white;
-
+  background-color: white !important;
  -moz-border-radius: 20px;
  -webkit-border-radius: 20px;
   -webkit-box-shadow: 0px 0px 9px 0px rgba(0,0,0,0.15);
-  -moz-box-shadow: 0px 0px 9px 0px rgba(0,0,0,0.15);
+  -moz-box-shadow: 0px 0px 9px 0px rgba(121, 76, 76, 0.15);
   box-shadow: 0px 0px 9px 0px rgba(0,0,0,0.15);
   
   &.active {
