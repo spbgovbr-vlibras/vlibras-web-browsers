@@ -15,14 +15,16 @@ function Plugin() {
     progress: Progress
   });
 
+
   this.element = document.querySelector('[vp]');
   this.info = new InfoScreen();
   this.dictionary = new Dictionary(this.player);
   this.controls = new Controls(this.player, this.dictionary);
+  this.Box = new Box();
   this.settings = new Settings(this.player, this.info);
   this.settingsBtn = new SettingsBtn(this.player, this.settings);
   this.messageBox = new MessageBox();
-  this.Box = new Box();
+  
   this.loadingRef = null;
 
   this.messageBox.load(this.element.querySelector('[vp-message-box]'));
@@ -32,11 +34,12 @@ function Plugin() {
   this.player.on('load', function () {
     // Loading components
     this.controls.load(this.element.querySelector('[vp-controls]'));
-    this.settings.load(this.element.querySelector('[vp-settings]'));
-    this.settingsBtn.load(this.element.querySelector('[vp-settings-btn]'));
-    this.info.load(this.element.querySelector('[vp-info-screen]'));
-    this.dictionary.load(this.element.querySelector('[vp-dictionary]'));
     this.Box.load(this.element.querySelector('[vp-box]'));
+    this.settingsBtn.load(this.element.querySelector('[vp-settings-btn]'));
+    this.settings.load(this.element.querySelector('[vp-settings]'));    
+    this.info.load(this.element.querySelector('[vp-info-screen]'));
+    // this.dictionary.load(this.element.querySelector('[vp-dictionary]'));
+    
 
   }.bind(this));
 

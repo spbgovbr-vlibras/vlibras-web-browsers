@@ -1,5 +1,7 @@
 var popup = undefined;
 var selectedText = undefined;
+var w = window.innerWidth;
+var h = window.innerHeight;
 
 // Creates the context menu to translate texts
 chrome.contextMenus.create({
@@ -23,12 +25,14 @@ chrome.contextMenus.onClicked.addListener( function (info) {
         url: "app/player/index.html",
         top: 10,
         left: 10,
-        width: 540,
-        height: 450,
+        width: 300,
+        height: 452,
         type: "popup"
+        
       },
       w => (popup = w),
     );
+    
   } else {
     chrome.windows.update(popup.id, { focused: true }, () => {
       chrome.runtime.sendMessage({ selectedText });
