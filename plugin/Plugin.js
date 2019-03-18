@@ -23,7 +23,7 @@ function Plugin() {
   this.controls = new Controls(this.player, this.dictionary);
   this.Box = new Box();
   this.settingBtnClose = new SettingsCloseBtn();
-  this.settings = new Settings(this.player, this.info, this.settingBtnClose);
+  this.settings = new Settings(this.player, this.info, this.settingBtnClose, this.Box);
   this.settingsBtn = new SettingsBtn(this.player, this.settings);
   this.messageBox = new MessageBox();
   

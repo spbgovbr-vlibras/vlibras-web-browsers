@@ -4,11 +4,12 @@ var EventEmitter = require('events').EventEmitter;
 var settingsTpl = require('./settings.html');
 require('./settings.scss');
 
-function Settings(player, infoScreen, btnClose) {
+function Settings(player, infoScreen, btnClose, box) {
   this.visible = false;
   this.player = player;
   this.infoScreen = infoScreen;
   this.btnClose = btnClose;
+  this.box = box;
 }
 
 inherits(Settings, EventEmitter);
@@ -17,6 +18,7 @@ Settings.prototype.load = function (element) {
   this.element = element;
   this.element.innerHTML = settingsTpl;
   this.element.classList.add('settings');
+
 
   // Localism panel
   this.localism = this.element.querySelector('.content > .localism');
@@ -110,6 +112,7 @@ Settings.prototype.hide = function () {
   this.element.classList.remove('active');
   this.localism.classList.remove('active');
   this.btnClose.element.firstChild.style.visibility = 'hidden';
+  this.box.element.firstChild.style.visibility = 'visible';
 
   // Removes blur filter
   this.gameContainer.classList.remove('blur');
@@ -122,6 +125,7 @@ Settings.prototype.show = function () {
   this.visible = true;
   this.element.classList.add('active');
   this.btnClose.element.firstChild.style.visibility = 'visible';
+  this.box.element.firstChild.style.visibility = 'hidden';
   
 
   // Apply blur filter

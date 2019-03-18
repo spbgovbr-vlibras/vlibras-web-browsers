@@ -88,7 +88,7 @@
 	  this.controls = new Controls(this.player, this.dictionary);
 	  this.Box = new Box();
 	  this.settingBtnClose = new SettingsCloseBtn();
-	  this.settings = new Settings(this.player, this.info, this.settingBtnClose);
+	  this.settings = new Settings(this.player, this.info, this.settingBtnClose, this.Box);
 	  this.settingsBtn = new SettingsBtn(this.player, this.settings);
 	  this.messageBox = new MessageBox();
 	  
@@ -102,8 +102,9 @@
 	    // Loading components
 	    this.controls.load(this.element.querySelector('[vp-controls]'));
 	    this.Box.load(this.element.querySelector('[vp-box]'));
-	    this.settingBtnClose.load(this.element.querySelector['vp-box'].querySelector('[settings-btn-close]'))
+	    this.settingBtnClose.load(this.element.querySelector('[vp-box]').querySelector('[settings-btn-close]'))
 	    this.settingsBtn.load(this.element.querySelector('[vp-box]').querySelector('[settings-btn]'));
+	    
 	    this.settings.load(this.element.querySelector('[vp-settings]'));    
 	    this.info.load(this.element.querySelector('[vp-info-screen]'));
 	    // this.dictionary.load(this.element.querySelector('[vp-dictionary]'));
@@ -2797,11 +2798,12 @@
 	var settingsTpl = __webpack_require__(20);
 	__webpack_require__(21);
 
-	function Settings(player, infoScreen, btnClose) {
+	function Settings(player, infoScreen, btnClose, box) {
 	  this.visible = false;
 	  this.player = player;
 	  this.infoScreen = infoScreen;
 	  this.btnClose = btnClose;
+	  this.box = box;
 	}
 
 	inherits(Settings, EventEmitter);
@@ -2811,6 +2813,7 @@
 	  this.element.innerHTML = settingsTpl;
 	  this.element.classList.add('settings');
 
+
 	  // Localism panel
 	  this.localism = this.element.querySelector('.content > .localism');
 
@@ -2819,7 +2822,7 @@
 	    .addEventListener('click', this.hide.bind(this));
 	  // this.element.querySelector('.btn-close')
 	  //   .addEventListener('click', this.hide.bind(this));
-	  this.btnClose.element.querySelector('.btn-close').addEventListener('click',this.hide.bind(this))
+	  this.btnClose.element.firstChild.addEventListener('click',this.hide.bind(this))
 	  // Selected region
 	  this.selectedRegion = this.element.querySelector('.content > ul .localism');
 	  this.selectedRegion._name = this.selectedRegion.querySelector('.abbrev');
@@ -2902,7 +2905,8 @@
 	  this.visible = false;
 	  this.element.classList.remove('active');
 	  this.localism.classList.remove('active');
-	  this.btnClose.element.querySelector('.btn-close').style.visibility = 'hidden';
+	  this.btnClose.element.firstChild.style.visibility = 'hidden';
+	  this.box.element.firstChild.style.visibility = 'visible';
 
 	  // Removes blur filter
 	  this.gameContainer.classList.remove('blur');
@@ -2914,7 +2918,8 @@
 	Settings.prototype.show = function () {
 	  this.visible = true;
 	  this.element.classList.add('active');
-	  this.btnClose.element.querySelector('.btn-close').style.visibility = 'visible';
+	  this.btnClose.element.firstChild.style.visibility = 'visible';
+	  this.box.element.firstChild.style.visibility = 'hidden';
 	  
 
 	  // Apply blur filter
@@ -2990,7 +2995,7 @@
 /* 20 */
 /***/ (function(module, exports) {
 
-	module.exports = "<div class=\"btn-close\">\n        <img src=\"assets/Close-2019.png\">\n</div>\n<div class=\"content\">\n    \n    <div class=\"bar\">\n        \n        <span class=\"title\">CONFIGURAÇÕES</span>\n    </div>\n\n    <ul>\n        <li class=\"localism clickable\">\n            <div class=\"container\">\n                <span class=\"name\">Regionalismo</span>\n                <img class=\"flag\" src=\"assets/brazil.png\">\n                <span class=\"abbrev\">BR</span>\n                <img class=\"arrow\" src=\"assets/expander.png\">\n            </div>\n        </li>\n        \n        <li class=\"about clickable\">\n            <div class=\"container\">\n                <span class=\"name\">Sobre</span>\n            </div>\n        </li>\n    </ul>\n\n    <div class=\"localism\">\n        <div class=\"national clickable\">\n            <img class=\"flag\" src=\"assets/brazil.png\">\n            <span class=\"name\">BR - Padrão Nacional</span>\n        </div>\n\n        <div class=\"regions\"></div>\n    </div>\n</div>\n\n<div class=\"wall\"></div>"
+	module.exports = "<div class=\"content\">\n    <ul>\n        <li class=\"localism clickable\">\n            <div class=\"container\">\n                <span class=\"name\">Regionalismo</span>\n                <img class=\"flag\" src=\"assets/brazil.png\">\n                <span class=\"abbrev\">BR</span>\n                <!-- <img class=\"arrow\" src=\"assets/expander.png\"> -->\n            </div>\n        </li>\n        \n        <li class=\"about clickable\">\n            <div class=\"container\">\n                <span class=\"name\">Sobre</span>\n            </div>\n        </li>\n    </ul>\n\n    <div class=\"localism\">\n        <div class=\"national clickable\">\n            <img class=\"flag\" src=\"assets/brazil.png\">\n            <span class=\"name\">BR - Padrão Nacional</span>\n        </div>\n\n        <div class=\"regions\"></div>\n    </div>\n    <div class=\"vlibras-logo\">\n        <span>VLIBRAS</span>\n        <img class=\"logo\" src=\"assets/logoicon.png\">\n    </div>\n</div>\n\n<div class=\"wall\"></div>"
 
 /***/ }),
 /* 21 */
@@ -3027,7 +3032,7 @@
 
 
 	// module
-	exports.push([module.id, ".settings {\n  position: absolute;\n  top: 10%;\n  width: 100%;\n  height: 90%; }\n  .settings .btn-close {\n    position: absolute;\n    top: -10%;\n    right: 10px;\n    width: 37.92px;\n    height: 37.92px;\n    visibility: hidden;\n    z-index: 6;\n    cursor: pointer; }\n    .settings .btn-close img {\n      max-width: 100%;\n      max-height: 100%; }\n  .settings .content {\n    position: relative;\n    top: 0;\n    left: 0;\n    width: 100%;\n    height: 100%;\n    z-index: 6;\n    background-color: #003F86;\n    color: white; }\n    .settings .content .flag {\n      position: absolute;\n      height: 24px;\n      margin-top: -12px;\n      margin-left: 4px;\n      border-radius: 5px; }\n    .settings .content > .bar {\n      position: absolute;\n      width: 100%;\n      height: 54px; }\n      .settings .content > .bar .title {\n        position: absolute;\n        top: 16px;\n        left: 50px;\n        color: #6481b8;\n        font-size: 0.9em;\n        font-weight: bold; }\n    .settings .content > ul {\n      list-style-type: none;\n      margin: 0;\n      padding: 0; }\n      .settings .content > ul li {\n        position: relative;\n        padding: 19px 0;\n        border-bottom: 1px solid rgba(0, 0, 0, 0.1); }\n        .settings .content > ul li .name {\n          position: absolute;\n          left: 16px;\n          margin-top: -10px;\n          font-size: 14px; }\n      .settings .content > ul .localism {\n        padding: 24px 0; }\n        .settings .content > ul .localism .flag {\n          right: 60px;\n          height: 24px;\n          border: 1px solid rgba(0, 0, 0, 0.2); }\n        .settings .content > ul .localism .abbrev {\n          position: absolute;\n          right: 32px;\n          margin-top: -9px;\n          font-size: 14px;\n          font-weight: bold; }\n        .settings .content > ul .localism .arrow {\n          position: absolute;\n          right: 16px;\n          height: 13px;\n          margin-top: -6px; }\n    .settings .content > .localism {\n      position: absolute;\n      top: 20px;\n      left: 209px;\n      width: 248px;\n      background-color: white;\n      border: 1px solid rgba(0, 0, 0, 0.2);\n      border-radius: 2px; }\n      .settings .content > .localism:not(.active) {\n        visibility: hidden;\n        opacity: 0;\n        -webkit-transition: visibility 0s, opacity 0.3s;\n        transition: visibility 0s, opacity 0.3s; }\n      .settings .content > .localism.active {\n        visibility: visible;\n        opacity: 1;\n        -webkit-transition: visibility 0s, opacity 0.3s;\n        transition: visibility 0s, opacity 0.3s; }\n      .settings .content > .localism .name {\n        position: absolute;\n        margin-top: -7px;\n        margin-left: 9px;\n        font-size: 14px;\n        font-weight: bold; }\n      .settings .content > .localism .national {\n        position: relative;\n        margin-top: 6px;\n        padding: 16px 8px; }\n        .settings .content > .localism .national .name {\n          left: 45px; }\n      .settings .content > .localism .regions {\n        position: relative;\n        padding: 8px 8px 4px 8px; }\n        .settings .content > .localism .regions > div {\n          display: inline-block;\n          position: relative;\n          width: 33.3%;\n          margin-bottom: 2px;\n          padding: 12px 0;\n          cursor: pointer;\n          opacity: 0.5;\n          -webkit-transition: opacity 0.3s;\n          transition: opacity 0.3s; }\n          .settings .content > .localism .regions > div.selected, .settings .content > .localism .regions > div:hover {\n            opacity: 1;\n            -webkit-transition: opacity 0.3s;\n            transition: opacity 0.3s; }\n          .settings .content > .localism .regions > div > .name {\n            left: 37px; }\n  .settings > .wall {\n    position: absolute;\n    top: 0;\n    left: 0;\n    bottom: 0;\n    right: 0;\n    z-index: 5; }\n  .settings.active .content {\n    left: 0;\n    -webkit-transition: left 0.3s;\n    transition: left 0.3s; }\n  .settings.active .wall {\n    visibility: visible; }\n  .settings:not(.active) .content {\n    left: 0;\n    visibility: hidden;\n    -webkit-transition: left 0.3s;\n    transition: left 0.3s; }\n  .settings:not(.active) .wall {\n    visibility: hidden; }\n  .settings .clickable {\n    cursor: pointer; }\n    .settings .clickable:not(:hover) {\n      background-color: inherit;\n      -webkit-transition: 0.12s background-color;\n      transition: 0.12s background-color; }\n    .settings .clickable:hover {\n      background-color: rgba(0, 0, 0, 0.05);\n      -webkit-transition: 0.2s background-color;\n      transition: 0.2s background-color; }\n\n/*@media (min-width: 600px) {\n  .settings {\n    &.active {\n      visibility: visible;\n      left: 0;\n\n      -webkit-transition: visibility 0s, left 0.3s;\n      transition: visibility 0s, left 0.3s;\n    }\n\n    &:not(.active) {\n      visibility: hidden;\n      left: -220px;\n\n      -webkit-transition: visibility 0.3s, left 0.3s;\n      transition: visibility 0.3s, left 0.3s;\n    }\n\n    .content {\n      left: -220px;\n      width: 220px;\n\n\n      .bar {\n        height: 66px;\n\n\n        .btn-back {\n          width: 30px;\n          height: 30px;\n          margin-top: 18px;\n          margin-left: 18px;\n        }\n\n        .title {\n          top: 25px;\n          left: 60px;\n          font-size: 1em;\n        }\n      }\n    }\n  }\n}*/\n", ""]);
+	exports.push([module.id, ".settings {\n  position: absolute;\n  top: 10%;\n  width: 100%;\n  height: 90%; }\n  .settings .content {\n    position: relative;\n    top: 0;\n    left: 0;\n    width: 100%;\n    height: 100%;\n    z-index: 6;\n    background-color: #003F86;\n    color: white; }\n    .settings .content .flag {\n      position: absolute;\n      height: 24px;\n      margin-top: -12px;\n      margin-left: 4px;\n      border: none;\n      border-radius: 5px; }\n    .settings .content > .bar {\n      position: absolute;\n      width: 100%;\n      height: 54px; }\n      .settings .content > .bar .title {\n        position: absolute;\n        top: 16px;\n        left: 50px;\n        color: #6481b8;\n        font-size: 0.9em;\n        font-weight: bold; }\n    .settings .content > ul {\n      list-style-type: none;\n      margin: 0;\n      padding: 0 11%; }\n      .settings .content > ul li {\n        position: relative;\n        padding: 19px 0;\n        border-bottom: 0; }\n        .settings .content > ul li .name {\n          position: absolute;\n          left: 0px;\n          margin-top: -10px;\n          font-size: 14px; }\n      .settings .content > ul .localism {\n        padding: 24px 0; }\n        .settings .content > ul .localism .flag {\n          right: 27px;\n          height: 24px; }\n        .settings .content > ul .localism .abbrev {\n          position: absolute;\n          right: 0px;\n          margin-top: -9px;\n          font-size: 14px;\n          font-weight: bold; }\n        .settings .content > ul .localism .arrow {\n          position: absolute;\n          right: 16px;\n          height: 13px;\n          margin-top: -6px; }\n    .settings .content > .localism {\n      position: absolute;\n      top: 20px;\n      left: 209px;\n      width: 248px;\n      background-color: white;\n      border: 1px solid rgba(0, 0, 0, 0.2);\n      border-radius: 2px; }\n      .settings .content > .localism:not(.active) {\n        visibility: hidden;\n        opacity: 0;\n        -webkit-transition: visibility 0s, opacity 0.3s;\n        transition: visibility 0s, opacity 0.3s; }\n      .settings .content > .localism.active {\n        visibility: visible;\n        opacity: 1;\n        -webkit-transition: visibility 0s, opacity 0.3s;\n        transition: visibility 0s, opacity 0.3s; }\n      .settings .content > .localism .name {\n        position: absolute;\n        margin-top: -7px;\n        margin-left: 9px;\n        font-size: 14px;\n        font-weight: bold; }\n      .settings .content > .localism .national {\n        position: relative;\n        margin-top: 6px;\n        padding: 16px 8px; }\n        .settings .content > .localism .national .name {\n          left: 45px; }\n      .settings .content > .localism .regions {\n        position: relative;\n        padding: 8px 8px 4px 8px; }\n        .settings .content > .localism .regions > div {\n          display: inline-block;\n          position: relative;\n          width: 33.3%;\n          margin-bottom: 2px;\n          padding: 12px 0;\n          cursor: pointer;\n          opacity: 0.5;\n          -webkit-transition: opacity 0.3s;\n          transition: opacity 0.3s; }\n          .settings .content > .localism .regions > div.selected, .settings .content > .localism .regions > div:hover {\n            opacity: 1;\n            -webkit-transition: opacity 0.3s;\n            transition: opacity 0.3s; }\n          .settings .content > .localism .regions > div > .name {\n            left: 37px; }\n    .settings .content .vlibras-logo {\n      position: absolute;\n      left: 50%;\n      transform: translateX(-50%);\n      bottom: 0; }\n      .settings .content .vlibras-logo span {\n        left: 50%;\n        transform: translateX(-50%);\n        position: absolute;\n        bottom: 15%;\n        align-items: center;\n        font-size: 14px; }\n      .settings .content .vlibras-logo .logo {\n        width: 100%;\n        height: 100%; }\n  .settings > .wall {\n    position: absolute;\n    top: 0;\n    left: 0;\n    bottom: 0;\n    right: 0;\n    z-index: 5; }\n  .settings.active .content {\n    left: 0;\n    -webkit-transition: left 0.3s;\n    transition: left 0.3s; }\n  .settings.active .wall {\n    visibility: visible; }\n  .settings:not(.active) .content {\n    left: 0;\n    visibility: hidden;\n    -webkit-transition: left 0.3s;\n    transition: left 0.3s; }\n  .settings:not(.active) .wall {\n    visibility: hidden; }\n  .settings .clickable {\n    cursor: pointer; }\n    .settings .clickable:not(:hover) {\n      background-color: inherit;\n      -webkit-transition: 0.12s background-color;\n      transition: 0.12s background-color; }\n    .settings .clickable:hover {\n      background-color: rgba(0, 0, 0, 0.05);\n      -webkit-transition: 0.2s background-color;\n      transition: 0.2s background-color; }\n\n/*@media (min-width: 600px) {\n  .settings {\n    &.active {\n      visibility: visible;\n      left: 0;\n\n      -webkit-transition: visibility 0s, left 0.3s;\n      transition: visibility 0s, left 0.3s;\n    }\n\n    &:not(.active) {\n      visibility: hidden;\n      left: -220px;\n\n      -webkit-transition: visibility 0.3s, left 0.3s;\n      transition: visibility 0.3s, left 0.3s;\n    }\n\n    .content {\n      left: -220px;\n      width: 220px;\n\n\n      .bar {\n        height: 66px;\n\n\n        .btn-back {\n          width: 30px;\n          height: 30px;\n          margin-top: 18px;\n          margin-left: 18px;\n        }\n\n        .title {\n          top: 25px;\n          left: 60px;\n          font-size: 1em;\n        }\n      }\n    }\n  }\n}*/\n", ""]);
 
 	// exports
 
@@ -6301,24 +6306,24 @@
 	__webpack_require__(60);
 
 	function SettingsCloseBtn(){
-
+	    this.element = null;
 	}
 
 	SettingsCloseBtn.prototype.load = function(element){
 	    this.element = element;
 	    this.element.innerHTML = btn_close_Tpl;
 	    this.element.classList.add('btn-close');
-	    
+	        
 	};
 
 
-
+	module.exports = SettingsCloseBtn;
 
 /***/ }),
 /* 59 */
 /***/ (function(module, exports) {
 
-	module.exports = "s<img src=\"assets/Close-2019.png\">\n"
+	module.exports = "<img src=\"assets/Close-2019.png\">\n"
 
 /***/ }),
 /* 60 */
@@ -6355,7 +6360,7 @@
 
 
 	// module
-	exports.push([module.id, ".btn-close {\n  position: absolute;\n  top: -10%;\n  right: 10px;\n  width: 37.92px;\n  height: 37.92px;\n  visibility: hidden;\n  z-index: 6;\n  cursor: pointer; }\n  .btn-close img {\n    max-width: 100%;\n    max-height: 100%; }\n", ""]);
+	exports.push([module.id, ".btn-close {\n  position: absolute;\n  top: 0;\n  right: 40px;\n  height: 100%;\n  visibility: hidden;\n  z-index: 7;\n  cursor: pointer; }\n  .btn-close img {\n    position: absolute;\n    top: 50%;\n    transform: translateY(-50%);\n    width: 37.92px;\n    height: 37.92px; }\n", ""]);
 
 	// exports
 
