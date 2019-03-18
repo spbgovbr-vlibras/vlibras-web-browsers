@@ -8,6 +8,7 @@ var Controls = require('components/Controls');
 var Progress = require('components/Progress');
 var MessageBox = require('components/MessageBox');
 var Box = require('components/Box');
+var SettingsCloseBtn = require('components/SettingsCloseBtn');
 
 
 function Plugin() {
@@ -21,7 +22,8 @@ function Plugin() {
   this.dictionary = new Dictionary(this.player);
   this.controls = new Controls(this.player, this.dictionary);
   this.Box = new Box();
-  this.settings = new Settings(this.player, this.info);
+  this.settingBtnClose = new SettingsCloseBtn();
+  this.settings = new Settings(this.player, this.info, this.settingBtnClose);
   this.settingsBtn = new SettingsBtn(this.player, this.settings);
   this.messageBox = new MessageBox();
   
@@ -35,7 +37,9 @@ function Plugin() {
     // Loading components
     this.controls.load(this.element.querySelector('[vp-controls]'));
     this.Box.load(this.element.querySelector('[vp-box]'));
-    this.settingsBtn.load(this.element.querySelector('[vp-settings-btn]'));
+    this.settingBtnClose.load(this.element.querySelector('[vp-box]').querySelector('[settings-btn-close]'))
+    this.settingsBtn.load(this.element.querySelector('[vp-box]').querySelector('[settings-btn]'));
+    
     this.settings.load(this.element.querySelector('[vp-settings]'));    
     this.info.load(this.element.querySelector('[vp-info-screen]'));
     // this.dictionary.load(this.element.querySelector('[vp-dictionary]'));

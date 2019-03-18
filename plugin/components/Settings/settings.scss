@@ -1,11 +1,12 @@
 .settings {
   position: absolute;
-  // top: 0;
+  top: 10%;
   // bottom: 0;
   // left: 0;
   // right: 0;
   width: 100%;
-  height: 100%;
+  height: 90%;
+  
 
 
   .content {
@@ -38,16 +39,6 @@
       position: absolute;
       width: 100%;
       height: 54px;
-
-
-      .btn-close {
-        width: 26px;
-        height: 26px;
-        margin-top: 14px;
-        margin-left: 14px;
-
-        cursor: pointer;
-      }
 
       .title {
         position: absolute;
@@ -191,6 +182,18 @@
             left: 37px;
           }
         }
+      }
+    }
+
+    .vlibras-logo{
+      position: absolute;
+      left: 50%;
+      transform: translateX(-50%);
+      bottom: 0;
+
+      .logo{
+        width: 100%;
+        height: 100%;
       }
     }
   }
