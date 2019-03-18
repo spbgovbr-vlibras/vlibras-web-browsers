@@ -1,6 +1,6 @@
+var BoxTlp = require('./box.html');
 require('./box.scss');
 
-var BoxTlp = '<span class="mes"></span>';
 
 function Box() {
   this.element = null;
@@ -8,20 +8,22 @@ function Box() {
 }
 
 Box.prototype.load = function (element) {
-  var self = this;
+  
 
   this.element = element;
   this.element.classList.add('box');
   this.element.innerHTML = BoxTlp;
-  self.element.querySelector('.mes').innerHTML = 'VLIBRAS';
+  // this.element.querySelector('.mes').innerHTML = 'VLIBRAS';
 
-  self.message = {
-    text: 'message'
-  };
+  // this.message = {
+  //   text: 'message'
+  // };
 
-  return this.message;
+  // return this.message;
 
 };
+
+
 
 
 module.exports = Box;
