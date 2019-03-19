@@ -108,9 +108,11 @@
 
     > .localism {
       position: absolute;
-      top: 20px;
-      left: 209px;
-      width: 248px;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 7;
 
       background-color: white;
       border: 1px solid rgba(0,0,0,0.2);
@@ -131,10 +133,10 @@
 
         -webkit-transition: visibility 0s, opacity 0.3s;
         transition: visibility 0s, opacity 0.3s;
-        left:0;
-        top: 0;
-        width: 100%;
-        height: 100%;
+        // left:0;
+        // top: 0;
+        // width: 100%;
+        // height: 100%;
       }
 
       .name {
@@ -168,17 +170,20 @@
 
       .regions {
         position: relative;
-        padding: 0px 8px 4px 8px;
-        left: 50%;
+        width: 100%;
+        height: 100%;
+        
+        padding: 0px 8px 0px 8px;
+        left: 0;
         top: 50%;
-        transform: translate(-45%, -55%);
+        transform: translateY(-50%);
 
-        > div {
+        > .container {
           display: inline-block;
           position: relative;
           width: 33.33%;
           margin-bottom: 1px;
-          padding: 12px 0;  
+          padding: 6px 0;  
           margin-top: 1%;
 
           cursor: pointer;
@@ -192,12 +197,31 @@
 
             -webkit-transition: opacity 0.3s;
             transition: opacity 0.3s;
+          }        
+        .cont{
+            display: flex;
+            flex-direction: row;
+            justify-content: center;
+            align-items: center;    
+        }
+          > .cont .flag{
+            position: relative;
+            margin: 0;
+                   
+            
           }
 
-          > .name {
-            left: 37px;
+          > .cont .name {
+            position: relative;
+            margin: 0 10px 0;
+
+            // margin-left:30px; 
             color: grey;
           }
+
+          
+
+          
         }
       }
     }
@@ -207,6 +231,7 @@
       left: 50%;
       transform: translateX(-50%);
       bottom: 0;
+      z-index: 6;
       
       span{
       left: 50%;
