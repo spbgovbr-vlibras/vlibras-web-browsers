@@ -34,7 +34,6 @@ Controls.prototype.load = function (element) {
   this.element.classList.add('subtitles');
 
   var play = this.element.querySelector('.controls-play');
-  var slider = this.element.querySelector('.controls-slider .slider');
   var subtitles = this.element.querySelector('.controls-subtitles');
   var dictionary = this.element.querySelector('.controls-dictionary');
 
@@ -47,6 +46,14 @@ Controls.prototype.load = function (element) {
       this.player.continue();
     }
   }.bind(this));
+
+  var speed = document.getElementById('sel-speed');
+
+  speed.addEventListener('change', function() {
+      var value = speed.options[speed.selectedIndex].value;
+      this.player.setSpeed(parseFloat(value));
+  }.bind(this));
+
 
 
   subtitles.addEventListener('click', function () {
