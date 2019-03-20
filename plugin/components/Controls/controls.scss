@@ -51,3 +51,30 @@
     transform: rotate(360deg);  /* Firefox 16+, IE 10+, Opera */
   }
 }
+
+.styled-select select {
+   background: transparent;
+   line-height: 1;
+   border: 0;
+   border-radius: 0;
+   color: grey;
+    -webkit-appearance: none;
+       -moz-appearance: none;
+            appearance: none;
+    outline: none;
+   }
+
+
+.styled-select {
+ overflow: hidden;
+ //background: url(././assets/running.svg) no-repeat center;
+ border: 1px solid grey;
+ border-radius: 3px;
+ color: grey;
+ padding: 2px 4px;
+
+}
+.styled-select option {
+  background-color:#003F86;
+  color: white;
+}
