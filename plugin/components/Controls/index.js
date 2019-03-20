@@ -36,6 +36,8 @@ Controls.prototype.load = function (element) {
   var play = this.element.querySelector('.controls-play');
   var subtitles = this.element.querySelector('.controls-subtitles');
   var dictionary = this.element.querySelector('.controls-dictionary');
+  var configspeed = this.element.querySelector('.default');
+  var speednumber = this.element.querySelector('.controls-speed-number');
 
   play.addEventListener('click', function () {
     if (this.element.classList.contains('playing')) {
@@ -47,12 +49,12 @@ Controls.prototype.load = function (element) {
     }
   }.bind(this));
 
-  var speed = document.getElementById('sel-speed');
+  // var speed = document.getElementById('sel-speed');
 
-  speed.addEventListener('change', function() {
-      var value = speed.options[speed.selectedIndex].value;
-      this.player.setSpeed(parseFloat(value));
-  }.bind(this));
+  // speed.addEventListener('change', function() {
+  //     var value = speed.options[speed.selectedIndex].value;
+  //     this.player.setSpeed(parseFloat(value));
+  // }.bind(this));
 
 
 
@@ -70,6 +72,62 @@ Controls.prototype.load = function (element) {
       this.player.pause();
     }
   }.bind(this));
+
+  var visibility = false;
+
+
+
+  configspeed.addEventListener('click', function() {
+
+
+    if (visibility) {
+        document.getElementById("elem-speed").style.display = "none";
+        visibility = false;
+        document.getElementById("default").style.background = "none";
+        document.getElementById("default").style.border = '1px solid grey';
+        document.getElementById("default").style.color = 'grey';
+        document.getElementById("default").style.borderRadius = '3px 3px 3px 3px';
+
+    } else {
+        document.getElementById("default").style.background = "url('././assets/running.svg') no-repeat center";
+        document.getElementById("default").style.border = '1px solid #003F86';
+        document.getElementById("default").style.borderRadius = '0px 0px 3px 3px';
+        document.getElementById("default").style.color = 'rgba(0,0,0,0)';
+        document.getElementById("elem-speed").style.display = "block";
+        visibility = true;
+    }
+
+
+  }.bind(this));
+
+  var speed1 = this.element.querySelector('.block-speed-1');
+  var speed2 = this.element.querySelector('.block-speed-2');
+  var speed3 = this.element.querySelector('.block-speed-3');
+
+  speed1.addEventListener('click', () => {
+    this.setSpeed(1.0, '1x');
+  });
+
+  speed2.addEventListener('click', () => {
+    this.setSpeed(1.5, '2x');
+  });
+  speed3.addEventListener('click', () => {
+    this.setSpeed(2.0, '3x');
+  });
+
+
 };
+
+Controls.prototype.setSpeed = function (speed, label) {
+    document.getElementById("elem-speed").style.display = "none";
+    document.getElementById("default").style.background = "none";
+    document.getElementById("default").style.color = 'grey';
+    document.getElementById("default").style.border = '1px solid grey';
+    document.getElementById("default").style.borderRadius = '3px 3px 3px 3px';
+    document.getElementById("default").innerHTML = label;
+
+    visibility = false;  
+    this.player.setSpeed(parseFloat(speed));
+  } 
 
 module.exports = Controls;
