@@ -5,9 +5,11 @@
     "gulp": "gulp"
   },
   "dependencies": {
+    "bootstrap-select": "^1.13.8",
     "gulp-install": "^0.6.0",
     "inherits": "^2.0.1",
     "nouislider": "^8.3.0",
+    "select2": "^4.0.6-rc.1",
     "superagent": "^4.1.0",
     "vlibras": "file:../vlibras-player-webjs"
   },
