@@ -53,28 +53,37 @@
 }
 
 .styled-select select {
-   background: transparent;
-   line-height: 1;
-   border: 0;
-   border-radius: 0;
-   color: grey;
-    -webkit-appearance: none;
-       -moz-appearance: none;
-            appearance: none;
-    outline: none;
-   }
+  background: transparent;
+  line-height: 1;
+  border: 0;
+  border-radius: 0;
+  color: grey;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  outline: none;
+  border: 1px solid grey;
+  border-radius: 3px;
+  padding: 4px 4px;
+}
 
 
 .styled-select {
  overflow: hidden;
  //background: url(././assets/running.svg) no-repeat center;
- border: 1px solid grey;
- border-radius: 3px;
- color: grey;
- padding: 2px 4px;
-
 }
+
+.styled-select select:active {
+  background: url(././assets/running.svg) no-repeat center;
+  color: rgba(0,0,0,0);
+  border: 1px solid #003F86;
+  border-radius: 3px 3px 0px 0px;
+  padding: 4px 4px;
+}
+
+
 .styled-select option {
   background-color:#003F86;
   color: white;
 }
+
