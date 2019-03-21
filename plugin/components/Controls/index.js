@@ -36,8 +36,14 @@ Controls.prototype.load = function (element) {
   var play = this.element.querySelector('.controls-play');
   var subtitles = this.element.querySelector('.controls-subtitles');
   var dictionary = this.element.querySelector('.controls-dictionary');
-  var configspeed = this.element.querySelector('.default');
+  var speed_default = this.element.querySelector('.speed-default');
   var speednumber = this.element.querySelector('.controls-speed-number');
+  var elem_speed = this.element.querySelector('.elem-speed');
+  // var speed05 = this.element.querySelector('.block-speed-05');
+  var speed1 = this.element.querySelector('.block-speed-1');
+  var speed2 = this.element.querySelector('.block-speed-2');
+  var speed3 = this.element.querySelector('.block-speed-3');
+
 
   play.addEventListener('click', function () {
     if (this.element.classList.contains('playing')) {
@@ -77,54 +83,53 @@ Controls.prototype.load = function (element) {
 
 
 
-  configspeed.addEventListener('click', function() {
-
-
+  speed_default.addEventListener('click', function() {
     if (visibility) {
-        document.getElementById("elem-speed").style.display = "none";
+        elem_speed.style.display = "none";
         visibility = false;
-        document.getElementById("default").style.background = "none";
-        document.getElementById("default").style.border = '1px solid grey';
-        document.getElementById("default").style.color = 'grey';
-        document.getElementById("default").style.borderRadius = '3px 3px 3px 3px';
+        speed_default.style.background = "none";
+        speed_default.style.border = '1px solid grey';
+        speed_default.style.color = 'grey';
+        speed_default.style.borderRadius = '3px 3px 3px 3px';
 
     } else {
-        document.getElementById("default").style.background = "url('././assets/running.svg') no-repeat center";
-        document.getElementById("default").style.border = '1px solid #003F86';
-        document.getElementById("default").style.borderRadius = '0px 0px 3px 3px';
-        document.getElementById("default").style.color = 'rgba(0,0,0,0)';
-        document.getElementById("elem-speed").style.display = "block";
+        speed_default.style.background = "url('././assets/running.svg') no-repeat center";
+        speed_default.style.border = '1px solid #003F86';
+        speed_default.style.borderRadius = '0px 0px 3px 3px';
+        speed_default.style.color = 'rgba(0,0,0,0)';
+        elem_speed.style.display = "block";
         visibility = true;
     }
 
 
   }.bind(this));
 
-  var speed1 = this.element.querySelector('.block-speed-1');
-  var speed2 = this.element.querySelector('.block-speed-2');
-  var speed3 = this.element.querySelector('.block-speed-3');
+  // speed05.addEventListener('click', () => {
+  //   this.setSpeed(0.5, '0.5x', elem_speed, speed_default);
+  // });
 
   speed1.addEventListener('click', () => {
-    this.setSpeed(1.0, '1x');
+    this.setSpeed(1.0, '1x', elem_speed, speed_default);
   });
 
   speed2.addEventListener('click', () => {
-    this.setSpeed(1.5, '2x');
+    this.setSpeed(1.5, '2x', elem_speed, speed_default);
   });
   speed3.addEventListener('click', () => {
-    this.setSpeed(2.0, '3x');
+    this.setSpeed(2.0, '3x', elem_speed, speed_default);
   });
 
 
 };
 
-Controls.prototype.setSpeed = function (speed, label) {
-    document.getElementById("elem-speed").style.display = "none";
-    document.getElementById("default").style.background = "none";
-    document.getElementById("default").style.color = 'grey';
-    document.getElementById("default").style.border = '1px solid grey';
-    document.getElementById("default").style.borderRadius = '3px 3px 3px 3px';
-    document.getElementById("default").innerHTML = label;
+
+Controls.prototype.setSpeed = function (speed, label, elem_speed, speed_default) {
+    elem_speed.style.display = "none";
+    speed_default.style.background = "none";
+    speed_default.style.color = 'grey';
+    speed_default.style.border = '1px solid grey';
+    speed_default.style.borderRadius = '3px 3px 3px 3px';
+    speed_default.innerHTML = label;
 
     visibility = false;  
     this.player.setSpeed(parseFloat(speed));
