@@ -12,8 +12,8 @@
   background-size: 100% 100%;
   
 
-  .controls-play, .controls-subtitles,  {
-    margin: 0 7px;
+  .controls-play, .controls-subtitles, .controls-slider  {
+    margin: 0 9px;
     cursor: pointer;
   }
 
@@ -99,4 +99,31 @@
 .block-speed-3 {
   border-radius: 5px 5px 0px 0px;
 }
+
+
+  .controls-slider {
+    -webkit-appearance: none;
+    width: 50%;
+    margin: 2.5px 0;
+    height: 7px;
+    background-color: transparent;
+
+    .slider {
+      width: 100%;
+      height: 7px;
+
+      &.noUi-target { box-shadow: none; border: 0; }
+      &.noUi-connect { background-color:  #003F86; }
+      .noUi-background { background-color: #333; box-shadow: none; }
+      .noUi-handle {
+        width: 20px;
+        height: 20px;
+        left: -8px;
+        top: -8px;
+        border-radius: 50%;
+      }
+
+      .noUi-handle:after, .noUi-handle:before { display: none; }
+    }
+  }
 

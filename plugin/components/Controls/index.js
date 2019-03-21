@@ -43,6 +43,23 @@ Controls.prototype.load = function (element) {
   var speed1 = this.element.querySelector('.block-speed-1');
   var speed2 = this.element.querySelector('.block-speed-2');
   var speed3 = this.element.querySelector('.block-speed-3');
+  var slider = this.element.querySelector('.controls-slider .slider');
+
+
+
+    noUiSlider.create(slider, {
+      start: 0.0,
+      step: 0.05,
+      connect: 'lower',
+      range: {
+        min: 0.2,
+        max: 2
+      }
+    });
+
+    // slider.noUiSlider.on('update', function (value) {
+    //   this.player.setSpeed(Number(value[0]));
+    // }.bind(this));
 
 
   play.addEventListener('click', function () {
