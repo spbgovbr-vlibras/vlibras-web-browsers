@@ -4008,14 +4008,11 @@
 	        speed_default.style.paddingRight = '3.5px';
 
 	        speed_default.innerHTML = speed_value;
-	                console.log("fechei")
-	                console.log(visibility)
 
 	    } else {
 	        speed_default.style.background = "url('././assets/running.svg') no-repeat center";
 	        speed_default.style.border = '1px solid #003F86';
 	        speed_default.style.borderRadius = '0px 0px 3px 3px';
-	        console.log("abri")
 	        speed_value = speed_default.innerHTML;
 	        speed_default.innerHTML = '';
 
@@ -4023,7 +4020,6 @@
 	        speed_default.style.paddingLeft = '3.5px';
 	        elem_speed.style.display = "block";
 	        visibility = true;
-	        console.log(visibility)
 
 	    }
 
@@ -6081,7 +6077,7 @@
 /* 44 */
 /***/ (function(module, exports) {
 
-	module.exports = "<span class=\"controls-play\"></span>\n\n<div class=\"controls-slider\">\n\t<div class=\"slider\"></div>\n</div>\n\n\n\n<div class=\"controls-speed\">\n\t<div class=\"elem-speed\">\n\t\t<ul class=\"controls-speed-number\">\n\t\t\t<li class=\"block-speed block-speed-3\" >x3</li>\n\t\t\t<li class=\"block-speed block-speed-2\" >x2</li>\n\t\t\t<li class=\"block-speed block-speed-1\" >x1</li>\n\t\t\t<li class=\"block-speed block-speed-05\" >x0.5</li>\n\t\t</ul>\n\t</div>\n\t<span class=\"speed-default\">x1</span>\n</div>\n\n<span class=\"controls-subtitles\"></span>\n<span class=\"controls-dictionary loading-dictionary\"></span>\n\n<!-- [vp-controls] {\n  .vp-speed {\n  \n  }\n}\n -->"
+	module.exports = "<span class=\"controls-play\"></span>\n<div class=\"controls-slider\">\n\t<div class=\"slider\"></div>\n</div>\n<div class=\"controls-speed\">\n\t<div class=\"elem-speed\">\n\t\t<ul class=\"controls-speed-number\">\n\t\t\t<li class=\"block-speed block-speed-3\" >x3</li>\n\t\t\t<li class=\"block-speed block-speed-2\" >x2</li>\n\t\t\t<li class=\"block-speed block-speed-1\" >x1</li>\n\t\t\t<li class=\"block-speed block-speed-05\" >x0.5</li>\n\t\t</ul>\n\t</div>\n\t<span class=\"speed-default\">x1</span>\n</div>\n\n<span class=\"controls-subtitles\"></span>\n<span class=\"controls-dictionary loading-dictionary\"></span>\n"
 
 /***/ }),
 /* 45 */
