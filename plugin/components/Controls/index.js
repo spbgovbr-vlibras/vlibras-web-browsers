@@ -102,14 +102,11 @@ Controls.prototype.load = function (element) {
         speed_default.style.paddingRight = '3.5px';
 
         speed_default.innerHTML = speed_value;
-                console.log("fechei")
-                console.log(visibility)
 
     } else {
         speed_default.style.background = "url('././assets/running.svg') no-repeat center";
         speed_default.style.border = '1px solid #003F86';
         speed_default.style.borderRadius = '0px 0px 3px 3px';
-        console.log("abri")
         speed_value = speed_default.innerHTML;
         speed_default.innerHTML = '';
 
@@ -117,7 +114,6 @@ Controls.prototype.load = function (element) {
         speed_default.style.paddingLeft = '3.5px';
         elem_speed.style.display = "block";
         visibility = true;
-        console.log(visibility)
 
     }
 
