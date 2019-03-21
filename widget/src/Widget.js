@@ -13,5 +13,7 @@ module.exports = function Widget() {
   
     accessButton.load(document.querySelector('[vw-access-button]'), vw);
     widgetWrapper.load(document.querySelector('[vw-plugin-wrapper]'));
+
+    
   };
 }

@@ -73,6 +73,10 @@
         
       }
 
+      .position {
+        display:none;
+      }
+
       .localism {
         padding: 24px 0;
         
@@ -296,7 +300,6 @@
     }
 
     &:hover {
-      background-color: rgba(0,0,0,0.05);
       -webkit-transition: 0.2s background-color;
       transition: 0.2s background-color;
     }
