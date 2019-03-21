@@ -3945,7 +3945,7 @@
 	  var speed_default = this.element.querySelector('.speed-default');
 	  var speednumber = this.element.querySelector('.controls-speed-number');
 	  var elem_speed = this.element.querySelector('.elem-speed');
-	  // var speed05 = this.element.querySelector('.block-speed-05');
+	  var speed05 = this.element.querySelector('.block-speed-05');
 	  var speed1 = this.element.querySelector('.block-speed-1');
 	  var speed2 = this.element.querySelector('.block-speed-2');
 	  var speed3 = this.element.querySelector('.block-speed-3');
@@ -3960,15 +3960,6 @@
 	      this.player.continue();
 	    }
 	  }.bind(this));
-
-	  // var speed = document.getElementById('sel-speed');
-
-	  // speed.addEventListener('change', function() {
-	  //     var value = speed.options[speed.selectedIndex].value;
-	  //     this.player.setSpeed(parseFloat(value));
-	  // }.bind(this));
-
-
 
 	  subtitles.addEventListener('click', function () {
 	    this.element.classList.toggle('subtitles');
@@ -3986,7 +3977,7 @@
 	  }.bind(this));
 
 	  var visibility = false;
-
+	  var speed_value;
 
 
 	  speed_default.addEventListener('click', function() {
@@ -3997,32 +3988,53 @@
 	        speed_default.style.border = '1px solid grey';
 	        speed_default.style.color = 'grey';
 	        speed_default.style.borderRadius = '3px 3px 3px 3px';
+	        speed_default.style.paddingRight = '3.5px';
+
+	        speed_default.innerHTML = speed_value;
+	                console.log("fechei")
+	                console.log(visibility)
 
 	    } else {
 	        speed_default.style.background = "url('././assets/running.svg') no-repeat center";
 	        speed_default.style.border = '1px solid #003F86';
 	        speed_default.style.borderRadius = '0px 0px 3px 3px';
-	        speed_default.style.color = 'rgba(0,0,0,0)';
+	        console.log("abri")
+	        speed_value = speed_default.innerHTML;
+	        speed_default.innerHTML = '';
+
+	        speed_default.style.paddingRight = '20px';
+	        speed_default.style.paddingLeft = '3.5px';
 	        elem_speed.style.display = "block";
 	        visibility = true;
+	        console.log(visibility)
+
 	    }
 
 
 	  }.bind(this));
 
-	  // speed05.addEventListener('click', () => {
-	  //   this.setSpeed(0.5, '0.5x', elem_speed, speed_default);
-	  // });
+	  speed05.addEventListener('click', () => {
+	    this.setSpeed(0.5, '0.5x', elem_speed, speed_default);
+	    speed_default.style.padding = '6px 1.5px 5px 1.5px'
+	    speed_default.style.fontSize = '11px'
+	    visibility = false;  
+
+	  });
 
 	  speed1.addEventListener('click', () => {
-	    this.setSpeed(1.0, '1x', elem_speed, speed_default);
+	    this.setSpeed(1.0, 'x1', elem_speed, speed_default);
+	    visibility = false;  
 	  });
 
 	  speed2.addEventListener('click', () => {
-	    this.setSpeed(1.5, '2x', elem_speed, speed_default);
+	    this.setSpeed(1.5, 'x2', elem_speed, speed_default);
+	    visibility = false;  
+
 	  });
 	  speed3.addEventListener('click', () => {
-	    this.setSpeed(2.0, '3x', elem_speed, speed_default);
+	    this.setSpeed(2.0, 'x3', elem_speed, speed_default);
+	    visibility = false;  
+
 	  });
 
 
@@ -4036,8 +4048,8 @@
 	    speed_default.style.border = '1px solid grey';
 	    speed_default.style.borderRadius = '3px 3px 3px 3px';
 	    speed_default.innerHTML = label;
-
-	    visibility = false;  
+	    speed_default.style.padding = '3px 4px'
+	    speed_default.style.fontSize = '15px'
 	    this.player.setSpeed(parseFloat(speed));
 	  } 
 
@@ -6052,7 +6064,7 @@
 /* 44 */
 /***/ (function(module, exports) {
 
-	module.exports = "<span class=\"controls-play\"></span>\n<!-- <div class=\"styled-select\">\n   <select id=\"sel-speed\">\n      <option selected=\"selected\" value=\"1\">1x</option>\n      <option value=\"1.5\">2x</option>\n      <option value=\"2\">3x</option>\n   </select>\n</div> -->\n\n<div class=\"controls-speed\">\n\t<div class=\"elem-speed\">\n\t\t<ul class=\"controls-speed-number\">\n\t\t\t<li class=\"block-speed block-speed-3\" >x3</li>\n\t\t\t<li class=\"block-speed block-speed-2\" >x2</li>\n\t\t\t<li class=\"block-speed block-speed-1\" >x1</li>\n\t\t\t<!-- <li class=\"block-speed block-speed-05\" >x0.5</li> -->\n\t\t</ul>\n\t</div>\n\t<span class=\"speed-default\">x1</span>\n</div>\n\n<span class=\"controls-subtitles\"></span>\n<span class=\"controls-dictionary loading-dictionary\"></span>\n\n<!-- [vp-controls] {\n  .vp-speed {\n  \n  }\n}\n -->"
+	module.exports = "<span class=\"controls-play\"></span>\n<div class=\"controls-speed\">\n\t<div class=\"elem-speed\">\n\t\t<ul class=\"controls-speed-number\">\n\t\t\t<li class=\"block-speed block-speed-3\" >x3</li>\n\t\t\t<li class=\"block-speed block-speed-2\" >x2</li>\n\t\t\t<li class=\"block-speed block-speed-1\" >x1</li>\n\t\t\t<li class=\"block-speed block-speed-05\" >x0.5</li>\n\t\t</ul>\n\t</div>\n\t<span class=\"speed-default\">x1</span>\n</div>\n\n<span class=\"controls-subtitles\"></span>\n<span class=\"controls-dictionary loading-dictionary\"></span>\n\n<!-- [vp-controls] {\n  .vp-speed {\n  \n  }\n}\n -->"
 
 /***/ }),
 /* 45 */
@@ -6089,7 +6101,7 @@
 
 
 	// module
-	exports.push([module.id, ".controls {\n  display: -webkit-box;\n  display: -webkit-flex;\n  display: -moz-flex;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-align: center;\n  -ms-flex-align: center;\n  -webkit-align-items: center;\n  -moz-align-items: center;\n  align-items: center;\n  padding: 10px;\n  width: calc(100% - 10px);\n  height: 60px;\n  margin: 0 5px;\n  background-size: 100% 100%; }\n  .controls .controls-play, .controls .controls-subtitles {\n    margin: 0 7px; }\n  .controls .controls-play:before {\n    content: url(assets/component-play.png); }\n  .controls.playing .controls-play:before {\n    content: url(assets/component-pause.png); }\n  .controls.stopped .controls-play:before {\n    content: url(assets/component-restart.png); }\n  .controls.subtitles .controls-subtitles:before {\n    content: url(assets/component-legenda-habilitar.png); }\n  .controls .controls-subtitles:before {\n    content: url(assets/component-legenda-desabilitar.png); }\n\n@-webkit-keyframes spin {\n  0% {\n    -webkit-transform: rotate(0deg);\n    /* Chrome, Opera 15+, Safari 3.1+ */\n    -ms-transform: rotate(0deg);\n    /* IE 9 */\n    transform: rotate(0deg);\n    /* Firefox 16+, IE 10+, Opera */ }\n  100% {\n    -webkit-transform: rotate(360deg);\n    /* Chrome, Opera 15+, Safari 3.1+ */\n    -ms-transform: rotate(360deg);\n    /* IE 9 */\n    transform: rotate(360deg);\n    /* Firefox 16+, IE 10+, Opera */ } }\n\n@keyframes spin {\n  0% {\n    -webkit-transform: rotate(0deg);\n    /* Chrome, Opera 15+, Safari 3.1+ */\n    -ms-transform: rotate(0deg);\n    /* IE 9 */\n    transform: rotate(0deg);\n    /* Firefox 16+, IE 10+, Opera */ }\n  100% {\n    -webkit-transform: rotate(360deg);\n    /* Chrome, Opera 15+, Safari 3.1+ */\n    -ms-transform: rotate(360deg);\n    /* IE 9 */\n    transform: rotate(360deg);\n    /* Firefox 16+, IE 10+, Opera */ } }\n\n.speed-default {\n  border: 1px solid grey;\n  border-radius: 3px 3px 3px 3px;\n  padding: 4px 4px;\n  width: 100%;\n  height: 100%;\n  color: grey; }\n\n.elem-speed {\n  display: none;\n  position: absolute;\n  bottom: 24px; }\n\n.block-speed {\n  list-style-type: none;\n  background-color: #003F86;\n  color: white;\n  font-size: 17px;\n  width: 26px;\n  text-align: center; }\n\n.controls-speed {\n  position: relative; }\n\n.controls-speed-number {\n  width: 26px;\n  padding-left: 0px;\n  margin-top: 0px;\n  margin-bottom: 0px; }\n", ""]);
+	exports.push([module.id, ".controls {\n  display: -webkit-box;\n  display: -webkit-flex;\n  display: -moz-flex;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-align: center;\n  -ms-flex-align: center;\n  -webkit-align-items: center;\n  -moz-align-items: center;\n  align-items: center;\n  padding: 10px;\n  width: calc(100% - 10px);\n  height: 60px;\n  margin: 0 5px;\n  background-size: 100% 100%; }\n  .controls .controls-play, .controls .controls-subtitles {\n    margin: 0 7px;\n    cursor: pointer; }\n  .controls .controls-play:before {\n    content: url(assets/component-play.png); }\n  .controls.playing .controls-play:before {\n    content: url(assets/component-pause.png); }\n  .controls.stopped .controls-play:before {\n    content: url(assets/component-restart.png); }\n  .controls.subtitles .controls-subtitles:before {\n    content: url(assets/component-legenda-habilitar.png); }\n  .controls .controls-subtitles:before {\n    content: url(assets/component-legenda-desabilitar.png); }\n\n@-webkit-keyframes spin {\n  0% {\n    -webkit-transform: rotate(0deg);\n    /* Chrome, Opera 15+, Safari 3.1+ */\n    -ms-transform: rotate(0deg);\n    /* IE 9 */\n    transform: rotate(0deg);\n    /* Firefox 16+, IE 10+, Opera */ }\n  100% {\n    -webkit-transform: rotate(360deg);\n    /* Chrome, Opera 15+, Safari 3.1+ */\n    -ms-transform: rotate(360deg);\n    /* IE 9 */\n    transform: rotate(360deg);\n    /* Firefox 16+, IE 10+, Opera */ } }\n\n@keyframes spin {\n  0% {\n    -webkit-transform: rotate(0deg);\n    /* Chrome, Opera 15+, Safari 3.1+ */\n    -ms-transform: rotate(0deg);\n    /* IE 9 */\n    transform: rotate(0deg);\n    /* Firefox 16+, IE 10+, Opera */ }\n  100% {\n    -webkit-transform: rotate(360deg);\n    /* Chrome, Opera 15+, Safari 3.1+ */\n    -ms-transform: rotate(360deg);\n    /* IE 9 */\n    transform: rotate(360deg);\n    /* Firefox 16+, IE 10+, Opera */ } }\n\n.speed-default {\n  border: 1px solid grey;\n  border-radius: 3px 3px 3px 3px;\n  padding: 3px 4px;\n  width: 100%;\n  height: 100%;\n  color: grey;\n  font-size: 15px;\n  cursor: pointer; }\n\n.elem-speed {\n  display: none;\n  position: absolute;\n  bottom: 20px;\n  cursor: pointer; }\n\n.block-speed {\n  list-style-type: none;\n  background-color: #003F86;\n  color: white;\n  font-size: 12px;\n  width: 25px;\n  text-align: center; }\n\n.block-speed:hover {\n  color: #67C8D5; }\n\n.controls-speed {\n  position: relative; }\n\n.controls-speed-number {\n  width: 25px;\n  padding-left: 0px;\n  margin-top: 0px;\n  margin-bottom: 0px; }\n\n.block-speed-3 {\n  border-radius: 5px 5px 0px 0px; }\n", ""]);
 
 	// exports
 
