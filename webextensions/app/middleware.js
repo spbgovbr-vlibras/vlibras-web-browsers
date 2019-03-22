@@ -3,7 +3,7 @@ window.addEventListener('load', function() {
     function(request, sender, sendResponse) {
       if (request.selectedText === undefined) return;
 
-      window.plugin = (window.plugin || new VLibras.Plugin());
+      window.plugin = (window.plugin || new VLibras.Plugin({enableMoveWindow: false}));
       window.plugin.translate(request.selectedText);
     });
 
