@@ -1,7 +1,5 @@
 .settings-btn {
   position: absolute;
-  top: 0;
-  left: 0;
   z-index: 1;
   
   height: 100%;
@@ -14,12 +12,23 @@
   cursor: pointer;
 
 
-  img {
+  .settings-btn-menu {
     position: absolute;
     // left: 50%;
     top: 50%;
     transform: translateY(-50%);
     width: 20px;
     height: 18px;
+    left: 0;
+
   }
+
+  .settings-btn-close {
+    display: none;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    margin-left: 240px;
+  }
+
 }

@@ -25,7 +25,7 @@ function Plugin(option) {
   this.info = new InfoScreen(this.settingBtnClose);
   this.settings = new Settings(this.player, this.info, this.settingBtnClose, this.Box, option);
 
-  this.settingsBtn = new SettingsBtn(this.player, this.settings);
+  this.settingsBtn = new SettingsBtn(this.player, this.settings, option);
   this.messageBox = new MessageBox();
   
   this.loadingRef = null;
