@@ -11,11 +11,10 @@ var Box = require('components/Box');
 var SettingsCloseBtn = require('components/SettingsCloseBtn');
 
 
-function Plugin() {
+function Plugin(option) {
   this.player = new VLibras.Player({
     progress: Progress
   });
-
 
   this.element = document.querySelector('[vp]');
   this.info = new InfoScreen();
@@ -23,7 +22,7 @@ function Plugin() {
   this.controls = new Controls(this.player, this.dictionary);
   this.Box = new Box();
   this.settingBtnClose = new SettingsCloseBtn();
-  this.settings = new Settings(this.player, this.info, this.settingBtnClose, this.Box);
+  this.settings = new Settings(this.player, this.info, this.settingBtnClose, this.Box, option);
   this.settingsBtn = new SettingsBtn(this.player, this.settings);
   this.messageBox = new MessageBox();
   

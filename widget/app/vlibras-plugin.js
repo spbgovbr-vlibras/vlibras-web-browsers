@@ -47,7 +47,7 @@
 	const window = __webpack_require__(1);
 
 	const Plugin = __webpack_require__(2);
-	const Widget = __webpack_require__(62);
+	const Widget = __webpack_require__(64);
 
 	window.VLibras.Plugin = Plugin;
 	window.VLibras.Widget = Widget;
@@ -66,21 +66,20 @@
 	var VLibras = __webpack_require__(3);
 
 	var Settings = __webpack_require__(18);
-	var SettingsBtn = __webpack_require__(26);
-	var InfoScreen = __webpack_require__(30);
-	var Dictionary = __webpack_require__(34);
-	var Controls = __webpack_require__(40);
-	var Progress = __webpack_require__(47);
-	var MessageBox = __webpack_require__(51);
-	var Box = __webpack_require__(54);
-	var SettingsCloseBtn = __webpack_require__(58);
+	var SettingsBtn = __webpack_require__(28);
+	var InfoScreen = __webpack_require__(32);
+	var Dictionary = __webpack_require__(36);
+	var Controls = __webpack_require__(42);
+	var Progress = __webpack_require__(49);
+	var MessageBox = __webpack_require__(53);
+	var Box = __webpack_require__(56);
+	var SettingsCloseBtn = __webpack_require__(60);
 
 
-	function Plugin() {
+	function Plugin(option) {
 	  this.player = new VLibras.Player({
 	    progress: Progress
 	  });
-
 
 	  this.element = document.querySelector('[vp]');
 	  this.info = new InfoScreen();
@@ -88,7 +87,7 @@
 	  this.controls = new Controls(this.player, this.dictionary);
 	  this.Box = new Box();
 	  this.settingBtnClose = new SettingsCloseBtn();
-	  this.settings = new Settings(this.player, this.info, this.settingBtnClose, this.Box);
+	  this.settings = new Settings(this.player, this.info, this.settingBtnClose, this.Box, option);
 	  this.settingsBtn = new SettingsBtn(this.player, this.settings);
 	  this.messageBox = new MessageBox();
 	  
@@ -2797,13 +2796,15 @@
 
 	var settingsTpl = __webpack_require__(20);
 	__webpack_require__(21);
+	__webpack_require__(25);
 
-	function Settings(player, infoScreen, btnClose, box) {
+	function Settings(player, infoScreen, btnClose, box, option) {
 	  this.visible = false;
 	  this.player = player;
 	  this.infoScreen = infoScreen;
 	  this.btnClose = btnClose;
 	  this.box = box;
+	  enable = option.enableMoveWindow;
 	}
 
 	inherits(Settings, EventEmitter);
@@ -2820,16 +2821,31 @@
 	  // Close events
 	  this.element.querySelector('.wall')
 	    .addEventListener('click', this.hide.bind(this));
-	  // this.element.querySelector('.btn-close')
-	  //   .addEventListener('click', this.hide.bind(this));
+
 	  this.btnClose.element.firstChild.addEventListener('click',this.hide.bind(this))
 	  // Selected region
 	  this.selectedRegion = this.element.querySelector('.content > ul .localism');
+
+	  if (enable) {
+	    this.position = this.element.querySelector('.content > ul .position');
+	    this.position.style.display = 'block';
+	  }
+
 	  this.selectedRegion._name = this.selectedRegion.querySelector('.abbrev');
 	  this.selectedRegion._flag = this.selectedRegion.querySelector('img.flag');
 	  this.selectedRegion.addEventListener('click', function() {
-	    this.localism.classList.toggle('active');
+	  this.localism.classList.toggle('active');
+
+
 	  }.bind(this));
+
+	  var selector = this.element.querySelector('input[name=checkbox]')
+
+	  selector.addEventListener('change', function() {
+	      if(!(selector.checked)) {window.dispatchEvent(new CustomEvent('vp-widget-wrapper-set-side', {detail: {right: true}}));}
+	      else{window.dispatchEvent(new CustomEvent('vp-widget-wrapper-set-side', {detail: {right: false}}));}
+	    }.bind(this));
+
 
 	  // About button
 	  this.element.querySelector('.content > ul .about')
@@ -2852,7 +2868,7 @@
 
 	  // Creates regions grid
 	  var regions = this.localism.querySelector('.regions');
-	  var regionHTML = __webpack_require__(25);
+	  var regionHTML = __webpack_require__(27);
 
 	  for (var i in regionsData) {
 	    var data = regionsData[i];
@@ -2996,7 +3012,7 @@
 /* 20 */
 /***/ (function(module, exports) {
 
-	module.exports = "<div class=\"content\">\n    <ul>\n        <li class=\"localism clickable\">\n            <div class=\"container\">\n                <span class=\"name\">Regionalismo</span>\n                <img class=\"flag\" src=\"assets/brazil.png\">\n                <span class=\"abbrev\">BR</span>\n                <!-- <img class=\"arrow\" src=\"assets/expander.png\"> -->\n            </div>\n        </li>\n\n        <li class=\"position clickable\">\n            <div class=\"container\">\n                <span class=\"name\">Posicionamento da tela</span>\n            </div>\n        </li>\n\n        <li class=\"about clickable\">\n            <div class=\"container\">\n                <span class=\"name\">Sobre</span>\n            </div>\n        </li>\n    </ul>\n\n    <div class=\"localism\">\n        <div class=\"national clickable\">\n            <img class=\"flag\" src=\"assets/brazil.png\">\n            <span class=\"name\">BR - Padrão Nacional</span>\n        </div>\n\n        <div class=\"regions\"></div>\n    </div>\n    <div class=\"vlibras-logo\">\n        <span>VLIBRAS</span>\n        <img class=\"logo\" src=\"assets/logoicon.png\">\n    </div>\n</div>\n\n<div class=\"wall\"></div>"
+	module.exports = "<div class=\"content\">\n    <ul>\n        <li class=\"localism clickable\">\n            <div class=\"container\">\n                <span class=\"name\">Regionalismo</span>\n                <img class=\"flag\" src=\"assets/brazil.png\">\n                <span class=\"abbrev\">BR</span>\n                <!-- <img class=\"arrow\" src=\"assets/expander.png\"> -->\n            </div>\n        </li>\n\n        <li class=\"position clickable\">\n            <div class=\"container\">\n                <span class=\"name\">Posicionamento da tela</span>\n                <label class=\"switch\">\n                    <input checked type=\"checkbox\" name=\"checkbox\">\n                    <span class=\"slider-check round\"></span>\n                </label>\n            </div>\n        </li>\n\n        <li class=\"about clickable\">\n            <div class=\"container\">\n                <span class=\"name\">Sobre</span>\n            </div>\n        </li>\n    </ul>\n\n    <div class=\"localism\">\n        <div class=\"national clickable\">\n            <img class=\"flag\" src=\"assets/brazil.png\">\n            <span class=\"name\">BR - Padrão Nacional</span>\n        </div>\n\n        <div class=\"regions\"></div>\n    </div>\n    <div class=\"vlibras-logo\">\n        <span>VLIBRAS</span>\n        <img class=\"logo\" src=\"assets/logoicon.png\">\n    </div>\n</div>\n\n<div class=\"wall\"></div>"
 
 /***/ }),
 /* 21 */
@@ -3348,16 +3364,56 @@
 
 /***/ }),
 /* 25 */
-/***/ (function(module, exports) {
+/***/ (function(module, exports, __webpack_require__) {
 
-	module.exports = "<div class=\"cont\">\n    <img class=\"flag\">\n    <span class=\"name\"></span>\n</div>\n\n\n"
+	// style-loader: Adds some css to the DOM by adding a <style> tag
+
+	// load the styles
+	var content = __webpack_require__(26);
+	if(typeof content === 'string') content = [[module.id, content, '']];
+	// add the styles to the DOM
+	var update = __webpack_require__(24)(content, {});
+	if(content.locals) module.exports = content.locals;
+	// Hot Module Replacement
+	if(false) {
+		// When the styles change, update the <style> tags
+		if(!content.locals) {
+			module.hot.accept("!!../../../node_modules/css-loader/index.js?-url!../../../node_modules/sass-loader/index.js!./switch.scss", function() {
+				var newContent = require("!!../../../node_modules/css-loader/index.js?-url!../../../node_modules/sass-loader/index.js!./switch.scss");
+				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
+				update(newContent);
+			});
+		}
+		// When the module is disposed, remove the <style> tags
+		module.hot.dispose(function() { update(); });
+	}
 
 /***/ }),
 /* 26 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	var settingsBtnTpl = __webpack_require__(27);
-	__webpack_require__(28);
+	exports = module.exports = __webpack_require__(23)();
+	// imports
+
+
+	// module
+	exports.push([module.id, ".switch {\n  position: relative;\n  display: inline-block;\n  width: 60px;\n  height: 21px;\n  float: right;\n  margin-top: -10px; }\n\n/* Hide default HTML checkbox */\n.switch input {\n  opacity: 0;\n  width: 0;\n  height: 0; }\n\n/* The slider */\n.slider-check {\n  position: absolute;\n  cursor: pointer;\n  top: 0;\n  left: 0;\n  right: 0;\n  bottom: 0;\n  background-color: #2196F3; }\n\n.slider-check:before {\n  position: absolute;\n  content: \"\";\n  height: 26px;\n  width: 26px;\n  left: 4px;\n  bottom: 4px;\n  background-color: white; }\n\ninput:checked + .slider-check {\n  background-color: #ccc; }\n\ninput:focus + .slider-check {\n  box-shadow: 0 0 1px #ccc; }\n\ninput:checked + .slider-check:before {\n  -webkit-transform: translateX(26px);\n  -ms-transform: translateX(26px);\n  transform: translateX(26px); }\n\n/* Rounded sliders */\n.slider-check.round {\n  border-radius: 34px; }\n\n.slider-check.round:before {\n  border-radius: 50%;\n  top: -3px; }\n", ""]);
+
+	// exports
+
+
+/***/ }),
+/* 27 */
+/***/ (function(module, exports) {
+
+	module.exports = "<div class=\"cont\">\n    <img class=\"flag\">\n    <span class=\"name\"></span>\n</div>\n\n\n"
+
+/***/ }),
+/* 28 */
+/***/ (function(module, exports, __webpack_require__) {
+
+	var settingsBtnTpl = __webpack_require__(29);
+	__webpack_require__(30);
 
 	function SettingsBtn(player, screen) {
 	  this.player = player;
@@ -3380,19 +3436,19 @@
 
 
 /***/ }),
-/* 27 */
+/* 29 */
 /***/ (function(module, exports) {
 
 	module.exports = "<img src=\"assets/component-menu.png\">\n"
 
 /***/ }),
-/* 28 */
+/* 30 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 
 	// load the styles
-	var content = __webpack_require__(29);
+	var content = __webpack_require__(31);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
 	var update = __webpack_require__(24)(content, {});
@@ -3412,7 +3468,7 @@
 	}
 
 /***/ }),
-/* 29 */
+/* 31 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	exports = module.exports = __webpack_require__(23)();
@@ -3426,14 +3482,14 @@
 
 
 /***/ }),
-/* 30 */
+/* 32 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	var inherits = __webpack_require__(19);
 	var EventEmitter = __webpack_require__(9).EventEmitter;
 
-	var infoScreenTpl = __webpack_require__(31);
-	__webpack_require__(32);
+	var infoScreenTpl = __webpack_require__(33);
+	__webpack_require__(34);
 
 	function InfoScreen() {
 	  this.visible = false;
@@ -3503,19 +3559,19 @@
 
 
 /***/ }),
-/* 31 */
+/* 33 */
 /***/ (function(module, exports) {
 
 	module.exports = "<div class=\"arrow arrow-left\">\n    <img src=\"assets/ToLeft.png\" />\n</div>\n<div id=\"info-tabset\">\n    <div id=\"info-main\" class=\"info-tab active\">\n        <div id=\"info-logo\">\n            <img src=\"assets/logo.png\"/>\n        </div>\n        <div id=\"info-meta\">\n            <p>Versão 3.0.2</p>\n            <a href=\"http://vlibras.gov.br\" target=\"_blank\">vlibras.gov.br</a>\n        </div>\n        <div id=\"info-text\">\n            <p>O VLibras é uma ferramenta aberta de distribuição livre, desenvolvida para melhorar o acesso à informação das pessoas surdas brasileiras.</p>\n            <p>Qualquer dúvida ou questionamento, envie uma mensagem para o Núcleo de Pesquisa e Extensão LAViD - Centro de Informática - UFPB através do e-mail. contato@lavid.ufpb.br</p>\n        </div>\n    </div>\n    <div id=\"info-realizadores\" class=\"info-tab\">\n        <h2>Realizadores</h2>\n\n        <div class=\"logo-group\">\n            <img class=\"logo\" src=\"assets/about_sti.png\">\n            <img class=\"logo\" src=\"assets/about_min-plan.png\">\n            <img class=\"logo\" src=\"assets/about_min-jus.png\">\n            <img class=\"logo\" src=\"assets/about_gov.png\">\n        </div>\n\n        <div class=\"logo-group\">\n            <img class=\"logo\" src=\"assets/about_lavid.png\">\n            <img class=\"logo\" src=\"assets/about_ufpb.png\">\n            <img class=\"logo\" src=\"assets/about_rnp.png\">\n        </div>\n\n        <div class=\"logo-group\">\n            <img class=\"logo\" src=\"assets/about_ufcg.png\">\n            <img class=\"logo\" src=\"assets/about_camara.png\">\n        </div>\n    </div>\n    <div id=\"info-tab-bullets\">\n        <span class=\"info-bullet active\"></span>\n        <span class=\"info-bullet\"></span>\n    </div>\n</div>\n<div class=\"arrow arrow-right active\">\n    <img src=\"assets/ToRight.png\" />\n</div>\n\n<div class=\"close-btn\">\n    <img class=\"icon\" src=\"assets/Close.png\">\n</div>"
 
 /***/ }),
-/* 32 */
+/* 34 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 
 	// load the styles
-	var content = __webpack_require__(33);
+	var content = __webpack_require__(35);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
 	var update = __webpack_require__(24)(content, {});
@@ -3535,7 +3591,7 @@
 	}
 
 /***/ }),
-/* 33 */
+/* 35 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	exports = module.exports = __webpack_require__(23)();
@@ -3549,17 +3605,17 @@
 
 
 /***/ }),
-/* 34 */
+/* 36 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	var inherits = __webpack_require__(19);
 	var EventEmitter = __webpack_require__(9).EventEmitter;
 
-	var dictionaryTpl = __webpack_require__(35);
-	__webpack_require__(36);
+	var dictionaryTpl = __webpack_require__(37);
+	__webpack_require__(38);
 
-	var Trie = __webpack_require__(38);
-	var NonBlockingProcess = __webpack_require__(39);
+	var Trie = __webpack_require__(40);
+	var NonBlockingProcess = __webpack_require__(41);
 
 	function Dictionary(player)
 	{
@@ -3676,19 +3732,19 @@
 	module.exports = Dictionary;
 
 /***/ }),
-/* 35 */
+/* 37 */
 /***/ (function(module, exports) {
 
 	module.exports = "<div class=\"panel\"> \n    <div class=\"bar\">\n        <span class=\"title\">Dicionario</span>\n        <img class=\"btn-close\" src=\"assets/Close.png\">\n    </div>\n\n    <div class=\"search\">\n        <input type=\"text\">\n        <span class=\"icon\">\n            <img src=\"assets/search.jpg\">\n        </span>\n    </div>\n</div>\n\n<ul>\n    <li class=\"margin\"></li>\n</ul>"
 
 /***/ }),
-/* 36 */
+/* 38 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 
 	// load the styles
-	var content = __webpack_require__(37);
+	var content = __webpack_require__(39);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
 	var update = __webpack_require__(24)(content, {});
@@ -3708,7 +3764,7 @@
 	}
 
 /***/ }),
-/* 37 */
+/* 39 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	exports = module.exports = __webpack_require__(23)();
@@ -3722,7 +3778,7 @@
 
 
 /***/ }),
-/* 38 */
+/* 40 */
 /***/ (function(module, exports) {
 
 	function Node(end)
@@ -3846,7 +3902,7 @@
 	module.exports = Trie;
 
 /***/ }),
-/* 39 */
+/* 41 */
 /***/ (function(module, exports) {
 
 	function NonBlockingProcess(data, process, workingTime, watingTime, finish)
@@ -3901,14 +3957,14 @@
 	module.exports = NonBlockingProcess;
 
 /***/ }),
-/* 40 */
+/* 42 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	var noUiSlider = __webpack_require__(41);
-	__webpack_require__(42);
+	var noUiSlider = __webpack_require__(43);
+	__webpack_require__(44);
 
-	var controlsTpl = __webpack_require__(44);
-	__webpack_require__(45);
+	var controlsTpl = __webpack_require__(46);
+	__webpack_require__(47);
 
 	function Controls(player, dictionary) {
 	  this.player = player;
@@ -4070,7 +4126,7 @@
 
 
 /***/ }),
-/* 41 */
+/* 43 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*! nouislider - 8.5.1 - 2016-04-24 16:00:29 */
@@ -6034,13 +6090,13 @@
 	}));
 
 /***/ }),
-/* 42 */
+/* 44 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 
 	// load the styles
-	var content = __webpack_require__(43);
+	var content = __webpack_require__(45);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
 	var update = __webpack_require__(24)(content, {});
@@ -6060,7 +6116,7 @@
 	}
 
 /***/ }),
-/* 43 */
+/* 45 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	exports = module.exports = __webpack_require__(23)();
@@ -6074,19 +6130,19 @@
 
 
 /***/ }),
-/* 44 */
+/* 46 */
 /***/ (function(module, exports) {
 
 	module.exports = "<span class=\"controls-play\"></span>\n<div class=\"controls-slider\">\n\t<div class=\"slider\"></div>\n</div>\n<div class=\"controls-speed\">\n\t<div class=\"elem-speed\">\n\t\t<ul class=\"controls-speed-number\">\n\t\t\t<li class=\"block-speed block-speed-3\" >x3</li>\n\t\t\t<li class=\"block-speed block-speed-2\" >x2</li>\n\t\t\t<li class=\"block-speed block-speed-1\" >x1</li>\n\t\t\t<li class=\"block-speed block-speed-05\" >x0.5</li>\n\t\t</ul>\n\t</div>\n\t<span class=\"speed-default\">x1</span>\n</div>\n\n<span class=\"controls-subtitles\"></span>\n<span class=\"controls-dictionary loading-dictionary\"></span>\n"
 
 /***/ }),
-/* 45 */
+/* 47 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 
 	// load the styles
-	var content = __webpack_require__(46);
+	var content = __webpack_require__(48);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
 	var update = __webpack_require__(24)(content, {});
@@ -6106,7 +6162,7 @@
 	}
 
 /***/ }),
-/* 46 */
+/* 48 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	exports = module.exports = __webpack_require__(23)();
@@ -6120,11 +6176,11 @@
 
 
 /***/ }),
-/* 47 */
+/* 49 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	__webpack_require__(48);
-	var progressTpl = __webpack_require__(50);
+	__webpack_require__(50);
+	var progressTpl = __webpack_require__(52);
 
 	function Progress(wrapper) {
 	  this.progress = 0.0;
@@ -6166,13 +6222,13 @@
 
 
 /***/ }),
-/* 48 */
+/* 50 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 
 	// load the styles
-	var content = __webpack_require__(49);
+	var content = __webpack_require__(51);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
 	var update = __webpack_require__(24)(content, {});
@@ -6192,7 +6248,7 @@
 	}
 
 /***/ }),
-/* 49 */
+/* 51 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	exports = module.exports = __webpack_require__(23)();
@@ -6206,16 +6262,16 @@
 
 
 /***/ }),
-/* 50 */
+/* 52 */
 /***/ (function(module, exports) {
 
 	module.exports = "<img class=\"brand\" src=\"assets/progresslogo.png\"></img>\n<div class=\"progressbar\">\n    <div class=\"bar\"></div>\n</div>\n"
 
 /***/ }),
-/* 51 */
+/* 53 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	__webpack_require__(52);
+	__webpack_require__(54);
 
 	var messageBoxTlp = '<span class="message"></span>';
 
@@ -6274,13 +6330,13 @@
 
 
 /***/ }),
-/* 52 */
+/* 54 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 
 	// load the styles
-	var content = __webpack_require__(53);
+	var content = __webpack_require__(55);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
 	var update = __webpack_require__(24)(content, {});
@@ -6300,7 +6356,7 @@
 	}
 
 /***/ }),
-/* 53 */
+/* 55 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	exports = module.exports = __webpack_require__(23)();
@@ -6314,11 +6370,11 @@
 
 
 /***/ }),
-/* 54 */
+/* 56 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	var BoxTlp = __webpack_require__(55);
-	__webpack_require__(56);
+	var BoxTlp = __webpack_require__(57);
+	__webpack_require__(58);
 
 
 	function Box() {
@@ -6349,19 +6405,19 @@
 
 
 /***/ }),
-/* 55 */
+/* 57 */
 /***/ (function(module, exports) {
 
 	module.exports = "<span class=\"mes\">VLIBRAS</span>\n<div settings-btn></div>\n<div settings-btn-close></div>"
 
 /***/ }),
-/* 56 */
+/* 58 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 
 	// load the styles
-	var content = __webpack_require__(57);
+	var content = __webpack_require__(59);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
 	var update = __webpack_require__(24)(content, {});
@@ -6381,7 +6437,7 @@
 	}
 
 /***/ }),
-/* 57 */
+/* 59 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	exports = module.exports = __webpack_require__(23)();
@@ -6395,11 +6451,11 @@
 
 
 /***/ }),
-/* 58 */
+/* 60 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	var btn_close_Tpl = __webpack_require__(59);
-	__webpack_require__(60);
+	var btn_close_Tpl = __webpack_require__(61);
+	__webpack_require__(62);
 
 	function SettingsCloseBtn(){
 	    this.element = null;
@@ -6416,19 +6472,19 @@
 	module.exports = SettingsCloseBtn;
 
 /***/ }),
-/* 59 */
+/* 61 */
 /***/ (function(module, exports) {
 
 	module.exports = "<img src=\"assets/Close-2019.png\">\n"
 
 /***/ }),
-/* 60 */
+/* 62 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 
 	// load the styles
-	var content = __webpack_require__(61);
+	var content = __webpack_require__(63);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
 	var update = __webpack_require__(24)(content, {});
@@ -6448,7 +6504,7 @@
 	}
 
 /***/ }),
-/* 61 */
+/* 63 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	exports = module.exports = __webpack_require__(23)();
@@ -6462,14 +6518,14 @@
 
 
 /***/ }),
-/* 62 */
+/* 64 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	const window = __webpack_require__(1);
 
-	const AccessButton = __webpack_require__(63);
-	const PluginWrapper = __webpack_require__(67);
-	__webpack_require__(71);
+	const AccessButton = __webpack_require__(65);
+	const PluginWrapper = __webpack_require__(69);
+	__webpack_require__(73);
 
 	module.exports = function Widget() {
 	  const widgetWrapper = new PluginWrapper();
@@ -6477,9 +6533,20 @@
 	  
 	  window.onload = () => {
 	    const vw = document.querySelector('[vw]');
-	  
+
 	    accessButton.load(document.querySelector('[vw-access-button]'), vw);
 	    widgetWrapper.load(document.querySelector('[vw-plugin-wrapper]'));
+
+		window.addEventListener('vp-widget-wrapper-set-side', (event) => { console.log('faze algo com:', event.detail)
+			if(event.detail.right) {
+				vw.style.left = '0';
+				vw.style.right = 'initial';
+			} else {
+				vw.style.right = '0';
+				vw.style.left = 'initial';
+			}
+
+		});
 
 	    
 	  };
@@ -6487,12 +6554,12 @@
 
 
 /***/ }),
-/* 63 */
+/* 65 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	const window = __webpack_require__(1);
-	const template = __webpack_require__(64);
-	__webpack_require__(65);
+	const template = __webpack_require__(66);
+	__webpack_require__(67);
 
 	function AccessButton(pluginWrapper) {
 	  this.pluginWrapper = pluginWrapper;
@@ -6506,7 +6573,7 @@
 	    this.element.classList.toggle('active');
 	    this.pluginWrapper.element.classList.toggle('active');
 
-	    window.plugin = (window.plugin || new window.VLibras.Plugin());
+	    window.plugin = (window.plugin || new window.VLibras.Plugin({enableMoveWindow: true}));
 	    addTagsTexts(vw);
 	  });
 	};
@@ -6611,19 +6678,19 @@
 
 
 /***/ }),
-/* 64 */
+/* 66 */
 /***/ (function(module, exports) {
 
 	module.exports = "<img src=\"assets/component-ac.png\" />"
 
 /***/ }),
-/* 65 */
+/* 67 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 
 	// load the styles
-	var content = __webpack_require__(66);
+	var content = __webpack_require__(68);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
 	var update = __webpack_require__(24)(content, {});
@@ -6643,7 +6710,7 @@
 	}
 
 /***/ }),
-/* 66 */
+/* 68 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	exports = module.exports = __webpack_require__(23)();
@@ -6657,13 +6724,15 @@
 
 
 /***/ }),
-/* 67 */
+/* 69 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	const template = __webpack_require__(68);
-	__webpack_require__(69);
+	const template = __webpack_require__(70);
+	__webpack_require__(71);
 
-	function PluginWrapper() { }
+	function PluginWrapper() { 
+		
+	}
 
 	PluginWrapper.prototype.load = function (element) {
 	  this.element = element;
@@ -6674,19 +6743,19 @@
 
 
 /***/ }),
-/* 68 */
+/* 70 */
 /***/ (function(module, exports) {
 
 	module.exports = "<div vp>\n  <div vp-box></div>\n  <div vp-message-box></div>\n  <div vp-settings></div>\n  <div vp-settings-btn></div>\n  <div vp-info-screen></div>\n  <div vp-dictionary></div>\n  <div vp-controls></div>\n</div>\n"
 
 /***/ }),
-/* 69 */
+/* 71 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 
 	// load the styles
-	var content = __webpack_require__(70);
+	var content = __webpack_require__(72);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
 	var update = __webpack_require__(24)(content, {});
@@ -6706,7 +6775,7 @@
 	}
 
 /***/ }),
-/* 70 */
+/* 72 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	exports = module.exports = __webpack_require__(23)();
@@ -6720,13 +6789,13 @@
 
 
 /***/ }),
-/* 71 */
+/* 73 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 
 	// load the styles
-	var content = __webpack_require__(72);
+	var content = __webpack_require__(74);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
 	var update = __webpack_require__(24)(content, {});
@@ -6746,7 +6815,7 @@
 	}
 
 /***/ }),
-/* 72 */
+/* 74 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	exports = module.exports = __webpack_require__(23)();
