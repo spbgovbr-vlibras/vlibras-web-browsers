@@ -51,6 +51,9 @@
 
   [vp-info-screen] {
     z-index: 3;
+    #info-text{
+      font-size: 1.5vh !important;
+    }
   }
 
   [vp-controls] {

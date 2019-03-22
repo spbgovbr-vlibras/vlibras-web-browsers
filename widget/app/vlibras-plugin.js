@@ -83,11 +83,12 @@
 
 
 	  this.element = document.querySelector('[vp]');
-	  this.info = new InfoScreen();
+	  this.settingBtnClose = new SettingsCloseBtn();
+	  
 	  this.dictionary = new Dictionary(this.player);
 	  this.controls = new Controls(this.player, this.dictionary);
 	  this.Box = new Box();
-	  this.settingBtnClose = new SettingsCloseBtn();
+	  this.info = new InfoScreen(this.settingBtnClose);
 	  this.settings = new Settings(this.player, this.info, this.settingBtnClose, this.Box);
 	  this.settingsBtn = new SettingsBtn(this.player, this.settings);
 	  this.messageBox = new MessageBox();
@@ -278,6 +279,7 @@
 	Player.prototype.load = function (wrapper) {
 	  this.gameContainer = document.createElement('div');
 	  this.gameContainer.setAttribute("id", "gameContainer");
+	  this.gameContainer.style.position = "absolute";
 	  this.gameContainer.classList.add('emscripten');
 
 	  if ('function' == typeof this.options.progress) {
@@ -3435,7 +3437,8 @@
 	var infoScreenTpl = __webpack_require__(31);
 	__webpack_require__(32);
 
-	function InfoScreen() {
+	function InfoScreen(settingBtnClose) {
+	  this.settingBtnClose = settingBtnClose;
 	  this.visible = false;
 	}
 
@@ -3451,7 +3454,11 @@
 	  var left = this.element.querySelector('.arrow-left');
 	  var right = this.element.querySelector('.arrow-right');
 	  var bullets = this.element.querySelectorAll('.info-bullet');
-	  var close = this.element.querySelector('.close-btn');
+	  
+	  
+	  
+
+	  
 
 	  left.addEventListener('click', function() {
 	    realizadores.classList.remove('active');
@@ -3475,11 +3482,12 @@
 	    bullets[1].classList.add('active');
 	  });
 
-	  close.addEventListener('click', function() {
+	  this.settingBtnClose.element.firstChild.addEventListener('click', function() {
 	    this.hide();
+	    this.settingBtnClose.element.firstChild.style.visibility = 'hidden;'
 	  }.bind(this));
 
-	  this.hide();
+	  // this.hide();
 	};
 
 	InfoScreen.prototype.toggle = function () {
@@ -3489,11 +3497,13 @@
 
 	InfoScreen.prototype.hide = function () {
 	  this.visible = false;
+	  this.settingBtnClose.element.firstChild.style.visibility = 'hidden';
 	  this.element.classList.remove('active');
 	  this.emit('hide');
 	};
 
 	InfoScreen.prototype.show = function () {
+	  this.settingBtnClose.element.firstChild.style.visibility = 'visible';
 	  this.visible = true;
 	  this.element.classList.add('active');
 	  this.emit('show');
@@ -3506,7 +3516,7 @@
 /* 31 */
 /***/ (function(module, exports) {
 
-	module.exports = "<div class=\"arrow arrow-left\">\n    <img src=\"assets/ToLeft.png\" />\n</div>\n<div id=\"info-tabset\">\n    <div id=\"info-main\" class=\"info-tab active\">\n        <div id=\"info-logo\">\n            <img src=\"assets/logo.png\"/>\n        </div>\n        <div id=\"info-meta\">\n            <p>Versão 3.0.2</p>\n            <a href=\"http://vlibras.gov.br\" target=\"_blank\">vlibras.gov.br</a>\n        </div>\n        <div id=\"info-text\">\n            <p>O VLibras é uma ferramenta aberta de distribuição livre, desenvolvida para melhorar o acesso à informação das pessoas surdas brasileiras.</p>\n            <p>Qualquer dúvida ou questionamento, envie uma mensagem para o Núcleo de Pesquisa e Extensão LAViD - Centro de Informática - UFPB através do e-mail. contato@lavid.ufpb.br</p>\n        </div>\n    </div>\n    <div id=\"info-realizadores\" class=\"info-tab\">\n        <h2>Realizadores</h2>\n\n        <div class=\"logo-group\">\n            <img class=\"logo\" src=\"assets/about_sti.png\">\n            <img class=\"logo\" src=\"assets/about_min-plan.png\">\n            <img class=\"logo\" src=\"assets/about_min-jus.png\">\n            <img class=\"logo\" src=\"assets/about_gov.png\">\n        </div>\n\n        <div class=\"logo-group\">\n            <img class=\"logo\" src=\"assets/about_lavid.png\">\n            <img class=\"logo\" src=\"assets/about_ufpb.png\">\n            <img class=\"logo\" src=\"assets/about_rnp.png\">\n        </div>\n\n        <div class=\"logo-group\">\n            <img class=\"logo\" src=\"assets/about_ufcg.png\">\n            <img class=\"logo\" src=\"assets/about_camara.png\">\n        </div>\n    </div>\n    <div id=\"info-tab-bullets\">\n        <span class=\"info-bullet active\"></span>\n        <span class=\"info-bullet\"></span>\n    </div>\n</div>\n<div class=\"arrow arrow-right active\">\n    <img src=\"assets/ToRight.png\" />\n</div>\n\n<div class=\"close-btn\">\n    <img class=\"icon\" src=\"assets/Close.png\">\n</div>"
+	module.exports = "<div class=\"arrow arrow-left\">\n    <img src=\"assets/ToLeft-2019.png\" />\n</div>\n<div id=\"info-tabset\">\n    <div id=\"info-main\" class=\"info-tab active\">\n        <div id=\"info-logo\">\n            <img src=\"assets/logo.png\"/>\n        </div>\n        <div id=\"info-meta\">\n            <p>Versão 3.0.2</p>\n            <a href=\"http://vlibras.gov.br\" target=\"_blank\">vlibras.gov.br</a>\n        </div>\n        <div id=\"info-text\">\n            <p>O VLibras é uma ferramenta aberta de distribuição livre, desenvolvida para melhorar o acesso à informação das pessoas surdas brasileiras.</p>\n            <p>Qualquer dúvida ou questionamento, envie uma mensagem para o Núcleo de Pesquisa e Extensão LAViD - Centro de Informática - UFPB através do e-mail. contato@lavid.ufpb.br</p>\n        </div>\n    </div>\n    <div id=\"info-realizadores\" class=\"info-tab\">\n        <h3>Realizadores</h3>\n\n        <div class=\"logo-group\">\n            <img class=\"logo\" src=\"assets/about_sti.png\">\n            <img class=\"logo\" src=\"assets/about_min-plan.png\">\n            <img class=\"logo\" src=\"assets/about_min-jus.png\">\n            <img class=\"logo\" src=\"assets/about_gov.png\">\n        </div>\n\n        <div class=\"logo-group\">\n            <img class=\"logo\" src=\"assets/about_lavid.png\">\n            <img class=\"logo\" src=\"assets/about_ufpb.png\">\n            <img class=\"logo\" src=\"assets/about_rnp.png\">\n        </div>\n\n        <div class=\"logo-group\">\n            <img class=\"logo\" src=\"assets/about_ufcg.png\">\n            <img class=\"logo\" src=\"assets/about_camara.png\">\n        </div>\n    </div>\n    <div id=\"info-tab-bullets\">\n        <span class=\"info-bullet active\"></span>\n        <span class=\"info-bullet\"></span>\n    </div>\n</div>\n<div class=\"arrow arrow-right active\">\n    <img src=\"assets/ToRight-2019.png\" />\n</div>"
 
 /***/ }),
 /* 32 */
@@ -3543,7 +3553,7 @@
 
 
 	// module
-	exports.push([module.id, ".info-screen {\n  position: absolute;\n  left: 0;\n  top: 0;\n  padding: 1em;\n  width: 100%;\n  height: 100%;\n  background-color: white;\n  color: black;\n  font-family: Arial, sans-serif;\n  text-align: center;\n  align-items: center;\n  -webkit-align-items: center;\n  font-size: 16px;\n  display: none;\n  -webkit-box-sizing: border-box;\n  -moz-box-sizing: border-box;\n  box-sizing: border-box; }\n  .info-screen.active {\n    display: -webkit-flex;\n    display: flex; }\n  .info-screen .arrow {\n    flex-grow: 1;\n    -webkit-flex-grow: 1;\n    visibility: hidden; }\n  .info-screen .arrow.active {\n    visibility: visible; }\n  .info-screen #info-tabset {\n    flex-grow: 4;\n    display: -webkit-flex;\n    display: flex;\n    flex-direction: column;\n    -webkit-flex-direction: column;\n    padding: 0 1em;\n    align-items: center;\n    -webkit-align-items: center; }\n  .info-screen #info-main {\n    max-width: 600px;\n    flex-direction: column;\n    -webkit-flex-direction: column; }\n  .info-screen #info-logo img {\n    max-height: 24vh; }\n  .info-screen #info-realizadores {\n    flex-direction: column;\n    align-items: stretch;\n    -webkit-flex-direction: column;\n    -webkit-align-items: stretch; }\n    .info-screen #info-realizadores.active {\n      display: flex; }\n    .info-screen #info-realizadores .logo {\n      margin: 0.5em 0.35em;\n      min-width: 10%;\n      max-width: 30%;\n      max-height: 15vh; }\n      .info-screen #info-realizadores .logo .short-ver {\n        max-width: none;\n        min-height: 16px; }\n    .info-screen #info-realizadores .logo-group {\n      display: flex;\n      padding: 0.5% 4%;\n      flex-direction: row;\n      flex-wrap: wrap;\n      align-items: center;\n      justify-content: space-around;\n      -webkit-flex-direction: row;\n      -webkit-flex-wrap: wrap;\n      -webkit-align-items: center;\n      -webkit-justify-content: space-around; }\n  .info-screen .info-tab {\n    flex-grow: 3;\n    -webkit-flex-grow: 3;\n    display: none; }\n  .info-screen .info-tab.active {\n    display: block; }\n  .info-screen #info-meta p {\n    margin: .5em 0 0; }\n  .info-screen #info-meta a {\n    text-decoration: none; }\n  .info-screen .info-bullet:before {\n    content: url(assets/CounterOff.png); }\n  .info-screen .info-bullet.active:before {\n    content: url(assets/CounterOn.png); }\n  .info-screen #info-tab-bullets {\n    width: 100%;\n    height: 16px;\n    text-align: center;\n    flex-grow: 1;\n    -webkit-flex-grow: 1;\n    margin-top: 4%; }\n  .info-screen .close-btn {\n    position: absolute;\n    top: 8px;\n    right: 6px;\n    z-index: 4; }\n    .info-screen .close-btn img.icon {\n      width: 34px;\n      height: 34px; }\n\n@media only screen and (-moz-min-device-pixel-ratio: 2), only screen and (-o-min-device-pixel-ratio: 2 / 1), only screen and (-webkit-min-device-pixel-ratio: 2), only screen and (min-device-pixel-ratio: 2) {\n  #info-realizadores .logo {\n    margin: 0.5em 0.35em;\n    min-width: 10%;\n    max-width: 50%;\n    max-height: 18vh; } }\n\n@media only screen and (max-height: 360px) {\n  #info-main {\n    font-size: 0.84em; } }\n", ""]);
+	exports.push([module.id, ".info-screen {\n  position: absolute;\n  left: 0;\n  top: 10%;\n  padding: 1em;\n  width: 100%;\n  height: 90%;\n  background-color: white;\n  color: black;\n  font-family: Arial, sans-serif;\n  text-align: center;\n  align-items: center;\n  -webkit-align-items: center;\n  font-size: 14px;\n  display: none;\n  -webkit-box-sizing: border-box;\n  -moz-box-sizing: border-box;\n  box-sizing: border-box; }\n  .info-screen.active {\n    display: -webkit-flex;\n    display: flex; }\n  .info-screen .arrow {\n    flex-grow: 1;\n    -webkit-flex-grow: 1;\n    visibility: hidden; }\n  .info-screen .arrow.active {\n    visibility: visible; }\n  .info-screen #info-tabset {\n    position: relative;\n    top: 0;\n    flex-grow: 4;\n    display: -webkit-flex;\n    display: flex;\n    flex-direction: column;\n    -webkit-flex-direction: column;\n    padding: 0;\n    height: 100%;\n    width: 100%;\n    align-items: center;\n    -webkit-align-items: center; }\n  .info-screen #info-main {\n    max-width: 600px;\n    flex-direction: column;\n    -webkit-flex-direction: column; }\n    .info-screen #info-main #info-text {\n      font-size: 3.2vh; }\n  .info-screen #info-logo img {\n    height: 90px; }\n  .info-screen #info-realizadores {\n    height: 100%;\n    flex-direction: column;\n    align-items: stretch;\n    -webkit-flex-direction: column;\n    -webkit-align-items: stretch; }\n    .info-screen #info-realizadores.active {\n      display: flex; }\n    .info-screen #info-realizadores .logo {\n      margin: 0.5em 0.35em;\n      min-width: 10%;\n      max-width: 30%;\n      max-height: 15vh; }\n      .info-screen #info-realizadores .logo .short-ver {\n        max-width: none;\n        min-height: 16px; }\n    .info-screen #info-realizadores .logo-group {\n      display: flex;\n      padding: 0.5% 2%;\n      flex-direction: row;\n      flex-wrap: wrap;\n      align-items: center;\n      justify-content: space-around;\n      -webkit-flex-direction: row;\n      -webkit-flex-wrap: wrap;\n      -webkit-align-items: center;\n      -webkit-justify-content: space-around; }\n  .info-screen .info-tab {\n    flex-grow: 3;\n    -webkit-flex-grow: 3;\n    display: none; }\n  .info-screen .info-tab.active {\n    display: block; }\n  .info-screen #info-meta p {\n    margin: .5em 0 0; }\n  .info-screen #info-meta a {\n    text-decoration: none; }\n  .info-screen .info-bullet:before {\n    content: url(assets/CounterOff.png); }\n  .info-screen .info-bullet.active:before {\n    content: url(assets/CounterOn.png); }\n  .info-screen #info-tab-bullets {\n    width: 100%;\n    height: auto;\n    position: absolute;\n    bottom: 3%;\n    text-align: center;\n    flex-grow: 1;\n    -webkit-flex-grow: 1; }\n  .info-screen .close-btn {\n    position: absolute;\n    top: 8px;\n    right: 6px;\n    z-index: 4; }\n    .info-screen .close-btn img.icon {\n      width: 34px;\n      height: 34px; }\n\n@media only screen and (-moz-min-device-pixel-ratio: 2), only screen and (-o-min-device-pixel-ratio: 2 / 1), only screen and (-webkit-min-device-pixel-ratio: 2), only screen and (min-device-pixel-ratio: 2) {\n  #info-realizadores .logo {\n    margin: 0.5em 0.35em;\n    min-width: 10%;\n    max-width: 50%;\n    max-height: 18vh; } }\n\n@media only screen and (max-height: 360px) {\n  #info-main {\n    font-size: 0.84em; } }\n", ""]);
 
 	// exports
 
@@ -6754,7 +6764,7 @@
 
 
 	// module
-	exports.push([module.id, "[vw] {\n  position: fixed;\n  max-width: 70vw;\n  right: 0;\n  top: 50%;\n  margin-top: -32vh;\n  z-index: 1;\n  display: none;\n  font-family: Arial;\n  color: #000; }\n  [vw].enabled {\n    display: block; }\n  [vw].active {\n    margin-top: -285px; }\n  [vw].maximize {\n    top: 6vh;\n    left: 6vh;\n    right: 6vh;\n    bottom: 6vh;\n    max-width: initial;\n    margin-top: 0; }\n  [vw].left {\n    left: 0;\n    right: initial; }\n\n[vp] {\n  position: relative;\n  height: 100%;\n  width: 100%;\n  z-index: 1;\n  overflow: hidden;\n  display: flex;\n  flex-direction: row;\n  justify-content: center;\n  align-items: center; }\n  [vp] [vp-message-box] {\n    position: absolute;\n    z-index: 5; }\n  [vp] [vp-info-screen] {\n    z-index: 3; }\n  [vp] [vp-controls] {\n    position: absolute;\n    max-width: 560px;\n    z-index: 2;\n    bottom: -12px;\n    left: 7px; }\n  [vp] [vp-settings-btn] {\n    z-index: 2; }\n  [vp] [vp-dictionary] {\n    z-index: 3; }\n\n.vw-text:hover {\n  background-color: rgba(255, 102, 0, 0.5);\n  color: #000;\n  cursor: pointer; }\n\n.vw-text-active {\n  background-color: #7CFC00;\n  color: #000; }\n\n#gameContainer {\n  height: 70%;\n  width: 92%;\n  border-radius: 10px;\n  -webkit-mask-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAIAAACQd1PeAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAA5JREFUeNpiYGBgAAgwAAAEAAGbA+oJAAAAAElFTkSuQmCC);\n  /* this fixes the overflow:hidden in Chrome/Opera */ }\n", ""]);
+	exports.push([module.id, "[vw] {\n  position: fixed;\n  max-width: 70vw;\n  right: 0;\n  top: 50%;\n  margin-top: -32vh;\n  z-index: 1;\n  display: none;\n  font-family: Arial;\n  color: #000; }\n  [vw].enabled {\n    display: block; }\n  [vw].active {\n    margin-top: -285px; }\n  [vw].maximize {\n    top: 6vh;\n    left: 6vh;\n    right: 6vh;\n    bottom: 6vh;\n    max-width: initial;\n    margin-top: 0; }\n  [vw].left {\n    left: 0;\n    right: initial; }\n\n[vp] {\n  position: relative;\n  height: 100%;\n  width: 100%;\n  z-index: 1;\n  overflow: hidden;\n  display: flex;\n  flex-direction: row;\n  justify-content: center;\n  align-items: center; }\n  [vp] [vp-message-box] {\n    position: absolute;\n    z-index: 5; }\n  [vp] [vp-info-screen] {\n    z-index: 3; }\n    [vp] [vp-info-screen] #info-text {\n      font-size: 1.5vh !important; }\n  [vp] [vp-controls] {\n    position: absolute;\n    max-width: 560px;\n    z-index: 2;\n    bottom: -12px;\n    left: 7px; }\n  [vp] [vp-settings-btn] {\n    z-index: 2; }\n  [vp] [vp-dictionary] {\n    z-index: 3; }\n\n.vw-text:hover {\n  background-color: rgba(255, 102, 0, 0.5);\n  color: #000;\n  cursor: pointer; }\n\n.vw-text-active {\n  background-color: #7CFC00;\n  color: #000; }\n\n#gameContainer {\n  height: 70%;\n  width: 92%;\n  border-radius: 10px;\n  -webkit-mask-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAIAAACQd1PeAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAA5JREFUeNpiYGBgAAgwAAAEAAGbA+oJAAAAAElFTkSuQmCC);\n  /* this fixes the overflow:hidden in Chrome/Opera */ }\n", ""]);
 
 	// exports
 

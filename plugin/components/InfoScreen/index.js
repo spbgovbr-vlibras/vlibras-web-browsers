@@ -4,7 +4,8 @@ var EventEmitter = require('events').EventEmitter;
 var infoScreenTpl = require('./info-screen.html');
 require('./info-screen.scss');
 
-function InfoScreen() {
+function InfoScreen(settingBtnClose) {
+  this.settingBtnClose = settingBtnClose;
   this.visible = false;
 }
 
@@ -20,7 +21,11 @@ InfoScreen.prototype.load = function (element) {
   var left = this.element.querySelector('.arrow-left');
   var right = this.element.querySelector('.arrow-right');
   var bullets = this.element.querySelectorAll('.info-bullet');
-  var close = this.element.querySelector('.close-btn');
+  
+  
+  
+
+  
 
   left.addEventListener('click', function() {
     realizadores.classList.remove('active');
@@ -44,11 +49,12 @@ InfoScreen.prototype.load = function (element) {
     bullets[1].classList.add('active');
   });
 
-  close.addEventListener('click', function() {
+  this.settingBtnClose.element.firstChild.addEventListener('click', function() {
     this.hide();
+    this.settingBtnClose.element.firstChild.style.visibility = 'hidden;'
   }.bind(this));
 
-  this.hide();
+  // this.hide();
 };
 
 InfoScreen.prototype.toggle = function () {
@@ -58,11 +64,13 @@ InfoScreen.prototype.toggle = function () {
 
 InfoScreen.prototype.hide = function () {
   this.visible = false;
+  this.settingBtnClose.element.firstChild.style.visibility = 'hidden';
   this.element.classList.remove('active');
   this.emit('hide');
 };
 
 InfoScreen.prototype.show = function () {
+  this.settingBtnClose.element.firstChild.style.visibility = 'visible';
   this.visible = true;
   this.element.classList.add('active');
   this.emit('show');
