@@ -90,7 +90,7 @@
 	  this.info = new InfoScreen(this.settingBtnClose);
 	  this.settings = new Settings(this.player, this.info, this.settingBtnClose, this.Box, option);
 
-	  this.settingsBtn = new SettingsBtn(this.player, this.settings);
+	  this.settingsBtn = new SettingsBtn(this.player, this.settings, option);
 	  this.messageBox = new MessageBox();
 	  
 	  this.loadingRef = null;
@@ -279,7 +279,6 @@
 	Player.prototype.load = function (wrapper) {
 	  this.gameContainer = document.createElement('div');
 	  this.gameContainer.setAttribute("id", "gameContainer");
-	  this.gameContainer.style.position = "absolute";
 	  this.gameContainer.classList.add('emscripten');
 
 	  if ('function' == typeof this.options.progress) {
@@ -3410,7 +3409,7 @@
 
 
 	// module
-	exports.push([module.id, ".switch {\n  position: relative;\n  display: inline-block;\n  width: 60px;\n  height: 21px;\n  float: right;\n  margin-top: -10px; }\n\n/* Hide default HTML checkbox */\n.switch input {\n  opacity: 0;\n  width: 0;\n  height: 0; }\n\n/* The slider */\n.slider-check {\n  position: absolute;\n  cursor: pointer;\n  top: 0;\n  left: 0;\n  right: 0;\n  bottom: 0;\n  background-color: #2196F3; }\n\n.slider-check:before {\n  position: absolute;\n  content: \"\";\n  height: 26px;\n  width: 26px;\n  left: 4px;\n  bottom: 4px;\n  background-color: white; }\n\ninput:checked + .slider-check {\n  background-color: #ccc; }\n\ninput:focus + .slider-check {\n  box-shadow: 0 0 1px #ccc; }\n\ninput:checked + .slider-check:before {\n  -webkit-transform: translateX(26px);\n  -ms-transform: translateX(26px);\n  transform: translateX(26px); }\n\n/* Rounded sliders */\n.slider-check.round {\n  border-radius: 34px; }\n\n.slider-check.round:before {\n  border-radius: 50%;\n  top: -3px; }\n", ""]);
+	exports.push([module.id, ".switch {\n  position: relative;\n  display: inline-block;\n  width: 60px;\n  height: 21px;\n  float: right;\n  margin-top: -10px; }\n\n/* Hide default HTML checkbox */\n.switch input {\n  opacity: 0;\n  width: 0;\n  height: 0; }\n\n/* The slider */\n.slider-check {\n  position: absolute;\n  cursor: pointer;\n  top: 0;\n  left: 0;\n  right: 0;\n  bottom: 0;\n  background-color: #2196F3; }\n\n.slider-check:before {\n  position: absolute;\n  content: \"\";\n  height: 26px;\n  width: 26px;\n  left: 4px;\n  bottom: 4px;\n  background-color: white; }\n\ninput:checked + .slider-check {\n  background-color: #2196F3; }\n\ninput:focus + .slider-check {\n  box-shadow: 0 0 1px #ccc; }\n\ninput:checked + .slider-check:before {\n  -webkit-transform: translateX(26px);\n  -ms-transform: translateX(26px);\n  transform: translateX(26px); }\n\n/* Rounded sliders */\n.slider-check.round {\n  border-radius: 34px; }\n\n.slider-check.round:before {\n  border-radius: 50%;\n  top: -3px; }\n", ""]);
 
 	// exports
 
@@ -3428,9 +3427,10 @@
 	var settingsBtnTpl = __webpack_require__(29);
 	__webpack_require__(30);
 
-	function SettingsBtn(player, screen) {
+	function SettingsBtn(player, screen, option) {
 	  this.player = player;
 	  this.screen = screen;
+	  enable = option.enableMoveWindow;
 	}
 
 	SettingsBtn.prototype.load = function (element) {
@@ -3438,11 +3438,24 @@
 	  this.element.innerHTML = settingsBtnTpl;
 	  this.element.classList.add('settings-btn');
 
-	  this.element.addEventListener('click', function () {
+	  var btn_menu = this.element.querySelector('.settings-btn-menu');
+	  var btn_close = this.element.querySelector('.settings-btn-close');
+
+	  if (enable) {
+	    btn_close.style.display = 'block';
+	  }
+
+
+	  btn_menu.addEventListener('click', function () {
 	    this.element.classList.toggle('active');
 	    this.player.pause();
 	    this.screen.toggle();
 	  }.bind(this));
+
+	  btn_close.addEventListener('click', function () {
+	    window.dispatchEvent(new CustomEvent('vp-widget-close', {detail: {close: true}})); 
+	  }.bind(this));
+
 	};
 
 	module.exports = SettingsBtn;
@@ -3452,7 +3465,7 @@
 /* 29 */
 /***/ (function(module, exports) {
 
-	module.exports = "<img src=\"assets/component-menu.png\">\n"
+	module.exports = "<img class=\"settings-btn-menu\" src=\"assets/component-menu.png\">\n<img class=\"settings-btn-close\" src=\"assets/close.svg\">\n"
 
 /***/ }),
 /* 30 */
@@ -3489,7 +3502,7 @@
 
 
 	// module
-	exports.push([module.id, ".settings-btn {\n  position: absolute;\n  top: 0;\n  left: 0;\n  z-index: 1;\n  height: 100%;\n  margin-left: 20px;\n  cursor: pointer; }\n  .settings-btn img {\n    position: absolute;\n    top: 50%;\n    transform: translateY(-50%);\n    width: 20px;\n    height: 18px; }\n", ""]);
+	exports.push([module.id, ".settings-btn {\n  position: absolute;\n  z-index: 1;\n  height: 100%;\n  margin-left: 20px;\n  cursor: pointer; }\n  .settings-btn .settings-btn-menu {\n    position: absolute;\n    top: 50%;\n    transform: translateY(-50%);\n    width: 20px;\n    height: 18px;\n    left: 0; }\n  .settings-btn .settings-btn-close {\n    display: none;\n    position: absolute;\n    top: 50%;\n    transform: translateY(-50%);\n    margin-left: 240px; }\n", ""]);
 
 	// exports
 
@@ -6191,7 +6204,7 @@
 
 
 	// module
-	exports.push([module.id, ".controls {\n  display: -webkit-box;\n  display: -webkit-flex;\n  display: -moz-flex;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-align: center;\n  -ms-flex-align: center;\n  -webkit-align-items: center;\n  -moz-align-items: center;\n  align-items: center;\n  padding: 10px;\n  width: calc(100% - 10px);\n  height: 60px;\n  margin: 0 5px;\n  background-size: 100% 100%; }\n  .controls .controls-play, .controls .controls-subtitles, .controls .controls-slider {\n    margin: 0 9px;\n    cursor: pointer; }\n  .controls .controls-play:before {\n    content: url(assets/component-play.png); }\n  .controls.playing .controls-play:before {\n    content: url(assets/component-pause.png); }\n  .controls.stopped .controls-play:before {\n    content: url(assets/component-restart.png); }\n  .controls.subtitles .controls-subtitles:before {\n    content: url(assets/component-legenda-habilitar.png); }\n  .controls .controls-subtitles:before {\n    content: url(assets/component-legenda-desabilitar.png); }\n\n@-webkit-keyframes spin {\n  0% {\n    -webkit-transform: rotate(0deg);\n    /* Chrome, Opera 15+, Safari 3.1+ */\n    -ms-transform: rotate(0deg);\n    /* IE 9 */\n    transform: rotate(0deg);\n    /* Firefox 16+, IE 10+, Opera */ }\n  100% {\n    -webkit-transform: rotate(360deg);\n    /* Chrome, Opera 15+, Safari 3.1+ */\n    -ms-transform: rotate(360deg);\n    /* IE 9 */\n    transform: rotate(360deg);\n    /* Firefox 16+, IE 10+, Opera */ } }\n\n@keyframes spin {\n  0% {\n    -webkit-transform: rotate(0deg);\n    /* Chrome, Opera 15+, Safari 3.1+ */\n    -ms-transform: rotate(0deg);\n    /* IE 9 */\n    transform: rotate(0deg);\n    /* Firefox 16+, IE 10+, Opera */ }\n  100% {\n    -webkit-transform: rotate(360deg);\n    /* Chrome, Opera 15+, Safari 3.1+ */\n    -ms-transform: rotate(360deg);\n    /* IE 9 */\n    transform: rotate(360deg);\n    /* Firefox 16+, IE 10+, Opera */ } }\n\n.speed-default {\n  border: 1px solid grey;\n  border-radius: 3px 3px 3px 3px;\n  padding: 3px 4px;\n  width: 100%;\n  height: 100%;\n  color: grey;\n  font-size: 15px;\n  cursor: pointer; }\n\n.elem-speed {\n  display: none;\n  position: absolute;\n  bottom: 20px;\n  cursor: pointer; }\n\n.block-speed {\n  list-style-type: none;\n  background-color: #003F86;\n  color: white;\n  font-size: 12px;\n  width: 25px;\n  text-align: center; }\n\n.block-speed:hover {\n  color: #67C8D5; }\n\n.controls-speed {\n  position: relative; }\n\n.controls-speed-number {\n  width: 25px;\n  padding-left: 0px;\n  margin-top: 0px;\n  margin-bottom: 0px; }\n\n.block-speed-3 {\n  border-radius: 5px 5px 0px 0px; }\n\n.controls-slider {\n  -webkit-appearance: none;\n  width: 50%;\n  margin: 2.5px 0;\n  height: 7px;\n  background-color: transparent; }\n  .controls-slider .slider {\n    width: 100%;\n    height: 7px; }\n    .controls-slider .slider.noUi-target {\n      box-shadow: none;\n      border: 0; }\n    .controls-slider .slider.noUi-connect {\n      background-color: #003F86; }\n    .controls-slider .slider .noUi-background {\n      background-color: #333;\n      box-shadow: none; }\n    .controls-slider .slider .noUi-handle {\n      width: 20px;\n      height: 20px;\n      left: -8px;\n      top: -8px;\n      border-radius: 50%; }\n    .controls-slider .slider .noUi-handle:after, .controls-slider .slider .noUi-handle:before {\n      display: none; }\n", ""]);
+	exports.push([module.id, ".controls {\n  display: -webkit-box;\n  display: -webkit-flex;\n  display: -moz-flex;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-align: center;\n  -ms-flex-align: center;\n  -webkit-align-items: center;\n  -moz-align-items: center;\n  align-items: center;\n  padding: 10px;\n  width: calc(100% - 10px);\n  height: 60px;\n  margin: 0 5px;\n  background-size: 100% 100%; }\n  .controls .controls-play, .controls .controls-subtitles, .controls .controls-slider {\n    margin: 0 9px;\n    cursor: pointer; }\n  .controls .controls-play:before {\n    content: url(assets/component-play.png); }\n  .controls.playing .controls-play:before {\n    content: url(assets/component-pause.png); }\n  .controls.stopped .controls-play:before {\n    content: url(assets/component-restart.png); }\n  .controls.subtitles .controls-subtitles:before {\n    content: url(assets/component-legenda-habilitar.png); }\n  .controls .controls-subtitles:before {\n    content: url(assets/component-legenda-desabilitar.png); }\n\n@-webkit-keyframes spin {\n  0% {\n    -webkit-transform: rotate(0deg);\n    /* Chrome, Opera 15+, Safari 3.1+ */\n    -ms-transform: rotate(0deg);\n    /* IE 9 */\n    transform: rotate(0deg);\n    /* Firefox 16+, IE 10+, Opera */ }\n  100% {\n    -webkit-transform: rotate(360deg);\n    /* Chrome, Opera 15+, Safari 3.1+ */\n    -ms-transform: rotate(360deg);\n    /* IE 9 */\n    transform: rotate(360deg);\n    /* Firefox 16+, IE 10+, Opera */ } }\n\n@keyframes spin {\n  0% {\n    -webkit-transform: rotate(0deg);\n    /* Chrome, Opera 15+, Safari 3.1+ */\n    -ms-transform: rotate(0deg);\n    /* IE 9 */\n    transform: rotate(0deg);\n    /* Firefox 16+, IE 10+, Opera */ }\n  100% {\n    -webkit-transform: rotate(360deg);\n    /* Chrome, Opera 15+, Safari 3.1+ */\n    -ms-transform: rotate(360deg);\n    /* IE 9 */\n    transform: rotate(360deg);\n    /* Firefox 16+, IE 10+, Opera */ } }\n\n.speed-default {\n  border: 1px solid grey;\n  border-radius: 3px 3px 3px 3px;\n  padding: 3px 4px;\n  width: 100%;\n  height: 100%;\n  color: grey;\n  font-size: 15px;\n  cursor: pointer; }\n\n.elem-speed {\n  display: none;\n  position: absolute;\n  bottom: 20px;\n  cursor: pointer; }\n\n.block-speed {\n  list-style-type: none;\n  background-color: #003F86;\n  color: white;\n  font-size: 12px;\n  width: 25px;\n  text-align: center; }\n\n.block-speed:hover {\n  color: #67C8D5; }\n\n.controls-speed {\n  position: relative;\n  -webkit-touch-callout: none;\n  -webkit-user-select: none;\n  -khtml-user-select: none;\n  -moz-user-select: none;\n  -ms-user-select: none;\n  user-select: none; }\n\n.controls-speed-number {\n  width: 25px;\n  padding-left: 0px;\n  margin-top: 0px;\n  margin-bottom: 0px; }\n\n.block-speed-3 {\n  border-radius: 5px 5px 0px 0px; }\n\n.controls-slider {\n  -webkit-appearance: none;\n  width: 50%;\n  margin: 2.5px 0;\n  height: 7px;\n  background-color: transparent; }\n  .controls-slider .slider {\n    width: 100%;\n    height: 7px; }\n    .controls-slider .slider.noUi-target {\n      box-shadow: none;\n      border: 0; }\n    .controls-slider .slider.noUi-connect {\n      background-color: #003F86; }\n    .controls-slider .slider .noUi-background {\n      background-color: #333;\n      box-shadow: none; }\n    .controls-slider .slider .noUi-handle {\n      width: 20px;\n      height: 20px;\n      left: -8px;\n      top: -8px;\n      border-radius: 50%; }\n    .controls-slider .slider .noUi-handle:after, .controls-slider .slider .noUi-handle:before {\n      display: none; }\n", ""]);
 
 	// exports
 
@@ -6554,11 +6567,13 @@
 	  
 	  window.onload = () => {
 	    const vw = document.querySelector('[vw]');
+		const wrapper = document.querySelector('[vw-plugin-wrapper]');
+		const access = document.querySelector('[vw-access-button]');
 
 	    accessButton.load(document.querySelector('[vw-access-button]'), vw);
 	    widgetWrapper.load(document.querySelector('[vw-plugin-wrapper]'));
 
-		window.addEventListener('vp-widget-wrapper-set-side', (event) => { console.log('faze algo com:', event.detail)
+		window.addEventListener('vp-widget-wrapper-set-side', (event) => { console.log(':', event.detail)
 			if(event.detail.right) {
 				vw.style.left = '0';
 				vw.style.right = 'initial';
@@ -6567,6 +6582,12 @@
 				vw.style.left = 'initial';
 			}
 
+		});
+
+
+		window.addEventListener('vp-widget-close', (event) => { 
+			access.classList.toggle('active');
+	    	wrapper.classList.toggle('active');
 		});
 
 	    
