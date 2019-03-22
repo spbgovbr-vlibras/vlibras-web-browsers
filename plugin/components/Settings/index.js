@@ -46,11 +46,21 @@ Settings.prototype.load = function (element) {
 
   }.bind(this));
 
+  var OnLeft = 1;
   var selector = this.element.querySelector('input[name=checkbox]')
 
-  selector.addEventListener('change', function() {
-      if(!(selector.checked)) {window.dispatchEvent(new CustomEvent('vp-widget-wrapper-set-side', {detail: {right: true}}));}
-      else{window.dispatchEvent(new CustomEvent('vp-widget-wrapper-set-side', {detail: {right: false}}));}
+  this.element.querySelector('.content > ul .position')
+    .addEventListener('click', function() {
+      if(OnLeft){
+        window.dispatchEvent(new CustomEvent('vp-widget-wrapper-set-side', {detail: {right: true}})); 
+        OnLeft=0;
+        selector.checked = false;
+      }
+      else{
+        window.dispatchEvent(new CustomEvent('vp-widget-wrapper-set-side', {detail: {right: false}})); 
+        OnLeft=1;
+        selector.checked = true;
+      }
     }.bind(this));
 
 
