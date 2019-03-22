@@ -14,7 +14,7 @@ AccessButton.prototype.load = function (element, vw) {
     this.element.classList.toggle('active');
     this.pluginWrapper.element.classList.toggle('active');
 
-    window.plugin = (window.plugin || new window.VLibras.Plugin());
+    window.plugin = (window.plugin || new window.VLibras.Plugin({enableMoveWindow: true}));
     addTagsTexts(vw);
   });
 };

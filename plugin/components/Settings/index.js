@@ -3,13 +3,15 @@ var EventEmitter = require('events').EventEmitter;
 
 var settingsTpl = require('./settings.html');
 require('./settings.scss');
+require('./switch.scss');
 
-function Settings(player, infoScreen, btnClose, box) {
+function Settings(player, infoScreen, btnClose, box, option) {
   this.visible = false;
   this.player = player;
   this.infoScreen = infoScreen;
   this.btnClose = btnClose;
   this.box = box;
+  enable = option.enableMoveWindow;
 }
 
 inherits(Settings, EventEmitter);
@@ -26,16 +28,41 @@ Settings.prototype.load = function (element) {
   // Close events
   this.element.querySelector('.wall')
     .addEventListener('click', this.hide.bind(this));
-  // this.element.querySelector('.btn-close')
-  //   .addEventListener('click', this.hide.bind(this));
+
   this.btnClose.element.firstChild.addEventListener('click',this.hide.bind(this))
   // Selected region
   this.selectedRegion = this.element.querySelector('.content > ul .localism');
+
+  if (enable) {
+    this.position = this.element.querySelector('.content > ul .position');
+    this.position.style.display = 'block';
+  }
+
   this.selectedRegion._name = this.selectedRegion.querySelector('.abbrev');
   this.selectedRegion._flag = this.selectedRegion.querySelector('img.flag');
   this.selectedRegion.addEventListener('click', function() {
-    this.localism.classList.toggle('active');
+  this.localism.classList.toggle('active');
+
+
   }.bind(this));
+
+  var OnLeft = 1;
+  var selector = this.element.querySelector('input[name=checkbox]')
+
+  this.element.querySelector('.content > ul .position')
+    .addEventListener('click', function() {
+      if(OnLeft){
+        window.dispatchEvent(new CustomEvent('vp-widget-wrapper-set-side', {detail: {right: true}})); 
+        OnLeft=0;
+        selector.checked = false;
+      }
+      else{
+        window.dispatchEvent(new CustomEvent('vp-widget-wrapper-set-side', {detail: {right: false}})); 
+        OnLeft=1;
+        selector.checked = true;
+      }
+    }.bind(this));
+
 
   // About button
   this.element.querySelector('.content > ul .about')
