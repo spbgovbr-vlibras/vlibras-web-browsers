@@ -2839,11 +2839,21 @@
 
 	  }.bind(this));
 
+	  var OnLeft = 1;
 	  var selector = this.element.querySelector('input[name=checkbox]')
 
-	  selector.addEventListener('change', function() {
-	      if(!(selector.checked)) {window.dispatchEvent(new CustomEvent('vp-widget-wrapper-set-side', {detail: {right: true}}));}
-	      else{window.dispatchEvent(new CustomEvent('vp-widget-wrapper-set-side', {detail: {right: false}}));}
+	  this.element.querySelector('.content > ul .position')
+	    .addEventListener('click', function() {
+	      if(OnLeft){
+	        window.dispatchEvent(new CustomEvent('vp-widget-wrapper-set-side', {detail: {right: true}})); 
+	        OnLeft=0;
+	        selector.checked = false;
+	      }
+	      else{
+	        window.dispatchEvent(new CustomEvent('vp-widget-wrapper-set-side', {detail: {right: false}})); 
+	        OnLeft=1;
+	        selector.checked = true;
+	      }
 	    }.bind(this));
 
 
@@ -3012,7 +3022,7 @@
 /* 20 */
 /***/ (function(module, exports) {
 
-	module.exports = "<div class=\"content\">\n    <ul>\n        <li class=\"localism clickable\">\n            <div class=\"container\">\n                <span class=\"name\">Regionalismo</span>\n                <img class=\"flag\" src=\"assets/brazil.png\">\n                <span class=\"abbrev\">BR</span>\n                <!-- <img class=\"arrow\" src=\"assets/expander.png\"> -->\n            </div>\n        </li>\n\n        <li class=\"position clickable\">\n            <div class=\"container\">\n                <span class=\"name\">Posicionamento da tela</span>\n                <label class=\"switch\">\n                    <input checked type=\"checkbox\" name=\"checkbox\">\n                    <span class=\"slider-check round\"></span>\n                </label>\n            </div>\n        </li>\n\n        <li class=\"about clickable\">\n            <div class=\"container\">\n                <span class=\"name\">Sobre</span>\n            </div>\n        </li>\n    </ul>\n\n    <div class=\"localism\">\n        <div class=\"national clickable\">\n            <img class=\"flag\" src=\"assets/brazil.png\">\n            <span class=\"name\">BR - Padrão Nacional</span>\n        </div>\n\n        <div class=\"regions\"></div>\n    </div>\n    <div class=\"vlibras-logo\">\n        <span>VLIBRAS</span>\n        <img class=\"logo\" src=\"assets/logoicon.png\">\n    </div>\n</div>\n\n<div class=\"wall\"></div>"
+	module.exports = "<div class=\"content\">\n    <ul>\n        <li class=\"localism clickable\">\n            <div class=\"container\">\n                <span class=\"name\">Regionalismo</span>\n                <img class=\"flag\" src=\"assets/brazil.png\">\n                <span class=\"abbrev\">BR</span>\n                <!-- <img class=\"arrow\" src=\"assets/expander.png\"> -->\n            </div>\n        </li>\n\n        <li class=\"position clickable\">\n            <div class=\"container\">\n                <span class=\"name\">Posicionamento da tela</span>\n                <label class=\"switch\">\n                    <input checked disabled type=\"checkbox\" name=\"checkbox\">\n                    <span class=\"slider-check round\"></span>\n                </label>\n            </div>\n        </li>\n\n        <li class=\"about clickable\">\n            <div class=\"container\">\n                <span class=\"name\">Sobre</span>\n            </div>\n        </li>\n    </ul>\n\n    <div class=\"localism\">\n        <div class=\"national clickable\">\n            <img class=\"flag\" src=\"assets/brazil.png\">\n            <span class=\"name\">BR - Padrão Nacional</span>\n        </div>\n\n        <div class=\"regions\"></div>\n    </div>\n    <div class=\"vlibras-logo\">\n        <span>VLIBRAS</span>\n        <img class=\"logo\" src=\"assets/logoicon.png\">\n    </div>\n</div>\n\n<div class=\"wall\"></div>"
 
 /***/ }),
 /* 21 */
