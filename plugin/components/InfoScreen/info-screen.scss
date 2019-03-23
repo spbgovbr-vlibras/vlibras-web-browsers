@@ -133,12 +133,34 @@
     text-decoration: none;
   }
 
+
+
+    // img{
+    //   display: none;
+    //   width: 15px;
+    //   height: 15px;
+      
+    //   .info-bullet::before{
+    //     content: url(assets/CounterOff.png);
+    //   }
+    //   .info-bullet.active::before{
+    //     content:url(assets/CounterOn-1.png);
+
+    //   }
+    
+    
+  
   .info-bullet:before {
-    content: url(assets/CounterOff.png);
+    background-image: url('assets/CounterOff.png');
+    background-size: 15px 15px;
+    display: inline-block;
+    width: 15px; 
+    height: 15px;
+    content:"";
   }
 
   .info-bullet.active:before {
-    content: url(assets/CounterOn.png);
+    background-image: url('assets/CounterOn-1.png')
   }
 
   #info-tab-bullets {
