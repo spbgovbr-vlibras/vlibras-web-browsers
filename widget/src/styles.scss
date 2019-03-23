@@ -39,10 +39,7 @@
   width: 100%;
   z-index: 1;
   overflow: hidden;
-  display: flex;
-   flex-direction: row;
-   justify-content: center;
-   align-items: center;
+ 
 
   [vp-message-box] {
     position: absolute;
@@ -92,6 +89,12 @@
 }
 
 #gameContainer {
+
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%,-50%);
+ 
   height: 70%;
   width: 92%;
   border-radius: 10px;
