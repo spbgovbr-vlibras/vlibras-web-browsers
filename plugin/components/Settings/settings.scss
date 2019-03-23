@@ -154,21 +154,22 @@
 
       .national {
         position: relative;
+        width: calc(33.33%);
         margin-top: 6px;
-        padding: 16px 8px;
+        padding-top: 16px;
         display: flex;
         flex-direction: row;
-        flex-wrap: wrap;
-
+        justify-content: center;
+        align-items: center;
 
         .name {
           color: black;
-          text-align: center;
-          transform: translate(50%);
+          position: relative;
         }
 
         .flag {
-          transform: translate(40%);
+          position: relative;
+         
         }
       }
 
