@@ -12,10 +12,26 @@
   background-size: 100% 100%;
   
 
-  .controls-play, .controls-subtitles, .controls-slider  {
+  .controls-subtitles, .controls-slider  {
     margin: 0 9px;
     cursor: pointer;
   }
+
+  &.playing .controls-play:before {
+    margin: 0 11px;
+    cursor: pointer;
+  }
+
+  .controls-play:before {
+    margin: 0 8.5px;
+    cursor: pointer;
+  }
+
+  &.stopped .controls-play:before {
+    margin: 0 2px;
+    cursor: pointer;
+  }
+
 
   .controls-play:before { content: url(assets/component-play.png); }
   &.playing .controls-play:before { content: url(assets/component-pause.png);  }
