@@ -7,7 +7,7 @@ chrome/app/player
 firefox/data/player
 safari.safariextension/app/player
 webextensions/app/player
-widget/app/player
+widget/app/
 
 *.log
 **/.DS_Store
