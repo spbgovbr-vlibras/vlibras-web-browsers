@@ -4,9 +4,10 @@ var EventEmitter = require('events').EventEmitter;
 var infoScreenTpl = require('./info-screen.html');
 require('./info-screen.scss');
 
-function InfoScreen(settingBtnClose) {
+function InfoScreen(settingBtnClose, box) {
   this.settingBtnClose = settingBtnClose;
   this.visible = false;
+  this.box = box;
 }
 
 inherits(InfoScreen, EventEmitter);
@@ -65,12 +66,14 @@ InfoScreen.prototype.toggle = function () {
 InfoScreen.prototype.hide = function () {
   this.visible = false;
   this.settingBtnClose.element.firstChild.style.visibility = 'hidden';
+  this.box.element.querySelector('[settings-btn]').style.visibility = 'visible';
   this.element.classList.remove('active');
   this.emit('hide');
 };
 
 InfoScreen.prototype.show = function () {
   this.settingBtnClose.element.firstChild.style.visibility = 'visible';
+  this.box.element.querySelector('[settings-btn]').style.visibility = 'hidden';
   this.visible = true;
   this.element.classList.add('active');
   this.emit('show');

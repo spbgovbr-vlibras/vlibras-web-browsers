@@ -42,6 +42,7 @@ Settings.prototype.load = function (element) {
   this.selectedRegion._flag = this.selectedRegion.querySelector('img.flag');
   this.selectedRegion.addEventListener('click', function() {
   this.localism.classList.toggle('active');
+  this.box.element.querySelector('[settings-btn]').style.visibility = 'hidden';
 
 
   }.bind(this));
@@ -116,6 +117,8 @@ Settings.prototype.load = function (element) {
 Settings.prototype.setRegion = function (region) {
   // Deactivate localism panel
   this.localism.classList.remove('active');
+  this.box.element.querySelector('[settings-btn]').style.visibility = 'visible';
+  
 
   // Select new region
   this.region.classList.remove('selected');
