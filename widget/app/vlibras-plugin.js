@@ -88,7 +88,7 @@
 	  this.controls = new Controls(this.player, this.dictionary);
 	  this.Box = new Box();
 	  this.info = new InfoScreen(this.settingBtnClose, this.Box);
-	  this.settings = new Settings(this.player, this.info, this.settingBtnClose, this.Box, option);
+	  this.settings = new Settings(this.player, this.info, this.settingBtnClose, this.Box, this.dictionary, option);
 
 	  this.settingsBtn = new SettingsBtn(this.player, this.settings, option);
 	  this.messageBox = new MessageBox();
@@ -108,7 +108,7 @@
 	    
 	    this.settings.load(this.element.querySelector('[vp-settings]'));    
 	    this.info.load(this.element.querySelector('[vp-info-screen]'));
-	    // this.dictionary.load(this.element.querySelector('[vp-dictionary]'));
+	    this.dictionary.load(this.element.querySelector('[vp-dictionary]'));
 	    
 
 	  }.bind(this));
@@ -2801,12 +2801,13 @@
 	__webpack_require__(21);
 	__webpack_require__(25);
 
-	function Settings(player, infoScreen, btnClose, box, option) {
+	function Settings(player, infoScreen, btnClose, box, dictionary, option) {
 	  this.visible = false;
 	  this.player = player;
 	  this.infoScreen = infoScreen;
 	  this.btnClose = btnClose;
 	  this.box = box;
+	  this.dictionary = dictionary;
 	  enable = option.enableMoveWindow;
 	}
 
@@ -2820,7 +2821,10 @@
 
 	  // Localism panel
 	  this.localism = this.element.querySelector('.content > .localism');
+	  
+	  this.dictionaryBtn = this.element.querySelector('.dict');
 
+	  console.log(this.dictionaryBtn);
 	  // Close events
 	  this.element.querySelector('.wall')
 	    .addEventListener('click', this.hide.bind(this));
@@ -2839,10 +2843,13 @@
 	  this.selectedRegion.addEventListener('click', function() {
 	  this.localism.classList.toggle('active');
 	  this.box.element.querySelector('[settings-btn]').style.visibility = 'hidden';
-
+	  
 
 	  }.bind(this));
-
+	  this.dictionaryBtn.addEventListener('click', function(){
+	    this.dictionary.show();
+	    this.player.pause();
+	  }.bind(this));
 	  var OnLeft = 1;
 	  var selector = this.element.querySelector('input[name=checkbox]')
 
@@ -3028,7 +3035,7 @@
 /* 20 */
 /***/ (function(module, exports) {
 
-	module.exports = "<div class=\"content\">\n    <ul>\n        <li class=\"localism clickable\">\n            <div class=\"container\">\n                <span class=\"name\">Regionalismo</span>\n                <img class=\"flag\" src=\"assets/brazil.png\">\n                <span class=\"abbrev\">BR</span>\n                <!-- <img class=\"arrow\" src=\"assets/expander.png\"> -->\n            </div>\n        </li>\n\n        <li class=\"position clickable\">\n            <div class=\"container\">\n                <span class=\"name\">Posicionamento da tela</span>\n                <label class=\"switch\">\n                    <input checked disabled type=\"checkbox\" name=\"checkbox\">\n                    <span class=\"slider-check round\"></span>\n                </label>\n            </div>\n        </li>\n\n        <li class=\"about clickable\">\n            <div class=\"container\">\n                <span class=\"name\">Sobre</span>\n            </div>\n        </li>\n    </ul>\n\n    <div class=\"localism\">\n        <div class=\"national clickable\">\n            <img class=\"flag\" src=\"assets/brazil.png\">\n            <span class=\"name\">BR</span>\n        </div>\n        <div class=\"regions\"></div>\n    </div>\n    <div class=\"vlibras-logo\">\n        <span>VLIBRAS</span>\n        <img class=\"logo\" src=\"assets/logoicon.png\">\n    </div>\n</div>\n\n<div class=\"wall\"></div>"
+	module.exports = "<div class=\"content\">\n    <ul>\n        <li class=\"localism clickable\">\n            <div class=\"container\">\n                <span class=\"name\">Regionalismo</span>\n                <img class=\"flag\" src=\"assets/brazil.png\">\n                <span class=\"abbrev\">BR</span>\n                <!-- <img class=\"arrow\" src=\"assets/expander.png\"> -->\n            </div>\n        </li>\n        <li class=\"dict clickable\">\n            <div class=\"container\">\n                <span class=\"name\">Dicionário</span>\n            </div>\n        </li>\n        <li class=\"position clickable\">\n            <div class=\"container\">\n                <span class=\"name\">Posicionamento da tela</span>\n                <label class=\"switch\">\n                    <input checked disabled type=\"checkbox\" name=\"checkbox\">\n                    <span class=\"slider-check round\"></span>\n                </label>\n            </div>\n        </li>\n\n        <li class=\"about clickable\">\n            <div class=\"container\">\n                <span class=\"name\">Sobre</span>\n            </div>\n        </li>\n    </ul>\n\n    <div class=\"localism\">\n        <div class=\"national clickable\">\n            <img class=\"flag\" src=\"assets/brazil.png\">\n            <span class=\"name\">BR</span>\n        </div>\n        <div class=\"regions\"></div>\n    </div>\n    <div class=\"vlibras-logo\">\n        <span>VLIBRAS</span>\n        <img class=\"logo\" src=\"assets/logoicon.png\">\n    </div>\n</div>\n\n<div class=\"wall\"></div>"
 
 /***/ }),
 /* 21 */
@@ -3672,20 +3679,22 @@
 	  this.element.classList.add('dictionary');
 
 	  // Close button
-	  this.element.querySelector('.panel .bar .btn-close')
-	    .addEventListener('click', this.hide.bind(this));
+	  // this.element.querySelector('.panel .bar .btn-close')
+	  //   .addEventListener('click', this.hide.bind(this));
 
 	  // Signs trie
 	  this.signs = null;
 
 	  // List
 	  this.list = this.element.querySelector('ul');
+	  // Default first item
+	  this.defaultItem = this.list.querySelector('li');
 
 	  // Clear list method
 	  this.list._clear = function()
 	  {
 	    this.list.innerHTML = '';
-	    this.list.appendChild(this.defaultItem);
+	    // this.list.appendChild(this.defaultItem);
 	  }.bind(this);
 
 	  // Insert item method
@@ -3698,8 +3707,7 @@
 	    this.list.appendChild(item);
 	  }.bind(this);
 
-	  // Default first item
-	  this.defaultItem = this.list.querySelector('li');
+	  
 
 	  // Search
 	  this.element.querySelector('.panel .search input')
@@ -3776,7 +3784,7 @@
 /* 37 */
 /***/ (function(module, exports) {
 
-	module.exports = "<div class=\"panel\"> \n    <div class=\"bar\">\n        <span class=\"title\">Dicionario</span>\n        <img class=\"btn-close\" src=\"assets/Close.png\">\n    </div>\n\n    <div class=\"search\">\n        <input type=\"text\">\n        <span class=\"icon\">\n            <img src=\"assets/search.jpg\">\n        </span>\n    </div>\n</div>\n\n<ul>\n    <li class=\"margin\"></li>\n</ul>"
+	module.exports = "<div class=\"panel\"> \n    <div class=\"bar\">\n        <span class=\"title\">Dicionario</span>\n        <img class=\"btn-close\" src=\"assets/Close.png\">\n    </div>\n\n    <div class=\"search\">\n        <input type=\"text\">\n        <span class=\"icon\">\n            <img src=\"assets/search.jpg\">\n        </span>\n    </div>\n</div>\n\n<div class=\"container\">\n    <ul></ul>\n</div>"
 
 /***/ }),
 /* 38 */
@@ -3813,7 +3821,7 @@
 
 
 	// module
-	exports.push([module.id, ".dictionary {\n  display: none;\n  position: relative;\n  width: 100%;\n  height: 100%;\n  min-width: 300px;\n  min-height: 300px;\n  background-color: white; }\n  .dictionary.active {\n    display: block; }\n  .dictionary .panel {\n    position: absolute;\n    top: 0;\n    left: 0;\n    right: 8px;\n    height: 114px;\n    padding: 0 0 0 40px;\n    background-color: white; }\n    .dictionary .panel .bar {\n      padding-top: 20px; }\n      .dictionary .panel .bar .btn-close {\n        position: absolute;\n        top: 20px;\n        right: 14px;\n        width: 34px;\n        height: 34px; }\n    .dictionary .panel .search {\n      position: relative;\n      width: 46%;\n      max-width: 260px;\n      margin-top: 20px; }\n      .dictionary .panel .search input {\n        width: 100%;\n        padding: 10px 38px 10px 10px;\n        border-radius: 6px;\n        border: 1px solid #DDD;\n        outline: none; }\n        .dictionary .panel .search input:focus {\n          border: 1px solid #00ddf9; }\n      .dictionary .panel .search .icon {\n        display: block;\n        position: absolute;\n        top: 50%;\n        bottom: 50%;\n        left: 0;\n        right: 0; }\n        .dictionary .panel .search .icon img {\n          position: absolute;\n          right: 10px;\n          width: 24px;\n          margin-top: -12px; }\n  .dictionary > ul {\n    height: 100%;\n    margin: 0;\n    padding: 0;\n    overflow-y: scroll;\n    list-style-type: none; }\n    .dictionary > ul::-webkit-scrollbar {\n      width: 8px; }\n    .dictionary > ul::-webkit-scrollbar-track {\n      background-color: #DDD; }\n    .dictionary > ul::-webkit-scrollbar-thumb {\n      background-color: #BCBCBC; }\n    .dictionary > ul li {\n      font-size: 14px;\n      cursor: pointer; }\n      .dictionary > ul li:hover {\n        background-color: #EAEAEA;\n        -webkit-transition: brackground-color 0.3s;\n        transition: brackground-color 0.4s; }\n      .dictionary > ul li.margin {\n        height: 114px; }\n      .dictionary > ul li:not(.margin) {\n        padding: 9px 0 9px 40px; }\n\n@media (max-width: 480px) {\n  .dictionary .panel .search {\n    width: 76%; } }\n", ""]);
+	exports.push([module.id, ".dictionary {\n  display: none;\n  position: absolute;\n  top: 10%;\n  width: 100%;\n  height: 90%;\n  min-width: 300px;\n  min-height: 300px;\n  background-color: white; }\n  .dictionary.active {\n    display: block; }\n  .dictionary .panel {\n    position: relative;\n    height: 114px;\n    background-color: white; }\n    .dictionary .panel .bar {\n      text-align: center;\n      padding-top: 20px; }\n    .dictionary .panel .search {\n      position: absolute;\n      width: 80%;\n      left: 50%;\n      transform: translateX(-50%);\n      margin-top: 20px; }\n      .dictionary .panel .search input {\n        position: absolute;\n        width: 100%;\n        left: 50%;\n        transform: translateX(-50%);\n        padding: 10px 10px 10px 10px;\n        border-radius: 6px;\n        border: 1px solid #DDD;\n        outline: none; }\n        .dictionary .panel .search input:focus {\n          border: 1px solid #00ddf9; }\n      .dictionary .panel .search .icon {\n        display: block;\n        position: relative; }\n        .dictionary .panel .search .icon img {\n          position: absolute;\n          height: 24px;\n          width: 24px;\n          top: 6px;\n          right: 7px; }\n  .dictionary .container {\n    position: absolute;\n    width: 80%;\n    height: 100%;\n    left: 50%;\n    transform: translateX(-50%); }\n    .dictionary .container ul {\n      height: 100%;\n      margin: 0;\n      padding: 0;\n      overflow-y: scroll;\n      list-style-type: none; }\n      .dictionary .container ul::-webkit-scrollbar {\n        width: 8px; }\n      .dictionary .container ul::-webkit-scrollbar-track {\n        background-color: #DDD; }\n      .dictionary .container ul::-webkit-scrollbar-thumb {\n        background-color: #BCBCBC; }\n      .dictionary .container ul li {\n        font-size: 14px;\n        cursor: pointer; }\n        .dictionary .container ul li:hover {\n          background-color: #EAEAEA;\n          -webkit-transition: brackground-color 0.3s;\n          transition: brackground-color 0.4s; }\n        .dictionary .container ul li.margin {\n          height: 114px; }\n        .dictionary .container ul li:not(.margin) {\n          padding: 9px 10px 9px 10px; }\n", ""]);
 
 	// exports
 
@@ -6872,7 +6880,7 @@
 
 
 	// module
-	exports.push([module.id, "[vw] {\n  position: fixed;\n  max-width: 70vw;\n  right: 0;\n  top: 50%;\n  margin-top: -32vh;\n  z-index: 1;\n  display: none;\n  font-family: Arial;\n  color: #000; }\n  [vw].enabled {\n    display: block; }\n  [vw].active {\n    margin-top: -285px; }\n  [vw].maximize {\n    top: 6vh;\n    left: 6vh;\n    right: 6vh;\n    bottom: 6vh;\n    max-width: initial;\n    margin-top: 0; }\n  [vw].left {\n    left: 0;\n    right: initial; }\n\n[vp] {\n  position: relative;\n  height: 100%;\n  width: 100%;\n  z-index: 1;\n  overflow: hidden; }\n  [vp] [vp-message-box] {\n    position: absolute;\n    z-index: 5; }\n  [vp] [vp-info-screen] {\n    z-index: 3; }\n    [vp] [vp-info-screen] #info-text {\n      font-size: 1.5vh !important; }\n    [vp] [vp-info-screen] #info-realizadores {\n      font-size: 11px !important; }\n  [vp] [vp-controls] {\n    position: absolute;\n    max-width: 560px;\n    z-index: 2;\n    bottom: -12px;\n    left: 4px; }\n  [vp] [vp-settings-btn] {\n    z-index: 2; }\n  [vp] [vp-dictionary] {\n    z-index: 3; }\n\n.vw-text:hover {\n  background-color: rgba(255, 102, 0, 0.5);\n  color: #000;\n  cursor: pointer; }\n\n.vw-text-active {\n  background-color: #7CFC00;\n  color: #000; }\n\n#gameContainer {\n  position: absolute;\n  top: 50%;\n  left: 50%;\n  transform: translate(-50%, -50%);\n  height: 70%;\n  width: 92%;\n  border-radius: 10px;\n  -webkit-mask-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAIAAACQd1PeAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAA5JREFUeNpiYGBgAAgwAAAEAAGbA+oJAAAAAElFTkSuQmCC);\n  /* this fixes the overflow:hidden in Chrome/Opera */ }\n", ""]);
+	exports.push([module.id, "[vw] {\n  position: fixed;\n  max-width: 70vw;\n  right: 0;\n  top: 50%;\n  margin-top: -32vh;\n  z-index: 1;\n  display: none;\n  font-family: Arial;\n  color: #000; }\n  [vw].enabled {\n    display: block; }\n  [vw].active {\n    margin-top: -285px; }\n  [vw].maximize {\n    top: 6vh;\n    left: 6vh;\n    right: 6vh;\n    bottom: 6vh;\n    max-width: initial;\n    margin-top: 0; }\n  [vw].left {\n    left: 0;\n    right: initial; }\n\n[vp] {\n  position: relative;\n  height: 100%;\n  width: 100%;\n  z-index: 1;\n  overflow: hidden; }\n  [vp] [vp-message-box] {\n    position: absolute;\n    z-index: 5; }\n  [vp] [vp-info-screen] {\n    z-index: 3; }\n    [vp] [vp-info-screen] #info-text {\n      font-size: 1.5vh !important; }\n    [vp] [vp-info-screen] #info-realizadores {\n      font-size: 11px !important; }\n  [vp] [vp-controls] {\n    position: absolute;\n    max-width: 560px;\n    z-index: 2;\n    bottom: -12px;\n    left: 4px; }\n  [vp] [vp-settings-btn] {\n    z-index: 2; }\n  [vp] [vp-dictionary] {\n    z-index: 8; }\n\n.vw-text:hover {\n  background-color: rgba(255, 102, 0, 0.5);\n  color: #000;\n  cursor: pointer; }\n\n.vw-text-active {\n  background-color: #7CFC00;\n  color: #000; }\n\n#gameContainer {\n  position: absolute;\n  top: 50%;\n  left: 50%;\n  transform: translate(-50%, -50%);\n  height: 70%;\n  width: 92%;\n  border-radius: 10px;\n  -webkit-mask-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAIAAACQd1PeAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAA5JREFUeNpiYGBgAAgwAAAEAAGbA+oJAAAAAElFTkSuQmCC);\n  /* this fixes the overflow:hidden in Chrome/Opera */ }\n", ""]);
 
 	// exports
 

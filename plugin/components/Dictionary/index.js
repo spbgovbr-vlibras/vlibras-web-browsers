@@ -21,20 +21,22 @@ Dictionary.prototype.load = function (element) {
   this.element.classList.add('dictionary');
 
   // Close button
-  this.element.querySelector('.panel .bar .btn-close')
-    .addEventListener('click', this.hide.bind(this));
+  // this.element.querySelector('.panel .bar .btn-close')
+  //   .addEventListener('click', this.hide.bind(this));
 
   // Signs trie
   this.signs = null;
 
   // List
   this.list = this.element.querySelector('ul');
+  // Default first item
+  this.defaultItem = this.list.querySelector('li');
 
   // Clear list method
   this.list._clear = function()
   {
     this.list.innerHTML = '';
-    this.list.appendChild(this.defaultItem);
+    // this.list.appendChild(this.defaultItem);
   }.bind(this);
 
   // Insert item method
@@ -47,8 +49,7 @@ Dictionary.prototype.load = function (element) {
     this.list.appendChild(item);
   }.bind(this);
 
-  // Default first item
-  this.defaultItem = this.list.querySelector('li');
+  
 
   // Search
   this.element.querySelector('.panel .search input')
