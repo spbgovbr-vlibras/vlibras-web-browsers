@@ -9,6 +9,7 @@ var Progress = require('components/Progress');
 var MessageBox = require('components/MessageBox');
 var Box = require('components/Box');
 var SettingsCloseBtn = require('components/SettingsCloseBtn');
+var CloseScreen = require('components/CloseScreen');
 
 
 function Plugin(option) {
@@ -24,7 +25,8 @@ function Plugin(option) {
   this.Box = new Box();
   this.info = new InfoScreen(this.Box);
   this.settings = new Settings(this.player, this.info, this.Box, this.dictionary, option);
-  this.settingBtnClose = new SettingsCloseBtn(this.info, this.settings, this.dictionary);
+  this.closeScreen = new CloseScreen(this.dictionary, this.info, this.settings);
+  this.settingBtnClose = new SettingsCloseBtn();
   this.settingsBtn = new SettingsBtn(this.player, this.settings,this.settingBtnClose ,option);
   this.messageBox = new MessageBox();
   
@@ -39,12 +41,12 @@ function Plugin(option) {
     // Loading components
     this.controls.load(this.element.querySelector('[vp-controls]'));
     this.Box.load(this.element.querySelector('[vp-box]'));
-    this.settingBtnClose.load(this.element.querySelector('[vp-box]').querySelector('[settings-btn-close]'))
+    this.settingBtnClose.load(this.element.querySelector('[vp-box]').querySelector('[settings-btn-close]'), this.closeScreen);
     this.settingsBtn.load(this.element.querySelector('[vp-box]').querySelector('[settings-btn]'));
     
     this.settings.load(this.element.querySelector('[vp-settings]'));    
     this.info.load(this.element.querySelector('[vp-info-screen]'));
-    this.dictionary.load(this.element.querySelector('[vp-dictionary]'));
+    this.dictionary.load(this.element.querySelector('[vp-dictionary]'), this.closeScreen);
     
 
   }.bind(this));

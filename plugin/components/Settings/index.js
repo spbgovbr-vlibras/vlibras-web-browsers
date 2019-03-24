@@ -5,13 +5,14 @@ var settingsTpl = require('./settings.html');
 require('./settings.scss');
 require('./switch.scss');
 
-function Settings(player, infoScreen, menu, dictionary, option) {
+function Settings(player, infoScreen, menu, dictionary,option) {
   this.visible = false;
   this.player = player;
   this.infoScreen = infoScreen;
   // this.btnClose = btnClose;
   this.menu = menu;
   this.dictionary = dictionary;
+  
   enable = option.enableMoveWindow;
 }
 
@@ -31,7 +32,7 @@ Settings.prototype.load = function (element) {
   
   this.dictionaryBtn = this.element.querySelector('.dict');
 
-  console.log(this.dictionaryBtn);
+  
   // Close events
 
   // this.btnClose.element.firstChild.addEventListener('click',this.hide.bind(this))
@@ -52,6 +53,7 @@ Settings.prototype.load = function (element) {
 
   }.bind(this));
   this.dictionaryBtn.addEventListener('click', function(){
+    // this.hide(true);
     this.dictionary.show();
     this.player.pause();
   }.bind(this));
