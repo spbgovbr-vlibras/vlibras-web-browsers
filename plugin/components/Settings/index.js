@@ -5,12 +5,13 @@ var settingsTpl = require('./settings.html');
 require('./settings.scss');
 require('./switch.scss');
 
-function Settings(player, infoScreen, btnClose, box, option) {
+function Settings(player, infoScreen, btnClose, box, dictionary, option) {
   this.visible = false;
   this.player = player;
   this.infoScreen = infoScreen;
   this.btnClose = btnClose;
   this.box = box;
+  this.dictionary = dictionary;
   enable = option.enableMoveWindow;
 }
 
@@ -24,7 +25,10 @@ Settings.prototype.load = function (element) {
 
   // Localism panel
   this.localism = this.element.querySelector('.content > .localism');
+  
+  this.dictionaryBtn = this.element.querySelector('.dict');
 
+  console.log(this.dictionaryBtn);
   // Close events
   this.element.querySelector('.wall')
     .addEventListener('click', this.hide.bind(this));
@@ -43,10 +47,13 @@ Settings.prototype.load = function (element) {
   this.selectedRegion.addEventListener('click', function() {
   this.localism.classList.toggle('active');
   this.box.element.querySelector('[settings-btn]').style.visibility = 'hidden';
-
+  
 
   }.bind(this));
-
+  this.dictionaryBtn.addEventListener('click', function(){
+    this.dictionary.show();
+    this.player.pause();
+  }.bind(this));
   var OnLeft = 1;
   var selector = this.element.querySelector('input[name=checkbox]')
 

@@ -23,7 +23,7 @@ function Plugin(option) {
   this.controls = new Controls(this.player, this.dictionary);
   this.Box = new Box();
   this.info = new InfoScreen(this.settingBtnClose, this.Box);
-  this.settings = new Settings(this.player, this.info, this.settingBtnClose, this.Box, option);
+  this.settings = new Settings(this.player, this.info, this.settingBtnClose, this.Box, this.dictionary, option);
 
   this.settingsBtn = new SettingsBtn(this.player, this.settings, option);
   this.messageBox = new MessageBox();
@@ -43,7 +43,7 @@ function Plugin(option) {
     
     this.settings.load(this.element.querySelector('[vp-settings]'));    
     this.info.load(this.element.querySelector('[vp-info-screen]'));
-    // this.dictionary.load(this.element.querySelector('[vp-dictionary]'));
+    this.dictionary.load(this.element.querySelector('[vp-dictionary]'));
     
 
   }.bind(this));
