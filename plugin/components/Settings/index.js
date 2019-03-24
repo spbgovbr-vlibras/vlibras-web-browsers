@@ -48,12 +48,17 @@ Settings.prototype.load = function (element) {
   this.selectedRegion.addEventListener('click', function() {
   this.localism.classList.toggle('active');
   // this.box.element.querySelector('[settings-btn]').style.visibility = 'hidden';
-  
-
+  this.loadingDic = this.dictionary.querySelector('.container .controls-dictionary .loading-dictionary');
+  console.log(this.loadingDic +  'aaaaa' )
   }.bind(this));
-  this.dictionaryBtn.addEventListener('click', function(){
-    this.dictionary.show();
-    this.player.pause();
+  this.dictionaryBtn.addEventListener('click', function(event){
+    console.log(event.target);
+    this.loadingDic = this.element.querySelector('.controls-dictionary');
+    if (!(this.loadingDic.classList.contains('loading-dictionary')))
+    {
+      this.dictionary.show();
+      this.player.pause();
+    }
   }.bind(this));
   var OnLeft = 1;
   var selector = this.element.querySelector('input[name=checkbox]')

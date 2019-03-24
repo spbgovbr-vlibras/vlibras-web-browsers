@@ -35,7 +35,6 @@ Controls.prototype.load = function (element) {
 
   var play = this.element.querySelector('.controls-play');
   var subtitles = this.element.querySelector('.controls-subtitles');
-  var dictionary = this.element.querySelector('.controls-dictionary');
   var speed_default = this.element.querySelector('.speed-default');
   var speednumber = this.element.querySelector('.controls-speed-number');
   var elem_speed = this.element.querySelector('.elem-speed');
@@ -77,15 +76,6 @@ Controls.prototype.load = function (element) {
     this.player.toggleSubtitle();
   }.bind(this));
 
-  dictionary.addEventListener('click', function (event) {
-    console.log(event.target);
-
-    if (!event.target.classList.contains('loading-dictionary'))
-    {
-      this.dictionary.show();
-      this.player.pause();
-    }
-  }.bind(this));
 
   var visibility = false;
   var speed_value;

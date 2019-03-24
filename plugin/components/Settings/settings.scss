@@ -352,3 +352,32 @@
     }
   }
 }*/
+
+
+.controls-dictionary {
+  &:not(.loading-dictionary):before {
+    content: 'Dicionário';
+    font-size: 14px;
+    position: absolute;
+    margin-top: -11px;
+  }
+
+  &.loading-dictionary {
+    min-width: 22px;
+    min-height: 22px;
+    margin-top: -17px;
+    position: absolute;
+    
+    border-left: 3px solid rgba(255, 255, 255, 0.2);
+    border-top: 3px solid rgba(255, 255, 255, 0.6);
+    border-bottom: 3px solid rgba(255, 255, 255, 1);
+    border-right: 3px solid rgba(255, 255, 255, 0.6);
+    border-style: inset;
+    border-radius: 50%;
+    
+    -webkit-animation: spin 1.5s linear infinite;
+    animation: spin 0.8s linear infinite;
+  }
+}
+
+
