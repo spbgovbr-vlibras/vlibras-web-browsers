@@ -1,9 +1,10 @@
 var settingsBtnTpl = require('./settings-btn.html');
 require('./settings-btn.scss');
 
-function SettingsBtn(player, screen, option) {
+function SettingsBtn(player, screen, settingsBtnClose,option) {
   this.player = player;
   this.screen = screen;
+  this.settingsBtnClose = settingsBtnClose;
   enable = option.enableMoveWindow;
 }
 
@@ -13,6 +14,7 @@ SettingsBtn.prototype.load = function (element) {
   this.element.classList.add('settings-btn');
 
   var btn_menu = this.element.querySelector('.settings-btn-menu');
+  btn_menu.classList.add('active');
   var btn_close = this.element.querySelector('.settings-btn-close');
 
   if (enable) {
@@ -22,6 +24,11 @@ SettingsBtn.prototype.load = function (element) {
 
   btn_menu.addEventListener('click', function () {
     this.element.classList.toggle('active');
+    if(this.settingsBtnClose.element.classList.contains('active')){
+      this.settingsBtnClose.element.classList.remove('active');
+    }else{
+      this.settingsBtnClose.element.classList.add('active');
+    }
     this.player.pause();
     this.screen.toggle();
   }.bind(this));

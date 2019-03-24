@@ -95,7 +95,7 @@ Dictionary.prototype.load = function (element) {
   }.bind(this);
   xhr.send();
 
-  this.hide();
+  // this.hide();
 };
 
 Dictionary.prototype._onItemClick = function(event) {
