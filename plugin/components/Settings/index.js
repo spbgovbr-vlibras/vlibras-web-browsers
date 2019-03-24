@@ -54,7 +54,8 @@ Settings.prototype.load = function (element) {
     console.log(event.target);
     this.loadingDic = this.element.querySelector('.controls-dictionary');
     if (!(this.loadingDic.classList.contains('loading-dictionary')))
-    {
+    { 
+      this.element.classList.remove('active');
       this.dictionary.show();
       this.player.pause();
     }

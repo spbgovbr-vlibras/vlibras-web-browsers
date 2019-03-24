@@ -1,7 +1,8 @@
-function CloseScreen(dictionary, info, settings){
+function CloseScreen(dictionary, info, settings, settingsBtnClose){
     this.dictionary = dictionary;
     this.info = info;
     this.settings = settings;
+    this.settingsBtnClose = settingsBtnClose;
 }
 
 CloseScreen.prototype.closeDict = function(){
@@ -27,6 +28,7 @@ CloseScreen.prototype.closeAll = function(){
     this.closeDict();
     this.closeInfo();
     this.closeSettings();
+    this.settingsBtnClose.element.classList.remove('active');
     this.settings.showMenu();
 }
 
