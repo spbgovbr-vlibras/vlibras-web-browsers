@@ -17,16 +17,17 @@ function Plugin(option) {
   });
 
   this.element = document.querySelector('[vp]');
-  this.settingBtnClose = new SettingsCloseBtn();
+  
   
   this.dictionary = new Dictionary(this.player);
   this.controls = new Controls(this.player, this.dictionary);
   this.Box = new Box();
-  this.info = new InfoScreen(this.settingBtnClose, this.Box);
-  this.settings = new Settings(this.player, this.info, this.settingBtnClose, this.Box, this.dictionary, option);
-
-  this.settingsBtn = new SettingsBtn(this.player, this.settings, option);
+  this.info = new InfoScreen(this.Box);
+  this.settings = new Settings(this.player, this.info, this.Box, this.dictionary, option);
+  this.settingBtnClose = new SettingsCloseBtn(this.info, this.settings, this.dictionary);
+  this.settingsBtn = new SettingsBtn(this.player, this.settings,this.settingBtnClose ,option);
   this.messageBox = new MessageBox();
+  
   
   this.loadingRef = null;
 

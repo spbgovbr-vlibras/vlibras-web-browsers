@@ -264,6 +264,7 @@
   }
 
   &.active {
+    display: block;
     .content {
       left: 0;
 
@@ -277,6 +278,7 @@
   }
 
   &:not(.active) {
+    display: none;
     .content {
       left: 0;
       visibility: hidden;
