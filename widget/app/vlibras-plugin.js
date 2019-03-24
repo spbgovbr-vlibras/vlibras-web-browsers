@@ -69,11 +69,12 @@
 	var SettingsBtn = __webpack_require__(28);
 	var InfoScreen = __webpack_require__(32);
 	var Dictionary = __webpack_require__(36);
-	var Controls = __webpack_require__(42);
-	var Progress = __webpack_require__(49);
-	var MessageBox = __webpack_require__(53);
-	var Box = __webpack_require__(56);
-	var SettingsCloseBtn = __webpack_require__(60);
+	var Controls = __webpack_require__(41);
+	var Progress = __webpack_require__(48);
+	var MessageBox = __webpack_require__(52);
+	var Box = __webpack_require__(55);
+	var SettingsCloseBtn = __webpack_require__(59);
+	var CloseScreen = __webpack_require__(63);
 
 
 	function Plugin(option) {
@@ -89,7 +90,8 @@
 	  this.Box = new Box();
 	  this.info = new InfoScreen(this.Box);
 	  this.settings = new Settings(this.player, this.info, this.Box, this.dictionary, option);
-	  this.settingBtnClose = new SettingsCloseBtn(this.info, this.settings, this.dictionary);
+	  this.closeScreen = new CloseScreen(this.dictionary, this.info, this.settings);
+	  this.settingBtnClose = new SettingsCloseBtn();
 	  this.settingsBtn = new SettingsBtn(this.player, this.settings,this.settingBtnClose ,option);
 	  this.messageBox = new MessageBox();
 	  
@@ -104,12 +106,12 @@
 	    // Loading components
 	    this.controls.load(this.element.querySelector('[vp-controls]'));
 	    this.Box.load(this.element.querySelector('[vp-box]'));
-	    this.settingBtnClose.load(this.element.querySelector('[vp-box]').querySelector('[settings-btn-close]'))
+	    this.settingBtnClose.load(this.element.querySelector('[vp-box]').querySelector('[settings-btn-close]'), this.closeScreen);
 	    this.settingsBtn.load(this.element.querySelector('[vp-box]').querySelector('[settings-btn]'));
 	    
 	    this.settings.load(this.element.querySelector('[vp-settings]'));    
 	    this.info.load(this.element.querySelector('[vp-info-screen]'));
-	    this.dictionary.load(this.element.querySelector('[vp-dictionary]'));
+	    this.dictionary.load(this.element.querySelector('[vp-dictionary]'), this.closeScreen);
 	    
 
 	  }.bind(this));
@@ -2802,13 +2804,14 @@
 	__webpack_require__(21);
 	__webpack_require__(25);
 
-	function Settings(player, infoScreen, menu, dictionary, option) {
+	function Settings(player, infoScreen, menu, dictionary,option) {
 	  this.visible = false;
 	  this.player = player;
 	  this.infoScreen = infoScreen;
 	  // this.btnClose = btnClose;
 	  this.menu = menu;
 	  this.dictionary = dictionary;
+	  
 	  enable = option.enableMoveWindow;
 	}
 
@@ -2828,7 +2831,7 @@
 	  
 	  this.dictionaryBtn = this.element.querySelector('.dict');
 
-	  console.log(this.dictionaryBtn);
+	  
 	  // Close events
 
 	  // this.btnClose.element.firstChild.addEventListener('click',this.hide.bind(this))
@@ -2849,6 +2852,7 @@
 
 	  }.bind(this));
 	  this.dictionaryBtn.addEventListener('click', function(){
+	    // this.hide(true);
 	    this.dictionary.show();
 	    this.player.pause();
 	  }.bind(this));
@@ -3678,20 +3682,22 @@
 	__webpack_require__(38);
 
 	var Trie = __webpack_require__(40);
-	var NonBlockingProcess = __webpack_require__(41);
+	// var NonBlockingProcess = require('./non-blocking-process.js');
 
 	function Dictionary(player)
 	{
 	  this.visible = false;
 	  this.player = player;
+	  this.closeScreen = null;
 	}
 
 	inherits(Dictionary, EventEmitter);
 
-	Dictionary.prototype.load = function (element) {
+	Dictionary.prototype.load = function (element, closeScreen) {
 	  this.element = element;
 	  this.element.innerHTML = dictionaryTpl;
 	  this.element.classList.add('dictionary');
+	  this.closeScreen = closeScreen;
 
 	  // Close button
 	  // this.element.querySelector('.panel .bar .btn-close')
@@ -3703,14 +3709,7 @@
 	  // List
 	  this.list = this.element.querySelector('ul');
 	  // Default first item
-	  this.defaultItem = this.list.querySelector('li');
-
-	  // Clear list method
-	  this.list._clear = function()
-	  {
-	    this.list.innerHTML = '';
-	    // this.list.appendChild(this.defaultItem);
-	  }.bind(this);
+	  
 
 	  // Insert item method
 	  this.list._insert = function(word)
@@ -3722,16 +3721,7 @@
 	    this.list.appendChild(item);
 	  }.bind(this);
 
-	  
-
-	  // Search
-	  this.element.querySelector('.panel .search input')
-	    .addEventListener('keyup', function(event) {
-	      console.log(event.target.value);
-
-	      this.list._clear();
-	      this.signs.feed(event.target.value.toUpperCase(), this.list._insert.bind(this.list));
-	    }.bind(this));
+	 
 
 	  // Request and load list
 	  var xhr = new XMLHttpRequest();
@@ -3768,11 +3758,30 @@
 	  }.bind(this);
 	  xhr.send();
 
+	  this.defaultItem = this.list.querySelector('li');
+	  console.log(this.defaultItem);
+
+	  // Clear list method
+	  this.list._clear = function()
+	  {
+	    this.list.innerHTML = '';
+	    // this.list.appendChild(this.defaultItem);
+	  }.bind(this);
+
+	  // Search
+	  this.element.querySelector('.panel .search input')
+	    .addEventListener('keyup', function(event) {
+	      console.log(event.target.value);
+
+	      this.list._clear();
+	      this.signs.feed(event.target.value.toUpperCase(), this.list._insert.bind(this.list));
+	    }.bind(this));
+
 	  // this.hide();
 	};
 
 	Dictionary.prototype._onItemClick = function(event) {
-	  this.hide();
+	  this.closeScreen.closeAll();
 	  this.player.play(event.target.innerHTML);
 	};
 
@@ -3967,68 +3976,13 @@
 
 /***/ }),
 /* 41 */
-/***/ (function(module, exports) {
-
-	function NonBlockingProcess(data, process, workingTime, watingTime, finish)
-	{
-	  this.data = data;
-	  this.process = process;
-	  this.workingTime = workingTime;
-	  this.watingTime = watingTime;
-	  this.finish = finish;
-
-	  this._event = null;
-	}
-
-	NonBlockingProcess.prototype.start = function()
-	{
-	  this._index = 0;
-	  this._event = setTimeout(this._work.bind(this), 0);
-	}
-
-	NonBlockingProcess.prototype.stop = function() {
-	  clearTimeout(this._event);
-	}
-
-	NonBlockingProcess.prototype.continue = function() {
-	  this._event = setTimeout(this._work.bind(this), 0);
-	}
-
-	NonBlockingProcess.prototype.isRunning = function() {
-	  return this._event === null;
-	}
-
-	NonBlockingProcess.prototype._work = function()
-	{
-	  var begin = new Date().getTime();
-	  var end = begin + this.workingTime;
-	  var initialIndex = this._index;
-
-	  while (new Date().getTime() < end && this._index < this.data.length)
-	    this.process(this.data[this._index++]);
-
-	  console.log('NBP:', 'Processed ' + (this._index - initialIndex) + ' items from ' + initialIndex + '-' + this._index + ' for ' + (new Date().getTime() - begin) + ' ms.');
-
-	  if (this._index == this.data.length)
-	  {
-	    this._event = null;
-	    this.finish();
-	  }
-	  else
-	    this._event = setTimeout(this._work.bind(this), this.watingTime);
-	}
-
-	module.exports = NonBlockingProcess;
-
-/***/ }),
-/* 42 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	var noUiSlider = __webpack_require__(43);
-	__webpack_require__(44);
+	var noUiSlider = __webpack_require__(42);
+	__webpack_require__(43);
 
-	var controlsTpl = __webpack_require__(46);
-	__webpack_require__(47);
+	var controlsTpl = __webpack_require__(45);
+	__webpack_require__(46);
 
 	function Controls(player, dictionary) {
 	  this.player = player;
@@ -4190,7 +4144,7 @@
 
 
 /***/ }),
-/* 43 */
+/* 42 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*! nouislider - 8.5.1 - 2016-04-24 16:00:29 */
@@ -6154,13 +6108,13 @@
 	}));
 
 /***/ }),
-/* 44 */
+/* 43 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 
 	// load the styles
-	var content = __webpack_require__(45);
+	var content = __webpack_require__(44);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
 	var update = __webpack_require__(24)(content, {});
@@ -6180,7 +6134,7 @@
 	}
 
 /***/ }),
-/* 45 */
+/* 44 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	exports = module.exports = __webpack_require__(23)();
@@ -6194,19 +6148,19 @@
 
 
 /***/ }),
-/* 46 */
+/* 45 */
 /***/ (function(module, exports) {
 
 	module.exports = "<span class=\"controls-play\"></span>\n<div class=\"controls-slider\">\n\t<div class=\"slider\"></div>\n</div>\n<div class=\"controls-speed\">\n\t<div class=\"elem-speed\">\n\t\t<ul class=\"controls-speed-number\">\n\t\t\t<li class=\"block-speed block-speed-3\" >x3</li>\n\t\t\t<li class=\"block-speed block-speed-2\" >x2</li>\n\t\t\t<li class=\"block-speed block-speed-1\" >x1</li>\n\t\t\t<li class=\"block-speed block-speed-05\" >x0.5</li>\n\t\t</ul>\n\t</div>\n\t<span class=\"speed-default\">x1</span>\n</div>\n\n<span class=\"controls-subtitles\"></span>\n<span class=\"controls-dictionary loading-dictionary\"></span>\n"
 
 /***/ }),
-/* 47 */
+/* 46 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 
 	// load the styles
-	var content = __webpack_require__(48);
+	var content = __webpack_require__(47);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
 	var update = __webpack_require__(24)(content, {});
@@ -6226,7 +6180,7 @@
 	}
 
 /***/ }),
-/* 48 */
+/* 47 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	exports = module.exports = __webpack_require__(23)();
@@ -6240,11 +6194,11 @@
 
 
 /***/ }),
-/* 49 */
+/* 48 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	__webpack_require__(50);
-	var progressTpl = __webpack_require__(52);
+	__webpack_require__(49);
+	var progressTpl = __webpack_require__(51);
 
 	function Progress(wrapper) {
 	  this.progress = 0.0;
@@ -6286,13 +6240,13 @@
 
 
 /***/ }),
-/* 50 */
+/* 49 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 
 	// load the styles
-	var content = __webpack_require__(51);
+	var content = __webpack_require__(50);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
 	var update = __webpack_require__(24)(content, {});
@@ -6312,7 +6266,7 @@
 	}
 
 /***/ }),
-/* 51 */
+/* 50 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	exports = module.exports = __webpack_require__(23)();
@@ -6326,16 +6280,16 @@
 
 
 /***/ }),
-/* 52 */
+/* 51 */
 /***/ (function(module, exports) {
 
 	module.exports = "<img class=\"brand\" src=\"assets/progresslogo.png\"></img>\n<div class=\"progressbar\">\n    <div class=\"bar\"></div>\n</div>\n"
 
 /***/ }),
-/* 53 */
+/* 52 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	__webpack_require__(54);
+	__webpack_require__(53);
 
 	var messageBoxTlp = '<span class="message"></span>';
 
@@ -6394,13 +6348,13 @@
 
 
 /***/ }),
-/* 54 */
+/* 53 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 
 	// load the styles
-	var content = __webpack_require__(55);
+	var content = __webpack_require__(54);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
 	var update = __webpack_require__(24)(content, {});
@@ -6420,7 +6374,7 @@
 	}
 
 /***/ }),
-/* 55 */
+/* 54 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	exports = module.exports = __webpack_require__(23)();
@@ -6434,11 +6388,11 @@
 
 
 /***/ }),
-/* 56 */
+/* 55 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	var BoxTlp = __webpack_require__(57);
-	__webpack_require__(58);
+	var BoxTlp = __webpack_require__(56);
+	__webpack_require__(57);
 
 
 	function Box() {
@@ -6469,19 +6423,19 @@
 
 
 /***/ }),
-/* 57 */
+/* 56 */
 /***/ (function(module, exports) {
 
 	module.exports = "<span class=\"mes\">VLIBRAS</span>\n<div settings-btn></div>\n<div settings-btn-close></div>"
 
 /***/ }),
-/* 58 */
+/* 57 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 
 	// load the styles
-	var content = __webpack_require__(59);
+	var content = __webpack_require__(58);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
 	var update = __webpack_require__(24)(content, {});
@@ -6501,7 +6455,7 @@
 	}
 
 /***/ }),
-/* 59 */
+/* 58 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	exports = module.exports = __webpack_require__(23)();
@@ -6515,35 +6469,26 @@
 
 
 /***/ }),
-/* 60 */
+/* 59 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	var btn_close_Tpl = __webpack_require__(61);
-	__webpack_require__(62);
+	var btn_close_Tpl = __webpack_require__(60);
+	__webpack_require__(61);
 
-	function SettingsCloseBtn(info, settings, dictionary){
-	    this.info = info;
-	    this.settings = settings;
-	    this.dictionary = dictionary;
+	function SettingsCloseBtn(){
+	    this.closeScreen = null;
 	    this.element = null;
 	}
 
-	SettingsCloseBtn.prototype.load = function(element){
+	SettingsCloseBtn.prototype.load = function(element, closeScreen){
 	    this.element = element;
+	    this.closeScreen = closeScreen;
 	    this.element.innerHTML = btn_close_Tpl;
 	    this.element.classList.add('btn-close');
 	    this.element.addEventListener('click', function(){
-	        if(this.info.visible){
-	            this.info.hide();
-	        }
-	        if(this.settings.visible){
-	            this.settings.hide(true);
-	        }
-	        if(this.dictionary.visible){
-	            this.dictionary.hide();
-	        }
+	        this.closeScreen.closeAll();
 	        this.element.classList.remove('active')
-	        this.settings.showMenu();
+	        
 	    }.bind(this));
 	        
 	};
@@ -6553,19 +6498,19 @@
 	module.exports = SettingsCloseBtn;
 
 /***/ }),
-/* 61 */
+/* 60 */
 /***/ (function(module, exports) {
 
 	module.exports = "<img src=\"assets/Close-2019.png\">\n"
 
 /***/ }),
-/* 62 */
+/* 61 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 
 	// load the styles
-	var content = __webpack_require__(63);
+	var content = __webpack_require__(62);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
 	var update = __webpack_require__(24)(content, {});
@@ -6585,7 +6530,7 @@
 	}
 
 /***/ }),
-/* 63 */
+/* 62 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	exports = module.exports = __webpack_require__(23)();
@@ -6597,6 +6542,44 @@
 
 	// exports
 
+
+/***/ }),
+/* 63 */
+/***/ (function(module, exports) {
+
+	function CloseScreen(dictionary, info, settings){
+	    this.dictionary = dictionary;
+	    this.info = info;
+	    this.settings = settings;
+	}
+
+	CloseScreen.prototype.closeDict = function(){
+	    if(this.dictionary.visible){
+	        this.dictionary.hide();
+	    }
+	};
+
+	CloseScreen.prototype.closeInfo= function(){
+	    if(this.info.visible){
+	        this.info.hide();
+	    }
+	}
+
+
+	CloseScreen.prototype.closeSettings= function(){
+	    if(this.settings.visible){
+	        this.settings.hide(true);
+	    }
+	}
+
+	CloseScreen.prototype.closeAll = function(){
+	    this.closeDict();
+	    this.closeInfo();
+	    this.closeSettings();
+	    this.settings.showMenu();
+	}
+
+	module.exports = CloseScreen;
 
 /***/ }),
 /* 64 */
