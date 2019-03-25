@@ -9,6 +9,7 @@ var Progress = require('components/Progress');
 var MessageBox = require('components/MessageBox');
 var Box = require('components/Box');
 var SettingsCloseBtn = require('components/SettingsCloseBtn');
+var CloseScreen = require('components/CloseScreen');
 var RateButton = require('components/RateButton');
 var RateBox = require('components/RateBox');
 var SuggestionButton = require('components/SuggestionButton');
@@ -16,19 +17,21 @@ var SuggestionScreen = require('components/SuggestionScreen');
 
 require('scss/styles.scss');
 
-function Plugin() {
+function Plugin(option) {
   this.player = new VLibras.Player({
     progress: Progress
   });
 
   this.element = document.querySelector('[vp]');
-  this.info = new InfoScreen();
+  
   this.dictionary = new Dictionary(this.player);
   this.controls = new Controls(this.player, this.dictionary);
   this.Box = new Box();
+  this.info = new InfoScreen(this.Box);
+  this.settings = new Settings(this.player, this.info, this.Box, this.dictionary, option);
   this.settingBtnClose = new SettingsCloseBtn();
-  this.settings = new Settings(this.player, this.info, this.settingBtnClose, this.Box);
-  this.settingsBtn = new SettingsBtn(this.player, this.settings);
+  this.closeScreen = new CloseScreen(this.dictionary, this.info, this.settings, this.settingBtnClose);
+  this.settingsBtn = new SettingsBtn(this.player, this.settings,this.settingBtnClose ,option);
   this.messageBox = new MessageBox();
   this.suggestionScreen = new SuggestionScreen();
   this.suggestionButton = new SuggestionButton(this.suggestionScreen);
@@ -45,12 +48,12 @@ function Plugin() {
     // Loading components
     this.controls.load(this.element.querySelector('[vp-controls]'));
     this.Box.load(this.element.querySelector('[vp-box]'));
-    this.settingBtnClose.load(this.element.querySelector('[vp-box]').querySelector('[settings-btn-close]'))
+    this.settingBtnClose.load(this.element.querySelector('[vp-box]').querySelector('[settings-btn-close]'), this.closeScreen);
     this.settingsBtn.load(this.element.querySelector('[vp-box]').querySelector('[settings-btn]'));
     
     this.settings.load(this.element.querySelector('[vp-settings]'));    
     this.info.load(this.element.querySelector('[vp-info-screen]'));
-    // this.dictionary.load(this.element.querySelector('[vp-dictionary]'));
+    this.dictionary.load(this.element.querySelector('[vp-dictionary]'), this.closeScreen);
     
     this.rateButton.load(this.element.querySelector('[vp-rate-button]'));
     this.rateBox.load(this.element.querySelector('[vp-rate-box]'));

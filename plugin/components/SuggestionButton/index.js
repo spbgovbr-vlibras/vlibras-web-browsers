@@ -21,8 +21,6 @@ SuggestionButton.prototype.load = function (element) {
   close.addEventListener('click', () => {
     this.hide();
   });
-
-  this.show();
 };
 
 SuggestionButton.prototype.show = function () {

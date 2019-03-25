@@ -3,18 +3,25 @@ var EventEmitter = require('events').EventEmitter;
 
 var settingsTpl = require('./settings.html');
 require('./settings.scss');
+require('./switch.scss');
 
-function Settings(player, infoScreen, btnClose, box) {
+function Settings(player, infoScreen, menu, dictionary,option) {
   this.visible = false;
   this.player = player;
   this.infoScreen = infoScreen;
-  this.btnClose = btnClose;
-  this.box = box;
+  // this.btnClose = btnClose;
+  this.menu = menu;
+  this.dictionary = dictionary;
+  
+  enable = option.enableMoveWindow;
 }
 
 inherits(Settings, EventEmitter);
 
 Settings.prototype.load = function (element) {
+  this.menu = this.menu.element.querySelector('[settings-btn]').firstChild;
+  console.log(this.menu);
+
   this.element = element;
   this.element.innerHTML = settingsTpl;
   this.element.classList.add('settings');
@@ -22,25 +29,60 @@ Settings.prototype.load = function (element) {
 
   // Localism panel
   this.localism = this.element.querySelector('.content > .localism');
+  
+  this.dictionaryBtn = this.element.querySelector('.dict');
 
+  
   // Close events
-  this.element.querySelector('.wall')
-    .addEventListener('click', this.hide.bind(this));
-  // this.element.querySelector('.btn-close')
-  //   .addEventListener('click', this.hide.bind(this));
-  this.btnClose.element.firstChild.addEventListener('click',this.hide.bind(this))
+
+  // this.btnClose.element.firstChild.addEventListener('click',this.hide.bind(this))
   // Selected region
   this.selectedRegion = this.element.querySelector('.content > ul .localism');
+
+  if (enable) {
+    this.position = this.element.querySelector('.content > ul .position');
+    this.position.style.display = 'block';
+  }
+
   this.selectedRegion._name = this.selectedRegion.querySelector('.abbrev');
   this.selectedRegion._flag = this.selectedRegion.querySelector('img.flag');
   this.selectedRegion.addEventListener('click', function() {
-    this.localism.classList.toggle('active');
+  this.localism.classList.toggle('active');
   }.bind(this));
+
+  this.dictionaryBtn.addEventListener('click', function(event){
+    console.log(event.target);
+    this.loadingDic = this.element.querySelector('.controls-dictionary');
+    if (!(this.loadingDic.classList.contains('loading-dictionary')))
+    { 
+      this.element.classList.remove('active');
+      this.dictionary.show();
+      this.player.pause();
+    }
+  }.bind(this));
+  
+  var OnLeft = 1;
+  var selector = this.element.querySelector('input[name=checkbox]')
+
+  this.element.querySelector('.content > ul .position')
+    .addEventListener('click', function() {
+      if(OnLeft){
+        window.dispatchEvent(new CustomEvent('vp-widget-wrapper-set-side', {detail: {right: true}})); 
+        OnLeft=0;
+        selector.checked = false;
+      }
+      else{
+        window.dispatchEvent(new CustomEvent('vp-widget-wrapper-set-side', {detail: {right: false}})); 
+        OnLeft=1;
+        selector.checked = true;
+      }
+    }.bind(this));
+
 
   // About button
   this.element.querySelector('.content > ul .about')
     .addEventListener('click', function() {
-      this.hide();
+      this.hide(false);
       this.infoScreen.show();
     }.bind(this));
 
@@ -64,7 +106,7 @@ Settings.prototype.load = function (element) {
     var data = regionsData[i];
 
     var region = document.createElement('div');
-    region.classList.add('container');
+    region.classList.add('vp-container');
     region.innerHTML = regionHTML;
 
     region._data = data;
@@ -83,12 +125,14 @@ Settings.prototype.load = function (element) {
   this.gameContainer = document.querySelector('div#gameContainer');
   this.controlsElement = document.querySelector('.controls');
 
-  this.hide();
+  // this.hide();
 };
 
 Settings.prototype.setRegion = function (region) {
   // Deactivate localism panel
   this.localism.classList.remove('active');
+  // this.menu.element.firstChild.classList.add('active');
+  
 
   // Select new region
   this.region.classList.remove('selected');
@@ -108,12 +152,14 @@ Settings.prototype.toggle = function () {
   else this.show();
 };
 
-Settings.prototype.hide = function () {
+Settings.prototype.hide = function (menuOn) {
   this.visible = false;
   this.element.classList.remove('active');
   this.localism.classList.remove('active');
-  this.btnClose.element.firstChild.style.visibility = 'hidden';
-  this.box.element.firstChild.style.visibility = 'visible';
+  // this.btnClose.element.firstChild.style.visibility = 'hidden';
+  if(menuOn){
+    this.menu.classList.add('active');
+  }
 
   // Removes blur filter
   this.gameContainer.classList.remove('blur');
@@ -122,11 +168,15 @@ Settings.prototype.hide = function () {
   this.emit('hide');
 };
 
+Settings.prototype.showMenu = function(){
+  this.menu.classList.add('active');
+};
+
 Settings.prototype.show = function () {
   this.visible = true;
   this.element.classList.add('active');
-  this.btnClose.element.firstChild.style.visibility = 'visible';
-  this.box.element.firstChild.style.visibility = 'hidden';
+  // this.btnClose.element.firstChild.style.visibility = 'visible';
+  this.menu.classList.remove('active');
   
 
   // Apply blur filter
