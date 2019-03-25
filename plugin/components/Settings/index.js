@@ -106,7 +106,7 @@ Settings.prototype.load = function (element) {
     var data = regionsData[i];
 
     var region = document.createElement('div');
-    region.classList.add('container');
+    region.classList.add('container-regions');
     region.innerHTML = regionHTML;
 
     region._data = data;
