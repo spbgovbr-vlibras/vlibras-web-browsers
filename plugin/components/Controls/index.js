@@ -90,6 +90,7 @@ Controls.prototype.load = function (element) {
         speed_default.style.color = 'grey';
         speed_default.style.borderRadius = '3px 3px 3px 3px';
         speed_default.style.paddingRight = '3.5px';
+        speed_default.style.paddingLeft = '3.5px';
 
         speed_default.innerHTML = speed_value;
 
@@ -100,8 +101,8 @@ Controls.prototype.load = function (element) {
         speed_value = speed_default.innerHTML;
         speed_default.innerHTML = '';
 
-        speed_default.style.paddingRight = '20px';
-        speed_default.style.paddingLeft = '3.5px';
+        speed_default.style.paddingRight = '4px';
+        speed_default.style.paddingLeft = '19px';
         elem_speed.style.display = "block";
         visibility = true;
 
@@ -112,7 +113,7 @@ Controls.prototype.load = function (element) {
 
   speed05.addEventListener('click', () => {
     this.setSpeed(0.5, '0.5x', elem_speed, speed_default);
-    speed_default.style.padding = '6px 1.5px 5px 1.5px'
+    speed_default.style.padding = '6px 2.5px 5px 2.5px'
     speed_default.style.fontSize = '11px'
     visibility = false;  
 
