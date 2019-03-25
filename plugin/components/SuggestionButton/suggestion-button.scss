@@ -1,0 +1,35 @@
+$control-height: 68px;
+
+[vp-suggestion-button] {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  position: absolute;
+  width: 100%;
+  bottom: $control-height;
+  z-index: 3;
+
+  &:not(.vp-enabled) {
+    display: none;
+  }
+
+  .vp-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    background-color: rgba(255, 255, 255, 0.96);
+    z-index: 1;
+
+    .vp-open-screen-button {
+      margin-bottom: 16px;
+    }
+
+    .vp-close-button {
+      position: absolute;
+      bottom: -13px;
+    }
+  }
+}

@@ -48,6 +48,13 @@ body {
     z-index: 2;
   }
 
+  [vp-rate-box] {
+    position: fixed;
+    bottom: 7px;
+    max-width: 560px;
+    z-index: 2;
+  }
+
   [vp-settings] {
     
   }
