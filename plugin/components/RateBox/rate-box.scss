@@ -1,0 +1,56 @@
+$control-height: 68px;
+
+[vp-rate-box] {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  position: absolute;
+  width: 100%;
+  bottom: $control-height;
+
+  &:not(.vp-enabled) {
+    display: none;
+  }
+
+  .vp-container {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    background-color: rgba(255, 255, 255, 0.96);
+    z-index: 1;
+
+    .vp-text {
+      text-align: center;
+      font-size: 0.9rem;
+      font-weight: bold;
+      color: #003f86;
+    }
+
+    .vp-buttons {
+      display: flex;
+      flex-direction: row;
+      justify-content: center;
+      margin-top: 10px;
+
+      .vp-button {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        font-size: 0.95rem;
+        font-weight: bold;
+        color: #545454;
+        
+        &:not(:last-child) {
+          margin-right: 22px;
+        }
+        
+        img {
+          height: 22px;
+          margin-right: 6px;
+        }
+      }
+    }
+  }
+}

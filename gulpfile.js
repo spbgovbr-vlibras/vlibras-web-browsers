@@ -1,4 +1,5 @@
 const gulp = require('gulp');
+const nodemon = require('gulp-nodemon');
 const webpack = require('webpack-stream');
 
 const webpackConfig = require('./webpack.config.js');
@@ -51,3 +52,13 @@ gulp.task('build:safari', () => {
 });
 
 gulp.task('build', ['build:webextensions', 'build:safari', 'build:widget']);
+
+gulp.task('run:widget', (done) => {
+  nodemon({
+    script: 'widget/server.js',
+    ext: 'html js scss css',
+    watch: ['plugin', 'widget/src', 'widget/assets'],
+    tasks: ['build:widget'],
+    done,
+  });
+});

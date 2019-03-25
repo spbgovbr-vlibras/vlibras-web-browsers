@@ -1,0 +1,27 @@
+$control-height: 60px;
+
+[vp-rate-button] {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  position: absolute;
+  width: 100%;
+  bottom: $control-height;
+
+  &:not(.vp-enabled) {
+    display: none;
+  }
+
+  .vp-button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-right: 26px;
+    margin-bottom: 20px;
+    z-index: 1;
+
+    img {
+      width: 36px;
+    }
+  }
+}

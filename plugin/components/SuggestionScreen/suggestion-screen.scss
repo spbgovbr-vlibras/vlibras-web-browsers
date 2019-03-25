@@ -1,0 +1,47 @@
+$control-height: 68px;
+
+[vp-suggestion-screen] {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: absolute;
+  top: 45px;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  padding: 16px;
+  background-color: white;
+  z-index: 3;
+
+  &:not(.vp-enabled) {
+    display: none;
+  }
+
+  .vp-title {
+    text-align: center;
+    font-size: 0.9rem;
+    font-weight: bold;
+    color: #003f86;
+  }
+
+  .vp-text {
+    flex: 1;
+    align-self: stretch;
+    margin-top: 10px;
+    margin-left: 32px;
+    margin-right: 32px;
+    padding: 8px 10px 6px;
+    font-size: 0.8rem;
+    border: none;
+    border-radius: 12px;
+    background-color: #EFEFF2;
+  }
+
+  .vp-send-button {
+    margin-top: 14px;
+  }
+  
+  .vp-close-button {
+    margin-top: 8px;
+  }
+}
