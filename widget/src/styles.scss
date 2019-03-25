@@ -92,12 +92,14 @@
 
 #gameContainer {
   position: absolute;
-  top: calc(50% - 40px);
-  left: calc(50% - 40px);
-  transform: translate(calc(-50% + 40px), calc(-50% + 40px));
+//  top: calc(50% - 40px);
+//  left: calc(50% - 40px);
+//  transform: translate(calc(-50% + 40px), calc(-50% + 40px));
   height: 70%;
   width: 90%;
   border-radius: 10px;
   -webkit-mask-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAIAAACQd1PeAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAA5JREFUeNpiYGBgAAgwAAAEAAGbA+oJAAAAAElFTkSuQmCC); /* this fixes the overflow:hidden in Chrome/Opera */
+  top: 67px;
+  left: 15px;
 
 }
