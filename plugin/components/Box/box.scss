@@ -1,12 +1,13 @@
+@import url('https://fonts.googleapis.com/css?family=Open+Sans:600');
+
+[vp]{
 .box {
-  top: 0;
-  padding-top: 0;
   width: calc(100%);
-  height: 10%;
+  height: 40px;
   font-size: 1em;
   color: #000;
   opacity: 1;
-  position: absolute;
+  position: relative;
   background-color: #003F86;
   color: #ffffff;
   background-size: 100% 100%;
@@ -26,10 +27,13 @@
     top: 50%;
     transform: translate(-50%,-50%);
     font-size: 15px !important;
+    font-family: 'Open Sans', sans-serif;
+
   }
   
 
  
+}
 }
 
 
