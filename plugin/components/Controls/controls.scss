@@ -1,4 +1,5 @@
 @import '~scss/flexbox';
+@import url('https://fonts.googleapis.com/css?family=Open+Sans:600');
 
 .controls {
   @include flexbox;
@@ -78,6 +79,7 @@
   color: grey;
   font-size: 15px;
   cursor: pointer;
+  font-family: 'Open Sans', sans-serif;
 
 }
 
@@ -117,6 +119,8 @@
   padding-left: 0px;
   margin-top: 0px;
   margin-bottom: 0px;
+  font-family: 'Open Sans', sans-serif;
+
 }
 
 .block-speed-3 {

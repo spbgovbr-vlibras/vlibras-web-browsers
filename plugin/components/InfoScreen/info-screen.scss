@@ -1,3 +1,6 @@
+@import url('https://fonts.googleapis.com/css?family=Open+Sans:600');
+
+
 .info-screen {
   position: relative;
   // left: 0;
@@ -15,7 +18,7 @@
 
   align-items: center;
   -webkit-align-items: center;
-  font-size: 14px;
+  font-size: 13px;
 
   display: none;
 
@@ -63,11 +66,13 @@
 
   #info-main {
     max-width: 600px;
+    font-family: 'Open Sans', sans-serif;
 
     flex-direction: column;
     -webkit-flex-direction: column;
     #info-text{
       font-size: 3.2vh;
+
     }
   }
 
