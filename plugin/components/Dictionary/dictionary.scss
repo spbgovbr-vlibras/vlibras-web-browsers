@@ -1,123 +1,126 @@
 $margin_left: 40px;
 
-.dictionary {
-    display: none;
-    position: relative;
-    // top:10%;
-    width: 100%;
-    height: calc(100% - 40px);
-    min-width: 300px;
-    min-height: 300px;
-
-    background-color: white;
-
-    
-    &.active {
-        display: block;
-    }
-
-    .panel {
+[vp]{
+    .dictionary {
+        display: none;
         position: relative;
-        height: 114px;
+        // top:10%;
+        width: 100%;
+        height: calc(100% - 40px);
+        min-width: 300px;
+        min-height: 300px;
+    
         background-color: white;
-
-
-        .bar {
-            text-align: center;
-            padding-top: 20px;
-        }
-
-        .search {
-            position: absolute;
-            width: 80%;
-            left: 50%;
-            transform: translateX(-50%);
-            // max-width: 260px;
-            margin-top: 20px;
+    
         
-
-            input {
+        &.active {
+            display: block;
+        }
+    
+        .panel {
+            position: relative;
+            height: 114px;
+            background-color: white;
+    
+    
+            .bar {
+                text-align: center;
+                padding-top: 20px;
+            }
+    
+            .search {
                 position: absolute;
-                width: 100%;
+                width: 80%;
                 left: 50%;
                 transform: translateX(-50%);
-                padding: 10px 10px 10px 10px;
-                border-radius: 6px;
-                border: 1px solid #DDD;
-                outline: none;           
-
-                &:focus {
-                    border: 1px solid #00ddf9;
-                }
-            }
-
-
-            .icon {
-                display: block;
-                position: relative;
-                img {
+                // max-width: 260px;
+                margin-top: 20px;
+            
+    
+                input {
                     position: absolute;
-                    height: 24px;
-                    width: 24px;
-                    top:6px;
-                    right:7px;
-                    
+                    width: 100%;
+                    left: 50%;
+                    transform: translateX(-50%);
+                    padding: 10px 10px 10px 10px;
+                    border-radius: 6px;
+                    border: 1px solid #DDD;
+                    outline: none;           
+    
+                    &:focus {
+                        border: 1px solid #00ddf9;
+                    }
+                }
+    
+    
+                .icon {
+                    display: block;
+                    position: relative;
+                    img {
+                        position: absolute;
+                        height: 24px;
+                        width: 24px;
+                        top:6px;
+                        right:7px;
+                        
+                    }
                 }
             }
         }
-    }
-
-    .container{
-        position: absolute;
-        width: 80%;
-        height: 100%;
-        left: 50%;
-        transform: translateX(-50%);
-        ul {
+    
+        .container{
+            position: absolute;
+            width: 80%;
             height: 100%;
-            margin: 0;
-            padding: 0;
-    
-            overflow-y: scroll;
-            list-style-type: none;
-    
-    
-            &::-webkit-scrollbar {
-                width: 8px;
-            }
-    
-            &::-webkit-scrollbar-track {
-                background-color: #DDD;
-            }
-                
-            &::-webkit-scrollbar-thumb {
-                background-color: #BCBCBC;
-            }
-    
-            li {
-                font-size: 14px;
-                cursor: pointer;
-    
-    
-                &:hover {
-                    background-color: #EAEAEA;
-    
-                    -webkit-transition: brackground-color 0.3s;
-                    transition: brackground-color 0.4s;
+            left: 50%;
+            transform: translateX(-50%);
+            ul {
+                height: 100%;
+                margin: 0;
+                padding: 0;
+        
+                overflow-y: scroll;
+                list-style-type: none;
+        
+        
+                &::-webkit-scrollbar {
+                    width: 8px;
                 }
-    
-                &.margin {
-                    height: 114px;
+        
+                &::-webkit-scrollbar-track {
+                    background-color: #DDD;
                 }
-    
-                &:not(.margin) {
-                    padding: 9px 10px 9px 10px;
+                    
+                &::-webkit-scrollbar-thumb {
+                    background-color: #BCBCBC;
+                }
+        
+                li {
+                    font-size: 14px;
+                    cursor: pointer;
+        
+        
+                    &:hover {
+                        background-color: #EAEAEA;
+        
+                        -webkit-transition: brackground-color 0.3s;
+                        transition: brackground-color 0.4s;
+                    }
+        
+                    &.margin {
+                        height: 114px;
+                    }
+        
+                    &:not(.margin) {
+                        padding: 9px 10px 9px 10px;
+                    }
                 }
             }
         }
+         
     }
-     
 }
+
 
 // @media (max-width: 480px) {
 //     .dictionary .panel .search {
