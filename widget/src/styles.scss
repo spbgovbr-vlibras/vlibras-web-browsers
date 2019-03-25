@@ -59,11 +59,20 @@
   }
 
   [vp-controls] {
+    // position: absolute;
+    // max-width: 560px;
+    // z-index: 2;
+    // bottom: -12px;
+    // left: 4px;
     position: absolute;
-    max-width: 560px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    left: 50%;
+    transform: translateX(-50%);
+    bottom: 1%;
+    max-width: 900px;
     z-index: 2;
-    bottom: -12px;
-    left: 4px;
   }
 
   [vp-settings] {
@@ -91,15 +100,21 @@
 }
 
 #gameContainer {
-  position: absolute;
-//  top: calc(50% - 40px);
-//  left: calc(50% - 40px);
-//  transform: translate(calc(-50% + 40px), calc(-50% + 40px));
+
+  position: relative !important;
+  margin: 0 auto !important;
+  top:26px;  
+  // top: calc(50% - 40px);
+  // left: calc(50% - 40px);
+  min-width: calc(0.90 * 300px);
+  min-height: calc(0.70 * 450px);
+  // transform: translate(calc(-50% + 40px), calc(-50% + 40px));
   height: 70%;
   width: 90%;
+  overflow: hidden;
+  -moz-border-radius: 10px;
+  -webkit-border-radius: 10px;
   border-radius: 10px;
-  -webkit-mask-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAIAAACQd1PeAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAA5JREFUeNpiYGBgAAgwAAAEAAGbA+oJAAAAAElFTkSuQmCC); /* this fixes the overflow:hidden in Chrome/Opera */
-  top: 67px;
-  left: 15px;
+
 
 }
