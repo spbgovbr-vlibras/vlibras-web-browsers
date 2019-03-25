@@ -1,4 +1,6 @@
-.btn-close {
+
+[vp]{
+  .btn-close {
     position: absolute;
     top: 0;
     right: 40px; 
@@ -24,4 +26,5 @@
       // max-width: 100%;
       // max-height: 100%;
     }
+}
 }

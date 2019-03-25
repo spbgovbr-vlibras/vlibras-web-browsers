@@ -1,207 +1,209 @@
 @import url('https://fonts.googleapis.com/css?family=Open+Sans:600');
 
-
-.info-screen {
-  position: relative;
-  // left: 0;
-  // top: 10%;
-
-  padding: 1em;
-
-  width: 100%;
-  height: calc(100% - 40px);
-
-  background-color: white;
-  color: black;
-  font-family: Arial, sans-serif;
-  text-align: center;
-
-  align-items: center;
-  -webkit-align-items: center;
-  font-size: 13px;
-
-  display: none;
-
-  -webkit-box-sizing: border-box;
-  -moz-box-sizing: border-box;
-  box-sizing: border-box;
-
-  &.active {
-    display: -webkit-flex;
-    display: flex;
-  }
-
-  .arrow {
-    flex-grow: 1;
-    -webkit-flex-grow: 1;
-    visibility: hidden;
-    // .arrow-left{
-    //   position: absolute;
-    //   top: 50%;
-    //   transform:translateY(-50%);
-    //   left: 0;
-    // }
-  }
-
-  .arrow.active {
-    visibility: visible;
-  }
-
-  #info-tabset {
+[vp]{
+  .info-screen {
     position: relative;
-    top: 0;
-    flex-grow: 4;
-    display: -webkit-flex;
-    display: flex;
-    flex-direction: column;
-    -webkit-flex-direction: column;
-    padding: 0;
-    height: 100%;
+    // left: 0;
+    // top: 10%;
+  
+    padding: 1em;
+  
     width: 100%;
-    
-
+    height: calc(100% - 40px);
+  
+    background-color: white;
+    color: black;
+    font-family: Arial, sans-serif;
+    text-align: center;
+  
     align-items: center;
     -webkit-align-items: center;
-  }
-
-  #info-main {
-    max-width: 600px;
-    font-family: 'Open Sans', sans-serif;
-
-    flex-direction: column;
-    -webkit-flex-direction: column;
-    #info-text{
-      font-size: 3.2vh;
-
-    }
-  }
-
-  #info-logo img {
-    height: 90px;
-  }
-
-  #info-realizadores {
-    height: 100%;
-    flex-direction: column;
-    align-items: stretch;
-
-    -webkit-flex-direction: column;
-    -webkit-align-items: stretch;
-
+    font-size: 13px;
+  
+    display: none;
+  
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+  
     &.active {
+      display: -webkit-flex;
       display: flex;
     }
-
-    .logo {
-      margin: 0.5em 0.35em;
-      min-width: 10%;
-      max-width: 30%;
-      max-height: 15vh;
-
-      .short-ver {
-        max-width: none;
-        min-height: 16px;
+  
+    .arrow {
+      flex-grow: 1;
+      -webkit-flex-grow: 1;
+      visibility: hidden;
+      // .arrow-left{
+      //   position: absolute;
+      //   top: 50%;
+      //   transform:translateY(-50%);
+      //   left: 0;
+      // }
+    }
+  
+    .arrow.active {
+      visibility: visible;
+    }
+  
+    #info-tabset {
+      position: relative;
+      top: 0;
+      flex-grow: 4;
+      display: -webkit-flex;
+      display: flex;
+      flex-direction: column;
+      -webkit-flex-direction: column;
+      padding: 0;
+      height: 100%;
+      width: 100%;
+      
+  
+      align-items: center;
+      -webkit-align-items: center;
+    }
+  
+    #info-main {
+      max-width: 600px;
+      font-family: 'Open Sans', sans-serif;
+  
+      flex-direction: column;
+      -webkit-flex-direction: column;
+      #info-text{
+        font-size: 3.2vh;
+  
       }
     }
-
-    .logo-group {
-      display: flex;
-      padding: 0.5% 2%;
-
-      flex-direction: row;
-      flex-wrap: wrap;
-      align-items: center;
-      justify-content: space-around;
-
-      -webkit-flex-direction: row;
-      -webkit-flex-wrap: wrap;
-      -webkit-align-items: center;
-      -webkit-justify-content: space-around;
+  
+    #info-logo img {
+      height: 90px;
+    }
+  
+    #info-realizadores {
+      height: 100%;
+      flex-direction: column;
+      align-items: stretch;
+  
+      -webkit-flex-direction: column;
+      -webkit-align-items: stretch;
+  
+      &.active {
+        display: flex;
+      }
+  
+      .logo {
+        margin: 0.5em 0.35em;
+        min-width: 10%;
+        max-width: 30%;
+        max-height: 15vh;
+  
+        .short-ver {
+          max-width: none;
+          min-height: 16px;
+        }
+      }
+  
+      .logo-group {
+        display: flex;
+        padding: 0.5% 2%;
+  
+        flex-direction: row;
+        flex-wrap: wrap;
+        align-items: center;
+        justify-content: space-around;
+  
+        -webkit-flex-direction: row;
+        -webkit-flex-wrap: wrap;
+        -webkit-align-items: center;
+        -webkit-justify-content: space-around;
+      }
+    }
+  
+    .info-tab {
+      flex-grow: 3;
+      -webkit-flex-grow: 3;
+      display: none;
+    }
+  
+    .info-tab.active {
+      display: block;
+    }
+  
+    #info-meta p {
+      margin: .5em 0 0;
+    }
+  
+    #info-meta a {
+      text-decoration: none;
+    }
+  
+  
+  
+      // img{
+      //   display: none;
+      //   width: 15px;
+      //   height: 15px;
+        
+      //   .info-bullet::before{
+      //     content: url(assets/CounterOff.png);
+      //   }
+      //   .info-bullet.active::before{
+      //     content:url(assets/CounterOn-1.png);
+  
+      //   }
+      
+      
+    
+    .info-bullet:before {
+      background-image: url('assets/CounterOff.png');
+      background-size: 15px 15px;
+      display: inline-block;
+      width: 15px; 
+      height: 15px;
+      content:"";
+    }
+  
+    .info-bullet.active:before {
+      background-image: url('assets/CounterOn-1.png')
+    }
+  
+    #info-tab-bullets {
+      width: 100%;
+      height: auto;
+      position: absolute;
+      bottom: 3%;
+      text-align: center;
+      flex-grow: 1;
+      -webkit-flex-grow: 1;
+      
+    }
+    // .arrow-left img{
+    //   width: 10px;
+    //   height: 10px;
+    // }
+  
+    .close-btn {
+      position: absolute;
+      top: 8px;
+      right: 6px;
+      z-index: 4;
+  
+    
+      img.icon {
+        width: 34px;
+        height: 34px;
+      }    
     }
   }
-
-  .info-tab {
-    flex-grow: 3;
-    -webkit-flex-grow: 3;
-    display: none;
-  }
-
-  .info-tab.active {
-    display: block;
-  }
-
-  #info-meta p {
-    margin: .5em 0 0;
-  }
-
-  #info-meta a {
-    text-decoration: none;
-  }
-
-
-
-    // img{
-    //   display: none;
-    //   width: 15px;
-    //   height: 15px;
-      
-    //   .info-bullet::before{
-    //     content: url(assets/CounterOff.png);
-    //   }
-    //   .info-bullet.active::before{
-    //     content:url(assets/CounterOn-1.png);
-
-    //   }
-    
-    
-  
-  .info-bullet:before {
-    background-image: url('assets/CounterOff.png');
-    background-size: 15px 15px;
-    display: inline-block;
-    width: 15px; 
-    height: 15px;
-    content:"";
-  }
-
-  .info-bullet.active:before {
-    background-image: url('assets/CounterOn-1.png')
-  }
-
-  #info-tab-bullets {
-    width: 100%;
-    height: auto;
-    position: absolute;
-    bottom: 3%;
-    text-align: center;
-    flex-grow: 1;
-    -webkit-flex-grow: 1;
-    
-  }
-  // .arrow-left img{
-  //   width: 10px;
-  //   height: 10px;
-  // }
-
-  .close-btn {
-    position: absolute;
-    top: 8px;
-    right: 6px;
-    z-index: 4;
-
-  
-    img.icon {
-      width: 34px;
-      height: 34px;
-    }    
-  }
 }
+
 
 @media only screen and (-moz-min-device-pixel-ratio: 2), 
     only screen and (-o-min-device-pixel-ratio: 2/1),
     only screen and (-webkit-min-device-pixel-ratio: 2), 
     only screen and (min-device-pixel-ratio: 2) {
-  #info-realizadores .logo {
+  [vp] #info-realizadores .logo {
     margin: 0.5em 0.35em;
     min-width: 10%;
     max-width: 50%;
@@ -210,7 +212,7 @@
 }
 
 @media only screen and (max-height: 360px) {
-  #info-main {
+  [vp] #info-main {
     font-size: 0.84em;
   }
 }
