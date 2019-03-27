@@ -13,7 +13,7 @@
   
     background-color: white;
     color: black;
-    font-family: Arial, sans-serif;
+    font-family: 'Open Sans', sans-serif;
     text-align: center;
   
     align-items: center;
@@ -124,6 +124,12 @@
       flex-grow: 3;
       -webkit-flex-grow: 3;
       display: none;
+
+      .info-tab-label{
+        font-size: 16px;
+        font-family: 'Open Sans', sans-serif;
+
+      }
     }
   
     .info-tab.active {

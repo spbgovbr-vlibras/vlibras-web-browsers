@@ -91,17 +91,7 @@
 
 [vw]{
 
-  .vw-text:hover {
-    background-color: rgba(255, 102, 0, 0.5);
-    color: #000;
-    cursor: pointer;
-  }
-  
-  .vw-text-active {
-    background-color: #7CFC00;
-    color: #000;
-  }
-  
+
   #gameContainer {
   
     position: relative !important;
@@ -125,3 +115,13 @@
 
 }
 
+.vw-text:hover {
+  background-color: rgba(255, 102, 0, 0.5);
+  color: #000;
+  cursor: pointer;
+}
+
+.vw-text-active {
+  background-color: #7CFC00;
+  color: #000;
+}
