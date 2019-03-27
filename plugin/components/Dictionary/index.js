@@ -93,7 +93,7 @@ Dictionary.prototype.load = function (element, closeScreen) {
 
   // Search
   this.element.querySelector('.panel .search input')
-    .addEventListener('keyup', function(event) {
+    .addEventListener('keydown', function(event) {
       console.log(event.target.value);
 
       this.list._clear();
