@@ -11,7 +11,6 @@ var Box = require('components/Box');
 var SettingsCloseBtn = require('components/SettingsCloseBtn');
 var CloseScreen = require('components/CloseScreen');
 
-
 function Plugin(option) {
   this.player = new VLibras.Player({
     progress: Progress,
@@ -27,10 +26,8 @@ function Plugin(option) {
   this.settings = new Settings(this.player, this.info, this.Box, this.dictionary, option);
   this.settingBtnClose = new SettingsCloseBtn();
   this.closeScreen = new CloseScreen(this.dictionary, this.info, this.settings, this.settingBtnClose);
-  
   this.settingsBtn = new SettingsBtn(this.player, this.settings,this.settingBtnClose ,option);
   this.messageBox = new MessageBox();
-  
   
   this.loadingRef = null;
 
@@ -44,12 +41,9 @@ function Plugin(option) {
     this.Box.load(this.element.querySelector('[vp-box]'));
     this.settingBtnClose.load(this.element.querySelector('[vp-box]').querySelector('[settings-btn-close]'), this.closeScreen);
     this.settingsBtn.load(this.element.querySelector('[vp-box]').querySelector('[settings-btn]'));
-    
     this.settings.load(this.element.querySelector('[vp-settings]'));    
     this.info.load(this.element.querySelector('[vp-info-screen]'));
     this.dictionary.load(this.element.querySelector('[vp-dictionary]'), this.closeScreen);
-    
-
   }.bind(this));
 
   this.info.on('show', function () {
