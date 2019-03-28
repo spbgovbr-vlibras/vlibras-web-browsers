@@ -14,11 +14,11 @@ var CloseScreen = require('components/CloseScreen');
 
 function Plugin(option) {
   this.player = new VLibras.Player({
-    progress: Progress
+    progress: Progress,
+    onLoad: option.playWellcome && (() => this.player.playWellcome()),
   });
 
   this.element = document.querySelector('[vp]');
-  
   
   this.dictionary = new Dictionary(this.player);
   this.controls = new Controls(this.player, this.dictionary);
