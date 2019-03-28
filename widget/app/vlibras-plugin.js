@@ -47,7 +47,7 @@
 	const window = __webpack_require__(1);
 
 	const Plugin = __webpack_require__(2);
-	const Widget = __webpack_require__(64);
+	const Widget = __webpack_require__(65);
 
 	window.VLibras.Plugin = Plugin;
 	window.VLibras.Widget = Widget;
@@ -65,25 +65,25 @@
 
 	var VLibras = __webpack_require__(3);
 
-	var Settings = __webpack_require__(18);
-	var SettingsBtn = __webpack_require__(28);
-	var InfoScreen = __webpack_require__(32);
-	var Dictionary = __webpack_require__(36);
-	var Controls = __webpack_require__(41);
-	var Progress = __webpack_require__(48);
-	var MessageBox = __webpack_require__(52);
-	var Box = __webpack_require__(55);
-	var SettingsCloseBtn = __webpack_require__(59);
-	var CloseScreen = __webpack_require__(63);
+	var Settings = __webpack_require__(19);
+	var SettingsBtn = __webpack_require__(29);
+	var InfoScreen = __webpack_require__(33);
+	var Dictionary = __webpack_require__(37);
+	var Controls = __webpack_require__(42);
+	var Progress = __webpack_require__(49);
+	var MessageBox = __webpack_require__(53);
+	var Box = __webpack_require__(56);
+	var SettingsCloseBtn = __webpack_require__(60);
+	var CloseScreen = __webpack_require__(64);
 
 
 	function Plugin(option) {
 	  this.player = new VLibras.Player({
-	    progress: Progress
+	    progress: Progress,
+	    onLoad: option.playWellcome && (() => this.player.playWellcome()),
 	  });
 
 	  this.element = document.querySelector('[vp]');
-	  
 	  
 	  this.dictionary = new Dictionary(this.player);
 	  this.controls = new Controls(this.player, this.dictionary);
@@ -181,19 +181,20 @@
 /***/ (function(module, exports, __webpack_require__) {
 
 	var window = __webpack_require__(1);
-	var document = window.document;
-
 	var assign = __webpack_require__(5);
 	var inherits = __webpack_require__(6);
 	var path = __webpack_require__(7);
-
 	var EventEmitter = __webpack_require__(9).EventEmitter;
-	var PlayerManagerAdapter = __webpack_require__(10);
-	var GlosaTranslator = __webpack_require__(11);
+
+	var config = __webpack_require__(10);
+	var PlayerManagerAdapter = __webpack_require__(11);
+	var GlosaTranslator = __webpack_require__(12);
+
+	var document = window.document;
 
 	function Player(options) {
 	  this.options = assign({
-	    translator: 'http://35.232.189.139:8080/translate',
+	    translator: config.translatorUrl,
 	    targetPath: 'target',
 	  }, options);
 
@@ -209,7 +210,12 @@
 	  this.playerManager.on('load', () => {
 	    this.loaded = true;
 	    this.emit('load');
-	    this.play();
+
+	    if (this.options.onLoad) {
+	      this.options.onLoad();
+	    } else {
+	      this.play();
+	    }
 	  });
 
 	  this.playerManager.on('progress', (progress) => {
@@ -250,6 +256,10 @@
 	  if (this.glosa !== undefined && this.loaded) {
 	    this.playerManager.play(this.glosa);
 	  }
+	};
+
+	Player.prototype.playWellcome = function () {
+	  this.playerManager.playWellcome();
 	};
 
 	Player.prototype.continue = function () {
@@ -318,6 +328,7 @@
 	        },
 	      });
 	    this.playerManager.setPlayerReference(this.player);
+	    this.playerManager.setBaseUrl(config.dictionaryUrl);
 	  };
 
 	  document.body.appendChild(targetScript);
@@ -1182,6 +1193,14 @@
 
 /***/ }),
 /* 10 */
+/***/ (function(module, exports) {
+
+	exports.translatorUrl = 'http://35.232.189.139:8080/translate';
+	exports.dictionaryUrl = 'http://150.165.204.184:8080/3_3_1/WEBGL/'; // Must have "/" in the end
+
+
+/***/ }),
+/* 11 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	var window = __webpack_require__(1);
@@ -1241,6 +1260,14 @@
 	  this._send('setRegion', region);
 	};
 
+	PlayerManagerAdapter.prototype.playWellcome = function () {
+	  this._send('playWellcome');
+	};
+
+	PlayerManagerAdapter.prototype.setBaseUrl = function (url) {
+	  this._send('setBaseUrl', url);
+	};
+
 	window.onLoadPlayer = function () {
 	  PlayerManagerAdapter.instance.emit('load');
 	};
@@ -1268,10 +1295,10 @@
 
 
 /***/ }),
-/* 11 */
+/* 12 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	var request = __webpack_require__(12);
+	var request = __webpack_require__(13);
 
 	function GlosaTranslator(endpoint) {
 	  this.endpoint = endpoint;
@@ -1296,17 +1323,17 @@
 
 
 /***/ }),
-/* 12 */
+/* 13 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	/**
 	 * Module dependencies.
 	 */
 
-	var Emitter = __webpack_require__(13);
-	var reduce = __webpack_require__(14);
-	var requestBase = __webpack_require__(15);
-	var isObject = __webpack_require__(16);
+	var Emitter = __webpack_require__(14);
+	var reduce = __webpack_require__(15);
+	var requestBase = __webpack_require__(16);
+	var isObject = __webpack_require__(17);
 
 	/**
 	 * Root reference for iframes.
@@ -1355,7 +1382,7 @@
 	 * Expose `request`.
 	 */
 
-	var request = module.exports = __webpack_require__(17).bind(null, Request);
+	var request = module.exports = __webpack_require__(18).bind(null, Request);
 
 	/**
 	 * Determine XHR.
@@ -2379,7 +2406,7 @@
 
 
 /***/ }),
-/* 13 */
+/* 14 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	
@@ -2548,7 +2575,7 @@
 
 
 /***/ }),
-/* 14 */
+/* 15 */
 /***/ (function(module, exports) {
 
 	
@@ -2577,13 +2604,13 @@
 	};
 
 /***/ }),
-/* 15 */
+/* 16 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	/**
 	 * Module of mixed-in functions shared between node and client code
 	 */
-	var isObject = __webpack_require__(16);
+	var isObject = __webpack_require__(17);
 
 	/**
 	 * Clear previous timeout.
@@ -2749,7 +2776,7 @@
 
 
 /***/ }),
-/* 16 */
+/* 17 */
 /***/ (function(module, exports) {
 
 	/**
@@ -2768,7 +2795,7 @@
 
 
 /***/ }),
-/* 17 */
+/* 18 */
 /***/ (function(module, exports) {
 
 	// The node and browser modules expose versions of this with the
@@ -2806,15 +2833,15 @@
 
 
 /***/ }),
-/* 18 */
+/* 19 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	var inherits = __webpack_require__(19);
+	var inherits = __webpack_require__(20);
 	var EventEmitter = __webpack_require__(9).EventEmitter;
 
-	var settingsTpl = __webpack_require__(20);
-	__webpack_require__(21);
-	__webpack_require__(25);
+	var settingsTpl = __webpack_require__(21);
+	__webpack_require__(22);
+	__webpack_require__(26);
 
 	function Settings(player, infoScreen, menu, dictionary,option) {
 	  this.visible = false;
@@ -2911,7 +2938,7 @@
 
 	  // Creates regions grid
 	  var regions = this.localism.querySelector('.regions');
-	  var regionHTML = __webpack_require__(27);
+	  var regionHTML = __webpack_require__(28);
 
 	  for (var i in regionsData) {
 	    var data = regionsData[i];
@@ -3031,7 +3058,7 @@
 	];
 
 /***/ }),
-/* 19 */
+/* 20 */
 /***/ (function(module, exports) {
 
 	if (typeof Object.create === 'function') {
@@ -3060,22 +3087,22 @@
 
 
 /***/ }),
-/* 20 */
+/* 21 */
 /***/ (function(module, exports) {
 
 	module.exports = "<div class=\"content\">\n    <ul>\n        <li class=\"localism clickable\">\n            <div class=\"container-localism\">\n                <span class=\"name\">Regionalismo</span>\n                <img class=\"flag\" src=\"assets/brazil.png\">\n                <span class=\"abbrev\">BR</span>\n                <!-- <img class=\"arrow\" src=\"assets/expander.png\"> -->\n            </div>\n        </li>\n        <li class=\"dict clickable loading-dictionary\">\n            <div class=\"container-dict\">\n                <span class=\"controls-dictionary loading-dictionary\"></span>\n            </div>\n        </li>\n        <li class=\"position clickable\">\n            <div class=\"container-position\">\n                <span class=\"name\">Posicionamento da tela</span>\n                <label class=\"switch\">\n                    <input checked disabled type=\"checkbox\" name=\"checkbox\">\n                    <span class=\"slider-check round\"></span>\n                </label>\n            </div>\n        </li>\n\n        <li class=\"about clickable\">\n            <div class=\"container-about\">\n                <span class=\"name\">Sobre</span>\n            </div>\n        </li>\n    </ul>\n\n    <div class=\"localism\">\n        <div class=\"national clickable\">\n            <img class=\"flag\" src=\"assets/brazil.png\">\n            <span class=\"name\">BR</span>\n        </div>\n        <div class=\"regions\"></div>\n    </div>\n    <div class=\"vlibras-logo\">\n        <span class=\"vlibras-span\">VLIBRAS</span>\n        <img class=\"logo\" src=\"assets/logoicon.png\">\n    </div>\n</div>\n\n<div class=\"wall\"></div>"
 
 /***/ }),
-/* 21 */
+/* 22 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 
 	// load the styles
-	var content = __webpack_require__(22);
+	var content = __webpack_require__(23);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
-	var update = __webpack_require__(24)(content, {});
+	var update = __webpack_require__(25)(content, {});
 	if(content.locals) module.exports = content.locals;
 	// Hot Module Replacement
 	if(false) {
@@ -3092,10 +3119,10 @@
 	}
 
 /***/ }),
-/* 22 */
+/* 23 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	exports = module.exports = __webpack_require__(23)();
+	exports = module.exports = __webpack_require__(24)();
 	// imports
 	exports.push([module.id, "@import url(https://fonts.googleapis.com/css?family=Open+Sans:600);", ""]);
 
@@ -3106,7 +3133,7 @@
 
 
 /***/ }),
-/* 23 */
+/* 24 */
 /***/ (function(module, exports) {
 
 	/*
@@ -3162,7 +3189,7 @@
 
 
 /***/ }),
-/* 24 */
+/* 25 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	/*
@@ -3414,16 +3441,16 @@
 
 
 /***/ }),
-/* 25 */
+/* 26 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 
 	// load the styles
-	var content = __webpack_require__(26);
+	var content = __webpack_require__(27);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
-	var update = __webpack_require__(24)(content, {});
+	var update = __webpack_require__(25)(content, {});
 	if(content.locals) module.exports = content.locals;
 	// Hot Module Replacement
 	if(false) {
@@ -3440,10 +3467,10 @@
 	}
 
 /***/ }),
-/* 26 */
+/* 27 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	exports = module.exports = __webpack_require__(23)();
+	exports = module.exports = __webpack_require__(24)();
 	// imports
 
 
@@ -3454,17 +3481,17 @@
 
 
 /***/ }),
-/* 27 */
+/* 28 */
 /***/ (function(module, exports) {
 
 	module.exports = "<div class=\"cont\">\n    <img class=\"flag\">\n    <span class=\"name\"></span>\n</div>\n\n\n"
 
 /***/ }),
-/* 28 */
+/* 29 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	var settingsBtnTpl = __webpack_require__(29);
-	__webpack_require__(30);
+	var settingsBtnTpl = __webpack_require__(30);
+	__webpack_require__(31);
 
 	function SettingsBtn(player, screen, settingsBtnClose,option) {
 	  this.player = player;
@@ -3508,22 +3535,22 @@
 
 
 /***/ }),
-/* 29 */
+/* 30 */
 /***/ (function(module, exports) {
 
 	module.exports = "<img class=\"settings-btn-menu\" src=\"assets/component-menu.png\">\n<img class=\"settings-btn-close\" src=\"assets/close.svg\">\n"
 
 /***/ }),
-/* 30 */
+/* 31 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 
 	// load the styles
-	var content = __webpack_require__(31);
+	var content = __webpack_require__(32);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
-	var update = __webpack_require__(24)(content, {});
+	var update = __webpack_require__(25)(content, {});
 	if(content.locals) module.exports = content.locals;
 	// Hot Module Replacement
 	if(false) {
@@ -3540,10 +3567,10 @@
 	}
 
 /***/ }),
-/* 31 */
+/* 32 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	exports = module.exports = __webpack_require__(23)();
+	exports = module.exports = __webpack_require__(24)();
 	// imports
 
 
@@ -3554,14 +3581,14 @@
 
 
 /***/ }),
-/* 32 */
+/* 33 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	var inherits = __webpack_require__(19);
+	var inherits = __webpack_require__(20);
 	var EventEmitter = __webpack_require__(9).EventEmitter;
 
-	var infoScreenTpl = __webpack_require__(33);
-	__webpack_require__(34);
+	var infoScreenTpl = __webpack_require__(34);
+	__webpack_require__(35);
 
 	function InfoScreen(box) {
 	  // this.settingBtnClose = settingBtnClose;
@@ -3642,22 +3669,22 @@
 
 
 /***/ }),
-/* 33 */
+/* 34 */
 /***/ (function(module, exports) {
 
 	module.exports = "<div class=\"arrow arrow-left\">\n    <img src=\"assets/ToLeft-2019.png\" />\n</div>\n<div id=\"info-tabset\">\n    <div id=\"info-main\" class=\"info-tab active\">\n        <div id=\"info-logo\">\n            <img src=\"assets/logo.png\"/>\n        </div>\n        <div id=\"info-meta\">\n            <p>Versão 3.0.2</p>\n            <a href=\"http://vlibras.gov.br\" target=\"_blank\">vlibras.gov.br</a>\n        </div>\n        <div id=\"info-text\">\n            <p>O VLibras é uma ferramenta aberta de distribuição livre, desenvolvida para melhorar o acesso à informação das pessoas surdas brasileiras.</p>\n            <p>Qualquer dúvida ou questionamento, envie uma mensagem para o Núcleo de Pesquisa e Extensão LAViD - Centro de Informática - UFPB através do e-mail. contato@lavid.ufpb.br</p>\n        </div>\n    </div>\n    <div id=\"info-realizadores\" class=\"info-tab\">\n        <span class=\"info-tab-label\">Realizadores</span>\n\n        <div class=\"logo-group\">\n            <img class=\"logo\" src=\"assets/about_sti.png\">\n            <img class=\"logo\" src=\"assets/about_min-plan.png\">\n            <img class=\"logo\" src=\"assets/about_min-jus.png\">\n            <img class=\"logo\" src=\"assets/about_gov.png\">\n        </div>\n\n        <div class=\"logo-group\">\n            <img class=\"logo\" src=\"assets/about_lavid.png\">\n            <img class=\"logo\" src=\"assets/about_ufpb.png\">\n        </div>\n\n        <div class=\"logo-group\">\n            <img class=\"logo\" src=\"assets/about_rnp.png\">\n            <img class=\"logo\" src=\"assets/about_camara.png\">\n        </div>\n    </div>\n    <div id=\"info-tab-bullets\">\n        <span class=\"info-bullet active\"></span>\n        <span class=\"info-bullet\"></span>\n    </div>\n</div>\n<div class=\"arrow arrow-right active\">\n    <img src=\"assets/ToRight-2019.png\" />\n</div>"
 
 /***/ }),
-/* 34 */
+/* 35 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 
 	// load the styles
-	var content = __webpack_require__(35);
+	var content = __webpack_require__(36);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
-	var update = __webpack_require__(24)(content, {});
+	var update = __webpack_require__(25)(content, {});
 	if(content.locals) module.exports = content.locals;
 	// Hot Module Replacement
 	if(false) {
@@ -3674,10 +3701,10 @@
 	}
 
 /***/ }),
-/* 35 */
+/* 36 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	exports = module.exports = __webpack_require__(23)();
+	exports = module.exports = __webpack_require__(24)();
 	// imports
 	exports.push([module.id, "@import url(https://fonts.googleapis.com/css?family=Open+Sans:600);", ""]);
 
@@ -3688,16 +3715,16 @@
 
 
 /***/ }),
-/* 36 */
+/* 37 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	var inherits = __webpack_require__(19);
+	var inherits = __webpack_require__(20);
 	var EventEmitter = __webpack_require__(9).EventEmitter;
 
-	var dictionaryTpl = __webpack_require__(37);
-	__webpack_require__(38);
+	var dictionaryTpl = __webpack_require__(38);
+	__webpack_require__(39);
 
-	var Trie = __webpack_require__(40);
+	var Trie = __webpack_require__(41);
 	// var NonBlockingProcess = require('./non-blocking-process.js');
 
 	function Dictionary(player)
@@ -3821,22 +3848,22 @@
 	module.exports = Dictionary;
 
 /***/ }),
-/* 37 */
+/* 38 */
 /***/ (function(module, exports) {
 
 	module.exports = "<div class=\"panel\"> \n    <div class=\"bar\">\n        <span class=\"title\">Dicionario</span>\n        <img class=\"btn-close\" src=\"assets/Close.png\">\n    </div>\n\n    <div class=\"search\">\n        <input type=\"text\">\n        <span class=\"icon\">\n            <img src=\"assets/search.jpg\">\n        </span>\n    </div>\n</div>\n\n\n<div class=\"dict-container\">\n    <ul></ul>\n</div>"
 
 /***/ }),
-/* 38 */
+/* 39 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 
 	// load the styles
-	var content = __webpack_require__(39);
+	var content = __webpack_require__(40);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
-	var update = __webpack_require__(24)(content, {});
+	var update = __webpack_require__(25)(content, {});
 	if(content.locals) module.exports = content.locals;
 	// Hot Module Replacement
 	if(false) {
@@ -3853,10 +3880,10 @@
 	}
 
 /***/ }),
-/* 39 */
+/* 40 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	exports = module.exports = __webpack_require__(23)();
+	exports = module.exports = __webpack_require__(24)();
 	// imports
 
 
@@ -3867,7 +3894,7 @@
 
 
 /***/ }),
-/* 40 */
+/* 41 */
 /***/ (function(module, exports) {
 
 	function Node(end)
@@ -3991,14 +4018,14 @@
 	module.exports = Trie;
 
 /***/ }),
-/* 41 */
+/* 42 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	var noUiSlider = __webpack_require__(42);
-	__webpack_require__(43);
+	var noUiSlider = __webpack_require__(43);
+	__webpack_require__(44);
 
-	var controlsTpl = __webpack_require__(45);
-	__webpack_require__(46);
+	var controlsTpl = __webpack_require__(46);
+	__webpack_require__(47);
 
 	function Controls(player, dictionary) {
 	  this.player = player;
@@ -4151,7 +4178,7 @@
 
 
 /***/ }),
-/* 42 */
+/* 43 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*! nouislider - 8.5.1 - 2016-04-24 16:00:29 */
@@ -6115,16 +6142,16 @@
 	}));
 
 /***/ }),
-/* 43 */
+/* 44 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 
 	// load the styles
-	var content = __webpack_require__(44);
+	var content = __webpack_require__(45);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
-	var update = __webpack_require__(24)(content, {});
+	var update = __webpack_require__(25)(content, {});
 	if(content.locals) module.exports = content.locals;
 	// Hot Module Replacement
 	if(false) {
@@ -6141,10 +6168,10 @@
 	}
 
 /***/ }),
-/* 44 */
+/* 45 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	exports = module.exports = __webpack_require__(23)();
+	exports = module.exports = __webpack_require__(24)();
 	// imports
 
 
@@ -6155,22 +6182,22 @@
 
 
 /***/ }),
-/* 45 */
+/* 46 */
 /***/ (function(module, exports) {
 
 	module.exports = "<span class=\"controls-play\"></span>\n<div class=\"controls-slider\">\n\t<div class=\"slider\"></div>\n</div>\n<div class=\"controls-speed\">\n\t<div class=\"elem-speed\">\n\t\t<ul class=\"controls-speed-number\">\n\t\t\t<li class=\"block-speed block-speed-3\" >x3</li>\n\t\t\t<li class=\"block-speed block-speed-2\" >x2</li>\n\t\t\t<li class=\"block-speed block-speed-1\" >x1</li>\n\t\t\t<li class=\"block-speed block-speed-05\" >x0.5</li>\n\t\t</ul>\n\t</div>\n\t<span class=\"speed-default\">x1</span>\n</div>\n\n<span class=\"controls-subtitles\"></span>\n"
 
 /***/ }),
-/* 46 */
+/* 47 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 
 	// load the styles
-	var content = __webpack_require__(47);
+	var content = __webpack_require__(48);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
-	var update = __webpack_require__(24)(content, {});
+	var update = __webpack_require__(25)(content, {});
 	if(content.locals) module.exports = content.locals;
 	// Hot Module Replacement
 	if(false) {
@@ -6187,10 +6214,10 @@
 	}
 
 /***/ }),
-/* 47 */
+/* 48 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	exports = module.exports = __webpack_require__(23)();
+	exports = module.exports = __webpack_require__(24)();
 	// imports
 	exports.push([module.id, "@import url(https://fonts.googleapis.com/css?family=Open+Sans:600);", ""]);
 
@@ -6201,11 +6228,11 @@
 
 
 /***/ }),
-/* 48 */
+/* 49 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	__webpack_require__(49);
-	var progressTpl = __webpack_require__(51);
+	__webpack_require__(50);
+	var progressTpl = __webpack_require__(52);
 
 	function Progress(wrapper) {
 	  this.progress = 0.0;
@@ -6247,16 +6274,16 @@
 
 
 /***/ }),
-/* 49 */
+/* 50 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 
 	// load the styles
-	var content = __webpack_require__(50);
+	var content = __webpack_require__(51);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
-	var update = __webpack_require__(24)(content, {});
+	var update = __webpack_require__(25)(content, {});
 	if(content.locals) module.exports = content.locals;
 	// Hot Module Replacement
 	if(false) {
@@ -6273,10 +6300,10 @@
 	}
 
 /***/ }),
-/* 50 */
+/* 51 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	exports = module.exports = __webpack_require__(23)();
+	exports = module.exports = __webpack_require__(24)();
 	// imports
 
 
@@ -6287,16 +6314,16 @@
 
 
 /***/ }),
-/* 51 */
+/* 52 */
 /***/ (function(module, exports) {
 
 	module.exports = "<img class=\"brand\" src=\"assets/progresslogo.png\"></img>\n<div class=\"progressbar\">\n    <div class=\"bar\"></div>\n</div>\n"
 
 /***/ }),
-/* 52 */
+/* 53 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	__webpack_require__(53);
+	__webpack_require__(54);
 
 	var messageBoxTlp = '<span class="message"></span>';
 
@@ -6355,16 +6382,16 @@
 
 
 /***/ }),
-/* 53 */
+/* 54 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 
 	// load the styles
-	var content = __webpack_require__(54);
+	var content = __webpack_require__(55);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
-	var update = __webpack_require__(24)(content, {});
+	var update = __webpack_require__(25)(content, {});
 	if(content.locals) module.exports = content.locals;
 	// Hot Module Replacement
 	if(false) {
@@ -6381,10 +6408,10 @@
 	}
 
 /***/ }),
-/* 54 */
+/* 55 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	exports = module.exports = __webpack_require__(23)();
+	exports = module.exports = __webpack_require__(24)();
 	// imports
 
 
@@ -6395,11 +6422,11 @@
 
 
 /***/ }),
-/* 55 */
+/* 56 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	var BoxTlp = __webpack_require__(56);
-	__webpack_require__(57);
+	var BoxTlp = __webpack_require__(57);
+	__webpack_require__(58);
 
 
 	function Box() {
@@ -6430,22 +6457,22 @@
 
 
 /***/ }),
-/* 56 */
+/* 57 */
 /***/ (function(module, exports) {
 
 	module.exports = "<span class=\"mes\">VLIBRAS</span>\n<div settings-btn></div>\n<div settings-btn-close></div>"
 
 /***/ }),
-/* 57 */
+/* 58 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 
 	// load the styles
-	var content = __webpack_require__(58);
+	var content = __webpack_require__(59);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
-	var update = __webpack_require__(24)(content, {});
+	var update = __webpack_require__(25)(content, {});
 	if(content.locals) module.exports = content.locals;
 	// Hot Module Replacement
 	if(false) {
@@ -6462,10 +6489,10 @@
 	}
 
 /***/ }),
-/* 58 */
+/* 59 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	exports = module.exports = __webpack_require__(23)();
+	exports = module.exports = __webpack_require__(24)();
 	// imports
 	exports.push([module.id, "@import url(https://fonts.googleapis.com/css?family=Open+Sans:600);", ""]);
 
@@ -6476,11 +6503,11 @@
 
 
 /***/ }),
-/* 59 */
+/* 60 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	var btn_close_Tpl = __webpack_require__(60);
-	__webpack_require__(61);
+	var btn_close_Tpl = __webpack_require__(61);
+	__webpack_require__(62);
 
 	function SettingsCloseBtn(){
 	    this.closeScreen = null;
@@ -6505,22 +6532,22 @@
 	module.exports = SettingsCloseBtn;
 
 /***/ }),
-/* 60 */
+/* 61 */
 /***/ (function(module, exports) {
 
 	module.exports = "<img src=\"assets/Close-2019.png\">\n"
 
 /***/ }),
-/* 61 */
+/* 62 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 
 	// load the styles
-	var content = __webpack_require__(62);
+	var content = __webpack_require__(63);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
-	var update = __webpack_require__(24)(content, {});
+	var update = __webpack_require__(25)(content, {});
 	if(content.locals) module.exports = content.locals;
 	// Hot Module Replacement
 	if(false) {
@@ -6537,10 +6564,10 @@
 	}
 
 /***/ }),
-/* 62 */
+/* 63 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	exports = module.exports = __webpack_require__(23)();
+	exports = module.exports = __webpack_require__(24)();
 	// imports
 
 
@@ -6551,7 +6578,7 @@
 
 
 /***/ }),
-/* 63 */
+/* 64 */
 /***/ (function(module, exports) {
 
 	function CloseScreen(dictionary, info, settings, settingsBtnClose){
@@ -6591,14 +6618,14 @@
 	module.exports = CloseScreen;
 
 /***/ }),
-/* 64 */
+/* 65 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	const window = __webpack_require__(1);
 
-	const AccessButton = __webpack_require__(65);
-	const PluginWrapper = __webpack_require__(69);
-	__webpack_require__(73);
+	const AccessButton = __webpack_require__(66);
+	const PluginWrapper = __webpack_require__(70);
+	__webpack_require__(74);
 
 	module.exports = function Widget() {
 	  const widgetWrapper = new PluginWrapper();
@@ -6608,6 +6635,7 @@
 	    const vw = document.querySelector('[vw]');
 		const wrapper = document.querySelector('[vw-plugin-wrapper]');
 		const access = document.querySelector('[vw-access-button]');
+		var tagsTexts = document.querySelectorAll('.vw-text');
 
 	    accessButton.load(document.querySelector('[vw-access-button]'), vw);
 	    widgetWrapper.load(document.querySelector('[vw-plugin-wrapper]'));
@@ -6627,7 +6655,11 @@
 		window.addEventListener('vp-widget-close', (event) => { 
 			access.classList.toggle('active');
 	    	wrapper.classList.toggle('active');
-		});
+	      	for (var i = 0; i < tagsTexts.length; i++) {
+		        var parent  = tagsTexts[i].parentNode;
+		        parent.innerHTML = tagsTexts[i].innerHTML;
+	      	}	
+	  	});
 
 	    
 	  };
@@ -6635,12 +6667,12 @@
 
 
 /***/ }),
-/* 65 */
+/* 66 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	const window = __webpack_require__(1);
-	const template = __webpack_require__(66);
-	__webpack_require__(67);
+	const template = __webpack_require__(67);
+	__webpack_require__(68);
 
 	function AccessButton(pluginWrapper) {
 	  this.pluginWrapper = pluginWrapper;
@@ -6654,7 +6686,11 @@
 	    this.element.classList.toggle('active');
 	    this.pluginWrapper.element.classList.toggle('active');
 
-	    window.plugin = (window.plugin || new window.VLibras.Plugin({enableMoveWindow: true}));
+	    window.plugin = (window.plugin || new window.VLibras.Plugin({
+	      enableMoveWindow: true,
+	      playWellcome: true,
+	    }));
+
 	    addTagsTexts(vw);
 	  });
 	};
@@ -6759,22 +6795,22 @@
 
 
 /***/ }),
-/* 66 */
+/* 67 */
 /***/ (function(module, exports) {
 
 	module.exports = "<img src=\"assets/component-ac.png\" />"
 
 /***/ }),
-/* 67 */
+/* 68 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 
 	// load the styles
-	var content = __webpack_require__(68);
+	var content = __webpack_require__(69);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
-	var update = __webpack_require__(24)(content, {});
+	var update = __webpack_require__(25)(content, {});
 	if(content.locals) module.exports = content.locals;
 	// Hot Module Replacement
 	if(false) {
@@ -6791,10 +6827,10 @@
 	}
 
 /***/ }),
-/* 68 */
+/* 69 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	exports = module.exports = __webpack_require__(23)();
+	exports = module.exports = __webpack_require__(24)();
 	// imports
 
 
@@ -6805,11 +6841,11 @@
 
 
 /***/ }),
-/* 69 */
+/* 70 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	const template = __webpack_require__(70);
-	__webpack_require__(71);
+	const template = __webpack_require__(71);
+	__webpack_require__(72);
 
 	function PluginWrapper() { 
 		
@@ -6824,22 +6860,22 @@
 
 
 /***/ }),
-/* 70 */
+/* 71 */
 /***/ (function(module, exports) {
 
 	module.exports = "<div vp>\n  <div vp-box></div>\n  <div vp-message-box></div>\n  <div vp-settings></div>\n  <div vp-settings-btn></div>\n  <div vp-info-screen></div>\n  <div vp-dictionary></div>\n  <div vp-controls></div>\n</div>\n"
 
 /***/ }),
-/* 71 */
+/* 72 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 
 	// load the styles
-	var content = __webpack_require__(72);
+	var content = __webpack_require__(73);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
-	var update = __webpack_require__(24)(content, {});
+	var update = __webpack_require__(25)(content, {});
 	if(content.locals) module.exports = content.locals;
 	// Hot Module Replacement
 	if(false) {
@@ -6856,10 +6892,10 @@
 	}
 
 /***/ }),
-/* 72 */
+/* 73 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	exports = module.exports = __webpack_require__(23)();
+	exports = module.exports = __webpack_require__(24)();
 	// imports
 
 
@@ -6870,16 +6906,16 @@
 
 
 /***/ }),
-/* 73 */
+/* 74 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 
 	// load the styles
-	var content = __webpack_require__(74);
+	var content = __webpack_require__(75);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
-	var update = __webpack_require__(24)(content, {});
+	var update = __webpack_require__(25)(content, {});
 	if(content.locals) module.exports = content.locals;
 	// Hot Module Replacement
 	if(false) {
@@ -6896,10 +6932,10 @@
 	}
 
 /***/ }),
-/* 74 */
+/* 75 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	exports = module.exports = __webpack_require__(23)();
+	exports = module.exports = __webpack_require__(24)();
 	// imports
 
 

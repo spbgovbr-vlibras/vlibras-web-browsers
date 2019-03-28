@@ -12,6 +12,7 @@ module.exports = function Widget() {
     const vw = document.querySelector('[vw]');
 	const wrapper = document.querySelector('[vw-plugin-wrapper]');
 	const access = document.querySelector('[vw-access-button]');
+	var tagsTexts = document.querySelectorAll('.vw-text');
 
     accessButton.load(document.querySelector('[vw-access-button]'), vw);
     widgetWrapper.load(document.querySelector('[vw-plugin-wrapper]'));
@@ -31,7 +32,11 @@ module.exports = function Widget() {
 	window.addEventListener('vp-widget-close', (event) => { 
 		access.classList.toggle('active');
     	wrapper.classList.toggle('active');
-	});
+      	for (var i = 0; i < tagsTexts.length; i++) {
+	        var parent  = tagsTexts[i].parentNode;
+	        parent.innerHTML = tagsTexts[i].innerHTML;
+      	}	
+  	});
 
     
   };
