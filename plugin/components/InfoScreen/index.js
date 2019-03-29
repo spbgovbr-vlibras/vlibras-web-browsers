@@ -35,8 +35,8 @@ InfoScreen.prototype.load = function (element) {
     this.classList.remove('active');
     right.classList.add('active');
 
-    bullets[1].classList.remove('active');
-    bullets[0].classList.add('active');
+    // bullets[1].classList.remove('active');
+    // bullets[0].classList.add('active');
   });
 
   right.addEventListener('click', function() {
@@ -46,8 +46,8 @@ InfoScreen.prototype.load = function (element) {
     this.classList.remove('active');
     left.classList.add('active');
 
-    bullets[0].classList.remove('active');
-    bullets[1].classList.add('active');
+    // bullets[0].classList.remove('active');
+    // bullets[1].classList.add('active');
   });
 
   // this.settingBtnClose.element.firstChild.addEventListener('click', function() {

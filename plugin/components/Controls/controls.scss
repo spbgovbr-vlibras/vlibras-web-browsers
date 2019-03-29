@@ -1,5 +1,8 @@
 @import '~scss/flexbox';
-@import url('https://fonts.googleapis.com/css?family=Open+Sans:600');
+@font-face {
+     font-family: Open Sans;
+     src: url('assets/OpenSans-Semibold.ttf');
+}
 
 [vp]{
   .controls {
@@ -34,14 +37,38 @@
       cursor: pointer;
     }
   
-  
-    .controls-play:before { content: url(assets/component-play.png); }
-    &.playing .controls-play:before { content: url(assets/component-pause.png);  }
-    &.stopped .controls-play:before { content: url(assets/component-restart.png); }
-    &.subtitles .controls-subtitles:before { content: url(assets/component-legenda-habilitar.png) }
-    .controls-subtitles:before { content: url(assets/component-legenda-desabilitar.png) }
-  
-    
+    .controls-play {
+      .component-play { display: block; }
+      .component-pause { display: none; }
+      .component-restart { display: none; }
+    }
+
+    &.playing .controls-play {
+      .component-play { display: none; }
+      .component-pause { display: block; }
+      .component-restart  { display: none; }
+    }
+
+    &.stopped .controls-play {
+      .component-play { display: none; }
+      .component-pause { display: none; }
+      .component-restart { display: block; }
+    }
+
+
+
+    &.subtitles .controls-subtitles {
+      .legenda-habilitar { display: block; }
+      .legenda-desabilitar { display: none; }
+    }
+
+   .controls-subtitles {
+      .legenda-habilitar { display: none; }
+      .legenda-desabilitar { display: block; }
+   }
+
+
+
   }
   
   
@@ -84,11 +111,25 @@
   
   }
   
+  .img-default {
+    display: none;
+    padding: 2px;
+    padding-left: 2.2px;
+    cursor: pointer;
+  }
+
+  .border-default {
+    display: none;
+    border: 1px solid rgb(153, 153, 153);
+    border-radius: 0px 0px 3px 3px;
+
+  }
   
+
   .elem-speed {
     display: none;
     position: absolute;
-    bottom: 20px;
+    bottom: 22px;
     cursor: pointer;
   }
   
@@ -97,7 +138,7 @@
     background-color: #003F86;
     color: white;
     font-size: 10px;
-    width: 25px;
+    width: 25.5px;
     text-align: center;
   }
   
@@ -116,7 +157,7 @@
   }
   
   .controls-speed-number {
-    width: 25px;
+    width: 25.5px;
     padding-left: 0px;
     margin-top: 0px;
     margin-bottom: 0px;
