@@ -1,4 +1,7 @@
-@import url('https://fonts.googleapis.com/css?family=Open+Sans:600');
+@font-face {
+     font-family: Open Sans;
+     src: url('assets/OpenSans-Semibold.ttf');
+}
 
 [vp]{
   .info-screen {
@@ -165,8 +168,7 @@
       
       
     
-    .info-bullet:before {
-      background-image: url('assets/CounterOff.png');
+    .info-bullet {
       background-size: 15px 15px;
       display: inline-block;
       width: 15px; 
@@ -174,8 +176,7 @@
       content:"";
     }
   
-    .info-bullet.active:before {
-      background-image: url('assets/CounterOn-1.png')
+    .info-bullet.active {
     }
   
     #info-tab-bullets {

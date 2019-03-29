@@ -1,4 +1,8 @@
 $margin_left: 40px;
+@font-face {
+     font-family: Open Sans;
+     src: url('assets/OpenSans-Semibold.ttf');
+}
 
 [vp]{
     .dictionary {
@@ -9,7 +13,8 @@ $margin_left: 40px;
         height: calc(100% - 40px);
         min-width: 300px;
         min-height: 300px;
-    
+        font-family: 'Open Sans', sans-serif;
+
         background-color: white;
     
         

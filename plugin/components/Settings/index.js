@@ -112,7 +112,7 @@ Settings.prototype.load = function (element) {
     region._data = data;
     region._setRegion = this.setRegion.bind(this);
 
-    region.querySelector('img.flag').src = data.flag;
+    region.querySelector('img.flag').setAttribute("data-src", data.flag);
     region.querySelector('.name').innerHTML = data.name;
     region.addEventListener('click', function() {
       this._setRegion(this);
@@ -141,7 +141,11 @@ Settings.prototype.setRegion = function (region) {
 
   // Updates selected region
   this.selectedRegion._name.innerHTML = this.region._data.name;
-  this.selectedRegion._flag.src = this.region._data.flag;
+  if(window.Plugin.path){
+    this.selectedRegion._flag.src = window.Plugin.path + '/' + this.region._data.flag;
+  } else {
+    this.selectedRegion._flag.src = this.region._data.flag;
+  }
 
   // Sends to player
   this.player.setRegion(this.region._data.path);
