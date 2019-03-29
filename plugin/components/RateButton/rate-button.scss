@@ -7,6 +7,12 @@ $control-height: 60px;
   position: absolute;
   width: 100%;
   bottom: $control-height;
+  z-index: 3;
+  
+  visibility: hidden;
+  max-width: 0;
+  opacity: 0;
+  transition: max-width 0s, visibility 0s, opacity 0.4s;
 
   .vp-button {
     display: flex;
@@ -17,15 +23,15 @@ $control-height: 60px;
     z-index: 1;
     cursor: pointer;
 
-    opacity: 0;
-    transition: opacity 2s;
-
     img {
       width: 36px;
     }
   }
 
-  &.vp-enabled .vp-button {
+  &.vp-enabled {
+    z-index: 4;
+    visibility: visible;
+    max-width: 100%;
     opacity: 1;
   }
 }
