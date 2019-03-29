@@ -8,6 +8,7 @@ $control-height: 68px;
   width: 100%;
   bottom: $control-height;
   overflow: hidden;
+  z-index: 3;
 
   .vp-container {
     display: flex;
@@ -16,10 +17,10 @@ $control-height: 68px;
     padding-top: 10px;
     padding-bottom: 10px;
     background-color: rgba(255, 255, 255, 0.96);
-    z-index: 1;
 
+    max-height: 0;
     transform: translateY(69px);
-    transition: transform 0.4s;
+    transition: max-height 0s, transform 0.4s linear 0.05s;
 
     .vp-text {
       text-align: center;
@@ -55,7 +56,13 @@ $control-height: 68px;
     }
   }
 
-  &.vp-enabled .vp-container {
-    transform: translateY(0);
+  &.vp-enabled {
+    z-index: 4;
+
+    .vp-container {
+      max-height: 100%;
+      transform: translateY(0);
+      transition: transform 0.4s, max-height 0s linear 0.4s;
+    }
   }
 }
