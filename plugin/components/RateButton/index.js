@@ -13,6 +13,7 @@ RateButton.prototype.load = function (element) {
   const button = this.element.querySelector('.vp-button');
 
   button.addEventListener('click', () => {
+    this.hide();
     this.rateBox.show();
   });
 };

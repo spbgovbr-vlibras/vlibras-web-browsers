@@ -15,13 +15,13 @@ RateBox.prototype.load = function (element) {
   const thumbDown = this.element.querySelector('.vp-thumb-down');
 
   thumbUp.addEventListener('click', () => {
-    this.messageBox.show('success', 'Obrigado por avaliar!', 3000);
     this.hide();
+    this.messageBox.show('success', 'Obrigado por avaliar!', 3000);
   });
 
   thumbDown.addEventListener('click', () => {
-    this.suggestionButton.show();
     this.hide();
+    this.suggestionButton.show();
   });
 };
 
