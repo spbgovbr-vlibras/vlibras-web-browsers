@@ -6,25 +6,26 @@ const PluginWrapper = require('./components/PluginWrapper');
 require('./scss/reset.scss');
 require('./scss/styles.scss');
 
-module.exports = function Widget() {
+module.exports = function Widget(path) {
   const widgetWrapper = new PluginWrapper();
-  const accessButton = new AccessButton(widgetWrapper);
+  const accessButton = new AccessButton(path, widgetWrapper);
   
   window.onload = () => {
-		const vw = document.querySelector('[vw]');
+    this.element = document.querySelector('[vw]');
+
 		const wrapper = document.querySelector('[vw-plugin-wrapper]');
 		const access = document.querySelector('[vw-access-button]');
 
-		accessButton.load(document.querySelector('[vw-access-button]'), vw);
+		accessButton.load(document.querySelector('[vw-access-button]'), this.element);
 		widgetWrapper.load(document.querySelector('[vw-plugin-wrapper]'));
 
 		window.addEventListener('vp-widget-wrapper-set-side', (event) => { console.log(':', event.detail)
 			if (event.detail.right) {
-				vw.style.left = '0';
-				vw.style.right = 'initial';
+				this.element.style.left = '0';
+				this.element.style.right = 'initial';
 			} else {
-				vw.style.right = '0';
-				vw.style.left = 'initial';
+				this.element.style.right = '0';
+				this.element.style.left = 'initial';
 			}
 		});
 
@@ -37,6 +38,10 @@ module.exports = function Widget() {
 				var parent  = tagsTexts[i].parentNode;
 				parent.innerHTML = tagsTexts[i].innerHTML;
 			}	
-		});
+    });
+
+    this.element.querySelectorAll('img[data-src]').forEach((image) => {
+      image.src = path + '/' + image.attributes['data-src'].value;
+    });
   };
 }

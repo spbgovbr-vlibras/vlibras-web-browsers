@@ -17,22 +17,24 @@ var SuggestionScreen = require('components/SuggestionScreen');
 
 require('./scss/styles.scss');
 
-function Plugin(option) {
+function Plugin(options) {
   this.player = new VLibras.Player({
     progress: Progress,
-    onLoad: option.playWellcome && (() => this.player.playWellcome()),
+    onLoad: options.playWellcome && (() => this.player.playWellcome()),
+    targetPath: options.path ? options.path + '/target' : 'target',
   });
 
+  this.path = options.path;
   this.element = document.querySelector('[vp]');
   
   this.dictionary = new Dictionary(this.player);
   this.controls = new Controls(this.player, this.dictionary);
   this.Box = new Box();
   this.info = new InfoScreen(this.Box);
-  this.settings = new Settings(this.player, this.info, this.Box, this.dictionary, option);
+  this.settings = new Settings(this.player, this.info, this.Box, this.dictionary, options);
   this.settingBtnClose = new SettingsCloseBtn();
   this.closeScreen = new CloseScreen(this.dictionary, this.info, this.settings, this.settingBtnClose);
-  this.settingsBtn = new SettingsBtn(this.player, this.settings,this.settingBtnClose ,option);
+  this.settingsBtn = new SettingsBtn(this.player, this.settings,this.settingBtnClose ,options);
   this.messageBox = new MessageBox();
   this.suggestionScreen = new SuggestionScreen();
   this.suggestionButton = new SuggestionButton(this.suggestionScreen);
@@ -57,6 +59,8 @@ function Plugin(option) {
     this.rateBox.load(this.element.querySelector('[vp-rate-box]'));
     this.suggestionButton.load(this.element.querySelector('[vp-suggestion-button]'));
     this.suggestionScreen.load(this.element.querySelector('[vp-suggestion-screen]'));
+
+    this.loadImages();
   });
 
   this.info.on('show', () => {
@@ -112,6 +116,8 @@ function Plugin(option) {
         break;
     }
   }.bind(this));
+
+  this.loadImages();
 };
 
 Plugin.prototype.translate = function (text) {
@@ -131,11 +137,19 @@ Plugin.prototype.sendReview = function (rate, review) {
   http.setRequestHeader('Content-type', 'application/json');
   http.send(body);
   http.onload = () => {
-    console.log('Review response', http.responseText);
     this.rateBox.hide();
     this.suggestionScreen.hide();
     this.messageBox.show('success', 'Obrigado pela contribuição!', 3000);
   };
-}
+};
+
+Plugin.prototype.loadImages = function () {
+  if (this.path) {
+    const images = this.element.querySelectorAll('img[data-src]');
+    images.forEach((image) => {
+      image.src = this.path + '/' + image.attributes['data-src'].value;
+    });
+  }
+};
 
 module.exports = Plugin;

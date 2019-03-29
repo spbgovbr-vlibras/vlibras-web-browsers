@@ -2,7 +2,8 @@ const window = require('window');
 const template = require('./template.html');
 require('./styles.scss');
 
-function AccessButton(pluginWrapper) {
+function AccessButton(path, pluginWrapper) {
+  this.path = path;
   this.pluginWrapper = pluginWrapper;
 }
 
@@ -17,6 +18,7 @@ AccessButton.prototype.load = function (element, vw) {
     window.plugin = (window.plugin || new window.VLibras.Plugin({
       enableMoveWindow: true,
       playWellcome: true,
+      path: this.path,
     }));
 
     addTagsTexts(vw);
