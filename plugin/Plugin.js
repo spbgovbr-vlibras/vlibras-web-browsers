@@ -21,10 +21,10 @@ function Plugin(options) {
   this.player = new VLibras.Player({
     progress: Progress,
     onLoad: options.playWellcome && (() => this.player.playWellcome()),
-    targetPath: options.path ? options.path + '/target' : 'target',
+    targetPath: options.rootPath ? options.rootPath + '/target' : 'target',
   });
 
-  this.path = options.path;
+  this.rootPath = options.rootPath;
   this.element = document.querySelector('[vp]');
   
   this.dictionary = new Dictionary(this.player);
@@ -144,12 +144,10 @@ Plugin.prototype.sendReview = function (rate, review) {
 };
 
 Plugin.prototype.loadImages = function () {
-  if (this.path) {
-    const images = this.element.querySelectorAll('img[data-src]');
-    images.forEach((image) => {
-      image.src = this.path + '/' + image.attributes['data-src'].value;
-    });
-  }
+  this.element.querySelectorAll('img[data-src]').forEach((image) => {
+    const imagePath = image.attributes['data-src'].value;
+    image.src = this.rootPath ? this.rootPath + '/' + imagePath : imagePath;
+  });
 };
 
 module.exports = Plugin;

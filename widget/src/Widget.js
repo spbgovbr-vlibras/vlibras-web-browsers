@@ -6,9 +6,9 @@ const PluginWrapper = require('./components/PluginWrapper');
 require('./scss/reset.scss');
 require('./scss/styles.scss');
 
-module.exports = function Widget(path) {
+module.exports = function Widget(rootPath) {
   const widgetWrapper = new PluginWrapper();
-  const accessButton = new AccessButton(path, widgetWrapper);
+  const accessButton = new AccessButton(rootPath, widgetWrapper);
   
   window.onload = () => {
     this.element = document.querySelector('[vw]');
@@ -41,7 +41,8 @@ module.exports = function Widget(path) {
     });
 
     this.element.querySelectorAll('img[data-src]').forEach((image) => {
-      image.src = path + '/' + image.attributes['data-src'].value;
+			const imagePath = image.attributes['data-src'].value;
+      image.src = rootPath ? rootPath + '/' + imagePath : imagePath;
     });
   };
 }
