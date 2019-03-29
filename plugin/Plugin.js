@@ -15,11 +15,12 @@ var RateBox = require('components/RateBox');
 var SuggestionButton = require('components/SuggestionButton');
 var SuggestionScreen = require('components/SuggestionScreen');
 
-require('scss/styles.scss');
+require('./scss/styles.scss');
 
 function Plugin(option) {
   this.player = new VLibras.Player({
-    progress: Progress
+    progress: Progress,
+    onLoad: option.playWellcome && (() => this.player.playWellcome()),
   });
 
   this.element = document.querySelector('[vp]');
@@ -50,11 +51,9 @@ function Plugin(option) {
     this.Box.load(this.element.querySelector('[vp-box]'));
     this.settingBtnClose.load(this.element.querySelector('[vp-box]').querySelector('[settings-btn-close]'), this.closeScreen);
     this.settingsBtn.load(this.element.querySelector('[vp-box]').querySelector('[settings-btn]'));
-    
     this.settings.load(this.element.querySelector('[vp-settings]'));    
     this.info.load(this.element.querySelector('[vp-info-screen]'));
     this.dictionary.load(this.element.querySelector('[vp-dictionary]'), this.closeScreen);
-    
     this.rateButton.load(this.element.querySelector('[vp-rate-button]'));
     this.rateBox.load(this.element.querySelector('[vp-rate-box]'));
     this.suggestionButton.load(this.element.querySelector('[vp-suggestion-button]'));
