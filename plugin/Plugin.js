@@ -45,8 +45,7 @@ function Plugin(option) {
 
   this.player.load(this.element);
 
-  this.player.on('load', function () {
-    // Loading components
+  this.player.on('load', () => {
     this.controls.load(this.element.querySelector('[vp-controls]'));
     this.Box.load(this.element.querySelector('[vp-box]'));
     this.settingBtnClose.load(this.element.querySelector('[vp-box]').querySelector('[settings-btn-close]'), this.closeScreen);
@@ -58,19 +57,36 @@ function Plugin(option) {
     this.rateBox.load(this.element.querySelector('[vp-rate-box]'));
     this.suggestionButton.load(this.element.querySelector('[vp-suggestion-button]'));
     this.suggestionScreen.load(this.element.querySelector('[vp-suggestion-screen]'));
-  }.bind(this));
+  });
 
-  this.info.on('show', function () {
+  this.info.on('show', () => {
     this.player.pause();
-  }.bind(this));
+  });
 
-  this.player.on('translate:start', function () {
+  this.player.on('translate:start', () => {
     this.loadingRef = this.messageBox.show('info', 'Traduzindo...');
-  }.bind(this));
+  });
 
-  this.player.on('translate:end', function () {
+  this.player.on('translate:end', () => {
     this.messageBox.hide(this.loadingRef);
-  }.bind(this));
+  });
+
+  this.player.on('gloss:start', () => {
+    console.log('GLOSS : START');
+    this.rateButton.hide();
+    this.rateBox.hide();
+    this.suggestionButton.hide();
+    this.suggestionScreen.hide();
+  });
+
+  this.player.on('gloss:end', () => {
+    console.log('GLOSS : END');
+
+    if (this.player.translated) {
+      this.suggestionScreen.setGloss(this.player.gloss);
+      this.rateButton.show();
+    }
+  });
 
   this.player.on('error', function (err) {
     switch(err) {
@@ -100,5 +116,23 @@ function Plugin(option) {
 Plugin.prototype.translate = function (text) {
   this.player.translate(text);
 };
+
+Plugin.prototype.sendReview = function (rate, review) {
+  const body = JSON.stringify({
+    text: this.player.text,
+    translation: this.player.gloss,
+    rating: rate,
+    review,
+  });
+
+  const http = new XMLHttpRequest();
+  http.open('POST', 'http://104.197.183.69/review');
+  http.setRequestHeader('Content-type', 'application/json');
+  http.send(body);
+  http.onload = () => {
+    console.log('Review response', http.responseText);
+    this.suggestionScreen.hide();
+  };
+}
 
 module.exports = Plugin;
