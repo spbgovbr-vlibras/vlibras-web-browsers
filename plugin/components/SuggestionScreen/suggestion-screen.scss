@@ -6,15 +6,15 @@ $control-height: 68px;
   align-items: center;
   position: absolute;
   top: 45px;
-  left: 0;
   right: 0;
   bottom: 0;
+  width: 100%;
   padding: 16px;
   background-color: white;
+  z-index: 3;
   
-  z-index: 0;
-  opacity: 0;
-  transition: z-index 0s, opacity 0.4s;
+  left: 100%;
+  transition: left 0.4s ease-in;
 
   .vp-title {
     text-align: center;
@@ -45,8 +45,7 @@ $control-height: 68px;
   }
 
   &.vp-enabled {
-    z-index: 4;
-    opacity: 1;
-    transition: opacity 0.4s, z-index 0s linear 0.4s;
+    left: 0;
+    transition: left 0.4s ease-out 0.8s;
   }
 }
