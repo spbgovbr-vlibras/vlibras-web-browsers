@@ -29,9 +29,15 @@ module.exports = function Widget() {
 
 
 	window.addEventListener('vp-widget-close', (event) => { 
+
 		access.classList.toggle('active');
     	wrapper.classList.toggle('active');
-	});
+		var tagsTexts = document.querySelectorAll('.vw-text');
+      	for (var i = 0; i < tagsTexts.length; i++) {
+	        var parent  = tagsTexts[i].parentNode;
+	        parent.innerHTML = tagsTexts[i].innerHTML;
+      	}	
+  	});
 
     
   };
