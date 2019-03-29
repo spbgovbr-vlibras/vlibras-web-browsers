@@ -7,10 +7,7 @@ $control-height: 68px;
   position: absolute;
   width: 100%;
   bottom: $control-height;
-
-  &:not(.vp-enabled) {
-    display: none;
-  }
+  overflow: hidden;
 
   .vp-container {
     display: flex;
@@ -20,6 +17,9 @@ $control-height: 68px;
     padding-bottom: 10px;
     background-color: rgba(255, 255, 255, 0.96);
     z-index: 1;
+
+    transform: translateY(69px);
+    transition: transform 0.4s;
 
     .vp-text {
       text-align: center;
@@ -41,6 +41,7 @@ $control-height: 68px;
         font-size: 0.95rem;
         font-weight: bold;
         color: #545454;
+        cursor: pointer;
         
         &:not(:last-child) {
           margin-right: 22px;
@@ -52,5 +53,9 @@ $control-height: 68px;
         }
       }
     }
+  }
+
+  &.vp-enabled .vp-container {
+    transform: translateY(0);
   }
 }
