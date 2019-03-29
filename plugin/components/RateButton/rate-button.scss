@@ -8,10 +8,6 @@ $control-height: 60px;
   width: 100%;
   bottom: $control-height;
 
-  &:not(.vp-enabled) {
-    display: none;
-  }
-
   .vp-button {
     display: flex;
     justify-content: center;
@@ -20,8 +16,15 @@ $control-height: 60px;
     margin-bottom: 20px;
     z-index: 1;
 
+    opacity: 0;
+    transition: opacity 2s;
+
     img {
       width: 36px;
     }
+  }
+
+  &.vp-enabled .vp-button {
+    opacity: 1;
   }
 }

@@ -10,19 +10,25 @@ RateButton.prototype.load = function (element) {
   this.element = element;
   this.element.innerHTML = template;
   
+  this.enabled = false;
+  
   const button = this.element.querySelector('.vp-button');
 
   button.addEventListener('click', () => {
-    this.hide();
-    this.rateBox.show();
+    if (this.enabled) {
+      this.hide();
+      this.rateBox.show();
+    }
   });
 };
 
 RateButton.prototype.show = function () {
+  this.enabled = true;
   this.element.classList.add('vp-enabled');
 };
 
 RateButton.prototype.hide = function () {
+  this.enabled = false;
   this.element.classList.remove('vp-enabled');
 };
 

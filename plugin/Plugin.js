@@ -73,6 +73,7 @@ function Plugin(option) {
 
   this.player.on('gloss:start', () => {
     console.log('GLOSS : START');
+
     this.rateButton.hide();
     this.rateBox.hide();
     this.suggestionButton.hide();
@@ -126,12 +127,14 @@ Plugin.prototype.sendReview = function (rate, review) {
   });
 
   const http = new XMLHttpRequest();
-  http.open('POST', 'http://104.197.183.69/review');
+  http.open('POST', 'http://150.165.138.78:3000/review');
   http.setRequestHeader('Content-type', 'application/json');
   http.send(body);
   http.onload = () => {
     console.log('Review response', http.responseText);
+    this.rateBox.hide();
     this.suggestionScreen.hide();
+    this.messageBox.show('success', 'Obrigado por avaliar!', 3000);
   };
 }
 

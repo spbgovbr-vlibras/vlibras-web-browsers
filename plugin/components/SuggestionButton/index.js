@@ -14,7 +14,7 @@ SuggestionButton.prototype.load = function (element) {
   const close = this.element.querySelector('.vp-close-button');
 
   openScreen.addEventListener('click', () => {
-    this.suggestionScreen.show();
+    this.suggestionScreen.show(this.rate);
     this.hide();
   });
 
@@ -23,7 +23,8 @@ SuggestionButton.prototype.load = function (element) {
   });
 };
 
-SuggestionButton.prototype.show = function () {
+SuggestionButton.prototype.show = function (rate) {
+  this.rate = rate;
   this.element.classList.add('vp-enabled');
 };
 
