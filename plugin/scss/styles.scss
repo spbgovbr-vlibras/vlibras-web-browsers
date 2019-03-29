@@ -1,4 +1,4 @@
-[vp-blue-button] {
+[vp] [vp-blue-button] {
   padding: 7px 16px;
   border-radius: 6px;
   font-size: 0.8rem;
@@ -9,7 +9,7 @@
   cursor: pointer;
 }
 
-[vp-close-button] {
+[vp] [vp-close-button] {
   display: flex;
   flex-direction: row;
   justify-content: center;

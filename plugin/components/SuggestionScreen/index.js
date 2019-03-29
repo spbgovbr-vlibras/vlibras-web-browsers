@@ -1,19 +1,6 @@
 var template = require('./suggestion-screen.html');
 require('./suggestion-screen.scss');
 
-function sendRate(text, gloss, rate, review) {
-  const body = JSON.stringify({ text, gloss, rate, review });
-
-  const http = new XMLHttpRequest();
-  http.open('POST', 'http://104.197.183.69/review');
-  http.setRequestHeader('Content-type', 'application/json');
-  http.send(body);
-  http.onload = function () {
-    // Do whatever with response
-    console.log('Review', http.responseText);
-  };
-}
-
 function SuggestionScreen(suggestionScreen) {
   this.element = null;
   this.suggestionScreen = suggestionScreen;
