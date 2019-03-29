@@ -134,7 +134,7 @@ Plugin.prototype.sendReview = function (rate, review) {
     console.log('Review response', http.responseText);
     this.rateBox.hide();
     this.suggestionScreen.hide();
-    this.messageBox.show('success', 'Obrigado por avaliar!', 3000);
+    this.messageBox.show('success', 'Obrigado pela contribuição!', 3000);
   };
 }
 
