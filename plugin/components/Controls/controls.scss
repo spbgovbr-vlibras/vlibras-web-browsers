@@ -22,37 +22,22 @@
       cursor: pointer;
     }
   
-    &.playing .controls-play:before {
-      margin: 0 11px;
-      cursor: pointer;
-    }
-  
-    .controls-play:before {
-      margin: 0 8.5px;
-      cursor: pointer;
-    }
-  
-    &.stopped .controls-play:before {
-      margin: 0 2px;
-      cursor: pointer;
-    }
-  
     .controls-play {
-      .component-play { display: block; }
+      .component-play { display: block; margin: 0 8.5px; cursor: pointer; }
       .component-pause { display: none; }
       .component-restart { display: none; }
     }
 
     &.playing .controls-play {
       .component-play { display: none; }
-      .component-pause { display: block; }
+      .component-pause { display: block; margin: 0 11px; cursor: pointer;}
       .component-restart  { display: none; }
     }
 
     &.stopped .controls-play {
       .component-play { display: none; }
       .component-pause { display: none; }
-      .component-restart { display: block; }
+      .component-restart { display: block; margin: 0 2px; cursor: pointer;}
     }
 
 

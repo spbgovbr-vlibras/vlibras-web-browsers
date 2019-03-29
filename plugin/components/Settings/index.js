@@ -141,8 +141,8 @@ Settings.prototype.setRegion = function (region) {
 
   // Updates selected region
   this.selectedRegion._name.innerHTML = this.region._data.name;
-  if(window.Plugin.path){
-    this.selectedRegion._flag.src = window.Plugin.path + '/' + this.region._data.flag;
+  if(window.plugin.path){
+    this.selectedRegion._flag.src = window.plugin.path + '/' + this.region._data.flag;
   } else {
     this.selectedRegion._flag.src = this.region._data.flag;
   }

@@ -48,8 +48,8 @@ Dictionary.prototype.load = function (element, closeScreen) {
 
   // Request and load list
   var xhr = new XMLHttpRequest();
-  //xhr.open('get', 'http://dicionario.vlibras.gov.br/signs', true);
-  xhr.open('get', 'http://35.202.17.202:80/signs', true);
+  xhr.open('get', 'http://dicionario.vlibras.gov.br/signs', true);
+  //xhr.open('get', 'http://35.202.17.202:80/signs', true);
   xhr.responseType = 'text';
   xhr.onload = function()
   {
