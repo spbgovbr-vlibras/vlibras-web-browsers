@@ -11,11 +11,10 @@ $control-height: 68px;
   bottom: 0;
   padding: 16px;
   background-color: white;
-  z-index: 3;
-
-  &:not(.vp-enabled) {
-    display: none;
-  }
+  
+  z-index: 0;
+  opacity: 0;
+  transition: z-index 0s, opacity 0.4s;
 
   .vp-title {
     text-align: center;
@@ -43,5 +42,11 @@ $control-height: 68px;
   
   .vp-close-button {
     margin-top: 8px;
+  }
+
+  &.vp-enabled {
+    z-index: 4;
+    opacity: 1;
+    transition: opacity 0.4s, z-index 0s linear 0.4s;
   }
 }
