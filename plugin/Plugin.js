@@ -117,6 +117,7 @@ function Plugin(options) {
     }
   }.bind(this));
 
+  this.loadFont();
   this.loadImages();
 };
 
@@ -143,11 +144,29 @@ Plugin.prototype.sendReview = function (rate, review) {
   };
 };
 
+Plugin.prototype.buildAbsolutePath = function (path) {
+  return this.rootPath ? this.rootPath + '/' + path : path;
+};
+
 Plugin.prototype.loadImages = function () {
   this.element.querySelectorAll('img[data-src]').forEach((image) => {
     const imagePath = image.attributes['data-src'].value;
-    image.src = this.rootPath ? this.rootPath + '/' + imagePath : imagePath;
+    image.src = this.buildAbsolutePath(imagePath);
   });
+};
+
+Plugin.prototype.loadFont = function () {
+  const fontPath = this.buildAbsolutePath('assets/OpenSans-Semibold.ttf');
+  const font = new FontFace('Open Sans', 'url(' + fontPath + ')');
+
+  font.load()
+    .then((loaded) => {
+      document.fonts.add(loaded);
+      // this.element.style.fontFamily = '"Open Sans", sans-serif';
+    })
+    .catch((error) => {
+      console.log('Error loading font face:', error);
+    });
 };
 
 module.exports = Plugin;
