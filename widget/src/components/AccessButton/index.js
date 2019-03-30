@@ -25,17 +25,7 @@ AccessButton.prototype.load = function (element, vw) {
     }));
 
     this.addTagsTexts(vw);
-    createAccessLinkBox();
-    this.vw_links = document.body.getElementsByClassName('vw-links')[0];
-    // console.log('qusjaushausss');
-    document.body.onclick = function(e){
-      this.vw_links.firstChild.classList.remove('active');
-
-      // document.body.onclick = null;
-      // console.log("Click to close");      
-    }.bind(this);
-    window.addEventListener("scroll", updatePosition.bind(this), false);
-    window.addEventListener("resize", updatePosition.bind(this), false);
+    
     
   });
   
@@ -216,6 +206,18 @@ AccessButton.prototype.addTagsTexts = function (vw) {
       this.classList.add('vw-text-active');
     });
   });
+  createAccessLinkBox();
+  this.vw_links = document.body.getElementsByClassName('vw-links')[0];
+    // console.log('qusjaushausss');
+    document.body.onclick = function(e){
+      if(this.vw_links!= null){
+        this.vw_links.firstChild.classList.remove('active');
+      }
+      // document.body.onclick = null;
+      // console.log("Click to close");      
+    }.bind(this);
+    window.addEventListener("scroll", updatePosition.bind(this), false);
+    window.addEventListener("resize", updatePosition.bind(this), false);
 }
 
 function getAllNodeTexts(root, callback) {
