@@ -90,7 +90,7 @@ To build the widget all you need to do is run the following:
 ```sh
 npm run gulp build:widget
 ```
-The build result will be present at widget/app/ folder. 
+The build result will be present at widget/app/ folder. After it, you are ready to use the widget on your webpage. (Check it on [Using Widget on your page](#using-widget-on-your-page) section)
 
 #### Plugin
 
