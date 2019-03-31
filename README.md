@@ -76,6 +76,10 @@ The instructions are the following:
 After installing all the prerequisites, install the project by running the command:
 
 ```sh
+cd vlibras-plugin-web
+```
+
+```sh
 npm install
 ```
 
@@ -91,6 +95,13 @@ To build the widget all you need to do is run the following:
 npm run gulp build:widget
 ```
 The build result will be present at widget/app/ folder. After it, you are ready to use the widget on your webpage. (Check it on [Using Widget on your page](#using-widget-on-your-page) section)
+
+To run the test page:
+
+```sh
+npm run gulp run:widget
+```
+
 
 #### Plugin
 
