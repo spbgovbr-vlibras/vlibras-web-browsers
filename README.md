@@ -14,7 +14,7 @@ VLibras Plugin is an addon which is installed in your browser. Supported by the 
 VLibras Widget is a widget that can be added onto your HTML page running along with a script, being also supported by the same browsers as the VLibras Plugin.
 
 ![Version](https://img.shields.io/badge/version-v0.0.0-blue.svg)
-![License](https://img.shields.io/badge/license-GPLv3-blue.svg)
+![License](https://img.shields.io/badge/license-LGPLv3-blue.svg)
 ![VLibras](https://img.shields.io/badge/vlibras%20suite-2019-green.svg?logo=data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAA4AAAAUCAYAAAC9BQwsAAAABmJLR0QA/wD/AP+gvaeTAAAACXBIWXMAAA3XAAAN1wFCKJt4AAAAB3RJTUUH4wIHCiw3NwjjIgAAAQ9JREFUOMuNkjErhWEYhq/nOBmkDNLJaFGyyyYsZzIZKJwfcH6AhcFqtCvFDzD5CQaTFINSlJJBZHI6J5flU5/P937fube357m63+d+nqBEagNYA9pAExgABxHxktU3882hjqtd9d7/+lCPsvpDZNA+MAXsABNU6xHYQ912ON2qC2qQ/X+J4XQXEVe/jwawCzwNAZp/NCLiDVgHejXgKIkVdGpm/FKXU/BJDfytbpWBLfWzAjxVx1Kuxwno5k84Jex0IpyzdN46qfYSjq18bzMHzQHXudifgQtgBuhHxGvKbaPg0Klaan7GdqE2W39LOq8OCo6X6kgdeJ4IZKUKWq1Y+GHVjF3gveTIe8BiCvwBEZmRAXuH6mYAAAAASUVORK5CYII=)
 
 ## Table of Contents
@@ -168,4 +168,4 @@ If you want to manually install or run the plugin in develop mode, check for ins
 
 ## License
 
-This project is licensed under the GPLv3 License - see the [LICENSE](LICENSE) file for details.
+This project is licensed under the LGPLv3 License - see the [LICENSE](LICENSE) file for details.
