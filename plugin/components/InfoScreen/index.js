@@ -1,3 +1,4 @@
+
 var inherits = require('inherits');
 var EventEmitter = require('events').EventEmitter;
 
@@ -22,6 +23,10 @@ InfoScreen.prototype.load = function (element) {
   var left = this.element.querySelector('.arrow-left');
   var right = this.element.querySelector('.arrow-right');
   var bullets = this.element.querySelectorAll('.info-bullet');
+  var bullet_src_imgs = {
+    first: bullets[0].attributes['data-src'].value,
+    second:bullets[1].attributes['data-src'].value
+  };
   
   
   
@@ -34,8 +39,9 @@ InfoScreen.prototype.load = function (element) {
 
     this.classList.remove('active');
     right.classList.add('active');
-
-    // bullets[1].classList.remove('active');
+    srcTmp = bullets[0].src;
+    bullets[0].src = bullets[1].src;
+    bullets[1].src = srcTmp;
     // bullets[0].classList.add('active');
   });
 
@@ -46,8 +52,9 @@ InfoScreen.prototype.load = function (element) {
     this.classList.remove('active');
     left.classList.add('active');
 
-    // bullets[0].classList.remove('active');
-    // bullets[1].classList.add('active');
+    srcTmp = bullets[0].src;
+    bullets[0].src = bullets[1].src;
+    bullets[1].src = srcTmp;
   });
 
   // this.settingBtnClose.element.firstChild.addEventListener('click', function() {

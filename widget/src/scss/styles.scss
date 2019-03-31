@@ -1,3 +1,7 @@
+
+$width-set: 300px;
+$height-set: 450px;
+
 div[vw] {
   position: fixed;
   max-width: 95vw;
@@ -31,23 +35,43 @@ div[vw] {
     left: 0;
     right: initial;
   }
-
   #gameContainer {
-    position: relative !important;
-    margin: 0 auto !important;
-    top:26px;  
-    // top: calc(50% - 40px);
-    // left: calc(50% - 40px);
-    min-width: calc(0.90 * 300px);
-    min-height: calc(0.70 * 450px);
-    // transform: translate(calc(-50% + 40px), calc(-50% + 40px));
-    height: 70%;
+    position: absolute !important;
+    // margin: 0 auto !important;
+    top:0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    margin: auto !important;
+    min-height: calc(0.70 * #{$height-set});
+    min-width: calc(0.90 * #{$width-set});
     width: 90%;
+    height: 70%;
     overflow: hidden;
     -moz-border-radius: 10px;
     -webkit-border-radius: 10px;
     border-radius: 10px;
+  
+    canvas{
+  
+      // min-width: calc(0.90 * 300px);
+      // min-height: calc(0.70 * 450px);
+    // transform: translate(calc(-50% + 40px), calc(-50% + 40px));
+    min-height: calc(0.70 * #{$height-set});
+    min-width: calc(0.90 * #{$width-set});
+    height: 100%;
+    width: 100%;
+    -webkit-filter: blur(0px);
+    -moz-filter: blur(0px);
+    -ms-filter: blur(0px);
+    -o-filter: blur(0px);
+    filter: blur(0px);
+    
+    }
+
+    
   }
+
   
   [vp] {
     position: relative;
@@ -57,7 +81,6 @@ div[vw] {
     min-height: 450px;
     z-index: 1;
     overflow: hidden;
-   
   
     [vp-message-box] {
       position: absolute;
@@ -104,6 +127,8 @@ div[vw] {
     }
   }
 }
+
+
 
 .vw-text:hover {
   background-color: rgba(255, 102, 0, 0.5);
