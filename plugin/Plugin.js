@@ -136,7 +136,7 @@ Plugin.prototype.sendReview = function (rate, review) {
   });
 
   const http = new XMLHttpRequest();
-  http.open('POST', 'http://35.224.81.57:80/review');
+  http.open('POST', 'http://traducao.lavid.ufpb.br:80/review');
   http.setRequestHeader('Content-type', 'application/json');
   http.send(body);
   http.onload = () => {
