@@ -1,3 +1,4 @@
+
 var VLibras = require('vlibras');
 
 var Settings = require('components/Settings');
@@ -48,6 +49,7 @@ function Plugin(options) {
   this.player.load(this.element);
 
   this.player.on('load', () => {
+    
     this.controls.load(this.element.querySelector('[vp-controls]'));
     this.Box.load(this.element.querySelector('[vp-box]'));
     this.settingBtnClose.load(this.element.querySelector('[vp-box]').querySelector('[settings-btn-close]'), this.closeScreen);
