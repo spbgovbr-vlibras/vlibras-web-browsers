@@ -56,6 +56,9 @@ body {
     z-index: 2;
   }
 
+  [vp-controls] .elem-speed {
+    bottom: 38px !important;
+  }
   [vp-rate-box] {
     position: fixed;
     bottom: 7px;
