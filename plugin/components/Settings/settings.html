@@ -1,21 +1,31 @@
 <div class="content">
-    <div class="bar">
-        <img class="btn-close" src="assets/Close.png">
-        <span class="title">CONFIGURAÇÕES</span>
-    </div>
-
     <ul>
         <li class="localism clickable">
-            <div class="container">
+            <div class="container-localism">
                 <span class="name">Regionalismo</span>
-                <img class="flag" src="assets/brazil.png">
+                <img class="flag" data-src="assets/brazil.png">
+                <img class="flag2" data-src="" style="display: none">
                 <span class="abbrev">BR</span>
-                <img class="arrow" src="assets/expander.png">
+                <!-- <img class="arrow" data-src="assets/expander.png"> -->
             </div>
         </li>
-        
+        <li class="dict clickable loading-dictionary">
+            <div class="container-dict">
+                <span class="controls-dictionary loading-dictionary"></span>
+            </div>
+        </li>
+        <li class="position clickable">
+            <div class="container-position">
+                <span class="name">Posicionamento da tela</span>
+                <label class="switch">
+                    <input checked disabled type="checkbox" name="checkbox">
+                    <span class="slider-check round"></span>
+                </label>
+            </div>
+        </li>
+
         <li class="about clickable">
-            <div class="container">
+            <div class="container-about">
                 <span class="name">Sobre</span>
             </div>
         </li>
@@ -23,11 +33,14 @@
 
     <div class="localism">
         <div class="national clickable">
-            <img class="flag" src="assets/brazil.png">
-            <span class="name">BR - Padrão Nacional</span>
+            <img class="flag" data-src="assets/brazil.png">
+            <span class="name">BR</span>
         </div>
-
         <div class="regions"></div>
+    </div>
+    <div class="vlibras-logo">
+        <span class="vlibras-span">VLIBRAS</span>
+        <img class="logo" data-src="assets/logoicon.png">
     </div>
 </div>
 

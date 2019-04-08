@@ -1,0 +1,51 @@
+$control-height: 68px;
+
+[vp] [vp-suggestion-screen] {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: absolute;
+  top: 45px;
+  right: 0;
+  bottom: 0;
+  width: 100%;
+  padding: 16px;
+  background-color: white;
+  z-index: 3;
+  
+  left: 100%;
+  transition: left 0.4s ease-in;
+
+  .vp-title {
+    text-align: center;
+    font-size: 0.9rem;
+    font-weight: bold;
+    color: #003f86;
+  }
+
+  .vp-text {
+    flex: 1;
+    align-self: stretch;
+    margin-top: 10px;
+    margin-left: 32px;
+    margin-right: 32px;
+    padding: 8px 10px 6px;
+    font-size: 0.8rem;
+    border: none;
+    border-radius: 12px;
+    background-color: #EFEFF2;
+  }
+
+  .vp-send-button {
+    margin-top: 14px;
+  }
+  
+  .vp-close-button {
+    margin-top: 8px;
+  }
+
+  &.vp-enabled {
+    left: 0;
+    transition: left 0.4s ease-out 0.8s;
+  }
+}

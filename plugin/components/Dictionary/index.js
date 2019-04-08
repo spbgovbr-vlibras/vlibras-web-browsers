@@ -5,37 +5,34 @@ var dictionaryTpl = require('./dictionary.html');
 require('./dictionary.scss');
 
 var Trie = require('./trie.js');
-var NonBlockingProcess = require('./non-blocking-process.js');
+// var NonBlockingProcess = require('./non-blocking-process.js');
 
 function Dictionary(player)
 {
   this.visible = false;
   this.player = player;
+  this.closeScreen = null;
 }
 
 inherits(Dictionary, EventEmitter);
 
-Dictionary.prototype.load = function (element) {
+Dictionary.prototype.load = function (element, closeScreen) {
   this.element = element;
   this.element.innerHTML = dictionaryTpl;
   this.element.classList.add('dictionary');
+  this.closeScreen = closeScreen;
 
   // Close button
-  this.element.querySelector('.panel .bar .btn-close')
-    .addEventListener('click', this.hide.bind(this));
+  // this.element.querySelector('.panel .bar .btn-close')
+  //   .addEventListener('click', this.hide.bind(this));
 
   // Signs trie
   this.signs = null;
 
   // List
   this.list = this.element.querySelector('ul');
-
-  // Clear list method
-  this.list._clear = function()
-  {
-    this.list.innerHTML = '';
-    this.list.appendChild(this.defaultItem);
-  }.bind(this);
+  // Default first item
+  
 
   // Insert item method
   this.list._insert = function(word)
@@ -47,21 +44,12 @@ Dictionary.prototype.load = function (element) {
     this.list.appendChild(item);
   }.bind(this);
 
-  // Default first item
-  this.defaultItem = this.list.querySelector('li');
-
-  // Search
-  this.element.querySelector('.panel .search input')
-    .addEventListener('keyup', function(event) {
-      console.log(event.target.value);
-
-      this.list._clear();
-      this.signs.feed(event.target.value.toUpperCase(), this.list._insert.bind(this.list));
-    }.bind(this));
+ 
 
   // Request and load list
   var xhr = new XMLHttpRequest();
-  xhr.open('get', 'http://dicionario.vlibras.gov.br/signs', true);
+  xhr.open('get', 'http://dicionario.lavid.ufpb.br:80/signs', true);
+  //xhr.open('get', 'http://35.202.17.202:80/signs', true);
   xhr.responseType = 'text';
   xhr.onload = function()
   {
@@ -94,11 +82,30 @@ Dictionary.prototype.load = function (element) {
   }.bind(this);
   xhr.send();
 
-  this.hide();
+  this.defaultItem = this.list.querySelector('li');
+  console.log(this.defaultItem);
+
+  // Clear list method
+  this.list._clear = function()
+  {
+    this.list.innerHTML = '';
+    // this.list.appendChild(this.defaultItem);
+  }.bind(this);
+
+  // Search
+  this.element.querySelector('.panel .search input')
+    .addEventListener('keydown', function(event) {
+      console.log(event.target.value);
+
+      this.list._clear();
+      this.signs.feed(event.target.value.toUpperCase(), this.list._insert.bind(this.list));
+    }.bind(this));
+
+  // this.hide();
 };
 
 Dictionary.prototype._onItemClick = function(event) {
-  this.hide();
+  this.closeScreen.closeAll();
   this.player.play(event.target.innerHTML);
 };
 

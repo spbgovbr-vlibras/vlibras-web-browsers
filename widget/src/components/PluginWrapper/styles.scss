@@ -1,0 +1,101 @@
+.vw-links {
+  top:-100px;
+  left: -100px;
+  position: absolute;
+
+  .tooltip {
+    position: relative;
+    opacity: 1;
+     
+    &__item {
+      text-align: center;
+      position: absolute;
+      min-width: 123px;
+      padding: 8px;
+      visibility: hidden;
+      opacity: 0;
+      background: white;
+      transition: all .250s cubic-bezier(0, 0, 0.2, 1);
+      color: #484848;
+      border: 1px solid #cecece;
+      border-radius: 3px;
+      font-weight: 500;
+      box-shadow: 0 2px 1px #bcbcbc;
+      z-index: 4;
+      &:after {
+        content: "";
+        display: block;
+        position: absolute;
+        width: 0;
+        height: 0;
+        border-style: solid;
+      }
+    }
+    
+    &__initiator {
+      cursor: pointer;
+      z-index: 5;
+    }      
+    
+    .tooltip__item {
+      top: calc(100% + 1em);
+      left: 50%; 
+      transform: translate3d(-50%, -15px, 0);
+
+      &:after {
+        top: -0.5em;
+        left: 50%;
+        transform: translate3d(-50%, 0, 0);
+        border-width: 0 0.5em 0.5em 0.5em;
+        border-color: transparent transparent white transparent;
+        -webkit-filter: drop-shadow(1px 2px 1px #bcbcbc);
+        filter: drop-shadow(1px -1px 1px #bcbcbc);
+      }
+    }
+
+    &.active > .tooltip__item {
+      transform: translate3d(-50%, 0, 0);
+      visibility: visible;
+      opacity: 1;
+    }
+  }
+  
+}
+
+[vw] {
+  &.maximize [vw-plugin-wrapper] {
+    width: 100%;
+    height: 100% !important;
+    max-height: initial !important;
+  }
+  
+  &.left [vw-plugin-wrapper] {
+    float: left;
+  }
+  
+  [vw-plugin-wrapper] {
+    display: none;
+    width: 300px;
+    height: 100%;
+    float: right;
+    overflow: hidden;
+    background-color: white !important;
+   -moz-border-radius: 20px;
+   -webkit-border-radius: 20px;
+    -webkit-box-shadow: 0px 0px 9px 0px rgba(0,0,0,0.15);
+    -moz-box-shadow: 0px 0px 9px 0px rgba(121, 76, 76, 0.15);
+    box-shadow: 0px 0px 9px 0px rgba(0,0,0,0.15);
+    
+    &.active {
+      display: -webkit-flex;
+      display: flex;
+      flex-direction: column;
+      -webkit-flex-direction: column;
+    
+      height: 450px;
+      max-width: 100%;
+      overflow: hidden;
+      min-height: 100%;
+    }
+  }
+}
