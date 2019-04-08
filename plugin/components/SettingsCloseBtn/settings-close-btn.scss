@@ -1,0 +1,30 @@
+
+[vp] {
+  .btn-close {
+    position: absolute;
+    top: 0;
+    right: 40px; 
+    height: 100%;
+    display: none;
+    // visibility:hidden;
+    z-index: 7;
+    // margin-top: 10px;
+    // margin-right: 50px;
+    &.active {
+      
+      display: block;
+    }
+
+    cursor: pointer;
+    img {
+      position: absolute;
+    // left: 50%;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 37.92px;
+      height: 37.92px;
+      // max-width: 100%;
+      // max-height: 100%;
+    }
+}
+}

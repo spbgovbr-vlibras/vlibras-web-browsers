@@ -1,0 +1,26 @@
+[vp] [vp-blue-button] {
+  padding: 7px 16px;
+  border-radius: 6px;
+  font-size: 0.8rem;
+  text-align: center;
+  font-weight: bold;
+  color: white;
+  background-color: #003f86;
+  cursor: pointer;
+}
+
+[vp] [vp-close-button] {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  width: 28px;
+  height: 28px;
+  border-radius: 14px;
+  background-color: #b3b3b3;
+  cursor: pointer;
+
+  img {
+    width: 100%;
+  }
+}

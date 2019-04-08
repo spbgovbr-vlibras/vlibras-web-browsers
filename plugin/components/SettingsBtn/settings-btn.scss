@@ -1,14 +1,39 @@
-.settings-btn {
-  position: absolute;
-  top: 0;
-  left: 0;
 
-  cursor: pointer;
-
-
-  img {
-    width: 34px;
-    height: 34px;
-    margin: 8px;
+[vp]{
+  .settings-btn {
+    position: absolute;
+    z-index: 1;
+    
+    height: 100%;
+    // vertical-align: middle;
+    
+  
+  
+    // margin-top: 10px;
+    margin-left: 20px;
+    cursor: pointer;
+  
+  
+    .settings-btn-menu {
+      display: none;
+      &.active{display: block;}
+      position: absolute;
+      // left: 50%;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 20px;
+      height: 18px;
+      left: 0;
+  
+    }
+  
+    .settings-btn-close {
+      display: none;
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      margin-left: 240px;
+    }
+  
   }
 }

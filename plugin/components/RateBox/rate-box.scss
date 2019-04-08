@@ -1,0 +1,68 @@
+$control-height: 68px;
+
+[vp] [vp-rate-box] {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  position: absolute;
+  width: 100%;
+  bottom: $control-height;
+  overflow: hidden;
+  z-index: 2;
+
+  .vp-container {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    background-color: rgba(255, 255, 255, 0.96);
+
+    max-height: 0;
+    transform: translateY(69px);
+    transition: max-height 0s, transform 0.4s linear 0.05s;
+
+    .vp-text {
+      text-align: center;
+      font-size: 0.9rem;
+      font-weight: bold;
+      color: #003f86;
+    }
+
+    .vp-buttons {
+      display: flex;
+      flex-direction: row;
+      justify-content: center;
+      margin-top: 10px;
+
+      .vp-button {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        font-size: 0.95rem;
+        font-weight: bold;
+        color: #545454;
+        cursor: pointer;
+        
+        &:not(:last-child) {
+          margin-right: 22px;
+        }
+        
+        img {
+          height: 22px;
+          margin-right: 6px;
+        }
+      }
+    }
+  }
+
+  &.vp-enabled {
+    z-index: 4;
+
+    .vp-container {
+      max-height: 100%;
+      transform: translateY(0);
+      transition: transform 0.4s, max-height 0s linear 0.4s;
+    }
+  }
+}

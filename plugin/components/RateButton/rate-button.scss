@@ -1,0 +1,37 @@
+$control-height: 60px;
+
+[vp] [vp-rate-button] {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  position: absolute;
+  width: 100%;
+  bottom: $control-height;
+  z-index: 2;
+  
+  visibility: hidden;
+  max-width: 0;
+  opacity: 0;
+  transition: max-width 0s, visibility 0s, opacity 0.4s;
+
+  .vp-button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-right: 26px;
+    margin-bottom: 20px;
+    z-index: 1;
+    cursor: pointer;
+
+    img {
+      width: 36px;
+    }
+  }
+
+  &.vp-enabled {
+    z-index: 4;
+    visibility: visible;
+    max-width: 100%;
+    opacity: 1;
+  }
+}

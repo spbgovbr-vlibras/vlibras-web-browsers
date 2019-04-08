@@ -34,10 +34,34 @@ Controls.prototype.load = function (element) {
   this.element.classList.add('subtitles');
 
   var play = this.element.querySelector('.controls-play');
-  var stop = this.element.querySelector('.controls-stop');
-  var slider = this.element.querySelector('.controls-slider .slider');
   var subtitles = this.element.querySelector('.controls-subtitles');
-  var dictionary = this.element.querySelector('.controls-dictionary');
+  var speed_default = this.element.querySelector('.speed-default');
+  var speednumber = this.element.querySelector('.controls-speed-number');
+  var elem_speed = this.element.querySelector('.elem-speed');
+  var speed05 = this.element.querySelector('.block-speed-05');
+  var speed1 = this.element.querySelector('.block-speed-1');
+  var speed2 = this.element.querySelector('.block-speed-2');
+  var speed3 = this.element.querySelector('.block-speed-3');
+  var slider = this.element.querySelector('.controls-slider .slider');
+  var img = this.element.querySelector('.img-default');
+  var button = this.element.querySelector('.button-speed');
+  var border = this.element.querySelector('.border-default');
+
+
+    noUiSlider.create(slider, {
+      start: 0.0,
+      step: 0.05,
+      connect: 'lower',
+      range: {
+        min: 0.2,
+        max: 2
+      }
+    });
+
+    // slider.noUiSlider.on('update', function (value) {
+    //   this.player.setSpeed(Number(value[0]));
+    // }.bind(this));
+
 
   play.addEventListener('click', function () {
     if (this.element.classList.contains('playing')) {
@@ -49,38 +73,94 @@ Controls.prototype.load = function (element) {
     }
   }.bind(this));
 
-  stop.addEventListener('click', function () {
-    this.player.stop();
-  }.bind(this));
-
-  noUiSlider.create(slider, {
-    start: 1.1,
-    step: 0.05,
-    connect: 'lower',
-    range: {
-      min: 0.2,
-      max: 2
-    }
-  });
-
-  slider.noUiSlider.on('update', function (value) {
-    this.player.setSpeed(Number(value[0]));
-  }.bind(this));
-
   subtitles.addEventListener('click', function () {
     this.element.classList.toggle('subtitles');
     this.player.toggleSubtitle();
   }.bind(this));
 
-  dictionary.addEventListener('click', function (event) {
-    console.log(event.target);
 
-    if (!event.target.classList.contains('loading-dictionary'))
-    {
-      this.dictionary.show();
-      this.player.pause();
+  var visibility = false;
+  var speed_value;
+
+
+  button.addEventListener('click', function() {
+    if (visibility) {
+        img.style.display = 'none';
+        border.style.display = 'none';
+        speed_default.style.display = 'block';
+        visibility = false;
+        elem_speed.style.display = "none";
+        //speed_default.style.background = "none";
+        // speed_default.style.border = '1px solid grey';
+        // speed_default.style.color = 'grey';
+        // speed_default.style.borderRadius = '3px 3px 3px 3px';
+        // speed_default.style.paddingRight = '3.5px';
+        // speed_default.style.paddingLeft = '3.5px';
+
+        speed_default.innerHTML = speed_value;
+
+    } else {
+        // speed_default.style.background = "url('././assets/running.svg') no-repeat center";
+        img.style.display = 'block';
+        border.style.display = 'block';
+        speed_default.style.display = 'none';
+
+        // speed_default.style.border = '1px solid #003F86';
+        // speed_default.style.borderRadius = '0px 0px 3px 3px';
+        speed_value = speed_default.innerHTML;
+        speed_default.innerHTML = '';
+
+        // speed_default.style.paddingRight = '4px';
+        // speed_default.style.paddingLeft = '19px';
+        elem_speed.style.display = "block";
+        visibility = true;
+
     }
+
+
   }.bind(this));
+
+  speed05.addEventListener('click', () => {
+    this.setSpeed(0.5, '0.5x', elem_speed, speed_default, img, border);
+    speed_default.style.padding = '6px 2.5px 5px 2.5px'
+    speed_default.style.fontSize = '11px'
+    visibility = false;  
+
+  });
+
+  speed1.addEventListener('click', () => {
+    this.setSpeed(1.0, 'x1', elem_speed, speed_default, img, border);
+    visibility = false;  
+  });
+
+  speed2.addEventListener('click', () => {
+    this.setSpeed(1.5, 'x2', elem_speed, speed_default, img, border);
+    visibility = false;  
+
+  });
+  speed3.addEventListener('click', () => {
+    this.setSpeed(2.0, 'x3', elem_speed, speed_default, img, border);
+    visibility = false;  
+
+  });
+
+
 };
+
+
+Controls.prototype.setSpeed = function (speed, label, elem_speed, speed_default, img, border) {
+    img.style.display = 'none';
+    border.style.display = 'none';
+    speed_default.style.display = 'block';
+    speed_default.style.color = 'grey';
+    speed_default.style.border = '1px solid grey';
+    speed_default.style.borderRadius = '3px 3px 3px 3px';
+    speed_default.innerHTML = label;
+    speed_default.style.padding = '3px 4px';
+    speed_default.style.fontSize = '15px';
+    elem_speed.style.display = "none";
+
+    this.player.setSpeed(parseFloat(speed));
+  } 
 
 module.exports = Controls;
