@@ -31,11 +31,15 @@ SuggestionScreen.prototype.setGloss = function (gloss) {
 };
 
 SuggestionScreen.prototype.show = function (rate) {
+  this.element.querySelector('.vp-text').style.display = 'block';
+  console.log(this.element.querySelector('.vp-text'));
   this.rate = rate;
   this.element.classList.add('vp-enabled');
+
 };
 
 SuggestionScreen.prototype.hide = function () {
+  this.element.querySelector('.vp-text').style.display = 'none';
   this.element.classList.remove('vp-enabled');
 };
 
