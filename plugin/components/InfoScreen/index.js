@@ -16,13 +16,13 @@ inherits(InfoScreen, EventEmitter);
 InfoScreen.prototype.load = function (element) {
   this.element = element;
   this.element.innerHTML = infoScreenTpl;
-  this.element.classList.add('info-screen');
+  this.element.classList.add('vpw-info-screen');
 
-  var main = this.element.querySelector('#info-main');
-  var realizadores = this.element.querySelector('#info-realizadores');
-  var left = this.element.querySelector('.arrow-left');
-  var right = this.element.querySelector('.arrow-right');
-  var bullets = this.element.querySelectorAll('.info-bullet');
+  var main = this.element.querySelector('#vpw-info-main');
+  var realizadores = this.element.querySelector('#vpw-info-realizadores');
+  var left = this.element.querySelector('.vpw-arrow-left');
+  var right = this.element.querySelector('.vpw-arrow-right');
+  var bullets = this.element.querySelectorAll('.vpw-info-bullet');
   var bullet_src_imgs = {
     first: bullets[0].attributes['data-src'].value,
     second:bullets[1].attributes['data-src'].value

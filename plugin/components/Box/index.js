@@ -11,7 +11,7 @@ Box.prototype.load = function (element) {
   
 
   this.element = element;
-  this.element.classList.add('box');
+  this.element.classList.add('vpw-box');
   this.element.innerHTML = BoxTlp;
   // this.element.querySelector('.mes').innerHTML = 'VLIBRAS';
 

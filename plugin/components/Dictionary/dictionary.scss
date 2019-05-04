@@ -1,7 +1,7 @@
 $margin_left: 40px;
 
 [vp] {
-    .dictionary {
+    .vpw-dictionary {
         display: none;
         position: relative;
         // top:10%;
@@ -18,18 +18,18 @@ $margin_left: 40px;
             display: block;
         }
     
-        .panel {
+        .vpw-panel {
             position: relative;
             height: 114px;
             background-color: white;
     
     
-            .bar {
+            .vpw-bar {
                 text-align: center;
                 padding-top: 20px;
             }
     
-            .search {
+            .vpw-search {
                 position: absolute;
                 width: 80%;
                 left: 50%;
@@ -54,7 +54,7 @@ $margin_left: 40px;
                 }
     
     
-                .icon {
+                .vpw-icon {
                     display: block;
                     position: relative;
                     img {
@@ -69,10 +69,10 @@ $margin_left: 40px;
             }
         }
     
-        .dict-container{
+        .vpw-dict-container{
             position: absolute;
             width: 80%;
-            height: 100%;
+            height: 68%;
             left: 50%;
             transform: translateX(-50%);
             ul {

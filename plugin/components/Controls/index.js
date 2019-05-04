@@ -10,42 +10,42 @@ function Controls(player, dictionary) {
 
   this.player.on('animation:play', function () {
     console.log('animation:play');
-    this.element.classList.remove('stopped');
-    this.element.classList.add('playing');
+    this.element.classList.remove('vpw-stopped');
+    this.element.classList.add('vpw-playing');
   }.bind(this));
 
   this.player.on('animation:pause', function () {
     console.log('animation:pause');
-    this.element.classList.remove('playing');
-    this.element.classList.remove('stopped');
+    this.element.classList.remove('vpw-playing');
+    this.element.classList.remove('vpw-stopped');
   }.bind(this));
 
   this.player.on('animation:end', function () {
     console.log('animation:end');
-    this.element.classList.remove('playing');
-    this.element.classList.add('stopped');
+    this.element.classList.remove('vpw-playing');
+    this.element.classList.add('vpw-stopped');
   }.bind(this));
 }
 
 Controls.prototype.load = function (element) {
   this.element = element;
   this.element.innerHTML = controlsTpl;
-  this.element.classList.add('controls');
-  this.element.classList.add('subtitles');
+  this.element.classList.add('vpw-controls');
+  this.element.classList.add('vpw-subtitles');
 
-  var play = this.element.querySelector('.controls-play');
-  var subtitles = this.element.querySelector('.controls-subtitles');
-  var speed_default = this.element.querySelector('.speed-default');
-  var speednumber = this.element.querySelector('.controls-speed-number');
-  var elem_speed = this.element.querySelector('.elem-speed');
-  var speed05 = this.element.querySelector('.block-speed-05');
-  var speed1 = this.element.querySelector('.block-speed-1');
-  var speed2 = this.element.querySelector('.block-speed-2');
-  var speed3 = this.element.querySelector('.block-speed-3');
-  var slider = this.element.querySelector('.controls-slider .slider');
-  var img = this.element.querySelector('.img-default');
-  var button = this.element.querySelector('.button-speed');
-  var border = this.element.querySelector('.border-default');
+  var play = this.element.querySelector('.vpw-controls-play');
+  var subtitles = this.element.querySelector('.vpw-controls-subtitles');
+  var speed_default = this.element.querySelector('.vpw-speed-default');
+  var speednumber = this.element.querySelector('.vpw-controls-speed-number');
+  var elem_speed = this.element.querySelector('.vpw-elem-speed');
+  var speed05 = this.element.querySelector('.vpw-block-speed-05');
+  var speed1 = this.element.querySelector('.vpw-block-speed-1');
+  var speed2 = this.element.querySelector('.vpw-block-speed-2');
+  var speed3 = this.element.querySelector('.vpw-block-speed-3');
+  var slider = this.element.querySelector('.vpw-controls-slider .vpw-slider');
+  var img = this.element.querySelector('.vpw-img-default');
+  var button = this.element.querySelector('.vpw-button-speed');
+  var border = this.element.querySelector('.vpw-border-default');
 
 
     noUiSlider.create(slider, {
@@ -64,9 +64,9 @@ Controls.prototype.load = function (element) {
 
 
   play.addEventListener('click', function () {
-    if (this.element.classList.contains('playing')) {
+    if (this.element.classList.contains('vpw-playing')) {
       this.player.pause();
-    } else if(this.element.classList.contains('stopped')) {
+    } else if(this.element.classList.contains('vpw-stopped')) {
       this.player.repeat();
     } else {
       this.player.continue();
@@ -74,7 +74,7 @@ Controls.prototype.load = function (element) {
   }.bind(this));
 
   subtitles.addEventListener('click', function () {
-    this.element.classList.toggle('subtitles');
+    this.element.classList.toggle('vpw-subtitles');
     this.player.toggleSubtitle();
   }.bind(this));
 
