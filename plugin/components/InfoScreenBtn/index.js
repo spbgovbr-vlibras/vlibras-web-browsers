@@ -6,7 +6,7 @@ function InfoScreenBtn(screen) {
 
 InfoScreenBtn.prototype.load = function (element) {
   this.element = element;
-  this.element.classList.add('info-screen-btn');
+  this.element.classList.add('vpw-info-screen-btn');
 
   this.element.addEventListener('click', function () {
     this.element.classList.toggle('active');

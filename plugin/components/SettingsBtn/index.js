@@ -11,11 +11,11 @@ function SettingsBtn(player, screen, settingsBtnClose,option) {
 SettingsBtn.prototype.load = function (element) {
   this.element = element;
   this.element.innerHTML = settingsBtnTpl;
-  this.element.classList.add('settings-btn');
+  this.element.classList.add('vpw-settings-btn');
 
-  var btn_menu = this.element.querySelector('.settings-btn-menu');
+  var btn_menu = this.element.querySelector('.vpw-settings-btn-menu');
   btn_menu.classList.add('active');
-  var btn_close = this.element.querySelector('.settings-btn-close');
+  var btn_close = this.element.querySelector('.vpw-settings-btn-close');
 
   if (enable) {
     btn_close.style.display = 'block';

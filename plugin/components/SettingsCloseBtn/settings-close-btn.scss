@@ -1,6 +1,6 @@
 
 [vp] {
-  .btn-close {
+  .vpw-btn-close {
     position: absolute;
     top: 0;
     right: 40px; 
@@ -16,7 +16,7 @@
     }
 
     cursor: pointer;
-    img {
+    .vpw-img {
       position: absolute;
     // left: 50%;
       top: 50%;

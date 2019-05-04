@@ -1,5 +1,5 @@
 [vp]{
-  .progress {
+  .vpw-progress {
     $loading-brand-height: 150px;
     $loading-progress-height: 15px;
     $loading-width: 150px;
@@ -13,11 +13,11 @@
     width: $loading-width;
     text-align: center;
   
-    .brand {
+    .vpw-brand {
       height: $loading-brand-height;
     }
   
-    .progressbar {
+    .vpw-progressbar {
       margin: 10px;
       background-color: #444444;
       width: 100%;
@@ -25,7 +25,7 @@
       padding: 0;
       margin: 0;
   
-      .bar {
+      .vpw-bar {
         width: 0;
         background-color: #003366;
         height: $loading-progress-height;

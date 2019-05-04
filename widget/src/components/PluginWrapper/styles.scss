@@ -3,7 +3,7 @@
   left: -100px;
   position: absolute;
 
-  .tooltip {
+  .vw-tooltip {
     position: relative;
     opacity: 1;
      
@@ -37,7 +37,7 @@
       z-index: 5;
     }      
     
-    .tooltip__item {
+    .vw-tooltip__item {
       top: calc(100% + 1em);
       left: 50%; 
       transform: translate3d(-50%, -15px, 0);
@@ -53,7 +53,7 @@
       }
     }
 
-    &.active > .tooltip__item {
+    &.active > .vw-tooltip__item {
       transform: translate3d(-50%, 0, 0);
       visibility: visible;
       opacity: 1;

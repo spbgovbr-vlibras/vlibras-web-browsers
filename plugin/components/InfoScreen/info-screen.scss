@@ -1,5 +1,5 @@
 [vp] {
-  .info-screen {
+  .vpw-info-screen {
     position: relative;
     // left: 0;
     // top: 10%;
@@ -30,7 +30,7 @@
       display: flex;
     }
   
-    .arrow {
+    .vpw-arrow {
       flex-grow: 1;
       -webkit-flex-grow: 1;
       visibility: hidden;
@@ -42,11 +42,11 @@
       // }
     }
   
-    .arrow.active {
+    .vpw-arrow.active {
       visibility: visible;
     }
   
-    #info-tabset {
+    #vpw-info-tabset {
       position: relative;
       top: 0;
       flex-grow: 4;
@@ -63,7 +63,7 @@
       -webkit-align-items: center;
     }
   
-    #info-main {
+    #vpw-info-main {
       max-width: 600px;
       font-family: 'Open Sans', sans-serif;
   
@@ -75,17 +75,17 @@
         justify-content: center;
         align-items: center;
       }
-      #info-text{
+      #vpw-info-text{
         font-size: 3.2vh;
   
       }
     }
   
-    #info-logo img {
+    #vpw-info-logo img {
       height: 90px;
     }
   
-    #info-realizadores {
+    #vpw-info-realizadores {
       height: 100%;
       min-width: 230px;
       width: 50%;
@@ -95,7 +95,7 @@
   
       -webkit-flex-direction: column;
       -webkit-align-items: stretch;
-      #realiz{
+      #vpw-realiz{
         font-size: 20px;
 
       }
@@ -107,19 +107,19 @@
         align-items: center;
       }
   
-      .logo {
+      .vpw-logo {
         margin: 0.5em 0.35em;
         min-width: 10%;
         max-width: 30%;
         max-height: 15vh;
   
-        .short-ver {
+        .vpw-short-ver {
           max-width: none;
           min-height: 16px;
         }
       }
   
-      .logo-group {
+      .vpw-logo-group {
         display: flex;
         padding: 0.5% 2%;
   
@@ -135,12 +135,12 @@
       }
     }
   
-    .info-tab {
+    .vpw-info-tab {
       flex-grow: 3;
       -webkit-flex-grow: 3;
       display: none;
 
-      .info-tab-label{
+      .vpw-info-tab-label{
         position: absolute;
         top: 5%;
         font-size: 16px;
@@ -149,15 +149,15 @@
       }
     }
   
-    .info-tab.active {
+    .vpw-info-tab.active {
       display: block;
     }
   
-    #info-meta p {
+    #vpw-info-meta p {
       margin: .5em 0 0;
     }
   
-    #info-meta a {
+    #vpw-info-meta a {
       text-decoration: none;
     }
   
@@ -178,14 +178,14 @@
       
       
     
-    .info-bullet {
+    .vpw-info-bullet {
       background-size: 15px 15px;
       display: inline-block;
       width: 15px; 
       height: 15px;
       content:"";
     }
-    #info-tab-bullets {
+    #vpw-info-tab-bullets {
       width: 100%;
       height: auto;
       position: absolute;
@@ -200,7 +200,7 @@
     //   height: 10px;
     // }
   
-    .close-btn {
+    .vpw-close-btn {
       position: absolute;
       top: 8px;
       right: 6px;
@@ -220,7 +220,7 @@
     only screen and (-o-min-device-pixel-ratio: 2/1),
     only screen and (-webkit-min-device-pixel-ratio: 2), 
     only screen and (min-device-pixel-ratio: 2) {
-  [vp] #info-realizadores .logo {
+  [vp] #vpw-info-realizadores .vpw-logo {
     margin: 0.5em 0.35em;
     min-width: 10%;
     max-width: 50%;
@@ -229,7 +229,7 @@
 }
 
 @media only screen and (max-height: 360px) {
-  [vp] #info-main {
+  [vp] #vpw-info-main {
     font-size: 0.84em;
   }
 }

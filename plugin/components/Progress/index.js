@@ -6,7 +6,7 @@ function Progress(wrapper) {
   this.message = '';
 
   this.element = document.createElement('div');
-  this.element.classList.add('progress');
+  this.element.classList.add('vpw-progress');
   this.element.innerHTML = progressTpl;
 
   wrapper.appendChild(this.element);
@@ -33,7 +33,7 @@ Progress.prototype.Clear = function() {
 };
 
 Progress.prototype.Update = function() {
-  var progress = this.element.querySelector('.progressbar > .bar');
+  var progress = this.element.querySelector('.vpw-progressbar > .vpw-bar');
   progress.style.width = (this.progress * 100) + '%';
 };
 

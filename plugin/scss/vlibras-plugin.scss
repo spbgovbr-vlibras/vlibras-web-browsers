@@ -56,7 +56,7 @@ body {
     z-index: 2;
   }
 
-  [vp-controls] .elem-speed {
+  [vp-controls] .vpw-elem-speed {
     bottom: 38px !important;
   }
   [vp-rate-box] {
@@ -134,8 +134,8 @@ canvas,
   transition: filter 0.3s;
 }
 
-canvas.blur,
-[vp] [vp-controls].blur {
+canvas.vpw-blur,
+[vp] [vp-controls].vpw-blur {
   -webkit-filter: blur(2px);
   -moz-filter: blur(2px);
   -ms-filter: blur(2px);

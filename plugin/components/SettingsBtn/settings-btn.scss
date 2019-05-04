@@ -1,6 +1,6 @@
 
 [vp]{
-  .settings-btn {
+  .vpw-settings-btn {
     position: absolute;
     z-index: 1;
     
@@ -14,7 +14,7 @@
     cursor: pointer;
   
   
-    .settings-btn-menu {
+    .vpw-settings-btn-menu {
       display: none;
       &.active{display: block;}
       position: absolute;
@@ -27,7 +27,7 @@
   
     }
   
-    .settings-btn-close {
+    .vpw-settings-btn-close {
       display: none;
       position: absolute;
       top: 50%;

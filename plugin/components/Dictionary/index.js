@@ -19,7 +19,7 @@ inherits(Dictionary, EventEmitter);
 Dictionary.prototype.load = function (element, closeScreen) {
   this.element = element;
   this.element.innerHTML = dictionaryTpl;
-  this.element.classList.add('dictionary');
+  this.element.classList.add('vpw-dictionary');
   this.closeScreen = closeScreen;
 
   // Close button
@@ -48,7 +48,7 @@ Dictionary.prototype.load = function (element, closeScreen) {
 
   // Request and load list
   var xhr = new XMLHttpRequest();
-  xhr.open('get', 'http://dicionario.lavid.ufpb.br:80/signs', true);
+  xhr.open('get', 'http://150.165.204.184:8083/signs', true);
   //xhr.open('get', 'http://35.202.17.202:80/signs', true);
   xhr.responseType = 'text';
   xhr.onload = function()
@@ -76,7 +76,7 @@ Dictionary.prototype.load = function (element, closeScreen) {
       console.log(this.signs);
 
       this.signs.feed('', this.list._insert.bind(this.list));
-      document.querySelector('.controls-dictionary.loading-dictionary').classList.remove('loading-dictionary');
+      document.querySelector('.vpw-controls-dictionary.vpw-loading-dictionary').classList.remove('vpw-loading-dictionary');
     }
     else console.log('Bad answer for signs, status: ' + xhr.status);
   }.bind(this);
@@ -93,7 +93,7 @@ Dictionary.prototype.load = function (element, closeScreen) {
   }.bind(this);
 
   // Search
-  this.element.querySelector('.panel .search input')
+  this.element.querySelector('.vpw-panel .vpw-search input')
     .addEventListener('keydown', function(event) {
       console.log(event.target.value);
 
