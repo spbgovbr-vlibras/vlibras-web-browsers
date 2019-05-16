@@ -48,7 +48,7 @@ Dictionary.prototype.load = function (element, closeScreen) {
 
   // Request and load list
   var xhr = new XMLHttpRequest();
-  xhr.open('get', 'http://150.165.204.184:8083/signs', true);
+  xhr.open('get', 'http://52.179.96.27/signs', true);
   //xhr.open('get', 'http://35.202.17.202:80/signs', true);
   xhr.responseType = 'text';
   xhr.onload = function()
