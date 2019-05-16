@@ -20,7 +20,6 @@ inherits(Settings, EventEmitter);
 
 Settings.prototype.load = function (element) {
   this.menu = this.menu.element.querySelector('[settings-btn]').firstChild;
-  console.log(this.menu);
 
   this.element = element;
   this.element.innerHTML = settingsTpl;

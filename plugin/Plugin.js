@@ -164,7 +164,6 @@ Plugin.prototype.loadFont = function () {
   font.load()
     .then((loaded) => {
       document.fonts.add(loaded);
-      // this.element.style.fontFamily = '"Open Sans", sans-serif';
     })
     .catch((error) => {
       console.log('Error loading font face:', error);
