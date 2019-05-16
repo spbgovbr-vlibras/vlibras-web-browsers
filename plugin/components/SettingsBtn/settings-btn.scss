@@ -3,14 +3,9 @@
   .vpw-settings-btn {
     position: absolute;
     z-index: 1;
-    
     height: 100%;
-    // vertical-align: middle;
-    
-  
-  
-    // margin-top: 10px;
-    margin-left: 20px;
+    width: 100%;
+ 
     cursor: pointer;
   
   
@@ -18,12 +13,11 @@
       display: none;
       &.active{display: block;}
       position: absolute;
-      // left: 50%;
       top: 50%;
       transform: translateY(-50%);
       width: 20px;
       height: 18px;
-      left: 0;
+      left: 20px;
   
     }
   
@@ -32,7 +26,7 @@
       position: absolute;
       top: 50%;
       transform: translateY(-50%);
-      margin-left: 240px;
+      right: 5px;
     }
   
   }

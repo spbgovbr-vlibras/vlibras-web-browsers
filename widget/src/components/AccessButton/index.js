@@ -43,39 +43,6 @@ function updatePosition(){
     this.vw_links.style.left = (positionElement.x + (width/2)) + 'px';
   }
 }
-// 
-// AccessButton.prototype.showLinks = function(content) {
-//   console.log('Anchors: ' + content);
-//   var links = Array.prototype.slice.call(content.querySelectorAll('a'));
-//   console.log('links: ' + links);
-//   // console.log(links);
-//   // console.log(content);
-//   // console.log(this);
-//   var linksList = this.vw_links.querySelector('ul');
-//   console.log(this.vw_links);
-  
-//   var link = hasParent(content, function (parent) { 
-//     console.log('Node name: ' + parent.nodeName);
-//     return parent.nodeName == 'A'; 
-//   });
-//   if (link) {
-//     links.push(link);
-//   }
-
-//   linksList.innerHTML = '';
-//   for(var i = 0; i < links.length; i++) {
-//     var link = links[i];
-//     var li = document.createElement('li');
-//     li.innerHTML = '<a href="' + (link.href || '') + '" target="' + link.target + '">' + link.textContent + '</a>';
-//     linksList.appendChild(li);
-//   }
-
-//   if (links.length > 0) {
-//     this.vw_links.classList.querySelector('tooltip').add('active');
-//   } else {
-//     this.vw_links.classList.querySelector('tooltip').remove('active');
-//   }
-// };
 
 function hasParent(el, fn) {
   var node = el.parentElement;
@@ -94,24 +61,6 @@ function getPosition(elem) {
   var xPos = 0;
   var yPos = 0;
  
- 
-  // while (el) {
-  //   if (el.tagName == "BODY") {
-  //     // deal with browser quirks with body/window/document and page scroll
-  //     // var xScroll = el.scrollLeft || document.documentElement.scrollLeft;
-  //     // var yScroll = el.scrollTop || document.documentElement.scrollTop;
-  //       var yScroll = window.scrollTop;
-  //       var yScroll = window.scrollLeft;
-  //     xPos += (el.offsetLeft - xScroll + el.clientLeft);
-  //     yPos += (el.offsetTop - yScroll + el.clientTop);
-  //   } else {
-  //     // for all other non-BODY elements
-  //     xPos += (el.offsetLeft - el.scrollLeft + el.clientLeft);
-  //     yPos += (el.offsetTop - el.scrollTop + el.clientTop);
-  //   }
- 
-  //   el = el.offsetParent;
-  // }
   var box = elem.getBoundingClientRect();
 
     var body = document.body;
@@ -127,8 +76,6 @@ function getPosition(elem) {
     var left = box.left + scrollLeft - clientLeft;
 
     return { y: Math.round(top), x: Math.round(left) };
-  // var topPos = el.getBoundingClientRect().top + window.scrollY;
-  // var leftPos = el.getBoundingClientRect().left + window.scrollX;
   return {
     x: xPos,
     y: yPos
@@ -136,13 +83,7 @@ function getPosition(elem) {
 }
 
 function createAccessLinkBox(){
-  // <div class="vw-links">
-  //     <a href="">Acessar Link</a>
-  //   </div>
-
-  var template = require('./tooltip.html');
-  
-  
+  var template = require('./tooltip.html');  
   let div = document.createElement('div');
   div.className = 'vw-links';
   div.innerHTML = template;
@@ -151,7 +92,6 @@ function createAccessLinkBox(){
 
 AccessButton.prototype.divBox = function(linkContent, event){
   nodeAnchor = hasParent(linkContent, function (parent) { 
-    // console.log('Node name: ' + parent.nodeName);
     return parent.nodeName == 'A'; 
   });
   if(!nodeAnchor){
@@ -173,52 +113,40 @@ AccessButton.prototype.divBox = function(linkContent, event){
 }
 
 AccessButton.prototype.addTagsTexts = function (vw) {
-  // var showL = showLinks.bind(this);
   self = this;
   getAllNodeTexts(document.body, function (node) {
     if (vw.contains(node)) return;
-    
-    
     node.innerHTML = '<span>' + node.innerHTML + '</span>';
-
     const span = node.querySelector('span');
+    if(!span)
+      return;
     span.classList.add('vw-text');
-
-    
     span.addEventListener('click', function (e) {
-      // e.stopPropagation();
       e.preventDefault();
-      
-
-      // vwProgress.style.width = 0;
-      // VLibrasWeb.lastTextElement = this.parentNode;
-      // showL(this);
-      // self.showLinks(this);
-      self.divBox(this, e);
-
-      
-
+      self.divBox(this, e);     
       window.plugin.player.stop();
       window.plugin.player.translate(this.textContent);
-
       deactivateAll();
-
       this.classList.add('vw-text-active');
     });
+  }, function(textNode, parent) {
+    if (/^\s+$/.test(textNode.nodeValue)) {
+      return true;
+    }
+    return false;
   });
   createAccessLinkBox();
   this.vw_links = document.body.getElementsByClassName('vw-links')[0];
-    // console.log('qusjaushausss');
     document.body.onclick = function(e){
       if(this.vw_links!= null){
         this.vw_links.firstChild.classList.remove('active');
       }
-      // document.body.onclick = null;
-      // console.log("Click to close");      
     }.bind(this);
     window.addEventListener("scroll", updatePosition.bind(this), false);
     window.addEventListener("resize", updatePosition.bind(this), false);
 }
+
+
 
 function getAllNodeTexts(root, callback) {
   var noop = function () {};
@@ -237,7 +165,7 @@ function getAllNodeTexts(root, callback) {
       if (child.nodeType == Node.TEXT_NODE && child.nodeValue.trim() != '') {
         anyText = true;
         break;
-      }
+      }   
     }
 
     if (anyText) {
