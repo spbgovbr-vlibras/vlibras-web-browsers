@@ -136,7 +136,7 @@ Plugin.prototype.sendReview = function (rate, review) {
   });
 
   const http = new XMLHttpRequest();
-  http.open('POST', 'http://150.165.204.184:8082/review');
+  http.open('POST', 'http://104.211.3.220/review');
   http.setRequestHeader('Content-type', 'application/json');
   http.send(body);
   http.onload = () => {
