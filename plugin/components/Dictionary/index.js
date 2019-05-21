@@ -55,10 +55,10 @@ Dictionary.prototype.load = function (element, closeScreen) {
   {
     if (xhr.status == 200)
     {
-      console.log('Starting trie processing.');
+      // console.log('Starting trie processing.');
 
       var json = JSON.parse(xhr.response);
-      console.log(json);
+      // console.log(json);
       
       this.signs = new Trie().fromJSON(json);
 
@@ -73,17 +73,17 @@ Dictionary.prototype.load = function (element, closeScreen) {
       for (var i in basicSigns)
         this.signs.add(basicSigns[i]);
 
-      console.log(this.signs);
+      // console.log(this.signs);
 
       this.signs.feed('', this.list._insert.bind(this.list));
       document.querySelector('.vpw-controls-dictionary.vpw-loading-dictionary').classList.remove('vpw-loading-dictionary');
     }
-    else console.log('Bad answer for signs, status: ' + xhr.status);
+    else console.error('Bad answer for signs, status: ' + xhr.status);
   }.bind(this);
   xhr.send();
 
   this.defaultItem = this.list.querySelector('li');
-  console.log(this.defaultItem);
+  // console.log(this.defaultItem);
 
   // Clear list method
   this.list._clear = function()
@@ -95,7 +95,7 @@ Dictionary.prototype.load = function (element, closeScreen) {
   // Search
   this.element.querySelector('.vpw-panel .vpw-search input')
     .addEventListener('keydown', function(event) {
-      console.log(event.target.value);
+      // console.log(event.target.value);
 
       this.list._clear();
       this.signs.feed(event.target.value.toUpperCase(), this.list._insert.bind(this.list));

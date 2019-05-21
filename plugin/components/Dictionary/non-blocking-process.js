@@ -36,7 +36,7 @@ NonBlockingProcess.prototype._work = function()
   while (new Date().getTime() < end && this._index < this.data.length)
     this.process(this.data[this._index++]);
 
-  console.log('NBP:', 'Processed ' + (this._index - initialIndex) + ' items from ' + initialIndex + '-' + this._index + ' for ' + (new Date().getTime() - begin) + ' ms.');
+  // console.log('NBP:', 'Processed ' + (this._index - initialIndex) + ' items from ' + initialIndex + '-' + this._index + ' for ' + (new Date().getTime() - begin) + ' ms.');
 
   if (this._index == this.data.length)
   {

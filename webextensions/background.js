@@ -10,7 +10,7 @@ chrome.contextMenus.create({
   contexts: ['selection'],
 }, () => {
   if (chrome.runtime.lastError) {
-    console.log(chrome.runtime.lastError.message);
+    console.error(chrome.runtime.lastError.message);
   }
 });
 

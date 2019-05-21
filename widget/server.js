@@ -7,7 +7,7 @@ const path = require('path');
 const port = process.argv[2] || 8080;
 
 http.createServer(function (req, res) {
-  console.log(`${req.method} ${req.url}`);
+  // console.log(`${req.method} ${req.url}`);
 
   // parse URL
   const parsedUrl = url.parse(req.url);
@@ -58,4 +58,4 @@ http.createServer(function (req, res) {
 
 }).listen(parseInt(port));
 
-console.log(`Server listening on port ${port}`);
+// console.log(`Server listening on port ${port}`);

@@ -3,7 +3,7 @@
   "version": "3.0.1",
   "scripts": {
     "test": "gulp run:widget",
-    "build":"gulp build",
+    "build": "gulp build",
     "gulp": "gulp"
   },
   "dependencies": {
@@ -13,7 +13,8 @@
     "nouislider": "^8.3.0",
     "select2": "^4.0.6-rc.1",
     "superagent": "^4.1.0",
-    "vlibras": "file:../vlibras-player-webjs"
+    "vlibras": "file:../vlibras-player-webjs",
+    "url-join": "^4.0.0"
   },
   "devDependencies": {
     "css-loader": "^0.23.1",

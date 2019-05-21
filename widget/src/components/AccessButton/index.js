@@ -46,12 +46,10 @@ function updatePosition(){
 
 function hasParent(el, fn) {
   var node = el.parentElement;
-  console.log('Node parent: ' + node);
   
   while ( node != null  ) { 
     if (fn(node)) return node;
     node = node.parentElement;
-    console.log(node);
   }
   
   return false;
