@@ -50,7 +50,7 @@ Settings.prototype.load = function (element) {
   }.bind(this));
 
   this.dictionaryBtn.addEventListener('click', function(event){
-    console.log(event.target);
+    // console.log(event.target);
     this.loadingDic = this.element.querySelector('.vpw-controls-dictionary');
     if (!(this.loadingDic.classList.contains('vpw-loading-dictionary')))
     { 

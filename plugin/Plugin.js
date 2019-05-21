@@ -15,6 +15,7 @@ var RateButton = require('components/RateButton');
 var RateBox = require('components/RateBox');
 var SuggestionButton = require('components/SuggestionButton');
 var SuggestionScreen = require('components/SuggestionScreen');
+var url = require('url-join');
 
 require('./scss/styles.scss');
 
@@ -22,7 +23,7 @@ function Plugin(options) {
   this.player = new VLibras.Player({
     progress: Progress,
     onLoad: options.playWellcome && (() => this.player.playWellcome()),
-    targetPath: options.rootPath ? options.rootPath + '/target' : 'target',
+    targetPath: options.rootPath ? url(options.rootPath,'/target') : 'target',
   });
 
   this.rootPath = options.rootPath;
@@ -78,7 +79,7 @@ function Plugin(options) {
   });
 
   this.player.on('gloss:start', () => {
-    console.log('GLOSS : START');
+    // console.log('GLOSS : START');
 
     this.rateButton.hide();
     this.rateBox.hide();
@@ -87,7 +88,7 @@ function Plugin(options) {
   });
 
   this.player.on('gloss:end', () => {
-    console.log('GLOSS : END');
+    // console.log('GLOSS : END');
 
     if (this.player.translated) {
       this.suggestionScreen.setGloss(this.player.gloss);
@@ -166,7 +167,7 @@ Plugin.prototype.loadFont = function () {
       document.fonts.add(loaded);
     })
     .catch((error) => {
-      console.log('Error loading font face:', error);
+      console.error('Error loading font face:', error);
     });
 };
 

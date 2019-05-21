@@ -9,19 +9,19 @@ function Controls(player, dictionary) {
   this.dictionary = dictionary;
 
   this.player.on('animation:play', function () {
-    console.log('animation:play');
+    // console.log('animation:play');
     this.element.classList.remove('vpw-stopped');
     this.element.classList.add('vpw-playing');
   }.bind(this));
 
   this.player.on('animation:pause', function () {
-    console.log('animation:pause');
+    // console.log('animation:pause');
     this.element.classList.remove('vpw-playing');
     this.element.classList.remove('vpw-stopped');
   }.bind(this));
 
   this.player.on('animation:end', function () {
-    console.log('animation:end');
+    // console.log('animation:end');
     this.element.classList.remove('vpw-playing');
     this.element.classList.add('vpw-stopped');
   }.bind(this));

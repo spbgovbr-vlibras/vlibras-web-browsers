@@ -19,7 +19,7 @@ module.exports = function Widget(rootPath) {
 		accessButton.load(document.querySelector('[vw-access-button]'), this.element);
 		widgetWrapper.load(document.querySelector('[vw-plugin-wrapper]'));
 
-		window.addEventListener('vp-widget-wrapper-set-side', (event) => { console.log(':', event.detail)
+		window.addEventListener('vp-widget-wrapper-set-side', (event) => {
 			if (event.detail.right) {
 				this.element.style.left = '0';
 				this.element.style.right = 'initial';
