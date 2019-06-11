@@ -137,7 +137,7 @@ Plugin.prototype.sendReview = function (rate, review) {
   });
 
   const http = new XMLHttpRequest();
-  http.open('POST', 'http://104.211.3.220/review');
+  http.open('POST', 'https://traducao2-dth.vlibras.gov.br/review');
   http.setRequestHeader('Content-type', 'application/json');
   http.send(body);
   http.onload = () => {
