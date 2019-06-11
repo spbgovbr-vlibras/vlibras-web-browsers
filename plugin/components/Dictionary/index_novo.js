@@ -31,8 +31,6 @@ Dictionary.prototype.load = function (element, closeScreen) {
 
   // List
   this.list = this.element.querySelector('ul');
-  // Default first item
-  
 
   // Insert item method
   this.list._insert = function(word)
@@ -44,38 +42,20 @@ Dictionary.prototype.load = function (element, closeScreen) {
     this.list.appendChild(item);
   }.bind(this);
 
- 
-
   // Request and load list
   var xhr = new XMLHttpRequest();
-  xhr.open('get', 'https://dicionario2-dth.vlibras.gov.br/signs', true);
+  xhr.open('get', 'http://dicionario2-dth.vlibras.gov.br/signs', true);
   //xhr.open('get', 'http://35.202.17.202:80/signs', true);
   xhr.responseType = 'text';
   xhr.onload = function()
   {
     if (xhr.status == 200)
     {
-      // console.log('Starting trie processing.');
-
       var json = JSON.parse(xhr.response);
-      // console.log(json);
       
-      this.signs = new Trie().fromJSON(json);
+      this.signs = new Trie(json);
 
-      var basicSigns = [
-        'A', 'B', 'C', 'Ç', 'D', 'E', 'F', 'G', 'H', 'I',
-        'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S',
-        'T', 'U', 'V', 'W', 'X', 'Y', 'Z',
-        '0', '1', '2', '3', '4', '5', '6', '7', '8', '9',
-        ','
-      ];
-
-      for (var i in basicSigns)
-        this.signs.add(basicSigns[i]);
-
-      // console.log(this.signs);
-
-      this.signs.feed('', this.list._insert.bind(this.list));
+      this.signs.loadSigns('', this.list._insert.bind(this.list));
       document.querySelector('.vpw-controls-dictionary.vpw-loading-dictionary').classList.remove('vpw-loading-dictionary');
     }
     else console.error('Bad answer for signs, status: ' + xhr.status);
@@ -96,9 +76,8 @@ Dictionary.prototype.load = function (element, closeScreen) {
   this.element.querySelector('.vpw-panel .vpw-search input')
     .addEventListener('keydown', function(event) {
       // console.log(event.target.value);
-
       this.list._clear();
-      this.signs.feed(event.target.value.toUpperCase(), this.list._insert.bind(this.list));
+      this.signs.loadSigns(event.target.value.toUpperCase(), this.list._insert.bind(this.list));
     }.bind(this));
 
   // this.hide();

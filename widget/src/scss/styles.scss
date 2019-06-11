@@ -2,6 +2,143 @@
 $width-set: 300px;
 $height-set: 450px;
 
+
+@media (max-width: 400px) {
+  div[vw] {
+    canvas
+     {
+      min-height: unset !important;
+      min-width: unset !important;
+      height: 70% !important;
+      width: 70% !important;
+      -webkit-filter: blur(0px);
+      -moz-filter: blur(0px);
+      -ms-filter: blur(0px);
+      -o-filter: blur(0px);
+      filter: blur(0px);
+     }
+
+
+    [vw-plugin-wrapper].active {
+      height: 325px !important;
+      width: 210px !important;
+    }
+  }
+
+  #gameContainer { 
+    display: flex !important;
+    justify-content: center !important;
+    top: -35px !important;
+    left: -90px !important;
+  }
+
+  [vp] {
+    [vp-controls] {
+      left: 36% !important;
+      bottom: 27% !important;
+    }
+
+    .vpw-controls-slider {
+      width: 27% !important;
+    }
+
+    .vpw-box .vpw-mes {
+      left: 37% !important;
+      font-size: 12px !important;
+    }
+
+    .vpw-settings-btn .vpw-settings-btn-close,  .vpw-btn-close .vpw-img {
+      right: 100px
+    }
+
+    [vp-rate-box].vp-enabled .vp-container {
+      margin-right: 70px;
+      margin-bottom: 110px;
+    }
+
+    [vp-rate-button] .vp-button {
+      margin-right: 110px;
+      margin-bottom: 130px;
+    }
+    [vp-rate-button] .vp-button img {
+      width: 29px;
+    }
+    .vpw-message-box {
+      font-size: 0.7em;
+
+      .vpw-message {
+        margin-left: 10px;
+        margin-right: 93px;
+        margin-bottom: 3px;
+      }
+    }
+
+    .vpw-settings .vpw-content .vpw-vlibras-logo {
+      left: 39%;
+      bottom: 125px;
+    }
+
+    .vpw-settings .vpw-content > ul {
+      margin-left: -20px
+    }
+
+    .vpw-settings .vpw-content > ul li .vpw-name {
+      font-size: 12px
+    }
+
+    .vpw-settings .vpw-content > ul .vpw-localism .vpw-flag {
+      right: 88px;
+      height: 24px;
+    }
+
+    .vpw-switch {
+      width: 48px;
+      height: 15px;
+      margin-top: -10px;
+      right: 64px;
+    }
+
+    .vpw-slider-check.vpw-round:before {
+      top: -3px;
+    }
+
+    .vpw-slider-check:before {
+      height: 21px;
+      width: 20px;
+      left: -20;
+      bottom: 4px;
+
+    }
+
+    .vpw-settings .vpw-content .vpw-vlibras-logo .vpw-logo {
+      width: 80%;
+    }
+
+    .vpw-settings .vpw-content .vpw-vlibras-logo .vpw-vlibras-span {
+      left: 41%;
+      bottom: 15%;
+    }
+
+    .vpw-settings .vpw-content .vpw-vlibras-logo {
+      left: 39%;
+      transform: translateX(-50%);
+      bottom: 125px;
+    }
+
+
+   .vpw-settings .vpw-content > ul .vpw-localism .vpw-abbrev {
+      right: 65px;
+   }
+   
+   .vpw-controls-dictionary:not(.vpw-loading-dictionary):before {
+      font-size: 12px;
+   }
+  }
+
+
+
+}
+
 div[vw] {
   position: fixed;
   max-width: 95vw;
@@ -71,6 +208,7 @@ div[vw] {
 
     
   }
+
 
   
   [vp] {
@@ -151,3 +289,5 @@ div[vw] {
   background-color: #7CFC00;
   color: #000;
 }
+
+
