@@ -90,28 +90,16 @@ Controls.prototype.load = function (element) {
         speed_default.style.display = 'block';
         visibility = false;
         elem_speed.style.display = "none";
-        //speed_default.style.background = "none";
-        // speed_default.style.border = '1px solid grey';
-        // speed_default.style.color = 'grey';
-        // speed_default.style.borderRadius = '3px 3px 3px 3px';
-        // speed_default.style.paddingRight = '3.5px';
-        // speed_default.style.paddingLeft = '3.5px';
-
         speed_default.innerHTML = speed_value;
 
     } else {
-        // speed_default.style.background = "url('././assets/running.svg') no-repeat center";
         img.style.display = 'block';
         border.style.display = 'block';
         speed_default.style.display = 'none';
 
-        // speed_default.style.border = '1px solid #003F86';
-        // speed_default.style.borderRadius = '0px 0px 3px 3px';
         speed_value = speed_default.innerHTML;
         speed_default.innerHTML = '';
 
-        // speed_default.style.paddingRight = '4px';
-        // speed_default.style.paddingLeft = '19px';
         elem_speed.style.display = "block";
         visibility = true;
 
