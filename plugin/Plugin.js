@@ -70,6 +70,17 @@ function Plugin(options) {
     this.player.pause();
   });
 
+
+  window.addEventListener('vp-widget-close', (event) => {
+    this.player.stop();
+    this.rateButton.hide();
+    this.rateBox.hide();
+    this.suggestionButton.hide();
+    this.suggestionScreen.hide();
+  });
+
+
+
   this.player.on('translate:start', () => {
     this.loadingRef = this.messageBox.show('info', 'Traduzindo...');
   });
