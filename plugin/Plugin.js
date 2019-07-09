@@ -98,9 +98,7 @@ function Plugin(options) {
     this.suggestionScreen.hide();
   });
 
-  this.player.on('gloss:end', () => {
-    // console.log('GLOSS : END');
-
+  this.player.on('gloss:end', (globalGlosaLenght) => {
     if (this.player.translated) {
       this.suggestionScreen.setGloss(this.player.gloss);
       this.rateButton.show();

@@ -32,6 +32,8 @@ $height-set: 450px;
     //top: -35px !important;
     top: -75px !important;
     left: -90px !important;
+    width: 100% !important;
+    height: 70% !important;
   }
 
   [vp] {
@@ -46,7 +48,7 @@ $height-set: 450px;
     }
 
     .vpw-box .vpw-mes {
-      left: 37% !important;
+      left: 36% !important;
       font-size: 12px !important;
     }
 
@@ -225,7 +227,7 @@ $height-set: 450px;
     }
     [vp-suggestion-button].vp-enabled {
       right: 40px;
-      bottom: 150px;
+      bottom: 150px !important;
     }
     [vp-suggestion-screen] {
       width: 72%;
@@ -273,19 +275,19 @@ div[vw] {
   #gameContainer {
     position: absolute !important;
     // margin: 0 auto !important;
-    top:0;
+    top:-25px;
     left: 0;
     right: 0;
     bottom: 0;
     margin: auto !important;
     min-height: calc(0.70 * #{$height-set});
     min-width: calc(0.90 * #{$width-set});
-    width: 90%;
-    height: 70%;
+    width: 100%;
+    height: 80%;
     overflow: hidden;
     -moz-border-radius: 10px;
     -webkit-border-radius: 10px;
-    border-radius: 10px;
+    border-radius: 0px;
   
     canvas{
   
@@ -345,7 +347,7 @@ div[vw] {
       justify-content: center;
       left: 50%;
       transform: translateX(-50%);
-      bottom: 1%;
+      bottom: 0%;
       max-width: 900px;
       z-index: 2;
     }
@@ -361,6 +363,17 @@ div[vw] {
     [vp-dictionary] {
       z-index: 8;
     }
+
+    [vp-rate-box] {
+      bottom: 58px;
+    }
+    [vp-suggestion-button].vp-enabled, [vp-suggestion-button] {
+      bottom: 58px;
+    }
+    [vp-suggestion-screen] {
+      top: 41px;
+    }
+
   }
 }
 
