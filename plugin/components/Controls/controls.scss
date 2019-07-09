@@ -158,15 +158,15 @@
       background-color: transparent;
   
       .vpw-slider {
-        width: 100%;
+        width: 96%;
         height: 7px;
   
         &.noUi-target { box-shadow: none; border: 0; }
         &.noUi-connect { background-color:  #003F86; }
         .noUi-background { background-color: #333; box-shadow: none; }
         .noUi-handle {
-          width: 20px;
-          height: 20px;
+          width: 0px;
+          height: 0px;
           left: -8px;
           top: -8px;
           border-radius: 50%;

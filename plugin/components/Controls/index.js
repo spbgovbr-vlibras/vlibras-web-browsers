@@ -25,6 +25,41 @@ function Controls(player, dictionary) {
     this.element.classList.remove('vpw-playing');
     this.element.classList.add('vpw-stopped');
   }.bind(this));
+
+  this.player.on('response:glosa', function (counter, glosaLenght) {
+    counter=counter-2
+
+    //console.log(counter + ' ' + glosaLenght);
+      if (counter != -1) {
+        var slider = this.element.querySelector('.vpw-controls-slider .vpw-slider');
+
+        slider.noUiSlider.updateOptions({
+          range: {
+              'min': 0,
+              'max': glosaLenght
+          }
+        });
+
+        slider.noUiSlider.set([counter, glosaLenght]);
+      }
+    
+  }.bind(this));
+
+  this.player.on('gloss:end', function (globalGlosaLenght) {
+      globalGlosaLenght=globalGlosaLenght
+      var slider = this.element.querySelector('.vpw-controls-slider .vpw-slider');
+
+      slider.noUiSlider.updateOptions({
+        range: {
+            'min': 0,
+            'max': globalGlosaLenght
+        }
+      });
+
+      slider.noUiSlider.set([globalGlosaLenght, globalGlosaLenght]);
+
+  }.bind(this));
+
 }
 
 Controls.prototype.load = function (element) {
@@ -54,13 +89,12 @@ Controls.prototype.load = function (element) {
       connect: 'lower',
       range: {
         min: 0.2,
-        max: 2
+        max: 200
       }
     });
+    slider.setAttribute('disabled', true);
 
-    // slider.noUiSlider.on('update', function (value) {
-    //   this.player.setSpeed(Number(value[0]));
-    // }.bind(this));
+
 
 
   play.addEventListener('click', function () {
