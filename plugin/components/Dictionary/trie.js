@@ -27,6 +27,7 @@ Trie.prototype.loadSigns = function(keyWord, insertElement) {
 	};
 
 	var currentNode = this.root;
+	keyWord = keyWord.toUpperCase();
 
 	if (keyWord !== undefined) {
 		for (var i = 0, len = keyWord.length; i < len; ++i) {
@@ -35,6 +36,10 @@ Trie.prototype.loadSigns = function(keyWord, insertElement) {
 			} catch (error) {
 				return;
 			}
+		}
+
+		if(currentNode === undefined) {
+			return;
 		}
 	}
 
