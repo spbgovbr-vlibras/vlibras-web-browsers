@@ -44,7 +44,7 @@ Dictionary.prototype.load = function (element, closeScreen) {
 
   // Request and load list
   var xhr = new XMLHttpRequest();
-  xhr.open('get', 'https://dicionario2-dth.vlibras.gov.br/signs', true);
+  xhr.open('get', 'https://dicionario2.vlibras.gov.br/signs', true);
   xhr.responseType = 'text';
   xhr.onload = function()
   {
