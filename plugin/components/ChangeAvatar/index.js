@@ -36,7 +36,6 @@ ChangeAvatar.prototype.show = function () {
 };
 
 ChangeAvatar.prototype.hide = function () {
-
   if (this.element != undefined) {
     this.enabled = false;
     this.element.classList.remove('vp-disabled');
