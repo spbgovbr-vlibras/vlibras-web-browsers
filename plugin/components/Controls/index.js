@@ -185,4 +185,19 @@ Controls.prototype.setSpeed = function (speed, label, elem_speed, speed_default,
     this.player.setSpeed(parseFloat(speed));
   } 
 
+  Controls.prototype.setProgress = function () {
+    if (this.element != undefined) {
+      var slider = this.element.querySelector('.vpw-controls-slider .vpw-slider');
+
+        slider.noUiSlider.updateOptions({
+          range: {
+              'min': 0,
+              'max': 2
+          }
+        });
+
+        slider.noUiSlider.set([0, 0]);
+    }
+  }
+
 module.exports = Controls;

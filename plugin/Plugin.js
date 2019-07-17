@@ -15,6 +15,8 @@ var RateButton = require('components/RateButton');
 var RateBox = require('components/RateBox');
 var SuggestionButton = require('components/SuggestionButton');
 var SuggestionScreen = require('components/SuggestionScreen');
+var ChangeAvatar = require('components/ChangeAvatar');
+
 var url = require('url-join');
 
 require('./scss/styles.scss');
@@ -42,10 +44,16 @@ function Plugin(options) {
   this.suggestionButton = new SuggestionButton(this.suggestionScreen);
   this.rateBox = new RateBox(this.suggestionButton, this.messageBox);
   this.rateButton = new RateButton(this.rateBox);
+  this.ChangeAvatar = new ChangeAvatar(this.player);
   
   this.loadingRef = null;
 
   this.messageBox.load(this.element.querySelector('[vp-message-box]'));
+  this.rateButton.load(this.element.querySelector('[vp-rate-button]'));
+  this.rateBox.load(this.element.querySelector('[vp-rate-box]'));
+  this.suggestionButton.load(this.element.querySelector('[vp-suggestion-button]'));
+  this.suggestionScreen.load(this.element.querySelector('[vp-suggestion-screen]'));
+  //this.ChangeAvatar.load(this.element.querySelector('[vp-change-avatar]'));
 
   this.player.load(this.element);
 
@@ -58,12 +66,10 @@ function Plugin(options) {
     this.settings.load(this.element.querySelector('[vp-settings]'));    
     this.info.load(this.element.querySelector('[vp-info-screen]'));
     this.dictionary.load(this.element.querySelector('[vp-dictionary]'), this.closeScreen);
-    this.rateButton.load(this.element.querySelector('[vp-rate-button]'));
-    this.rateBox.load(this.element.querySelector('[vp-rate-box]'));
-    this.suggestionButton.load(this.element.querySelector('[vp-suggestion-button]'));
-    this.suggestionScreen.load(this.element.querySelector('[vp-suggestion-screen]'));
+    this.ChangeAvatar.load(this.element.querySelector('[vp-change-avatar]'));
 
     this.loadImages();
+
   });
 
   this.info.on('show', () => {
@@ -82,6 +88,9 @@ function Plugin(options) {
 
 
   this.player.on('translate:start', () => {
+    this.ChangeAvatar.hide();
+    this.rateButton.hide();
+    this.controls.setProgress();
     this.loadingRef = this.messageBox.show('info', 'Traduzindo...');
   });
 
@@ -91,7 +100,7 @@ function Plugin(options) {
 
   this.player.on('gloss:start', () => {
     // console.log('GLOSS : START');
-
+    this.ChangeAvatar.hide();
     this.rateButton.hide();
     this.rateBox.hide();
     this.suggestionButton.hide();
@@ -99,10 +108,18 @@ function Plugin(options) {
   });
 
   this.player.on('gloss:end', (globalGlosaLenght) => {
+    this.ChangeAvatar.show();
+
     if (this.player.translated) {
       this.suggestionScreen.setGloss(this.player.gloss);
       this.rateButton.show();
     }
+  });
+
+  this.player.on('stop:welcome', (bool) => {
+      if(bool) {
+        this.ChangeAvatar.show();
+      }
   });
 
   this.player.on('error', function (err) {

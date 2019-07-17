@@ -26,13 +26,13 @@ AccessButton.prototype.load = function (element, vw) {
 
     this.addTagsTexts(vw);
     
-    
   });
   
 };
 
 module.exports = AccessButton;
 
+var control = 0;
 
 function updatePosition(){
   if(this.currentElement != null && this.vw_links!= null && this.currentSpanElement != null){
@@ -122,10 +122,11 @@ AccessButton.prototype.addTagsTexts = function (vw) {
     span.addEventListener('click', function (e) {
       e.preventDefault();
       self.divBox(this, e);     
-      window.plugin.player.stop();
+      if (control) window.plugin.player.stop();
       window.plugin.player.translate(this.textContent);
       deactivateAll();
       this.classList.add('vw-text-active');
+      control++;
     });
   }, function(textNode, parent) {
     if (/^\s+$/.test(textNode.nodeValue)) {
