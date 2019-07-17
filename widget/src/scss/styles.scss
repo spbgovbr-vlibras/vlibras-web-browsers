@@ -235,6 +235,20 @@ $height-set: 450px;
       top: 41px;
     }
 
+    [vp-change-avatar]{
+      left: 9px;
+      top: 265px;
+      .vp-button-change-avatar {
+          width: 30px;
+          height: 30px;
+            .change-avatar-female {
+              width: 20px;
+            }
+              .change-avatar-male {
+              width: 15px;
+            }
+      }
+    }
   }
 
 }
