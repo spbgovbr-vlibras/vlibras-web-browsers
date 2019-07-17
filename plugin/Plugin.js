@@ -86,8 +86,9 @@ function Plugin(options) {
   });
 
 
-
+  var control = 0;
   this.player.on('translate:start', () => {
+    control = 1;
     this.ChangeAvatar.hide();
     this.rateButton.hide();
     this.controls.setProgress();
@@ -95,10 +96,11 @@ function Plugin(options) {
   });
 
   this.player.on('translate:end', () => {
-    this.messageBox.hide(this.loadingRef);
+    this.messageBox.hide(this.loadingRef); 
   });
 
   this.player.on('gloss:start', () => {
+    control = 0;
     // console.log('GLOSS : START');
     this.ChangeAvatar.hide();
     this.rateButton.hide();
@@ -108,12 +110,15 @@ function Plugin(options) {
   });
 
   this.player.on('gloss:end', (globalGlosaLenght) => {
-    this.ChangeAvatar.show();
 
-    if (this.player.translated) {
+    if(control==0){ this.ChangeAvatar.show(); }
+
+    if (this.player.translated && (control==0)) {
       this.suggestionScreen.setGloss(this.player.gloss);
       this.rateButton.show();
     }
+
+    control = 0
   });
 
   this.player.on('stop:welcome', (bool) => {
