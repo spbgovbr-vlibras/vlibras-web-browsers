@@ -33,7 +33,6 @@ ChangeAvatar.prototype.load = function (element) {
 ChangeAvatar.prototype.show = function () {
   this.enabled = true;
   this.element.classList.add('vp-disabled');
-  console.log('CHAMANDO')
 };
 
 ChangeAvatar.prototype.hide = function () {
