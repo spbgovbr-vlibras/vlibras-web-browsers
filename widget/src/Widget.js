@@ -33,6 +33,8 @@ module.exports = function Widget(rootPath) {
 			access.classList.toggle('active');
 			wrapper.classList.toggle('active');
 
+			document.body.removeChild(document.querySelector('.vw-links'))
+
 			var tagsTexts = document.querySelectorAll('.vw-text');
 			for (var i = 0; i < tagsTexts.length; i++) {
 				var parent  = tagsTexts[i].parentNode;
