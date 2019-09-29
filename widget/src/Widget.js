@@ -6,9 +6,9 @@ const PluginWrapper = require('./components/PluginWrapper');
 require('./scss/reset.scss');
 require('./scss/styles.scss');
 
-module.exports = function Widget(rootPath) {
+module.exports = function Widget(rootPath, personalization) {
   const widgetWrapper = new PluginWrapper();
-  const accessButton = new AccessButton(rootPath, widgetWrapper);
+  const accessButton = new AccessButton(rootPath, widgetWrapper, personalization);
   
   window.onload = () => {
     this.element = document.querySelector('[vw]');
@@ -23,9 +23,14 @@ module.exports = function Widget(rootPath) {
 			if (event.detail.right) {
 				this.element.style.left = '0';
 				this.element.style.right = 'initial';
+				access.querySelector('.access-button').classList.add("left");
+				access.querySelector('.pop-up').classList.add("left");
+
 			} else {
 				this.element.style.right = '0';
 				this.element.style.left = 'initial';
+				access.querySelector('.access-button').classList.remove("left");
+				access.querySelector('.pop-up').classList.remove("left");
 			}
 		});
 
