@@ -26,9 +26,11 @@ function Plugin(options) {
     progress: Progress,
     onLoad: options.playWellcome && (() => this.player.playWellcome()),
     targetPath: options.rootPath ? url(options.rootPath,'/target') : 'target',
+    personalization: options.personalization
   });
 
   this.rootPath = options.rootPath;
+  this.personalization = options.personalization;
   this.element = document.querySelector('[vp]');
   
   this.dictionary = new Dictionary(this.player);
@@ -56,9 +58,18 @@ function Plugin(options) {
   //this.ChangeAvatar.load(this.element.querySelector('[vp-change-avatar]'));
 
   this.player.load(this.element);
+  
 
   this.player.on('load', () => {
     
+    if (this.personalization == undefined) {
+      this.player.setPersonalization('');
+    } else {
+      this.player.setPersonalization(this.personalization);
+    }
+    
+    //this.player.setPersonalization('https://gist.githubusercontent.com/Gabrielnero000/bb63dc1d7338f8ee286c1f295f40603a/raw/1c0350a510c6659c7f48c18c4e619acc83f3485e/configs.json');
+
     this.controls.load(this.element.querySelector('[vp-controls]'));
     this.Box.load(this.element.querySelector('[vp-box]'));
     this.settingBtnClose.load(this.element.querySelector('[vp-box]').querySelector('[settings-btn-close]'), this.closeScreen);
@@ -69,6 +80,7 @@ function Plugin(options) {
     this.ChangeAvatar.load(this.element.querySelector('[vp-change-avatar]'));
 
     this.loadImages();
+
 
   });
 
@@ -83,6 +95,7 @@ function Plugin(options) {
     this.rateBox.hide();
     this.suggestionButton.hide();
     this.suggestionScreen.hide();
+
   });
 
 

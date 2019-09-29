@@ -66,8 +66,8 @@ $height-set: 450px;
       margin-bottom: 130px;
     }
     [vp-rate-button] .vp-button img {
-      width: 29px;
-      margin-bottom: -32px;
+      width: 32px;
+      margin-bottom: -37px;
       margin-right: -14px;
     }
     .vpw-message-box {
@@ -242,7 +242,7 @@ $height-set: 450px;
           width: 30px;
           height: 30px;
             .change-avatar-female {
-              width: 20px;
+              width: 15px;
             }
               .change-avatar-male {
               width: 15px;
@@ -257,7 +257,7 @@ div[vw] {
   position: fixed;
   max-width: 95vw;
   right: 0;
-  top: 40%;
+  top: 50%;
   margin-top: -32vh;
   z-index: 99999999;
   display: none;

@@ -2,7 +2,8 @@ const window = require('window');
 const template = require('./template.html');
 require('./styles.scss');
 
-function AccessButton(rootPath, pluginWrapper) {
+function AccessButton(rootPath, pluginWrapper, personalization) {
+  this.personalization = personalization;
   this.rootPath = rootPath;
   this.pluginWrapper = pluginWrapper;
   this.vw_links = null;
@@ -22,6 +23,7 @@ AccessButton.prototype.load = function (element, vw) {
       enableMoveWindow: true,
       playWellcome: true,
       rootPath: this.rootPath,
+      personalization: this.personalization
     }));
 
     this.addTagsTexts(vw);

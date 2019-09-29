@@ -19,19 +19,23 @@ $control-height: 60px;
     align-items: center;
     z-index: 1;
     cursor: pointer;
-    background: grey;
+    background: rgba(0,0,0,0.3);
     border-radius: 50px;
     width: 32px;
     height: 32px;
-
+    box-shadow: 1px 1px 2px 1px rgba(0, 0, 0, 0.45);
 
     .change-avatar-female {
       display:block;
-      width: 20px;
+      width: 15px;
+      margin-right: 1px;
+      filter: brightness(0) invert(1);
     }
       .change-avatar-male {
       display:none;
       width: 16px;
+      margin-left: 1px;
+      filter: brightness(0) invert(1);
     }
 
   }
