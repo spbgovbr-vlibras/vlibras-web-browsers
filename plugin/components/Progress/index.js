@@ -11,7 +11,7 @@ function Progress(wrapper) {
 
   wrapper.appendChild(this.element);
 
-  this.Update();
+  //this.Update();
 }
 
 Progress.prototype.SetProgress = function (progress) {

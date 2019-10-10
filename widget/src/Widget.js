@@ -9,8 +9,18 @@ require('./scss/styles.scss');
 module.exports = function Widget(rootPath, personalization) {
   const widgetWrapper = new PluginWrapper();
   const accessButton = new AccessButton(rootPath, widgetWrapper, personalization);
-  
-  window.onload = () => {
+  var temp_f;
+
+    if(window.onload) {
+    	temp_f = window.onload;
+  	}
+
+    window.onload = () => {
+
+  	if(temp_f) {
+        temp_f();
+    }
+
     this.element = document.querySelector('[vw]');
 
 		const wrapper = document.querySelector('[vw-plugin-wrapper]');
@@ -25,12 +35,14 @@ module.exports = function Widget(rootPath, personalization) {
 				this.element.style.right = 'initial';
 				access.querySelector('.access-button').classList.add("left");
 				access.querySelector('.pop-up').classList.add("left");
+				document.querySelector('[vw-access-button]').style.margin = "0px -100px 0px 0px"; 
 
 			} else {
 				this.element.style.right = '0';
 				this.element.style.left = 'initial';
 				access.querySelector('.access-button').classList.remove("left");
 				access.querySelector('.pop-up').classList.remove("left");
+				document.querySelector('[vw-access-button]').style.margin = "0px 0px 0px -100px"; 
 			}
 		});
 
