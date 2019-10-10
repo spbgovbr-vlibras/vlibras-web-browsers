@@ -3,7 +3,8 @@
   width: 140px;
   text-align: center;
   cursor: pointer;
-
+  margin: 0px 0px 0px -100px;
+  max-width: none;
 
   &.active {
     display: block;

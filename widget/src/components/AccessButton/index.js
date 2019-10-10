@@ -9,7 +9,6 @@ function AccessButton(rootPath, pluginWrapper, personalization) {
   this.vw_links = null;
   this.currentElement = null;
   this.currentSpanElement = null;
-  
 }
 
 AccessButton.prototype.load = function (element, vw) {
@@ -116,8 +115,8 @@ AccessButton.prototype.addTagsTexts = function (vw) {
   self = this;
   getAllNodeTexts(document.body, function (node) {
     if (vw.contains(node)) return;
-    node.innerHTML = '<span>' + node.innerHTML + '</span>';
-    const span = node.querySelector('span');
+    node.innerHTML = '<vlibraswidget>' + node.innerHTML + '</vlibraswidget>';
+    const span = node.querySelector('vlibraswidget');
     if(!span)
       return;
     span.classList.add('vw-text');
