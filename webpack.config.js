@@ -7,7 +7,10 @@ require('es6-promise').polyfill();
 module.exports = {
   mode: process.env.MODE || 'development',
   output: {
-    filename: 'vlibras-plugin.js'
+    filename: 'vlibras-plugin.js',
+    // libraryExport: 'default',
+    library: 'vlibras-plugin',
+    libraryTarget: 'umd'
   },
   resolve: {
     modules: [
@@ -16,7 +19,7 @@ module.exports = {
     ]
   },
   externals: {
-    'window': 'window'
+    'window': 'window',
   },
   module: {
     rules: [
