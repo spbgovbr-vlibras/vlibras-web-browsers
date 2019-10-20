@@ -1,7 +1,7 @@
 var inherits = require('inherits');
 var EventEmitter = require('events').EventEmitter;
 
-var dictionaryTpl = require('./dictionary.html');
+var dictionaryTpl = require('./dictionary.html').default;
 require('./dictionary.scss');
 
 var Trie = require('./trie.js');

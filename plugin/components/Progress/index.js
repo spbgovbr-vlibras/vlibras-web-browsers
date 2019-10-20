@@ -1,5 +1,5 @@
 require('./progress.scss');
-var progressTpl = require('./progress.html');
+var progressTpl = require('./progress.html').default;
 
 function Progress(wrapper) {
   this.progress = 0.0;

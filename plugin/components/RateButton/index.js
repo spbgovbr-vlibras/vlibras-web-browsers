@@ -1,4 +1,4 @@
-var template = require('./rate-button.html');
+var template = require('./rate-button.html').default;
 require('./rate-button.scss');
 
 function RateButton(rateBox) {

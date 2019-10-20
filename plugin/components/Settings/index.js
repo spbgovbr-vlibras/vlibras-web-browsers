@@ -1,7 +1,7 @@
 var inherits = require('inherits');
 var EventEmitter = require('events').EventEmitter;
 
-var settingsTpl = require('./settings.html');
+var settingsTpl = require('./settings.html').default;
 require('./settings.scss');
 require('./switch.scss');
 
@@ -99,7 +99,7 @@ Settings.prototype.load = function (element) {
 
   // Creates regions grid
   var regions = this.localism.querySelector('.vpw-regions');
-  var regionHTML = require('./region.html');
+  var regionHTML = require('./region.html').default;
 
   for (var i in regionsData) {
     var data = regionsData[i];
