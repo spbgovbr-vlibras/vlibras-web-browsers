@@ -1,7 +1,7 @@
 var noUiSlider = require('nouislider');
 require('nouislider/distribute/nouislider.min.css');
 
-var controlsTpl = require('./controls.html');
+var controlsTpl = require('./controls.html').default;
 require('./controls.scss');
 
 function Controls(player, dictionary) {

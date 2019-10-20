@@ -1,4 +1,4 @@
-var btn_close_Tpl = require('./settings-close-btn.html');
+var btn_close_Tpl = require('./settings-close-btn.html').default;
 require('./settings-close-btn.scss');
 
 function SettingsCloseBtn(){

@@ -1,4 +1,4 @@
-var BoxTlp = require('./box.html');
+var BoxTlp = require('./box.html').default;
 require('./box.scss');
 
 

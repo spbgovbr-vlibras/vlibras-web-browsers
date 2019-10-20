@@ -1,4 +1,4 @@
-var template = require('./suggestion-screen.html');
+var template = require('./suggestion-screen.html').default;
 require('./suggestion-screen.scss');
 
 function SuggestionScreen(suggestionScreen) {

@@ -1,5 +1,5 @@
 const window = require('window');
-const template = require('./template.html');
+const template = require('./template.html').default;
 require('./styles.scss');
 
 function AccessButton(rootPath, pluginWrapper, personalization) {
@@ -83,7 +83,7 @@ function getPosition(elem) {
 }
 
 function createAccessLinkBox(){
-  var template = require('./tooltip.html');  
+  var template = require('./tooltip.html').default;  
   let div = document.createElement('div');
   div.className = 'vw-links';
   div.innerHTML = template;
