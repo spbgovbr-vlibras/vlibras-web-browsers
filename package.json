@@ -3,6 +3,7 @@
   "version": "3.0.1",
   "scripts": {
     "test": "gulp run:widget",
+    "test-prod": "MODE='production' gulp run:widget",
     "build": "MODE='production' gulp build",
     "gulp": "gulp"
   },
