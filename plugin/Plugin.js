@@ -6,7 +6,7 @@ var SettingsBtn = require('components/SettingsBtn');
 var InfoScreen = require('components/InfoScreen');
 var Dictionary = require('components/Dictionary');
 var Controls = require('components/Controls');
-var Progress = require('components/Progress');
+
 var MessageBox = require('components/MessageBox');
 var Box = require('components/Box');
 var SettingsCloseBtn = require('components/SettingsCloseBtn');
@@ -23,11 +23,31 @@ require('./scss/styles.scss');
 
 function Plugin(options) {
   this.player = new VLibras.Player({
-    progress: Progress,
     onLoad: options.playWellcome && (() => this.player.playWellcome()),
     targetPath: options.rootPath ? url(options.rootPath,'/target') : 'target',
-    personalization: options.personalization
+    personalization: options.personalization,
+    opacity: options.opacity,
+    wrapper: options.wrapper
   });
+
+
+  this.opacity = options.opacity;
+  this.wrapper = options.wrapper;
+  var opacityOff = false;
+
+  if(this.opacity){
+      if(this.opacity==0.0 || this.opacity==0.25 || this.opacity==0.5 || this.opacity==0.75 || this.opacity==1.0){
+        this.opacity = parseFloat(this.opacity);
+
+      } else {
+        this.opacity = 1.0;
+      }
+  } else {
+      this.opacity = 1.0;
+      opacityOff = true;
+  }
+
+
 
   this.rootPath = options.rootPath;
   this.personalization = options.personalization;
@@ -37,7 +57,7 @@ function Plugin(options) {
   this.controls = new Controls(this.player, this.dictionary);
   this.Box = new Box();
   this.info = new InfoScreen(this.Box);
-  this.settings = new Settings(this.player, this.info, this.Box, this.dictionary, options);
+  this.settings = new Settings(this.player, this.info, this.Box, this.dictionary, options, this.opacity);
   this.settingBtnClose = new SettingsCloseBtn();
   this.closeScreen = new CloseScreen(this.dictionary, this.info, this.settings, this.settingBtnClose);
   this.settingsBtn = new SettingsBtn(this.player, this.settings,this.settingBtnClose ,options);
@@ -67,6 +87,9 @@ function Plugin(options) {
     } else {
       this.player.setPersonalization(this.personalization);
     }
+
+    if(!opacityOff) { this.wrapper.style.background = `rgba(235,235,235, ${this.opacity})`; } 
+
     
     //this.player.setPersonalization('https://gist.githubusercontent.com/Gabrielnero000/bb63dc1d7338f8ee286c1f295f40603a/raw/1c0350a510c6659c7f48c18c4e619acc83f3485e/configs.json');
 

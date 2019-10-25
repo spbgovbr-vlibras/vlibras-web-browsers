@@ -75,6 +75,24 @@
   
             font-size: 14px;
           }
+
+          .vpw-percent {
+            float: right;
+            margin-top: -7px;
+            font-size: 11px;
+            color: rgba(255, 255, 255, 0.6);
+            width: 30px;
+            margin-right: -6px;
+            margin-left: -4px;
+            text-align: center;
+
+          }
+
+          .arrow-right-opac, .arrow-left-opac {
+            margin-top: -13px;
+            width: 25px;
+            float: right;
+          }
           
         }
   
@@ -83,6 +101,10 @@
         }
   
         .vpw-position {
+          display:none;
+        }
+
+        .vpw-opacity {
           display:none;
         }
   

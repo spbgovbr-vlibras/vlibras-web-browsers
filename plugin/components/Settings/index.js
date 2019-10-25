@@ -5,7 +5,7 @@ var settingsTpl = require('./settings.html');
 require('./settings.scss');
 require('./switch.scss');
 
-function Settings(player, infoScreen, menu, dictionary,option) {
+function Settings(player, infoScreen, menu, dictionary,option,opacity) {
   this.visible = false;
   this.player = player;
   this.infoScreen = infoScreen;
@@ -14,6 +14,7 @@ function Settings(player, infoScreen, menu, dictionary,option) {
   this.dictionary = dictionary;
   
   enable = option.enableMoveWindow;
+  opacity_user = opacity;
 }
 
 inherits(Settings, EventEmitter);
@@ -41,6 +42,8 @@ Settings.prototype.load = function (element) {
   if (enable) {
     this.position = this.element.querySelector('.vpw-content > ul .vpw-position');
     this.position.style.display = 'block';
+    this.position_op = this.element.querySelector('.vpw-content > ul .vpw-opacity');
+    this.position_op.style.display = 'block';
   }
 
   this.selectedRegion._name = this.selectedRegion.querySelector('.vpw-abbrev');
@@ -75,6 +78,53 @@ Settings.prototype.load = function (element) {
         OnLeft=1;
         selector.checked = true;
       }
+    }.bind(this));
+
+   //
+
+  this.opacity = this.element.querySelector('.vpw-content > ul .vpw-opacity');
+  this.opacity_button_left = this.opacity.querySelector('img.arrow-left-opac');
+  this.opacity_button_right = this.opacity.querySelector('img.arrow-right-opac');
+  this.percent =  this.opacity.querySelector('span.vpw-percent');
+
+
+  var opacity = opacity_user;
+  this.percent.innerHTML = opacity*100 + '%';
+  
+  this.opacity_button_right.addEventListener('click', function() {
+
+      if(opacity){
+        opacity-=0.25
+      } else {
+        opacity=0
+      }
+      this.percent.innerHTML = opacity*100 + '%';
+      window.dispatchEvent(new CustomEvent('vw-change-opacity', {detail: 1-opacity})); 
+
+  }.bind(this));
+
+  this.opacity_button_left.addEventListener('click', function() {
+
+      if(opacity < 1.0){
+        opacity+=0.25
+      } else {
+        opacity=1.0
+      }
+
+      if (opacity > 1) {
+        opacity=1.0
+      }
+
+      this.percent.innerHTML = opacity*100 + '%';
+      window.dispatchEvent(new CustomEvent('vw-change-opacity', {detail: 1-opacity})); 
+
+  }.bind(this));
+
+
+  this.element.querySelector('.vpw-content > ul .vpw-about')
+    .addEventListener('click', function() {
+      this.hide(false);
+      this.infoScreen.show();
     }.bind(this));
 
 
