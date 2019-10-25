@@ -2,13 +2,14 @@ const window = require('window');
 const template = require('./template.html');
 require('./styles.scss');
 
-function AccessButton(rootPath, pluginWrapper, personalization) {
+function AccessButton(rootPath, pluginWrapper, personalization, opacity) {
   this.personalization = personalization;
   this.rootPath = rootPath;
   this.pluginWrapper = pluginWrapper;
   this.vw_links = null;
   this.currentElement = null;
   this.currentSpanElement = null;
+  this.opacity = opacity;
 }
 
 AccessButton.prototype.load = function (element, vw) {
@@ -18,11 +19,14 @@ AccessButton.prototype.load = function (element, vw) {
     this.element.classList.toggle('active');
     this.pluginWrapper.element.classList.toggle('active');
 
+
     window.plugin = (window.plugin || new window.VLibras.Plugin({
       enableMoveWindow: true,
       playWellcome: true,
       rootPath: this.rootPath,
-      personalization: this.personalization
+      personalization: this.personalization,
+      opacity: this.opacity,
+      wrapper: this.pluginWrapper.element
     }));
 
     this.addTagsTexts(vw);
