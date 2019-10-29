@@ -6,10 +6,11 @@ const PluginWrapper = require('./components/PluginWrapper');
 require('./scss/reset.scss');
 require('./scss/styles.scss');
 
-module.exports = function Widget(rootPath, personalization) {
-  const widgetWrapper = new PluginWrapper();
-  const accessButton = new AccessButton(rootPath, widgetWrapper, personalization);
-  var temp_f;
+module.exports = function Widget(rootPath, personalization, opacity) {
+    const widgetWrapper = new PluginWrapper();
+    const accessButton = new AccessButton(rootPath, widgetWrapper, personalization, opacity);
+    var temp_f;
+
 
     if(window.onload) {
     	temp_f = window.onload;
@@ -17,11 +18,11 @@ module.exports = function Widget(rootPath, personalization) {
 
     window.onload = () => {
 
-  	if(temp_f) {
-        temp_f();
-    }
+	  	if(temp_f) {
+	        temp_f();
+	    }
 
-    this.element = document.querySelector('[vw]');
+    	this.element = document.querySelector('[vw]');
 
 		const wrapper = document.querySelector('[vw-plugin-wrapper]');
 		const access = document.querySelector('[vw-access-button]');
@@ -58,6 +59,12 @@ module.exports = function Widget(rootPath, personalization) {
 				parent.innerHTML = tagsTexts[i].innerHTML;
 			}	
     });
+
+	window.addEventListener('vw-change-opacity', (event) => {
+		wrapper.style.background = `rgba(235,235,235, ${event.detail})`;
+		//wrapper.setAttribute( 'style', `background: rgba(235, 235, 235, ${event.detail})`);
+	});
+
 
     this.element.querySelectorAll('img[data-src]').forEach((image) => {
 			const imagePath = image.attributes['data-src'].value;
