@@ -1,40 +1,40 @@
-require('./progress.scss');
-var progressTpl = require('./progress.html').default;
+// require('./progress.scss');
+// var progressTpl = require('./progress.html');
 
-function Progress(wrapper) {
-  this.progress = 0.0;
-  this.message = '';
+// function Progress(wrapper) {
+//   this.progress = 0.0;
+//   this.message = '';
 
-  this.element = document.createElement('div');
-  this.element.classList.add('vpw-progress');
-  this.element.innerHTML = progressTpl;
+//   this.element = document.createElement('div');
+//   this.element.classList.add('vpw-progress');
+//   this.element.innerHTML = progressTpl;
 
-  wrapper.appendChild(this.element);
+//   wrapper.appendChild(this.element);
 
-  //this.Update();
-}
+//   //this.Update();
+// }
 
-Progress.prototype.SetProgress = function (progress) {
-  if (this.progress < progress) {
-    this.progress = progress;
-  }
+// Progress.prototype.SetProgress = function (progress) {
+//   if (this.progress < progress) {
+//     this.progress = progress;
+//   }
 
-  this.Update();
-};
+//   this.Update();
+// };
 
-Progress.prototype.SetMessage = function (message) {
-  this.message = message;
-  this.Update();
-};
+// Progress.prototype.SetMessage = function (message) {
+//   this.message = message;
+//   this.Update();
+// };
 
-Progress.prototype.Clear = function() {
-  var parent = this.element.parentNode;
-  parent.removeChild(this.element);
-};
+// Progress.prototype.Clear = function() {
+//   var parent = this.element.parentNode;
+//   parent.removeChild(this.element);
+// };
 
-Progress.prototype.Update = function() {
-  var progress = this.element.querySelector('.vpw-progressbar > .vpw-bar');
-  progress.style.width = (this.progress * 100) + '%';
-};
+// Progress.prototype.Update = function() {
+//   var progress = this.element.querySelector('.vpw-progressbar > .vpw-bar');
+//   progress.style.width = (this.progress * 100) + '%';
+// };
 
-module.exports = Progress;
+// module.exports = Progress;

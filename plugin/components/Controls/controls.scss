@@ -11,9 +11,11 @@
     // margin: 0 5px;
   
     background-size: 100% 100%;
+    background: white;
+    width: 100%;
     
   
-    .vpw-controls-subtitles, .vpw-controls-slider  {
+    .vpw-controls-subtitles, .vpw-controls-slider {
       margin: 0 9px;
       cursor: pointer;
     }
@@ -150,7 +152,7 @@
   }
   
   
-    .vpw-controls-slider {
+    .vpw-controls-slider{
       -webkit-appearance: none;
       width: 50%;
       margin: 2.5px 0;
