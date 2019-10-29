@@ -1,4 +1,4 @@
-const template = require('./template.html');
+const template = require('./template.html').default;
 require('./styles.scss');
 
 function PluginWrapper() { 

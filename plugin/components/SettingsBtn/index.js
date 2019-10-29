@@ -1,4 +1,4 @@
-var settingsBtnTpl = require('./settings-btn.html');
+var settingsBtnTpl = require('./settings-btn.html').default;
 require('./settings-btn.scss');
 
 function SettingsBtn(player, screen, settingsBtnClose,option) {

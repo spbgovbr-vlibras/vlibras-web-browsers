@@ -1,4 +1,4 @@
-var template = require('./suggestion-button.html');
+var template = require('./suggestion-button.html').default;
 require('./suggestion-button.scss');
 
 function SuggestionButton(suggestionScreen) {
