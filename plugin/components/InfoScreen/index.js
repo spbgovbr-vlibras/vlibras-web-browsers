@@ -2,7 +2,7 @@
 var inherits = require('inherits');
 var EventEmitter = require('events').EventEmitter;
 
-var infoScreenTpl = require('./info-screen.html');
+var infoScreenTpl = require('./info-screen.html').default;
 require('./info-screen.scss');
 
 function InfoScreen(box) {

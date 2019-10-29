@@ -1,21 +1,62 @@
 var path = require('path');
+const TerserPlugin = require('terser-webpack-plugin');
+const CompressionPlugin = require('compression-webpack-plugin')
 
 require('es6-promise').polyfill();
 
 module.exports = {
+  mode: process.env.MODE || 'development',
   output: {
-    filename: 'vlibras-plugin.js'
+    filename: 'vlibras-plugin.js',
+    // libraryExport: 'default',
+    library: 'vlibras-plugin',
+    libraryTarget: 'umd'
   },
   resolve: {
-    root: path.join(__dirname, 'plugin')
+    modules: [
+      path.join(__dirname, 'plugin'),
+      'node_modules'
+    ]
   },
   externals: {
-    'window': 'window'
+    'window': 'window',
   },
   module: {
-    loaders: [
-      { test: /\.s?css/, loaders: ['style', 'css?-url', 'sass'] },
-      { test: /\.html/, loaders: ['raw'] }
+    rules: [
+      {
+        test: /\.s?css/,
+        use: [
+          {
+            loader: 'style-loader'
+          },
+          {
+            loader: 'css-loader'
+          },
+          {
+            loader: 'sass-loader'
+          }
+        ]
+      },
+      {
+        test: /\.html/,
+        loader: 'raw-loader'
+      }
     ]
-  }
-}
+  },
+  plugins: [ new CompressionPlugin()],
+  optimization: {
+    minimize: true,
+    minimizer: [
+      new TerserPlugin({
+        parallel: true,
+        sourceMap: true, // Must be set to true if using source-maps in production
+        terserOptions: {
+          compress: {
+            drop_console: true,
+          },
+        },
+        extractComments: true,
+      }),
+    ],
+  },
+};

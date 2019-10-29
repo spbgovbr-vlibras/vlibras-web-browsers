@@ -1,4 +1,4 @@
-var template = require('./change-avatar.html');
+var template = require('./change-avatar.html').default;
 require('./change-avatar.scss');
 
 function ChangeAvatar(player) {
