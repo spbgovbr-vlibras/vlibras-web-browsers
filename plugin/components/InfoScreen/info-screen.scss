@@ -17,7 +17,7 @@
   
     align-items: center;
     -webkit-align-items: center;
-    font-size: 13px;
+    font-size: 11px;
   
     display: none;
   
@@ -132,6 +132,10 @@
         -webkit-flex-wrap: wrap;
         -webkit-align-items: center;
         -webkit-justify-content: space-around;
+
+        .p-separator {
+          margin-top: 10px;
+        }
       }
     }
   
@@ -142,11 +146,16 @@
 
       .vpw-info-tab-label{
         position: absolute;
-        top: 5%;
+        top: 0%;
         font-size: 16px;
         font-family: 'Open Sans', sans-serif;
-
       }
+      .vpw-info-tab-label-two{
+        font-size: 16px; 
+        font-family: 'Open Sans', sans-serif;
+        margin-top: 10px;
+      }
+
     }
   
     .vpw-info-tab.active {
