@@ -88,7 +88,7 @@ function Plugin(options) {
       this.player.setPersonalization(this.personalization);
     }
 
-    if(!opacityOff) { this.wrapper.style.background = `rgba(235,235,235, ${this.opacity})`; } 
+    if(!opacityOff) { this.wrapper.style.background = `rgba(235,235,235, ${1 - this.opacity})`; } 
 
     
     //this.player.setPersonalization('https://gist.githubusercontent.com/Gabrielnero000/bb63dc1d7338f8ee286c1f295f40603a/raw/1c0350a510c6659c7f48c18c4e619acc83f3485e/configs.json');
