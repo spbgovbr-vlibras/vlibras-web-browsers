@@ -118,12 +118,13 @@ $height-set: 450px;
     }
 
     .vpw-settings .vpw-content .vpw-vlibras-logo .vpw-logo {
-      width: 80%;
+      width: 51%;
+      margin-left: 32px;
     }
 
     .vpw-settings .vpw-content .vpw-vlibras-logo .vpw-vlibras-span {
-      left: 41%;
-      bottom: 15%;
+      left: 44%;
+      bottom: 5%;
     }
 
     .vpw-settings .vpw-content .vpw-vlibras-logo {
@@ -182,19 +183,19 @@ $height-set: 450px;
         margin-top: 6px;
     } 
 
-    .vpw-info-screen #vpw-info-realizadores .vpw-logo .ufpb{
+    .vpw-info-screen #vpw-info-realizadores .vpw-logo.ufpb{
         max-width: 20%;
     }
 
-    .vpw-info-screen #vpw-info-realizadores .vpw-logo-group .text {
+    .vpw-info-screen #vpw-info-realizadores .vpw-logo-group.text {
         display: block
     }
 
-    .vpw-info-screen #vpw-info-realizadores .vpw-logo-group .logo1 {
+    .vpw-info-screen #vpw-info-realizadores .vpw-logo-group.logo1 {
         max-width: 70%;
     }
 
-    .vpw-info-screen #vpw-info-realizadores .vpw-logo-group .logo1 {
+    .vpw-info-screen #vpw-info-realizadores .vpw-logo-group.logo2 {
         max-width: 86%;
     }
 
@@ -220,6 +221,10 @@ $height-set: 450px;
     }
     .vpw-settings .vpw-content > .vpw-localism .vpw-regions {
       left: -3px !important; 
+    }
+
+    .vpw-settings .vpw-content>ul .vpw-opacity {
+      margin-right: 56px;
     }
 
     .vpw-dictionary .vpw-dict-container {
