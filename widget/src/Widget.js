@@ -1,5 +1,3 @@
-const window = require('window');
-
 const AccessButton = require('./components/AccessButton');
 const PluginWrapper = require('./components/PluginWrapper');
 
