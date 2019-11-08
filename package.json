@@ -5,6 +5,7 @@
     "test": "gulp run:widget",
     "test-prod": "MODE='production' gulp run:widget",
     "build": "MODE='production' gulp build",
+    "build-debug": "MODE='development' gulp build",
     "gulp": "gulp"
   },
   "dependencies": {

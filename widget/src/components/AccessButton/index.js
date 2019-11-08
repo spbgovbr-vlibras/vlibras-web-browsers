@@ -1,4 +1,3 @@
-const window = require('window');
 const template = require('./template.html').default;
 require('./styles.scss');
 
@@ -26,7 +25,7 @@ AccessButton.prototype.load = function (element, vw) {
       rootPath: this.rootPath,
       personalization: this.personalization,
       opacity: this.opacity,
-      wrapper: this.pluginWrapper.element
+      wrapper: this.pluginWrapper.element,
     }));
 
     this.addTagsTexts(vw);
