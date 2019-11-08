@@ -1,25 +1,25 @@
-var path = require('path');
+const path = require('path');
 const TerserPlugin = require('terser-webpack-plugin');
-const CompressionPlugin = require('compression-webpack-plugin')
+const CompressionPlugin = require('compression-webpack-plugin');
 
 require('es6-promise').polyfill();
 
-module.exports = {
+const webpackConfig = {
   mode: process.env.MODE || 'development',
   output: {
     filename: 'vlibras-plugin.js',
     // libraryExport: 'default',
-    library: 'vlibras-plugin',
-    libraryTarget: 'umd'
+    library: 'VLibras',
+    libraryTarget: 'window',
   },
   resolve: {
     modules: [
       path.join(__dirname, 'plugin'),
-      'node_modules'
-    ]
+      'node_modules',
+    ],
   },
   externals: {
-    'window': 'window',
+    window: 'window',
   },
   module: {
     rules: [
@@ -27,23 +27,23 @@ module.exports = {
         test: /\.s?css/,
         use: [
           {
-            loader: 'style-loader'
+            loader: 'style-loader',
           },
           {
-            loader: 'css-loader'
+            loader: 'css-loader',
           },
           {
-            loader: 'sass-loader'
-          }
-        ]
+            loader: 'sass-loader',
+          },
+        ],
       },
       {
         test: /\.html/,
-        loader: 'raw-loader'
-      }
-    ]
+        loader: 'raw-loader',
+      },
+    ],
   },
-  plugins: [ new CompressionPlugin()],
+  plugins: [new CompressionPlugin()],
   optimization: {
     minimize: true,
     minimizer: [
@@ -59,4 +59,24 @@ module.exports = {
       }),
     ],
   },
+};
+
+
+const pluginWebpackConfig = {
+  entry: {
+    plugin: './plugin/index.js',
+  },
+  ...webpackConfig,
+};
+
+const widgetWebpackConfig = {
+  entry: {
+    widget: './widget/src/index.js',
+  },
+  ...webpackConfig,
+};
+
+module.exports = {
+  pluginWebpackConfig,
+  widgetWebpackConfig,
 };
