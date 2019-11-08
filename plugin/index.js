@@ -1,8 +1,5 @@
-var Plugin = require('./Plugin.js');
-var window = require('window');
+const Plugin = require('./Plugin.js');
 
-require('scss/vlibras-plugin.scss');
+require('./scss/vlibras-plugin.scss');
 
-window.VLibras.Plugin = Plugin;
-window.resizeTo(300,450);
-
+export { Plugin };
