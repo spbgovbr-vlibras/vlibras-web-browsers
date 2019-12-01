@@ -36,10 +36,20 @@ Dictionary.prototype.load = function (element, closeScreen) {
   this.list._insert = function(word)
   {
     var item = document.createElement('li');
-    item.innerHTML = word;
-    item.addEventListener('click', this._onItemClick.bind(this));
 
-    this.list.appendChild(item);
+    if (word.indexOf('&') != -1){ 
+      regex = word.replace('&', '(')
+      regex =  regex + ')'
+      item.innerHTML = regex;
+      item.addEventListener('click', this._onItemClick.bind(this, word));
+      this.list.appendChild(item);
+    }
+    else {
+      item.innerHTML = word;
+      item.addEventListener('click', this._onItemClick.bind(this, word));
+      this.list.appendChild(item);
+    }
+
   }.bind(this);
 
   // Request and load list
@@ -73,7 +83,6 @@ Dictionary.prototype.load = function (element, closeScreen) {
   // Search
   this.element.querySelector('.vpw-panel .vpw-search input')
     .addEventListener('keydown', function(event) {
-      // console.log(event.target.value);
       this.list._clear();
       this.signs.loadSigns(event.target.value.toUpperCase(), this.list._insert.bind(this.list));
     }.bind(this));
@@ -81,9 +90,9 @@ Dictionary.prototype.load = function (element, closeScreen) {
   // this.hide();
 };
 
-Dictionary.prototype._onItemClick = function(event) {
+Dictionary.prototype._onItemClick = function(event, word) {
   this.closeScreen.closeAll();
-  this.player.play(event.target.innerHTML);
+  this.player.play(event);
 };
 
 Dictionary.prototype.toggle = function () {
