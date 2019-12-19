@@ -33,7 +33,6 @@ function Plugin(options) {
 
   this.opacity = options.opacity;
   this.wrapper = options.wrapper;
-  var opacityOff = false;
 
   if(this.opacity){
       if(this.opacity==0.0 || this.opacity==0.25 || this.opacity==0.5 || this.opacity==0.75 || this.opacity==1.0){
@@ -44,7 +43,6 @@ function Plugin(options) {
       }
   } else {
       this.opacity = 0.0;
-      opacityOff = true;
   }
 
 
@@ -52,7 +50,7 @@ function Plugin(options) {
   this.rootPath = options.rootPath;
   this.personalization = options.personalization;
   this.element = document.querySelector('[vp]');
-  
+
   this.dictionary = new Dictionary(this.player);
   this.controls = new Controls(this.player, this.dictionary);
   this.Box = new Box();
@@ -78,23 +76,19 @@ function Plugin(options) {
   //this.ChangeAvatar.load(this.element.querySelector('[vp-change-avatar]'));
 
   this.player.load(this.element);
-  
+
 
   this.player.on('load', () => {
-    
+
     if (this.personalization == undefined) {
       this.player.setPersonalization('');
     } else {
       this.player.setPersonalization(this.personalization);
     }
 
-    if(!opacityOff) { this.wrapper.style.background = `rgba(235,235,235, ${1 - this.opacity})`; } else {
-      this.wrapper.style.background = `rgba(235,235,235, ${1 - this.opacity})`;
-    }
+    if (this.wrapper) this.wrapper.style.background = `rgba(235,235,235, ${1 - this.opacity})`;
 
     
-    //this.player.setPersonalization('https://gist.githubusercontent.com/Gabrielnero000/bb63dc1d7338f8ee286c1f295f40603a/raw/1c0350a510c6659c7f48c18c4e619acc83f3485e/configs.json');
-
     this.controls.load(this.element.querySelector('[vp-controls]'));
     this.Box.load(this.element.querySelector('[vp-box]'));
     this.settingBtnClose.load(this.element.querySelector('[vp-box]').querySelector('[settings-btn-close]'), this.closeScreen);
