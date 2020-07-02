@@ -132,6 +132,22 @@ The Widget can be installed on your website by inserting a few snippets of code 
 
 > Note: The app folder can be copied to any directory, remember to enter the correct path for it.
 
+#### Adding Customization and Opacity
+
+If you want to place a customization in the Widget, you must enter as a parameter a valid URL for Icaro and Hozana to be personalized:
+
+```javascript
+    new window.VLibras.Widget('<your-directory-path>/app', 'https://vlibras.gov.br/config/configs.json');
+```
+
+If you want to change the background opacity of the Widget, you can set the values (0, 0.25, 0.50, 0.75, 1) as a parameter. This opaque parameter indicates a number between 0 (fully transparent) and 1 (fully opaque).
+
+```javascript
+    new window.VLibras.Widget('<your-directory-path>/app', '', '0.75');
+```
+
+You can also change opacity in the Widget menu.
+
 ### Installing the Plugins
 
 VLibras already has official versions of the plugins in the Chrome, Firefox and Safari extensions store.
