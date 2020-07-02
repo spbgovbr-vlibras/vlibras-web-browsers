@@ -1,8 +1,8 @@
 [vp] {
   .vpw-vlibras-span {
-    font-family: 'Open Sans', sans-serif;
+    font-family: "Open Sans", sans-serif;
   }
-  
+
   .vpw-settings {
     position: relative;
     // top: 10%;
@@ -11,9 +11,7 @@
     // right: 0;
     width: 100%;
     height: calc(100% - 40px);
-    
-  
-  
+
     .vpw-content {
       position: relative;
       top: 0;
@@ -23,27 +21,25 @@
       // max-width: 300px;
       // max-height: 452px;
       z-index: 6;
-  
-      background-color: #003F86;
+
+      background-color: #003f86;
       color: white;
-      
-  
+
       .vpw-flag {
         position: absolute;
         height: 24px;
         margin-top: -12px;
         margin-left: 4px;
         // border: 1px solid rgba(0,0,0,0.2);
-        border:none;      
+        border: none;
         border-radius: 5px;
-       
       }
-  
+
       > .vpw-bar {
         position: absolute;
         width: 100%;
         height: 54px;
-  
+
         .vpw-title {
           position: absolute;
           top: 16px;
@@ -53,26 +49,24 @@
           font-weight: bold;
         }
       }
-  
+
       > ul {
         list-style-type: none;
         margin: 0;
-        padding: 0 11%; 
-        font-family: 'Open Sans', sans-serif;
-  
-  
+        padding: 0 11%;
+        font-family: "Open Sans", sans-serif;
+
         li {
           position: relative;
           padding: 19px 0;
-  
+          color: white;
           border-bottom: 0;
-  
-  
+
           .vpw-name {
             position: absolute;
             left: 0px;
             margin-top: -10px;
-  
+
             font-size: 14px;
           }
 
@@ -85,49 +79,47 @@
             margin-right: -6px;
             margin-left: -4px;
             text-align: center;
-
           }
 
-          .arrow-right-opac, .arrow-left-opac {
+          .arrow-right-opac,
+          .arrow-left-opac {
             margin-top: -13px;
             width: 25px;
             float: right;
           }
-          
         }
-  
+
         li:hover {
-          color: #67C8D5;
+          color: #67c8d5;
         }
-  
+
         .vpw-position {
-          display:none;
+          display: none;
         }
 
         .vpw-opacity {
-          display:none;
+          display: none;
         }
-  
+
         .vpw-localism {
           padding: 24px 0;
-          
-  
+
           .vpw-flag {
             right: 27px;
             height: 24px;
-  
+
             // border: 1px solid rgba(0,0,0,0.2);
-          } 
-  
+          }
+
           .vpw-abbrev {
             position: absolute;
             right: 0px;
             margin-top: -9px;
-  
+
             font-size: 14px;
             font-weight: bold;
           }
-  
+
           .vpw-arrow {
             position: absolute;
             right: 16px;
@@ -135,12 +127,11 @@
             margin-top: -6px;
           }
         }
-  
+
         .vpw-about {
-          
         }
       }
-  
+
       > .vpw-localism {
         position: absolute;
         top: 0;
@@ -148,24 +139,23 @@
         width: 100%;
         height: 100%;
         z-index: 7;
-  
+
         background-color: white;
-        border: 1px solid rgba(0,0,0,0.2);
+        border: 1px solid rgba(0, 0, 0, 0.2);
         border-radius: 2px;
-  
-  
+
         &:not(.active) {
           visibility: hidden;
           opacity: 0;
-  
+
           -webkit-transition: visibility 0s, opacity 0.3s;
           transition: visibility 0s, opacity 0.3s;
         }
-  
+
         &.active {
           visibility: visible;
           opacity: 1;
-  
+
           -webkit-transition: visibility 0s, opacity 0.3s;
           transition: visibility 0s, opacity 0.3s;
           // left:0;
@@ -173,16 +163,16 @@
           // width: 100%;
           // height: 100%;
         }
-  
+
         .vpw-name {
           position: absolute;
           margin-top: -7px;
           margin-left: 9px;
-          
+
           font-size: 14px;
           font-weight: bold;
         }
-  
+
         .vpw-national {
           position: relative;
           width: calc(33.33%);
@@ -192,18 +182,17 @@
           flex-direction: row;
           justify-content: center;
           align-items: center;
-  
+
           .vpw-name {
             color: black;
             position: relative;
           }
-  
+
           .vpw-flag {
             position: relative;
-           
           }
         }
-  
+
         .vpw-regions {
           position: relative;
           width: 100%;
@@ -213,77 +202,70 @@
           left: 0;
           top: 50%;
           transform: translateY(-50%);
-  
+
           > .vpw-container-regions {
             display: inline-block;
             position: relative;
             width: 33.33%;
             margin-bottom: 1px;
-            padding: 6px 0;  
+            padding: 6px 0;
             margin-top: 1%;
-  
+
             cursor: pointer;
             opacity: 0.5;
             -webkit-transition: opacity 0.3s;
             transition: opacity 0.3s;
-  
+
             &.selected,
             &:hover {
               opacity: 1;
-  
+
               -webkit-transition: opacity 0.3s;
               transition: opacity 0.3s;
-            }        
-          .vpw-cont{
+            }
+            .vpw-cont {
               display: flex;
               flex-direction: row;
               justify-content: center;
-              align-items: center;    
-          }
-            > .vpw-cont .vpw-flag{
+              align-items: center;
+            }
+            > .vpw-cont .vpw-flag {
               position: relative;
               margin: 0;
-                     
-              
             }
-  
+
             > .vpw-cont .vpw-name {
               position: relative;
               margin: 0 10px 0;
-  
-              // margin-left:30px; 
+
+              // margin-left:30px;
               color: grey;
             }
-  
-            
-  
-            
           }
         }
       }
-  
-      .vpw-vlibras-logo{
+
+      .vpw-vlibras-logo {
         position: absolute;
         left: 50%;
         transform: translateX(-50%);
         bottom: 0;
         z-index: 6;
-        
-        .vpw-vlibras-span{
-        left: 50%;
-        transform: translateX(-50%);
-        position: absolute;
-        bottom: 15%;
-        align-items: center;
-        font-size: 14px;
-      
+
+        .vpw-vlibras-span {
+          left: 50%;
+          transform: translateX(-50%);
+          position: absolute;
+          bottom: 15%;
+          align-items: center;
+          font-size: 14px;
         }
-        .vpw-logo{
+        .vpw-logo {
           width: 100%;
         }
       }
     }
-  
+
     > .vpw-wall {
       position: absolute;
       top: 0;
@@ -292,46 +274,45 @@
       right: 0;
       z-index: 5;
     }
-  
+
     &.active {
       display: block;
       .vpw-content {
         left: 0;
-  
+
         -webkit-transition: left 0.3s;
         transition: left 0.3s;
       }
-  
+
       .vpw-wall {
         visibility: visible;
       }
     }
-  
+
     &:not(.active) {
       display: none;
       .vpw-content {
         left: 0;
         visibility: hidden;
-  
+
         -webkit-transition: left 0.3s;
         transition: left 0.3s;
       }
-  
+
       .vpw-wall {
         visibility: hidden;
       }
     }
-  
+
     .vpw-clickable {
       cursor: pointer;
-  
-  
+
       &:not(:hover) {
         background-color: inherit;
         -webkit-transition: 0.12s background-color;
         transition: 0.12s background-color;
       }
-  
+
       &:hover {
         -webkit-transition: 0.2s background-color;
         transition: 0.2s background-color;
@@ -341,31 +322,30 @@
 
   .vpw-controls-dictionary {
     &:not(.vpw-loading-dictionary):before {
-      content: 'Dicionário';
+      content: "Dicionário";
       font-size: 14px;
       position: absolute;
       margin-top: -11px;
     }
-  
+
     &.vpw-loading-dictionary {
       min-width: 22px;
       min-height: 22px;
       margin-top: -17px;
       position: absolute;
-      
+
       border-left: 3px solid rgba(255, 255, 255, 0.2);
       border-top: 3px solid rgba(255, 255, 255, 0.6);
       border-bottom: 3px solid rgba(255, 255, 255, 1);
       border-right: 3px solid rgba(255, 255, 255, 0.6);
       border-style: inset;
       border-radius: 50%;
-      
+
       -webkit-animation: spin 1.5s linear infinite;
       animation: spin 0.8s linear infinite;
     }
   }
 }
-
 
 /*@media (min-width: 600px) {
   .vpw-settings {
@@ -410,8 +390,3 @@
     }
   }
 }*/
-
-
-
-
-
