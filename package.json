@@ -17,6 +17,7 @@
     "nouislider": "^8.3.0",
     "select2": "^4.0.6-rc.1",
     "superagent": "^4.1.0",
+    "trie-search": "^1.3.4",
     "url-join": "^4.0.0",
     "vlibras": "file:../vlibras-player-webjs"
   },

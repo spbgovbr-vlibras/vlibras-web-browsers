@@ -12,7 +12,7 @@ $control-height: 68px;
   padding: 16px;
   background-color: white;
   z-index: 3;
-  
+
   left: 100%;
   transition: left 0.4s ease-in;
 
@@ -28,19 +28,15 @@ $control-height: 68px;
     flex: 1;
     align-self: stretch;
     margin-top: 10px;
-    margin-left: 32px;
-    margin-right: 32px;
+    margin-left: 20px;
+    margin-right: 20px;
     padding: 8px 10px 6px;
     font-size: 12px;
     border: none;
     border-radius: 12px;
-    background-color: #EFEFF2;
+    background-color: #efeff2;
   }
 
-  .vp-send-button {
-    margin-top: 14px;
-  }
-  
   .vp-close-button {
     margin-top: 8px;
   }

@@ -1,5 +1,5 @@
 [vp] [vp-blue-button] {
-  padding: 7px 16px;
+  padding: 7px;
   border-radius: 6px;
   font-size: 12px;
   text-align: center;
@@ -7,6 +7,25 @@
   color: white;
   background-color: #003f86;
   cursor: pointer;
+  margin: 10px 5px;
+  align-self: center;
+}
+[vp] [vp-visualize-signal-button] {
+  padding: 7px;
+  border-radius: 6px;
+  font-size: 12px;
+  text-align: center;
+  font-weight: bold;
+  color: #003f86;
+  background: white;
+  border: 1px solid #003f86;
+  cursor: pointer;
+  margin: 10px 5px;
+  align-self: center;
+}
+
+[vp] [vp-sugestion-area] {
+  display: flex;
 }
 
 [vp] [vp-close-button] {
@@ -26,5 +45,5 @@
 }
 
 #gameContainer {
-  background: rgb(235,235,235) !important;
+  background: rgb(235, 235, 235) !important;
 }
