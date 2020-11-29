@@ -187,12 +187,14 @@ SuggestionScreen.prototype.load = function (element) {
     }
 
     if (wordToSuggest && wordToSuggest.length >= 2) {
-      const formatedSignList = this.signsList.map((item) => ({ name: item }));
       var ts = new TrieSearch("name");
-      ts.addAll(formatedSignList);
+      ts.addAll(this.signsList);
       const listOfSuggestions = ts.get(wordToSuggest);
-
-      buildSelect(listOfSuggestions, end);
+      if (listOfSuggestions.length == 0)
+        dropdownSuggest.classList.remove("vp-enabled");
+      else buildSelect(listOfSuggestions, end);
+    } else {
+      dropdownSuggest.classList.remove("vp-enabled");
     }
   });
 
@@ -201,7 +203,7 @@ SuggestionScreen.prototype.load = function (element) {
   xhr.responseType = "text";
   xhr.onload = function () {
     if (xhr.status == 200) {
-      this.signsList = JSON.parse(xhr.response);
+      this.signsList = JSON.parse(xhr.response).map((item) => ({ name: item }));
     } else {
       console.error("Bad answer for get signs list, status: " + xhr.status);
     }
