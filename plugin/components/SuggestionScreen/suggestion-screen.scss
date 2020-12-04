@@ -16,13 +16,49 @@ $control-height: 68px;
   left: 100%;
   transition: left 0.4s ease-in;
 
+  ::-webkit-scrollbar {
+    width: 10px;
+  }
+
+  /* Track */
+  ::-webkit-scrollbar-track {
+    background: #d1d1d1f1 !important;
+  }
+
+  /* Handle */
+  ::-webkit-scrollbar-thumb {
+    background: rgb(139, 139, 153);
+  }
+
+  /* Handle on hover */
+  ::-webkit-scrollbar-thumb:hover {
+    background: #555;
+  }
+
   .vp-dropdown-suggest {
     display: none;
+    font-family: "Open Sans", sans-serif;
 
     &.vp-enabled {
       display: block;
       position: absolute;
-      width: 60px;
+      height: 54px;
+      width: 100px;
+      overflow: hidden auto;
+      color: white;
+      background: rgb(0, 63, 134);
+      border-radius: 3px;
+      font-weight: 600;
+    }
+  }
+
+  .vp-dropdown-item {
+    cursor: pointer;
+    font-size: 12px;
+    margin: 5px 0px -4px 6px;
+
+    &:hover {
+      color: rgb(128, 182, 243);
     }
   }
 
