@@ -62,24 +62,6 @@ function getInputSelection(el) {
   return { start: start, end: end };
 }
 
-function setCaretPosition(elem, caretPos) {
-  if (elem) {
-    if (elem.createTextRange) {
-      var range = elem.createTextRange();
-
-      range.move("character", caretPos);
-      range.select();
-    } else {
-      if (elem.selectionStart) {
-        elem.focus();
-        elem.setSelectionRange(caretPos, caretPos);
-      } else {
-        elem.focus();
-      }
-    }
-  }
-}
-
 const getWordBySelectionIndex = (sentence, index) => {
   if (sentence.charAt(index) === " ")
     return { wordToSuggest: "", begin: 0, newEnd: 0 };
@@ -132,16 +114,16 @@ SuggestionScreen.prototype.load = function (element) {
     this.hide();
   });
 
-  dropdownSuggest.addEventListener("change", (e) => {
+  const setOption = (name) => {
     this.textElement.value = replaceByStartAndEnd(
       this.textElement.value,
-      dropdownSuggest.value,
+      name,
       actualBegin,
       actualEnd
     ).toUpperCase();
 
     dropdownSuggest.classList.remove("vp-enabled");
-  });
+  };
 
   visualize.addEventListener("click", () => {
     let openAfterEnd = true;
@@ -157,14 +139,25 @@ SuggestionScreen.prototype.load = function (element) {
     const caret = getCaretCoordinates(this.textElement, end);
 
     listOfSuggestions.map((item) => {
-      const opt = document.createElement("option");
+      const opt = document.createElement("li");
       opt.appendChild(document.createTextNode(item.name));
       opt.value = item.name;
+      opt.classList.add("vp-dropdown-item");
+      opt.onclick = () => {
+        setOption(item.name);
+      };
       dropdownSuggest.appendChild(opt);
     });
 
+    if (listOfSuggestions.length === 1) dropdownSuggest.style.height = "24px";
+    else if (listOfSuggestions.length === 2)
+      dropdownSuggest.style.height = "40px";
+    else dropdownSuggest.style.height = "54px";
+
     dropdownSuggest.classList.add("vp-enabled");
-    dropdownSuggest.style.left = (caret.left + 30).toString() + "px";
+    let left = caret.left + 25;
+    if (left > 200) left = left - 50;
+    dropdownSuggest.style.left = left.toString() + "px";
     dropdownSuggest.style.top = (caret.top + 60).toString() + "px";
   };
 
