@@ -43,12 +43,14 @@ $control-height: 68px;
       display: block;
       position: absolute;
       height: 54px;
-      width: 100px;
+      width: 120px;
       overflow: hidden auto;
       color: white;
       background: rgb(0, 63, 134);
       border-radius: 3px;
       font-weight: 600;
+      list-style-type: none;
+      padding: 0px;
     }
   }
 

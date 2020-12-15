@@ -156,7 +156,7 @@ SuggestionScreen.prototype.load = function (element) {
 
     dropdownSuggest.classList.add("vp-enabled");
     let left = caret.left + 25;
-    if (left > 200) left = left - 50;
+    if (left > 180) left = left - 50;
     dropdownSuggest.style.left = left.toString() + "px";
     dropdownSuggest.style.top = (caret.top + 60).toString() + "px";
   };
@@ -192,7 +192,7 @@ SuggestionScreen.prototype.load = function (element) {
   });
 
   var xhr = new XMLHttpRequest();
-  xhr.open("get", "http://192.168.1.10:8081/signs.json", true);
+  xhr.open("get", "https://repository-dth.vlibras.gov.br/api/signs", true);
   xhr.responseType = "text";
   xhr.onload = function () {
     if (xhr.status == 200) {
