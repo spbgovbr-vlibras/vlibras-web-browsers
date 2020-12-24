@@ -52,17 +52,10 @@ curl -sL https://deb.nodesource.com/setup_10.x | sudo -E bash -
 ```sh
 sudo apt install -y nodejs
 ```
-<br/>
 
-[VLibras Player WebJS](https://gitlab.lavid.ufpb.br/vlibras2019/vlibras-player-webjs)
+[VLibras Player WebJS](https://gitlab.sgd.nuvem.gov.br/vlibras)
 
 VLibras Player WebJS is required at project installation, you just need to clone it in the same path as the root of this project.
-
-```sh
-git clone https://gitlab.lavid.ufpb.br/vlibras2019/vlibras-web-extensions/vlibras-player-webjs.git
-```
-
-> Note: It is necessary to have access to the VLibras Player WebJS repository to be able to clone it.
 
 ### Installing
 
