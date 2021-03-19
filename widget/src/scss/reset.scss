@@ -25,6 +25,9 @@
   footer, header, hgroup, menu, nav, section {
     display: block;
   }
+  img {
+  	width: unset;
+  }
   body {
     line-height: 1;
   }
