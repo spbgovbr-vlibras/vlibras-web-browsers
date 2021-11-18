@@ -8,10 +8,11 @@ function SettingsBtn(player, screen, settingsBtnClose,option) {
   enable = option.enableMoveWindow;
 }
 
-SettingsBtn.prototype.load = function (element) {
+SettingsBtn.prototype.load = function (element, loadDictionary, elementDict, rootPath ) {
   this.element = element;
   this.element.innerHTML = settingsBtnTpl;
   this.element.classList.add('vpw-settings-btn');
+  var fistTime = true;
 
   var btn_menu = this.element.querySelector('.vpw-settings-btn-menu');
   btn_menu.classList.add('active');
@@ -24,6 +25,14 @@ SettingsBtn.prototype.load = function (element) {
 
   btn_menu.addEventListener('click', function () {
     this.element.classList.toggle('active');
+    if (fistTime) {
+      loadDictionary();
+      elementDict.querySelectorAll("img[data-src]").forEach((image) => {
+        const imagePath = image.attributes["data-src"].value;
+        image.src =  rootPath ? rootPath + "/" + imagePath : imagePath;
+      });
+      fistTime = false;
+    }
     if(this.settingsBtnClose.element.classList.contains('active')){
       this.settingsBtnClose.element.classList.remove('active');
     }else{

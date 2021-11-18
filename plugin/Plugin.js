@@ -118,14 +118,16 @@ function Plugin(options) {
       this.closeScreen
     );
     this.settingsBtn.load(
-      this.element.querySelector("[vp-box]").querySelector("[settings-btn]")
+      this.element.querySelector("[vp-box]").querySelector("[settings-btn]"),
+      () => this.dictionary.load(
+          this.element.querySelector("[vp-dictionary]"),
+          this.closeScreen,
+        ),
+      this.element.querySelector("[vp-dictionary]"),
+      this.rootPath 
     );
     this.settings.load(this.element.querySelector("[vp-settings]"));
     this.info.load(this.element.querySelector("[vp-info-screen]"));
-    this.dictionary.load(
-      this.element.querySelector("[vp-dictionary]"),
-      this.closeScreen
-    );
     this.ChangeAvatar.load(this.element.querySelector("[vp-change-avatar]"));
 
     this.loadImages();
