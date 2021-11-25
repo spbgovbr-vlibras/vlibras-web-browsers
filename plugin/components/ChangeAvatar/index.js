@@ -10,21 +10,29 @@ ChangeAvatar.prototype.load = function (element) {
   this.element = element;
   this.element.innerHTML = template;
   const button = this.element.querySelector('.vp-button-change-avatar');
-  var female = true;
-
+  let actualAvatar = 1;
 
   button.addEventListener('click', () => {
-    if (female){
-      button.querySelector('.change-avatar-female').style.display = 'none';
-      button.querySelector('.change-avatar-male').style.display = 'block';
-    } else {
-      button.querySelector('.change-avatar-female').style.display = 'block';
-      button.querySelector('.change-avatar-male').style.display = 'none';
+
+    console.log(actualAvatar, button, button.querySelector('.avatar-female'))
+    switch(actualAvatar) {
+      case 1: 
+        button.querySelector('.avatar-female').classList.add('active');
+        button.querySelector('.avatar-male').classList.remove('active');
+        this.player.changeAvatar("hozana");
+        break;
+      case 2: 
+        button.querySelector('.avatar-children').classList.add('active');
+        button.querySelector('.avatar-female').classList.remove('active');
+        this.player.changeAvatar("guga");
+        break;
+      case 3:
+        button.querySelector('.avatar-male').classList.add('active');
+        button.querySelector('.avatar-children').classList.remove('active');
+        this.player.changeAvatar("icaro");
+        break;
     }
-
-    female = !female;
-
-    this.player.changeAvatar();
+    actualAvatar = (actualAvatar % 3) + 1
   });
 };
 
