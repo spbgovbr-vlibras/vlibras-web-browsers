@@ -13,22 +13,20 @@ ChangeAvatar.prototype.load = function (element) {
   let actualAvatar = 1;
 
   button.addEventListener('click', () => {
-
-    console.log(actualAvatar, button, button.querySelector('.avatar-female'))
     switch(actualAvatar) {
       case 1: 
-        button.querySelector('.avatar-female').classList.add('active');
-        button.querySelector('.avatar-male').classList.remove('active');
+        button.querySelector('.avatar-female').classList.remove('active');
+        button.querySelector('.avatar-children').classList.add('active');
         this.player.changeAvatar("hozana");
         break;
       case 2: 
-        button.querySelector('.avatar-children').classList.add('active');
-        button.querySelector('.avatar-female').classList.remove('active');
+        button.querySelector('.avatar-children').classList.remove('active');
+        button.querySelector('.avatar-male').classList.add('active');
         this.player.changeAvatar("guga");
         break;
       case 3:
-        button.querySelector('.avatar-male').classList.add('active');
-        button.querySelector('.avatar-children').classList.remove('active');
+        button.querySelector('.avatar-male').classList.remove('active');
+        button.querySelector('.avatar-female').classList.add('active');
         this.player.changeAvatar("icaro");
         break;
     }
