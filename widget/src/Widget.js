@@ -5,22 +5,22 @@ require('./scss/reset.scss');
 require('./scss/styles.scss');
 
 module.exports = function Widget(rootPath, personalization, opacity) {
-    const widgetWrapper = new PluginWrapper();
-    const accessButton = new AccessButton(rootPath, widgetWrapper, personalization, opacity);
-    var temp_f;
+	const widgetWrapper = new PluginWrapper();
+	const accessButton = new AccessButton(rootPath, widgetWrapper, personalization, opacity);
+	var temp_f;
 
 
-    if(window.onload) {
-    	temp_f = window.onload;
-  	}
+	if (window.onload) {
+		temp_f = window.onload;
+	}
 
-    window.onload = () => {
+	window.onload = () => {
 
-	  	if(temp_f) {
-	        temp_f();
-	    }
+		if (temp_f) {
+			temp_f();
+		}
 
-    	this.element = document.querySelector('[vw]');
+		this.element = document.querySelector('[vw]');
 
 		const wrapper = document.querySelector('[vw-plugin-wrapper]');
 		const access = document.querySelector('[vw-access-button]');
@@ -29,19 +29,33 @@ module.exports = function Widget(rootPath, personalization, opacity) {
 		widgetWrapper.load(document.querySelector('[vw-plugin-wrapper]'));
 
 		window.addEventListener('vp-widget-wrapper-set-side', (event) => {
-			if (event.detail.right) {
+
+			if (event.detail == "top-left" || event.detail == "middle-left" || event.detail == "bottom-left") {
 				this.element.style.left = '0';
 				this.element.style.right = 'initial';
-				access.querySelector('.access-button').classList.add("left");
-				access.querySelector('.pop-up').classList.add("left");
-				document.querySelector('[vw-access-button]').style.margin = "0px -100px 0px 0px"; 
+				access.querySelector('.widget-container').classList.add("left");
+				document.querySelector('[vw-access-button]').style.margin = "0px 80px 0px 0px";
 
-			} else {
+				if (event.detail == "top-left") this.element.style.top = "32%"
+				if (event.detail == "middle-left") this.element.style.top = "60%"
+				if (event.detail == "bottom-left") this.element.style.top = "82%"
+			}
+			else if (event.detail == "top-right" || event.detail == "middle-right" || event.detail == "bottom-right") {
 				this.element.style.right = '0';
 				this.element.style.left = 'initial';
-				access.querySelector('.access-button').classList.remove("left");
-				access.querySelector('.pop-up').classList.remove("left");
-				document.querySelector('[vw-access-button]').style.margin = "0px 0px 0px -100px"; 
+				access.querySelector('.widget-container').classList.remove("left");
+				document.querySelector('[vw-access-button]').style.margin = "0px 0px 0px -100px";
+
+				if (event.detail == "top-right") this.element.style.top = "32%"
+				if (event.detail == "middle-right") this.element.style.top = "60%"
+				if (event.detail == "bottom-right") this.element.style.top = "82%"
+			}
+			else if (event.detail == "bottom-middle" || event.detail == "top-middle") {
+				this.element.style.right = '42%';
+				access.querySelector('.widget-container').classList.remove("left");
+
+				if (event.detail == "top-middle") this.element.style.top = "32%"
+				if (event.detail == "bottom-middle") this.element.style.top = "82%"
 			}
 		});
 
@@ -53,20 +67,18 @@ module.exports = function Widget(rootPath, personalization, opacity) {
 
 			var tagsTexts = document.querySelectorAll('.vw-text');
 			for (var i = 0; i < tagsTexts.length; i++) {
-				var parent  = tagsTexts[i].parentNode;
+				var parent = tagsTexts[i].parentNode;
 				parent.innerHTML = tagsTexts[i].innerHTML;
-			}	
-    });
+			}
+		});
 
-	window.addEventListener('vw-change-opacity', (event) => {
-		wrapper.style.background = `rgba(235,235,235, ${event.detail})`;
-		//wrapper.setAttribute( 'style', `background: rgba(235, 235, 235, ${event.detail})`);
-	});
+		window.addEventListener('vw-change-opacity', (event) => {
+			wrapper.style.background = `rgba(235,235,235, ${event.detail})`;
+		});
 
-
-    this.element.querySelectorAll('img[data-src]').forEach((image) => {
+		this.element.querySelectorAll('img[data-src]').forEach((image) => {
 			const imagePath = image.attributes['data-src'].value;
-      image.src = rootPath ? rootPath + '/' + imagePath : imagePath;
-    });
-  };
+			image.src = rootPath ? rootPath + '/' + imagePath : imagePath;
+		});
+	};
 }

@@ -4,10 +4,11 @@ require("./suggestion-screen.scss");
 var TrieSearch = require("trie-search");
 var getCaretCoordinates = require("textarea-caret");
 
-function SuggestionScreen(player) {
+function SuggestionScreen(player, suggestionSentScreen) {
   this.element = null;
   this.player = player;
   this.signsList = [];
+  this.suggestionSentScreen = suggestionSentScreen;
 }
 
 function getInputSelection(el) {
@@ -101,16 +102,31 @@ SuggestionScreen.prototype.load = function (element) {
 
   const send = this.element.querySelector(".vp-send-button");
   const visualize = this.element.querySelector(".vp-visualize-signal-button");
-  const close = this.element.querySelector(".vp-close-button");
+  // const close = this.element.querySelector(".vp-close-button");
   const dropdownSuggest = this.element.querySelector(".vp-dropdown-suggest");
   let actualBegin = 0;
   let actualEnd = 0;
 
   send.addEventListener("click", () => {
     window.plugin.sendReview(this.rate, this.textElement.value);
+    this.suggestionSentScreen.show();
   });
 
-  close.addEventListener("click", () => {
+  // close.addEventListener("click", () => {
+  //   this.hide();
+  // });
+
+  this.element.addEventListener("click", (evt) => {
+    const menu = this.element.querySelector('.vp-container-suggestion');
+    let targetElement = evt.target;
+
+    do {
+      if (targetElement == menu) {
+        return;
+      }
+      targetElement = targetElement.parentNode;
+    } while (targetElement);
+
     this.hide();
   });
 

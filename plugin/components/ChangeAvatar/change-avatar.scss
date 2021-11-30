@@ -10,7 +10,7 @@ $control-height: 60px;
   max-width: 100%;
   opacity: 1;
   transition: max-width 0s, visibility 0s, opacity 0.4s;
-  left: 13px;
+  right: 7px;
   top: 50px;
 
   .vp-button-change-avatar {
@@ -19,10 +19,11 @@ $control-height: 60px;
     align-items: center;
     z-index: 1;
     cursor: pointer;
-    background: rgba(0,0,0,0.3);
+    background: #1B1B1B;
     border-radius: 50px;
-    width: 32px;
-    height: 32px;
+    margin-top: 4px;
+    width: 28px;
+    height: 28px;
     box-shadow: 1px 1px 2px 1px rgba(0, 0, 0, 0.45);
 
     .change-avatar-female {

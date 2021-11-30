@@ -4,22 +4,23 @@
     position: absolute;
     top: 0;
     width: 100%;
-    height: 100%;
+    height: 450px;
     display: none;
     z-index: 7;
+
     &.active {
-      
       display: block;
     }
-
     cursor: pointer;
+
     .vpw-img {
       position: absolute;
-      top: 50%;
+      display: none;
+      top: 24px;
       transform: translateY(-50%);
       width: 37.92px;
       height: 37.92px;
-      right: 5px;
+      right: 7px;
     }
 }
 }

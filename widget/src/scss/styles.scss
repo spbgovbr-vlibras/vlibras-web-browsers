@@ -250,7 +250,13 @@ $height-set: 450px;
     [vp-suggestion-screen] {
       width: 72%;
       height: 60%;
-      top: 41px;
+      bottom: 0;
+    }
+
+    [vp-suggestion-sent-screen] {
+      width: 72%;
+      height: 60%;
+      bottom: 0;
     }
 
     [vp-change-avatar] {
@@ -306,7 +312,7 @@ div[vw] {
   #gameContainer {
     position: absolute !important;
     // margin: 0 auto !important;
-    top: -25px;
+    top: -30px;
     left: 0;
     right: 0;
     bottom: 0;
@@ -327,8 +333,11 @@ div[vw] {
       // transform: translate(calc(-50% + 40px), calc(-50% + 40px));
       min-height: calc(0.7 * #{$height-set});
       min-width: calc(0.9 * #{$width-set});
+      border-left: white solid 2px;
+      border-right: white solid 2px;
       height: 100%;
       width: 100%;
+      margin-top: 10px;
       -webkit-filter: blur(0px);
       -moz-filter: blur(0px);
       -ms-filter: blur(0px);
@@ -390,14 +399,14 @@ div[vw] {
     }
 
     [vp-rate-box] {
-      bottom: 58px;
+      bottom: 0;
     }
     [vp-suggestion-button].vp-enabled,
     [vp-suggestion-button] {
-      bottom: 58px;
+      bottom: 0;
     }
     [vp-suggestion-screen] {
-      top: 41px;
+      bottom: -68px;
     }
   }
 }

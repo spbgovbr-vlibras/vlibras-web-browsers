@@ -17,18 +17,18 @@ MessageBox.prototype.load = function (element) {
   this.hide();
 };
 
-MessageBox.prototype.hide = function(message) {
+MessageBox.prototype.hide = function (message) {
   if (message !== this.message) return;
 
   this.message = null;
   this.element.classList.remove('active');
 
-  MessageBox.LEVELS.forEach(function(level) {
+  MessageBox.LEVELS.forEach(function (level) {
     this.element.classList.remove(level);
   }, this);
 };
 
-MessageBox.prototype.show = function(level, message, time) {
+MessageBox.prototype.show = function (level, message, time) {
   var self = this;
 
   level = MessageBox.LEVELS.indexOf(level) == -1 ? 'info' : level;

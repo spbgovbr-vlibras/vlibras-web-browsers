@@ -8,7 +8,7 @@ function Box() {
 }
 
 Box.prototype.load = function (element) {
-  
+
 
   this.element = element;
   this.element.classList.add('vpw-box');

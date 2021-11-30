@@ -6,40 +6,84 @@
   margin: 0px 0px 0px -100px;
   max-width: none;
 
+  #widget-text-container{
+    display: none;
+  }
+
   &.active {
     display: block;
   }
+
+  .widget-container {
+    display: flex;
+    align-items: center;
+    width: 60px;
+    background-color: white;
+    box-shadow: 0px 11px 13px rgba(0, 0, 0, 0.05);
+    float: right;
+
+    -moz-user-select: -moz-none;
+    -khtml-user-select: none;
+    -webkit-user-select: none;
+    -o-user-select: none;
+    user-select: none;
+  }
   
   .access-button {
-    width: 27%;
+    padding: 8px 10px 8px 12px;
+    backdrop-filter: blur(50px);
+    border-radius: 4px 0px 0px 4px;
+    
+    background-color: white;
     float: right;
   }
+
+  #widget-text{
+    display: none;
+    margin-right: 26px;
+  }
+
+  .widget-container:hover{
+    width: 144px;
+    transition: width 0.3s;
+
+    #widget-text{
+      display: flex;
+    }
+
+    #widget-text-container{
+      display: flex;
+      position: absolute;
+      padding: 8px 8px 8px 60px;
+    }
+  }
+
+  .widget-container.left {
+    margin-right: 80px;
+    flex-direction: row-reverse;
+
+    .access-button {
+      float: left !important;
+      padding-left: 26px;
+    }
+
+    .pop-up {
+      float: left !important;
+      margin-right: 0px;
+    }
+
+    #widget-text{
+      margin-right: -6px;
+    }
+
+    &:hover{
+      width: 144px;
+      float: left;
+      transition: width 0.3s;
   
-  span {
-    font-size: 13px;
-    color: #004088;
-  }
-
-  .access-button:hover + .pop-up {
-    width: 68%;
-  }
-
-
-  .pop-up {
-    float: right;
-    width: 0%;
-    margin-right: 6px;
-    -webkit-transition: width 2s; /* For Safari 3.1 to 6.0 */
-    transition: width 0.5s;
-  }
-
-  .pop-up.left {
-    float: left !important;
-    margin-right: 0px;
-  }
-
-  .access-button.left {
-    float: left !important;
-    margin-right: 6px;
+      #widget-text-container{
+        padding: 8px 60px 8px 8px;
+      }
+   }
   }
 }

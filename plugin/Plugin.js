@@ -4,6 +4,8 @@ var Settings = require("components/Settings");
 var SettingsBtn = require("components/SettingsBtn");
 var InfoScreen = require("components/InfoScreen");
 var Dictionary = require("components/Dictionary");
+var ScreenPosition = require("components/ScreenPosition");
+var TransparencyScreen = require("components/TransparencyScreen");
 var Controls = require("components/Controls");
 
 var MessageBox = require("components/MessageBox");
@@ -14,6 +16,7 @@ var RateButton = require("components/RateButton");
 var RateBox = require("components/RateBox");
 var SuggestionButton = require("components/SuggestionButton");
 var SuggestionScreen = require("components/SuggestionScreen");
+var SuggestionSentScreen = require("components/SuggestionSentScreen");
 var ChangeAvatar = require("components/ChangeAvatar");
 
 var url = require("url-join");
@@ -53,6 +56,8 @@ function Plugin(options) {
   this.element = document.querySelector("[vp]");
 
   this.dictionary = new Dictionary(this.player);
+  this.widget_position = new ScreenPosition();
+  this.transparency_screen = new TransparencyScreen();
   this.controls = new Controls(this.player, this.dictionary);
   this.Box = new Box();
   this.info = new InfoScreen(this.Box);
@@ -62,7 +67,9 @@ function Plugin(options) {
     this.Box,
     this.dictionary,
     options,
-    this.opacity
+    this.opacity,
+    this.widget_position,
+    this.transparency_screen
   );
   this.settingBtnClose = new SettingsCloseBtn();
   this.closeScreen = new CloseScreen(
@@ -78,14 +85,14 @@ function Plugin(options) {
     options
   );
   this.messageBox = new MessageBox();
-  this.suggestionScreen = new SuggestionScreen(this.player);
+  this.suggestionSentScreen = new SuggestionSentScreen();
+  this.suggestionScreen = new SuggestionScreen(this.player, this.suggestionSentScreen);
   this.suggestionButton = new SuggestionButton(this.suggestionScreen);
   this.rateBox = new RateBox(this.suggestionButton, this.messageBox);
   this.rateButton = new RateButton(this.rateBox);
   this.ChangeAvatar = new ChangeAvatar(this.player);
 
   this.loadingRef = null;
-
   this.messageBox.load(this.element.querySelector("[vp-message-box]"));
   this.rateButton.load(this.element.querySelector("[vp-rate-button]"));
   this.rateBox.load(this.element.querySelector("[vp-rate-box]"));
@@ -94,6 +101,9 @@ function Plugin(options) {
   );
   this.suggestionScreen.load(
     this.element.querySelector("[vp-suggestion-screen]")
+  );
+  this.suggestionSentScreen.load(
+    this.element.querySelector("[vp-suggestion-sent-screen]")
   );
   //this.ChangeAvatar.load(this.element.querySelector('[vp-change-avatar]'));
 
@@ -120,15 +130,18 @@ function Plugin(options) {
     this.settingsBtn.load(
       this.element.querySelector("[vp-box]").querySelector("[settings-btn]")
     );
-    this.settings.load(this.element.querySelector("[vp-settings]"));
-    this.info.load(this.element.querySelector("[vp-info-screen]"));
+    this.settings.load(this.element.querySelector("[vp-settings]"), this.closeScreen);
+    this.info.load(this.element.querySelector("[vp-info-screen]"), this.closeScreen);
     this.dictionary.load(
       this.element.querySelector("[vp-dictionary]"),
       this.closeScreen
     );
+    this.widget_position.load(this.element.querySelector("[vp-screen-position]"))
+    this.transparency_screen.load(this.element.querySelector("[vp-transparency-screen]"))
     this.ChangeAvatar.load(this.element.querySelector("[vp-change-avatar]"));
 
     this.loadImages();
+    window.dispatchEvent(new CustomEvent('vw-change-opacity', { detail: 0.5 }));
   });
 
   this.info.on("show", () => {
@@ -141,6 +154,10 @@ function Plugin(options) {
     this.rateBox.hide();
     this.suggestionButton.hide();
     this.suggestionScreen.hide();
+    this.suggestionSentScreen.hide();
+    this.widget_position.hide();
+    this.transparency_screen.hide();
+    window.dispatchEvent(new CustomEvent('vp-widget-wrapper-set-side', { detail: "middle-right" }));
   });
 
   var control = 0;
@@ -164,6 +181,7 @@ function Plugin(options) {
     this.rateBox.hide();
     this.suggestionButton.hide();
     this.suggestionScreen.hide();
+    this.suggestionSentScreen.hide();
   });
 
   this.player.on("gloss:end", (globalGlosaLenght) => {
@@ -235,7 +253,7 @@ Plugin.prototype.sendReview = function (rate, review) {
   http.onload = () => {
     this.rateBox.hide();
     this.suggestionScreen.hide();
-    this.messageBox.show("success", "Obrigado pela contribuição!", 3000);
+    // this.messageBox.show("success", "Obrigado pela contribuição!", 3000);
   };
 };
 

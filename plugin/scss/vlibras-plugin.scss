@@ -28,6 +28,7 @@ body {
 [vp] {
   height: 100%;
   width: 100%;
+  margin-top: 10px;
   z-index: 1;
   min-width: 300px;
   min-height: 450px;
@@ -39,7 +40,10 @@ body {
     bottom: 46px;
   }
   [vp-suggestion-screen] {
-    top: 41px;
+    bottom: 0;
+  }
+  [vp-suggestion-sent-screen] {
+    bottom: 0;
   }
 
   [vp-message-box] {

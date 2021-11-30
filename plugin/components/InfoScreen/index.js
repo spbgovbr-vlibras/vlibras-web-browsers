@@ -6,56 +6,62 @@ var infoScreenTpl = require('./info-screen.html').default;
 require('./info-screen.scss');
 
 function InfoScreen(box) {
-  // this.settingBtnClose = settingBtnClose;
   this.visible = false;
   this.box = box;
+  this.closeScreen = null;
 }
 
 inherits(InfoScreen, EventEmitter);
 
-InfoScreen.prototype.load = function (element) {
+InfoScreen.prototype.load = function (element, closeScreen) {
   this.element = element;
   this.element.innerHTML = infoScreenTpl;
   this.element.classList.add('vpw-info-screen');
+  this.closeScreen = closeScreen;
 
   var main = this.element.querySelector('#vpw-info-main');
-  var realizadores = this.element.querySelector('#vpw-info-realizadores');
-  var left = this.element.querySelector('.vpw-arrow-left');
-  var right = this.element.querySelector('.vpw-arrow-right');
-  var bullets = this.element.querySelectorAll('.vpw-info-bullet');
-  var bullet_src_imgs = {
-    first: bullets[0].attributes['data-src'].value,
-    second:bullets[1].attributes['data-src'].value
-  };
-  
-  
-  
+  // var realizadores = this.element.querySelector('#vpw-info-realizadores');
+  // var left = this.element.querySelector('.vpw-arrow-left');
+  // var right = this.element.querySelector('.vpw-arrow-right');
+  // var bullets = this.element.querySelectorAll('.vpw-info-bullet');
+  // var bullet_src_imgs = {
+  //   first: bullets[0].attributes['data-src'].value,
+  //   second: bullets[1].attributes['data-src'].value
+  // };
 
-  
 
-  left.addEventListener('click', function() {
-    realizadores.classList.remove('active');
-    main.classList.add('active');
 
-    this.classList.remove('active');
-    right.classList.add('active');
-    srcTmp = bullets[0].src;
-    bullets[0].src = bullets[1].src;
-    bullets[1].src = srcTmp;
-    // bullets[0].classList.add('active');
-  });
 
-  right.addEventListener('click', function() {
-    main.classList.remove('active');
-    realizadores.classList.add('active');
 
-    this.classList.remove('active');
-    left.classList.add('active');
 
-    srcTmp = bullets[0].src;
-    bullets[0].src = bullets[1].src;
-    bullets[1].src = srcTmp;
-  });
+  // left.addEventListener('click', function() {
+  //   realizadores.classList.remove('active');
+  //   main.classList.add('active');
+
+  //   this.classList.remove('active');
+  //   right.classList.add('active');
+  //   srcTmp = bullets[0].src;
+  //   bullets[0].src = bullets[1].src;
+  //   bullets[1].src = srcTmp;
+  //   // bullets[0].classList.add('active');
+  // });
+
+  this.exit = this.element.querySelector('.vpw-arrow-left');
+  this.exit.addEventListener("click", (evt) => {
+    this.closeScreen.closeAll()
+  })
+
+  // right.addEventListener('click', function() {
+  //   main.classList.remove('active');
+  //   realizadores.classList.add('active');
+
+  //   this.classList.remove('active');
+  //   left.classList.add('active');
+
+  //   srcTmp = bullets[0].src;
+  //   bullets[0].src = bullets[1].src;
+  //   bullets[1].src = srcTmp;
+  // });
 
   // this.settingBtnClose.element.firstChild.addEventListener('click', function() {
   //   this.hide();

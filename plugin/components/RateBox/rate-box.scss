@@ -1,32 +1,55 @@
 $control-height: 68px;
 
 [vp] [vp-rate-box] {
-  display: flex;
+  display: none;
   flex-direction: row;
-  justify-content: flex-end;
+  justify-content: center;
+  align-items: center;
   position: absolute;
+  left:0;
+  bottom:0;
   width: 100%;
-  bottom: $control-height;
   overflow: hidden;
   z-index: 2;
+
 
   .vp-container {
     display: flex;
     flex-direction: column;
+    justify-content: center;
+    align-items: center;
     width: 100%;
     padding-top: 10px;
     padding-bottom: 10px;
-    background-color: rgba(255, 255, 255, 0.96);
+    background-color: white;
+    position: absolute;
+
+    width: 80%;
+    height: 112px;
+    border-radius: 8px;
 
     max-height: 0;
-    transform: translateY(69px);
-    transition: max-height 0s, transform 0.4s linear 0.05s;
+
+    // transform: translateY(69px);
+    // transition: max-height 0s, transform 0.4s linear 0.05s;
+
+    .vp-ratebox-close {
+      position: absolute;
+      top: 8px;
+      right: 8px;
+      cursor: pointer;
+      transition: filter 0.1s;
+
+      &:hover {
+        filter: brightness(0%);
+      }
+    }
 
     .vp-text {
       text-align: center;
-      font-size: 14px;
+      font-size: 16px;
       font-weight: bold;
-      color: #003f86;
+      color: black;
     }
 
     .vp-buttons {
@@ -39,18 +62,38 @@ $control-height: 68px;
         display: flex;
         flex-direction: row;
         align-items: center;
+        justify-content: center;
         font-size: 13px;
         font-weight: bold;
         color: #545454;
         cursor: pointer;
+
+        width: 83px;
+        height: 33px;
+        border: 1px solid #E0E0E0;
+        border-radius: 20px;
+
+        transition: 0.1s background-color, 0.1s filter;
         
         &:not(:last-child) {
-          margin-right: 22px;
+          margin-right: 10px;
+        }
+
+        &:hover {
+          background-color: #E0E0E0;
+
+          img, span {
+            filter: brightness(0%);
+          }
         }
         
         img {
           height: 22px;
           margin-right: 6px;
+        }
+
+        span {
+          margin-top: 2px;
         }
       }
     }
@@ -58,11 +101,14 @@ $control-height: 68px;
 
   &.vp-enabled {
     z-index: 4;
+    display: flex;
+    background-color: rgba(0,0,0,0.5);
+    height:100%;
 
     .vp-container {
       max-height: 100%;
-      transform: translateY(0);
-      transition: transform 0.4s, max-height 0s linear 0.4s;
+      // transform: translateY(0);
+      // transition: transform 0.4s, max-height 0s linear 0.4s;
     }
   }
 }

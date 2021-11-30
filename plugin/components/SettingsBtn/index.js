@@ -1,7 +1,7 @@
 var settingsBtnTpl = require('./settings-btn.html').default;
 require('./settings-btn.scss');
 
-function SettingsBtn(player, screen, settingsBtnClose,option) {
+function SettingsBtn(player, screen, settingsBtnClose, option) {
   this.player = player;
   this.screen = screen;
   this.settingsBtnClose = settingsBtnClose;
@@ -24,9 +24,9 @@ SettingsBtn.prototype.load = function (element) {
 
   btn_menu.addEventListener('click', function () {
     this.element.classList.toggle('active');
-    if(this.settingsBtnClose.element.classList.contains('active')){
+    if (this.settingsBtnClose.element.classList.contains('active')) {
       this.settingsBtnClose.element.classList.remove('active');
-    }else{
+    } else {
       this.settingsBtnClose.element.classList.add('active');
     }
     this.player.pause();
@@ -34,7 +34,7 @@ SettingsBtn.prototype.load = function (element) {
   }.bind(this));
 
   btn_close.addEventListener('click', function () {
-    window.dispatchEvent(new CustomEvent('vp-widget-close', {detail: {close: true}})); 
+    window.dispatchEvent(new CustomEvent('vp-widget-close', { detail: { close: true } }));
   }.bind(this));
 
 };

@@ -1,45 +1,39 @@
 [vp] {
   .vpw-message-box {
-    top: -5em;
+    bottom: -5em;
     left: 0;
     width: 100%;
     padding: 1em;
     font-size: 13px;
     word-wrap: break-word;
-    color: #000;
+    color: #4B4B4B;
     opacity: 0;
-    -moz-transition: all .15s ease .15s;
-    -webkit-transition: all .15s ease .15s;
-    transition: all .15s ease .15s;
-    -moz-box-shadow: 0px 2px 5px #888888;
-    -webkit-box-shadow: 0px 2px 5px #888888;
-    box-shadow: 0px 2px 5px #888888;
+    height: 3.75em;
     text-align: center;
     font-family: 'Open Sans', sans-serif;
 
     &.active {
-      top: 0;
+      bottom: 0;
       opacity: 1;
     }
-  
     &.info {
-      background-color: #003F86;
-      color: white;
+      background-color: white;
+      color: #4B4B4B;
     }
   
     &.warning {
-      background-color: #003F86;
-      color: white;
+      background-color: white;
+      color: #4B4B4B;
     }
   
     &.success {
-      background-color: #003F86;
-      color: white;
+      background-color: white;
+      color: #4B4B4B;
     }
   
     &.default {
-      background-color: #003F86;
-      color: white;
+      background-color: white;
+      color: #4B4B4B;
     }
   
     a {

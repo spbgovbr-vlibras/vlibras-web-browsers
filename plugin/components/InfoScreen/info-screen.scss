@@ -1,18 +1,19 @@
 [vp] {
   .vpw-info-screen {
-    position: relative;
+    position: absolute;
+    top: 0;
     padding: 1em;
     width: 100%;
-    height: calc(100% - 40px);
+    height: 100%;
     z-index: 4;
 
     background-color: white;
     color: black;
     font-family: "Open Sans", sans-serif;
-    text-align: center;
+    // text-align: center;
 
     align-items: center;
-    -webkit-align-items: center;
+    // -webkit-align-items: center;
     font-size: 11px;
 
     display: none;
@@ -26,6 +27,30 @@
       display: flex;
     }
 
+    .vpw-title-bar {
+      display: flex;
+      position: absolute;
+      top: 0;
+      left: 0;
+      align-items: center;
+      padding-top: 16px;
+      padding-left: 19px;
+      z-index: 7;
+
+      .vpw-arrow-left {
+          display: flex;
+          cursor: pointer;
+      }
+
+      .vpw-title {
+          padding-left: 8px;
+          font-size: 18px;
+          font-family: 'Roboto', sans-serif;
+          font-weight: 700;
+          color:#1447A6;
+      }
+    }
+
     .vpw-arrow {
       flex-grow: 1;
       -webkit-flex-grow: 1;
@@ -34,6 +59,78 @@
 
     .vpw-arrow.active {
       visibility: visible;
+    }
+
+    #vpw-info-text {
+      width: 248px;
+      height: 105px;
+      text-align: left;
+      
+      p {
+        color: #4B4B4B;
+        font-size: 14px;
+        font-weight: 400;
+        line-height: 150%;
+      }
+    }
+
+    .vpw-realizadores {
+      margin: 32px 0;
+      
+      .vpw-info-label {
+        font-size: 14px;
+        font-weight: bold;
+        line-height: 125%;
+      }
+
+      .vpw-info-logos {
+        display: flex;
+        flex-direction: row;
+        
+        width: 30px;
+        height: 30px;
+        gap: 5px;
+        
+        margin-top: 12px;
+      }
+    }
+
+    .vpw-info-button-contact {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      justify-content: center;
+      width: 175px;
+      height: 34px;
+      
+      a {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 4px;
+
+        border: 1px solid #8E8E8E;
+        border-radius: 25px;
+        background-color: white;
+        width: 100%;
+        height: 100%;
+
+        outline: none;
+        text-decoration: none;
+        cursor: pointer;
+        transition: 0.1s;
+
+        &:hover {
+          border: 1px solid #1447A6;
+          transform: scale(1.02);
+        }
+      }
+
+      span {
+        font-size: 12px;
+        line-height: 100%;
+        color: #3E4049;
+      }
     }
 
     #vpw-info-tabset {
@@ -54,20 +151,23 @@
 
     #vpw-info-main {
       max-width: 600px;
+      margin-top: 54px;
       font-family: "Open Sans", sans-serif;
 
       flex-direction: column;
       -webkit-flex-direction: column;
+      align-items: center;
+
       &.active {
         display: flex;
-        align-content: center;
-        justify-content: center;
-        align-items: center;
+        // align-content: center;
+        // justify-content: center;
+        // align-items: center;
       }
     }
 
-    #vpw-info-logo img {
-      height: 90px;
+    #vpw-info-logo {
+      margin-top: 8px;
     }
 
     #vpw-info-realizadores {

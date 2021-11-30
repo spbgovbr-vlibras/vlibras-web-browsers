@@ -4,35 +4,80 @@
   }
 
   .vpw-settings {
-    position: relative;
-    // top: 10%;
-    // bottom: 0;
+    position: absolute;
+    top: 0;
+    // bottom: 0; 
     // left: 0;
     // right: 0;
     width: 100%;
-    height: calc(100% - 40px);
+    height: 100%;
+    z-index: 7;
 
     .vpw-content {
-      position: relative;
+      position: absolute;
       top: 0;
       left: 0;
-      width: 100%;
+      width: 80%;
       height: 100%;
-      // max-width: 300px;
-      // max-height: 452px;
       z-index: 6;
+      
+      background-color: white;
+      color: #4B4B4B;
+      
+      .vpw-menu {
+        margin: 12px 0 0 13px;
 
-      background-color: #003f86;
-      color: white;
+        font-size: 18px;
+        font-weight: 700;
+        line-height: 125%;
+        color: #1447A6;
+      }
+
+      .vpw-menu-subtitle {
+        margin: 16px 0 4px 12px;
+        
+        color: #939293;
+        // font-family: Rawline;
+        font-style: normal;
+        font-weight: 600;
+        font-size: 12px;
+        line-height: 125%;
+
+      }
+      .vpw-menu-subtitle:nth-child(1) {
+        margin-left: 10px;
+      }
+
+      .vpw-hr {
+        margin-top: 8px;
+        width: 100%;
+      }
+
+      .vpw-icon-container {
+        position: relative;
+        margin: -12px 12px 0 10px;
+      }
+    
+      .vpw-icon-right {
+        right: -50px;
+      }
+
+      .vpw-icon {
+        display: inline;
+      }
+
+      .vpw-icon-blue {
+        display: none;
+      }
 
       .vpw-flag {
         position: absolute;
-        height: 24px;
+        height: 20px;
         margin-top: -12px;
-        margin-left: 4px;
+        margin-left: -4px;
         // border: 1px solid rgba(0,0,0,0.2);
         border: none;
-        border-radius: 5px;
+        border-radius: 1px;
       }
 
       > .vpw-bar {
@@ -50,22 +95,44 @@
         }
       }
 
+      .vpw-title-bar {
+        display: flex;
+        align-items: center;
+        padding-top: 16px;
+        padding-left: 19px;
+
+        .vpw-arrow-left {
+            display: flex;
+            cursor: pointer;
+        }
+
+        .vpw-title {
+            padding-left: 8px;
+            font-size: 18px;
+            color:#1447A6;
+        }
+      }
+
       > ul {
         list-style-type: none;
-        margin: 0;
-        padding: 0 11%;
+        margin: 4px 0 0;
+        padding: 0 9px;
         font-family: "Open Sans", sans-serif;
 
         li {
           position: relative;
-          padding: 19px 0;
+          display: flex;
+          align-items: center;
+          padding: 18px 0 2px;
           color: white;
           border-bottom: 0;
+          margin-bottom: 6px;
 
-          .vpw-name {
+          .vpw-name {    
             position: absolute;
             left: 0px;
-            margin-top: -10px;
+            margin-top: -9px;
+            color: black;
 
             font-size: 14px;
           }
@@ -81,6 +148,10 @@
             text-align: center;
           }
 
+          .vpw-hidden-transparency {
+            display: none;
+          }
+
           .arrow-right-opac,
           .arrow-left-opac {
             margin-top: -13px;
@@ -90,11 +161,31 @@
         }
 
         li:hover {
-          color: #67c8d5;
+          background-color: #F7F7F7;
+          border-radius: 4px;
+
+          .vpw-name {
+            color: #1447A6;
+          }
+          .vpw-icon {
+            display: none;
+          }
+          .vpw-icon-blue {
+            display: inline;
+          }
+        }
+
+        li:active {
+          background-color: #D6E5F9;
+          border-radius: 4px;
         }
 
         .vpw-position {
           display: none;
+        }
+       
+        .vpw-position-name, .vpw-opacity-name {
+          margin-bottom: 4px;
         }
 
         .vpw-opacity {
@@ -102,17 +193,21 @@
         }
 
         .vpw-localism {
-          padding: 24px 0;
+          padding: 18px 0 4px 2px;
+
+          // display: flex;
+          // align-items: center;
 
           .vpw-flag {
             right: 27px;
-            height: 24px;
+            height: 20px;
 
             // border: 1px solid rgba(0,0,0,0.2);
           }
 
           .vpw-abbrev {
             position: absolute;
+            display: none;
             right: 0px;
             margin-top: -9px;
 
@@ -129,7 +224,28 @@
         }
 
         .vpw-about {
+          margin-top: 82px;
+          width: 100%;
         }
+      }
+
+      .vpw-container {
+        position: relative;
+        display: flex;
+        align-items: center;
+
+        width: 100%;
+        height: 100%;
+        
+        
+        .vpw-name {
+          position: relative;
+          margin-top: -14;
+        }
+      }
+      
+      .vpw-translate {
+        padding-bottom: 6px;
       }
 
       > .vpw-localism {
@@ -144,7 +260,7 @@
         border: 1px solid rgba(0, 0, 0, 0.2);
         border-radius: 2px;
 
-        &:not(.active) {
+        &:not(.active){
           visibility: hidden;
           opacity: 0;
 
@@ -158,57 +274,111 @@
 
           -webkit-transition: visibility 0s, opacity 0.3s;
           transition: visibility 0s, opacity 0.3s;
+
+          width: 125%;
           // left:0;
           // top: 0;
           // width: 100%;
           // height: 100%;
         }
-
+        
         .vpw-name {
           position: absolute;
-          margin-top: -7px;
+          margin-top: -10px;
           margin-left: 9px;
-
+          
           font-size: 14px;
           font-weight: bold;
+          cursor: pointer;
+        }
+        
+        .vpw-localism-radio {
+         position: absolute;
+         right: 10px;
+         
+         height: 20px;
+         width: 20px;
         }
 
         .vpw-national {
           position: relative;
-          width: calc(33.33%);
-          margin-top: 6px;
-          padding-top: 16px;
+          width: 94%;
+          margin: 26px 10px -7px 4px;
+          padding: 24px 19px 11px;
           display: flex;
           flex-direction: row;
-          justify-content: center;
+          justify-content: flex-start;
           align-items: center;
-
+          
           .vpw-name {
             color: black;
             position: relative;
+            
+            
+            &:hover {
+              color: #1447A6;
+            }
           }
 
+          &:hover {
+            background-color: #EDEDED;
+          }
+
+          .vpw-localism-radio {
+            top: 14px;
+            right: 11px;
+          }
+          
           .vpw-flag {
             position: relative;
           }
         }
-
+        
         .vpw-regions {
           position: relative;
-          width: 100%;
-          height: 100%;
+          width: 95%;
+          height: 68%;
           box-sizing: content-box;
-          padding: 0px 8px 0px 8px;
+          padding: 0px 5px 0px 4px;
           left: 0;
-          top: 50%;
+          top: 36%;
           transform: translateY(-50%);
+          overflow-y: scroll;
+          cursor: pointer;          
+
+          /* width */
+          &::-webkit-scrollbar {
+            width: 4px;
+          }
+          
+          /* Track */
+          &::-webkit-scrollbar-track {
+            box-shadow: inset 0 0 5px rgb(211, 211, 211); 
+            border-radius: 10px;
+          }
+          
+          /* Handle */
+          &::-webkit-scrollbar-thumb {
+            background:#b9b9b9; 
+            border-radius: 10px;
+          }
+          
+          /* Handle on hover */
+          &::-webkit-scrollbar-thumb:hover {
+            background: rgba(#1447a6, 0.7); 
+            cursor: pointer;
+          }
+
+          &:hover {
+            color: #1447A6;
+          }
 
           > .vpw-container-regions {
-            display: inline-block;
+            display: flex;
             position: relative;
-            width: 33.33%;
+            width: 100%;
             margin-bottom: 1px;
-            padding: 6px 0;
+            padding: 10px 14px;
             margin-top: 1%;
 
             cursor: pointer;
@@ -216,10 +386,17 @@
             -webkit-transition: opacity 0.3s;
             transition: opacity 0.3s;
 
+            &:hover {
+              background-color: #EDEDED;
+
+              .vpw-cont .vpw-name {
+                color: #1447A6;
+              }
+            }
+
             &.selected,
             &:hover {
               opacity: 1;
-
               -webkit-transition: opacity 0.3s;
               transition: opacity 0.3s;
             }
@@ -241,6 +418,7 @@
               // margin-left:30px;
               color: grey;
             }
+
           }
         }
       }
@@ -268,15 +446,18 @@
 
     > .vpw-wall {
       position: absolute;
+      background: rgba(0, 0, 0, 0.5);;
       top: 0;
       left: 0;
       bottom: 0;
       right: 0;
       z-index: 5;
+      display: none;
     }
 
     &.active {
       display: block;
+      background: rgba(0,0,0,0.5);
       .vpw-content {
         left: 0;
 
@@ -325,7 +506,7 @@
       content: "Dicionário";
       font-size: 14px;
       position: absolute;
-      margin-top: -11px;
+      margin-top: -12px;
     }
 
     &.vpw-loading-dictionary {

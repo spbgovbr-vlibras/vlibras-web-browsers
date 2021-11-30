@@ -1,22 +1,50 @@
-<div class="vpw-content">
+<div class="vpw-content" id="vpw-content">
+    <h1 class="vpw-menu">Menu</h1>
+    <span class="vpw-menu-subtitle">Serviços</span>
     <ul>
+        <li class="vpw-container vpw-translate vpw-clickable">
+            <img class="vpw-icon-container" data-src="assets/translate-icon.svg">
+            <span class="vpw-name">Tradutor</span>
+        </li>
+        <li class="vpw-dict vpw-clickable vpw-loading-dictionary">
+            <div class="vpw-container">
+                <div class="vpw-icon-container">
+                    <img class="vpw-icon" data-src="assets/dictionary-icon.svg" alt="Ícone de dicionário">
+                    <img class="vpw-icon-blue" data-src="assets/dictionary-icon-blue.svg"
+                        alt="Ícone de dicionário azul">
+                </div>
+                <span class="vpw-controls-dictionary vpw-loading-dictionary vpw-name"></span>
+            </div>
+        </li>
+    </ul>
+    <hr class="vpw-hr">
+    <ul>
+        <span class="vpw-menu-subtitle">Pré-definições</span>
         <li class="vpw-localism vpw-clickable">
-            <div class="vpw-container-localism">
+            <div class="vpw-container">
+                <div class="vpw-icon-container">
+                    <img class="vpw-icon" data-src="assets/map-icon.svg" alt="Ícone do mapa">
+                    <img class="vpw-icon-blue" data-src="assets/map-icon-blue.svg" alt="Ícone do mapa azul">
+                </div>
                 <span class="vpw-name">Regionalismo</span>
                 <img class="vpw-flag" data-src="assets/brazil.png">
                 <img class="vpw-flag2" data-src="" style="display: none">
-                <span class="vpw-abbrev">BR</span>
+                <div class="vpw-icon-container vpw-icon-right">
+                    <img class="vpw-icon" data-src="assets/arrow-down-localism-icon.svg" alt="Ícone expandir">
+                    <img class="vpw-icon-blue" data-src="assets/arrow-down-localism-icon-blue.svg"
+                        alt="Ícone expandir azul">
+                </div>
+                <span class="vpw-abbrev">Brasil</span>
                 <!-- <img class="arrow" data-src="assets/expander.png"> -->
             </div>
         </li>
-        <li class="vpw-dict vpw-clickable vpw-loading-dictionary">
-            <div class="vpw-container-dict">
-                <span class="vpw-controls-dictionary vpw-loading-dictionary"></span>
-            </div>
-        </li>
         <li class="vpw-position vpw-clickable">
-            <div class="vpw-container-position">
-                <span class="vpw-name">Posicionamento da tela</span>
+            <div class="vpw-container-position vpw-container">
+                <div class="vpw-icon-container">
+                    <img class="vpw-icon" data-src="assets/position-icon.svg" alt="Ícone de posição na tela">
+                    <img class="vpw-icon-blue" data-src="assets/position-icon-blue.svg" alt="Ícone de posição na tela.">
+                </div>
+                <span class="vpw-name vpw-position-name">Posição na tela</span>
                 <label class="vpw-switch">
                     <input checked disabled type="checkbox" name="checkbox">
                     <span class="vpw-slider-check vpw-round"></span>
@@ -25,11 +53,18 @@
         </li>
 
         <li class="vpw-opacity vpw-clickable">
-            <div class="vpw-container-opacity">
-                <span class="vpw-name">Transparência</span>
-                <img class="arrow-left-opac" data-src="assets/arrow-left-opac.png">
-                <span class="vpw-percent">  </span>
-                <img class="arrow-right-opac" data-src="assets/arrow-right-opac.png">
+            <div class="vpw-container-opacity vpw-container">
+                <div class="vpw-icon-container">
+                    <img class="vpw-icon" data-src="assets/transparency-icon.svg" alt="Ícone de transparência">
+                    <img class="vpw-icon-blue" data-src="assets/transparency-icon-blue.svg"
+                        alt="Ícone de posição na tela.">
+                </div>
+                <span class="vpw-name vpw-opacity-name">Transparência</span>
+                <div class="vpw-hidden-transparency">
+                    <img class="arrow-left-opac" data-src="assets/arrow-left-opac.png">
+                    <span class="vpw-percent"> </span>
+                    <img class="arrow-right-opac" data-src="assets/arrow-right-opac.png">
+                </div>
 
 
             </div>
@@ -37,23 +72,32 @@
 
 
         <li class="vpw-about vpw-clickable">
-            <div class="vpw-container-about">
-                <span class="vpw-name">Sobre</span>
+            <div class="vpw-container">
+                <div class="vpw-icon-container">
+                    <img class="vpw-icon" data-src="assets/about-icon.svg" alt="Ícone de sobre">
+                    <img class="vpw-icon-blue" data-src="assets/about-icon-blue.svg" alt="Ícone de sobre">
+                </div>
+                <span class="vpw-name vpw-position-name">Sobre o Vlibras</span>
             </div>
         </li>
     </ul>
 
     <div class="vpw-localism">
-        <div class="vpw-national vpw-clickable">
+        <div class="vpw-title-bar">
+            <img class="vpw-arrow-left" data-src="assets/arrow-left.svg" alt="Fechar dicionário">
+            <span class="vpw-title">Regionalismo</span>
+        </div>
+        <div class="vpw-national vpw-clickable" for="localism-national">
             <img class="vpw-flag" data-src="assets/brazil.png">
-            <span class="vpw-name">BR</span>
+            <span class="vpw-name">BR - Padrão Nacional</span>
+            <input id="localism-national" name="localism" class="vpw-localism-radio" type="radio" checked>
         </div>
         <div class="vpw-regions"></div>
     </div>
-    <div class="vpw-vlibras-logo">
+    <!-- <div class="vpw-vlibras-logo">
         <span class="vpw-vlibras-span">VLIBRAS</span>
         <img class="vpw-logo" data-src="assets/logoicon.png">
-    </div>
+    </div> -->
 </div>
 
-<div class="vpw-wall"></div>
+<div class="vpw-wall" tabindex="0"></div>

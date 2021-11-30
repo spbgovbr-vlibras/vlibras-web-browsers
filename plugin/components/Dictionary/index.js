@@ -89,6 +89,10 @@ Dictionary.prototype.load = function (element, closeScreen) {
     }.bind(this)
   );
 
+  this.exit = this.element.querySelector('.vpw-arrow-left');
+  this.exit.addEventListener("click", (evt) => {
+    this.closeScreen.closeAll()
+  })
   // this.hide();
 };
 

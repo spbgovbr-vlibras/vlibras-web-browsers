@@ -11,7 +11,8 @@ SuggestionButton.prototype.load = function (element) {
   this.element.innerHTML = template;
 
   const openScreen = this.element.querySelector('.vp-open-screen-button');
-  const close = this.element.querySelector('.vp-close-button');
+  const close = this.element.querySelector('.vp-ratebox-close');
+
 
   openScreen.addEventListener('click', () => {
     this.suggestionScreen.show(this.rate);
@@ -21,11 +22,37 @@ SuggestionButton.prototype.load = function (element) {
   close.addEventListener('click', () => {
     this.hide();
   });
+
+  this.element.addEventListener("click", (evt) => {
+    const menu = this.element.querySelector('.vp-container');
+    let targetElement = evt.target;
+
+    do {
+      if (targetElement == menu) {
+        return;
+      }
+      targetElement = targetElement.parentNode;
+    } while (targetElement);
+
+    this.hide();
+  });
+
 };
 
 SuggestionButton.prototype.show = function (rate) {
   this.rate = rate;
   this.element.classList.add('vp-enabled');
+
+  const good = this.element.querySelector('.vp-ratebox-good');
+  const bad = this.element.querySelector('.vp-ratebox-bad');
+
+  if (rate == "good") {
+    good.style.display = "flex"
+    bad.style.display = "none"
+  } else {
+    good.style.display = "none"
+    bad.style.display = "flex"
+  }
 };
 
 SuggestionButton.prototype.hide = function () {
