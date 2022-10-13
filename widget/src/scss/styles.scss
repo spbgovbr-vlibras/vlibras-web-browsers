@@ -6,8 +6,6 @@ $height-set: 450px;
     canvas {
       min-height: unset !important;
       min-width: unset !important;
-      //height: 70% !important;
-      //width: 70% !important;
       -webkit-filter: blur(0px);
       -moz-filter: blur(0px);
       -ms-filter: blur(0px);
@@ -26,7 +24,6 @@ $height-set: 450px;
   #gameContainer {
     display: flex !important;
     justify-content: center !important;
-    //top: -35px !important;
     top: -75px !important;
     left: -90px !important;
     width: 100% !important;
@@ -305,7 +302,6 @@ div[vw] {
   }
   #gameContainer {
     position: absolute !important;
-    // margin: 0 auto !important;
     top: -25px;
     left: 0;
     right: 0;
@@ -322,9 +318,6 @@ div[vw] {
     background: none !important;
 
     canvas {
-      // min-width: calc(0.90 * 300px);
-      // min-height: calc(0.70 * 450px);
-      // transform: translate(calc(-50% + 40px), calc(-50% + 40px));
       min-height: calc(0.7 * #{$height-set});
       min-width: calc(0.9 * #{$width-set});
       height: 100%;
@@ -362,11 +355,6 @@ div[vw] {
     }
 
     [vp-controls] {
-      // position: absolute;
-      // max-width: 560px;
-      // z-index: 2;
-      // bottom: -12px;
-      // left: 4px;
       position: absolute;
       display: flex;
       align-items: center;
