@@ -4,7 +4,6 @@ $margin_left: 40px;
     .vpw-dictionary {
         display: none;
         position: relative;
-        // top:10%;
         width: 100%;
         height: calc(100% - 40px);
         min-width: 300px;
@@ -34,7 +33,6 @@ $margin_left: 40px;
                 width: 80%;
                 left: 50%;
                 transform: translateX(-50%);
-                // max-width: 260px;
                 margin-top: 20px;
             
     
@@ -121,10 +119,3 @@ $margin_left: 40px;
          
     }
 }
-
-
-// @media (max-width: 480px) {
-//     .dictionary .panel .search {
-//         width: 76%;
-//     }
-// }
