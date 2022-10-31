@@ -34,6 +34,7 @@
 
     .vpw-arrow.active {
       visibility: visible;
+      cursor: pointer;
     }
 
     #vpw-info-tabset {
@@ -179,7 +180,6 @@
       text-align: center;
       flex-grow: 1;
       -webkit-flex-grow: 1;
-      cursor: pointer;
     }
 
     .vpw-close-btn {
