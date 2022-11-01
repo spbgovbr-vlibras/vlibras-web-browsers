@@ -274,8 +274,8 @@ div[vw] {
   position: fixed;
   max-width: 95vw;
   right: 0;
-  top: 60%;
-  margin-top: -32vh;
+  top: 50%;
+  transform: translateY(-50%);
   z-index: 99999999;
   display: none;
   font-family: Arial;
