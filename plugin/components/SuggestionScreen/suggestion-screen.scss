@@ -84,6 +84,12 @@ $control-height: 68px;
     border: none;
     border-radius: 12px;
     background-color: #efeff2;
+    resize: none;
+    outline: 2px solid transparent;
+
+    &:focus {
+      outline-color: #003F86;
+    }
   }
 
   .vp-close-button {
