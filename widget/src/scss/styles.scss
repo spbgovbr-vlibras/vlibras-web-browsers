@@ -1,272 +1,285 @@
 $width-set: 300px;
 $height-set: 450px;
 
+// @media (max-width: 450px) {
+//   div[vw] {
+//     canvas {
+//       min-height: unset !important;
+//       min-width: unset !important;
+//       //height: 70% !important;
+//       //width: 70% !important;
+//       -webkit-filter: blur(0px);
+//       -moz-filter: blur(0px);
+//       -ms-filter: blur(0px);
+//       -o-filter: blur(0px);
+//       filter: blur(0px);
+//       min-height: calc(0.35 * 680px) !important;
+//       min-width: calc(0.35 * 420px) !important;
+//     }
+
+//     [vw-plugin-wrapper].active {
+//       height: 358px !important;
+//       width: 210px !important;
+//     }
+//   }
+
+//   #gameContainer {
+//     display: flex !important;
+//     justify-content: center !important;
+//     //top: -35px !important;
+//     top: -75px !important;
+//     left: -90px !important;
+//     width: 100% !important;
+//     height: 70% !important;
+//   }
+
+//   [vp] {
+//     [vp-controls] {
+//       left: 36% !important;
+//       bottom: 20% !important;
+//       background: white;
+//     }
+
+//     .vpw-controls-slider {
+//       width: 27% !important;
+//     }
+
+//     .vpw-box .vpw-mes {
+//       left: 36% !important;
+//       font-size: 12px !important;
+//     }
+
+//     .vpw-settings-btn .vpw-settings-btn-close,
+//     .vpw-btn-close .vpw-img {
+//       right: 100px;
+//     }
+
+//     [vp-rate-box].vp-enabled .vp-container {
+//       margin-right: 70px;
+//       margin-bottom: 80px;
+//     }
+
+//     [vp-rate-button] .vp-button {
+//       margin-right: 110px;
+//       margin-bottom: 130px;
+//     }
+//     [vp-rate-button] .vp-button img {
+//       width: 32px;
+//       margin-bottom: -37px;
+//       margin-right: -14px;
+//     }
+//     .vpw-message-box {
+//       font-size: 0.7em;
+
+//       .vpw-message {
+//         margin-left: 10px;
+//         margin-right: 93px;
+//         margin-bottom: 3px;
+//       }
+//     }
+
+//     .vpw-settings .vpw-content .vpw-vlibras-logo {
+//       left: 39%;
+//       bottom: 125px;
+//     }
+
+//     .vpw-settings .vpw-content > ul {
+//       margin-left: -20px;
+//     }
+
+//     .vpw-settings .vpw-content > ul li .vpw-name {
+//       font-size: 12px;
+//     }
+
+//     .vpw-settings .vpw-content > ul .vpw-localism .vpw-flag {
+//       right: 88px;
+//       height: 24px;
+//     }
+
+//     .vpw-switch {
+//       width: 48px;
+//       height: 15px;
+//       margin-top: -10px;
+//       right: 64px;
+//     }
+
+//     .vpw-slider-check.vpw-round:before {
+//       top: -3px;
+//     }
+
+//     .vpw-slider-check:before {
+//       height: 21px;
+//       width: 20px;
+//       left: -20;
+//       bottom: 4px;
+//     }
+
+//     .vpw-settings .vpw-content .vpw-vlibras-logo .vpw-logo {
+//       width: 51%;
+//       margin-left: 32px;
+//     }
+
+//     .vpw-settings .vpw-content .vpw-vlibras-logo .vpw-vlibras-span {
+//       left: 44%;
+//       bottom: 5%;
+//     }
+
+//     .vpw-settings .vpw-content .vpw-vlibras-logo {
+//       left: 39%;
+//       transform: translateX(-50%);
+//       bottom: 125px;
+//     }
+
+//     .vpw-settings .vpw-content > ul .vpw-localism .vpw-abbrev {
+//       right: 65px;
+//     }
+
+//     .vpw-controls-dictionary:not(.vpw-loading-dictionary):before {
+//       font-size: 12px;
+//     }
+
+//     .vpw-info-screen #vpw-info-tab-bullets {
+//       right: 47px;
+//       bottom: 100px;
+//     }
+
+//     .vpw-info-screen .vpw-arrow-right.active {
+//       right: 94px;
+//       position: absolute;
+//       top: 137px;
+//       z-index: 4;
+//     }
+
+//     .vpw-info-screen .vpw-arrow-left.active {
+//       right: initial;
+//       position: absolute;
+//       top: 137px;
+//       z-index: 4;
+//     }
+
+//     .vpw-info-screen #vpw-info-main.active {
+//       font-size: 0.7125em;
+//       margin-right: 99px;
+//       margin-bottom: 136px;
+//     }
+
+//     .vpw-info-screen .vpw-info-tab .vpw-info-tab-label {
+//       margin-top: -8px;
+//       font-size: 14px;
+//     }
+
+//     .vpw-info-screen .vpw-info-tab .vpw-info-tab-label-two {
+//       font-size: 14px;
+//       margin-top: 6px;
+//     }
+
+//     .vpw-info-screen #vpw-info-realizadores .vpw-logo.ufpb {
+//       max-width: 20%;
+//     }
+
+//     .vpw-info-screen #vpw-info-realizadores .vpw-logo-group.text {
+//       display: block;
+//     }
+
+//     .vpw-info-screen #vpw-info-realizadores .vpw-logo-group.logo1 {
+//       max-width: 70%;
+//     }
+
+//     .vpw-info-screen #vpw-info-realizadores .vpw-logo-group.logo2 {
+//       max-width: 86%;
+//     }
+
+//     .vpw-info-screen #vpw-info-realizadores.active {
+//       font-size: 0.8125em;
+//       margin-right: 81px;
+//       margin-bottom: 113px;
+//     }
+
+//     .vpw-settings .vpw-content .vpw-flag {
+//       height: 18px;
+//     }
+
+//     .vpw-settings
+//       .vpw-content
+//       > .vpw-localism
+//       .vpw-regions
+//       > .vpw-container-regions {
+//       margin-top: -1%;
+//       margin-bottom: -2px;
+//     }
+
+//     .vpw-settings .vpw-content > .vpw-localism {
+//       width: 71%;
+//     }
+//     .vpw-settings .vpw-content > .vpw-localism .vpw-regions {
+//       left: -3px !important;
+//     }
+
+//     .vpw-settings .vpw-content > ul .vpw-opacity {
+//       margin-right: 56px;
+//     }
+
+//     .vpw-dictionary .vpw-dict-container {
+//       width: 64%;
+//       height: 44%;
+//       left: 44%;
+//     }
+
+//     .vpw-bar .vpw-title {
+//       margin-right: 40px;
+//     }
+
+//     .vpw-dictionary .vpw-panel .vpw-search input {
+//       width: 73%;
+//       left: 39%;
+//     }
+//     .vpw-dictionary .vpw-panel .vpw-search .vpw-icon img {
+//       right: 70px;
+//     }
+
+//     [vp-dictionary] {
+//       right: 18px !important;
+//     }
+//     .vpw-dictionary .vpw-dict-container ul li:not(.margin) {
+//       padding: 5px;
+//     }
+//     [vp-suggestion-button].vp-enabled {
+//       right: 40px;
+//       bottom: 150px !important;
+//     }
+//     [vp-suggestion-screen] {
+//       width: 72%;
+//       height: 60%;
+//       top: 41px;
+//     }
+
+//     [vp-change-avatar] {
+//       left: 9px;
+//       top: 265px;
+//       .vp-button-change-avatar {
+//         width: 30px;
+//         height: 30px;
+//         .change-avatar-female {
+//           width: 15px;
+//         }
+//         .change-avatar-male {
+//           width: 15px;
+//         }
+//       }
+//     }
+//   }
+// }
+
 @media (max-width: 450px) {
   div[vw] {
-    canvas {
-      min-height: unset !important;
-      min-width: unset !important;
-      //height: 70% !important;
-      //width: 70% !important;
-      -webkit-filter: blur(0px);
-      -moz-filter: blur(0px);
-      -ms-filter: blur(0px);
-      -o-filter: blur(0px);
-      filter: blur(0px);
-      min-height: calc(0.35 * 680px) !important;
-      min-width: calc(0.35 * 420px) !important;
-    }
-
-    [vw-plugin-wrapper].active {
-      height: 358px !important;
-      width: 210px !important;
-    }
+    margin: 0 -40px;
+    transform: translateY(-50%) translateZ(0) scale(.74) !important;
+    backface-visibility: hidden;
   }
 
-  #gameContainer {
-    display: flex !important;
-    justify-content: center !important;
-    //top: -35px !important;
-    top: -75px !important;
-    left: -90px !important;
-    width: 100% !important;
-    height: 70% !important;
-  }
-
-  [vp] {
-    [vp-controls] {
-      left: 36% !important;
-      bottom: 20% !important;
-      background: white;
-    }
-
-    .vpw-controls-slider {
-      width: 27% !important;
-    }
-
-    .vpw-box .vpw-mes {
-      left: 36% !important;
-      font-size: 12px !important;
-    }
-
-    .vpw-settings-btn .vpw-settings-btn-close,
-    .vpw-btn-close .vpw-img {
-      right: 100px;
-    }
-
-    [vp-rate-box].vp-enabled .vp-container {
-      margin-right: 70px;
-      margin-bottom: 80px;
-    }
-
-    [vp-rate-button] .vp-button {
-      margin-right: 110px;
-      margin-bottom: 130px;
-    }
-    [vp-rate-button] .vp-button img {
-      width: 32px;
-      margin-bottom: -37px;
-      margin-right: -14px;
-    }
-    .vpw-message-box {
-      font-size: 0.7em;
-
-      .vpw-message {
-        margin-left: 10px;
-        margin-right: 93px;
-        margin-bottom: 3px;
-      }
-    }
-
-    .vpw-settings .vpw-content .vpw-vlibras-logo {
-      left: 39%;
-      bottom: 125px;
-    }
-
-    .vpw-settings .vpw-content > ul {
-      margin-left: -20px;
-    }
-
-    .vpw-settings .vpw-content > ul li .vpw-name {
-      font-size: 12px;
-    }
-
-    .vpw-settings .vpw-content > ul .vpw-localism .vpw-flag {
-      right: 88px;
-      height: 24px;
-    }
-
-    .vpw-switch {
-      width: 48px;
-      height: 15px;
-      margin-top: -10px;
-      right: 64px;
-    }
-
-    .vpw-slider-check.vpw-round:before {
-      top: -3px;
-    }
-
-    .vpw-slider-check:before {
-      height: 21px;
-      width: 20px;
-      left: -20;
-      bottom: 4px;
-    }
-
-    .vpw-settings .vpw-content .vpw-vlibras-logo .vpw-logo {
-      width: 51%;
-      margin-left: 32px;
-    }
-
-    .vpw-settings .vpw-content .vpw-vlibras-logo .vpw-vlibras-span {
-      left: 44%;
-      bottom: 5%;
-    }
-
-    .vpw-settings .vpw-content .vpw-vlibras-logo {
-      left: 39%;
-      transform: translateX(-50%);
-      bottom: 125px;
-    }
-
-    .vpw-settings .vpw-content > ul .vpw-localism .vpw-abbrev {
-      right: 65px;
-    }
-
-    .vpw-controls-dictionary:not(.vpw-loading-dictionary):before {
-      font-size: 12px;
-    }
-
-    .vpw-info-screen #vpw-info-tab-bullets {
-      right: 47px;
-      bottom: 100px;
-    }
-
-    .vpw-info-screen .vpw-arrow-right.active {
-      right: 94px;
-      position: absolute;
-      top: 137px;
-      z-index: 4;
-    }
-
-    .vpw-info-screen .vpw-arrow-left.active {
-      right: initial;
-      position: absolute;
-      top: 137px;
-      z-index: 4;
-    }
-
-    .vpw-info-screen #vpw-info-main.active {
-      font-size: 0.7125em;
-      margin-right: 99px;
-      margin-bottom: 136px;
-    }
-
-    .vpw-info-screen .vpw-info-tab .vpw-info-tab-label {
-      margin-top: -8px;
-      font-size: 14px;
-    }
-
-    .vpw-info-screen .vpw-info-tab .vpw-info-tab-label-two {
-      font-size: 14px;
-      margin-top: 6px;
-    }
-
-    .vpw-info-screen #vpw-info-realizadores .vpw-logo.ufpb {
-      max-width: 20%;
-    }
-
-    .vpw-info-screen #vpw-info-realizadores .vpw-logo-group.text {
-      display: block;
-    }
-
-    .vpw-info-screen #vpw-info-realizadores .vpw-logo-group.logo1 {
-      max-width: 70%;
-    }
-
-    .vpw-info-screen #vpw-info-realizadores .vpw-logo-group.logo2 {
-      max-width: 86%;
-    }
-
-    .vpw-info-screen #vpw-info-realizadores.active {
-      font-size: 0.8125em;
-      margin-right: 81px;
-      margin-bottom: 113px;
-    }
-
-    .vpw-settings .vpw-content .vpw-flag {
-      height: 18px;
-    }
-
-    .vpw-settings
-      .vpw-content
-      > .vpw-localism
-      .vpw-regions
-      > .vpw-container-regions {
-      margin-top: -1%;
-      margin-bottom: -2px;
-    }
-
-    .vpw-settings .vpw-content > .vpw-localism {
-      width: 71%;
-    }
-    .vpw-settings .vpw-content > .vpw-localism .vpw-regions {
-      left: -3px !important;
-    }
-
-    .vpw-settings .vpw-content > ul .vpw-opacity {
-      margin-right: 56px;
-    }
-
-    .vpw-dictionary .vpw-dict-container {
-      width: 64%;
-      height: 44%;
-      left: 44%;
-    }
-
-    .vpw-bar .vpw-title {
-      margin-right: 40px;
-    }
-
-    .vpw-dictionary .vpw-panel .vpw-search input {
-      width: 73%;
-      left: 39%;
-    }
-    .vpw-dictionary .vpw-panel .vpw-search .vpw-icon img {
-      right: 70px;
-    }
-
-    [vp-dictionary] {
-      right: 18px !important;
-    }
-    .vpw-dictionary .vpw-dict-container ul li:not(.margin) {
-      padding: 5px;
-    }
-    [vp-suggestion-button].vp-enabled {
-      right: 40px;
-      bottom: 150px !important;
-    }
-    [vp-suggestion-screen] {
-      width: 72%;
-      height: 60%;
-      top: 41px;
-    }
-
-    [vp-change-avatar] {
-      left: 9px;
-      top: 265px;
-      .vp-button-change-avatar {
-        width: 30px;
-        height: 30px;
-        .change-avatar-female {
-          width: 15px;
-        }
-        .change-avatar-male {
-          width: 15px;
-        }
-      }
-    }
+  div[vw-access-button] {
+    margin: 0 40px !important;
+    transform: scale(1.3515) !important;
   }
 }
 
