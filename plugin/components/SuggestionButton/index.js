@@ -1,4 +1,4 @@
-var template = require('./suggestion-button.html').default;
+const template = require('./suggestion-button.html').default;
 require('./suggestion-button.scss');
 
 function SuggestionButton(suggestionScreen) {
@@ -6,7 +6,7 @@ function SuggestionButton(suggestionScreen) {
   this.suggestionScreen = suggestionScreen;
 }
 
-SuggestionButton.prototype.load = function (element) {
+SuggestionButton.prototype.load = function(element) {
   this.element = element;
   this.element.innerHTML = template;
 
@@ -23,12 +23,12 @@ SuggestionButton.prototype.load = function (element) {
   });
 };
 
-SuggestionButton.prototype.show = function (rate) {
+SuggestionButton.prototype.show = function(rate) {
   this.rate = rate;
   this.element.classList.add('vp-enabled');
 };
 
-SuggestionButton.prototype.hide = function () {
+SuggestionButton.prototype.hide = function() {
   this.element.classList.remove('vp-enabled');
 };
 
