@@ -1,19 +1,20 @@
 module.exports = {
   env: {
     browser: true,
-    es6: true,
+    commonjs: true,
+    es2021: true,
   },
-  extends: [
-    'airbnb-base',
-  ],
-  globals: {
-    Atomics: 'readonly',
-    SharedArrayBuffer: 'readonly',
-  },
+  extends: ['google', 'prettier'],
+  overrides: [],
   parserOptions: {
-    ecmaVersion: 2018,
+    ecmaVersion: 'latest',
     sourceType: 'module',
   },
   rules: {
+    'require-jsdoc': 'off',
+    'max-len': [2, 120, 4],
+    'no-invalid-this': 'off',
+    'no-extra-bind': 'off',
   },
+  ignorePatterns: ['**/widget/app', '**/plugin/targets', 'node_modules'],
 };
