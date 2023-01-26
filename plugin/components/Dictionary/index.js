@@ -86,6 +86,9 @@ Dictionary.prototype.load = function (element, closeScreen) {
         event.target.value.toUpperCase(),
         this.list._insert.bind(this.list)
       );
+      if(this.list.childNodes.length === 0) {
+        this.list.innerHTML = '<span>Nada encontrado :(</span>'
+      }
     }.bind(this)
   );
 
