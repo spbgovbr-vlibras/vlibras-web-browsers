@@ -22,7 +22,7 @@ require('./scss/styles.scss');
 
 function Plugin(options) {
   this.player = new VLibras.Player({
-    onLoad: options.playWellcome && (() => this.player.playWellcome()),
+    // onLoad: options.playWellcome && (() => this.player.playWellcome()),
     targetPath: options.rootPath ? url(options.rootPath, '/target') : 'target',
     personalization: options.personalization,
     opacity: options.opacity,
@@ -33,13 +33,7 @@ function Plugin(options) {
   this.wrapper = options.wrapper;
 
   if (this.opacity) {
-    if (
-      this.opacity == 0.0 ||
-      this.opacity == 0.25 ||
-      this.opacity == 0.5 ||
-      this.opacity == 0.75 ||
-      this.opacity == 1.0
-    ) {
+    if (this.opacity.includes[(0.0, 0.25, 0.5, 0.75, 1.0)]) {
       this.opacity = parseFloat(this.opacity);
     } else {
       this.opacity = 0.0;

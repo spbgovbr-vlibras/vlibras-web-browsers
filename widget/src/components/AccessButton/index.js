@@ -11,7 +11,7 @@ function AccessButton(rootPath, pluginWrapper, personalization, opacity) {
   this.opacity = opacity;
 }
 
-AccessButton.prototype.load = function(element, vw) {
+AccessButton.prototype.load = function (element, vw) {
   this.element = element;
   this.element.innerHTML = template;
   this.element.addEventListener('click', () => {
@@ -77,7 +77,7 @@ function getPosition(elem) {
   const top = box.top + scrollTop - clientTop;
   const left = box.left + scrollLeft - clientLeft;
 
-  return {y: Math.round(top), x: Math.round(left)};
+  return { y: Math.round(top), x: Math.round(left) };
 }
 
 function createAccessLinkBox() {
@@ -88,8 +88,8 @@ function createAccessLinkBox() {
   document.body.appendChild(div);
 }
 
-AccessButton.prototype.divBox = function(linkContent, event) {
-  nodeAnchor = hasParent(linkContent, function(parent) {
+AccessButton.prototype.divBox = function (linkContent, event) {
+  nodeAnchor = hasParent(linkContent, function (parent) {
     return parent.nodeName == 'A';
   });
   if (!nodeAnchor) {
@@ -109,38 +109,38 @@ AccessButton.prototype.divBox = function(linkContent, event) {
   this.vw_links.firstChild.classList.add('active');
 };
 
-AccessButton.prototype.addTagsTexts = function(vw) {
+AccessButton.prototype.addTagsTexts = function (vw) {
   self = this;
   getAllNodeTexts(
-      document.body,
-      function(node) {
-        if (vw.contains(node)) return;
-        node.innerHTML = '<vlibraswidget>' + node.innerHTML + '</vlibraswidget>';
-        const span = node.querySelector('vlibraswidget');
-        if (!span) {
-          return;
-        }
-        span.classList.add('vw-text');
-        span.addEventListener('click', function(e) {
-          e.preventDefault();
-          self.divBox(this, e);
-          if (control) window.plugin.player.stop();
-          window.plugin.player.translate(this.textContent);
-          deactivateAll();
-          this.classList.add('vw-text-active');
-          control++;
-        });
-      },
-      function(textNode, parent) {
-        if (/^\s+$/.test(textNode.nodeValue)) {
-          return true;
-        }
-        return false;
-      },
+    document.body,
+    function (node) {
+      if (vw.contains(node)) return;
+      node.innerHTML = '<vlibraswidget>' + node.innerHTML + '</vlibraswidget>';
+      const span = node.querySelector('vlibraswidget');
+      if (!span) {
+        return;
+      }
+      span.classList.add('vw-text');
+      span.addEventListener('click', function (e) {
+        e.preventDefault();
+        self.divBox(this, e);
+        if (control) window.plugin.player.stop();
+        window.plugin.player.translate(this.textContent);
+        deactivateAll();
+        this.classList.add('vw-text-active');
+        control++;
+      });
+    },
+    function (textNode, parent) {
+      if (/^\s+$/.test(textNode.nodeValue)) {
+        return true;
+      }
+      return false;
+    }
   );
   createAccessLinkBox();
   this.vw_links = document.body.getElementsByClassName('vw-links')[0];
-  document.body.onclick = function(e) {
+  document.body.onclick = function (e) {
     if (this.vw_links != null) {
       this.vw_links.firstChild.classList.remove('active');
     }
@@ -150,7 +150,7 @@ AccessButton.prototype.addTagsTexts = function(vw) {
 };
 
 function getAllNodeTexts(root, callback) {
-  const noop = function() {};
+  const noop = function () {};
   const headElements = ['SCRIPT', 'TITLE', 'META', 'STYLE', 'LINK', 'BASE'];
 
   for (let i = 0; i < root.childNodes.length; i++) {
