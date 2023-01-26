@@ -1,9 +1,6 @@
 const template = require('./template.html').default;
 require('./styles.scss');
-
-function PluginWrapper() { 
-	
-}
+function PluginWrapper() {}
 
 PluginWrapper.prototype.load = function (element) {
   this.element = element;
