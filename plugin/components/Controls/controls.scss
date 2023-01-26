@@ -19,6 +19,27 @@
       margin: 0 9px;
       cursor: pointer;
     }
+
+    .vpw-selectTextLabel {
+      display: none;
+      place-items: center;
+      padding: 10px 0;
+      width: 100%;
+      height: 100%;
+      text-align: center;
+      font-size: 12px;
+      font-weight: bold;
+
+      @media only screen and (max-width: 480px) { max-width: 180px; }
+    }
+
+    &.vpw-selectText {
+      .vpw-selectTextLabel { display: grid }
+      .vpw-controls-play { display:  none; }
+      .vpw-controls-slider { display:  none; }
+      .vpw-controls-speed { display:  none; }
+      .vpw-controls-subtitles { display:  none; }
+    }
   
     .vpw-controls-play {
       .vpw-component-play { display: block; margin: 0 8.5px; cursor: pointer; }
@@ -37,8 +58,6 @@
       .vpw-component-pause { display: none; }
       .vpw-component-restart { display: block; margin: 0 2px; cursor: pointer;}
     }
-
-
 
     &.vpw-subtitles .vpw-controls-subtitles {
       .vpw-legenda-habilitar { display: block; }
