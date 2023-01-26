@@ -5,8 +5,10 @@
     @include flexbox;
     @include align-items(center);
   
+    // padding: 10px;
     width: calc(100% - 10px);
     height: 60px;
+    // margin: 0 5px;
   
     background-size: 100% 100%;
     background: white;
