@@ -1,19 +1,20 @@
-const inherits = require('inherits');
-const EventEmitter = require('events').EventEmitter;
+var inherits = require('inherits');
+var EventEmitter = require('events').EventEmitter;
 
-const settingsTpl = require('./settings.html').default;
+var settingsTpl = require('./settings.html').default;
 require('./settings.scss');
 require('./switch.scss');
 
-function Settings(player, infoScreen, menu, dictionary, option, opacity) {
+function Settings(player, infoScreen, menu, dictionary,option,opacity) {
   this.visible = false;
   this.player = player;
   this.infoScreen = infoScreen;
+  // this.btnClose = btnClose;
   this.menu = menu;
   this.dictionary = dictionary;
-
+  
   enable = option.enableMoveWindow;
-  opacityUser = opacity;
+  opacity_user = opacity;
 }
 
 inherits(Settings, EventEmitter);
@@ -25,172 +26,144 @@ Settings.prototype.load = function (element) {
   this.element.innerHTML = settingsTpl;
   this.element.classList.add('vpw-settings');
 
+
   // Localism panel
   this.localism = this.element.querySelector('.vpw-content > .vpw-localism');
-
+  
   this.dictionaryBtn = this.element.querySelector('.vpw-dict');
 
+  
   // Close events
 
+  // this.btnClose.element.firstChild.addEventListener('click',this.hide.bind(this))
   // Selected region
-  this.selectedRegion = this.element.querySelector(
-    '.vpw-content > ul .vpw-localism'
-  );
+  this.selectedRegion = this.element.querySelector('.vpw-content > ul .vpw-localism');
 
   if (enable) {
-    this.position = this.element.querySelector(
-      '.vpw-content > ul .vpw-position'
-    );
-
+    this.position = this.element.querySelector('.vpw-content > ul .vpw-position');
     this.position.style.display = 'block';
-    this.position_op = this.element.querySelector(
-      '.vpw-content > ul .vpw-opacity'
-    );
+    this.position_op = this.element.querySelector('.vpw-content > ul .vpw-opacity');
     this.position_op.style.display = 'block';
   }
 
   this.selectedRegion._name = this.selectedRegion.querySelector('.vpw-abbrev');
   this.selectedRegion._flag = this.selectedRegion.querySelector('img.vpw-flag');
-  this.selectedRegion.addEventListener(
-    'click',
-    function () {
-      this.localism.classList.toggle('active');
-    }.bind(this)
-  );
+  this.selectedRegion.addEventListener('click', function() {
+  this.localism.classList.toggle('active');
+  }.bind(this));
 
-  this.dictionaryBtn.addEventListener(
-    'click',
-    function (event) {
-      this.loadingDic = this.element.querySelector('.vpw-controls-dictionary');
-      if (!this.loadingDic.classList.contains('vpw-loading-dictionary')) {
-        this.element.classList.remove('active');
-        this.dictionary.show();
-        this.player.pause();
-      }
-    }.bind(this)
-  );
+  this.dictionaryBtn.addEventListener('click', function(event){
+    // console.log(event.target);
+    this.loadingDic = this.element.querySelector('.vpw-controls-dictionary');
+    if (!(this.loadingDic.classList.contains('vpw-loading-dictionary')))
+    { 
+      this.element.classList.remove('active');
+      this.dictionary.show();
+      this.player.pause();
+    }
+  }.bind(this));
+  
+  var OnLeft = 1;
+  var selector = this.element.querySelector('input[name=checkbox]')
 
-  let OnLeft = 1;
-  const selector = this.element.querySelector('input[name=checkbox]');
-
-  this.element
-    .querySelector('.vpw-content > ul .vpw-position')
-    .addEventListener('click', function () {
-      if (OnLeft) {
-        window.dispatchEvent(
-          new CustomEvent('vp-widget-wrapper-set-side', {
-            detail: { right: true },
-          })
-        );
-        OnLeft = 0;
+  this.element.querySelector('.vpw-content > ul .vpw-position')
+    .addEventListener('click', function() {
+      if(OnLeft){
+        window.dispatchEvent(new CustomEvent('vp-widget-wrapper-set-side', {detail: {right: true}})); 
+        OnLeft=0;
         selector.checked = false;
-      } else {
-        window.dispatchEvent(
-          new CustomEvent('vp-widget-wrapper-set-side', {
-            detail: { right: false },
-          })
-        );
-        OnLeft = 1;
+      }
+      else{
+        window.dispatchEvent(new CustomEvent('vp-widget-wrapper-set-side', {detail: {right: false}})); 
+        OnLeft=1;
         selector.checked = true;
       }
-    });
+    }.bind(this));
 
-  //
+   //
 
   this.opacity = this.element.querySelector('.vpw-content > ul .vpw-opacity');
   this.opacity_button_left = this.opacity.querySelector('img.arrow-left-opac');
-  this.opacity_button_right = this.opacity.querySelector(
-    'img.arrow-right-opac'
-  );
-  this.percent = this.opacity.querySelector('span.vpw-percent');
+  this.opacity_button_right = this.opacity.querySelector('img.arrow-right-opac');
+  this.percent =  this.opacity.querySelector('span.vpw-percent');
 
-  let opacity = opacityUser;
-  this.percent.innerHTML = opacity * 100 + '%';
 
-  this.opacity_button_right.addEventListener(
-    'click',
-    function () {
-      if (opacity) {
-        opacity -= 0.25;
+  var opacity = opacity_user;
+  this.percent.innerHTML = opacity*100 + '%';
+  
+  this.opacity_button_right.addEventListener('click', function() {
+
+      if(opacity){
+        opacity-=0.25
       } else {
-        opacity = 0;
+        opacity=0
       }
-      this.percent.innerHTML = opacity * 100 + '%';
-      window.dispatchEvent(
-        new CustomEvent('vw-change-opacity', { detail: 1 - opacity })
-      );
-    }.bind(this)
-  );
+      this.percent.innerHTML = opacity*100 + '%';
+      window.dispatchEvent(new CustomEvent('vw-change-opacity', {detail: 1-opacity})); 
 
-  this.opacity_button_left.addEventListener(
-    'click',
-    function () {
-      if (opacity < 1.0) {
-        opacity += 0.25;
+  }.bind(this));
+
+  this.opacity_button_left.addEventListener('click', function() {
+
+      if(opacity < 1.0){
+        opacity+=0.25
       } else {
-        opacity = 1.0;
+        opacity=1.0
       }
 
       if (opacity > 1) {
-        opacity = 1.0;
+        opacity=1.0
       }
 
-      this.percent.innerHTML = opacity * 100 + '%';
-      window.dispatchEvent(
-        new CustomEvent('vw-change-opacity', { detail: 1 - opacity })
-      );
-    }.bind(this)
-  );
+      this.percent.innerHTML = opacity*100 + '%';
+      window.dispatchEvent(new CustomEvent('vw-change-opacity', {detail: 1-opacity})); 
 
-  this.element.querySelector('.vpw-content > ul .vpw-about').addEventListener(
-    'click',
-    function () {
+  }.bind(this));
+
+
+  this.element.querySelector('.vpw-content > ul .vpw-about')
+    .addEventListener('click', function() {
       this.hide(false);
       this.infoScreen.show();
-    }.bind(this)
-  );
+    }.bind(this));
+
 
   // About button
-  this.element.querySelector('.vpw-content > ul .vpw-about').addEventListener(
-    'click',
-    function () {
+  this.element.querySelector('.vpw-content > ul .vpw-about')
+    .addEventListener('click', function() {
       this.hide(false);
       this.infoScreen.show();
-    }.bind(this)
-  );
+    }.bind(this));
+
 
   // National
   this.national = this.localism.querySelector('.vpw-national');
   this.national._data = nationalData;
   this.national.classList.add('vpw-selected');
-  this.national.addEventListener(
-    'click',
-    function () {
-      this.setRegion(this.national);
-    }.bind(this)
-  );
+  this.national.addEventListener('click', function() {
+    this.setRegion(this.national);
+  }.bind(this));
 
   // Selected region
   this.region = this.national;
 
   // Creates regions grid
-  const regions = this.localism.querySelector('.vpw-regions');
-  const regionHTML = require('./region.html').default;
+  var regions = this.localism.querySelector('.vpw-regions');
+  var regionHTML = require('./region.html').default;
 
-  // eslint-disable-next-line guard-for-in
-  for (const i in regionsData) {
-    const data = regionsData[i];
+  for (var i in regionsData) {
+    var data = regionsData[i];
 
-    const region = document.createElement('div');
+    var region = document.createElement('div');
     region.classList.add('vpw-container-regions');
     region.innerHTML = regionHTML;
 
     region._data = data;
     region._setRegion = this.setRegion.bind(this);
 
-    region.querySelector('img.vpw-flag').setAttribute('data-src', data.flag);
+    region.querySelector('img.vpw-flag').setAttribute("data-src", data.flag);
     region.querySelector('.vpw-name').innerHTML = data.name;
-    region.addEventListener('click', function () {
+    region.addEventListener('click', function() {
       this._setRegion(this);
     });
 
@@ -208,6 +181,7 @@ Settings.prototype.setRegion = function (region) {
   // Deactivate localism panel
   this.localism.classList.remove('active');
   // this.menu.element.firstChild.classList.add('active');
+  
 
   // Select new region
   this.region.classList.remove('vpw-selected');
@@ -216,9 +190,8 @@ Settings.prototype.setRegion = function (region) {
 
   // Updates selected region
   this.selectedRegion._name.innerHTML = this.region._data.name;
-  if (window.plugin.rootPath) {
-    this.selectedRegion._flag.src =
-      window.plugin.rootPath + '/' + this.region._data.flag;
+  if(window.plugin.rootPath){
+    this.selectedRegion._flag.src = window.plugin.rootPath + '/' + this.region._data.flag;
   } else {
     this.selectedRegion._flag.src = this.region._data.flag;
   }
@@ -237,18 +210,18 @@ Settings.prototype.hide = function (menuOn) {
   this.element.classList.remove('active');
   this.localism.classList.remove('active');
   // this.btnClose.element.firstChild.style.visibility = 'hidden';
-  if (menuOn) {
+  if(menuOn){
     this.menu.classList.add('active');
   }
 
   // Removes blur filter
   this.gameContainer.classList.remove('vpw-blur');
   this.controlsElement.classList.remove('vpw-blur');
-
+  
   this.emit('hide');
 };
 
-Settings.prototype.showMenu = function () {
+Settings.prototype.showMenu = function(){
   this.menu.classList.add('active');
 };
 
@@ -257,18 +230,19 @@ Settings.prototype.show = function () {
   this.element.classList.add('active');
   // this.btnClose.element.firstChild.style.visibility = 'visible';
   this.menu.classList.remove('active');
+  
 
   // Apply blur filter
   this.gameContainer.classList.add('vpw-blur');
   this.controlsElement.classList.add('vpw-blur');
-
+  
   this.emit('show');
 };
 
 module.exports = Settings;
 
-const nationalData = { name: 'BR', path: '', flag: 'assets/brazil.png' };
-const regionsData = [
+var nationalData = { name: 'BR', path: '', flag: 'assets/brazil.png' };
+var regionsData = [
   { name: 'AC', path: 'AC', flag: 'assets/1AC.png' },
   { name: 'MA', path: 'MA', flag: 'assets/10MA.png' },
   { name: 'RJ', path: 'RJ', flag: 'assets/19RJ.png' },
@@ -295,5 +269,5 @@ const regionsData = [
   { name: 'SE', path: 'SE', flag: 'assets/26SE.png' },
   { name: 'GO', path: 'GO', flag: 'assets/9GO.png' },
   { name: 'PI', path: 'PI', flag: 'assets/18PI.png' },
-  { name: 'TO', path: 'TO', flag: 'assets/27TO.png' },
+  { name: 'TO', path: 'TO', flag: 'assets/27TO.png' }
 ];

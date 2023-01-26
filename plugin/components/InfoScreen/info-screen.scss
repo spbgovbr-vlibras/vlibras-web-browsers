@@ -1,7 +1,7 @@
 [vp] {
   .vpw-info-screen {
     position: relative;
-    padding: 2em;
+    padding: 1em;
     width: 100%;
     height: calc(100% - 40px);
     z-index: 4;
@@ -27,43 +27,9 @@
     }
 
     .vpw-arrow {
+      flex-grow: 1;
+      -webkit-flex-grow: 1;
       visibility: hidden;
-      position: absolute;
-      bottom: 1em;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      border-radius: 30px;
-
-      width: 60px;
-      height: 30px;
-
-      background-color: #F5F5F5;
-      z-index: 1;
-
-      img {
-        height: 16px;
-      }
-
-      &:hover {
-        background-color: #e9e9e9;
-      }
-
-      &:active {
-        background-color: #F5F5F5;
-      }
-    }
-
-    .vpw-arrow.vpw-arrow-left {
-      left: 1em;
-    }
-
-    .vpw-arrow.vpw-arrow-right {
-      right: 1em;
-    }
-
-    .vpw-arrow-right {
-      right: 1em;
     }
 
     .vpw-arrow.active {
@@ -90,7 +56,7 @@
     #vpw-info-main {
       max-width: 600px;
       font-family: "Open Sans", sans-serif;
-      
+
       flex-direction: column;
       -webkit-flex-direction: column;
       &.active {
@@ -98,26 +64,17 @@
         align-content: center;
         justify-content: center;
         align-items: center;
-        gap: 10px;
-        margin-bottom: 20px;
       }
     }
-    
-    #vpw-info-logo img {
-      height: 80px;
-      display: inline;
-    }
 
-    #vpw-info-text p {
-      text-align: justify;
-      margin-bottom: 10px;
+    #vpw-info-logo img {
+      height: 90px;
     }
 
     #vpw-info-realizadores {
       height: 100%;
       min-width: 230px;
-      width: 100%;
-      margin-bottom: 20px;
+      width: 50%;
 
       flex-direction: column;
       align-items: stretch;
@@ -133,7 +90,6 @@
         align-content: center;
         justify-content: center;
         align-items: center;
-        gap: 10px;
       }
 
       .vpw-siz {
@@ -153,63 +109,29 @@
         }
       }
 
-      .vpw-contacts-group {
+      .vpw-logo-group {
         display: flex;
+        padding: 0.5% 2%;
 
-        flex-direction: column;
+        flex-direction: row;
+        flex-wrap: wrap;
         align-items: center;
         justify-content: space-around;
 
-        -webkit-flex-direction: column;
+        -webkit-flex-direction: row;
+        -webkit-flex-wrap: wrap;
         -webkit-align-items: center;
         -webkit-justify-content: space-around;
+        line-height: 1.1;
 
         .p-separator {
-          height: 10px;
+          margin-top: 10px;
+          margin-bottom: 10px;
           width: 118px;
         }
         .format-text {
           margin: 0px;
-          color: #555;
         }
-      }
-
-      .vpw-ministries-group {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        flex-direction: row;
-        gap: 10px;
-
-        -webkit-flex-direction: row;
-        -webkit-align-items: center;
-        -webkit-justify-content: center;
-
-        .ministry {
-
-          span {
-            color: #555;
-            text-align: right;
-            text-transform: uppercase;
-            white-space: nowrap;
-            font-size: .9em;
-          }
-        }
-      }
-
-      .vpw-logo-group {
-        display: flex;
-
-        flex-direction: row;
-        flex-wrap: nowrap;
-        align-items: center;
-        justify-content: space-around;
-
-        -webkit-flex-direction: row;
-        -webkit-flex-wrap: nowrap;
-        -webkit-align-items: center;
-        -webkit-justify-content: space-around;
-
       }
     }
 
@@ -219,11 +141,11 @@
       display: none;
 
       .vpw-info-tab-label {
+        position: absolute;
+        top: 0%;
         font-size: 16px;
         font-family: "Open Sans", sans-serif;
-        margin-bottom: 10px;
       }
-
       .vpw-info-tab-label-two {
         font-size: 16px;
         font-family: "Open Sans", sans-serif;
@@ -238,7 +160,7 @@
     #vpw-info-meta p {
       margin: 0.5em 0 0;
     }
-    
+
     #vpw-info-meta a {
       text-decoration: none;
     }
@@ -246,20 +168,18 @@
     .vpw-info-bullet {
       background-size: 15px 15px;
       display: inline-block;
-      width: 10px;
-      height: 10px;
+      width: 15px;
+      height: 15px;
       content: "";
     }
     #vpw-info-tab-bullets {
       width: 100%;
-      height: 30px;
+      height: auto;
       position: absolute;
-      bottom: -1em;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      flex-direction: row;
-      gap: 4px;
+      bottom: 0%;
+      text-align: center;
+      flex-grow: 1;
+      -webkit-flex-grow: 1;
     }
 
     .vpw-close-btn {

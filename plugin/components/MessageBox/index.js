@@ -1,6 +1,6 @@
 require('./message-box.scss');
 
-const messageBoxTlp = '<span class="vpw-message"></span>';
+var messageBoxTlp = '<span class="vpw-message"></span>';
 
 function MessageBox() {
   this.element = null;
@@ -9,7 +9,7 @@ function MessageBox() {
 
 MessageBox.LEVELS = ['info', 'warning', 'success', 'default'];
 
-MessageBox.prototype.load = function(element) {
+MessageBox.prototype.load = function (element) {
   this.element = element;
   this.element.classList.add('vpw-message-box');
   this.element.innerHTML = messageBoxTlp;
@@ -29,7 +29,7 @@ MessageBox.prototype.hide = function(message) {
 };
 
 MessageBox.prototype.show = function(level, message, time) {
-  const self = this;
+  var self = this;
 
   level = MessageBox.LEVELS.indexOf(level) == -1 ? 'info' : level;
 
@@ -40,12 +40,12 @@ MessageBox.prototype.show = function(level, message, time) {
   self.element.querySelector('.vpw-message').innerHTML = message;
 
   self.message = {
-    text: message,
+    text: message
   };
 
-  const ref = self.message;
+  var ref = self.message;
   if (time) {
-    setTimeout(function() {
+    setTimeout(function () {
       self.hide(ref);
     }, time + 1);
   }
