@@ -10,6 +10,7 @@ function Controls(player, dictionary) {
 
   this.player.on('animation:play', function () {
     // console.log('animation:play');
+    this.element.classList.remove('vpw-selectText');
     this.element.classList.remove('vpw-stopped');
     this.element.classList.add('vpw-playing');
   }.bind(this));
@@ -58,6 +59,12 @@ function Controls(player, dictionary) {
 
       slider.noUiSlider.set([globalGlosaLenght, globalGlosaLenght]);
 
+  }.bind(this));
+
+  let firstTranslation = false;
+  this.player.on('stop:welcome', function () {
+    if(!firstTranslation) this.element.classList.add('vpw-selectText');
+    firstTranslation = true;
   }.bind(this));
 
 }
