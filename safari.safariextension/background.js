@@ -1,9 +1,9 @@
-var popup = null;
-var selectedText = undefined;
-var appURL = safari.extension.baseURI + 'app/player/index.html';
+let popup = null;
+let selectedText = undefined;
+const appURL = safari.extension.baseURI + 'app/player/index.html';
 
-safari.application.addEventListener('contextmenu', function (event){
-  var selectedText = event.userInfo;
+safari.application.addEventListener('contextmenu', function(event) {
+  let selectedText = event.userInfo;
 
   if (!selectedText) return;
 
@@ -16,25 +16,25 @@ safari.application.addEventListener('contextmenu', function (event){
   }
 }, false);
 
-safari.application.addEventListener('command', function (event){
+safari.application.addEventListener('command', function(event) {
   if (event.command === 'translateLibras') {
     selectedText = event.userInfo;
-    
+
     if (popup === null) {
       popup = safari.application.openBrowserWindow().activeTab;
       popup.url = appURL;
 
-      popup.addEventListener('close', function () {
+      popup.addEventListener('close', function() {
         popup = null;
       });
 
-      popup.addEventListener('navigate', function (event) {
+      popup.addEventListener('navigate', function(event) {
         if (event.target.url !== appURL) {
           popup = null;
         }
       });
 
-      popup.addEventListener('message', function (request) {
+      popup.addEventListener('message', function(request) {
         if (selectedText !== undefined && request.name === 'page:ready' && request.message == true) {
           popup.page.dispatchMessage('plugin:selectedText', selectedText);
           selectedText = undefined;
