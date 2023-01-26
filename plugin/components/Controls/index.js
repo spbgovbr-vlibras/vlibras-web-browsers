@@ -9,72 +9,72 @@ function Controls(player, dictionary) {
   this.dictionary = dictionary;
 
   this.player.on(
-      'animation:play',
-      function() {
-        this.element.classList.remove('vpw-stopped');
-        this.element.classList.add('vpw-playing');
-      }.bind(this),
+    'animation:play',
+    function () {
+      this.element.classList.remove('vpw-stopped');
+      this.element.classList.add('vpw-playing');
+    }.bind(this)
   );
 
   this.player.on(
-      'animation:pause',
-      function() {
-        this.element.classList.remove('vpw-playing');
-        this.element.classList.remove('vpw-stopped');
-      }.bind(this),
+    'animation:pause',
+    function () {
+      this.element.classList.remove('vpw-playing');
+      this.element.classList.remove('vpw-stopped');
+    }.bind(this)
   );
 
   this.player.on(
-      'animation:end',
-      function() {
-        this.element.classList.remove('vpw-playing');
-        this.element.classList.add('vpw-stopped');
-      }.bind(this),
+    'animation:end',
+    function () {
+      this.element.classList.remove('vpw-playing');
+      this.element.classList.add('vpw-stopped');
+    }.bind(this)
   );
 
   this.player.on(
-      'response:glosa',
-      function(counter, glosaLenght) {
-        counter = counter - 2;
+    'response:glosa',
+    function (counter, glosaLenght) {
+      counter = counter - 2;
 
-        if (counter != -1) {
-          const slider = this.element.querySelector(
-              '.vpw-controls-slider .vpw-slider',
-          );
-
-          slider.noUiSlider.updateOptions({
-            range: {
-              min: 0,
-              max: glosaLenght,
-            },
-          });
-
-          slider.noUiSlider.set([counter, glosaLenght]);
-        }
-      }.bind(this),
-  );
-
-  this.player.on(
-      'gloss:end',
-      function(globalGlosaLenght) {
-        globalGlosaLenght = globalGlosaLenght;
+      if (counter != -1) {
         const slider = this.element.querySelector(
-            '.vpw-controls-slider .vpw-slider',
+          '.vpw-controls-slider .vpw-slider'
         );
 
         slider.noUiSlider.updateOptions({
           range: {
             min: 0,
-            max: globalGlosaLenght,
+            max: glosaLenght,
           },
         });
 
-        slider.noUiSlider.set([globalGlosaLenght, globalGlosaLenght]);
-      }.bind(this),
+        slider.noUiSlider.set([counter, glosaLenght]);
+      }
+    }.bind(this)
+  );
+
+  this.player.on(
+    'gloss:end',
+    function (globalGlosaLenght) {
+      globalGlosaLenght = globalGlosaLenght;
+      const slider = this.element.querySelector(
+        '.vpw-controls-slider .vpw-slider'
+      );
+
+      slider.noUiSlider.updateOptions({
+        range: {
+          min: 0,
+          max: globalGlosaLenght,
+        },
+      });
+
+      slider.noUiSlider.set([globalGlosaLenght, globalGlosaLenght]);
+    }.bind(this)
   );
 }
 
-Controls.prototype.load = function(element) {
+Controls.prototype.load = function (element) {
   this.element = element;
   this.element.innerHTML = controlsTpl;
   this.element.classList.add('vpw-controls');
@@ -105,30 +105,30 @@ Controls.prototype.load = function(element) {
   slider.setAttribute('disabled', true);
 
   play.addEventListener(
-      'click',
-      function() {
-        if (this.element.classList.contains('vpw-playing')) {
-          this.player.pause();
-        } else if (this.element.classList.contains('vpw-stopped')) {
-          this.player.repeat();
-        } else {
-          this.player.continue();
-        }
-      }.bind(this),
+    'click',
+    function () {
+      if (this.element.classList.contains('vpw-playing')) {
+        this.player.pause();
+      } else if (this.element.classList.contains('vpw-stopped')) {
+        this.player.repeat();
+      } else {
+        this.player.continue();
+      }
+    }.bind(this)
   );
 
   subtitles.addEventListener(
-      'click',
-      function() {
-        this.element.classList.toggle('vpw-subtitles');
-        this.player.toggleSubtitle();
-      }.bind(this),
+    'click',
+    function () {
+      this.element.classList.toggle('vpw-subtitles');
+      this.player.toggleSubtitle();
+    }.bind(this)
   );
 
   let visibility = false;
   let speedValue;
 
-  button.addEventListener('click', function() {
+  button.addEventListener('click', function () {
     if (visibility) {
       img.style.display = 'none';
       border.style.display = 'none';
@@ -171,13 +171,13 @@ Controls.prototype.load = function(element) {
   });
 };
 
-Controls.prototype.setSpeed = function(
-    speed,
-    label,
-    elemSpeed,
-    speedDefault,
-    img,
-    border,
+Controls.prototype.setSpeed = function (
+  speed,
+  label,
+  elemSpeed,
+  speedDefault,
+  img,
+  border
 ) {
   img.style.display = 'none';
   border.style.display = 'none';
@@ -193,10 +193,10 @@ Controls.prototype.setSpeed = function(
   this.player.setSpeed(parseFloat(speed));
 };
 
-Controls.prototype.setProgress = function() {
+Controls.prototype.setProgress = function () {
   if (this.element != undefined) {
     const slider = this.element.querySelector(
-        '.vpw-controls-slider .vpw-slider',
+      '.vpw-controls-slider .vpw-slider'
     );
 
     slider.noUiSlider.updateOptions({
