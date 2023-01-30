@@ -10,6 +10,7 @@
     color: black;
     font-family: "Open Sans", sans-serif;
     text-align: center;
+    font-size: .7rem;
 
     align-items: center;
     -webkit-align-items: center;
@@ -118,16 +119,16 @@
       min-width: 230px;
       width: 100%;
       margin-bottom: 20px;
-
+      
       flex-direction: column;
       align-items: stretch;
-
+      
       -webkit-flex-direction: column;
       -webkit-align-items: stretch;
       #vpw-realiz {
         font-size: 20px;
       }
-
+      
       &.active {
         display: flex;
         align-content: center;
