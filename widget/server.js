@@ -6,7 +6,7 @@ const fs = require('fs');
 const path = require('path');
 const port = process.argv[2] || 8080;
 
-http.createServer(function (req, res) {
+http.createServer(function(req, res) {
   // console.log(`${req.method} ${req.url}`);
 
   // parse URL
@@ -28,11 +28,11 @@ http.createServer(function (req, res) {
     '.mp3': 'audio/mpeg',
     '.svg': 'image/svg+xml',
     '.pdf': 'application/pdf',
-    '.doc': 'application/msword'
+    '.doc': 'application/msword',
   };
 
-  fs.exists(pathname, function (exist) {
-    if(!exist) {
+  fs.exists(pathname, function(exist) {
+    if (!exist) {
       // if the file is not found, return 404
       res.statusCode = 404;
       res.end(`File ${pathname} not found!`);
@@ -43,8 +43,8 @@ http.createServer(function (req, res) {
     if (fs.statSync(pathname).isDirectory()) pathname = path.join(pathname, '/index' + ext);
 
     // read file from file system
-    fs.readFile(pathname, function(err, data){
-      if(err){
+    fs.readFile(pathname, function(err, data) {
+      if (err) {
         res.statusCode = 500;
         res.end(`Error getting the file: ${err}.`);
       } else {
@@ -54,8 +54,6 @@ http.createServer(function (req, res) {
       }
     });
   });
-
-
 }).listen(parseInt(port));
 
 // console.log(`Server listening on port ${port}`);
