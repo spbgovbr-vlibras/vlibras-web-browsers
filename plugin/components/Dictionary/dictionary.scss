@@ -4,6 +4,7 @@ $margin_left: 40px;
     .vpw-dictionary {
         display: none;
         position: relative;
+        // top:10%;
         width: 100%;
         height: calc(100% - 40px);
         min-width: 300px;
@@ -33,6 +34,7 @@ $margin_left: 40px;
                 width: 80%;
                 left: 50%;
                 transform: translateX(-50%);
+                // max-width: 260px;
                 margin-top: 20px;
             
     
@@ -44,24 +46,26 @@ $margin_left: 40px;
                     padding: 10px 10px 10px 10px;
                     border-radius: 6px;
                     border: 1px solid #DDD;
-                    outline: none;           
+                    outline: none;   
+                    height: 48px;        
     
                     &:focus {
-                        border: 1px solid #00ddf9;
+                        border: 1px solid #003f86;
                     }
                 }
-    
+
     
                 .vpw-icon {
-                    display: block;
-                    position: relative;
+                    display: flex;
+                    position: absolute;
+                    top: 12px;
+                    right: 8px;
+                    width: 24px;
+                    height: 24px;
+
                     img {
-                        position: absolute;
                         height: 24px;
                         width: 24px;
-                        top:6px;
-                        right:7px;
-                        
                     }
                 }
             }
@@ -114,8 +118,20 @@ $margin_left: 40px;
                         padding: 9px 10px 9px 10px;
                     }
                 }
+
+                span {
+                    color: #999;
+                    padding: 9px 10px 9px 10px;
+                }
             }
         }
          
     }
 }
+
+
+// @media (max-width: 480px) {
+//     .dictionary .panel .search {
+//         width: 76%;
+//     }
+// }
