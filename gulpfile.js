@@ -23,19 +23,19 @@ function build(target, {
 
   const playerSrc = gulp.src(player).pipe(gulp.dest(`${destPath}/target`));
   const scriptSrc = gulp.src(script).pipe(webpack(webpackCfg))
-    .pipe(gulp.dest(destPath));
+      .pipe(gulp.dest(destPath));
   const templateSrc = gulp.src(template).pipe(gulp.dest(destPath));
-  const assetsPluginSrc = gulp.src('assets/*', { cwd: 'plugin', base: 'plugin' })
-    .pipe(gulp.dest(destPath));
-  const assetsTargetSrc = gulp.src('assets/*', { cwd: target, base: target })
-    .pipe(gulp.dest(destPath));
+  const assetsPluginSrc = gulp.src('assets/*', {cwd: 'plugin', base: 'plugin'})
+      .pipe(gulp.dest(destPath));
+  const assetsTargetSrc = gulp.src('assets/*', {cwd: target, base: target})
+      .pipe(gulp.dest(destPath));
 
   return mergeStream(
-    playerSrc,
-    scriptSrc,
-    templateSrc,
-    assetsPluginSrc,
-    assetsTargetSrc,
+      playerSrc,
+      scriptSrc,
+      templateSrc,
+      assetsPluginSrc,
+      assetsTargetSrc,
   );
 }
 

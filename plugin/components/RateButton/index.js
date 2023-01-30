@@ -1,4 +1,4 @@
-var template = require('./rate-button.html').default;
+const template = require('./rate-button.html').default;
 require('./rate-button.scss');
 
 function RateButton(rateBox) {
@@ -6,12 +6,12 @@ function RateButton(rateBox) {
   this.rateBox = rateBox;
 }
 
-RateButton.prototype.load = function (element) {
+RateButton.prototype.load = function(element) {
   this.element = element;
   this.element.innerHTML = template;
-  
+
   this.enabled = false;
-  
+
   const button = this.element.querySelector('.vp-button');
 
   button.addEventListener('click', () => {
@@ -22,12 +22,12 @@ RateButton.prototype.load = function (element) {
   });
 };
 
-RateButton.prototype.show = function () {
+RateButton.prototype.show = function() {
   this.enabled = true;
   this.element.classList.add('vp-enabled');
 };
 
-RateButton.prototype.hide = function () {
+RateButton.prototype.hide = function() {
   this.enabled = false;
   this.element.classList.remove('vp-enabled');
 };

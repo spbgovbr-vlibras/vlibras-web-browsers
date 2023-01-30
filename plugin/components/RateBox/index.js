@@ -1,4 +1,4 @@
-var template = require('./rate-box.html').default;
+const template = require('./rate-box.html').default;
 require('./rate-box.scss');
 
 function RateBox(suggestionButton, messageBox) {
@@ -7,7 +7,7 @@ function RateBox(suggestionButton, messageBox) {
   this.messageBox = messageBox;
 }
 
-RateBox.prototype.load = function (element) {
+RateBox.prototype.load = function(element) {
   this.element = element;
   this.element.innerHTML = template;
 
@@ -24,11 +24,11 @@ RateBox.prototype.load = function (element) {
   });
 };
 
-RateBox.prototype.show = function () {
+RateBox.prototype.show = function() {
   this.element.classList.add('vp-enabled');
 };
 
-RateBox.prototype.hide = function () {
+RateBox.prototype.hide = function() {
   this.element.classList.remove('vp-enabled');
 };
 
