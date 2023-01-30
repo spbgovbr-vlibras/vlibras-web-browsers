@@ -192,15 +192,9 @@ SuggestionScreen.prototype.load = function (element) {
     }
   });
 
-<<<<<<< HEAD
   const xhr = new XMLHttpRequest();
   xhr.open('get', 'https://repositorio.vlibras.gov.br/api/signs', true);
   xhr.responseType = 'text';
-=======
-  var xhr = new XMLHttpRequest();
-  xhr.open("get", "https://repositorio.vlibras.gov.br/api/signs", true);
-  xhr.responseType = "text";
->>>>>>> dev
   xhr.onload = function () {
     if (xhr.status == 200) {
       this.signsList = JSON.parse(xhr.response).map((item) => ({ name: item }));
