@@ -19,6 +19,7 @@ $bg-color: #9c9c9c;
     transform-origin: left;
     border-radius: 32px;
     height: 32px;
+    width: 220px;
     padding: 0 10px;
     display: grid;
     place-items: center;
@@ -29,11 +30,16 @@ $bg-color: #9c9c9c;
     transform: scale(0);
     transition: all .3s ease;
     
-    font-size: 12px;
     color: #FFF;
-    white-space: nowrap;
-    line-height: 0;
+    font-size: 12px;
+    text-align: center;
+    line-height: 1.1;
     font-weight: bold;
+
+    @media screen and (max-width: 450px) {
+      width: 120px;
+      font-size: 10px;
+    }
 
     
     &::after {
