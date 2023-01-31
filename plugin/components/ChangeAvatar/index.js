@@ -22,6 +22,7 @@ ChangeAvatar.prototype.load = function (element) {
   this.element = element;
   this.element.innerHTML = template;
   const button = this.element.querySelector('.vp-button-change-avatar');
+  const label = this.element.querySelector('.vp-avatars-intro-label');
 
   let actualAvatar = '';
   this.player.on(
@@ -37,7 +38,15 @@ ChangeAvatar.prototype.load = function (element) {
     }.bind(this)
   );
 
+  this.player.on(
+    'stop:welcome',
+    function () {
+      label.classList.add('active');
+    }.bind(this)
+  );
+
   button.addEventListener('click', () => {
+    label.classList.remove('active');
     switch (actualAvatar) {
       case 1:
         button.querySelector('.avatar-hozana').classList.remove('active');
