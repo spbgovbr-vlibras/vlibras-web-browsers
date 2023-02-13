@@ -29,7 +29,7 @@ $bg-color: #9c9c9c;
     top: 0;
     transform: scale(0);
     transition: all .3s ease;
-    
+
     color: #FFF;
     font-size: 12px;
     text-align: center;
@@ -41,7 +41,7 @@ $bg-color: #9c9c9c;
       font-size: 10px;
     }
 
-    
+
     &::after {
       content: "";
       width: 10px;
@@ -52,18 +52,29 @@ $bg-color: #9c9c9c;
       position: absolute;
       z-index: -1;
     }
-    
+
     &.active {
-      animation: scaleAnima 7s 1s ease-in-out;
-      
+      animation: scaleAnima 5s 1s ease-in-out;
+
       @keyframes scaleAnima {
-        0% {transform: scale(0);}
-        15% {transform: scale(1);}
-        85% {transform: scale(1);}
-        100% {transform: scale(0);}
+        0% {
+          transform: scale(0);
+        }
+
+        20% {
+          transform: scale(1);
+        }
+
+        80% {
+          transform: scale(1);
+        }
+
+        100% {
+          transform: scale(0);
+        }
       }
     }
-    
+
   }
 
   .vp-button-change-avatar {
@@ -82,7 +93,7 @@ $bg-color: #9c9c9c;
       width: 22px;
       margin-right: 1px;
       filter: brightness(0) invert(1);
-      display:none;
+      display: none;
     }
 
     .active {
