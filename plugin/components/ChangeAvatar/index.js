@@ -46,7 +46,6 @@ ChangeAvatar.prototype.load = function (element) {
   );
 
   button.addEventListener('click', () => {
-    label.classList.remove('active');
     switch (actualAvatar) {
       case 1:
         button.querySelector('.avatar-hozana').classList.remove('active');
@@ -71,6 +70,7 @@ ChangeAvatar.prototype.load = function (element) {
         break;
     }
     actualAvatar = (actualAvatar % 3) + 1;
+    label.style.display = 'none';
   });
 };
 
