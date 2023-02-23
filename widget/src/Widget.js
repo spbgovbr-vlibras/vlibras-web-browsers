@@ -75,3 +75,34 @@ module.exports = function Widget(rootPath, personalization, opacity) {
     });
   };
 };
+
+
+new MutationObserver((mutations) => {
+  if (!document.querySelector('vlibraswidget')) return;
+
+  try {
+    const accessButton = document.querySelector('div[vw-access-button]');
+    const closeButton = document.querySelector('.vpw-settings-btn-close');
+    let run = true;
+
+    mutations.forEach(mut => {
+      if (mut.addedNodes.length === 0) return;
+      mut.addedNodes.forEach(node => {
+        if (node.tagName === 'SCRIPT' ||
+          node.tagName === 'VLIBRASWIDGET') {
+          run = false;
+          return;
+        }
+
+        node.classList.forEach(_class => {
+          if (_class === 'vw-links') run = false;
+        })
+      })
+    })
+
+    if (run) {
+      closeButton.click();
+      accessButton.click();
+    }
+  } catch { }
+}).observe(document.body, { childList: true, subtree: true });
