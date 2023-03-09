@@ -41,6 +41,10 @@ const webpackConfig = {
         test: /\.html/,
         loader: 'raw-loader',
       },
+      {
+        test: /\.svg$/,
+        loader: 'svg-inline-loader'
+    }
     ],
   },
   plugins: [new CompressionPlugin()],
