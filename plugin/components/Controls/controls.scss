@@ -18,12 +18,18 @@
       cursor: pointer;
     }
 
+    &.vpw-selectText {
+      background-color: #003F86 !important;
+    }
+
     .vpw-selectTextLabel {
       display: none;
       place-items: center;
       padding: 10px 0;
       width: 100%;
       height: 100%;
+
+      color: #FFFFFF;
       text-align: center;
       font-size: 12px;
       font-weight: bold;
