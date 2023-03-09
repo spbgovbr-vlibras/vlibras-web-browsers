@@ -1,4 +1,6 @@
 $control-height: 60px;
+$bg-color: #9c9c9c;
+
 
 [vp] [vp-change-avatar] {
   display: flex;
@@ -13,13 +15,75 @@ $control-height: 60px;
   left: 13px;
   top: 50px;
 
+  .vp-avatars-intro-label {
+    transform-origin: left;
+    border-radius: 32px;
+    height: 32px;
+    width: 220px;
+    padding: 0 10px;
+    display: grid;
+    place-items: center;
+    background: $bg-color;
+    position: absolute;
+    left: 42px;
+    top: 0;
+    transform: scale(0);
+    transition: all .3s ease;
+
+    color: #FFF;
+    font-size: 12px;
+    text-align: center;
+    line-height: 1.1;
+    font-weight: bold;
+
+    @media screen and (max-width: 450px) {
+      width: 120px;
+      font-size: 10px;
+    }
+
+
+    &::after {
+      content: "";
+      width: 10px;
+      height: 10px;
+      left: -3px;
+      transform: rotate(45deg);
+      background-color: $bg-color;
+      position: absolute;
+      z-index: -1;
+    }
+
+    &.active {
+      animation: scaleAnima 5s 1s ease-in-out;
+
+      @keyframes scaleAnima {
+        0% {
+          transform: scale(0);
+        }
+
+        20% {
+          transform: scale(1);
+        }
+
+        80% {
+          transform: scale(1);
+        }
+
+        100% {
+          transform: scale(0);
+        }
+      }
+    }
+
+  }
+
   .vp-button-change-avatar {
     display: flex;
     justify-content: center;
     align-items: center;
     z-index: 1;
     cursor: pointer;
-    background: rgba(0,0,0,0.3);
+    background: $bg-color;
     border-radius: 50px;
     width: 32px;
     height: 32px;
@@ -29,7 +93,7 @@ $control-height: 60px;
       width: 22px;
       margin-right: 1px;
       filter: brightness(0) invert(1);
-      display:none;
+      display: none;
     }
 
     .active {

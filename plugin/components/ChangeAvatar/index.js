@@ -22,6 +22,7 @@ ChangeAvatar.prototype.load = function (element) {
   this.element = element;
   this.element.innerHTML = template;
   const button = this.element.querySelector('.vp-button-change-avatar');
+  const label = this.element.querySelector('.vp-avatars-intro-label');
 
   let actualAvatar = '';
   this.player.on(
@@ -34,6 +35,13 @@ ChangeAvatar.prototype.load = function (element) {
           .classList.add('active');
         actualAvatar = mapAvatar[avatar];
       }
+    }.bind(this)
+  );
+
+  this.player.on(
+    'stop:welcome',
+    function () {
+      label.classList.add('active');
     }.bind(this)
   );
 
@@ -62,6 +70,7 @@ ChangeAvatar.prototype.load = function (element) {
         break;
     }
     actualAvatar = (actualAvatar % 3) + 1;
+    label.style.display = 'none';
   });
 };
 
