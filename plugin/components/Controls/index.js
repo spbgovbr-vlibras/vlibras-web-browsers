@@ -4,6 +4,8 @@ require('nouislider/distribute/nouislider.min.css');
 const controlsTpl = require('./controls.html').default;
 require('./controls.scss');
 
+let firstTranslation = false;
+
 function Controls(player, dictionary) {
   this.player = player;
   this.dictionary = dictionary;
@@ -71,10 +73,11 @@ function Controls(player, dictionary) {
       });
 
       slider.noUiSlider.set([globalGlosaLenght, globalGlosaLenght]);
+      this.element.classList.remove('vpw-selectText');
     }.bind(this)
   );
 
-  let firstTranslation = false;
+
   this.player.on(
     'stop:welcome',
     function () {
@@ -201,6 +204,8 @@ Controls.prototype.setSpeed = function (
   elemSpeed.style.display = 'none';
 
   this.player.setSpeed(parseFloat(speed));
+  this.player.pause();
+  this.player.continue();
 };
 
 Controls.prototype.setProgress = function () {
@@ -221,3 +226,4 @@ Controls.prototype.setProgress = function () {
 };
 
 module.exports = Controls;
+
