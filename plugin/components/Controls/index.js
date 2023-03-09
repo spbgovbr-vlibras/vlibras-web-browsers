@@ -204,6 +204,8 @@ Controls.prototype.setSpeed = function (
   elemSpeed.style.display = 'none';
 
   this.player.setSpeed(parseFloat(speed));
+  this.player.pause();
+  this.player.continue();
 };
 
 Controls.prototype.setProgress = function () {
