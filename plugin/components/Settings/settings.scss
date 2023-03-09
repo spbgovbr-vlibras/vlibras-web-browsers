@@ -171,6 +171,7 @@
           flex-direction: row;
           justify-content: center;
           align-items: center;
+          opacity: 0.5;
 
           .vpw-name {
             color: black;
@@ -252,6 +253,13 @@
         .vpw-logo {
           width: 100%;
         }
+      }
+
+      .vpw-selected {
+        opacity: 1 !important;
+
+        -webkit-transition: opacity 0.3s !important;
+        transition: opacity 0.3s !important;
       }
     }
 
