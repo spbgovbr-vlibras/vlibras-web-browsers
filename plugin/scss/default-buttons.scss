@@ -1,0 +1,135 @@
+@import './colors.scss';
+
+@mixin reset-button {
+    border: none;
+    margin: 0;
+    padding: 0;
+    width: auto;
+    cursor: pointer;
+    overflow: visible;
+
+    background: transparent;
+
+    /* inherit font & color from ancestor */
+    color: inherit;
+    font: inherit;
+
+    /* Normalize `line-height`. Cannot be changed from `normal` in Firefox 4+. */
+    line-height: normal;
+
+    /* Corrects font smoothing for webkit */
+    -webkit-font-smoothing: inherit;
+    -moz-osx-font-smoothing: inherit;
+
+    /* Corrects inability to style clickable `input` types in iOS */
+    -webkit-appearance: none;
+}
+
+@mixin centralize {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+@mixin header-button {
+    @include reset-button;
+    @include centralize;
+
+    background-color: map-get($blue, 1);
+    width: 32px;
+    height: 32px;
+    border-radius: 4px;
+    color: #FFFFFF;
+
+    &svg {
+        position: absolute;
+
+        &>* {
+            fill: #FFFFFF;
+        }
+    }
+
+    &:hover {
+        background-color: map-get($blue, 2);
+    }
+
+    &:active {
+        background-color: map-get($blue, 4);
+
+        &svg>* {
+            fill: map-get($blue, 3);
+        }
+    }
+
+    &:focus {
+        background-color: map-get($blue, 2);
+        outline: 1.6px solid map-get($white, 1);
+        box-shadow: 0 0 12px 0 rgb(86, 154, 255, 75%);
+    }
+
+    &:disabled {
+        background-color: map-get($white, 2);
+        cursor: not-allowed;
+        opacity: 0.3;
+    }
+
+}
+
+@mixin control-button {
+    @include reset-button;
+    @include centralize;
+
+    background-color: map-get($white, 1);
+    color: map-get($blue, 4);
+    border-radius: 4px;
+    width: 32px;
+    height: 32px;
+    font-size: 14px;
+    font-style: normal;
+    line-height: 19px;
+    font-weight: 700;
+    text-align: center;
+
+    span {
+        display: grid;
+        place-items: center;
+
+        svg {
+            width: 24px;
+            height: 24px;
+            position: absolute;
+
+            * {
+                fill: map-get($blue, 4);
+            }
+        }
+    }
+
+    &.speed-button {
+        width: 40px
+    }
+
+    &:hover {
+        background-color: map-get($white, 5);
+    }
+
+    &:active {
+        background-color: map-get($white, 1);
+
+        &svg>* {
+            fill: map-get($blue, 4);
+        }
+    }
+
+    &:focus {
+        background-color: map-get($white, 1);
+        outline: 1.6px solid map-get($blue, 3);
+    }
+
+    &:disabled {
+        cursor: not-allowed;
+        opacity: 0.3;
+    }
+
+}
