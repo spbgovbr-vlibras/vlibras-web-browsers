@@ -1,6 +1,6 @@
 @import './colors.scss';
 
-@mixin reset-button {
+@mixin reset {
     border: none;
     margin: 0;
     padding: 0;
@@ -10,7 +10,6 @@
 
     background: transparent;
 
-    /* inherit font & color from ancestor */
     color: inherit;
     font: inherit;
 
@@ -32,14 +31,25 @@
     justify-content: center;
 }
 
-@mixin header-button {
-    @include reset-button;
+@mixin default-button {
+    @include reset;
     @include centralize;
-
-    background-color: map-get($blue, 1);
+    font-size: 14px;
+    font-style: normal;
+    line-height: 19px;
+    font-weight: 700;
+    text-align: center;
     width: 32px;
     height: 32px;
     border-radius: 4px;
+    outline: 2px solid transparent;
+    outline-offset: -2px;
+}
+
+@mixin header-button {
+    @include default-button;
+
+    background-color: map-get($blue, 1);
     color: #FFFFFF;
 
     &svg {
@@ -64,7 +74,7 @@
 
     &:focus {
         background-color: map-get($blue, 2);
-        outline: 1.6px solid map-get($white, 1);
+        outline-color: map-get($white, 1);
         box-shadow: 0 0 12px 0 rgb(86, 154, 255, 75%);
     }
 
@@ -77,19 +87,10 @@
 }
 
 @mixin control-button {
-    @include reset-button;
-    @include centralize;
+    @include default-button;
 
     background-color: map-get($white, 1);
     color: map-get($blue, 4);
-    border-radius: 4px;
-    width: 32px;
-    height: 32px;
-    font-size: 14px;
-    font-style: normal;
-    line-height: 19px;
-    font-weight: 700;
-    text-align: center;
 
     span {
         display: grid;
@@ -115,7 +116,7 @@
     }
 
     &:active {
-        background-color: map-get($white, 1);
+        background-color: map -get($white, 1);
 
         &svg>* {
             fill: map-get($blue, 4);
@@ -124,12 +125,25 @@
 
     &:focus {
         background-color: map-get($white, 1);
-        outline: 1.6px solid map-get($blue, 3);
+        outline-color: map-get($blue, 3);
     }
 
     &:disabled {
         cursor: not-allowed;
         opacity: 0.3;
+    }
+
+    &.actived-subtitle {
+        background-color: map-get($blue, 2);
+
+        &:hover {
+            background-color: map-get($blue, 3);
+        }
+
+        svg>* {
+            fill: map-get($white, 1);
+        }
+
     }
 
 }
