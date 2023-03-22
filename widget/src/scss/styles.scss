@@ -32,9 +32,11 @@ $height-set: 450px;
 
   [vp] {
     [vp-controls] {
-      left: 36% !important;
+      left: 35% !important;
       bottom: 20% !important;
       background: white;
+      width: 210px;
+      gap: 0;
     }
 
     .vpw-controls-slider {
@@ -264,24 +266,6 @@ $height-set: 450px;
         margin: 10px 0 0 0;
       }
     }
-
-    [vp-change-avatar] {
-      left: 9px;
-      top: 265px;
-
-      .vp-button-change-avatar {
-        width: 30px;
-        height: 30px;
-
-        .change-avatar-female {
-          width: 15px;
-        }
-
-        .change-avatar-male {
-          width: 15px;
-        }
-      }
-    }
   }
 }
 
@@ -326,15 +310,15 @@ div[vw] {
 
   #gameContainer {
     position: absolute !important;
-    top: -25px;
     left: 0;
     right: 0;
+    top: 0;
     bottom: 0;
     margin: auto !important;
     min-height: calc(0.7 * #{$height-set});
     min-width: calc(0.9 * #{$width-set});
     width: 100%;
-    height: 80%;
+    height: calc(100% - 80px);
     overflow: hidden;
     -moz-border-radius: 10px;
     -webkit-border-radius: 10px;
@@ -382,9 +366,6 @@ div[vw] {
 
     [vp-controls] {
       position: absolute;
-      display: flex;
-      align-items: center;
-      justify-content: center;
       left: 50%;
       transform: translateX(-50%);
       bottom: 0%;
