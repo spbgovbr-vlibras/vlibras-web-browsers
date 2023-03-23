@@ -100,17 +100,6 @@ Controls.prototype.load = function (element) {
   const slider = this.element.querySelector('.vpw-controls-slider .vpw-slider');
   const speed = this.element.querySelector('.vpw-button-speed');
   const subtitles = this.element.querySelector('.vpw-controls-subtitles');
-
-  // const elemSpeed = this.element.querySelector('.vpw-elem-speed');
-  // const speed05 = this.element.querySelector('.vpw-block-speed-05');
-  // const speed1 = this.element.querySelector('.vpw-block-speed-1');
-  // const speed2 = this.element.querySelector('.vpw-block-speed-2');
-  // const speed3 = this.element.querySelector('.vpw-block-speed-3');
-  // const slider = this.element.querySelector('.vpw-controls-slider .vpw-slider');
-  // const img = this.element.querySelector('.vpw-img-default');
-  // const button = this.element.querySelector('.vpw-button-speed');
-  // const border = this.element.querySelector('.vpw-border-default');
-
   
   // Add icons
   play.querySelector('.vpw-component-play').innerHTML = playIcon;

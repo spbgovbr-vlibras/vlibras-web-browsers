@@ -54,7 +54,6 @@ function Plugin(options) {
     this.player,
     this.info,
     this.Box,
-    this.dictionary,
     options,
     this.opacity
   );
@@ -68,6 +67,8 @@ function Plugin(options) {
   this.settingsBtn = new SettingsBtn(
     this.player,
     this.settings,
+    this.dictionary,
+    this.info,
     this.settingBtnClose,
     options
   );

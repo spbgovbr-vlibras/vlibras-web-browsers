@@ -5,12 +5,11 @@ const settingsTpl = require('./settings.html').default;
 require('./settings.scss');
 require('./switch.scss');
 
-function Settings(player, infoScreen, menu, dictionary, option, opacity) {
+function Settings(player, infoScreen, menu, option, opacity) {
   this.visible = false;
   this.player = player;
   this.infoScreen = infoScreen;
   this.menu = menu;
-  this.dictionary = dictionary;
 
   enable = option.enableMoveWindow;
   opacityUser = opacity;
@@ -27,8 +26,6 @@ Settings.prototype.load = function (element) {
 
   // Localism panel
   this.localism = this.element.querySelector('.vpw-content > .vpw-localism');
-
-  this.dictionaryBtn = this.element.querySelector('.vpw-dict');
 
   // Close events
 
@@ -55,18 +52,6 @@ Settings.prototype.load = function (element) {
     'click',
     function () {
       this.localism.classList.toggle('active');
-    }.bind(this)
-  );
-
-  this.dictionaryBtn.addEventListener(
-    'click',
-    function (event) {
-      this.loadingDic = this.element.querySelector('.vpw-controls-dictionary');
-      if (!this.loadingDic.classList.contains('vpw-loading-dictionary')) {
-        this.element.classList.remove('active');
-        this.dictionary.show();
-        this.player.pause();
-      }
     }.bind(this)
   );
 

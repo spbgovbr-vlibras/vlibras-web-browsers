@@ -1,3 +1,5 @@
+@import '~scss/colors';
+
 [vp] {
   .vpw-box {
     width: calc(100%);
@@ -6,7 +8,7 @@
     color: #000;
     opacity: 1;
     position: relative;
-    background-color: #003F86;
+    background-color: map-get($blue, 1);
     color: #ffffff;
     background-size: 100% 100%;
     z-index: 2;
@@ -15,9 +17,9 @@
       position: absolute;
       left: 50%;
       top: 50%;
-      transform: translate(-50%,-50%);
+      transform: translate(-50%, -50%);
       font-size: 15px !important;
-      font-family: 'Open Sans', sans-serif;
+      font-family: 'rawline', sans-serif;
     }
   }
 }
