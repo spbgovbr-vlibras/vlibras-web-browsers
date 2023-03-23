@@ -1,81 +1,22 @@
+@import '~scss/colors';
+@import '~scss/default-buttons';
+
 $control-height: 60px;
 $bg-color: #9c9c9c;
 
 
 [vp] [vp-change-avatar] {
-  display: flex;
-  flex-direction: row;
-  justify-content: flex-end;
+  justify-content: center;
+  flex-direction: column;
+  gap: 10px;
   position: absolute;
   z-index: 2;
-  visibility: hidden;
+  display: none;
   max-width: 100%;
   opacity: 1;
   transition: max-width 0s, visibility 0s, opacity 0.4s;
   left: 13px;
   top: 50px;
-
-  .vp-avatars-intro-label {
-    transform-origin: left;
-    border-radius: 32px;
-    height: 32px;
-    width: 220px;
-    padding: 0 10px;
-    display: grid;
-    place-items: center;
-    background: $bg-color;
-    position: absolute;
-    left: 42px;
-    top: 0;
-    transform: scale(0);
-    transition: all .3s ease;
-
-    color: #FFF;
-    font-size: 12px;
-    text-align: center;
-    line-height: 1.1;
-    font-weight: bold;
-
-    @media screen and (max-width: 450px) {
-      width: 120px;
-      font-size: 10px;
-    }
-
-
-    &::after {
-      content: "";
-      width: 10px;
-      height: 10px;
-      left: -3px;
-      transform: rotate(45deg);
-      background-color: $bg-color;
-      position: absolute;
-      z-index: -1;
-    }
-
-    &.active {
-      animation: scaleAnima 5s 1s ease-in-out;
-
-      @keyframes scaleAnima {
-        0% {
-          transform: scale(0);
-        }
-
-        20% {
-          transform: scale(1);
-        }
-
-        80% {
-          transform: scale(1);
-        }
-
-        100% {
-          transform: scale(0);
-        }
-      }
-    }
-
-  }
 
   .vp-button-change-avatar {
     display: flex;
@@ -83,25 +24,45 @@ $bg-color: #9c9c9c;
     align-items: center;
     z-index: 1;
     cursor: pointer;
-    background: $bg-color;
+    background: map-get($white, 2);
     border-radius: 50px;
     width: 32px;
     height: 32px;
-    box-shadow: 1px 1px 2px 1px rgba(0, 0, 0, 0.45);
+    border: 2px solid transparent;
+    outline: 2px solid transparent;
 
-    .change-avatar-icon {
-      width: 22px;
-      margin-right: 1px;
-      filter: brightness(0) invert(1);
-      display: none;
+    svg {
+      width: 20px;
+      height: 20px;
+      fill: #FFFFFF;
+    }
+
+    &:hover {
+      outline-color: rgba(map-get($white, 2), .3);
+    }
+
+    &.selected {
+      background-color: map-get($blue, 3);
+      outline-color: map-get($blue, 3);
+      border-color: #e0e0e0;
+
+      &:hover {
+        outline-color: rgba(map-get($blue, 3), .5);
+      }
     }
 
     .active {
       display: block;
     }
+
+
+    @media (max-width: 450px) {
+      width: 28px;
+      height: 28px;
+    }
   }
 
-  &.vp-disabled {
-    visibility: visible;
+  &.active {
+    display: flex;
   }
 }

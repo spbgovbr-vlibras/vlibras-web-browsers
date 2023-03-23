@@ -32,18 +32,21 @@ $height-set: 450px;
 
   [vp] {
     [vp-controls] {
-      left: 36% !important;
+      left: 35% !important;
       bottom: 20% !important;
       background: white;
+      width: 210px;
+      gap: 0;
+      padding: 0 10px;
     }
 
     .vpw-controls-slider {
-      width: 27% !important;
+      width: 40% !important;
     }
 
     .vpw-box .vpw-mes {
-      left: 36% !important;
-      font-size: 12px !important;
+      left: 35% !important;
+      font-size: 10px !important;
     }
 
     .vpw-settings-btn .vpw-settings-btn-close,
@@ -60,11 +63,13 @@ $height-set: 450px;
       margin-right: 110px;
       margin-bottom: 130px;
     }
+
     [vp-rate-button] .vp-button img {
       width: 32px;
       margin-bottom: -37px;
       margin-right: -14px;
     }
+
     .vpw-message-box {
       font-size: 0.7em;
 
@@ -80,15 +85,15 @@ $height-set: 450px;
       bottom: 125px;
     }
 
-    .vpw-settings .vpw-content > ul {
+    .vpw-settings .vpw-content>ul {
       margin-left: -20px;
     }
 
-    .vpw-settings .vpw-content > ul li .vpw-name {
+    .vpw-settings .vpw-content>ul li .vpw-name {
       font-size: 12px;
     }
 
-    .vpw-settings .vpw-content > ul .vpw-localism .vpw-flag {
+    .vpw-settings .vpw-content>ul .vpw-localism .vpw-flag {
       right: 88px;
       height: 24px;
     }
@@ -127,7 +132,7 @@ $height-set: 450px;
       bottom: 125px;
     }
 
-    .vpw-settings .vpw-content > ul .vpw-localism .vpw-abbrev {
+    .vpw-settings .vpw-content>ul .vpw-localism .vpw-abbrev {
       right: 65px;
     }
 
@@ -204,23 +209,20 @@ $height-set: 450px;
       height: 18px;
     }
 
-    .vpw-settings
-      .vpw-content
-      > .vpw-localism
-      .vpw-regions
-      > .vpw-container-regions {
+    .vpw-settings .vpw-content>.vpw-localism .vpw-regions>.vpw-container-regions {
       margin-top: -1%;
       margin-bottom: -2px;
     }
 
-    .vpw-settings .vpw-content > .vpw-localism {
+    .vpw-settings .vpw-content>.vpw-localism {
       width: 71%;
     }
-    .vpw-settings .vpw-content > .vpw-localism .vpw-regions {
+
+    .vpw-settings .vpw-content>.vpw-localism .vpw-regions {
       left: -3px !important;
     }
 
-    .vpw-settings .vpw-content > ul .vpw-opacity {
+    .vpw-settings .vpw-content>ul .vpw-opacity {
       margin-right: 56px;
     }
 
@@ -238,6 +240,7 @@ $height-set: 450px;
       width: 73%;
       left: 39%;
     }
+
     .vpw-dictionary .vpw-panel .vpw-search .vpw-icon img {
       right: 70px;
     }
@@ -245,13 +248,16 @@ $height-set: 450px;
     [vp-dictionary] {
       right: 18px !important;
     }
+
     .vpw-dictionary .vpw-dict-container ul li:not(.margin) {
       padding: 5px;
     }
+
     [vp-suggestion-button].vp-enabled {
       right: 40px;
       bottom: 150px !important;
     }
+
     [vp-suggestion-screen] {
       width: 72%;
       height: 318px;
@@ -259,21 +265,6 @@ $height-set: 450px;
 
       .vp-text {
         margin: 10px 0 0 0;
-      }
-    }
-
-    [vp-change-avatar] {
-      left: 9px;
-      top: 265px;
-      .vp-button-change-avatar {
-        width: 30px;
-        height: 30px;
-        .change-avatar-female {
-          width: 15px;
-        }
-        .change-avatar-male {
-          width: 15px;
-        }
       }
     }
   }
@@ -291,6 +282,10 @@ div[vw] {
   color: #000;
   line-height: 1.3;
   font-size: 16px;
+  border-radius: 10px;
+  -moz-border-radius: 10px;
+  -webkit-border-radius: 10px;
+  overflow: hidden;
 
   &.enabled {
     display: block;
@@ -313,17 +308,18 @@ div[vw] {
     left: 0;
     right: initial;
   }
+
   #gameContainer {
     position: absolute !important;
-    top: -25px;
     left: 0;
     right: 0;
+    top: 0;
     bottom: 0;
     margin: auto !important;
     min-height: calc(0.7 * #{$height-set});
     min-width: calc(0.9 * #{$width-set});
     width: 100%;
-    height: 80%;
+    height: calc(100% - 80px);
     overflow: hidden;
     -moz-border-radius: 10px;
     -webkit-border-radius: 10px;
@@ -359,9 +355,11 @@ div[vw] {
 
     [vp-info-screen] {
       z-index: 3;
+
       #info-text {
         font-size: 1em !important;
       }
+
       #info-realizadores {
         font-size: 11px !important;
       }
@@ -369,9 +367,6 @@ div[vw] {
 
     [vp-controls] {
       position: absolute;
-      display: flex;
-      align-items: center;
-      justify-content: center;
       left: 50%;
       transform: translateX(-50%);
       bottom: 0%;
@@ -379,8 +374,7 @@ div[vw] {
       z-index: 2;
     }
 
-    [vp-settings] {
-    }
+    [vp-settings] {}
 
     [vp-settings-btn] {
       z-index: 2;
@@ -393,10 +387,12 @@ div[vw] {
     [vp-rate-box] {
       bottom: 58px;
     }
+
     [vp-suggestion-button].vp-enabled,
     [vp-suggestion-button] {
       bottom: 58px;
     }
+
     [vp-suggestion-screen] {
       top: 41px;
     }
