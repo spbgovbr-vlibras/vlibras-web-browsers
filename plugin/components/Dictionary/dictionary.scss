@@ -1,3 +1,4 @@
+@import '~scss/colors';
 $margin_left: 40px;
 
 [vp] {
@@ -11,18 +12,18 @@ $margin_left: 40px;
         font-family: 'Open Sans', sans-serif;
 
         background-color: white;
-    
-        
+
+
         &.active {
             display: block;
         }
-    
+
         .vpw-panel {
             position: relative;
             height: 114px;
             background-color: white;
-    
-    
+
+
             .vpw-bar {
                 text-align: center;
                 padding-top: 20px;
@@ -31,15 +32,15 @@ $margin_left: 40px;
                     font-size: 1em;
                 }
             }
-    
+
             .vpw-search {
                 position: absolute;
                 width: 80%;
                 left: 50%;
                 transform: translateX(-50%);
                 margin-top: 20px;
-            
-    
+
+
                 input {
                     position: absolute;
                     width: 100%;
@@ -48,15 +49,15 @@ $margin_left: 40px;
                     padding: 10px 10px 10px 10px;
                     border-radius: 6px;
                     border: 1px solid #DDD;
-                    outline: none;   
-                    height: 48px;        
-    
+                    outline: none;
+                    height: 48px;
+
                     &:focus {
                         border: 1px solid #003f86;
                     }
                 }
 
-    
+
                 .vpw-icon {
                     display: flex;
                     position: absolute;
@@ -65,58 +66,58 @@ $margin_left: 40px;
                     width: 24px;
                     height: 24px;
 
-                    img {
-                        height: 24px;
-                        width: 24px;
+                    svg>* {
+                        fill: map-get($blue, 3);
                     }
                 }
             }
         }
-    
-        .vpw-dict-container{
+
+        .vpw-dict-container {
             position: absolute;
             width: 80%;
             height: 68%;
             left: 50%;
             transform: translateX(-50%);
+
             ul {
                 height: 100%;
                 margin: 0;
                 padding: 0;
                 text-align: left;
-        
+
                 overflow-y: scroll;
                 list-style-type: none;
-        
-        
+
+
                 &::-webkit-scrollbar {
                     width: 8px;
                 }
-        
+
                 &::-webkit-scrollbar-track {
                     background-color: #DDD;
                 }
-                    
+
                 &::-webkit-scrollbar-thumb {
                     background-color: #BCBCBC;
                 }
-        
+
                 li {
                     font-size: 14px;
                     cursor: pointer;
-        
-        
+
+
                     &:hover {
                         background-color: #EAEAEA;
-        
+
                         -webkit-transition: brackground-color 0.3s;
                         transition: brackground-color 0.4s;
                     }
-        
+
                     &.margin {
                         height: 114px;
                     }
-        
+
                     &:not(.margin) {
                         padding: 9px 10px 9px 10px;
                     }
@@ -128,6 +129,19 @@ $margin_left: 40px;
                 }
             }
         }
-         
+
+        .vpw-loading-dictionary {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+            height: 100%;
+            position: absolute;
+            top: 0;
+            left: 0;
+            background-color: red;
+            z-index: 10;
+        }
+
     }
 }
