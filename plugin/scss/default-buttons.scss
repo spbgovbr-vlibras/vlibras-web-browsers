@@ -61,10 +61,17 @@
     background-color: map-get($blue, 1);
     color: #FFFFFF;
 
-    &svg {
+    span {
+        display: grid;
+        place-items: center;
+    }
+
+    svg {
+        width: 100%;
+        height: 100%;
         position: absolute;
 
-        &>* {
+        * {
             fill: #FFFFFF;
         }
     }
@@ -84,7 +91,7 @@
     &:focus {
         background-color: map-get($blue, 2);
         outline-color: map-get($white, 1);
-        box-shadow: 0 0 12px 0 rgb(86, 154, 255, 75%);
+        box-shadow: 0 0 12px 0 rgba(86, 154, 255, 75%);
     }
 
     &:disabled {
