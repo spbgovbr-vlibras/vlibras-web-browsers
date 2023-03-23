@@ -4,6 +4,8 @@ const EventEmitter = require('events').EventEmitter;
 const dictionaryTpl = require('./dictionary.html').default;
 require('./dictionary.scss');
 
+const { dictionaryIcon } = require('../../assets/icons')
+
 const Trie = require('./trie.js');
 
 function Dictionary(player) {
@@ -19,6 +21,9 @@ Dictionary.prototype.load = function (element, closeScreen) {
   this.element.innerHTML = dictionaryTpl;
   this.element.classList.add('vpw-dictionary');
   this.closeScreen = closeScreen;
+
+  // Add icon
+  this.element.querySelector('.vpw-icon').innerHTML = dictionaryIcon;
 
   // Signs trie
   this.signs = null;
@@ -59,8 +64,7 @@ Dictionary.prototype.load = function (element, closeScreen) {
 
       this.signs.loadSigns('', this.list._insert.bind(this.list));
       document
-        .querySelector('.vpw-controls-dictionary.vpw-loading-dictionary')
-        .classList.remove('vpw-loading-dictionary');
+        .querySelector('.vpw-loading-dictionary').remove()
     } else console.error('Bad answer for signs, status: ' + xhr.status);
   }.bind(this);
   xhr.send();
