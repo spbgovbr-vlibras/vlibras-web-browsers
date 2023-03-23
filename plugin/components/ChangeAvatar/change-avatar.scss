@@ -54,6 +54,12 @@ $bg-color: #9c9c9c;
     .active {
       display: block;
     }
+
+
+    @media (max-width: 450px) {
+      width: 28px;
+      height: 28px;
+    }
   }
 
   &.active {

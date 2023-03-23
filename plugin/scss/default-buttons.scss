@@ -104,15 +104,15 @@
     span {
         display: grid;
         place-items: center;
+    }
 
-        svg {
-            width: 24px;
-            height: 24px;
-            position: absolute;
+    svg {
+        width: 100%;
+        height: 100%;
+        position: absolute;
 
-            * {
-                fill: map-get($blue, 4);
-            }
+        * {
+            fill: map-get($blue, 4);
         }
     }
 
