@@ -63,7 +63,7 @@ SettingsBtn.prototype.load = function(
   );
 
   closeBtn.addEventListener('click', function() {
-    hideAllScreens();
+    showScreen(null, null);
 
     window.dispatchEvent(
         new CustomEvent('vp-widget-close', {detail: {close: true}}),
@@ -92,19 +92,11 @@ SettingsBtn.prototype.load = function(
       sc.hide();
     });
 
-    screen.toggle();
+    if (screen) screen.toggle();
     selectButton(btn);
     this.player.pause();
   }.bind(this);
 
-  const hideAllScreens = function () {
-    selectButton(null);
-    [this.screen, this.dictionary, this.infoScreen]
-    .forEach(sc => {
-      if (sc === this.dictionary && !loadedDict) return;
-      sc.hide();
-    });
-  }.bind(this);
 };
 
 module.exports = SettingsBtn;
