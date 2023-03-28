@@ -100,6 +100,10 @@
         opacity: 0.3;
     }
 
+    &.selected {
+        background-color: map-get($blue, 2);
+    }
+
 }
 
 @mixin control-button {

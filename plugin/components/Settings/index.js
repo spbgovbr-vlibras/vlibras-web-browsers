@@ -127,23 +127,6 @@ Settings.prototype.load = function (element) {
     }.bind(this)
   );
 
-  this.element.querySelector('.vpw-content > ul .vpw-about').addEventListener(
-    'click',
-    function () {
-      this.hide(false);
-      this.infoScreen.show();
-    }.bind(this)
-  );
-
-  // About button
-  this.element.querySelector('.vpw-content > ul .vpw-about').addEventListener(
-    'click',
-    function () {
-      this.hide(false);
-      this.infoScreen.show();
-    }.bind(this)
-  );
-
   // National
   this.national = this.localism.querySelector('.vpw-national');
   this.national._data = nationalData;
