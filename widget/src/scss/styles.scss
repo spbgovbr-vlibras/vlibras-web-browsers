@@ -140,71 +140,6 @@ $height-set: 450px;
       font-size: 12px;
     }
 
-    .vpw-info-screen #vpw-info-tab-bullets {
-      right: 47px;
-      bottom: 80px;
-    }
-
-    .vpw-info-screen .vpw-arrow-right.active {
-      right: 100px;
-      position: absolute;
-      bottom: 100px;
-      z-index: 4;
-    }
-
-    .vpw-info-screen .vpw-arrow-left.active {
-      right: initial;
-      position: absolute;
-      bottom: 100px;
-      z-index: 4;
-    }
-
-    .vpw-info-screen #vpw-info-main.active {
-      font-size: 0.8em;
-      margin-right: 90px;
-      margin-bottom: 136px;
-    }
-
-    .vpw-info-screen #vpw-info-logo {
-      display: none;
-    }
-
-    .vpw-info-screen .vpw-info-tab .vpw-info-tab-label {
-      margin-top: -8px;
-      font-size: 14px;
-    }
-
-    .vpw-info-screen .vpw-info-tab .vpw-info-tab-label-two {
-      font-size: 14px;
-      margin-top: 6px;
-    }
-
-    .vpw-info-screen #vpw-info-realizadores .vpw-logo.ufpb {
-      max-width: 20%;
-    }
-
-    .vpw-info-screen #vpw-info-realizadores .vpw-logo-group.text {
-      display: block;
-    }
-
-    .vpw-info-screen #vpw-info-realizadores .vpw-logo-group.logo1 {
-      max-width: 70%;
-    }
-
-    .vpw-info-screen #vpw-info-realizadores .vpw-logo-group.logo2 {
-      max-width: 86%;
-    }
-
-    .vpw-info-screen #vpw-info-realizadores .vpw-logo-group {
-      max-width: 70%;
-    }
-
-    .vpw-info-screen #vpw-info-realizadores.active {
-      font-size: 0.8em;
-      margin-right: 90px;
-      margin-bottom: 113px;
-    }
-
     .vpw-settings .vpw-content .vpw-flag {
       height: 18px;
     }
@@ -353,17 +288,6 @@ div[vw] {
       z-index: 5;
     }
 
-    [vp-info-screen] {
-      z-index: 3;
-
-      #info-text {
-        font-size: 1em !important;
-      }
-
-      #info-realizadores {
-        font-size: 11px !important;
-      }
-    }
 
     [vp-controls] {
       position: absolute;
