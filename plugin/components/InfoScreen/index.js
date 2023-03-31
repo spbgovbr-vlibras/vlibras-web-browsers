@@ -1,4 +1,4 @@
-const { faceIcon, instaIcon, twitterIcon, webIcon, youtubeIcon, backIcon } = require('../../assets/icons')
+const { socialIcons, backIcon } = require('../../assets/icons')
 
 const inherits = require('inherits');
 const EventEmitter = require('events').EventEmitter;
@@ -22,13 +22,13 @@ InfoScreen.prototype.load = function (element) {
   const realizadores = this.element.querySelector('.vpw-text-realizadores');
   const backButton = this.element.querySelector('.vpw-back-button');
 
-  //ADD ICONS
+  // ADD ICONS
   const social = this.element.querySelector('.vpw-logo-networks').children;
-  social[0].innerHTML = webIcon;
-  social[1].innerHTML = faceIcon;
-  social[2].innerHTML = instaIcon;
-  social[3].innerHTML = twitterIcon;
-  social[4].innerHTML = youtubeIcon;
+  social[0].innerHTML = socialIcons.web;
+  social[1].innerHTML = socialIcons.face;
+  social[2].innerHTML = socialIcons.insta;
+  social[3].innerHTML = socialIcons.twitter;
+  social[4].innerHTML = socialIcons.youtube;
   this.element.querySelector('.vpw-back-button').innerHTML = backIcon;
 
   backButton.addEventListener(

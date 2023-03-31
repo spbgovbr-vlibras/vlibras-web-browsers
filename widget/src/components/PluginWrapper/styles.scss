@@ -84,6 +84,10 @@
     -webkit-box-shadow: 0px 0px 9px 0px rgba(0, 0, 0, 0.15);
     -moz-box-shadow: 0px 0px 9px 0px rgba(121, 76, 76, 0.15);
     box-shadow: 0px 0px 9px 0px rgba(0, 0, 0, 0.15);
+    border-radius: 10px;
+    -moz-border-radius: 10px;
+    -webkit-border-radius: 10px;
+    overflow: hidden !important;
 
     &.active {
       display: -webkit-flex;
