@@ -7,7 +7,7 @@
     height: 100%;
     width: 100%;
     display: flex;
-    padding: 0 10px;
+    padding: 0 16px;
     align-items: center;
     flex-direction: row;
     justify-content: space-between;
@@ -34,6 +34,7 @@
 
     @media (max-width: 450px) {
       width: 210px;
+      padding: 0 10px;
 
       div {
         gap: 4px;
