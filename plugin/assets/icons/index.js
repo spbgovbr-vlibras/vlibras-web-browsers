@@ -9,29 +9,25 @@ const aboutIcon = require('./header/about.svg');
 const closeIcon = require('./header/close.svg');
 const dictionaryIcon = require('./header/dictionary.svg');
 const settingsIcon = require('./header/settings.svg');
-const faceIcon = require('./facebook.svg');
-const webIcon = require('./web.svg');
-const twitterIcon = require('./twitter.svg');
-const instaIcon = require('./instagram.svg');
-const youtubeIcon = require('./youtube.svg');
 const backIcon = require('./back.svg');
 
+const socialIcons = {
+  face: require('./facebook.svg'),
+  web: require('./web.svg'),
+  twitter: require('./twitter.svg'),
+  insta: require('./instagram.svg'),
+  youtube: require('./youtube.svg'),
+}
+
+const positionIcons = [
+  require('./positions/top-left.svg'),  require('./positions/top.svg'),
+  require('./positions/top-right.svg'), require('./positions/left.svg'),
+  null, require('./positions/right.svg'), require('./positions/bottom-left.svg'),
+  require('./positions/bottom.svg'), require('./positions/bottom-right.svg')
+]
+
 module.exports = {
-    playIcon,
-    pauseIcon,
-    restartIcon,
-    subtitleIcon,
-    IcaroIcon,
-    hozanaIcon,
-    gugaIcon,
-    aboutIcon,
-    closeIcon,
-    dictionaryIcon,
-    settingsIcon,
-    faceIcon,
-    webIcon,
-    twitterIcon,
-    instaIcon,
-    youtubeIcon,
-    backIcon
+    playIcon, pauseIcon, restartIcon, subtitleIcon, IcaroIcon,
+    hozanaIcon, gugaIcon, aboutIcon, closeIcon, dictionaryIcon,
+    settingsIcon, backIcon, socialIcons, positionIcons
 };

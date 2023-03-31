@@ -52,8 +52,6 @@ function Plugin(options) {
   this.info = new InfoScreen(this.Box);
   this.settings = new Settings(
     this.player,
-    this.info,
-    this.Box,
     options,
     this.opacity
   );
