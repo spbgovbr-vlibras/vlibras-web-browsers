@@ -37,6 +37,7 @@ Settings.prototype.load = function (element) {
   // Access regionalism button
   const regionalismBtn = this.element.querySelector('.vpw-selected-region');
   regionalismBtn.onclick = accessRegionalism.bind(this);
+  setRegion.bind(this)({ path: 'BR', flag: 'assets/brazil.png', });
 
   // Opacity option
   const opacityInput = this.element.querySelector('.vpw-opacity-range input');
@@ -75,12 +76,8 @@ Settings.prototype.load = function (element) {
       activeRegion.classList.remove('selected');
       activeRegion = element;
 
-      // Set region in button
-      regionalismBtn.querySelector('img').src = region.flag;
-      regionalismBtn.querySelector('span').innerHTML = region.path;
-
-      // Send to player
-      this.player.setRegion(region.path);
+      // Set region button/player
+      setRegion.bind(this)(region);
 
       handleReturn.bind(this)();
     }
@@ -128,6 +125,14 @@ Settings.prototype.load = function (element) {
     );
   }
 
+  function setRegion(region) {
+    regionalismBtn.querySelector('span').innerHTML = region.path;
+      regionalismBtn.querySelector('img').src = window.plugin.rootPath
+      ? window.plugin.rootPath + '/' + region.flag : region.flag;
+
+      this.player.setRegion(region.path);
+  }
+
   function accessRegionalism() {
     this.localism.classList.add('active');
     toggleHeader();
@@ -154,18 +159,6 @@ Settings.prototype.load = function (element) {
     ? 'Regionalismo' 
     : 'Configurações';
   }
-
-};
-
-Settings.prototype.setRegion = function (region) {
-
-  // Updates selected region
-  // if (window.plugin.rootPath) {
-  //   this.selectedRegion._flag.src =
-  //     window.plugin.rootPath + '/' + this.region._data.flag;
-  // } else {
-  //   this.selectedRegion._flag.src = this.region._data.flag;
-  // }
 
 };
 
@@ -207,10 +200,3 @@ const widgetPositions = [
     'L', null, 'R',
     'BL', 'B', 'BR'
 ]
-
-// Sends to player
-  // this.player.setRegion(this.region._data.path);
-  // window.dispatchEvent(
-  //   new CustomEvent('vp-widget-wrapper-set-side', {
-  //     detail: { right: true },
-  //   })
