@@ -1,3 +1,10 @@
+@import url('https://fonts.cdnfonts.com/css/rawline');
+
+[vp] {
+  font-size: 16px;
+  font-family: 'Rawline', 'Open Sans', sans-serif !important;
+}
+
 [vp] [vp-blue-button] {
   padding: 7px;
   border-radius: 6px;
@@ -10,6 +17,7 @@
   margin: 10px 5px;
   align-self: center;
 }
+
 [vp] [vp-visualize-signal-button] {
   padding: 7px;
   border-radius: 6px;
