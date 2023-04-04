@@ -4,7 +4,7 @@
 [vp] {
     .vpw-regions-container {
         overflow-y: scroll;
-        height: calc(100% - 38px);
+        height: calc(100% - 48px);
         display: none;
         align-items: center;
         flex-direction: column;
@@ -99,6 +99,7 @@
         .vpw-regions-container {
             padding-top: 28px !important;
             top: 36px;
+            height: calc(100% - 36px);
         }
 
         .vpw-region {
