@@ -1,68 +1,77 @@
-$control-height: 68px;
+@import '~scss/default-buttons.scss';
+@import '~scss/colors.scss';
+
+$controls_height: 48px;
 
 [vp] [vp-rate-box] {
-  display: flex;
-  flex-direction: row;
-  justify-content: flex-end;
   position: absolute;
   width: 100%;
-  bottom: $control-height;
+  height: 0;
+  bottom: 0;
+  padding-bottom: 0;
+  z-index: 3;
+  visibility: hidden;
+  transition: height .5s;
+  background-color: map-get($white, 1);
+  border-radius: 10px 10px 0 0;
   overflow: hidden;
-  z-index: 2;
 
-  .vp-container {
-    display: flex;
-    flex-direction: column;
+  .vp-rate-box-header {
     width: 100%;
-    padding-top: 10px;
-    padding-bottom: 10px;
-    background-color: rgba(255, 255, 255, 0.96);
+    height: 48px;
+    border-bottom: 1px solid map-get($white, 4);
+    display: flex;
+    padding: 16px;
+    align-items: center;
+    justify-content: space-between;
 
-    max-height: 0;
-    transform: translateY(69px);
-    transition: max-height 0s, transform 0.4s linear 0.05s;
-
-    .vp-text {
-      text-align: center;
+    span {
       font-size: 14px;
-      font-weight: bold;
-      color: #003f86;
+      font-weight: 600;
     }
 
-    .vp-buttons {
-      display: flex;
-      flex-direction: row;
-      justify-content: center;
-      margin-top: 10px;
+    button {
+      @include control-button;
 
-      .vp-button {
-        display: flex;
-        flex-direction: row;
-        align-items: center;
-        font-size: 13px;
-        font-weight: bold;
-        color: #545454;
-        cursor: pointer;
-        
-        &:not(:last-child) {
-          margin-right: 22px;
-        }
-        
-        img {
-          height: 22px;
-          margin-right: 6px;
+      svg>* {
+        fill: map-get($blue, 4);
+      }
+
+      transition: transform .3s;
+
+      &.vp-expanded {
+        svg {
+          transform: rotate(180deg);
         }
       }
     }
+
+  }
+
+  .vp-rate-box-content {
+    width: 100%;
+    height: 0;
+    display: none;
   }
 
   &.vp-enabled {
-    z-index: 4;
+    visibility: visible;
+    height: 96px;
+  }
 
-    .vp-container {
-      max-height: 100%;
-      transform: translateY(0);
-      transition: transform 0.4s, max-height 0s linear 0.4s;
+  &.vp-expanded {
+    height: 80% !important;
+  }
+
+  @media (max-width: 450px) {
+    &.vp-enabled {
+      visibility: visible;
+      height: 86px;
+    }
+
+    .vp-rate-box-header {
+      height: 38px;
     }
   }
+
 }

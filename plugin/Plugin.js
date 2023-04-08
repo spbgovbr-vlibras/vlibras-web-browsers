@@ -168,7 +168,7 @@ function Plugin(options) {
 
     if (this.player.translated && control == 0) {
       this.suggestionScreen.setGloss(this.player.gloss);
-      this.rateButton.show();
+      this.rateBox.show();
     }
 
     control = 0;
