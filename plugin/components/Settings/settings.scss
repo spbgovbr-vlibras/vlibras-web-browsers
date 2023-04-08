@@ -4,7 +4,8 @@
 
 [vp] {
   .vpw-settings {
-    position: relative;
+    position: absolute;
+    top: 40px;
     width: 100%;
     height: calc(100% - 40px);
     z-index: 10;

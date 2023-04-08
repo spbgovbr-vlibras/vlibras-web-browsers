@@ -3,7 +3,8 @@
 
 [vp] {
   .vpw-info-screen {
-    position: relative;
+    position: absolute;
+    top: 40px;
     padding: 1em;
     width: 100%;
     height: calc(100% - 40px);
