@@ -65,22 +65,6 @@ module.exports = function Widget(rootPath, personalization, opacity) {
 
       else access.querySelector('.pop-up')
       .classList.add('left')
-
-      // if (event.detail.right) {
-      //   this.element.style.left = '0';
-      //   this.element.style.right = 'initial';
-      //   access.querySelector('.access-button').classList.add('left');
-      //   access.querySelector('.pop-up').classList.add('left');
-      //   document.querySelector('[vw-access-button]').style.margin =
-      //     '0px -100px 0px 0px';
-      // } else {
-      //   this.element.style.right = '0';
-      //   this.element.style.left = 'initial';
-      //   access.querySelector('.access-button').classList.remove('left');
-      //   access.querySelector('.pop-up').classList.remove('left');
-      //   document.querySelector('[vw-access-button]').style.margin =
-      //     '0px 0px 0px -100px';
-      // }
     });
 
     window.addEventListener('vp-widget-close', (event) => {
