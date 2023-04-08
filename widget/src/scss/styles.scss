@@ -21,24 +21,7 @@ $height-set: 450px;
     }
   }
 
-  #gameContainer {
-    display: flex !important;
-    justify-content: center !important;
-    top: -75px !important;
-    left: -90px !important;
-    width: 100% !important;
-    height: 70% !important;
-  }
-
   [vp] {
-    [vp-controls] {
-      left: 35% !important;
-      bottom: 20% !important;
-      background: white;
-      width: 210px;
-      gap: 0;
-      padding: 0 10px;
-    }
 
     .vpw-controls-slider {
       width: 40% !important;
@@ -63,16 +46,6 @@ $height-set: 450px;
       width: 32px;
       margin-bottom: -37px;
       margin-right: -14px;
-    }
-
-    .vpw-message-box {
-      font-size: 0.7em;
-
-      .vpw-message {
-        margin-left: 10px;
-        margin-right: 93px;
-        margin-bottom: 3px;
-      }
     }
 
     .vpw-settings .vpw-content .vpw-vlibras-logo {
@@ -131,10 +104,6 @@ $height-set: 450px;
       right: 65px;
     }
 
-    .vpw-controls-dictionary:not(.vpw-loading-dictionary):before {
-      font-size: 12px;
-    }
-
     .vpw-settings .vpw-content .vpw-flag {
       height: 18px;
     }
@@ -156,31 +125,8 @@ $height-set: 450px;
       margin-right: 56px;
     }
 
-    .vpw-dictionary .vpw-dict-container {
-      width: 64%;
-      height: 44%;
-      left: 44%;
-    }
-
     .vpw-bar .vpw-title {
       margin-right: 40px;
-    }
-
-    .vpw-dictionary .vpw-panel .vpw-search input {
-      width: 73%;
-      left: 39%;
-    }
-
-    .vpw-dictionary .vpw-panel .vpw-search .vpw-icon img {
-      right: 70px;
-    }
-
-    [vp-dictionary] {
-      right: 18px !important;
-    }
-
-    .vpw-dictionary .vpw-dict-container ul li:not(.margin) {
-      padding: 5px;
     }
 
     [vp-suggestion-button].vp-enabled {
@@ -243,8 +189,6 @@ div[vw] {
     top: 0;
     bottom: 0;
     margin: auto !important;
-    min-height: calc(0.7 * #{$height-set});
-    min-width: calc(0.9 * #{$width-set});
     width: 100%;
     height: calc(100% - 80px);
     overflow: hidden;
@@ -266,53 +210,6 @@ div[vw] {
     }
   }
 
-  [vp] {
-    position: relative;
-    height: 100%;
-    width: 100%;
-    min-width: 300px;
-    min-height: 450px;
-    z-index: 1;
-    overflow: hidden;
-
-    [vp-message-box] {
-      position: absolute;
-      z-index: 5;
-    }
-
-
-    [vp-controls] {
-      position: absolute;
-      left: 50%;
-      transform: translateX(-50%);
-      bottom: 0%;
-      max-width: 900px;
-      z-index: 2;
-    }
-
-    [vp-settings] {}
-
-    [vp-settings-btn] {
-      z-index: 2;
-    }
-
-    [vp-dictionary] {
-      z-index: 8;
-    }
-
-    [vp-rate-box] {
-      bottom: 58px;
-    }
-
-    [vp-suggestion-button].vp-enabled,
-    [vp-suggestion-button] {
-      bottom: 58px;
-    }
-
-    [vp-suggestion-screen] {
-      top: 41px;
-    }
-  }
 }
 
 .vw-text:hover {

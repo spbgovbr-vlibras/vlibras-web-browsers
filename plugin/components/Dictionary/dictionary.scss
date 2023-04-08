@@ -4,12 +4,12 @@ $margin_left: 40px;
 [vp] {
     .vpw-dictionary {
         display: none;
-        position: relative;
+        position: absolute;
+        top: 40px;
         width: 100%;
         height: calc(100% - 40px);
-        min-width: 300px;
-        min-height: 300px;
         background-color: white;
+        z-index: 5;
 
         &.active {
             display: block;
