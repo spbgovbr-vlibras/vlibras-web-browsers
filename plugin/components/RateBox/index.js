@@ -1,6 +1,8 @@
 const template = require('./rate-box.html').default;
 require('./rate-box.scss');
 
+const { arrowIcon } = require('../../assets/icons/');
+
 function RateBox(suggestionButton, messageBox) {
   this.element = null;
   this.suggestionButton = suggestionButton;
@@ -11,17 +13,20 @@ RateBox.prototype.load = function(element) {
   this.element = element;
   this.element.innerHTML = template;
 
-  const thumbUp = this.element.querySelector('.vp-thumb-up');
-  const thumbDown = this.element.querySelector('.vp-thumb-down');
+  const collapseBtn = this.element.querySelector('.vp-rate-box-header button');
 
-  thumbUp.addEventListener('click', () => {
-    window.plugin.sendReview('good');
-  });
+  // Add icon
+  collapseBtn.innerHTML = arrowIcon;
 
-  thumbDown.addEventListener('click', () => {
-    this.hide();
-    this.suggestionButton.show('bad');
-  });
+  collapseBtn.onclick = () => {
+    collapseBtn.classList.toggle('vp-expanded');
+    this.element.classList.toggle('vp-expanded');
+  }
+
+  // thumbDown.addEventListener('click', () => {
+  //   this.hide();
+  //   this.suggestionButton.show('bad');
+  // });
 };
 
 RateBox.prototype.show = function() {
@@ -30,6 +35,7 @@ RateBox.prototype.show = function() {
 
 RateBox.prototype.hide = function() {
   this.element.classList.remove('vp-enabled');
+  this.element.classList.remove('vp-expanded');
 };
 
 module.exports = RateBox;
