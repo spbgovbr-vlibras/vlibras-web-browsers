@@ -1,6 +1,8 @@
 const template = require('./suggestion-screen.html').default;
 require('./suggestion-screen.scss');
 
+const { arrowIcon } = require('../../assets/icons/');
+
 const TrieSearch = require('trie-search');
 const getCaretCoordinates = require('textarea-caret');
 
@@ -96,24 +98,31 @@ const replaceByStartAndEnd = (string, replacement, start, end) => {
 SuggestionScreen.prototype.load = function (element) {
   this.element = element;
   this.element.innerHTML = template;
+  this.rateBox = document.querySelector('div[vp-rate-box]');
+  this.gloss = null;
 
   this.rate = null;
   this.textElement = this.element.querySelector('.vp-text');
 
-  const send = this.element.querySelector('.vp-send-button');
-  const visualize = this.element.querySelector('.vp-visualize-signal-button');
-  const close = this.element.querySelector('.vp-close-button');
+  this.send = this.element.querySelector('.vp-send-button');
+  this.visualize = this.element.querySelector('.vp-visualize-signal-button');
+
+  const close = this.element.querySelector('.vp-suggestion-screen-header button');
   const dropdownSuggest = this.element.querySelector('.vp-dropdown-suggest');
   let actualBegin = 0;
   let actualEnd = 0;
 
-  send.addEventListener('click', () => {
+  // Add icons
+  close.innerHTML = arrowIcon;
+
+  this.send.addEventListener('click', () => {
     window.plugin.sendReview(this.rate, this.textElement.value);
   });
 
-  close.addEventListener('click', () => {
+  close.addEventListener('click', function () {
+    this.rateBox.classList.remove('vp-expanded');
     this.hide();
-  });
+  }.bind(this));
 
   const setOption = (name) => {
     this.textElement.value = replaceByStartAndEnd(
@@ -126,12 +135,15 @@ SuggestionScreen.prototype.load = function (element) {
     dropdownSuggest.classList.remove('vp-enabled');
   };
 
-  visualize.addEventListener('click', () => {
+  this.visualize.addEventListener('click', () => {
     let openAfterEnd = true;
     this.hide();
     this.player.play(this.textElement.value);
     this.player.on('gloss:end', () => {
-      if (openAfterEnd) this.show();
+      if (openAfterEnd) {
+        this.show();
+        this.rateBox.classList.add('vp-enabled');
+      }
       openAfterEnd = false;
     });
   });
@@ -167,8 +179,16 @@ SuggestionScreen.prototype.load = function (element) {
     actualEnd = newEnd;
   };
 
-  this.textElement.addEventListener('input', () => {
+  this.textElement.addEventListener('input', function () {
     const { end } = getInputSelection(this.textElement);
+
+    if (!this.textElement.value.trim()) {
+      this.visualize.setAttribute('disabled', true);
+      this.send.setAttribute('disabled', true);
+    } else {
+      this.visualize.removeAttribute('disabled');
+      this.send.removeAttribute('disabled');
+    }
 
     const { wordToSuggest, begin, newEnd } = getWordBySelectionIndex(
       this.textElement.value,
@@ -190,7 +210,7 @@ SuggestionScreen.prototype.load = function (element) {
     } else {
       dropdownSuggest.classList.remove('vp-enabled');
     }
-  });
+  }.bind(this));
 
   const xhr = new XMLHttpRequest();
   xhr.open('get', 'https://repositorio.vlibras.gov.br/api/signs', true);
@@ -206,13 +226,18 @@ SuggestionScreen.prototype.load = function (element) {
 };
 
 SuggestionScreen.prototype.setGloss = function (gloss) {
-  this.textElement.value = gloss;
+  this.textElement.value = this.gloss || gloss;
+  this.gloss = this.gloss || gloss;
+  this.send.removeAttribute('disabled');
+  this.visualize.removeAttribute('disabled');
 };
 
 SuggestionScreen.prototype.show = function (rate) {
   this.element.querySelector('.vp-text').style.display = 'block';
   this.rate = rate;
   this.element.classList.add('vp-enabled');
+  this.element.classList.add('vp-expanded');
+  this.element.querySelector('.vp-dropdown-suggest').classList.remove('vp-enabled');
 };
 
 SuggestionScreen.prototype.hide = function () {
