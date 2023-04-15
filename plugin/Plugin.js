@@ -12,7 +12,6 @@ const SettingsCloseBtn = require('components/SettingsCloseBtn');
 const CloseScreen = require('components/CloseScreen');
 const RateButton = require('components/RateButton');
 const RateBox = require('components/RateBox');
-const SuggestionButton = require('components/SuggestionButton');
 const SuggestionScreen = require('components/SuggestionScreen');
 const ChangeAvatar = require('components/ChangeAvatar');
 
@@ -72,8 +71,7 @@ function Plugin(options) {
   );
   this.messageBox = new MessageBox();
   this.suggestionScreen = new SuggestionScreen(this.player);
-  this.suggestionButton = new SuggestionButton(this.suggestionScreen);
-  this.rateBox = new RateBox(this.suggestionButton, this.messageBox);
+  this.rateBox = new RateBox(this.messageBox, this.suggestionScreen);
   this.rateButton = new RateButton(this.rateBox);
   this.ChangeAvatar = new ChangeAvatar(this.player);
 
@@ -82,9 +80,6 @@ function Plugin(options) {
   this.messageBox.load(this.element.querySelector('[vp-message-box]'));
   this.rateButton.load(this.element.querySelector('[vp-rate-button]'));
   this.rateBox.load(this.element.querySelector('[vp-rate-box]'));
-  this.suggestionButton.load(
-    this.element.querySelector('[vp-suggestion-button]')
-  );
   this.suggestionScreen.load(
     this.element.querySelector('[vp-suggestion-screen]')
   );
@@ -135,7 +130,6 @@ function Plugin(options) {
     this.player.stop();
     this.rateButton.hide();
     this.rateBox.hide();
-    this.suggestionButton.hide();
     this.suggestionScreen.hide();
   });
 
@@ -157,7 +151,6 @@ function Plugin(options) {
     this.ChangeAvatar.hide();
     this.rateButton.hide();
     this.rateBox.hide();
-    this.suggestionButton.hide();
     this.suggestionScreen.hide();
   });
 
