@@ -7,6 +7,7 @@
     width: auto;
     cursor: pointer;
     overflow: visible;
+    outline: none;
 
     background: transparent;
 
@@ -166,4 +167,98 @@
 
     }
 
+}
+
+@mixin rate-button {
+    @include reset;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    flex-direction: column;
+    padding: 40px 12px 12px 12px;
+    border-radius: 4px;
+    color: map-get($white, 2);
+    position: relative;
+    font-size: 12px;
+    font-weight: 500;
+    background-color: map-get($white, 1);
+    outline: 2px solid transparent;
+    outline-offset: -2px;
+
+    svg {
+        width: 24px;
+        position: absolute;
+        top: 12px;
+
+        * {
+            fill: map-get($white, 2);
+        }
+    }
+
+    &:hover {
+        background-color: map-get($white, 5);
+    }
+
+    &:active {
+        outline-color: map-get($blue, 3);
+        box-shadow: 0px 0px 15px rgba(86, 154, 255, 0.75);
+    }
+}
+
+@mixin suggestion-btn--default {
+    @include reset;
+
+    height: 36px;
+    display: grid;
+    border-radius: 40px;
+    place-content: center;
+    border: 1px solid map-get($blue, 1);
+
+    font-size: 14px;
+    font-weight: 600;
+
+    @media (max-width: 450px) {
+        height: 28px;
+        font-size: 12px;
+    }
+}
+
+@mixin suggestion-btn--primary {
+    @include suggestion-btn--default;
+    background-color: map-get($blue, 1);
+    color: map-get($white, 1);
+
+    &:hover {
+        background-color: map-get($blue, 3);
+        border-color: map-get($blue, 3);
+    }
+
+    &:disabled {
+        background-color: map-get($white, 5);
+        border-color: map-get($white, 4);
+        cursor: not-allowed;
+        user-select: none;
+        color: map-get($white, 2);
+    }
+}
+
+@mixin suggestion-btn--secundary {
+    @include suggestion-btn--default;
+    background-color: map-get($white, 1);
+    color: map-get($blue, 1);
+
+    &:hover {
+        border-color: map-get($white, 2);
+        background-color: map-get($white, 5);
+        color: map-get($blue, 4);
+    }
+
+    &:disabled {
+        background-color: map-get($white, 5);
+        border-color: map-get($white, 4);
+        cursor: not-allowed;
+        user-select: none;
+        color: map-get($white, 2);
+    }
 }
