@@ -37,8 +37,30 @@ $bg-color: #9c9c9c;
       fill: #FFFFFF;
     }
 
+    &::after {
+      content: attr(avatar-name);
+      display: none;
+      place-content: center;
+      height: 32px;
+      right: -10px;
+      background-color: map-get($black, 1);
+      border: 20px;
+      padding: 0 16px;
+      position: absolute;
+      border-radius: 40px;
+      transform: translateX(100%);
+
+      color: map-get($white, 1);
+      font-size: 14px;
+      font-weight: 500;
+    }
+
     &:hover {
       outline-color: rgba(map-get($white, 2), .3);
+
+      &::after {
+        display: grid;
+      }
     }
 
     &.selected {
