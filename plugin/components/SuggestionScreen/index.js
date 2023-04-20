@@ -227,7 +227,7 @@ SuggestionScreen.prototype.load = function (element) {
 
 SuggestionScreen.prototype.setGloss = function (gloss) {
   this.textElement.value = this.gloss || gloss;
-  this.gloss = this.gloss || gloss;
+  this.gloss = gloss;
   this.send.removeAttribute('disabled');
   this.visualize.removeAttribute('disabled');
 };

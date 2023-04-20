@@ -47,21 +47,27 @@ Dictionary.prototype.load = function (element, closeScreen) {
   }.bind(this);
 
   buttons[0].onclick = () => {
-    buttons[0].classList.add('vp-selected')
-    buttons[1].classList.remove('vp-selected')
-
-    recentWords.classList.remove('enabled');
-    dictWords.classList.add('enabled');
+    handleShowWords('dict');
   }
 
   buttons[1].onclick = () => {
-    buttons[1].classList.add('vp-selected')
-    buttons[0].classList.remove('vp-selected')
-
+    handleShowWords('recents');
     this.loadRecentWords();
+  }
 
-    recentWords.classList.add('enabled');
-    dictWords.classList.remove('enabled');
+  function handleShowWords(words) {
+    if (words === 'dict') {
+      buttons[0].classList.add('vp-selected');
+      buttons[1].classList.remove('vp-selected');
+      recentWords.classList.remove('enabled');
+      dictWords.classList.add('enabled');
+    } 
+    else if (words === 'recents') {
+      buttons[1].classList.add('vp-selected');
+      buttons[0].classList.remove('vp-selected');
+      recentWords.classList.add('enabled');
+      dictWords.classList.remove('enabled');
+    } else return;
   }
 
   // Add icon
@@ -139,34 +145,29 @@ Dictionary.prototype.load = function (element, closeScreen) {
       if (this.list.childNodes.length === 0) {
         this.list.innerHTML = '<span>Nenhum sinal encontrado :(</span>';
       }
-
-      recentWords.classList.remove('enabled');
-      dictWords.classList.add('enabled');
+      
+      handleShowWords('dict');
 
     }.bind(this)
   );
 };
 
 Dictionary.prototype._onItemClick = function (event, word) {
-  console.log(event, word);
   this.closeScreen.closeAll();
   this.player.play(event);
 
-  if (
-    this.element.querySelectorAll('.buttons-container button')[1]
+  if (this.element.querySelectorAll('.buttons-container button')[1]
       .classList.contains('vp-selected')
-  ) {
-    return;
-  }
+  ) return;
 
   let value = localStorage.getItem("@vp-dict-history");
-  if (value) value = JSON.parse(value);
-  else value = [event];
+  if (value) {
+    value = JSON.parse(value);
+    value.push(event)
+  } else value = [event];
 
-  value.push(event);
   localStorage.setItem("@vp-dict-history", JSON.stringify(value));
   this.loadRecentWords();
-
 };
 
 Dictionary.prototype.toggle = function () {
