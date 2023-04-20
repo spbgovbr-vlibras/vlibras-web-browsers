@@ -23,15 +23,16 @@ const socialIcons = {
 }
 
 const positionIcons = [
-  require('./positions/top-left.svg'),  require('./positions/top.svg'),
+  require('./positions/top-left.svg'), require('./positions/top.svg'),
   require('./positions/top-right.svg'), require('./positions/left.svg'),
   null, require('./positions/right.svg'), require('./positions/bottom-left.svg'),
   require('./positions/bottom.svg'), require('./positions/bottom-right.svg')
 ]
 
 module.exports = {
-    playIcon, pauseIcon, restartIcon, subtitleIcon, IcaroIcon,
-    hozanaIcon, gugaIcon, aboutIcon, closeIcon, dictionaryIcon,
-    settingsIcon, backIcon, socialIcons, positionIcons,
-    arrowIcon, likeLineIcon, likeSolidIcon
-};
+  playIcon, pauseIcon, restartIcon, subtitleIcon, IcaroIcon,
+  hozanaIcon, gugaIcon, aboutIcon, closeIcon, dictionaryIcon,
+  settingsIcon, backIcon, socialIcons, positionIcons,
+  arrowIcon, likeLineIcon, likeSolidIcon
+}
+
