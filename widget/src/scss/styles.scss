@@ -84,49 +84,12 @@ $height-set: 450px;
       bottom: 4px;
     }
 
-    .vpw-settings .vpw-content .vpw-vlibras-logo .vpw-logo {
-      width: 51%;
-      margin-left: 32px;
-    }
-
-    .vpw-settings .vpw-content .vpw-vlibras-logo .vpw-vlibras-span {
-      left: 44%;
-      bottom: 5%;
-    }
-
-    .vpw-settings .vpw-content .vpw-vlibras-logo {
-      left: 39%;
-      transform: translateX(-50%);
-      bottom: 125px;
-    }
-
-    .vpw-settings .vpw-content>ul .vpw-localism .vpw-abbrev {
-      right: 65px;
-    }
-
-    .vpw-settings .vpw-content .vpw-flag {
-      height: 18px;
-    }
-
-    .vpw-settings .vpw-content>.vpw-localism .vpw-regions>.vpw-container-regions {
-      margin-top: -1%;
-      margin-bottom: -2px;
-    }
-
-    .vpw-settings .vpw-content>.vpw-localism {
-      width: 71%;
-    }
-
-    .vpw-settings .vpw-content>.vpw-localism .vpw-regions {
-      left: -3px !important;
-    }
-
-    .vpw-settings .vpw-content>ul .vpw-opacity {
-      margin-right: 56px;
-    }
-
     .vpw-bar .vpw-title {
       margin-right: 40px;
+    }
+
+    .vpw-dictionary .vpw-dict-container ul li:not(.margin) {
+      padding: 5px;
     }
   }
 }
