@@ -47,15 +47,15 @@ Dictionary.prototype.load = function (element, closeScreen) {
   }.bind(this);
 
   buttons[0].onclick = () => {
-    handleShowWords('dict');
+    toggleWords('dict');
   }
 
   buttons[1].onclick = () => {
-    handleShowWords('recents');
+    toggleWords('recents');
     this.loadRecentWords();
   }
 
-  function handleShowWords(words) {
+  function toggleWords(words) {
     if (words === 'dict') {
       buttons[0].classList.add('vp-selected');
       buttons[1].classList.remove('vp-selected');
@@ -106,25 +106,31 @@ Dictionary.prototype.load = function (element, closeScreen) {
   }.bind(this);
 
   // Request and load list
-  const xhr = new XMLHttpRequest();
-  xhr.open(
+  function getSigns() {
+    const xhr = new XMLHttpRequest();
+    xhr.open(
     'get',
     'https://dicionario2.vlibras.gov.br/signs?version=2018.3.1',
     true
-  );
-  xhr.responseType = 'text';
-  xhr.onload = function () {
-    if (xhr.status == 200) {
-      const json = JSON.parse(xhr.response);
+    );
+    xhr.responseType = 'text';
+    xhr.onload = function () {
+      if (xhr.status == 200) {
+        const json = JSON.parse(xhr.response);
 
-      this.signs = new Trie(json);
+        this.signs = new Trie(json);
 
-      this.signs.loadSigns('', this.list._insert.bind(this.list));
-      document
-        .querySelector('.vpw-loading-dictionary').remove()
-    } else console.error('Bad answer for signs, status: ' + xhr.status);
-  }.bind(this);
-  xhr.send();
+        this.signs.loadSigns('', this.list._insert.bind(this.list));
+        document.querySelector('.vpw-loading-dictionary').remove();
+      } else {
+        console.error('Bad answer for signs, status: ' + xhr.status);
+        getSigns.bind(this)();
+      }
+    }.bind(this);
+    xhr.send();
+  }
+
+  getSigns.bind(this)();
 
   this.defaultItem = this.list.querySelector('li');
 
@@ -146,7 +152,7 @@ Dictionary.prototype.load = function (element, closeScreen) {
         this.list.innerHTML = '<span>Nenhum sinal encontrado :(</span>';
       }
       
-      handleShowWords('dict');
+      toggleWords('dict');
 
     }.bind(this)
   );
