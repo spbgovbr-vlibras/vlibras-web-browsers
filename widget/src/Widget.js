@@ -91,33 +91,26 @@ module.exports = function Widget(rootPath, personalization, opacity) {
   };
 };
 
-
 new MutationObserver((mutations) => {
   if (!document.querySelector('vlibraswidget')) return;
+  const vw = document.querySelector('[vw]');
 
-  try {
-    const accessButton = document.querySelector('div[vw-access-button]');
-    const closeButton = document.querySelector('.vpw-settings-btn-close');
-    let run = true;
+  mutations.forEach(mut => {
+    if (mut.addedNodes.length === 0) return;
 
-    mutations.forEach(mut => {
-      if (mut.addedNodes.length === 0) return;
-      mut.addedNodes.forEach(node => {
-        if (node.tagName === 'SCRIPT' ||
-          node.tagName === 'VLIBRASWIDGET') {
-          run = false;
-          return;
-        }
+    document.body.querySelectorAll(
+      'span, h1, h2, h3, h4, h5, h6, label, p, button, div'
+    ).forEach(el => {
+      if(vw.contains(el) || el.tagName === 'VLIBRASWIDGET') return;
 
-        node.classList.forEach(_class => {
-          if (_class === 'vw-links') run = false;
-        })
-      })
-    })
+      if (el.firstChild && el.firstChild.nodeName === '#text') {
+        el.innerHTML = '<vlibraswidget class="vw-text">' 
+        + el.textContent + '</vlibraswidget>';
 
-    if (run) {
-      closeButton.click();
-      accessButton.click();
-    }
-  } catch { }
+        el.addEventListener('click', 
+        () => window.plugin.player.translate(el.textContent))
+      }
+    });
+  })
+
 }).observe(document.body, { childList: true, subtree: true });
