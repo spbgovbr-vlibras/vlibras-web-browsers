@@ -251,6 +251,40 @@ $margin_left: 40px;
                     color: map-get($blue, 4);
                     text-align: center;
                 }
+
+                .vpw-dict-msg--error {
+                    display: none;
+                }
+
+                button {
+                    @include suggestion-btn--secundary;
+
+                    margin-top: 10px;
+                    font-size: 12px;
+                    max-height: 32px;
+                    padding: 0 10px;
+                    display: none;
+                }
+            }
+
+            &.vpw-dict--error {
+                div {
+                    img {
+                        display: none;
+                    }
+
+                    .vpw-dict-msg--loading {
+                        display: none;
+                    }
+
+                    .vpw-dict-msg--error {
+                        display: inline;
+                    }
+
+                    button {
+                        display: grid;
+                    }
+                }
             }
         }
 
