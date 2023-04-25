@@ -28,6 +28,10 @@ Dictionary.prototype.load = function (element, closeScreen) {
   const buttons = this.element.querySelectorAll('.buttons-container button');
   const recentWords = this.element.querySelector('.vpw-recents-container');
   const dictWords = this.element.querySelector('.vpw-dict-container');
+  const loadingScreen = this.element.querySelector('.vpw-loading-dictionary');
+  const reloadDictButton = loadingScreen.querySelector('div button');
+
+  reloadDictButton.onclick = getSigns.bind(this);
 
   this.loadRecentWords = function () {
     let value = localStorage.getItem('@vp-dict-history');
@@ -107,24 +111,30 @@ Dictionary.prototype.load = function (element, closeScreen) {
 
   // Request and load list
   function getSigns() {
+    loadingScreen.classList.remove('vpw-dict--error');
     const xhr = new XMLHttpRequest();
     xhr.open(
-    'get',
-    'https://dicionario2.vlibras.gov.br/signs?version=2018.3.1',
-    true
+      'get',
+      'https://dicionario2.vlibras.gov.br/signs?version=2018.3.1',
+      true
     );
     xhr.responseType = 'text';
     xhr.onload = function () {
-      if (xhr.status == 200) {
-        const json = JSON.parse(xhr.response);
-
-        this.signs = new Trie(json);
-
-        this.signs.loadSigns('', this.list._insert.bind(this.list));
-        document.querySelector('.vpw-loading-dictionary').remove();
-      } else {
-        console.error('Bad answer for signs, status: ' + xhr.status);
-        getSigns.bind(this)();
+      try {
+        if (xhr.status == 200) {
+          const json = JSON.parse(xhr.response);
+  
+          this.signs = new Trie(json);
+  
+          this.signs.loadSigns('', this.list._insert.bind(this.list));
+          loadingScreen.remove();
+        } else {
+          loadingScreen.classList.add('vpw-dict--error');
+          console.error('Bad answer for signs, status: ' + xhr.status);
+        }
+      } catch (err) {
+        loadingScreen.classList.add('vpw-dict--error');
+        console.log(err);
       }
     }.bind(this);
     xhr.send();
