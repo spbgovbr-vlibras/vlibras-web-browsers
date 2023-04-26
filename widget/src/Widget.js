@@ -98,20 +98,24 @@ new MutationObserver((mutations) => {
   mutations.forEach(mut => {
     if (mut.addedNodes.length === 0) return;
 
-    document.body.querySelectorAll(
-      'span, h1, h2, h3, h4, h5, h6, label, p, button, div'
-    ).forEach(el => {
-      if (vw.contains(el)) return;
-      const firstChild = el.children[0];
+    try {
+      mut.addedNodes.forEach(node => {
+        node.querySelectorAll(
+          'span, h1, h2, h3, h4, h5, h6, label, p, button, div'
+        ).forEach(el => {
+          if (vw.contains(el)) return;
+          const firstChild = el.children[0];
         
-      if(firstChild || !el.textContent) return;
+          if(firstChild || !el.textContent) return;
     
-      el.innerHTML = '<vlibraswidget class="vw-text">' 
-      + el.textContent + '</vlibraswidget>';
+          el.innerHTML = '<vlibraswidget class="vw-text">'
+          + el.textContent + '</vlibraswidget>';
 
-      el.addEventListener('click', 
-      () => window.plugin.player.translate(el.textContent))
-    });
+          el.addEventListener('click', 
+          () => window.plugin.player.translate(el.textContent));
+        });
+      });
+    } catch {}
   })
 
-}).observe(document.body, { childList: true });
+}).observe(document.body, { childList: true, subtree: true });
