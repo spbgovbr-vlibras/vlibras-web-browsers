@@ -91,26 +91,27 @@ module.exports = function Widget(rootPath, personalization, opacity) {
   };
 };
 
-// new MutationObserver((mutations) => {
-//   if (!document.querySelector('vlibraswidget')) return;
-//   const vw = document.querySelector('[vw]');
+new MutationObserver((mutations) => {
+  if (!document.querySelector('vlibraswidget')) return;
+  const vw = document.querySelector('[vw]');
 
-//   mutations.forEach(mut => {
-//     if (mut.addedNodes.length === 0) return;
+  mutations.forEach(mut => {
+    if (mut.addedNodes.length === 0) return;
 
-//     document.body.querySelectorAll(
-//       'span, h1, h2, h3, h4, h5, h6, label, p, button, div'
-//     ).forEach(el => {
-//       if(vw.contains(el) || el.firstChild.tagName === 'VLIBRASWIDGET') return;
+    document.body.querySelectorAll(
+      'span, h1, h2, h3, h4, h5, h6, label, p, button, div'
+    ).forEach(el => {
+      if (vw.contains(el)) return;
+      const firstChild = el.children[0];
+        
+      if(firstChild || !el.textContent) return;
+    
+      el.innerHTML = '<vlibraswidget class="vw-text">' 
+      + el.textContent + '</vlibraswidget>';
 
-//       if (el.firstChild && el.firstChild.nodeName === '#text') {
-//         el.innerHTML = '<vlibraswidget class="vw-text">' 
-//         + el.textContent + '</vlibraswidget>';
+      el.addEventListener('click', 
+      () => window.plugin.player.translate(el.textContent))
+    });
+  })
 
-//         el.addEventListener('click', 
-//         () => window.plugin.player.translate(el.textContent))
-//       }
-//     });
-//   })
-
-// }).observe(document.body, { childList: true });
+}).observe(document.body, { childList: true });
