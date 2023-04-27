@@ -115,7 +115,7 @@ Dictionary.prototype.load = function (element, closeScreen) {
     const xhr = new XMLHttpRequest();
     xhr.open(
       'get',
-      'https://dicionario2.vlibras.gov.br/signs?version=2018.3.1',
+      'https://dicionario2-dth.vlibras.gov.br/signs?version=2018.3.1',
       true
     );
     xhr.responseType = 'text';

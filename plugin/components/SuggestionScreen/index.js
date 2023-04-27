@@ -213,7 +213,7 @@ SuggestionScreen.prototype.load = function (element) {
   }.bind(this));
 
   const xhr = new XMLHttpRequest();
-  xhr.open('get', 'https://repositorio.vlibras.gov.br/api/signs', true);
+  xhr.open('get', 'https://repositorio-dth.vlibras.gov.br/api/signs', true);
   xhr.responseType = 'text';
   xhr.onload = function () {
     if (xhr.status == 200) {
