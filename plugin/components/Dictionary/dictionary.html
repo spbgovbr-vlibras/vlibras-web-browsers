@@ -1,17 +1,39 @@
-<div class="vpw-panel">
-    <div class="vpw-bar">
-        <span class="vpw-title">Dicionário</span>
-        <img class="vpw-btn-close" data-src="assets/Close.png">
-    </div>
-
-    <div class="vpw-search">
-        <input type="text">
-        <span class="vpw-icon">
-            <img data-src="assets/search.jpg">
+<div class="vpw-loading-dictionary">
+    <div>
+        <img src="assets/loading.svg" />
+        <span class="vpw-dict-msg--loading">
+            Carregando<br>
+            Dicionário
         </span>
+        <span class="vpw-dict-msg--error">
+            Falha no<br>
+            Carregamento
+        </span>
+        <button>Tentar novamente</button>
     </div>
 </div>
 
-<div class="vpw-dict-container">
+<div class="vpw-panel">
+    <div class="vpw-bar">
+        <button class="vpw-btn-close"></button>
+        <span class="vpw-title">Dicionário</span>
+    </div>
+
+    <div class="vpw-search">
+        <input type="text" placeholder="Pesquisar por um sinal">
+        <span class="vpw-icon"></span>
+    </div>
+</div>
+
+<div class="buttons-container">
+    <button class="vp-selected">A-Z</button>
+    <button>Recentes</button>
+</div>
+
+<div class="vpw-recents-container">
+    <ul></ul>
+</div>
+
+<div class="vpw-dict-container enabled">
     <ul></ul>
 </div>

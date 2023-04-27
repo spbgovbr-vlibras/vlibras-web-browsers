@@ -1,68 +1,150 @@
-$control-height: 68px;
+@import '~scss/default-buttons.scss';
+@import '~scss/colors.scss';
+
+$controls_height: 48px;
 
 [vp] [vp-rate-box] {
-  display: flex;
-  flex-direction: row;
-  justify-content: flex-end;
   position: absolute;
   width: 100%;
-  bottom: $control-height;
+  height: 0;
+  bottom: 0;
+  padding-bottom: 0;
+  z-index: 3;
+  visibility: hidden;
+  transition: height .5s;
+  background-color: map-get($white, 1);
+  border-radius: 10px 10px 0 0;
   overflow: hidden;
-  z-index: 2;
 
-  .vp-container {
-    display: flex;
-    flex-direction: column;
+  .vp-rate-box-header {
     width: 100%;
-    padding-top: 10px;
-    padding-bottom: 10px;
-    background-color: rgba(255, 255, 255, 0.96);
+    height: 48px;
+    border-bottom: 1px solid map-get($white, 4);
+    display: flex;
+    padding: 16px;
+    align-items: center;
+    justify-content: space-between;
 
-    max-height: 0;
-    transform: translateY(69px);
-    transition: max-height 0s, transform 0.4s linear 0.05s;
-
-    .vp-text {
-      text-align: center;
+    span {
       font-size: 14px;
-      font-weight: bold;
-      color: #003f86;
+      font-weight: 600;
     }
 
-    .vp-buttons {
-      display: flex;
-      flex-direction: row;
-      justify-content: center;
-      margin-top: 10px;
+    button {
+      @include control-button;
 
-      .vp-button {
-        display: flex;
-        flex-direction: row;
-        align-items: center;
-        font-size: 13px;
-        font-weight: bold;
-        color: #545454;
-        cursor: pointer;
-        
-        &:not(:last-child) {
-          margin-right: 22px;
+      svg>* {
+        fill: map-get($blue, 4);
+      }
+
+      transition: transform .3s;
+
+      &.vp-expanded {
+        svg {
+          transform: rotate(180deg);
         }
-        
-        img {
-          height: 22px;
-          margin-right: 6px;
+      }
+    }
+
+  }
+
+  .vp-rate-box-content {
+    width: 100%;
+    position: relative;
+    height: calc(100% - 96px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: 16px;
+    padding: 10px;
+    overflow: hidden;
+
+    span {
+      font-size: 16px;
+      font-weight: 600;
+      color: map-get($black, 1);
+    }
+  }
+
+  .vp-rate-btns {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+
+    button {
+      @include rate-button;
+
+      svg {
+        width: 24px;
+      }
+
+      &.vp-rate-btns--deslike {
+        svg {
+          transform: scaleY(-1);
+        }
+      }
+
+      :nth-child(1) {
+        * {
+          fill: map-get($white, 2);
+        }
+      }
+
+      :nth-child(2) {
+        visibility: hidden;
+
+        * {
+          fill: map-get($blue, 1);
+        }
+      }
+
+      &:hover,
+      &:focus {
+        :nth-child(1) {
+          width: 0;
+        }
+
+        :nth-child(2) {
+          visibility: visible;
         }
       }
     }
   }
 
   &.vp-enabled {
-    z-index: 4;
-
-    .vp-container {
-      max-height: 100%;
-      transform: translateY(0);
-      transition: transform 0.4s, max-height 0s linear 0.4s;
-    }
+    visibility: visible;
+    height: 96px;
   }
+
+  &.vp-expanded {
+    height: 60% !important;
+
+    .vp-rate-box-header button svg {
+      transform: rotate(180deg);
+    }
+
+  }
+
+  @media (max-width: 450px) {
+    &.vp-enabled {
+      visibility: visible;
+      height: 86px;
+    }
+
+    .vp-rate-box-header {
+      height: 38px;
+    }
+
+    .vp-rate-box-content {
+      height: calc(100% - 86px);
+
+      span {
+        font-size: 12px;
+      }
+    }
+
+  }
+
 }

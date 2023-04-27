@@ -1,22 +1,37 @@
 @import '~scss/flexbox';
+@import '~scss/colors';
+@import '~scss/default-buttons';
 
-[vp]{
+[vp] {
+
+  [vp-controls] {
+    position: absolute;
+    left: 50%;
+    border-top: 1px solid map-get($white, 4);
+    transform: translateX(-50%);
+    bottom: 0%;
+    max-width: 900px;
+    z-index: 5;
+
+    @media (max-width: 450px) {
+      gap: 0 !important;
+      padding: 0 10px !important;
+    }
+  }
+
   .vpw-controls {
-    @include flexbox;
-    @include align-items(center);
-  
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
     width: calc(100% - 10px);
-    height: 60px;
-  
+    height: 48px;
+    padding: 8px 15px;
+    flex-direction: row;
+    gap: 18px;
     background-size: 100% 100%;
     background: white;
     width: 100%;
-    
-  
-    .vpw-controls-subtitles, .vpw-controls-slider {
-      margin: 0 9px;
-      cursor: pointer;
-    }
 
     &.vpw-selectText {
       background-color: #003F86 !important;
@@ -25,182 +40,188 @@
     .vpw-selectTextLabel {
       display: none;
       place-items: center;
-      padding: 10px 0;
       width: 100%;
       height: 100%;
-
       color: #FFFFFF;
       text-align: center;
       font-size: 12px;
       font-weight: bold;
 
-      @media only screen and (max-width: 480px) { max-width: 180px; }
+      @media only screen and (max-width: 480px) {
+        padding: 0 10px;
+        align-items: center;
+        justify-content: center;
+      }
     }
 
     &.vpw-selectText {
-      .vpw-selectTextLabel { display: grid }
-      .vpw-controls-play { display:  none; }
-      .vpw-controls-slider { display:  none; }
-      .vpw-controls-speed { display:  none; }
-      .vpw-controls-subtitles { display:  none; }
-    }
-  
-    .vpw-controls-play {
-      .vpw-component-play { display: block; margin: 0 8.5px; cursor: pointer; }
-      .vpw-component-pause { display: none; }
-      .vpw-component-restart { display: none; }
-    }
+      .vpw-selectTextLabel {
+        display: grid
+      }
 
-    &.vpw-playing .vpw-controls-play {
-      .vpw-component-play { display: none; }
-      .vpw-component-pause { display: block; margin: 0 11px; cursor: pointer;}
-      .vpw-component-restart  { display: none; }
-    }
+      .vpw-controls-button {
+        display: none;
+      }
 
-    &.vpw-stopped .vpw-controls-play {
-      .vpw-component-play { display: none; }
-      .vpw-component-pause { display: none; }
-      .vpw-component-restart { display: block; margin: 0 2px; cursor: pointer;}
-    }
+      .vpw-controls-slider {
+        display: none;
+      }
 
-    &.vpw-subtitles .vpw-controls-subtitles {
-      .vpw-legenda-habilitar { display: block; }
-      .vpw-legenda-desabilitar { display: none; }
-    }
+      .vpw-button-speed {
+        display: none;
+      }
 
-   .vpw-controls-subtitles {
-      .vpw-legenda-habilitar { display: none; }
-      .vpw-legenda-desabilitar { display: block; }
-   }
-
-
-
-  }
-  
-  
-  @-webkit-keyframes spin {
-    0% {
-      -webkit-transform: rotate(0deg);  /* Chrome, Opera 15+, Safari 3.1+ */
-      -ms-transform: rotate(0deg);  /* IE 9 */
-      transform: rotate(0deg);  /* Firefox 16+, IE 10+, Opera */
-    }
-    100% {
-      -webkit-transform: rotate(360deg);  /* Chrome, Opera 15+, Safari 3.1+ */
-      -ms-transform: rotate(360deg);  /* IE 9 */
-      transform: rotate(360deg);  /* Firefox 16+, IE 10+, Opera */
-    }
-  }
-  
-  @keyframes spin {
-    0% {
-      -webkit-transform: rotate(0deg);  /* Chrome, Opera 15+, Safari 3.1+ */
-      -ms-transform: rotate(0deg);  /* IE 9 */
-      transform: rotate(0deg);  /* Firefox 16+, IE 10+, Opera */
-    }
-    100% {
-      -webkit-transform: rotate(360deg);  /* Chrome, Opera 15+, Safari 3.1+ */
-      -ms-transform: rotate(360deg);  /* IE 9 */
-      transform: rotate(360deg);  /* Firefox 16+, IE 10+, Opera */
-    }
-  }
-  
-  .vpw-speed-default {
-    border: 1px solid grey;
-    border-radius: 3px 3px 3px 3px;
-    padding: 3px 4px;
-    height: 100%;
-    color: grey;
-    font-size: 15px;
-    cursor: pointer;
-    font-family: 'Open Sans', sans-serif;
-  
-  }
-  
-  .vpw-img-default {
-    display: none;
-    padding: 2px;
-    padding-left: 2.2px;
-    cursor: pointer;
-  }
-
-  .vpw-border-default {
-    display: none;
-    border: 1px solid rgb(153, 153, 153);
-    border-radius: 0px 0px 3px 3px;
-
-  }
-  
-
-  .vpw-elem-speed {
-    display: none;
-    position: absolute;
-    bottom: 22px;
-    cursor: pointer;
-  }
-  
-  .vpw-block-speed {
-    list-style-type: none;
-    background-color: #003F86;
-    color: white;
-    font-size: 10px;
-    width: 25.5px;
-    text-align: center;
-  }
-  
-  .vpw-block-speed:hover {
-    color: #67C8D5;
-  }
-  
-  .vpw-controls-speed {
-    position: relative;
-   -webkit-touch-callout: none;
-   -webkit-user-select: none;
-   -khtml-user-select: none;
-   -moz-user-select: none;
-   -ms-user-select: none;
-   user-select: none;
-  }
-  
-  .vpw-controls-speed-number {
-    width: 25.5px;
-    padding-left: 0px;
-    margin-top: 0px;
-    margin-bottom: 0px;
-    font-family: 'Open Sans', sans-serif;
-  
-  }
-  
-  .vpw-block-speed-3 {
-    border-radius: 5px 5px 0px 0px;
-  }
-  
-  
-    .vpw-controls-slider{
-      -webkit-appearance: none;
-      width: 50%;
-      margin: 2.5px 0;
-      height: 7px;
-      background-color: transparent;
-  
-      .vpw-slider {
-        width: 100%;
-        height: 7px;
-  
-        &.noUi-target { box-shadow: none; border: 0; }
-        &.noUi-connect { background-color:  #003F86; }
-        .noUi-background { background-color: #B8B8B8; box-shadow: none; }
-        .noUi-origin { border-radius: 1px;}
-        .noUi-handle {
-          width: 0px;
-          height: 0px;
-          left: -8px;
-          top: -8px;
-          border-radius: 50%;
-        }
-  
-        .noUi-handle:after, .noUi-handle:before { display: none; }
+      .vpw-controls-subtitles {
+        display: none;
       }
     }
-  
-  
+
+    .vpw-controls-button {
+      @include control-button;
+
+      .vpw-component-pause {
+        display: none;
+      }
+
+      .vpw-component-restart {
+        display: none;
+      }
+
+    }
+
+    &.vpw-playing .vpw-controls-button {
+      .vpw-component-play {
+        display: none;
+      }
+
+      .vpw-component-pause {
+        display: grid;
+      }
+
+      .vpw-component-restart {
+        display: none;
+      }
+    }
+
+    &.vpw-stopped .vpw-controls-button {
+      .vpw-component-play {
+        display: none;
+      }
+
+      .vpw-component-pause {
+        display: none;
+      }
+
+      .vpw-component-restart {
+        display: grid;
+      }
+    }
+
+    .vpw-controls-subtitles {
+      @include control-button;
+    }
+
+  }
+
+
+  @-webkit-keyframes spin {
+    0% {
+      -webkit-transform: rotate(0deg);
+      /* Chrome, Opera 15+, Safari 3.1+ */
+      -ms-transform: rotate(0deg);
+      /* IE 9 */
+      transform: rotate(0deg);
+      /* Firefox 16+, IE 10+, Opera */
+    }
+
+    100% {
+      -webkit-transform: rotate(360deg);
+      /* Chrome, Opera 15+, Safari 3.1+ */
+      -ms-transform: rotate(360deg);
+      /* IE 9 */
+      transform: rotate(360deg);
+      /* Firefox 16+, IE 10+, Opera */
+    }
+  }
+
+  @keyframes spin {
+    0% {
+      -webkit-transform: rotate(0deg);
+      /* Chrome, Opera 15+, Safari 3.1+ */
+      -ms-transform: rotate(0deg);
+      /* IE 9 */
+      transform: rotate(0deg);
+      /* Firefox 16+, IE 10+, Opera */
+    }
+
+    100% {
+      -webkit-transform: rotate(360deg);
+      /* Chrome, Opera 15+, Safari 3.1+ */
+      -ms-transform: rotate(360deg);
+      /* IE 9 */
+      transform: rotate(360deg);
+      /* Firefox 16+, IE 10+, Opera */
+    }
+  }
+
+  .vpw-button-speed {
+    @include control-button;
+
+    width: 40px;
+    min-width: 40px;
+    font-weight: bold;
+
+    @media (max-width: 450px) {
+      min-width: 34px;
+      max-width: 34px;
+    }
+  }
+
+  .vpw-controls-slider {
+    appearance: none;
+    -webkit-appearance: none;
+    width: 100%;
+    border-radius: 10px;
+    overflow: hidden;
+    height: 5px;
+    background-color: transparent;
+
+    .vpw-slider {
+      width: 100%;
+      height: 5px;
+
+      &.noUi-target {
+        box-shadow: none;
+        border: 0;
+      }
+
+      &.noUi-connect {
+        background-color: #003F86;
+      }
+
+      .noUi-background {
+        background-color: #B8B8B8;
+        box-shadow: none;
+      }
+
+      .noUi-origin {
+        border-radius: 1px;
+      }
+
+      .noUi-handle {
+        width: 0px;
+        height: 0px;
+        left: -8px;
+        top: -8px;
+        border-radius: 50%;
+      }
+
+      .noUi-handle:after,
+      .noUi-handle:before {
+        display: none;
+      }
+    }
+  }
+
+
 }

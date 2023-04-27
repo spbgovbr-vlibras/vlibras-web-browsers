@@ -1,33 +1,45 @@
+@import '~scss/default-buttons';
 
-[vp]{
+[vp] {
   .vpw-settings-btn {
     position: absolute;
     z-index: 1;
     height: 100%;
     width: 100%;
- 
+    display: flex;
+    padding: 0 16px;
+    align-items: center;
+    flex-direction: row;
+    justify-content: space-between;
+
     cursor: pointer;
-  
-  
-    .vpw-settings-btn-menu {
-      display: none;
-      &.active{display: block;}
-      position: absolute;
-      top: 50%;
-      transform: translateY(-50%);
-      width: 20px;
-      height: 18px;
-      left: 20px;
-  
+
+    div {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: row;
+      gap: 10px;
+
+      button {
+        @include header-button;
+      }
     }
-  
-    .vpw-settings-btn-close {
-      display: none;
+
+    .vpw-container-dict {
       position: absolute;
-      top: 50%;
-      transform: translateY(-50%);
-      right: 5px;
+      left: 0;
+      top: 0;
     }
-  
+
+    @media (max-width: 450px) {
+      width: 210px;
+      padding: 0 10px;
+
+      div {
+        gap: 4px;
+      }
+    }
+
   }
 }
