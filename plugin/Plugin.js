@@ -12,7 +12,6 @@ const SettingsCloseBtn = require('components/SettingsCloseBtn');
 const CloseScreen = require('components/CloseScreen');
 const RateButton = require('components/RateButton');
 const RateBox = require('components/RateBox');
-const SuggestionButton = require('components/SuggestionButton');
 const SuggestionScreen = require('components/SuggestionScreen');
 const ChangeAvatar = require('components/ChangeAvatar');
 
@@ -52,9 +51,6 @@ function Plugin(options) {
   this.info = new InfoScreen(this.Box);
   this.settings = new Settings(
     this.player,
-    this.info,
-    this.Box,
-    this.dictionary,
     options,
     this.opacity
   );
@@ -68,13 +64,14 @@ function Plugin(options) {
   this.settingsBtn = new SettingsBtn(
     this.player,
     this.settings,
+    this.dictionary,
+    this.info,
     this.settingBtnClose,
     options
   );
   this.messageBox = new MessageBox();
   this.suggestionScreen = new SuggestionScreen(this.player);
-  this.suggestionButton = new SuggestionButton(this.suggestionScreen);
-  this.rateBox = new RateBox(this.suggestionButton, this.messageBox);
+  this.rateBox = new RateBox(this.messageBox, this.suggestionScreen);
   this.rateButton = new RateButton(this.rateBox);
   this.ChangeAvatar = new ChangeAvatar(this.player);
 
@@ -83,9 +80,6 @@ function Plugin(options) {
   this.messageBox.load(this.element.querySelector('[vp-message-box]'));
   this.rateButton.load(this.element.querySelector('[vp-rate-button]'));
   this.rateBox.load(this.element.querySelector('[vp-rate-box]'));
-  this.suggestionButton.load(
-    this.element.querySelector('[vp-suggestion-button]')
-  );
   this.suggestionScreen.load(
     this.element.querySelector('[vp-suggestion-screen]')
   );
@@ -136,7 +130,6 @@ function Plugin(options) {
     this.player.stop();
     this.rateButton.hide();
     this.rateBox.hide();
-    this.suggestionButton.hide();
     this.suggestionScreen.hide();
   });
 
@@ -158,7 +151,6 @@ function Plugin(options) {
     this.ChangeAvatar.hide();
     this.rateButton.hide();
     this.rateBox.hide();
-    this.suggestionButton.hide();
     this.suggestionScreen.hide();
   });
 
@@ -169,7 +161,7 @@ function Plugin(options) {
 
     if (this.player.translated && control == 0) {
       this.suggestionScreen.setGloss(this.player.gloss);
-      this.rateButton.show();
+      this.rateBox.show();
     }
 
     control = 0;

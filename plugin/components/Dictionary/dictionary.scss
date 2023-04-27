@@ -1,122 +1,205 @@
+@import '~scss/colors';
+@import '~scss/default-buttons';
 $margin_left: 40px;
 
 [vp] {
     .vpw-dictionary {
         display: none;
-        position: relative;
+        position: absolute;
+        top: 40px;
         width: 100%;
         height: calc(100% - 40px);
-        min-width: 300px;
-        min-height: 300px;
-        font-family: 'Open Sans', sans-serif;
-
+        font-family: 'Rawline', sans-serif;
         background-color: white;
-    
-        
+        z-index: 6;
+
         &.active {
             display: block;
         }
-    
+
         .vpw-panel {
             position: relative;
-            height: 114px;
+            height: 100px;
             background-color: white;
-    
-    
-            .vpw-bar {
-                text-align: center;
-                padding-top: 20px;
 
-                .vpw-title {
-                    font-size: 1em;
+            .vpw-bar {
+                height: 45px;
+                top: 0;
+                left: 0;
+                right: 0;
+                padding-left: 15px;
+                border-bottom: 1px solid #DDD;
+                display: flex;
+                align-items: center;
+
+                @media(max-width: 450px) {
+                    height: 36px;
                 }
-            }
-    
-            .vpw-search {
-                position: absolute;
-                width: 80%;
-                left: 50%;
-                transform: translateX(-50%);
-                margin-top: 20px;
-            
-    
-                input {
-                    position: absolute;
-                    width: 100%;
-                    left: 50%;
-                    transform: translateX(-50%);
-                    padding: 10px 10px 10px 10px;
-                    border-radius: 6px;
-                    border: 1px solid #DDD;
-                    outline: none;   
-                    height: 48px;        
-    
-                    &:focus {
-                        border: 1px solid #003f86;
+
+                .vpw-btn-close {
+                    @include control-button;
+
+                    svg * {
+                        fill: map-get($blue, 1);
                     }
                 }
 
-    
+                .vpw-title {
+                    font-size: 16px;
+                    font-weight: 600;
+                    margin-left: 5px;
+                    margin-bottom: 1px;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+
+                    @media(max-width: 450px) {
+                        font-size: 14px;
+
+                    }
+                }
+            }
+
+            .vpw-search {
+                width: 100%;
+                padding: 0 10px;
+
+                input {
+                    width: 100%;
+                    height: 36px;
+                    left: 33%;
+                    font-size: 14px;
+                    padding: 10px 10px 10px 10px;
+                    margin-top: 10px;
+                    border-radius: 5px;
+                    border: 1px solid #DDD;
+                    outline: none;
+
+                    &:focus {
+
+                        border: 1px solid #003f86;
+                        box-shadow: 0px 0px 15px rgba(86, 154, 255, 0.75);
+                    }
+                }
+
+
                 .vpw-icon {
                     display: flex;
                     position: absolute;
-                    top: 12px;
-                    right: 8px;
-                    width: 24px;
-                    height: 24px;
+                    top: 57px;
+                    right: 11px;
+                    width: 32px;
+                    height: 32px;
 
-                    img {
-                        height: 24px;
-                        width: 24px;
+                    @media(max-width: 450px) {
+                        top: 50px;
+                    }
+
+                    svg>* {
+                        fill: map-get($black, 1);
                     }
                 }
             }
+
+            @media(max-width: 450px) {
+                height: 91px;
+            }
         }
-    
-        .vpw-dict-container{
+
+        .buttons-container {
+            display: flex;
+            align-items: center;
+            flex-direction: row;
+            justify-content: start;
+            width: 100%;
+            border-top: 1px solid #DDD;
+            padding-top: 10px;
+
+            @media(max-width: 450px) {
+                height: 25px;
+                padding: 30px 0px 13px;
+            }
+
+            button {
+                background: map-get($white, 1);
+                outline: none;
+                height: 32px;
+                border: 1px solid map-get($white, 4);
+                border-radius: 50px;
+                margin-left: 10px;
+                margin-bottom: 10px;
+                color: map-get($white, 2);
+                padding: 0 16px;
+                font-size: 14px;
+                font-weight: 600;
+                cursor: pointer;
+
+                &:hover {
+                    border: 1px solid #2470E0;
+                }
+
+                &.vp-selected {
+                    background: map-get($blue, 6);
+                    color: map-get($blue, 2);
+                    border-color: map-get($blue, 2);
+                }
+
+                @media(max-width: 450px) {
+                    height: 30px;
+                    font-size: 12px;
+                }
+            }
+        }
+
+        .vpw-dict-container,
+        .vpw-recents-container {
+            visibility: hidden;
             position: absolute;
-            width: 80%;
-            height: 68%;
+            width: 100%;
+            height: 70%;
             left: 50%;
+            font-size: 18px;
             transform: translateX(-50%);
+
+            &.enabled {
+                visibility: visible;
+            }
+
             ul {
                 height: 100%;
                 margin: 0;
                 padding: 0;
                 text-align: left;
-        
                 overflow-y: scroll;
                 list-style-type: none;
-        
-        
+
                 &::-webkit-scrollbar {
                     width: 8px;
                 }
-        
+
                 &::-webkit-scrollbar-track {
                     background-color: #DDD;
                 }
-                    
+
                 &::-webkit-scrollbar-thumb {
                     background-color: #BCBCBC;
                 }
-        
+
                 li {
                     font-size: 14px;
                     cursor: pointer;
-        
-        
+
+
                     &:hover {
                         background-color: #EAEAEA;
-        
                         -webkit-transition: brackground-color 0.3s;
                         transition: brackground-color 0.4s;
                     }
-        
+
                     &.margin {
                         height: 114px;
                     }
-        
+
                     &:not(.margin) {
                         padding: 9px 10px 9px 10px;
                     }
@@ -128,6 +211,82 @@ $margin_left: 40px;
                 }
             }
         }
-         
+
+        .vpw-loading-dictionary {
+            display: grid;
+            place-content: center;
+            width: 100%;
+            height: 100%;
+            position: absolute;
+            top: 0;
+            left: 0;
+            background-color: map-get($white, 1);
+            z-index: 10;
+
+            div {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                flex-direction: column;
+
+                img {
+                    width: 40px;
+                    height: 40px;
+                    animation: loading 1s infinite;
+                }
+
+                @keyframes loading {
+                    to {
+                        transform: rotate(0deg);
+                    }
+
+                    from {
+                        transform: rotate(-360deg);
+                    }
+                }
+
+                span {
+                    font-size: 14px;
+                    font-weight: 700;
+                    color: map-get($blue, 4);
+                    text-align: center;
+                }
+
+                .vpw-dict-msg--error {
+                    display: none;
+                }
+
+                button {
+                    @include suggestion-btn--secundary;
+
+                    margin-top: 10px;
+                    font-size: 12px;
+                    max-height: 32px;
+                    padding: 0 10px;
+                    display: none;
+                }
+            }
+
+            &.vpw-dict--error {
+                div {
+                    img {
+                        display: none;
+                    }
+
+                    .vpw-dict-msg--loading {
+                        display: none;
+                    }
+
+                    .vpw-dict-msg--error {
+                        display: inline;
+                    }
+
+                    button {
+                        display: grid;
+                    }
+                }
+            }
+        }
+
     }
 }

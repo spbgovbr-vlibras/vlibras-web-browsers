@@ -4,7 +4,10 @@ require('nouislider/distribute/nouislider.min.css');
 const controlsTpl = require('./controls.html').default;
 require('./controls.scss');
 
+const { playIcon, pauseIcon, restartIcon, subtitleIcon } = require('../../assets/icons');
+
 let firstTranslation = false;
+const availableSpeeds = [0.5, 1, 1.5, 2, 3];
 
 function Controls(player, dictionary) {
   this.player = player;
@@ -93,18 +96,16 @@ Controls.prototype.load = function (element) {
   this.element.classList.add('vpw-controls');
   this.element.classList.add('vpw-subtitles');
 
-  const play = this.element.querySelector('.vpw-controls-play');
-  const subtitles = this.element.querySelector('.vpw-controls-subtitles');
-  const speedDefault = this.element.querySelector('.vpw-speed-default');
-  const elemSpeed = this.element.querySelector('.vpw-elem-speed');
-  const speed05 = this.element.querySelector('.vpw-block-speed-05');
-  const speed1 = this.element.querySelector('.vpw-block-speed-1');
-  const speed2 = this.element.querySelector('.vpw-block-speed-2');
-  const speed3 = this.element.querySelector('.vpw-block-speed-3');
+  const play = this.element.querySelector('.vpw-controls-button');
   const slider = this.element.querySelector('.vpw-controls-slider .vpw-slider');
-  const img = this.element.querySelector('.vpw-img-default');
-  const button = this.element.querySelector('.vpw-button-speed');
-  const border = this.element.querySelector('.vpw-border-default');
+  const speed = this.element.querySelector('.vpw-button-speed');
+  const subtitles = this.element.querySelector('.vpw-controls-subtitles');
+  
+  // Add icons
+  play.querySelector('.vpw-component-play').innerHTML = playIcon;
+  play.querySelector('.vpw-component-pause').innerHTML = pauseIcon;
+  play.querySelector('.vpw-component-restart').innerHTML = restartIcon;
+  subtitles.querySelector('span').innerHTML = subtitleIcon;
 
   noUiSlider.create(slider, {
     start: 0.0,
@@ -132,78 +133,30 @@ Controls.prototype.load = function (element) {
 
   subtitles.addEventListener(
     'click',
-    function () {
+    function (el) {
       this.element.classList.toggle('vpw-subtitles');
+      subtitles.classList.toggle('actived-subtitle');
       this.player.toggleSubtitle();
     }.bind(this)
   );
 
-  let visibility = false;
-  let speedValue;
+  speed.addEventListener(
+    'click',
+    function () {
+      this.setSpeed(speed);
+    }.bind(this)
+  );
 
-  button.addEventListener('click', function () {
-    if (visibility) {
-      img.style.display = 'none';
-      border.style.display = 'none';
-      speedDefault.style.display = 'block';
-      visibility = false;
-      elemSpeed.style.display = 'none';
-      speedDefault.innerHTML = speedValue;
-    } else {
-      img.style.display = 'block';
-      border.style.display = 'block';
-      speedDefault.style.display = 'none';
-
-      speedValue = speedDefault.innerHTML;
-      speedDefault.innerHTML = '';
-
-      elemSpeed.style.display = 'block';
-      visibility = true;
-    }
-  });
-
-  speed05.addEventListener('click', () => {
-    this.setSpeed(0.5, '0.5x', elemSpeed, speedDefault, img, border);
-    speedDefault.style.padding = '6px 2.5px 5px 2.5px';
-    speedDefault.style.fontSize = '11px';
-    visibility = false;
-  });
-
-  speed1.addEventListener('click', () => {
-    this.setSpeed(1.0, 'x1', elemSpeed, speedDefault, img, border);
-    visibility = false;
-  });
-
-  speed2.addEventListener('click', () => {
-    this.setSpeed(1.5, 'x2', elemSpeed, speedDefault, img, border);
-    visibility = false;
-  });
-  speed3.addEventListener('click', () => {
-    this.setSpeed(2.0, 'x3', elemSpeed, speedDefault, img, border);
-    visibility = false;
-  });
 };
 
-Controls.prototype.setSpeed = function (
-  speed,
-  label,
-  elemSpeed,
-  speedDefault,
-  img,
-  border
-) {
-  img.style.display = 'none';
-  border.style.display = 'none';
-  speedDefault.style.display = 'block';
-  speedDefault.style.color = 'grey';
-  speedDefault.style.border = '1px solid grey';
-  speedDefault.style.borderRadius = '3px 3px 3px 3px';
-  speedDefault.innerHTML = label;
-  speedDefault.style.padding = '3px 4px';
-  speedDefault.style.fontSize = '15px';
-  elemSpeed.style.display = 'none';
+Controls.prototype.setSpeed = function (button) {
+  const speedValue = parseFloat(button.textContent.replace('x', ''));
+  let speedIndex = availableSpeeds.indexOf(speedValue);
+  if (speedIndex === availableSpeeds.length - 1) speedIndex = -1;
+  const newSpeed = availableSpeeds[speedIndex + 1];
+  button.innerHTML = newSpeed + 'x';
 
-  this.player.setSpeed(parseFloat(speed));
+  this.player.setSpeed(newSpeed);
   this.player.pause();
   this.player.continue();
 };

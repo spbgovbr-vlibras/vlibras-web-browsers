@@ -1,4 +1,4 @@
-$control-height: 60px;
+@import '~scss/colors.scss';
 
 [vp] [vp-rate-button] {
   display: flex;
@@ -6,13 +6,15 @@ $control-height: 60px;
   justify-content: flex-end;
   position: absolute;
   width: 100%;
-  bottom: $control-height;
+  height: 48px;
+  background-color: map-get($white, 1);
+  bottom: -48px;
   z-index: 2;
-  
+
   visibility: hidden;
   max-width: 0;
   opacity: 0;
-  transition: max-width 0s, visibility 0s, opacity 0.4s;
+  transition: opacity 0s, max-width 0s, bottom .5s;
 
   .vp-button {
     display: flex;
@@ -32,7 +34,7 @@ $control-height: 60px;
   }
 
   &.vp-enabled {
-    z-index: 2;
+    bottom: 48px;
     visibility: visible;
     max-width: 100%;
     opacity: 1;

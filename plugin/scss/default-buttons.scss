@@ -1,0 +1,264 @@
+@import './colors.scss';
+
+@mixin reset {
+    border: none;
+    margin: 0;
+    padding: 0;
+    width: auto;
+    cursor: pointer;
+    overflow: visible;
+    outline: none;
+
+    background: transparent;
+
+    color: inherit;
+    font: inherit;
+
+    /* Normalize `line-height`. Cannot be changed from `normal` in Firefox 4+. */
+    line-height: normal;
+
+    /* Corrects font smoothing for webkit */
+    -webkit-font-smoothing: inherit;
+    -moz-osx-font-smoothing: inherit;
+
+    /* Corrects inability to style clickable `input` types in iOS */
+    -webkit-appearance: none;
+}
+
+@mixin centralize {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+@mixin default-button {
+    @include reset;
+    @include centralize;
+    font-size: 14px;
+    font-style: normal;
+    line-height: 19px;
+    font-weight: 700;
+    text-align: center;
+    min-width: 32px;
+    min-height: 32px;
+    max-width: 32px;
+    max-height: 32px;
+    border-radius: 4px;
+    outline: 2px solid transparent;
+    outline-offset: -2px;
+
+    @media (max-width: 450px) {
+        min-width: 28px;
+        min-height: 28px;
+        max-width: 28px;
+        max-height: 28px;
+    }
+}
+
+@mixin header-button {
+    @include default-button;
+
+    background-color: map-get($blue, 1);
+    color: #FFFFFF;
+
+    span {
+        display: grid;
+        place-items: center;
+    }
+
+    svg {
+        width: 100%;
+        height: 100%;
+        position: absolute;
+
+        * {
+            fill: #FFFFFF;
+        }
+    }
+
+    &:hover {
+        background-color: map-get($blue, 2);
+    }
+
+    &:active {
+        background-color: map-get($blue, 4);
+
+        &svg>* {
+            fill: map-get($blue, 3);
+        }
+    }
+
+    &:focus {
+        background-color: map-get($blue, 2);
+        outline-color: map-get($white, 1);
+        box-shadow: 0 0 12px 0 rgba(86, 154, 255, 75%);
+    }
+
+    &:disabled {
+        background-color: map-get($white, 2);
+        cursor: not-allowed;
+        opacity: 0.3;
+    }
+
+    &.selected {
+        background-color: map-get($blue, 2);
+    }
+
+}
+
+@mixin control-button {
+    @include default-button;
+
+    background-color: map-get($white, 1);
+    color: map-get($blue, 4);
+
+    span {
+        display: grid;
+        place-items: center;
+    }
+
+    svg {
+        width: 100%;
+        height: 100%;
+        position: absolute;
+
+        * {
+            fill: map-get($blue, 4);
+        }
+    }
+
+    &.speed-button {
+        width: 40px
+    }
+
+    &:hover {
+        background-color: map-get($white, 5);
+    }
+
+    &:active {
+        background-color: map -get($white, 1);
+
+        &svg>* {
+            fill: map-get($blue, 4);
+        }
+    }
+
+    &:focus {
+        background-color: map-get($white, 1);
+        outline-color: map-get($blue, 3);
+    }
+
+    &:disabled {
+        cursor: not-allowed;
+        opacity: 0.3;
+    }
+
+    &.actived-subtitle {
+        background-color: map-get($blue, 2);
+
+        &:hover {
+            background-color: map-get($blue, 3);
+        }
+
+        svg>* {
+            fill: map-get($white, 1);
+        }
+
+    }
+
+}
+
+@mixin rate-button {
+    @include reset;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    flex-direction: column;
+    padding: 40px 12px 12px 12px;
+    border-radius: 4px;
+    color: map-get($white, 2);
+    position: relative;
+    font-size: 12px;
+    font-weight: 500;
+    background-color: map-get($white, 1);
+    outline: 2px solid transparent;
+    outline-offset: -2px;
+
+    svg {
+        width: 24px;
+        position: absolute;
+        top: 12px;
+
+        * {
+            fill: map-get($white, 2);
+        }
+    }
+
+    &:hover {
+        background-color: map-get($white, 5);
+    }
+
+    &:active {
+        outline-color: map-get($blue, 3);
+        box-shadow: 0px 0px 15px rgba(86, 154, 255, 0.75);
+    }
+}
+
+@mixin suggestion-btn--default {
+    @include reset;
+
+    height: 36px;
+    display: grid;
+    border-radius: 40px;
+    place-content: center;
+    border: 1px solid map-get($blue, 1);
+
+    font-size: 14px;
+    font-weight: 600;
+
+    @media (max-width: 450px) {
+        height: 28px;
+        font-size: 12px;
+    }
+}
+
+@mixin suggestion-btn--primary {
+    @include suggestion-btn--default;
+    background-color: map-get($blue, 1);
+    color: map-get($white, 1);
+
+    &:hover {
+        background-color: map-get($blue, 3);
+        border-color: map-get($blue, 3);
+    }
+
+    &:disabled {
+        background-color: map-get($white, 5);
+        border-color: map-get($white, 4);
+        cursor: not-allowed;
+        user-select: none;
+        color: map-get($white, 2);
+    }
+}
+
+@mixin suggestion-btn--secundary {
+    @include suggestion-btn--default;
+    background-color: map-get($white, 1);
+    color: map-get($blue, 1);
+
+    &:hover {
+        border-color: map-get($white, 2);
+        background-color: map-get($white, 5);
+        color: map-get($blue, 4);
+    }
+
+    &:disabled {
+        background-color: map-get($white, 5);
+        border-color: map-get($white, 4);
+        cursor: not-allowed;
+        user-select: none;
+        color: map-get($white, 2);
+    }
+}

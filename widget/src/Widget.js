@@ -4,6 +4,8 @@ const PluginWrapper = require('./components/PluginWrapper');
 require('./scss/reset.scss');
 require('./scss/styles.scss');
 
+const widgetPosition = ['TL', 'T', 'TR', 'L', 'R', 'BL', 'B', 'BR'];
+
 module.exports = function Widget(rootPath, personalization, opacity) {
   const widgetWrapper = new PluginWrapper();
   const accessButton = new AccessButton(
@@ -35,21 +37,34 @@ module.exports = function Widget(rootPath, personalization, opacity) {
     widgetWrapper.load(document.querySelector('[vw-plugin-wrapper]'));
 
     window.addEventListener('vp-widget-wrapper-set-side', (event) => {
-      if (event.detail.right) {
-        this.element.style.left = '0';
-        this.element.style.right = 'initial';
-        access.querySelector('.access-button').classList.add('left');
-        access.querySelector('.pop-up').classList.add('left');
-        document.querySelector('[vw-access-button]').style.margin =
-          '0px -100px 0px 0px';
-      } else {
-        this.element.style.right = '0';
-        this.element.style.left = 'initial';
-        access.querySelector('.access-button').classList.remove('left');
-        access.querySelector('.pop-up').classList.remove('left');
-        document.querySelector('[vw-access-button]').style.margin =
-          '0px 0px 0px -100px';
-      }
+      const { position } = event.detail;
+      if (!position || !widgetPosition.includes(position)) return;
+
+      this.element.style.left = position.includes('L')
+      ? '0' : ['T', 'B'].includes(position) ? '50%' : 'initial';
+
+      this.element.style.right = position.includes('R')
+      ? '0' : 'initial';
+      
+      this.element.style.top = position.includes('T') 
+      ? '0' : ['L', 'R'].includes(position) ? '50%' : 'initial';
+
+      this.element.style.bottom = position.includes('B')
+      ? '0' : 'initial';
+
+      this.element.style.transform = ['L', 'R'].includes(position)
+      ? 'translateY(calc(-50% - 10px))' : ['T', 'B'].includes(position) 
+      ? 'translateX(calc(-50% - 10px))' : 'initial';
+
+      document.querySelector('[vw-access-button]')
+      .style.margin = position.includes('R')
+      ? '0' : '0px 0px 0px -120px';
+
+      if (position.includes('R')) access.querySelector('.pop-up')
+      .classList.remove('left')
+
+      else access.querySelector('.pop-up')
+      .classList.add('left')
     });
 
     window.addEventListener('vp-widget-close', (event) => {
@@ -76,33 +91,31 @@ module.exports = function Widget(rootPath, personalization, opacity) {
   };
 };
 
-
 new MutationObserver((mutations) => {
   if (!document.querySelector('vlibraswidget')) return;
+  const vw = document.querySelector('[vw]');
 
-  try {
-    const accessButton = document.querySelector('div[vw-access-button]');
-    const closeButton = document.querySelector('.vpw-settings-btn-close');
-    let run = true;
+  mutations.forEach(mut => {
+    if (mut.addedNodes.length === 0) return;
 
-    mutations.forEach(mut => {
-      if (mut.addedNodes.length === 0) return;
+    try {
       mut.addedNodes.forEach(node => {
-        if (node.tagName === 'SCRIPT' ||
-          node.tagName === 'VLIBRASWIDGET') {
-          run = false;
-          return;
-        }
+        node.querySelectorAll(
+          'span, h1, h2, h3, h4, h5, h6, label, p, button, div'
+        ).forEach(el => {
+          if (vw.contains(el)) return;
+          const firstChild = el.children[0];
+        
+          if(firstChild || !el.textContent) return;
+    
+          el.innerHTML = '<vlibraswidget class="vw-text">'
+          + el.textContent + '</vlibraswidget>';
 
-        node.classList.forEach(_class => {
-          if (_class === 'vw-links') run = false;
-        })
-      })
-    })
+          el.addEventListener('click', 
+          () => window.plugin.player.translate(el.textContent));
+        });
+      });
+    } catch {}
+  })
 
-    if (run) {
-      closeButton.click();
-      accessButton.click();
-    }
-  } catch { }
 }).observe(document.body, { childList: true, subtree: true });

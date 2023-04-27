@@ -17,7 +17,6 @@ RateButton.prototype.load = function(element) {
   button.addEventListener('click', () => {
     if (this.enabled) {
       this.hide();
-      this.rateBox.show();
     }
   });
 };

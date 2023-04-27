@@ -1,59 +1,46 @@
-<div class="vpw-content">
-    <ul>
-        <li class="vpw-localism vpw-clickable">
-            <div class="vpw-container-localism">
-                <span class="vpw-name">Regionalismo</span>
-                <img class="vpw-flag" data-src="assets/brazil.png">
-                <img class="vpw-flag2" data-src="" style="display: none">
-                <span class="vpw-abbrev">BR</span>
-                <!-- <img class="arrow" data-src="assets/expander.png"> -->
+<div class="vpw-settings-content">
+    <div class="vpw-screen-header">
+        <button></button>
+        <span>Configurações</span>
+    </div>
+
+    <div class="vpw-options-container">
+
+        <div class="vpw-option-content">
+            <p>Dicionário</p>
+            <div>
+                <span>Regionalismo</span>
+                <div class="vpw-selected-region">
+                    <img>
+                    <span></span>
+                </div>
             </div>
-        </li>
-        <li class="vpw-dict vpw-clickable vpw-loading-dictionary">
-            <div class="vpw-container-dict">
-                <span class="vpw-controls-dictionary vpw-loading-dictionary"></span>
-            </div>
-        </li>
-        <li class="vpw-position vpw-clickable">
-            <div class="vpw-container-position">
-                <span class="vpw-name">Posicionamento da tela</span>
-                <label class="vpw-switch">
-                    <input checked disabled type="checkbox" name="checkbox">
-                    <span class="vpw-slider-check vpw-round"></span>
-                </label>
-            </div>
-        </li>
-
-        <li class="vpw-opacity vpw-clickable">
-            <div class="vpw-container-opacity">
-                <span class="vpw-name">Transparência</span>
-                <img class="arrow-left-opac" data-src="assets/arrow-left-opac.png">
-                <span class="vpw-percent">  </span>
-                <img class="arrow-right-opac" data-src="assets/arrow-right-opac.png">
-
-
-            </div>
-        </li>
-
-
-        <li class="vpw-about vpw-clickable">
-            <div class="vpw-container-about">
-                <span class="vpw-name">Sobre</span>
-            </div>
-        </li>
-    </ul>
-
-    <div class="vpw-localism">
-        <div class="vpw-national vpw-clickable">
-            <img class="vpw-flag" data-src="assets/brazil.png">
-            <span class="vpw-name">BR</span>
         </div>
-        <div class="vpw-regions"></div>
-    </div>
-    <div class="vpw-vlibras-logo">
-        <span class="vpw-vlibras-span">VLIBRAS</span>
-        <img class="vpw-logo" data-src="assets/logoicon.png">
-    </div>
-</div>
 
-<div class="vpw-wall"></div>
+        <div class="vpw-option-content">
+            <p>Aparência</p>
+            <div>
+                <div class="vpw-opacity-info">
+                    <span>Opacidade</span>
+                    <span class="vpw-opacity-value">100%</span>
+                </div>
+                <div class="vpw-opacity-range">
+                    <input type="range" value="100" min="0" max="100" step="5">
+                    <vpw-slider></vpw-slider>
+                    <span></span>
+                </div>
+            </div>
+        </div>
+
+        <div class="vpw-option-content">
+            <div>
+                <span>Posição na tela</span>
+                <div class="vpw-position-box">
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="vpw-regions-container"></div>
+</div>
