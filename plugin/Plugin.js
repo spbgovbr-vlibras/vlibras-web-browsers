@@ -193,7 +193,15 @@ function Plugin(options) {
         case 'internal_error':
           this.messageBox.show(
             'warning',
-            'Ops! Ocorreu um problema, por favor entre em contato com a gente.'
+            'Ops! Ocorreu um problema, por favor entre em contato com a gente.',
+            3000
+          );
+          break;
+        case 'timeout_error':
+          this.messageBox.show(
+            'warning',
+            'Tempo de requisição excedido.',
+            3000
           );
           break;
       }
