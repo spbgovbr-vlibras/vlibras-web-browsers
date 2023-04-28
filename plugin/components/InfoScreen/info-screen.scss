@@ -23,7 +23,6 @@
 
     @media(max-width: 450px) {
       max-width: 210px;
-
     }
 
     &.active {
@@ -145,18 +144,15 @@
         gap: 10px;
       }
 
-      .vpw-siz {
-        max-width: 55% !important;
-      }
-
       .vpw-logo {
         margin-top: -2px;
         margin: 0.5em 0.35em;
-        min-width: 10%;
-        max-width: 29%;
-        max-height: 15vh;
-      }
+        max-width: 50%;
 
+        @media (max-width: 450px) {
+          max-height: 25px;
+        }
+      }
 
       .vpw-logo-group {
         display: flex;
