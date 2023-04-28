@@ -10,7 +10,6 @@ const MessageBox = require('components/MessageBox');
 const Box = require('components/Box');
 const SettingsCloseBtn = require('components/SettingsCloseBtn');
 const CloseScreen = require('components/CloseScreen');
-const RateButton = require('components/RateButton');
 const RateBox = require('components/RateBox');
 const SuggestionScreen = require('components/SuggestionScreen');
 const ChangeAvatar = require('components/ChangeAvatar');
@@ -72,13 +71,11 @@ function Plugin(options) {
   this.messageBox = new MessageBox();
   this.suggestionScreen = new SuggestionScreen(this.player);
   this.rateBox = new RateBox(this.messageBox, this.suggestionScreen);
-  this.rateButton = new RateButton(this.rateBox);
   this.ChangeAvatar = new ChangeAvatar(this.player);
 
   this.loadingRef = null;
 
   this.messageBox.load(this.element.querySelector('[vp-message-box]'));
-  this.rateButton.load(this.element.querySelector('[vp-rate-button]'));
   this.rateBox.load(this.element.querySelector('[vp-rate-box]'));
   this.suggestionScreen.load(
     this.element.querySelector('[vp-suggestion-screen]')
@@ -128,7 +125,6 @@ function Plugin(options) {
 
   window.addEventListener('vp-widget-close', (event) => {
     this.player.stop();
-    this.rateButton.hide();
     this.rateBox.hide();
     this.suggestionScreen.hide();
   });
@@ -137,7 +133,6 @@ function Plugin(options) {
   this.player.on('translate:start', () => {
     control = 1;
     this.ChangeAvatar.hide();
-    this.rateButton.hide();
     this.controls.setProgress();
     this.loadingRef = this.messageBox.show('info', 'Traduzindo...');
   });
@@ -149,7 +144,6 @@ function Plugin(options) {
   this.player.on('gloss:start', () => {
     control = 0;
     this.ChangeAvatar.hide();
-    this.rateButton.hide();
     this.rateBox.hide();
     this.suggestionScreen.hide();
   });
