@@ -95,6 +95,7 @@ Controls.prototype.load = function (element) {
   this.element.innerHTML = controlsTpl;
   this.element.classList.add('vpw-controls');
   this.element.classList.add('vpw-subtitles');
+  this.rateBox = document.querySelector('div[vp-rate-box]');  
 
   const play = this.element.querySelector('.vpw-controls-button');
   const slider = this.element.querySelector('.vpw-controls-slider .vpw-slider');
@@ -125,6 +126,9 @@ Controls.prototype.load = function (element) {
         this.player.pause();
       } else if (this.element.classList.contains('vpw-stopped')) {
         this.player.repeat();
+        this.player.on('gloss:end', () => {
+          if (!this.player.translated) this.rateBox.classList.add('vp-enabled');
+        })
       } else {
         this.player.continue();
       }
