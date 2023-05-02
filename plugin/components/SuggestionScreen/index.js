@@ -182,7 +182,7 @@ SuggestionScreen.prototype.load = function (element) {
   this.textElement.addEventListener('input', function () {
     const { end } = getInputSelection(this.textElement);
 
-    if (!this.textElement.value.trim()) {
+    if (!this.textElement.value.replace(/[^a-z]/gi, '')) {
       this.visualize.setAttribute('disabled', true);
       this.send.setAttribute('disabled', true);
     } else {
