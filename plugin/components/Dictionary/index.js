@@ -7,6 +7,7 @@ const dictionaryTpl = require('./dictionary.html').default;
 require('./dictionary.scss');
 
 const { dictionaryIcon } = require('../../assets/icons')
+const { DICTIONARY_URL } = require('../../config');
 
 const Trie = require('./trie.js');
 
@@ -65,7 +66,7 @@ Dictionary.prototype.load = function (element, closeScreen) {
       buttons[1].classList.remove('vp-selected');
       recentWords.classList.remove('enabled');
       dictWords.classList.add('enabled');
-    } 
+    }
     else if (words === 'recents') {
       buttons[1].classList.add('vp-selected');
       buttons[0].classList.remove('vp-selected');
@@ -113,19 +114,15 @@ Dictionary.prototype.load = function (element, closeScreen) {
   function getSigns() {
     loadingScreen.classList.remove('vpw-dict--error');
     const xhr = new XMLHttpRequest();
-    xhr.open(
-      'get',
-      'https://dicionario2.vlibras.gov.br/signs?version=2018.3.1',
-      true
-    );
+    xhr.open('get', DICTIONARY_URL, true);
     xhr.responseType = 'text';
     xhr.onload = function () {
       try {
         if (xhr.status == 200) {
           const json = JSON.parse(xhr.response);
-  
+
           this.signs = new Trie(json);
-  
+
           this.signs.loadSigns('', this.list._insert.bind(this.list));
           loadingScreen.remove();
         } else {
@@ -161,7 +158,7 @@ Dictionary.prototype.load = function (element, closeScreen) {
       if (this.list.childNodes.length === 0) {
         this.list.innerHTML = '<span>Nenhum sinal encontrado :(</span>';
       }
-      
+
       toggleWords('dict');
 
     }.bind(this)
@@ -173,7 +170,7 @@ Dictionary.prototype._onItemClick = function (event, word) {
   this.player.play(event);
 
   if (this.element.querySelectorAll('.buttons-container button')[1]
-      .classList.contains('vp-selected')
+    .classList.contains('vp-selected')
   ) return;
 
   let value = localStorage.getItem("@vp-dict-history");
