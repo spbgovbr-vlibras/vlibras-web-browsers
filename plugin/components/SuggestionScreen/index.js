@@ -2,6 +2,7 @@ const template = require('./suggestion-screen.html').default;
 require('./suggestion-screen.scss');
 
 const { arrowIcon } = require('../../assets/icons/');
+const { SIGNS_URL } = require('../../config');
 
 const TrieSearch = require('trie-search');
 const getCaretCoordinates = require('textarea-caret');
@@ -213,7 +214,7 @@ SuggestionScreen.prototype.load = function (element) {
   }.bind(this));
 
   const xhr = new XMLHttpRequest();
-  xhr.open('get', 'https://repositorio.vlibras.gov.br/api/signs', true);
+  xhr.open('get', SIGNS_URL, true);
   xhr.responseType = 'text';
   xhr.onload = function () {
     if (xhr.status == 200) {
