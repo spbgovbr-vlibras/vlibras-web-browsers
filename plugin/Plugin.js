@@ -15,6 +15,7 @@ const SuggestionScreen = require('components/SuggestionScreen');
 const ChangeAvatar = require('components/ChangeAvatar');
 
 const url = require('url-join');
+const { REVIEW_URL } = require('./config');
 
 require('./scss/styles.scss');
 
@@ -219,7 +220,7 @@ Plugin.prototype.sendReview = function (rate, review) {
   });
 
   const http = new XMLHttpRequest();
-  http.open('POST', 'https://traducao2.vlibras.gov.br/review');
+  http.open('POST', REVIEW_URL);
   http.setRequestHeader('Content-type', 'application/json');
   http.send(body);
   http.onload = () => {
