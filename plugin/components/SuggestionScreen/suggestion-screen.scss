@@ -118,6 +118,7 @@ $control-height: 68px;
       height: 120px;
       font-size: 14px;
       outline: none !important;
+      display: block !important;
 
       &:hover {
         border-color: map-get($white, 2);

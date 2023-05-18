@@ -101,7 +101,6 @@ SuggestionScreen.prototype.load = function (element) {
   this.rateBox = document.querySelector('div[vp-rate-box]');
   this.gloss = null;
 
-  this.rate = null;
   this.textElement = this.element.querySelector('.vp-text');
 
   this.send = this.element.querySelector('.vp-send-button');
@@ -116,7 +115,7 @@ SuggestionScreen.prototype.load = function (element) {
   close.innerHTML = arrowIcon;
 
   this.send.addEventListener('click', () => {
-    window.plugin.sendReview(this.rate, this.textElement.value);
+    window.plugin.sendReview('bad', this.textElement.value.trim());
   });
 
   close.addEventListener('click', function () {
@@ -137,13 +136,15 @@ SuggestionScreen.prototype.load = function (element) {
 
   this.visualize.addEventListener('click', () => {
     let openAfterEnd = true;
+    const oldGloss = this.player.gloss;
     this.hide();
-    this.player.play(this.textElement.value);
+    this.player.play(this.textElement.value.trim());
     this.player.on('gloss:end', () => {
       if (openAfterEnd) {
         this.show();
         this.rateBox.classList.add('vp-enabled');
       }
+      this.player.gloss = oldGloss;
       openAfterEnd = false;
     });
   });
@@ -182,7 +183,7 @@ SuggestionScreen.prototype.load = function (element) {
   this.textElement.addEventListener('input', function () {
     const { end } = getInputSelection(this.textElement);
 
-    if (!this.textElement.value.trim()) {
+    if (!this.textElement.value.replace(/[^a-z]/gi, '')) {
       this.visualize.setAttribute('disabled', true);
       this.send.setAttribute('disabled', true);
     } else {
@@ -232,9 +233,8 @@ SuggestionScreen.prototype.setGloss = function (gloss) {
   this.visualize.removeAttribute('disabled');
 };
 
-SuggestionScreen.prototype.show = function (rate) {
+SuggestionScreen.prototype.show = function () {
   this.element.querySelector('.vp-text').style.display = 'block';
-  this.rate = rate;
   this.element.classList.add('vp-enabled');
   this.element.classList.add('vp-expanded');
   this.element.querySelector('.vp-dropdown-suggest').classList.remove('vp-enabled');

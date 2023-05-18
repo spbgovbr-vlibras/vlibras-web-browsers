@@ -31,7 +31,7 @@ RateBox.prototype.load = function(element) {
   }.bind(this));
 
   deslikeBtn.addEventListener('click', function () {
-    this.suggestionScreen.show('bad');
+    this.suggestionScreen.show();
     this.suggestionScreen.setGloss(window.plugin.player.gloss);
   }.bind(this));
   
