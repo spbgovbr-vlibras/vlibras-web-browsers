@@ -83,6 +83,8 @@ Dictionary.prototype.load = function (element, closeScreen) {
     'click',
     function () {
       this.hide();
+      document.querySelector('.vpw-header-btn-dictionary')
+        .classList.remove('selected');
     }.bind(this)
   );
 
