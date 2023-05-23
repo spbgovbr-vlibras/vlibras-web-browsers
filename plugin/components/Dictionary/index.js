@@ -1,4 +1,4 @@
-const { backIcon } = require('../../assets/icons')
+const { backIcon, loadingIcon } = require('../../assets/icons')
 
 const inherits = require('inherits');
 const EventEmitter = require('events').EventEmitter;
@@ -78,11 +78,14 @@ Dictionary.prototype.load = function (element, closeScreen) {
   // Add icon
   this.element.querySelector('.vpw-icon').innerHTML = dictionaryIcon;
   this.element.querySelector('.vpw-btn-close').innerHTML = backIcon;
+  document.querySelector('.vpw-loading__img').innerHTML = loadingIcon;
 
   backButton.addEventListener(
     'click',
     function () {
       this.hide();
+      document.querySelector('.vpw-header-btn-dictionary')
+        .classList.remove('selected');
     }.bind(this)
   );
 

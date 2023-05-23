@@ -18,8 +18,6 @@ InfoScreen.prototype.load = function (element) {
   this.element.innerHTML = infoScreenTpl;
   this.element.classList.add('vpw-info-screen');
 
-  const main = this.element.querySelector('#vpw-info-main');
-  const realizadores = this.element.querySelector('.vpw-text-realizadores');
   const backButton = this.element.querySelector('.vpw-back-button');
 
   // ADD ICONS
@@ -35,11 +33,11 @@ InfoScreen.prototype.load = function (element) {
     'click',
     function () {
       this.hide();
+      document.querySelector('.vpw-header-btn-about')
+        .classList.remove('selected');
     }.bind(this)
   );
 };
-
-
 
 InfoScreen.prototype.toggle = function () {
   if (this.visible) this.hide();
