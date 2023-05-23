@@ -45,6 +45,7 @@ SettingsBtn.prototype.load = function(
     'click',
     function() {
       showScreen(this.screen, settingsBtn);
+      settingsBtn.blur();
     }.bind(this),
 );
 
@@ -52,6 +53,7 @@ SettingsBtn.prototype.load = function(
     'click',
     function () {
        showScreen(this.dictionary, dictionaryBtn);
+      dictionaryBtn.blur();
     }.bind(this)
   );
   
@@ -59,6 +61,7 @@ SettingsBtn.prototype.load = function(
     'click',
     function () {
       showScreen(this.infoScreen, aboutBtn);
+      aboutBtn.blur();
     }.bind(this)
   );
 
