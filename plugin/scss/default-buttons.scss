@@ -26,7 +26,6 @@
 }
 
 @mixin centralize {
-    position: relative;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -35,6 +34,7 @@
 @mixin default-button {
     @include reset;
     @include centralize;
+
     font-size: 14px;
     font-style: normal;
     line-height: 19px;
@@ -58,13 +58,13 @@
 
 @mixin header-button {
     @include default-button;
+    position: relative;
 
     background-color: map-get($blue, 1);
     color: #FFFFFF;
 
     span {
-        display: grid;
-        place-items: center;
+        @include centralize;
     }
 
     svg {
@@ -110,12 +110,12 @@
 @mixin control-button {
     @include default-button;
 
+    position: relative;
     background-color: map-get($white, 1);
     color: map-get($blue, 4);
 
     span {
-        display: grid;
-        place-items: center;
+        @include centralize;
     }
 
     svg {
@@ -209,11 +209,10 @@
 
 @mixin suggestion-btn--default {
     @include reset;
+    @include centralize;
 
     height: 36px;
-    display: grid;
     border-radius: 40px;
-    place-content: center;
     border: 1px solid map-get($blue, 1);
 
     font-size: 14px;

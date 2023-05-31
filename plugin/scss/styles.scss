@@ -1,5 +1,10 @@
 @import url('https://fonts.cdnfonts.com/css/rawline');
 
+[vp] * {
+  box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+}
+
 [vp] {
   font-size: 16px;
   font-family: 'Rawline', 'Open Sans', sans-serif !important;
