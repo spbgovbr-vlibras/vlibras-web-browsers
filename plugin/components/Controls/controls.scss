@@ -39,7 +39,8 @@
 
     .vpw-selectTextLabel {
       display: none;
-      place-items: center;
+      align-items: center;
+      justify-content: center;
       width: 100%;
       height: 100%;
       color: #FFFFFF;
@@ -56,7 +57,7 @@
 
     &.vpw-selectText {
       .vpw-selectTextLabel {
-        display: grid
+        display: flex;
       }
 
       .vpw-controls-button {
@@ -95,7 +96,7 @@
       }
 
       .vpw-component-pause {
-        display: grid;
+        display: flex;
       }
 
       .vpw-component-restart {
@@ -113,7 +114,7 @@
       }
 
       .vpw-component-restart {
-        display: grid;
+        display: flex;
       }
     }
 
