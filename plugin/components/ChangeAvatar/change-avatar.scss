@@ -64,7 +64,7 @@ $bg-color: #9c9c9c;
       }
     }
 
-    &.selected {
+    &.vp-selected {
       background-color: map-get($blue, 3);
       outline-color: map-get($blue, 3);
       border-color: #e0e0e0;

@@ -20,22 +20,25 @@ ChangeAvatar.prototype.load = function (element) {
     button.innerHTML = [IcaroIcon, hozanaIcon, gugaIcon][i];
 
     button.onclick = () => {
-      if (button.classList.contains('selected')) return;
+      if (button.classList.contains('vp-selected')) return;
       this.player.changeAvatar(avatars[i]);
       selectButton(button);
     }
   });
-  
+
   function selectButton(button) {
-    button.classList.add('selected');
+    button.classList.add('vp-selected');
     buttons.forEach(btn => {
-      if (btn !== button) btn.classList.remove('selected');
+      if (btn !== button) btn.classList.remove('vp-selected');
     })
   }
 
   this.player.on(
     'GetAvatar',
-    function () {
+    function (avatar) {
+      buttons[avatars.indexOf(avatar)]
+        .classList.add('vp-selected');
+
       this.player.playWellcome();
     }.bind(this)
   );

@@ -160,11 +160,14 @@
             width: 24px;
             height: 24px;
             cursor: pointer;
-            display: grid;
-            place-items: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
 
             svg {
               visibility: hidden;
+              position: absolute;
             }
 
             &::after {
