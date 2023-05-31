@@ -59,8 +59,9 @@
                 outline: 1px solid map-get($white, 2);
                 outline-offset: -1px;
                 right: 16px;
-                display: grid;
-                place-items: center;
+                display: flex;
+                align-items: center;
+                justify-content: center;
 
                 &::after {
                     border-radius: 10px;
