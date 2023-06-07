@@ -119,6 +119,7 @@ $control-height: 68px;
       font-size: 14px;
       outline: none !important;
       display: block !important;
+      min-height: auto !important;
 
       &:hover {
         border-color: map-get($white, 2);
@@ -180,7 +181,7 @@ $control-height: 68px;
       padding: 10px;
 
       .vp-text {
-        height: 90px;
+        height: 100px;
         font-size: 12px;
       }
 
