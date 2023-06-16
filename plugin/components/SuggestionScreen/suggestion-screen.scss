@@ -1,5 +1,6 @@
 @import '~scss/colors.scss';
 @import '~scss/default-buttons.scss';
+@import '~scss/shared-styles.scss';
 
 $control-height: 68px;
 
@@ -67,29 +68,7 @@ $control-height: 68px;
   }
 
   .vp-suggestion-screen-header {
-    width: 100%;
-    height: 48px;
-    border-bottom: 1px solid map-get($white, 4);
-    display: flex;
-    padding: 16px;
-    align-items: center;
-    justify-content: space-between;
-
-    span {
-      font-size: 14px;
-      font-weight: 600;
-    }
-
-    button {
-      @include control-button;
-
-      svg>* {
-        fill: map-get($blue, 4);
-      }
-
-      transition: transform .3s;
-    }
-
+    @include vp-header;
   }
 
   .vp-suggestion-screen-content {
@@ -171,11 +150,6 @@ $control-height: 68px;
   }
 
   @media (max-width: 450px) {
-    .vp-suggestion-screen-header {
-      height: 38px;
-      padding: 10px;
-    }
-
     .vp-suggestion-screen-content {
       gap: 6px;
       padding: 10px;

@@ -1,0 +1,42 @@
+@import '~scss/colors';
+@import '~scss/default-buttons';
+
+$control-height: 60px;
+$bg-color: #9c9c9c;
+
+[vp] [vp-additional-options] {
+    justify-content: center;
+    flex-direction: column;
+    gap: 10px;
+    position: absolute;
+    z-index: 2;
+    display: none;
+    max-width: 100%;
+    opacity: 1;
+    transition: max-width 0s, visibility 0s, opacity 0.4s;
+    left: 13px;
+    top: 92px;
+
+    button {
+        @include default-button;
+
+        width: 32px;
+        border-radius: 50%;
+        height: 32px;
+        cursor: pointer;
+        background-color: map-get($white, 2);
+        border: 2px solid transparent;
+        outline: 2px solid transparent;
+        padding: 0 !important;
+
+        &:hover {
+            outline-color: rgba(map-get($white, 2), .3);
+            opacity: 1 !important;
+        }
+
+    }
+
+    &.vp-enabled {
+        display: flex;
+    }
+}

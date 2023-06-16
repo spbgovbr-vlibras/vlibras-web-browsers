@@ -15,7 +15,6 @@ ChangeAvatar.prototype.load = function (element) {
   this.element.innerHTML = template;
   const buttons = this.element.querySelectorAll('.vp-button-change-avatar');
 
-  // Add icon
   buttons.forEach((button, i) => {
     button.innerHTML = [IcaroIcon, hozanaIcon, gugaIcon][i];
 
@@ -25,6 +24,10 @@ ChangeAvatar.prototype.load = function (element) {
       selectButton(button);
     }
   });
+
+  this.element.onclick = () => this.element.classList.toggle('vp-change-avatar-openned');
+  this.element.onmouseenter = () => this.element.classList.add('vp-change-avatar-openned');
+  this.element.onmouseleave = () => this.element.classList.remove('vp-change-avatar-openned');
 
   function selectButton(button) {
     button.classList.add('vp-selected');
