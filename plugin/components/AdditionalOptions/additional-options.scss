@@ -27,6 +27,7 @@ $bg-color: #9c9c9c;
         background-color: map-get($white, 2);
         border: 2px solid transparent;
         outline: 2px solid transparent;
+        outline-offset: 0;
         padding: 0 !important;
 
         &:hover {
