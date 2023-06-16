@@ -12,10 +12,13 @@ const SettingsCloseBtn = require('components/SettingsCloseBtn');
 const CloseScreen = require('components/CloseScreen');
 const RateBox = require('components/RateBox');
 const SuggestionScreen = require('components/SuggestionScreen');
+const TranslatorScreen = require('components/AdditionalOptions/TranslatorScreen');
 const ChangeAvatar = require('components/ChangeAvatar');
+const AdditionalOptions = require('components/AdditionalOptions');
 
 const url = require('url-join');
 const { REVIEW_URL } = require('./config');
+const WidgetFullscreen = require('./components/AdditionalOptions/ToggleFullscreen');
 
 require('./scss/styles.scss');
 
@@ -71,15 +74,24 @@ function Plugin(options) {
   );
   this.messageBox = new MessageBox();
   this.suggestionScreen = new SuggestionScreen(this.player);
+  this.translatorScreen = new TranslatorScreen(this.player);
   this.rateBox = new RateBox(this.messageBox, this.suggestionScreen);
   this.ChangeAvatar = new ChangeAvatar(this.player);
+  this.additionalOptions = new AdditionalOptions(
+    this.player,
+    this.translatorScreen
+  );
 
   this.loadingRef = null;
 
+  this.additionalOptions.load(this.element.querySelector('[vp-additional-options]'));
   this.messageBox.load(this.element.querySelector('[vp-message-box]'));
   this.rateBox.load(this.element.querySelector('[vp-rate-box]'));
   this.suggestionScreen.load(
     this.element.querySelector('[vp-suggestion-screen]')
+  );
+  this.translatorScreen.load(
+    this.element.querySelector('[vp-translator-screen]')
   );
 
   this.player.load(this.element);
@@ -128,6 +140,8 @@ function Plugin(options) {
     this.player.stop();
     this.rateBox.hide();
     this.suggestionScreen.hide();
+    this.translatorScreen.hide();
+    WidgetFullscreen.remove();
   });
 
   let control = 0;
@@ -147,6 +161,7 @@ function Plugin(options) {
     this.ChangeAvatar.hide();
     this.rateBox.hide();
     this.suggestionScreen.hide();
+    this.translatorScreen.hide();
   });
 
   this.player.on('gloss:end', (globalGlosaLenght) => {
@@ -165,6 +180,7 @@ function Plugin(options) {
   this.player.on('stop:welcome', (bool) => {
     if (bool) {
       this.ChangeAvatar.show();
+      this.additionalOptions.show();
     }
   });
 

@@ -235,14 +235,14 @@ SuggestionScreen.prototype.setGloss = function (gloss) {
 };
 
 SuggestionScreen.prototype.show = function () {
-  this.element.querySelector('.vp-text').style.display = 'block';
+  // this.element.querySelector('.vp-text').style.display = 'block';
   this.element.classList.add('vp-enabled');
   this.element.classList.add('vp-expanded');
   this.element.querySelector('.vp-dropdown-suggest').classList.remove('vp-enabled');
 };
 
 SuggestionScreen.prototype.hide = function () {
-  this.element.querySelector('.vp-text').style.display = 'none';
+  // this.element.querySelector('.vp-text').style.display = 'none';
   this.element.classList.remove('vp-enabled');
 };
 

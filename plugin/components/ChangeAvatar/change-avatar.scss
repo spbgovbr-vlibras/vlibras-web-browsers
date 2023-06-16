@@ -7,7 +7,8 @@ $bg-color: #9c9c9c;
 
 [vp] [vp-change-avatar] {
   justify-content: center;
-  flex-direction: column;
+  // flex-direction: column;
+  flex-direction: row;
   gap: 10px;
   position: absolute;
   z-index: 2;
@@ -17,12 +18,12 @@ $bg-color: #9c9c9c;
   transition: max-width 0s, visibility 0s, opacity 0.4s;
   left: 13px;
   top: 50px;
+  padding-left: 42px;
 
   .vp-button-change-avatar {
     display: flex;
     justify-content: center;
     align-items: center;
-    z-index: 1;
     cursor: pointer;
     background: map-get($white, 2);
     border-radius: 50px;
@@ -31,6 +32,9 @@ $bg-color: #9c9c9c;
     border: 2px solid transparent;
     outline: 2px solid transparent;
     padding: 0 !important;
+    z-index: -1;
+    transform: translateX(-200%) scale(0);
+    transition: transform .3s ease-in-out;
 
     svg {
       width: 20px;
@@ -41,15 +45,15 @@ $bg-color: #9c9c9c;
     &::after {
       content: attr(avatar-name);
       display: none;
-      place-content: center;
-      height: 32px;
-      right: -10px;
+      align-items: center;
+      justify-content: center;
+      height: 28px;
+      top: 36px;
       background-color: map-get($black, 1);
-      border: 20px;
       padding: 0 16px;
       position: absolute;
-      border-radius: 40px;
-      transform: translateX(100%);
+      border-radius: 0 20px 20px 20px;
+      transform: translateX(60%);
 
       color: map-get($white, 1);
       font-size: 14px;
@@ -60,14 +64,23 @@ $bg-color: #9c9c9c;
       outline-color: rgba(map-get($white, 2), .3);
 
       &::after {
-        display: grid;
+        display: flex;
       }
     }
 
     &.vp-selected {
+      display: flex !important;
       background-color: map-get($blue, 3);
       outline-color: map-get($blue, 3);
       border-color: #e0e0e0;
+      position: absolute;
+      left: 0;
+      z-index: 1;
+      transform: none !important;
+
+      &::after {
+        display: none;
+      }
 
       &:hover {
         outline-color: rgba(map-get($blue, 3), .5);
@@ -85,7 +98,22 @@ $bg-color: #9c9c9c;
     }
   }
 
+  &.vp-change-avatar-openned {
+    .vp-button-change-avatar {
+      transform: translateX(0) scale(1);
+    }
+
+  }
+
   &.active {
     display: flex;
+  }
+
+  @media (max-width: 450px) {
+    padding-left: 38px;
+
+    .vp-button-change-avatar::after {
+      top: 32px;
+    }
   }
 }

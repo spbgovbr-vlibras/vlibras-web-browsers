@@ -40,8 +40,11 @@ function Controls(player, dictionary) {
 
   this.player.on(
     'response:glosa',
-    function (counter, glosaLenght) {
+    function (counter) {
       counter = counter - 2;
+      const glosaLenght = this.player.gloss 
+        ? this.player.gloss.split(" ").length 
+        : 1;
 
       if (counter != -1) {
         const slider = this.element.querySelector(

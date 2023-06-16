@@ -1,0 +1,31 @@
+@import '~scss/default-buttons.scss';
+
+@mixin vp-header {
+    width: 100%;
+    height: 48px;
+    border-bottom: 1px solid map-get($white, 4);
+    display: flex;
+    padding: 16px;
+    align-items: center;
+    justify-content: space-between;
+
+    span {
+        font-size: 14px;
+        font-weight: 600;
+    }
+
+    button {
+        @include control-button;
+
+        svg>* {
+            fill: map-get($blue, 4);
+        }
+
+        transition: transform .3s;
+    }
+
+    @media (max-width: 450px) {
+        height: 38px;
+        padding: 10px;
+    }
+}
