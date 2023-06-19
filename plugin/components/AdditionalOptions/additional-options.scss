@@ -14,7 +14,7 @@ $bg-color: #9c9c9c;
     max-width: 100%;
     opacity: 1;
     transition: max-width 0s, visibility 0s, opacity 0.4s;
-    left: 13px;
+    left: 16px;
     top: 92px;
 
     button {
@@ -30,14 +30,37 @@ $bg-color: #9c9c9c;
         outline-offset: 0;
         padding: 0 !important;
 
+        svg {
+            width: 18px;
+            height: 18px;
+            color: #FFF;
+        }
+
         &:hover {
             outline-color: rgba(map-get($white, 2), .3);
             opacity: 1 !important;
+        }
+
+        &[data-title]:hover::after {
+            content: attr(data-title);
+            background-color: map-get($black, 1);
+            position: absolute;
+            border-radius: 20px;
+            color: #FFF;
+            font-size: 12px;
+            padding: 4px 10px;
+            left: 120%;
+            font-weight: normal;
+            white-space: nowrap;
         }
 
     }
 
     &.vp-enabled {
         display: flex;
+    }
+
+    @media (max-width: 450px) {
+        left: 10px;
     }
 }

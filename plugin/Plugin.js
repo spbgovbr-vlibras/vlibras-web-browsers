@@ -18,7 +18,7 @@ const AdditionalOptions = require('components/AdditionalOptions');
 
 const url = require('url-join');
 const { REVIEW_URL } = require('./config');
-const WidgetFullscreen = require('./components/AdditionalOptions/ToggleFullscreen');
+const WidgetFullscreen = require('./components/AdditionalOptions/WidgetFullscreen');
 
 require('./scss/styles.scss');
 
