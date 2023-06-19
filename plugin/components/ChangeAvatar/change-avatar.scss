@@ -6,7 +6,8 @@ $bg-color: #9c9c9c;
 
 
 [vp] [vp-change-avatar] {
-  justify-content: center;
+  justify-content: start;
+  align-items: center;
   // flex-direction: column;
   flex-direction: row;
   gap: 10px;
@@ -15,10 +16,12 @@ $bg-color: #9c9c9c;
   display: none;
   max-width: 100%;
   opacity: 1;
-  transition: max-width 0s, visibility 0s, opacity 0.4s;
-  left: 13px;
+  left: 14px;
   top: 50px;
-  padding-left: 42px;
+  height: 36px;
+  width: 36px;
+  overflow: hidden;
+  transition: all .3s ease-in-out;
 
   .vp-button-change-avatar {
     display: flex;
@@ -29,12 +32,13 @@ $bg-color: #9c9c9c;
     border-radius: 50px;
     width: 32px;
     height: 32px;
+    min-width: 32px;
     border: 2px solid transparent;
     outline: 2px solid transparent;
     padding: 0 !important;
     z-index: -1;
-    transform: translateX(-200%) scale(0);
-    transition: transform .3s ease-in-out;
+    opacity: 0;
+    transition: all .3s ease-in-out;
 
     svg {
       width: 20px;
@@ -47,10 +51,13 @@ $bg-color: #9c9c9c;
       display: none;
       align-items: center;
       justify-content: center;
-      height: 28px;
-      top: 36px;
+      top: 38px;
       background-color: map-get($black, 1);
-      padding: 0 16px;
+      padding: 0 10px;
+      height: 28px;
+      padding-bottom: 4px;
+      align-items: center;
+      justify-content: center;
       position: absolute;
       border-radius: 0 20px 20px 20px;
       transform: translateX(60%);
@@ -74,9 +81,9 @@ $bg-color: #9c9c9c;
       outline-color: map-get($blue, 3);
       border-color: #e0e0e0;
       position: absolute;
-      left: 0;
+      left: 2px;
       z-index: 1;
-      transform: none !important;
+      opacity: 1;
 
       &::after {
         display: none;
@@ -95,14 +102,18 @@ $bg-color: #9c9c9c;
     @media (max-width: 450px) {
       width: 28px;
       height: 28px;
+      min-width: 28px;
     }
   }
 
   &.vp-change-avatar-openned {
-    .vp-button-change-avatar {
-      transform: translateX(0) scale(1);
-    }
+    padding-left: 42px;
+    width: 120px;
+    overflow: visible;
 
+    button {
+      opacity: 1;
+    }
   }
 
   &.active {
@@ -110,7 +121,7 @@ $bg-color: #9c9c9c;
   }
 
   @media (max-width: 450px) {
-    padding-left: 38px;
+    left: 8px;
 
     .vp-button-change-avatar::after {
       top: 32px;
