@@ -40,11 +40,8 @@ function Controls(player, dictionary) {
 
   this.player.on(
     'response:glosa',
-    function (counter) {
+    function (counter, glosaLenght) {
       counter = counter - 2;
-      const glosaLenght = this.player.gloss 
-        ? this.player.gloss.split(" ").length 
-        : 1;
 
       if (counter != -1) {
         const slider = this.element.querySelector(
@@ -98,13 +95,13 @@ Controls.prototype.load = function (element) {
   this.element.innerHTML = controlsTpl;
   this.element.classList.add('vpw-controls');
   this.element.classList.add('vpw-subtitles');
-  this.rateBox = document.querySelector('div[vp-rate-box]');  
+  this.rateBox = document.querySelector('div[vp-rate-box]');
 
   const play = this.element.querySelector('.vpw-controls-button');
   const slider = this.element.querySelector('.vpw-controls-slider .vpw-slider');
   const speed = this.element.querySelector('.vpw-button-speed');
   const subtitles = this.element.querySelector('.vpw-controls-subtitles');
-  
+
   // Add icons
   play.querySelector('.vpw-component-play').innerHTML = playIcon;
   play.querySelector('.vpw-component-pause').innerHTML = pauseIcon;

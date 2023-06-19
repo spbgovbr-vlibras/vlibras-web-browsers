@@ -10,7 +10,6 @@
     border-top: 1px solid map-get($white, 4);
     transform: translateX(-50%);
     bottom: 0%;
-    max-width: 900px;
     z-index: 5;
 
     @media (max-width: 450px) {
