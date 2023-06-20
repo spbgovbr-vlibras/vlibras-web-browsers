@@ -41,17 +41,20 @@ $bg-color: #9c9c9c;
             opacity: 1 !important;
         }
 
-        &[data-title]:hover::after {
-            content: attr(data-title);
-            background-color: map-get($black, 1);
-            position: absolute;
-            border-radius: 20px;
-            color: #FFF;
-            font-size: 12px;
-            padding: 4px 10px;
-            left: 120%;
-            font-weight: normal;
-            white-space: nowrap;
+        @media (hover: hover) {
+            &[data-title]:hover::after {
+                content: attr(data-title);
+                background-color: map-get($black, 1);
+                position: absolute;
+                border-radius: 20px;
+                color: #FFF;
+                font-size: .9rem;
+                font-weight: 500;
+                white-space: nowrap;
+                padding: 4px 10px;
+                left: 120%;
+                display: block;
+            }
         }
 
     }
