@@ -1,8 +1,7 @@
 const template = require('./additional-options.html').default;
 require('./additional-options.scss');
 
-const WidgetFullscreen = require('./WidgetFullscreen');
-const { editIcon, fullscreenIcon } = require('../../assets/icons/')
+const { translatorIcon } = require('../../assets/icons/')
 
 function AdditionalOptions(player, translatorScreen) {
   this.player = player;
@@ -15,19 +14,13 @@ AdditionalOptions.prototype.load = function (element) {
   this.element.innerHTML = template;
 
   const translatorBtn = this.element.querySelector('.vp-translator-button');
-  const fullscreenBtn = this.element.querySelector('.vp-fullscreen-button');
 
   // Add icons
-  translatorBtn.innerHTML = editIcon;
-  fullscreenBtn.innerHTML = fullscreenIcon;
+  translatorBtn.innerHTML = translatorIcon;
 
   // Add actions
   translatorBtn.onclick = () => {
     this.translatorScreen.toggle();
-  }
-
-  fullscreenBtn.onclick = () => {
-    WidgetFullscreen.toggle();
   }
 
   this.player.on('translate:start', _start.bind(this));
@@ -38,13 +31,11 @@ AdditionalOptions.prototype.load = function (element) {
 
   function _start() {
     this.element.style.top = '50px';
-    fullscreenBtn.style.opacity = '0.6'
     translatorBtn.style.display = 'none';
   }
 
   function _end() {
-    this.element.style.top = '92px';
-    fullscreenBtn.style.opacity = '1'
+    this.element.style.top = '96px';
     translatorBtn.style.display = 'flex';
   }
 

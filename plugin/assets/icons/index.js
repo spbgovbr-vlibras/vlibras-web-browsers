@@ -14,8 +14,8 @@ const arrowIcon = require('./feedback/arrow-up.svg');
 const likeLineIcon = require('./feedback/like-line.svg');
 const likeSolidIcon = require('./feedback/like-solid.svg');
 const loadingIcon = require('./loading.svg');
-const fullscreenIcon = require('./additionalOptions/fullscreen.svg');
-const editIcon = require('./additionalOptions/edit.svg');
+const fullscreenIcon = require('./fullscreen.svg');
+const translatorIcon = require('./additionalOptions/translator.svg');
 
 const socialIcons = {
   face: require('./facebook.svg'),
@@ -37,6 +37,6 @@ module.exports = {
   hozanaIcon, gugaIcon, aboutIcon, closeIcon, dictionaryIcon,
   settingsIcon, backIcon, socialIcons, positionIcons,
   arrowIcon, likeLineIcon, likeSolidIcon, loadingIcon,
-  fullscreenIcon, editIcon
+  fullscreenIcon, translatorIcon
 }
 
