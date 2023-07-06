@@ -18,7 +18,6 @@ const AdditionalOptions = require('components/AdditionalOptions');
 
 const url = require('url-join');
 const { REVIEW_URL } = require('./config');
-const WidgetFullscreen = require('./components/AdditionalOptions/WidgetFullscreen');
 
 require('./scss/styles.scss');
 
@@ -141,7 +140,6 @@ function Plugin(options) {
     this.rateBox.hide();
     this.suggestionScreen.hide();
     this.translatorScreen.hide();
-    WidgetFullscreen.remove();
   });
 
   let control = 0;

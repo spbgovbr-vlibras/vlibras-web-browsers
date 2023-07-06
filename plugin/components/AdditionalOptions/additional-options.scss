@@ -15,7 +15,7 @@ $bg-color: #9c9c9c;
     opacity: 1;
     transition: max-width 0s, visibility 0s, opacity 0.4s;
     left: 16px;
-    top: 92px;
+    top: 96px;
 
     button {
         @include default-button;
@@ -33,7 +33,10 @@ $bg-color: #9c9c9c;
         svg {
             width: 18px;
             height: 18px;
-            color: #FFF;
+
+            * {
+                fill: #FFF;
+            }
         }
 
         &:hover {

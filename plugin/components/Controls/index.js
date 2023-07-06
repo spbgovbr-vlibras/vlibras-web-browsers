@@ -4,7 +4,7 @@ require('nouislider/distribute/nouislider.min.css');
 const controlsTpl = require('./controls.html').default;
 require('./controls.scss');
 
-const { playIcon, pauseIcon, restartIcon, subtitleIcon } = require('../../assets/icons');
+const { playIcon, pauseIcon, restartIcon, subtitleIcon, fullscreenIcon } = require('../../assets/icons');
 
 let firstTranslation = false;
 const availableSpeeds = [0.5, 1, 1.5, 2, 3];
@@ -101,12 +101,14 @@ Controls.prototype.load = function (element) {
   const slider = this.element.querySelector('.vpw-controls-slider .vpw-slider');
   const speed = this.element.querySelector('.vpw-button-speed');
   const subtitles = this.element.querySelector('.vpw-controls-subtitles');
+  const fullscreen = this.element.querySelector('.vpw-controls-fullscreen');
 
   // Add icons
   play.querySelector('.vpw-component-play').innerHTML = playIcon;
   play.querySelector('.vpw-component-pause').innerHTML = pauseIcon;
   play.querySelector('.vpw-component-restart').innerHTML = restartIcon;
-  subtitles.querySelector('span').innerHTML = subtitleIcon;
+  subtitles.innerHTML = subtitleIcon;
+  fullscreen.innerHTML = fullscreenIcon;
 
   noUiSlider.create(slider, {
     start: 0.0,
@@ -119,36 +121,36 @@ Controls.prototype.load = function (element) {
   });
   slider.setAttribute('disabled', true);
 
-  play.addEventListener(
-    'click',
-    function () {
-      if (this.element.classList.contains('vpw-playing')) {
-        this.player.pause();
-      } else if (this.element.classList.contains('vpw-stopped')) {
-        this.player.repeat();
-        this.player.on('gloss:end', () => {
-          if (!this.player.translated) this.rateBox.classList.add('vp-enabled');
-        })
-      } else {
-        this.player.continue();
-      }
-    }.bind(this)
+  play.addEventListener('click', function () {
+    if (this.element.classList.contains('vpw-playing')) {
+      this.player.pause();
+    } else if (this.element.classList.contains('vpw-stopped')) {
+      this.player.repeat();
+      this.player.on('gloss:end', () => {
+        if (!this.player.translated) this.rateBox.classList.add('vp-enabled');
+      })
+    } else {
+      this.player.continue();
+    }
+  }.bind(this)
   );
 
-  subtitles.addEventListener(
-    'click',
-    function (el) {
-      this.element.classList.toggle('vpw-subtitles');
-      subtitles.classList.toggle('actived-subtitle');
-      this.player.toggleSubtitle();
-    }.bind(this)
+  subtitles.addEventListener('click', function () {
+    this.element.classList.toggle('vpw-subtitles');
+    subtitles.classList.toggle('actived-subtitle');
+    this.player.toggleSubtitle();
+  }.bind(this)
   );
 
-  speed.addEventListener(
-    'click',
-    function () {
-      this.setSpeed(speed);
-    }.bind(this)
+  fullscreen.addEventListener('click', () =>
+    document.body.classList.toggle('vpw-fullscreen'));
+
+  window.addEventListener('vp-widget-close', () =>
+    document.body.classList.remove('vpw-fullscreen'));
+
+  speed.addEventListener('click', function () {
+    this.setSpeed(speed);
+  }.bind(this)
   );
 
 };
