@@ -1,6 +1,7 @@
 @import '~scss/flexbox';
 @import '~scss/colors';
 @import '~scss/default-buttons';
+@import '~scss/fullscreen';
 
 [vp] {
 
@@ -27,7 +28,7 @@
     height: 48px;
     padding: 8px 15px;
     flex-direction: row;
-    gap: 18px;
+    gap: 10px;
     background-size: 100% 100%;
     background: white;
     width: 100%;
@@ -59,19 +60,11 @@
         display: flex;
       }
 
-      .vpw-controls-button {
-        display: none;
-      }
-
-      .vpw-controls-slider {
-        display: none;
-      }
-
-      .vpw-button-speed {
-        display: none;
-      }
-
-      .vpw-controls-subtitles {
+      .vpw-controls-button,
+      .vpw-controls-slider,
+      .vpw-button-speed,
+      .vpw-controls-subtitles,
+      .vpw-controls-fullscreen {
         display: none;
       }
     }
@@ -79,10 +72,7 @@
     .vpw-controls-button {
       @include control-button;
 
-      .vpw-component-pause {
-        display: none;
-      }
-
+      .vpw-component-pause,
       .vpw-component-restart {
         display: none;
       }
@@ -90,7 +80,9 @@
     }
 
     &.vpw-playing .vpw-controls-button {
-      .vpw-component-play {
+
+      .vpw-component-play,
+      .vpw-component-restart {
         display: none;
       }
 
@@ -98,16 +90,11 @@
         display: flex;
       }
 
-      .vpw-component-restart {
-        display: none;
-      }
     }
 
     &.vpw-stopped .vpw-controls-button {
-      .vpw-component-play {
-        display: none;
-      }
 
+      .vpw-component-play,
       .vpw-component-pause {
         display: none;
       }
@@ -117,8 +104,17 @@
       }
     }
 
-    .vpw-controls-subtitles {
+    .vpw-controls-subtitles,
+    .vpw-controls-fullscreen {
       @include control-button;
+    }
+
+    .vpw-controls-fullscreen {
+      display: none;
+
+      @media (max-width: 450px) {
+        display: flex;
+      }
     }
 
   }
@@ -173,7 +169,7 @@
 
     @media (max-width: 450px) {
       min-width: 34px;
-      max-width: 34px;
+      max-width: 28px;
     }
   }
 
@@ -222,6 +218,5 @@
       }
     }
   }
-
 
 }
