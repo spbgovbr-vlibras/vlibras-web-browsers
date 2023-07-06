@@ -24,7 +24,7 @@ $height-set: 450px;
   [vp] {
 
     .vpw-controls-slider {
-      width: 40% !important;
+      width: 30% !important;
     }
 
     .vpw-settings-btn .vpw-settings-btn-close,
@@ -169,4 +169,8 @@ div[vw] {
 .vw-text-active {
   background-color: rgba(30, 63, 134, 0.2);
   color: #000;
+}
+
+vlibraswidget {
+  cursor: url(https://diegofrr.github.io/portfolio/assets/vlibras-cursor.png), auto !important;
 }
