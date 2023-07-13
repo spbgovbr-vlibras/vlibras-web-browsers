@@ -88,6 +88,16 @@
                 border-radius: 10px 10px 0 0 !important;
                 border: none !important;
             }
+
+            .vpw-logo-group {
+                justify-content: left !important;
+                -webkit-justify-content: left !important;
+                gap: 40px;
+            }
+
+            .vpw-recents-container {
+                height: 75% !important;
+            }
         }
     }
 
