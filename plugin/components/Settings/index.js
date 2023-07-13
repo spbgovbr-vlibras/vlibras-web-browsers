@@ -65,11 +65,11 @@ Settings.prototype.load = function (element) {
     }
 
     element.querySelector('.vpw-flag').setAttribute('data-src', region.flag);
-    element.querySelector('.vpw-name').innerHTML = 
-      region === regionsData[0] 
-      ? 'Brasil (Padrão Nacional)'
-      : `${region.name} - ${region.path}`
-    
+    element.querySelector('.vpw-name').innerHTML =
+      region === regionsData[0]
+        ? 'Brasil (Padrão Nacional)'
+        : `${region.name} - ${region.path}`
+
     element.onclick = () => {
       if (activeRegion === element) return;
       element.classList.add('selected');
@@ -88,22 +88,22 @@ Settings.prototype.load = function (element) {
   for (const position of widgetPositions) {
     const span = document.createElement('span');
 
-    if (position) span.innerHTML = 
-    positionIcons[widgetPositions.indexOf(position)];
+    if (position) span.innerHTML =
+      positionIcons[widgetPositions.indexOf(position)];
 
     if (position === 'R') span.classList.add('vpw-select-pos');
-    
+
     positionBox.appendChild(span);
-    
+
     if (!position) span.style.visibility = 'hidden';
     else span.onclick = () => {
       window.dispatchEvent(
-        new CustomEvent('vp-widget-wrapper-set-side', { 
+        new CustomEvent('vp-widget-wrapper-set-side', {
           detail: { position }
         }));
-      
+
       positionBox.querySelector('.vpw-select-pos')
-      .classList.remove('vpw-select-pos');
+        .classList.remove('vpw-select-pos');
 
       span.classList.add('vpw-select-pos');
     }
@@ -112,10 +112,10 @@ Settings.prototype.load = function (element) {
   // Elements to apply blur filter
   this.gameContainer = document.querySelector('div#gameContainer');
   this.controlsElement = document.querySelector('.vpw-controls');
-  
+
   function setOpacity() {
     const value = Number(opacityInput.value);
-    const percent = value < 25 ? value + 5 : value;
+    const percent = (value < 25 && !isFullscreen()) ? value + 5 : value;
 
     opacitySlider.style.width = percent + '%';
     opacityValue.innerHTML = value + '%';
@@ -125,12 +125,16 @@ Settings.prototype.load = function (element) {
     );
   }
 
+  function isFullscreen() {
+    return document.body.classList.contains('vpw-fullscreen');
+  }
+
   function setRegion(region) {
     regionalismBtn.querySelector('span').innerHTML = region.path;
-      regionalismBtn.querySelector('img').src = window.plugin.rootPath
+    regionalismBtn.querySelector('img').src = window.plugin.rootPath
       ? window.plugin.rootPath + '/' + region.flag : region.flag;
 
-      this.player.setRegion(region.path);
+    this.player.setRegion(region.path);
   }
 
   function accessRegionalism() {
@@ -138,26 +142,26 @@ Settings.prototype.load = function (element) {
     toggleHeader();
   }
 
-  const panelIsOpen = function() {
+  const panelIsOpen = function () {
     return this.localism.classList.contains('active');
   }.bind(this);
 
   function handleReturn() {
-     if (panelIsOpen()) {
+    if (panelIsOpen()) {
       this.localism.scrollTo(0, 0);
       this.localism.classList.remove('active');
     } else {
       this.hide();
       document.querySelector('.vpw-header-btn-settings')
-      .classList.remove('selected');
+        .classList.remove('selected');
     }
     toggleHeader();
   }
 
   function toggleHeader() {
-    header.innerHTML = panelIsOpen() 
-    ? 'Regionalismo' 
-    : 'Configurações';
+    header.innerHTML = panelIsOpen()
+      ? 'Regionalismo'
+      : 'Configurações';
   }
 
 };
@@ -196,7 +200,7 @@ module.exports = Settings;
 
 
 const widgetPositions = [
-    'TL', 'T', 'TR',
-    'L', null, 'R',
-    'BL', 'B', 'BR'
+  'TL', 'T', 'TR',
+  'L', null, 'R',
+  'BL', 'B', 'BR'
 ]
