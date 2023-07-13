@@ -184,7 +184,7 @@ SuggestionScreen.prototype.load = function (element) {
   this.textElement.addEventListener('input', function () {
     const { end } = getInputSelection(this.textElement);
 
-    if (!this.textElement.value.replace(/[^a-z]/gi, '')) {
+    if (!this.textElement.value.replace(/[^a-z0-9]/gi, '')) {
       this.visualize.setAttribute('disabled', true);
       this.send.setAttribute('disabled', true);
     } else {
@@ -213,6 +213,12 @@ SuggestionScreen.prototype.load = function (element) {
       dropdownSuggest.classList.remove('vp-enabled');
     }
   }.bind(this));
+
+  this.textElement.addEventListener('keypress', function (e) {
+    if (e.key === 'Enter' && !this.send.disabled) {
+      this.player.translate(this.textElement.value);
+    }
+  }.bind(this))
 
   const xhr = new XMLHttpRequest();
   xhr.open('get', SIGNS_URL, true);
