@@ -1,9 +1,9 @@
 @import './colors.scss';
 
 @mixin reset {
-    border: none;
-    margin: 0;
-    padding: 0;
+    border: none !important;
+    margin: 0 !important;
+    padding: 0 !important;
     width: auto;
     cursor: pointer;
     overflow: visible;
@@ -261,4 +261,24 @@
         user-select: none;
         color: map-get($white, 2);
     }
+}
+
+@mixin tutorial-btn {
+    @include reset;
+    @include centralize;
+
+    border-radius: 40px;
+    font-size: 1rem;
+    outline: 1px solid;
+}
+
+@mixin tutorial-btn--outline {
+    color: map-get($white, 1);
+    outline-color: map-get($white, 1);
+    color: map-get($black, 1);
+}
+
+@mixin tutorial-btn--solid {
+    color: map-get($black, 1);
+    background-color: map-get($white, 1);
 }

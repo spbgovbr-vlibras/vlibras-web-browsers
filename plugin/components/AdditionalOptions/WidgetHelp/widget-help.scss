@@ -1,0 +1,34 @@
+@import '~scss/colors';
+@import '~scss/default-buttons';
+
+[vp] .vpw-tutorial {
+    background-color: map-get($black, 2);
+    display: none;
+
+    .vpw-tutorial__message {
+        color: map-get($white, 1);
+        font-size: 1rem;
+    }
+
+    .vpw-tutorial__footer {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        flex-direction: row;
+        border-top: 1px solid #4C4C4C;
+
+        .vpw-tutorial__back-btn {
+            @include tutorial-btn--outline;
+        }
+
+        .vpw-tutorial__next-btn {
+            @include tutorial-btn--solid;
+        }
+
+        .vpw-tutorial__tab-slider {}
+    }
+
+    &.vp-enabled {
+        display: flex;
+    }
+}

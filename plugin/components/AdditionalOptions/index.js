@@ -1,22 +1,27 @@
 const template = require('./additional-options.html').default;
 require('./additional-options.scss');
 
-const { translatorIcon } = require('../../assets/icons/')
+const { translatorIcon, helpIcon } = require('../../assets/icons/')
 
-function AdditionalOptions(player, translatorScreen) {
+function AdditionalOptions(player, translatorScreen, widgetHelp) {
   this.player = player;
   this.element = null;
   this.translatorScreen = translatorScreen;
+  this.widgetHelp = widgetHelp;
 }
 
 AdditionalOptions.prototype.load = function (element) {
   this.element = element;
   this.element.innerHTML = template;
 
-  const translatorBtn = this.element.querySelector('.vp-translator-button');
+  console.log(this.widgetHelp)
+
+  const translatorBtn = this.element.querySelector('.vpw-translator-button');
+  const helpBtn = this.element.querySelector('.vpw-help-button');
 
   // Add icons
   translatorBtn.innerHTML = translatorIcon;
+  helpBtn.innerHTML = helpIcon;
 
   // Add actions
   translatorBtn.onclick = () => {

@@ -12,9 +12,10 @@ const SettingsCloseBtn = require('components/SettingsCloseBtn');
 const CloseScreen = require('components/CloseScreen');
 const RateBox = require('components/RateBox');
 const SuggestionScreen = require('components/SuggestionScreen');
-const TranslatorScreen = require('components/AdditionalOptions/Translator');
-const ChangeAvatar = require('components/AdditionalOptions/ChangeAvatar');
+const TranslatorScreen = require('components/AdditionalOptions/TranslatorScreen');
+const WidgetHelp = require('components/AdditionalOptions/WidgetHelp')
 const AdditionalOptions = require('components/AdditionalOptions');
+const ChangeAvatar = require('components/AdditionalOptions/ChangeAvatar');
 
 const url = require('url-join');
 const { REVIEW_URL } = require('./config');
@@ -74,11 +75,13 @@ function Plugin(options) {
   this.messageBox = new MessageBox();
   this.suggestionScreen = new SuggestionScreen(this.player);
   this.translatorScreen = new TranslatorScreen(this.player);
+  this.widgetHelp = new WidgetHelp();
   this.rateBox = new RateBox(this.messageBox, this.suggestionScreen);
   this.ChangeAvatar = new ChangeAvatar(this.player);
   this.additionalOptions = new AdditionalOptions(
     this.player,
-    this.translatorScreen
+    this.translatorScreen,
+    this.widgetHelp
   );
 
   this.loadingRef = null;
@@ -92,6 +95,8 @@ function Plugin(options) {
   this.translatorScreen.load(
     this.element.querySelector('[vp-translator-screen]')
   );
+
+  this.widgetHelp.load(this.element.querySelector('[vp-widget-help]'));
 
   this.player.load(this.element);
 
