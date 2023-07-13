@@ -79,7 +79,8 @@
         [vp] {
             max-width: 600px;
 
-            [vp-box] {
+            [vp-box],
+            .vpw-message-box {
                 border-radius: 0 0 10px 10px !important;
             }
 
