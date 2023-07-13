@@ -110,11 +110,7 @@
     }
 
     .vpw-controls-fullscreen {
-      display: none;
-
-      @media (max-width: 450px) {
-        display: flex;
-      }
+      display: flex;
     }
 
   }
