@@ -14,19 +14,16 @@ AdditionalOptions.prototype.load = function (element) {
   this.element = element;
   this.element.innerHTML = template;
 
-  console.log(this.widgetHelp)
-
   const translatorBtn = this.element.querySelector('.vpw-translator-button');
-  const helpBtn = this.element.querySelector('.vpw-help-button');
+  // const helpBtn = this.element.querySelector('.vpw-help-button');
 
   // Add icons
   translatorBtn.innerHTML = translatorIcon;
-  helpBtn.innerHTML = helpIcon;
+  // helpBtn.innerHTML = helpIcon;
 
   // Add actions
-  translatorBtn.onclick = () => {
-    this.translatorScreen.toggle();
-  }
+  translatorBtn.onclick = () => this.translatorScreen.toggle();
+  // helpBtn.onclick = () => this.widgetHelp.toggle();
 
   this.player.on('translate:start', _start.bind(this));
   this.player.on('gloss:start', _start.bind(this));
@@ -35,13 +32,13 @@ AdditionalOptions.prototype.load = function (element) {
   this.player.on('stop:welcome', _end.bind(this));
 
   function _start() {
-    this.element.style.top = '50px';
     translatorBtn.style.display = 'none';
+    // helpBtn.style.display = 'none';
   }
 
   function _end() {
-    this.element.style.top = '96px';
     translatorBtn.style.display = 'flex';
+    // helpBtn.style.display = 'flex';
   }
 
 }

@@ -96,7 +96,7 @@ function Plugin(options) {
     this.element.querySelector('[vp-translator-screen]')
   );
 
-  this.widgetHelp.load(this.element.querySelector('[vp-widget-help]'));
+  // this.widgetHelp.load(this.element.querySelector('[vp-widget-help]'));
 
   this.player.load(this.element);
 
