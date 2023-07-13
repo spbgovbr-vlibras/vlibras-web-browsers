@@ -20,4 +20,9 @@ WidgetHelp.prototype.hide = function () {
   this.element.classList.remove('vp-enabled');
 }
 
+WidgetHelp.prototype.toggle = function () {
+  this.element.classList.toggle('vp-enabled');
+  alert('test')
+}
+
 module.exports = WidgetHelp;
