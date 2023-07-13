@@ -12,8 +12,8 @@ const SettingsCloseBtn = require('components/SettingsCloseBtn');
 const CloseScreen = require('components/CloseScreen');
 const RateBox = require('components/RateBox');
 const SuggestionScreen = require('components/SuggestionScreen');
-const TranslatorScreen = require('components/AdditionalOptions/TranslatorScreen');
-const ChangeAvatar = require('components/ChangeAvatar');
+const TranslatorScreen = require('components/AdditionalOptions/Translator');
+const ChangeAvatar = require('components/AdditionalOptions/ChangeAvatar');
 const AdditionalOptions = require('components/AdditionalOptions');
 
 const url = require('url-join');
