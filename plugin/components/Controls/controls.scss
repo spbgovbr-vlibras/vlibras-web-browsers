@@ -111,6 +111,14 @@
 
     .vpw-controls-fullscreen {
       display: flex;
+
+      #vw-min-icon {
+        display: none;
+      }
+
+      #vw-max-icon {
+        display: inline;
+      }
     }
 
   }

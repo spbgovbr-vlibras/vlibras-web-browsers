@@ -1,7 +1,3 @@
-const playIcon = require('./play.svg');
-const pauseIcon = require('./pause.svg');
-const restartIcon = require('./restart.svg');
-const subtitleIcon = require('./subtitle.svg');
 const IcaroIcon = require('./avatars/icaro.svg');
 const hozanaIcon = require('./avatars/hozana.svg');
 const gugaIcon = require('./avatars/guga.svg');
@@ -14,9 +10,17 @@ const arrowIcon = require('./feedback/arrow-up.svg');
 const likeLineIcon = require('./feedback/like-line.svg');
 const likeSolidIcon = require('./feedback/like-solid.svg');
 const loadingIcon = require('./loading.svg');
-const fullscreenIcon = require('./fullscreen.svg');
 const translatorIcon = require('./additionalOptions/translator.svg');
 const helpIcon = require('./additionalOptions/help.svg');
+
+const controlIcons = {
+  play: require('./controls/play.svg'),
+  pause: require('./controls/pause.svg'),
+  restart: require('./controls/restart.svg'),
+  subtitle: require('./controls/subtitle.svg'),
+  maximize: require('./controls/maximize.svg'),
+  minimize: require('./controls/minimize.svg'),
+}
 
 const socialIcons = {
   face: require('./facebook.svg'),
@@ -34,10 +38,9 @@ const positionIcons = [
 ]
 
 module.exports = {
-  playIcon, pauseIcon, restartIcon, subtitleIcon, IcaroIcon,
-  hozanaIcon, gugaIcon, aboutIcon, closeIcon, dictionaryIcon,
-  settingsIcon, backIcon, socialIcons, positionIcons,
-  arrowIcon, likeLineIcon, likeSolidIcon, loadingIcon,
-  fullscreenIcon, translatorIcon, helpIcon
+  IcaroIcon, hozanaIcon, gugaIcon, aboutIcon, closeIcon,
+  dictionaryIcon, settingsIcon, backIcon, socialIcons,
+  positionIcons, arrowIcon, likeLineIcon, likeSolidIcon,
+  loadingIcon, translatorIcon, helpIcon, controlIcons
 }
 
