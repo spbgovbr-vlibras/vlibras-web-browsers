@@ -12,6 +12,7 @@ const availableSpeeds = [0.5, 1, 1.5, 2, 3];
 function Controls(player, dictionary) {
   this.player = player;
   this.dictionary = dictionary;
+  this.element = null;
 
   this.player.on(
     'animation:play',
@@ -152,6 +153,13 @@ Controls.prototype.load = function (element) {
     this.setSpeed(speed);
   }.bind(this)
   );
+
+  if (!window.plugin.personalization) {
+    const playWelcome = setInterval(() => {
+      this.player.playWellcome();
+      clearInterval(playWelcome);
+    }, 0)
+  }
 
 };
 
