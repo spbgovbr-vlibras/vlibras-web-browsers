@@ -49,6 +49,17 @@
 
         .vpw-controls {
             gap: 10px !important;
+
+            .vpw-controls-fullscreen {
+
+                #vw-max-icon {
+                    display: none !important;
+                }
+
+                #vw-min-icon {
+                    display: inline !important;
+                }
+            }
         }
 
         .vpw-settings,

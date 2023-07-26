@@ -4,7 +4,7 @@ require('nouislider/distribute/nouislider.min.css');
 const controlsTpl = require('./controls.html').default;
 require('./controls.scss');
 
-const { playIcon, pauseIcon, restartIcon, subtitleIcon, fullscreenIcon } = require('../../assets/icons');
+const { controlIcons } = require('../../assets/icons');
 
 let firstTranslation = false;
 const availableSpeeds = [0.5, 1, 1.5, 2, 3];
@@ -104,11 +104,11 @@ Controls.prototype.load = function (element) {
   const fullscreen = this.element.querySelector('.vpw-controls-fullscreen');
 
   // Add icons
-  play.querySelector('.vpw-component-play').innerHTML = playIcon;
-  play.querySelector('.vpw-component-pause').innerHTML = pauseIcon;
-  play.querySelector('.vpw-component-restart').innerHTML = restartIcon;
-  subtitles.innerHTML = subtitleIcon;
-  fullscreen.innerHTML = fullscreenIcon;
+  play.querySelector('.vpw-component-play').innerHTML = controlIcons.play;
+  play.querySelector('.vpw-component-pause').innerHTML = controlIcons.pause;
+  play.querySelector('.vpw-component-restart').innerHTML = controlIcons.restart;
+  subtitles.innerHTML = controlIcons.subtitle;
+  fullscreen.innerHTML = controlIcons.maximize + controlIcons.minimize;
 
   noUiSlider.create(slider, {
     start: 0.0,
