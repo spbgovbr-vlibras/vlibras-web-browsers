@@ -40,11 +40,12 @@ ChangeAvatar.prototype.load = function (element) {
     })
   }
 
+  selectButton(buttons[0]);
+
   this.player.on(
     'GetAvatar',
     function (avatar) {
-      buttons[avatars.indexOf(avatar)]
-        .classList.add('vp-selected');
+      selectButton(buttons[avatars.indexOf(avatar)])
 
       this.player.playWellcome();
     }.bind(this)
