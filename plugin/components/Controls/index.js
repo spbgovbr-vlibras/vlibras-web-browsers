@@ -34,6 +34,7 @@ function Controls(player, dictionary) {
   this.player.on(
     'animation:end',
     function () {
+      if (!this.element) return;
       this.element.classList.remove('vpw-playing');
       this.element.classList.add('vpw-stopped');
     }.bind(this)
@@ -80,7 +81,6 @@ function Controls(player, dictionary) {
       this.element.classList.remove('vpw-selectText');
     }.bind(this)
   );
-
 
   this.player.on(
     'stop:welcome',
