@@ -124,12 +124,12 @@ Dictionary.prototype.load = function (element, closeScreen) {
     xhr.responseType = 'text';
     xhr.timeout = 30000;
 
-    xhr.ontimeout = () => {
+    xhr.ontimeout = function () {
       console.error('Request timed out. Please try again later.');
       addRetryBtn();
     }
 
-    xhr.onload = () => {
+    xhr.onload = function () {
       try {
         if (xhr.status == 200) {
           const json = JSON.parse(xhr.response);
