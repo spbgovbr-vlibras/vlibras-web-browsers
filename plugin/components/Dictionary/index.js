@@ -113,13 +113,23 @@ Dictionary.prototype.load = function (element, closeScreen) {
     }
   }.bind(this);
 
+  const addRetryBtn = () => loadingScreen.classList.add('vpw-dict--error');
+  const removeRetryBtn = () => loadingScreen.classList.remove('vpw-dict--error');
+
   // Request and load list
   function getSigns() {
-    loadingScreen.classList.remove('vpw-dict--error');
+    removeRetryBtn();
     const xhr = new XMLHttpRequest();
     xhr.open('get', DICTIONARY_URL, true);
     xhr.responseType = 'text';
-    xhr.onload = function () {
+    xhr.timeout = 30000;
+
+    xhr.ontimeout = () => {
+      console.error('Request timed out. Please try again later.');
+      addRetryBtn();
+    }
+
+    xhr.onload = () => {
       try {
         if (xhr.status == 200) {
           const json = JSON.parse(xhr.response);
@@ -129,12 +139,12 @@ Dictionary.prototype.load = function (element, closeScreen) {
           this.signs.loadSigns('', this.list._insert.bind(this.list));
           loadingScreen.remove();
         } else {
-          loadingScreen.classList.add('vpw-dict--error');
+          addRetryBtn();
           console.error('Bad answer for signs, status: ' + xhr.status);
         }
       } catch (err) {
-        loadingScreen.classList.add('vpw-dict--error');
-        console.log(err);
+        addRetryBtn();
+        console.error(err);
       }
     }.bind(this);
     xhr.send();
