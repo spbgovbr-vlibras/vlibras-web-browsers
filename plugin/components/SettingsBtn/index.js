@@ -3,20 +3,19 @@ require('./settings-btn.scss');
 
 const { settingsIcon, dictionaryIcon, aboutIcon, closeIcon } = require('../../assets/icons');
 
-function SettingsBtn(player, screen, dictionary, infoScreen, settingsBtnClose, option) {
+function SettingsBtn(player, screen, dictionary, infoScreen, option) {
   this.player = player;
   this.screen = screen;
   this.dictionary = dictionary;
   this.infoScreen = infoScreen;
-  this.settingsBtnClose = settingsBtnClose;
   enable = option.enableMoveWindow;
 }
 
-SettingsBtn.prototype.load = function(
-    element,
-    loadDictionary,
-    elementDict,
-    rootPath,
+SettingsBtn.prototype.load = function (
+  element,
+  loadDictionary,
+  elementDict,
+  rootPath,
 ) {
   this.element = element;
   this.element.innerHTML = settingsBtnTpl;
@@ -28,7 +27,7 @@ SettingsBtn.prototype.load = function(
   const dictionaryBtn = this.element.querySelector('.vpw-header-btn-dictionary');
   const aboutBtn = this.element.querySelector('.vpw-header-btn-about');
   const closeBtn = this.element.querySelector('.vpw-header-btn-close');
-  
+
   settingsBtn.classList.add('active');
 
   // Add icons
@@ -43,20 +42,20 @@ SettingsBtn.prototype.load = function(
 
   settingsBtn.addEventListener(
     'click',
-    function() {
+    function () {
       showScreen(this.screen, settingsBtn);
       settingsBtn.blur();
     }.bind(this),
-);
+  );
 
   dictionaryBtn.addEventListener(
     'click',
     function () {
-       showScreen(this.dictionary, dictionaryBtn);
+      showScreen(this.dictionary, dictionaryBtn);
       dictionaryBtn.blur();
     }.bind(this)
   );
-  
+
   aboutBtn.addEventListener(
     'click',
     function () {
@@ -65,11 +64,11 @@ SettingsBtn.prototype.load = function(
     }.bind(this)
   );
 
-  closeBtn.addEventListener('click', function() {
+  closeBtn.addEventListener('click', function () {
     showScreen(null, null);
 
     window.dispatchEvent(
-        new CustomEvent('vp-widget-close', {detail: {close: true}}),
+      new CustomEvent('vp-widget-close', { detail: { close: true } }),
     );
   });
 
@@ -77,8 +76,8 @@ SettingsBtn.prototype.load = function(
     if (button) button.classList.toggle('selected');
 
     [settingsBtn, dictionaryBtn, aboutBtn]
-    .filter(btn => btn !== button)
-    .forEach(btn => btn.classList.remove('selected'));
+      .filter(btn => btn !== button)
+      .forEach(btn => btn.classList.remove('selected'));
   }
 
   const showScreen = function (screen, btn) {
@@ -89,11 +88,11 @@ SettingsBtn.prototype.load = function(
 
     [this.screen, this.dictionary,
     this.infoScreen]
-    .filter(sc => sc !== screen)
-    .forEach(sc => {
-      if (sc == this.dictionary && !loadedDict) return;
-      sc.hide();
-    });
+      .filter(sc => sc !== screen)
+      .forEach(sc => {
+        if (sc == this.dictionary && !loadedDict) return;
+        sc.hide();
+      });
 
     if (screen) screen.toggle();
     selectButton(btn);

@@ -8,7 +8,6 @@ const Controls = require('components/Controls');
 
 const MessageBox = require('components/MessageBox');
 const Box = require('components/Box');
-const SettingsCloseBtn = require('components/SettingsCloseBtn');
 const CloseScreen = require('components/CloseScreen');
 const RateBox = require('components/RateBox');
 const SuggestionScreen = require('components/SuggestionScreen');
@@ -57,19 +56,16 @@ function Plugin(options) {
     options,
     this.opacity
   );
-  this.settingBtnClose = new SettingsCloseBtn();
   this.closeScreen = new CloseScreen(
     this.dictionary,
     this.info,
     this.settings,
-    this.settingBtnClose
   );
   this.settingsBtn = new SettingsBtn(
     this.player,
     this.settings,
     this.dictionary,
     this.info,
-    this.settingBtnClose,
     options
   );
   this.messageBox = new MessageBox();
@@ -113,12 +109,7 @@ function Plugin(options) {
 
     this.controls.load(this.element.querySelector('[vp-controls]'));
     this.Box.load(this.element.querySelector('[vp-box]'));
-    this.settingBtnClose.load(
-      this.element
-        .querySelector('[vp-box]')
-        .querySelector('[settings-btn-close]'),
-      this.closeScreen
-    );
+
     this.settingsBtn.load(
       this.element.querySelector('[vp-box]').querySelector('[settings-btn]'),
       () =>
