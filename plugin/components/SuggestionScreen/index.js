@@ -216,6 +216,7 @@ SuggestionScreen.prototype.load = function (element) {
 
   this.textElement.addEventListener('keypress', function (e) {
     if (e.key === 'Enter' && !this.send.disabled) {
+      e.preventDefault();
       this.visualize.click();
     }
   }.bind(this));

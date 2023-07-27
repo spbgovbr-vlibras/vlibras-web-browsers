@@ -25,7 +25,7 @@ TranslatorScreen.prototype.load = function (element) {
   }.bind(this);
 
   visualizeBtn.onclick = function () {
-    this.player.translate(userText.value);
+    this.player.translate(userText.value.trim());
   }.bind(this);
 
   userText.addEventListener('input', function () {
@@ -40,7 +40,8 @@ TranslatorScreen.prototype.load = function (element) {
 
   userText.addEventListener('keypress', e => {
     if (e.key === 'Enter' && !visualizeBtn.disabled) {
-      this.player.translate(userText.value);
+      e.preventDefault();
+      visualizeBtn.click();
     }
   })
 
