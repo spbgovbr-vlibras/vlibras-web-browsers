@@ -32,16 +32,7 @@ function Plugin(options) {
 
   this.opacity = options.opacity;
   this.wrapper = options.wrapper;
-
-  if (this.opacity) {
-    if (this.opacity.includes[(0.0, 0.25, 0.5, 0.75, 1.0)]) {
-      this.opacity = parseFloat(this.opacity);
-    } else {
-      this.opacity = 0.0;
-    }
-  } else {
-    this.opacity = 0.0;
-  }
+  this.position = options.position;
 
   this.rootPath = options.rootPath;
   this.personalization = options.personalization;
@@ -53,8 +44,9 @@ function Plugin(options) {
   this.info = new InfoScreen(this.Box);
   this.settings = new Settings(
     this.player,
-    options,
-    this.opacity
+    this.opacity,
+    this.position,
+    options
   );
   this.closeScreen = new CloseScreen(
     this.dictionary,
@@ -101,10 +93,6 @@ function Plugin(options) {
       this.player.setPersonalization('');
     } else {
       this.player.setPersonalization(this.personalization);
-    }
-
-    if (this.wrapper) {
-      this.wrapper.style.background = `rgba(235,235,235, ${1 - this.opacity})`;
     }
 
     this.controls.load(this.element.querySelector('[vp-controls]'));
