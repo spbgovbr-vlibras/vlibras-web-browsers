@@ -129,6 +129,8 @@ Dictionary.prototype.load = function (element, closeScreen) {
       addRetryBtn();
     }
 
+    xhr.onerror = addRetryBtn;
+
     xhr.onload = function () {
       try {
         if (xhr.status == 200) {
