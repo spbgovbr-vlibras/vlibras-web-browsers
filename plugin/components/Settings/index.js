@@ -115,7 +115,7 @@ Settings.prototype.load = function (element) {
   this.controlsElement = document.querySelector('.vpw-controls');
 
   function setOpacity(opacity) {
-    const value = Number(opacity);
+    const value = Number(opacity > 100 ? 100 : opacity < 0 ? 0 : opacity);
     const percent = (value < 25 && !isFullscreen()) ? value + 5 : value;
 
     opacityInput.value = opacity;
