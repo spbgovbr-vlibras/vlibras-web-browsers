@@ -9,12 +9,14 @@ require('./switch.scss');
 const regionsData = require('./data');
 const { backIcon, positionIcons } = require('../../assets/icons')
 
-function Settings(player, option, opacity) {
+function Settings(player, opacity, position, options) {
   this.visible = false;
   this.player = player;
+  this.opacityUser = isNaN(opacity) ? 100 : opacity * 100;
+  this.positionUser = widgetPositions.includes(position)
+    ? position : 'R';
 
-  enable = option.enableMoveWindow;
-  opacityUser = opacity;
+  enable = options.enableMoveWindow;
 }
 
 inherits(Settings, EventEmitter);
@@ -43,7 +45,8 @@ Settings.prototype.load = function (element) {
   const opacityInput = this.element.querySelector('.vpw-opacity-range input');
   const opacitySlider = this.element.querySelector('.vpw-opacity-range vpw-slider');
   const opacityValue = this.element.querySelector('.vpw-opacity-value');
-  opacityInput.oninput = setOpacity;
+  opacityInput.oninput = (e) => setOpacity(e.target.value);
+  setOpacity(this.opacityUser);
 
   // Position option box
   const positionBox = this.element.querySelector('.vpw-position-box');
@@ -91,16 +94,14 @@ Settings.prototype.load = function (element) {
     if (position) span.innerHTML =
       positionIcons[widgetPositions.indexOf(position)];
 
-    if (position === 'R') span.classList.add('vpw-select-pos');
+    if (position === this.positionUser) span.classList.add('vpw-select-pos');
 
     positionBox.appendChild(span);
 
     if (!position) span.style.visibility = 'hidden';
     else span.onclick = () => {
       window.dispatchEvent(
-        new CustomEvent('vp-widget-wrapper-set-side', {
-          detail: { position }
-        }));
+        new CustomEvent('vp-widget-wrapper-set-side', { detail: position }));
 
       positionBox.querySelector('.vpw-select-pos')
         .classList.remove('vpw-select-pos');
@@ -113,10 +114,11 @@ Settings.prototype.load = function (element) {
   this.gameContainer = document.querySelector('div#gameContainer');
   this.controlsElement = document.querySelector('.vpw-controls');
 
-  function setOpacity() {
-    const value = Number(opacityInput.value);
+  function setOpacity(opacity) {
+    const value = Number(opacity);
     const percent = (value < 25 && !isFullscreen()) ? value + 5 : value;
 
+    opacityInput.value = opacity;
     opacitySlider.style.width = percent + '%';
     opacityValue.innerHTML = value + '%';
 

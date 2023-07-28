@@ -1,14 +1,15 @@
 const template = require('./template.html').default;
 require('./styles.scss');
 
-function AccessButton(rootPath, pluginWrapper, personalization, opacity) {
+function AccessButton(rootPath, pluginWrapper, personalization, opacity, position) {
   this.personalization = personalization;
   this.rootPath = rootPath;
   this.pluginWrapper = pluginWrapper;
   this.vw_links = null;
   this.currentElement = null;
   this.currentSpanElement = null;
-  this.opacity = opacity;
+  this.opacity = opacity || 1;
+  this.position = position || 'R';
 }
 
 AccessButton.prototype.load = function (element, vw) {
@@ -27,6 +28,7 @@ AccessButton.prototype.load = function (element, vw) {
         personalization: this.personalization,
         opacity: this.opacity,
         wrapper: this.pluginWrapper.element,
+        position: this.position
       });
 
     this.addTagsTexts(vw);
@@ -150,7 +152,7 @@ AccessButton.prototype.addTagsTexts = function (vw) {
 };
 
 function getAllNodeTexts(root, callback) {
-  const noop = function () {};
+  const noop = function () { };
   const headElements = ['SCRIPT', 'TITLE', 'META', 'STYLE', 'LINK', 'BASE'];
 
   for (let i = 0; i < root.childNodes.length; i++) {
