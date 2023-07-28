@@ -67,7 +67,7 @@ $control-height: 68px;
             border-radius: 5px;
             border: 1px solid map-get($white, 4);
             height: 160px;
-            font-size: 1rem;
+            font-size: 1rem !important;
             outline: none !important;
             display: block !important;
 
@@ -111,7 +111,7 @@ $control-height: 68px;
 
             .vp-text {
                 height: 120px;
-                font-size: .8rem;
+                font-size: .8rem !important;
             }
 
             .vp-translator-buttons-container {
