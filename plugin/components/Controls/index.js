@@ -171,8 +171,10 @@ Controls.prototype.setSpeed = function (button) {
   button.innerHTML = newSpeed + 'x';
 
   this.player.setSpeed(newSpeed);
-  this.player.pause();
-  this.player.continue();
+  if (this.element.classList.contains('vpw-playing')) {
+    this.player.pause();
+    this.player.continue();
+  }
 };
 
 Controls.prototype.setProgress = function () {
