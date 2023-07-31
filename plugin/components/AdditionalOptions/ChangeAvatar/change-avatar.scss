@@ -94,7 +94,12 @@ $bg-color: #9c9c9c;
         border-radius: 20px;
         transform: none;
         content: "Trocar avatar";
+
+        @media (max-width: 450px) {
+          display: none !important;
+        }
       }
+
     }
 
     .active {
@@ -134,4 +139,5 @@ $bg-color: #9c9c9c;
       top: 32px;
     }
   }
+
 }
