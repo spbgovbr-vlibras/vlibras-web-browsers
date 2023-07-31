@@ -176,6 +176,10 @@
       .vpw-networks {
         @include control-button;
 
+        svg * {
+          fill: map-get($blue, 1);
+        }
+
         outline: 1px solid map-get($white, 4);
         border-radius: 4px;
 
