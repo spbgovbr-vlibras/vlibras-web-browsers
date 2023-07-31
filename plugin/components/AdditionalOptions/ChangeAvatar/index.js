@@ -26,12 +26,6 @@ ChangeAvatar.prototype.load = function (element) {
   });
 
   this.element.onclick = () => this.element.classList.toggle('vp-change-avatar-openned');
-  this.element.onmouseenter = () => !onMobile() && this.element.classList.add('vp-change-avatar-openned');
-  this.element.onmouseleave = () => !onMobile() && this.element.classList.remove('vp-change-avatar-openned');
-
-  function onMobile() {
-    return window.innerWidth < 450;
-  }
 
   function selectButton(button) {
     button.classList.add('vp-selected');

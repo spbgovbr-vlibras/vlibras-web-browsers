@@ -8,19 +8,17 @@ $bg-color: #9c9c9c;
 [vp] [vp-change-avatar] {
   justify-content: start;
   align-items: center;
-  // flex-direction: column;
   flex-direction: row;
   gap: 10px;
   position: absolute;
   z-index: 2;
   display: none;
   max-width: 100%;
-  opacity: 1;
   left: 14px;
   top: 50px;
   height: 36px;
   width: 36px;
-  overflow: hidden;
+  visibility: visible;
   transition: all .3s ease-in-out;
 
   .vp-button-change-avatar {
@@ -37,7 +35,7 @@ $bg-color: #9c9c9c;
     outline: 2px solid transparent;
     padding: 0 !important;
     z-index: -1;
-    opacity: 0;
+    visibility: hidden;
     transition: all .3s ease-in-out;
 
     svg {
@@ -61,6 +59,7 @@ $bg-color: #9c9c9c;
       position: absolute;
       border-radius: 0 20px 20px 20px;
       transform: translateX(60%);
+      white-space: nowrap;
 
       color: map-get($white, 1);
       font-size: .9rem;
@@ -83,14 +82,18 @@ $bg-color: #9c9c9c;
       position: absolute;
       left: 2px;
       z-index: 1;
-      opacity: 1;
-
-      &::after {
-        display: none;
-      }
+      visibility: visible;
 
       &:hover {
         outline-color: rgba(map-get($blue, 3), .5);
+      }
+
+      &::after {
+        left: 38px;
+        top: 0;
+        border-radius: 20px;
+        transform: none;
+        content: "Trocar avatar";
       }
     }
 
@@ -112,7 +115,11 @@ $bg-color: #9c9c9c;
     overflow: visible;
 
     button {
-      opacity: 1;
+      visibility: visible;
+    }
+
+    .vp-selected::after {
+      display: none !important;
     }
   }
 
