@@ -98,6 +98,7 @@ Controls.prototype.load = function (element) {
   this.element.classList.add('vpw-subtitles');
   this.rateBox = document.querySelector('div[vp-rate-box]');
 
+  const wrapper = document.querySelector('div[vw-plugin-wrapper]');
   const play = this.element.querySelector('.vpw-controls-button');
   const slider = this.element.querySelector('.vpw-controls-slider .vpw-slider');
   const speed = this.element.querySelector('.vpw-button-speed');
@@ -120,6 +121,7 @@ Controls.prototype.load = function (element) {
       max: 200,
     },
   });
+
   slider.setAttribute('disabled', true);
 
   play.addEventListener('click', function () {
@@ -143,11 +145,13 @@ Controls.prototype.load = function (element) {
   }.bind(this)
   );
 
-  fullscreen.addEventListener('click', () =>
-    document.body.classList.toggle('vpw-fullscreen'));
+  fullscreen.addEventListener('click', function () {
+    document.body.classList.toggle('vpw-fullscreen');
+  });
 
-  window.addEventListener('vp-widget-close', () =>
-    document.body.classList.remove('vpw-fullscreen'));
+  window.addEventListener('vp-widget-close', function () {
+    document.body.classList.remove('vpw-fullscreen');
+  });
 
   speed.addEventListener('click', function () {
     this.setSpeed(speed);
@@ -161,6 +165,18 @@ Controls.prototype.load = function (element) {
     }, 0)
   }
 
+  let playing = false;
+
+  window.addEventListener('visibilitychange', function () {
+    if (!wrapper.classList.contains('active')) return;
+    if (document.visibilityState === 'visible') {
+      if (!playing) return;
+      setTimeout(() => window.plugin.player.continue(), 1000)
+    } else {
+      playing = this.element.classList.contains('vpw-playing');
+      window.plugin.player.pause();
+    }
+  }.bind(this));
 };
 
 Controls.prototype.setSpeed = function (button) {
