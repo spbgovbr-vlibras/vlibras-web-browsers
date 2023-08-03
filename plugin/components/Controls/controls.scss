@@ -7,10 +7,9 @@
 
   [vp-controls] {
     position: absolute;
-    left: 50%;
+    left: 0;
+    bottom: 0;
     border-top: 1px solid map-get($white, 4);
-    transform: translateX(-50%);
-    bottom: 0%;
     z-index: 5;
 
     @media (max-width: 450px) {
@@ -24,12 +23,10 @@
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
-    width: calc(100% - 10px);
     height: 48px;
     padding: 8px 15px;
     flex-direction: row;
     gap: 10px;
-    background-size: 100% 100%;
     background: white;
     width: 100%;
 

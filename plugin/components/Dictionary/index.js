@@ -183,6 +183,7 @@ Dictionary.prototype.load = function (element, closeScreen) {
 Dictionary.prototype._onItemClick = function (event, word) {
   this.closeScreen.closeAll();
   this.player.play(event);
+  document.querySelector('.vpw-header-btn-dictionary').classList.remove('selected')
 
   if (this.element.querySelectorAll('.buttons-container button')[1]
     .classList.contains('vp-selected')

@@ -139,6 +139,7 @@ $controls_height: 48px;
 
     .vp-rate-box-content {
       height: calc(100% - 86px);
+      gap: 0;
 
       span {
         font-size: 12px;
