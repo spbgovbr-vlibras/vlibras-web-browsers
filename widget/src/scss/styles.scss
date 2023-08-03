@@ -88,10 +88,6 @@ $translator-cursor: 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAABQCAYAA
     .vpw-bar .vpw-title {
       margin-right: 40px;
     }
-
-    .vpw-dictionary .vpw-dict-container ul li:not(.margin) {
-      padding: 5px;
-    }
   }
 }
 
@@ -173,5 +169,5 @@ div[vw] {
 }
 
 vlibraswidget {
-  cursor: url($translator-cursor) 24 50, auto !important;
+  cursor: url($translator-cursor) 24 50, pointer !important;
 }

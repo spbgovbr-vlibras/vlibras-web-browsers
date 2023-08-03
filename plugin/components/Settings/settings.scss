@@ -1,5 +1,6 @@
 @import '~scss/colors.scss';
 @import '~scss/default-buttons';
+@import '~scss/shared-styles.scss';
 @import './input-range.scss';
 
 [vp] {
@@ -22,39 +23,7 @@
     }
 
     .vpw-screen-header {
-      width: 100%;
-      background-color: map-get($white, 1);
-      padding: 0 16px;
-      height: 48px;
-      display: flex;
-      align-items: center;
-      justify-content: start;
-      gap: 10px;
-      border-bottom: 1px solid map-get($white, 4);
-
-      button {
-        @include control-button;
-
-        svg * {
-          fill: map-get($blue, 4);
-        }
-      }
-
-      span {
-        font-weight: 600;
-        color: map-get($black, 1);
-        font-size: 16px;
-      }
-
-
-      @media (max-width: 450px) {
-        height: 36px !important;
-        padding: 0 10px;
-
-        span {
-          font-size: 14px !important;
-        }
-      }
+      @include vp-screen-header;
 
     }
 

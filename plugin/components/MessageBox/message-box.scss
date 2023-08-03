@@ -2,7 +2,7 @@
 
 [vp] {
   .vpw-message-box {
-    top: -100px;
+    top: 0;
     left: 0;
     position: absolute;
     width: 100%;
@@ -18,9 +18,9 @@
     transition: all .15s ease .15s;
     text-align: center;
     font-weight: 700;
+    background-color: map-get($blue, 1);
 
     &.active {
-      top: 0;
       opacity: 1;
       z-index: 10;
     }
@@ -32,19 +32,16 @@
 
     &.warning {
       background-color: map-get($blue, 1);
-      ;
       color: white;
     }
 
     &.success {
       background-color: map-get($blue, 1);
-      ;
       color: white;
     }
 
     &.default {
       background-color: map-get($blue, 1);
-      ;
       color: white;
     }
 

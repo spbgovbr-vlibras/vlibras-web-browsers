@@ -28,17 +28,11 @@ SettingsBtn.prototype.load = function (
   const aboutBtn = this.element.querySelector('.vpw-header-btn-about');
   const closeBtn = this.element.querySelector('.vpw-header-btn-close');
 
-  settingsBtn.classList.add('active');
-
   // Add icons
   settingsBtn.innerHTML = settingsIcon;
   dictionaryBtn.innerHTML = dictionaryIcon;
   aboutBtn.innerHTML = aboutIcon;
   closeBtn.innerHTML = closeIcon;
-
-  if (enable) {
-    closeBtn.style.display = 'flex';
-  }
 
   settingsBtn.addEventListener(
     'click',
