@@ -9,7 +9,6 @@ function WidgetHelp(player) {
 WidgetHelp.prototype.load = function (element) {
   this.element = element;
   this.element.innerHTML = template;
-
 }
 
 WidgetHelp.prototype.show = function () {
@@ -22,7 +21,6 @@ WidgetHelp.prototype.hide = function () {
 
 WidgetHelp.prototype.toggle = function () {
   this.element.classList.toggle('vp-enabled');
-  alert('test')
 }
 
 module.exports = WidgetHelp;

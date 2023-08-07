@@ -84,7 +84,7 @@ function Plugin(options) {
     this.element.querySelector('[vp-translator-screen]')
   );
 
-  // this.widgetHelp.load(this.element.querySelector('[vp-widget-help]'));
+  this.widgetHelp.load(createHelpContainer());
 
   this.player.load(this.element);
 
@@ -203,6 +203,13 @@ function Plugin(options) {
 
   this.loadFont();
   this.loadImages();
+}
+
+function createHelpContainer() {
+  const container = document.createElement('div');
+  container.classList.add('vw-help-container');
+  document.body.appendChild(container);
+  return container;
 }
 
 Plugin.prototype.translate = function (text) {

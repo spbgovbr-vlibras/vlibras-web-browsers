@@ -268,17 +268,45 @@
     @include centralize;
 
     border-radius: 40px;
-    font-size: 1rem;
+    font-size: 14px;
     outline: 1px solid;
+    height: 36px;
+    min-width: 36px;
+    padding: 0 16px;
+    flex-direction: row;
+    gap: 10px;
+    font-weight: 700;
+
+    @media (max-width: 450px) {
+        font-size: 12px;
+        padding: 0 10px;
+        gap: 6px;
+        height: 28px;
+    }
+
+    &:disabled {
+        opacity: .3;
+        cursor: not-allowed;
+    }
 }
 
 @mixin tutorial-btn--outline {
+    @include tutorial-btn;
+
     color: map-get($white, 1);
     outline-color: map-get($white, 1);
-    color: map-get($black, 1);
+}
+
+@mixin tutorial-btn--text {
+    @include tutorial-btn;
+
+    color: map-get($white, 1);
+    outline-color: transparent;
 }
 
 @mixin tutorial-btn--solid {
-    color: map-get($black, 1);
+    @include tutorial-btn;
+
+    color: map-get($blue, 2);
     background-color: map-get($white, 1);
 }
