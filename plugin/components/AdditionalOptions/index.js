@@ -15,15 +15,18 @@ AdditionalOptions.prototype.load = function (element) {
   this.element.innerHTML = template;
 
   const translatorBtn = this.element.querySelector('.vpw-translator-button');
-  // const helpBtn = this.element.querySelector('.vpw-help-button');
+  const helpBtn = this.element.querySelector('.vpw-help-button');
 
   // Add icons
   translatorBtn.innerHTML = translatorIcon;
-  // helpBtn.innerHTML = helpIcon;
+  helpBtn.innerHTML = helpIcon;
 
   // Add actions
   translatorBtn.onclick = () => this.translatorScreen.toggle();
-  // helpBtn.onclick = () => this.widgetHelp.toggle();
+  helpBtn.onclick = () => {
+    this.widgetHelp.toggle();
+    helpBtn.classList.toggle('vp-selected');
+  }
 
   this.player.on('translate:start', _start.bind(this));
   this.player.on('gloss:start', _start.bind(this));
@@ -33,12 +36,12 @@ AdditionalOptions.prototype.load = function (element) {
 
   function _start() {
     translatorBtn.style.display = 'none';
-    // helpBtn.style.display = 'none';
+    helpBtn.style.display = 'none';
   }
 
   function _end() {
     translatorBtn.style.display = 'flex';
-    // helpBtn.style.display = 'flex';
+    helpBtn.style.display = 'flex';
   }
 
 }

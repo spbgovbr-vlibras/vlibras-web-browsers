@@ -1,13 +1,39 @@
-@import '~scss/colors';
-@import '~scss/default-buttons';
+@import '~scss/colors.scss';
+@import '~scss/default-buttons.scss';
 
-[vp] .vpw-tutorial {
-    background-color: map-get($black, 2);
+.vw-help-container {
+    font-family: 'rawline', sans-serif !important;
+    background-color: map-get($blue, 2);
+    max-width: 320px;
+    position: fixed;
+    top: 10px;
+    left: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: 16px;
+    padding: 16px;
+    border-radius: 10px;
+    z-index: 99999999 !important;
     display: none;
+
+    .vpw-tutorial__close-btn {
+        @include reset;
+        @include centralize;
+
+        position: absolute;
+        top: 10px;
+        right: 10px;
+
+    }
 
     .vpw-tutorial__message {
         color: map-get($white, 1);
         font-size: 1rem;
+        font-weight: 500;
+        line-height: 150%;
+        width: 100%;
     }
 
     .vpw-tutorial__footer {
@@ -15,10 +41,12 @@
         align-items: center;
         justify-content: space-between;
         flex-direction: row;
-        border-top: 1px solid #4C4C4C;
+        border-top: 1px solid #659AE9;
+        width: 100%;
+        padding-top: 16px;
 
         .vpw-tutorial__back-btn {
-            @include tutorial-btn--outline;
+            @include tutorial-btn--text;
         }
 
         .vpw-tutorial__next-btn {
@@ -30,5 +58,24 @@
 
     &.vp-enabled {
         display: flex;
+    }
+
+    @media (max-width: 1200px) {
+        .vpw-tutorial__message {
+            font-size: 14px;
+        }
+    }
+
+    @media (max-width: 450px) {
+        padding: 10px;
+        gap: 10px;
+
+        .vpw-tutorial__message {
+            font-size: 12px;
+        }
+
+        .vpw-tutorial__footer {
+            padding-top: 10px;
+        }
     }
 }
