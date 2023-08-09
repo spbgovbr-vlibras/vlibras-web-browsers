@@ -60,22 +60,16 @@
         display: flex;
     }
 
-    @media (max-width: 1200px) {
+    @media (max-width: 600px) {
         .vpw-tutorial__message {
             font-size: 14px;
         }
     }
 
     @media (max-width: 450px) {
-        padding: 10px;
-        gap: 10px;
-
         .vpw-tutorial__message {
-            font-size: 12px;
+            font-size: 1rem;
         }
 
-        .vpw-tutorial__footer {
-            padding-top: 10px;
-        }
     }
 }

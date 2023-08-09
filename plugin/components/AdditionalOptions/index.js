@@ -28,6 +28,11 @@ AdditionalOptions.prototype.load = function (element) {
     helpBtn.classList.toggle('vp-selected');
   }
 
+  window.addEventListener('resize', () => {
+    if (!this.widgetHelp.enabled) return;
+    this.widgetHelp.updatePos()
+  })
+
   this.player.on('translate:start', _start.bind(this));
   this.player.on('gloss:start', _start.bind(this));
 
