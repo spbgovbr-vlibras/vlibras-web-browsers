@@ -277,13 +277,6 @@
     gap: 10px;
     font-weight: 700;
 
-    @media (max-width: 450px) {
-        font-size: 12px;
-        padding: 0 10px;
-        gap: 6px;
-        height: 28px;
-    }
-
     &:disabled {
         opacity: .3;
         cursor: not-allowed;
