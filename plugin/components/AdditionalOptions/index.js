@@ -25,7 +25,6 @@ AdditionalOptions.prototype.load = function (element) {
   translatorBtn.onclick = () => this.translatorScreen.toggle();
   helpBtn.onclick = () => {
     this.widgetHelp.toggle();
-    helpBtn.classList.toggle('vp-selected');
   }
 
   window.addEventListener('resize', () => {
