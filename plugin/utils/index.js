@@ -18,4 +18,20 @@ const hasClass = (element, clss) => {
   return element ? element.classList.contains(clss) : undefined;
 }
 
-export { isPlaying, isFullscreen, $, hasClass, widgetPosition }
+const addClass = (element, clss) => {
+  element.classList.add(clss);
+}
+
+const removeClass = (element, clss) => {
+  element.classList.remove(clss);
+}
+
+const toggleClass = (element, clss) => {
+  element.classList.toggle(clss);
+}
+
+export {
+  isPlaying, isFullscreen, $, hasClass,
+  addClass, removeClass, toggleClass,
+  widgetPosition
+}
