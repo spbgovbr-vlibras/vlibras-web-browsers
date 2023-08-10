@@ -15,7 +15,7 @@ const $ = (path, element = null) => {
 }
 
 const hasClass = (element, clss) => {
-  element ? element.classList.contains(clss) : undefined;
+  return element ? element.classList.contains(clss) : undefined;
 }
 
 export { isPlaying, isFullscreen, $, hasClass, widgetPosition }
