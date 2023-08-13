@@ -23,11 +23,11 @@ const controlIcons = {
 }
 
 const socialIcons = {
-  face: require('./facebook.svg'),
-  web: require('./web.svg'),
-  twitter: require('./twitter.svg'),
-  insta: require('./instagram.svg'),
-  youtube: require('./youtube.svg'),
+  face: require('./social/facebook.svg'),
+  website: require('./social/website.svg'),
+  twitter: require('./social/twitter.svg'),
+  insta: require('./social/instagram.svg'),
+  youtube: require('./social/youtube.svg'),
 }
 
 const positionIcons = [
