@@ -75,6 +75,14 @@ $bg-color: #9c9c9c;
         display: flex;
     }
 
+    &.vp-fixed {
+        display: flex;
+
+        button {
+            display: flex !important;
+        }
+    }
+
     @media (max-width: 450px) {
         left: 10px;
     }

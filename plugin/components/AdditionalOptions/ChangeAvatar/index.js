@@ -3,7 +3,7 @@ require('./change-avatar.scss');
 
 const { IcaroIcon, HosanaIcon, GugaIcon } = require('../../../assets/icons');
 
-const avatars = ['icaro', 'hozana', 'guga'];
+const avatars = ['icaro', 'hosana', 'guga'];
 
 function ChangeAvatar(player, callbackWelcome) {
   this.player = player;
@@ -34,7 +34,9 @@ ChangeAvatar.prototype.load = function (element) {
     })
   }
 
-  selectButton(buttons[0]);
+  setTimeout(() => {
+    selectButton(buttons[0]);
+  }, 0)
 
   this.player.on(
     'GetAvatar',

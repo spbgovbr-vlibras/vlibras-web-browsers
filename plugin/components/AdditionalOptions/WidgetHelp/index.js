@@ -4,30 +4,35 @@ require('./widget-help.scss');
 
 const { closeIcon } = require('../../../assets/icons/');
 const { tutorialElements } = require('./tutorialElements');
-const { isFullscreen, $, addClass, removeClass, hasClass } = require('../../../utils');
-
-let feedbackOn = false;
+const { isFullscreen, $, addClass, removeClass } = require('../../../utils');
 
 function WidgetHelp(player) {
-  this.element = null;
   this.player = player;
+  this.element = null;
   this.enabled = false;
   this.helpButton = null;
   this.wPosition = null;
-  this.tab = 0;
+  this.closeButton = null;
+  this.nextButton = null;
+  this.backButton = null;
   this.message = '';
+  this.tab = 0;
 }
 
 WidgetHelp.prototype.load = function (element) {
   this.element = element;
   this.element.innerHTML = template;
-  this.message = $('.vpw-tutorial__message', this.element);
   this.helpButton = $('.vpw-help-button', $('div[vw]'));
+  this.message = $('.vpw-tutorial__message', this.element);
+  this.backButton = $('.vpw-tutorial__back-btn', this.element);
+  this.nextButton = $('.vpw-tutorial__next-btn', this.element);
+  this.closeButton = $('.vpw-tutorial__close-btn', this.element);
 
-  const closeButton = $('.vpw-tutorial__close-btn', this.element);
+  this.closeButton.innerHTML = closeIcon;
 
-  closeButton.innerHTML = closeIcon;
-  closeButton.onclick = () => this.hide();
+  this.closeButton.onclick = () => this.hide();
+  this.backButton.onclick = () => this.back();
+  this.nextButton.onclick = () => this.next();
 }
 
 WidgetHelp.prototype.show = function () {
@@ -35,26 +40,57 @@ WidgetHelp.prototype.show = function () {
   this.enabled = true;
   this.wPosition = window.plugin.position;
   this.updatePos();
+  this.callWidgetTranslator();
+  fixedItems();
   addClickBlocker(true);
   addClass(this.helpButton, 'vp-selected');
-
-  feedbackOn = isFeedbackEnabled();
-  disableFeedback();
 }
 
 WidgetHelp.prototype.hide = function () {
   this.element.classList.remove('vp-enabled');
   this.enabled = false;
+  this.restart();
+  this.player.stop();
+  this.player.gloss = undefined;
+  resetItems();
   addClickBlocker(false);
   removeClass(this.helpButton, 'vp-selected');
   changeWidgetPosition(this.wPosition);
-
-  if (feedbackOn) enabledFeedback();
 }
 
 WidgetHelp.prototype.toggle = function () {
   if (this.enabled) this.hide();
   else this.show();
+}
+
+WidgetHelp.prototype.next = function () {
+  if (this.tab === tutorialElements.length - 1) return this.hide();
+  this.tab++;
+  this.updateButtons();
+  this.callWidgetTranslator();
+}
+
+WidgetHelp.prototype.back = function () {
+  if (this.tab === 0) return;
+  this.tab--;
+  this.updateButtons();
+  this.callWidgetTranslator();
+}
+
+WidgetHelp.prototype.updateButtons = function () {
+  if (this.tab === 0) this.backButton.setAttribute('disabled', true);
+  else this.backButton.removeAttribute('disabled');
+  this.nextButton.innerHTML = this.tab === tutorialElements.length - 1 ?
+    'Concluir' : 'Avançar';
+
+  this.message.innerHTML = tutorialElements[this.tab].text;
+}
+
+WidgetHelp.prototype.restart = function () {
+  this.message.innerHTML = tutorialElements[0].text;
+  this.backButton.setAttribute('disabled', true);
+  this.nextButton.innerHTML = 'Avançar';
+  this.tab = 0;
 }
 
 WidgetHelp.prototype.updatePos = function () {
@@ -93,16 +129,9 @@ WidgetHelp.prototype.updatePos = function () {
   }
 }
 
-WidgetHelp.prototype.next = function () {
-
-}
-
-WidgetHelp.prototype.back = function () {
-
-}
-
-WidgetHelp.prototype.restart = function () {
-  this.message.innerHTML = '';
+WidgetHelp.prototype.callWidgetTranslator = function () {
+  console.log(tutorialElements[this.tab].text);
+  this.player.translate(tutorialElements[this.tab].text);
 }
 
 function changeWidgetPosition(position) {
@@ -116,16 +145,18 @@ function addClickBlocker(bool) {
   else removeClass(element, 'vp-enabled');
 }
 
-function isFeedbackEnabled() {
-  return hasClass($('div[vp-rate-box]'), 'vp-enabled');
-}
-
-function enabledFeedback() {
-  addClass($('div[vp-rate-box]'), 'vp-enabled');
-}
-
-function disableFeedback() {
+function resetItems() {
+  $('div[vp-rate-box]').style.display = 'block';
   removeClass($('div[vp-rate-box]'), 'vp-enabled');
+  removeClass($('div[vp-change-avatar]'), 'vp-fixed');
+  removeClass($('div[vp-additional-options]'), 'vp-fixed');
+
+}
+
+function fixedItems() {
+  $('div[vp-rate-box]').style.display = 'none';
+  addClass($('div[vp-change-avatar]'), 'vp-fixed');
+  addClass($('div[vp-additional-options]'), 'vp-fixed');
 }
 
 module.exports = WidgetHelp;

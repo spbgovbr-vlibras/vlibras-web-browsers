@@ -131,6 +131,10 @@ $bg-color: #9c9c9c;
     display: flex;
   }
 
+  &.vp-fixed {
+    display: flex;
+  }
+
   @media (max-width: 450px) {
     left: 8px;
 
