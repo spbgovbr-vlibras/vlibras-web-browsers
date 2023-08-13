@@ -8,7 +8,7 @@ export const tutorialElements = [
     path: 'div[vp-change-avatar]',
     container: '',
     text: `Clique nesse botão para alterar o avatar. 
-    Você poderá poderá escolher entre Ícaro, Guga e Hozana.`
+    Você poderá poderá escolher entre Ícaro, Guga e Hosana.`
   },
   {
     path: '.vpw-translator-button',
