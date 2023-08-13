@@ -2,8 +2,7 @@ const template = require('./change-avatar.html').default;
 require('./change-avatar.scss');
 
 const { IcaroIcon, HosanaIcon, GugaIcon } = require('../../../assets/icons');
-
-const avatars = ['icaro', 'hosana', 'guga'];
+const avatars = ['icaro', 'hozana', 'guga'];
 
 function ChangeAvatar(player, callbackWelcome) {
   this.player = player;
@@ -34,15 +33,12 @@ ChangeAvatar.prototype.load = function (element) {
     })
   }
 
-  setTimeout(() => {
-    selectButton(buttons[0]);
-  }, 0)
+  selectButton(buttons[0]);
 
   this.player.on(
     'GetAvatar',
     function (avatar) {
       selectButton(buttons[avatars.indexOf(avatar)])
-
       this.player.playWellcome();
     }.bind(this)
   );
