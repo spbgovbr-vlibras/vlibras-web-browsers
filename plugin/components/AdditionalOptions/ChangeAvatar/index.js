@@ -1,9 +1,9 @@
 const template = require('./change-avatar.html').default;
 require('./change-avatar.scss');
 
-const { IcaroIcon, hozanaIcon, gugaIcon } = require('../../../assets/icons');
+const { IcaroIcon, hosanaIcon, gugaIcon } = require('../../../assets/icons');
 
-const avatars = ['icaro', 'hozana', 'guga'];
+const avatars = ['icaro', 'hosana', 'guga'];
 
 function ChangeAvatar(player, callbackWelcome) {
   this.player = player;
@@ -16,7 +16,7 @@ ChangeAvatar.prototype.load = function (element) {
   const buttons = this.element.querySelectorAll('.vp-button-change-avatar');
 
   buttons.forEach((button, i) => {
-    button.innerHTML = [IcaroIcon, hozanaIcon, gugaIcon][i];
+    button.innerHTML = [IcaroIcon, hosanaIcon, gugaIcon][i];
 
     button.onclick = () => {
       if (button.classList.contains('vp-selected')) return;

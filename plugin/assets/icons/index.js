@@ -1,5 +1,5 @@
 const IcaroIcon = require('./avatars/icaro.svg');
-const hozanaIcon = require('./avatars/hozana.svg');
+const hosanaIcon = require('./avatars/hosana.svg');
 const gugaIcon = require('./avatars/guga.svg');
 const aboutIcon = require('./header/about.svg');
 const closeIcon = require('./header/close.svg');
@@ -38,7 +38,7 @@ const positionIcons = [
 ]
 
 module.exports = {
-  IcaroIcon, hozanaIcon, gugaIcon, aboutIcon, closeIcon,
+  IcaroIcon, hosanaIcon, gugaIcon, aboutIcon, closeIcon,
   dictionaryIcon, settingsIcon, backIcon, socialIcons,
   positionIcons, arrowIcon, likeLineIcon, likeSolidIcon,
   loadingIcon, translatorIcon, helpIcon, controlIcons
