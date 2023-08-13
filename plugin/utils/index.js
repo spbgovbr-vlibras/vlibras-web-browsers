@@ -18,6 +18,8 @@ const $$ = (path, element = null) => {
   return element ? element.querySelectorAll(path) : $(path, document);
 }
 
+const $0 = document.body;
+
 const hasClass = (element, clss) => {
   return element ? element.classList.contains(clss) : undefined;
 }
@@ -34,8 +36,12 @@ const toggleClass = (element, clss) => {
   element.classList.toggle(clss);
 }
 
+const getRect = (element) => {
+  return element.getBoundingClientRect();
+}
+
 export {
-  isPlaying, isFullscreen, $, $$, hasClass,
-  addClass, removeClass, toggleClass,
-  widgetPosition
+  isPlaying, isFullscreen, $, $$, $0,
+  hasClass, addClass, removeClass,
+  toggleClass, widgetPosition, getRect
 }
