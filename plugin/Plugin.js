@@ -63,7 +63,7 @@ function Plugin(options) {
   this.messageBox = new MessageBox();
   this.suggestionScreen = new SuggestionScreen(this.player);
   this.translatorScreen = new TranslatorScreen(this.player);
-  this.widgetHelp = new WidgetHelp();
+  this.widgetHelp = new WidgetHelp(this.player);
   this.rateBox = new RateBox(this.messageBox, this.suggestionScreen);
   this.ChangeAvatar = new ChangeAvatar(this.player);
   this.additionalOptions = new AdditionalOptions(
@@ -141,6 +141,7 @@ function Plugin(options) {
   this.player.on('gloss:start', () => {
     control = 0;
     this.ChangeAvatar.hide();
+    this.additionalOptions.hide();
     this.rateBox.hide();
     this.suggestionScreen.hide();
     this.translatorScreen.hide();
@@ -149,6 +150,7 @@ function Plugin(options) {
   this.player.on('gloss:end', (globalGlosaLenght) => {
     if (control == 0) {
       this.ChangeAvatar.show();
+      this.additionalOptions.show();
     }
 
     if (this.player.translated && control == 0) {

@@ -9,7 +9,7 @@ function RateBox(messageBox, suggestionScreen) {
   this.messageBox = messageBox;
 }
 
-RateBox.prototype.load = function(element) {
+RateBox.prototype.load = function (element) {
   this.element = element;
   this.element.innerHTML = template;
 
@@ -19,7 +19,7 @@ RateBox.prototype.load = function(element) {
 
   // Add icon
   this.headerButton.innerHTML = arrowIcon;
-  likeBtn.innerHTML =  likeLineIcon + likeSolidIcon + likeBtn.innerHTML;
+  likeBtn.innerHTML = likeLineIcon + likeSolidIcon + likeBtn.innerHTML;
   deslikeBtn.innerHTML = likeLineIcon + likeSolidIcon + deslikeBtn.innerHTML;
 
   this.headerButton.addEventListener('click', function () {
@@ -34,19 +34,20 @@ RateBox.prototype.load = function(element) {
     this.suggestionScreen.show();
     this.suggestionScreen.setGloss(window.plugin.player.gloss);
   }.bind(this));
-  
+
 };
 
-RateBox.prototype.reload = function() {
+RateBox.prototype.reload = function () {
   this.suggestionScreen.hide();
   this.headerButton.innerHTML = arrowIcon;
 };
 
-RateBox.prototype.show = function() {
+RateBox.prototype.show = function () {
+  if (window.plugin.player.gloss == undefined) return;
   this.element.classList.add('vp-enabled');
 };
 
-RateBox.prototype.hide = function() {
+RateBox.prototype.hide = function () {
   this.reload();
   this.element.classList.remove('vp-enabled');
   this.element.classList.remove('vp-expanded');
