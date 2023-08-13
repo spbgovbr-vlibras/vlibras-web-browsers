@@ -2,7 +2,8 @@
   <a href="https://www.vlibras.gov.br/">
     <img
       alt="Banner with VLibras avatars (Hosana, Ícaro and Guga)"
-      src="/uploads/56e6c98eb24ec3def12c28c3ecac1e2d/image.png"
+      width="400"
+      src="/uploads/2078a32902a7a2073027c734e34bbeb0/banner.png"
     />
   </a>
 
