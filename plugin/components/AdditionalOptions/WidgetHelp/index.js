@@ -4,7 +4,7 @@ require('./widget-help.scss');
 
 const { closeIcon } = require('../../../assets/icons/');
 const { tutorialElements } = require('./tutorialElements');
-const { isFullscreen, $, addClass, removeClass } = require('../../../utils');
+const { isFullscreen, $, addClass, removeClass, getRect } = require('~utils');
 
 function WidgetHelp(player) {
   this.player = player;
@@ -98,8 +98,7 @@ WidgetHelp.prototype.updatePos = function () {
   const position = window.plugin.position;
   const isLeft = position.includes('L');
   const isTop = position.includes('T');
-  const rect = vw.getBoundingClientRect();
-  const { width, height, top } = rect;
+  const { width, height, top } = getRect(vw);
 
   if (!isFullscreen()) {
     if (window.innerWidth >= 600) {
