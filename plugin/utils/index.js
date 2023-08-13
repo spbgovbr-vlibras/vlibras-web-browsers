@@ -14,6 +14,10 @@ const $ = (path, element = null) => {
   return element ? element.querySelector(path) : $(path, document);
 }
 
+const $$ = (path, element = null) => {
+  return element ? element.querySelectorAll(path) : $(path, document);
+}
+
 const hasClass = (element, clss) => {
   return element ? element.classList.contains(clss) : undefined;
 }
@@ -31,7 +35,7 @@ const toggleClass = (element, clss) => {
 }
 
 export {
-  isPlaying, isFullscreen, $, hasClass,
+  isPlaying, isFullscreen, $, $$, hasClass,
   addClass, removeClass, toggleClass,
   widgetPosition
 }
