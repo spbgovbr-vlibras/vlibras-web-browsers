@@ -17,6 +17,11 @@ const webpackConfig = {
       path.join(__dirname, 'plugin'),
       'node_modules',
     ],
+
+    alias: {
+      '~utils': path.resolve(__dirname, 'plugin/utils'),
+      '~icons': path.resolve(__dirname, 'plugin/assets/icons')
+    }
   },
   externals: {
     window: 'window',
@@ -44,7 +49,7 @@ const webpackConfig = {
       {
         test: /\.svg$/,
         loader: 'svg-inline-loader'
-    }
+      }
     ],
   },
   plugins: [new CompressionPlugin()],
