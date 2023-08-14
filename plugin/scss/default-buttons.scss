@@ -280,6 +280,18 @@
     &:disabled {
         opacity: .5;
         cursor: not-allowed;
+
+        &:hover {
+            opacity: .5;
+        }
+    }
+
+    &:active {
+        opacity: 1;
+    }
+
+    &:hover {
+        opacity: .8;
     }
 }
 

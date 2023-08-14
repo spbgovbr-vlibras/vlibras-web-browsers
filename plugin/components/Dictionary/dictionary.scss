@@ -17,6 +17,7 @@ $margin_left: 40px;
         flex-direction: column;
         grid-auto-flow: 10px;
         overflow: hidden;
+        border-radius: 0 0 10px 10px;
 
         &.active {
             display: flex;
@@ -140,7 +141,7 @@ $margin_left: 40px;
             height: 100%;
             width: 100%;
             font-size: 1rem;
-            overflow: hidden;
+            overflow: auto;
 
             &.enabled {
                 display: flex;
@@ -155,9 +156,6 @@ $margin_left: 40px;
                 align-items: start;
                 flex-direction: column;
                 justify-content: start;
-                width: 250%;
-                overflow-y: scroll;
-                overflow-x: scroll;
 
                 &::-webkit-scrollbar {
                     width: 8px;
@@ -172,13 +170,15 @@ $margin_left: 40px;
                 }
 
                 li {
-                    font-size: 12px;
+                    font-size: 14px;
                     cursor: pointer;
                     padding: 6px 16px;
-                    width: 350%;
+                    font-weight: 500;
+                    min-width: 300px;
 
                     @media (max-width: 450px) {
                         padding: 6px 10px;
+                        min-width: 210px;
                     }
 
                     &:hover {

@@ -19,6 +19,7 @@
     text-align: center;
     font-weight: 700;
     background-color: map-get($blue, 1);
+    border-radius: 10px 10px 0 0;
 
     &.active {
       opacity: 1;

@@ -1,6 +1,15 @@
 .vpw-fullscreen {
-
     overflow: hidden !important;
+
+    .vw-help-container {
+        max-width: 600px !important;
+        max-width: 600px !important;
+        left: 50% !important;
+        margin: 0 !important;
+        right: auto !important;
+        transform: translateX(-50%);
+        width: 100%;
+    }
 
     [vw] {
         top: 0 !important;
@@ -8,6 +17,11 @@
         transform: none !important;
         margin: 0 !important;
         max-width: 100vw;
+
+        .vpw-box,
+        .vpw-controls {
+            border-radius: 0 !important;
+        }
 
         [vw-plugin-wrapper].active {
             width: 100vw !important;
@@ -44,7 +58,15 @@
 
         .vpw-dict-container,
         .vpw-recents-container {
-            height: 80% !important;
+            ul li {
+                min-width: 100vw !important;
+            }
+        }
+
+        .vpw-dictionary,
+        .vpw-info-screen,
+        .vpw-settings {
+            border-radius: 0 !important;
         }
 
         .vpw-controls {
@@ -106,9 +128,18 @@
                 gap: 40px;
             }
 
+            .vpw-dict-container,
             .vpw-recents-container {
-                height: 75% !important;
+                ul li {
+                    min-width: 600px !important;
+                }
             }
+        }
+    }
+
+    @media (max-width: 600px) {
+        .vw-help-container {
+            width: calc(100% - 20px);
         }
     }
 
