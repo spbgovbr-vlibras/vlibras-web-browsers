@@ -9,15 +9,16 @@ $control-height: 68px;
   position: absolute;
   right: 0;
   left: 0;
-  height: 0;
+  height: 48px;
   bottom: 0;
   width: 100%;
   padding: 0;
   background-color: white;
   z-index: 5;
-  border-radius: 10px 10px 0 0;
+  border-radius: 10px;
+  visibility: hidden;
 
-  transition: all .3s ease;
+  transition: all .3s ease, opacity .5s ease;
 
   ::-webkit-scrollbar {
     width: 10px;
@@ -135,6 +136,7 @@ $control-height: 68px;
 
   &.vp-enabled {
     height: 96px;
+    visibility: visible;
 
     &.vp-expanded {
       height: calc(100% - 60px);

@@ -18,6 +18,40 @@
     z-index: 99999999 !important;
     display: none;
 
+    &.vw-left::after {
+        left: -4px;
+        right: auto;
+    }
+
+    &.vw-right::after {
+        left: auto;
+        right: -4px;
+    }
+
+    &.vw-top::after {
+        top: 7px;
+        bottom: auto;
+    }
+
+    &.vw-bottom::after {
+        top: auto;
+        bottom: 14px;
+    }
+
+    &::after {
+        content: "";
+        position: absolute;
+        width: 20px;
+        height: 20px;
+        background-color: map-get($blue, 2);
+        transform: rotate(45deg);
+        z-index: -1;
+    }
+
+    &.not-arrow::after {
+        display: none !important;
+    }
+
     .vpw-tutorial__close-btn {
         @include reset;
         @include centralize;
@@ -64,7 +98,16 @@
             @include tutorial-btn--solid;
         }
 
-        .vpw-tutorial__tab-slider {}
+        .vpw-tutorial__tab-slider {
+            color: #FFF;
+            font-weight: 400;
+            opacity: .5;
+            font-size: 14px;
+
+            @media (max-width: 450px) {
+                font-size: 12px;
+            }
+        }
     }
 
     &.vp-enabled {
