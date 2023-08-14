@@ -6,17 +6,21 @@ const { closeIcon } = require('../../../assets/icons/');
 const { tutorialElements } = require('./tutorialElements');
 const { isFullscreen, $, addClass, removeClass, getRect } = require('~utils');
 
+let vw = null;
+
 function WidgetHelp(player) {
   this.player = player;
   this.element = null;
   this.enabled = false;
   this.helpButton = null;
   this.wPosition = null;
+  this.tabSlider = null;
   this.closeButton = null;
   this.nextButton = null;
   this.backButton = null;
   this.message = '';
   this.tab = 0;
+  this.$elements = [];
 }
 
 WidgetHelp.prototype.load = function (element) {
@@ -27,12 +31,16 @@ WidgetHelp.prototype.load = function (element) {
   this.backButton = $('.vpw-tutorial__back-btn', this.element);
   this.nextButton = $('.vpw-tutorial__next-btn', this.element);
   this.closeButton = $('.vpw-tutorial__close-btn', this.element);
+  this.tabSlider = $('.vpw-tutorial__tab-slider', this.element);
 
   this.closeButton.innerHTML = closeIcon;
 
   this.closeButton.onclick = () => this.hide();
   this.backButton.onclick = () => this.back();
   this.nextButton.onclick = () => this.next();
+
+  vw = $('div[vw]');
+  tutorialElements.forEach(({ path }) => this.$elements.push($(path)));
 }
 
 WidgetHelp.prototype.show = function () {
@@ -40,10 +48,12 @@ WidgetHelp.prototype.show = function () {
   this.enabled = true;
   this.wPosition = window.plugin.position;
   this.updatePos();
-  this.callWidgetTranslator();
+  callWidgetTranslator.bind(this)();
   fixedItems();
   addClickBlocker(true);
   addClass(this.helpButton, 'vp-selected');
+
+  console.log(this.$elements)
 }
 
 WidgetHelp.prototype.hide = function () {
@@ -67,14 +77,16 @@ WidgetHelp.prototype.next = function () {
   if (this.tab === tutorialElements.length - 1) return this.hide();
   this.tab++;
   this.updateButtons();
-  this.callWidgetTranslator();
+  this.updatePos();
+  callWidgetTranslator.bind(this)();
 }
 
 WidgetHelp.prototype.back = function () {
   if (this.tab === 0) return;
   this.tab--;
   this.updateButtons();
-  this.callWidgetTranslator();
+  this.updatePos();
+  callWidgetTranslator.bind(this)();
 }
 
 WidgetHelp.prototype.updateButtons = function () {
@@ -94,18 +106,32 @@ WidgetHelp.prototype.restart = function () {
 }
 
 WidgetHelp.prototype.updatePos = function () {
-  const vw = $('div[vw]');
   const position = window.plugin.position;
   const isLeft = position.includes('L');
   const isTop = position.includes('T');
-  const { width, height, top } = getRect(vw);
+  const item = this.$elements[this.tab];
+  const { top: wTop, width: wWidth, height: wHeight } = getRect(vw);
+  const { top: iTop, height: iHeight } = getRect(item);
+  const { height: eHeight } = getRect(this.element);
+
+  // Set tab id
+  this.tabSlider.innerHTML = `${this.tab + 1}/${this.$elements.length}`;
+
+  // Check if element position is in lower viewport
+  const isLowerView = iTop > window.innerHeight / 2;
+
+  const width = wWidth;
+  const height = wHeight;
+  const top = !item ? wTop : isLowerView ? (iTop - eHeight + iHeight) : iTop;
 
   if (!isFullscreen()) {
     if (window.innerWidth >= 600) {
-      this.element.style.left = isLeft ? width + 20 + 'px' : 'initial';
-      this.element.style.right = !isLeft ? width + 20 + 'px' : 'initial';
+      this.element.style.left = isLeft ? width + 30 + 'px' : 'initial';
+      this.element.style.right = !isLeft ? width + 30 + 'px' : 'initial';
       this.element.style.top = top + 'px';
       this.element.style.maxWidth = '340px';
+      this.element.style.bottom = 'auto';
+      updateArrow.bind(this)()
 
       if (!['T', 'B'].includes(position)) return;
       else changeWidgetPosition(this.wPosition.includes('L') ?
@@ -115,20 +141,33 @@ WidgetHelp.prototype.updatePos = function () {
       changeWidgetPosition('T');
       maxWidth.bind(this)(40);
       this.element.style.top = height + 20 + 'px';
+      this.element.style.bottom = 'auto';
     }
   } else {
     // is fullscreen
     maxWidth.bind(this)(10);
+    this.element.style.top = 'auto';
+    this.element.style.bottom = '58px';
   }
 
   function maxWidth(margin) {
     this.element.style.left = margin + 'px';
     this.element.style.right = margin + 'px';
     this.element.style.maxWidth = '100vw';
+    addClass(this.element, 'not-arrow');
   }
+
+  function updateArrow() {
+    addClass(this.element, `vw-${isLeft ? 'left' : 'right'}`);
+    removeClass(this.element, `vw-${!isLeft ? 'left' : 'right'}`);
+    addClass(this.element, `vw-${isLowerView ? 'bottom' : 'top'}`);
+    removeClass(this.element, `vw-${!isLowerView ? 'bottom' : 'top'}`);
+    removeClass(this.element, 'not-arrow');
+  }
+
 }
 
-WidgetHelp.prototype.callWidgetTranslator = function () {
+function callWidgetTranslator() {
   console.log(tutorialElements[this.tab].text);
   this.player.translate(tutorialElements[this.tab].text);
 }
