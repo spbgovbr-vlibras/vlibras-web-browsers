@@ -52,6 +52,7 @@ WidgetHelp.prototype.show = function () {
   fixedItems();
   addClickBlocker(true);
   addClass(this.helpButton, 'vp-selected');
+  removeClass($('div[vp-change-avatar]'), 'vp-change-avatar-openned');
 }
 
 WidgetHelp.prototype.hide = function () {
