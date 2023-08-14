@@ -52,8 +52,6 @@ WidgetHelp.prototype.show = function () {
   fixedItems();
   addClickBlocker(true);
   addClass(this.helpButton, 'vp-selected');
-
-  console.log(this.$elements)
 }
 
 WidgetHelp.prototype.hide = function () {
@@ -108,45 +106,52 @@ WidgetHelp.prototype.restart = function () {
 WidgetHelp.prototype.updatePos = function () {
   const position = window.plugin.position;
   const isLeft = position.includes('L');
-  const isTop = position.includes('T');
   const item = this.$elements[this.tab];
   const { top: wTop, width: wWidth, height: wHeight } = getRect(vw);
   const { top: iTop, height: iHeight } = getRect(item);
-  const { height: eHeight } = getRect(this.element);
+  const { width: eWidth, height: eHeight } = getRect(this.element);
 
   // Set tab id
   this.tabSlider.innerHTML = `${this.tab + 1}/${this.$elements.length}`;
 
   // Check if element position is in lower viewport
-  const isLowerView = iTop > window.innerHeight / 2;
+  const isLowerView = iTop > wHeight / 2 + wTop;
 
   const width = wWidth;
   const height = wHeight;
   const top = !item ? wTop : isLowerView ? (iTop - eHeight + iHeight) : iTop;
 
   if (!isFullscreen()) {
-    if (window.innerWidth >= 600) {
+    if (fitInHalfWindow() && 'TB'.includes(this.wPosition)) {
+      addClass(this.element, 'vw-centered');
+      this.element.style.top = top + 'px';
+      changeWidgetPosition(this.wPosition);
+      updateArrow.bind(this)();
+
+    } else if (window.innerWidth >= 600) {
+      removeClass(this.element, 'vw-centered');
       this.element.style.left = isLeft ? width + 30 + 'px' : 'initial';
       this.element.style.right = !isLeft ? width + 30 + 'px' : 'initial';
       this.element.style.top = top + 'px';
       this.element.style.maxWidth = '340px';
-      this.element.style.bottom = 'auto';
-      updateArrow.bind(this)()
+      this.element.style.bottom = 'initial';
+      updateArrow.bind(this)();
 
-      if (!['T', 'B'].includes(position)) return;
-      else changeWidgetPosition(this.wPosition.includes('L') ?
-        isTop ? 'TL' : 'BL' : isTop ? 'TR' : 'BR')
+      const wp = this.wPosition;
+      changeWidgetPosition('TB'.includes(wp) ? wp + 'R' : wp)
 
     } else {
       changeWidgetPosition('T');
+      removeClass(this.element, 'vw-centered');
       maxWidth.bind(this)(40);
       this.element.style.top = height + 20 + 'px';
-      this.element.style.bottom = 'auto';
+      this.element.style.bottom = 'initial';
     }
   } else {
     // is fullscreen
     maxWidth.bind(this)(10);
-    this.element.style.top = 'auto';
+    removeClass(this.element, 'vw-centered');
+    this.element.style.top = 'initial';
     this.element.style.bottom = '58px';
   }
 
@@ -165,10 +170,13 @@ WidgetHelp.prototype.updatePos = function () {
     removeClass(this.element, 'not-arrow');
   }
 
+  function fitInHalfWindow() {
+    return window.innerWidth / 2 >= eWidth + 20 + (wWidth / 2);
+  }
+
 }
 
 function callWidgetTranslator() {
-  console.log(tutorialElements[this.tab].text);
   this.player.translate(tutorialElements[this.tab].text);
 }
 

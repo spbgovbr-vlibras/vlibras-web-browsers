@@ -18,23 +18,29 @@
     z-index: 99999999 !important;
     display: none;
 
+    &.vw-centered {
+        transform: translateX(-50%);
+        right: 50% !important;
+        left: initial !important;
+    }
+
     &.vw-left::after {
         left: -4px;
-        right: auto;
+        right: initial;
     }
 
     &.vw-right::after {
-        left: auto;
+        left: initial;
         right: -4px;
     }
 
     &.vw-top::after {
         top: 7px;
-        bottom: auto;
+        bottom: initial;
     }
 
     &.vw-bottom::after {
-        top: auto;
+        top: initial;
         bottom: 14px;
     }
 
