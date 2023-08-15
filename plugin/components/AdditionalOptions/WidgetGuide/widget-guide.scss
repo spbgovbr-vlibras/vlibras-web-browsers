@@ -105,14 +105,11 @@
         }
 
         .vpw-tutorial__tab-slider {
-            color: #FFF;
-            font-weight: 400;
-            font-size: 14px;
             display: flex;
-            flex-direction: row;
             gap: 6px;
             align-items: center;
             justify-content: center;
+            flex-direction: row;
 
             span {
                 width: 6px;

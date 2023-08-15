@@ -28,7 +28,7 @@ AdditionalOptions.prototype.load = function (element) {
 
   window.addEventListener('resize', () => {
     if (!this.widgetGuide.enabled) return;
-    this.widgetGuide.updatePos()
+    this.widgetGuide.updatePosition();
   })
 
   this.player.on('translate:start', _start.bind(this));
