@@ -107,8 +107,24 @@
         .vpw-tutorial__tab-slider {
             color: #FFF;
             font-weight: 400;
-            opacity: .5;
             font-size: 14px;
+            display: flex;
+            flex-direction: row;
+            gap: 6px;
+            align-items: center;
+            justify-content: center;
+
+            span {
+                width: 6px;
+                height: 6px;
+                border-radius: 50%;
+                opacity: .4;
+                background-color: #FFF;
+
+                &.vp-actived {
+                    opacity: 1;
+                }
+            }
 
             @media (max-width: 450px) {
                 font-size: 12px;
