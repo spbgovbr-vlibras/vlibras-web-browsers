@@ -1,14 +1,14 @@
 
-const template = require('./widget-help.html').default;
-require('./widget-help.scss');
+const template = require('./widget-guide.html').default;
+require('./widget-guide.scss');
 
-const { closeIcon } = require('../../../assets/icons/');
+const { closeIcon } = require('../../../assets/icons');
 const { tutorialElements } = require('./tutorialElements');
 const { isFullscreen, $, addClass, removeClass, getRect } = require('~utils');
 
 let vw = null;
 
-function WidgetHelp(player) {
+function WidgetGuide(player) {
   this.player = player;
   this.element = null;
   this.enabled = false;
@@ -23,7 +23,7 @@ function WidgetHelp(player) {
   this.$elements = [];
 }
 
-WidgetHelp.prototype.load = function (element) {
+WidgetGuide.prototype.load = function (element) {
   this.element = element;
   this.element.innerHTML = template;
   this.helpButton = $('.vpw-help-button', $('div[vw]'));
@@ -43,7 +43,7 @@ WidgetHelp.prototype.load = function (element) {
   tutorialElements.forEach(({ path }) => this.$elements.push($(path)));
 }
 
-WidgetHelp.prototype.show = function () {
+WidgetGuide.prototype.show = function () {
   this.element.classList.add('vp-enabled');
   this.enabled = true;
   this.wPosition = window.plugin.position;
@@ -55,7 +55,7 @@ WidgetHelp.prototype.show = function () {
   removeClass($('div[vp-change-avatar]'), 'vp-change-avatar-openned');
 }
 
-WidgetHelp.prototype.hide = function () {
+WidgetGuide.prototype.hide = function () {
   this.element.classList.remove('vp-enabled');
   this.enabled = false;
   this.restart();
@@ -67,44 +67,35 @@ WidgetHelp.prototype.hide = function () {
   changeWidgetPosition(this.wPosition);
 }
 
-WidgetHelp.prototype.toggle = function () {
+WidgetGuide.prototype.toggle = function () {
   if (this.enabled) this.hide();
   else this.show();
 }
 
-WidgetHelp.prototype.next = function () {
+WidgetGuide.prototype.next = function () {
   if (this.tab === tutorialElements.length - 1) return this.hide();
   this.tab++;
-  this.updateButtons();
   this.updatePos();
+  updateButtons.bind(this)();
   callWidgetTranslator.bind(this)();
 }
 
-WidgetHelp.prototype.back = function () {
+WidgetGuide.prototype.back = function () {
   if (this.tab === 0) return;
   this.tab--;
-  this.updateButtons();
   this.updatePos();
+  updateButtons.bind(this)();
   callWidgetTranslator.bind(this)();
 }
 
-WidgetHelp.prototype.updateButtons = function () {
-  if (this.tab === 0) this.backButton.setAttribute('disabled', true);
-  else this.backButton.removeAttribute('disabled');
-  this.nextButton.innerHTML = this.tab === tutorialElements.length - 1 ?
-    'Concluir' : 'Avançar';
-
-  this.message.innerHTML = tutorialElements[this.tab].text;
-}
-
-WidgetHelp.prototype.restart = function () {
+WidgetGuide.prototype.restart = function () {
   this.message.innerHTML = tutorialElements[0].text;
   this.backButton.setAttribute('disabled', true);
   this.nextButton.innerHTML = 'Avançar';
   this.tab = 0;
 }
 
-WidgetHelp.prototype.updatePos = function () {
+WidgetGuide.prototype.updatePos = function () {
   const position = window.plugin.position;
   const isLeft = position.includes('L');
   const item = this.$elements[this.tab];
@@ -177,6 +168,14 @@ WidgetHelp.prototype.updatePos = function () {
 
 }
 
+function updateButtons() {
+  if (this.tab === 0) this.backButton.setAttribute('disabled', true);
+  else this.backButton.removeAttribute('disabled');
+  this.message.innerHTML = tutorialElements[this.tab].text;
+  this.nextButton.innerHTML = this.tab === tutorialElements.length - 1 ?
+    'Concluir' : 'Avançar';
+}
+
 function callWidgetTranslator() {
   this.player.translate(tutorialElements[this.tab].text);
 }
@@ -206,4 +205,4 @@ function fixedItems() {
   addClass($('div[vp-additional-options]'), 'vp-fixed');
 }
 
-module.exports = WidgetHelp;
+module.exports = WidgetGuide;

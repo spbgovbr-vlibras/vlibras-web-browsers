@@ -12,7 +12,7 @@ const CloseScreen = require('components/CloseScreen');
 const RateBox = require('components/RateBox');
 const SuggestionScreen = require('components/SuggestionScreen');
 const TranslatorScreen = require('components/AdditionalOptions/TranslatorScreen');
-const WidgetHelp = require('components/AdditionalOptions/WidgetHelp')
+const WidgetGuide = require('components/AdditionalOptions/WidgetGuide')
 const AdditionalOptions = require('components/AdditionalOptions');
 const ChangeAvatar = require('components/AdditionalOptions/ChangeAvatar');
 
@@ -63,13 +63,13 @@ function Plugin(options) {
   this.messageBox = new MessageBox();
   this.suggestionScreen = new SuggestionScreen(this.player);
   this.translatorScreen = new TranslatorScreen(this.player);
-  this.widgetHelp = new WidgetHelp(this.player);
+  this.widgetGuide = new WidgetGuide(this.player);
   this.rateBox = new RateBox(this.messageBox, this.suggestionScreen);
   this.ChangeAvatar = new ChangeAvatar(this.player);
   this.additionalOptions = new AdditionalOptions(
     this.player,
     this.translatorScreen,
-    this.widgetHelp
+    this.widgetGuide
   );
 
   this.loadingRef = null;
@@ -84,7 +84,7 @@ function Plugin(options) {
     this.element.querySelector('[vp-translator-screen]')
   );
 
-  this.widgetHelp.load(createHelpContainer());
+  this.widgetGuide.load(createGuideContainer());
 
   this.player.load(this.element);
 
@@ -207,9 +207,9 @@ function Plugin(options) {
   this.loadImages();
 }
 
-function createHelpContainer() {
+function createGuideContainer() {
   const container = document.createElement('div');
-  container.classList.add('vw-help-container');
+  container.classList.add('vw-guide-container');
   document.body.appendChild(container);
   return container;
 }

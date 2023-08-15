@@ -1,7 +1,7 @@
 .vpw-fullscreen {
     overflow: hidden !important;
 
-    .vw-help-container {
+    .vw-guide-container {
         max-width: 600px !important;
         max-width: 600px !important;
         left: 50% !important;
@@ -132,7 +132,7 @@
     }
 
     @media (max-width: 600px) {
-        .vw-help-container {
+        .vw-guide-container {
             width: calc(100% - 20px);
         }
 
