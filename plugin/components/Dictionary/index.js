@@ -1,15 +1,13 @@
-const { backIcon, loadingIcon } = require('../../assets/icons')
-
 const inherits = require('inherits');
 const EventEmitter = require('events').EventEmitter;
 
 const dictionaryTpl = require('./dictionary.html').default;
 require('./dictionary.scss');
 
-const { dictionaryIcon } = require('../../assets/icons')
-const { DICTIONARY_URL } = require('../../config');
-
 const Trie = require('./trie.js');
+
+const { backIcon, loadingIcon, dictionaryIcon } = require('~icons');
+const { DICTIONARY_URL } = require('../../config');
 
 function Dictionary(player) {
   this.visible = false;

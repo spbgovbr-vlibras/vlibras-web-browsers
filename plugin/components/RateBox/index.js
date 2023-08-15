@@ -1,7 +1,7 @@
 const template = require('./rate-box.html').default;
 require('./rate-box.scss');
 
-const { arrowIcon, likeLineIcon, likeSolidIcon } = require('../../assets/icons/');
+const { arrowIcon, likeLineIcon, likeSolidIcon } = require('~icons/');
 
 function RateBox(messageBox, suggestionScreen) {
   this.element = null;

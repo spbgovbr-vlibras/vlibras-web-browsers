@@ -1,13 +1,13 @@
 const template = require('./translator-screen.html').default;
 require('./translator-screen.scss');
 
+const { closeIcon } = require('../../../assets/icons');
+const { $, removeClass } = require('~utils');
+
 function TranslatorScreen(player) {
   this.element = null;
   this.player = player;
 }
-
-const { closeIcon } = require('../../../assets/icons');
-const { $, removeClass } = require('~utils');
 
 TranslatorScreen.prototype.load = function (element) {
   this.element = element;

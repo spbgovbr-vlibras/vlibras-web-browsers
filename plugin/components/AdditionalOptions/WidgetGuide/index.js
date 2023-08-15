@@ -2,7 +2,7 @@
 const template = require('./widget-guide.html').default;
 require('./widget-guide.scss');
 
-const { closeIcon } = require('../../../assets/icons');
+const { closeIcon } = require('~icons');
 const { tutorialElements } = require('./tutorialElements');
 const { isFullscreen, $, addClass, removeClass, getRect } = require('~utils');
 

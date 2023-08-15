@@ -1,7 +1,7 @@
-const { socialIcons, backIcon } = require('../../assets/icons')
-
 const inherits = require('inherits');
 const EventEmitter = require('events').EventEmitter;
+
+const { socialIcons, backIcon } = require('../../assets/icons');
 
 const infoScreenTpl = require('./info-screen.html').default;
 require('./info-screen.scss');
