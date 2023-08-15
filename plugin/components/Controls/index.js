@@ -4,7 +4,7 @@ require('nouislider/distribute/nouislider.min.css');
 const controlsTpl = require('./controls.html').default;
 require('./controls.scss');
 
-const { controlIcons } = require('../../assets/icons');
+const { controlIcons } = require('~icons');
 
 let firstTranslation = false;
 const availableSpeeds = [0.5, 1, 1.5, 2, 3];
