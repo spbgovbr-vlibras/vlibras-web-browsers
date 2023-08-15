@@ -62,8 +62,16 @@ $bg-color: #9c9c9c;
       white-space: nowrap;
 
       color: map-get($white, 1);
-      font-size: .9rem;
+      font-size: 16px;
       font-weight: 500;
+
+      @media (max-width: 1200px) {
+        font-size: 14px;
+      }
+
+      @media (max-width: 450px) {
+        font-size: 12px;
+      }
     }
 
     &:hover {
