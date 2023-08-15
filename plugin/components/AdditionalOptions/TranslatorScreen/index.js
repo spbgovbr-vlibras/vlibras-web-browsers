@@ -1,8 +1,7 @@
 const template = require('./translator-screen.html').default;
 require('./translator-screen.scss');
 
-const { closeIcon } = require('../../../assets/icons');
-const { $, removeClass } = require('~utils');
+const { closeIcon } = require('~icons');
 
 function TranslatorScreen(player) {
   this.element = null;
@@ -16,20 +15,13 @@ TranslatorScreen.prototype.load = function (element) {
   const closeBtn = this.element.querySelector('.vp-translator-screen-header button');
   const userText = this.element.querySelector('.vp-text');
   const visualizeBtn = this.element.querySelector('.vp-visualize-signal-button');
-  const translatorButton = $('.vpw-translator-button');
 
   // Add icons
   closeBtn.innerHTML = closeIcon;
 
   // Add actions
-  closeBtn.onclick = function () {
-    this.hide();
-    removeClass(translatorButton, 'vp-selected');
-  }.bind(this);
-
-  visualizeBtn.onclick = function () {
-    this.player.translate(userText.value.trim());
-  }.bind(this);
+  closeBtn.onclick = () => this.hide();
+  visualizeBtn.onclick = () => this.player.translate(userText.value.trim());
 
   userText.addEventListener('input', function () {
 

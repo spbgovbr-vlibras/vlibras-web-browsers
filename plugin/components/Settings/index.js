@@ -7,7 +7,7 @@ require('./regionalism.scss');
 require('./switch.scss');
 
 const regionsData = require('./data');
-const { backIcon, positionIcons } = require('../../assets/icons')
+const { backIcon, positionIcons } = require('~icons')
 
 function Settings(player, opacity, position, options) {
   this.visible = false;

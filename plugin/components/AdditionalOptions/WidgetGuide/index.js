@@ -49,7 +49,7 @@ WidgetGuide.prototype.show = function () {
   this.wPosition = window.plugin.position;
   this.updatePos();
   callWidgetTranslator.bind(this)();
-  fixedItems();
+  fixedButtons();
   addClickBlocker(true);
   addClass(this.helpButton, 'vp-selected');
   removeClass($('div[vp-change-avatar]'), 'vp-change-avatar-openned');
@@ -199,7 +199,7 @@ function resetItems() {
 
 }
 
-function fixedItems() {
+function fixedButtons() {
   $('div[vp-rate-box]').style.display = 'none';
   addClass($('div[vp-change-avatar]'), 'vp-fixed');
   addClass($('div[vp-additional-options]'), 'vp-fixed');

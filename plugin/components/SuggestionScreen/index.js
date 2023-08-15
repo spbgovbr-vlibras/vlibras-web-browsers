@@ -1,7 +1,7 @@
 const template = require('./suggestion-screen.html').default;
 require('./suggestion-screen.scss');
 
-const { arrowIcon } = require('../../assets/icons/');
+const { arrowIcon } = require('~icons/');
 const { SIGNS_URL } = require('../../config');
 
 const TrieSearch = require('trie-search');

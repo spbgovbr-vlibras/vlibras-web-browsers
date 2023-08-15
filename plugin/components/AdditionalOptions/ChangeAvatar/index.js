@@ -4,7 +4,7 @@ require('./change-avatar.scss');
 const { IcaroIcon, HosanaIcon, GugaIcon } = require('~icons');
 const avatars = ['icaro', 'hozana', 'guga'];
 
-function ChangeAvatar(player, callbackWelcome) {
+function ChangeAvatar(player) {
   this.player = player;
   this.element = null;
 }
