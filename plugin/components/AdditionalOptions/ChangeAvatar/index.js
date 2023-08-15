@@ -1,7 +1,7 @@
 const template = require('./change-avatar.html').default;
 require('./change-avatar.scss');
 
-const { IcaroIcon, HosanaIcon, GugaIcon } = require('../../../assets/icons');
+const { IcaroIcon, HosanaIcon, GugaIcon } = require('~icons');
 const avatars = ['icaro', 'hozana', 'guga'];
 
 function ChangeAvatar(player, callbackWelcome) {

@@ -1,8 +1,8 @@
 const template = require('./additional-options.html').default;
 require('./additional-options.scss');
 
-const { translatorIcon, helpIcon } = require('../../assets/icons/')
-const { toggleClass } = require('~utils')
+const { toggleClass } = require('~utils');
+const { translatorIcon, helpIcon } = require('~icons');
 
 function AdditionalOptions(player, translatorScreen, widgetGuide) {
   this.player = player;

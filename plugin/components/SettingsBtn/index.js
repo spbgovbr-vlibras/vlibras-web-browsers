@@ -1,7 +1,7 @@
 const settingsBtnTpl = require('./settings-btn.html').default;
 require('./settings-btn.scss');
 
-const { settingsIcon, dictionaryIcon, aboutIcon, closeIcon } = require('../../assets/icons');
+const { settingsIcon, dictionaryIcon, aboutIcon, closeIcon } = require('~icons');
 
 function SettingsBtn(player, screen, dictionary, infoScreen, option) {
   this.player = player;
