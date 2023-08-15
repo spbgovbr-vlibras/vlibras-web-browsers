@@ -54,10 +54,10 @@ WidgetGuide.prototype.show = function () {
   this.element.classList.add('vp-enabled');
   this.enabled = true;
   this.wPosition = window.plugin.position;
-  this.updatePos();
+  this.updatePosition();
+  this.updateFooter();
   fixedButtons();
   addClickBlocker(true);
-  updateButtons.bind(this)();
   u.addClass(this.helpButton, 'vp-selected');
   u.removeClass(u.$('div[vp-change-avatar]'), 'vp-change-avatar-openned');
   callWidgetTranslator.bind(this)();
@@ -82,17 +82,17 @@ WidgetGuide.prototype.toggle = function () {
 
 WidgetGuide.prototype.next = function () {
   if (this.tab === guideElements.length - 1) return this.hide();
-  this.tab++;
-  this.updatePos();
-  updateButtons.bind(this)();
+  else this.tab++;
+  this.updatePosition();
+  this.updateFooter();
   callWidgetTranslator.bind(this)();
 }
 
 WidgetGuide.prototype.back = function () {
   if (this.tab === 0) return;
-  this.tab--;
-  this.updatePos();
-  updateButtons.bind(this)();
+  else this.tab--;
+  this.updatePosition();
+  this.updateFooter();
   callWidgetTranslator.bind(this)();
 }
 
@@ -103,7 +103,7 @@ WidgetGuide.prototype.restart = function () {
   this.tab = 0;
 }
 
-WidgetGuide.prototype.updatePos = function () {
+WidgetGuide.prototype.updatePosition = function () {
   const position = window.plugin.position;
   const isLeft = position.includes('L');
   const item = this.$elements[this.tab];
@@ -126,26 +126,26 @@ WidgetGuide.prototype.updatePos = function () {
       updateArrow.bind(this)();
 
     } else if (window.innerWidth >= 600) {
-      u.removeClass(this.element, 'vw-centered');
       this.element.style.left = isLeft ? width + 30 + 'px' : 'initial';
       this.element.style.right = !isLeft ? width + 30 + 'px' : 'initial';
       this.element.style.top = top + 'px';
       this.element.style.maxWidth = '340px';
       this.element.style.bottom = 'initial';
+      u.removeClass(this.element, 'vw-centered');
       updateArrow.bind(this)();
 
       const wp = this.wPosition;
       u.setWidgetPosition('TB'.includes(wp) ? wp + 'R' : wp)
 
     } else {
+      this.element.style.top = height + 20 + 'px';
+      this.element.style.bottom = 'initial';
       u.setWidgetPosition('T');
       u.removeClass(this.element, 'vw-centered');
       expandGuide.bind(this)(40);
-      this.element.style.top = height + 20 + 'px';
-      this.element.style.bottom = 'initial';
     }
   } else {
-    // is fullscreen
+    // Fullscreen widget
     expandGuide.bind(this)(10);
     u.removeClass(this.element, 'vw-centered');
     this.element.style.top = 'initial';
@@ -173,7 +173,7 @@ WidgetGuide.prototype.updatePos = function () {
 
 }
 
-function updateButtons() {
+WidgetGuide.prototype.updateFooter = function () {
   if (this.tab === 0) this.backButton.setAttribute('disabled', true);
   else this.backButton.removeAttribute('disabled');
 
@@ -189,7 +189,8 @@ function updateButtons() {
 }
 
 function callWidgetTranslator() {
-  this.player.translate(guideElements[this.tab].text);
+  const { text } = guideElements[this.tab];
+  this.player.translate(text);
 }
 
 function addClickBlocker(bool) {
