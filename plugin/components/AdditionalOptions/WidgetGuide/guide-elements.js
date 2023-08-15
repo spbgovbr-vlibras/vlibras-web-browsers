@@ -1,4 +1,4 @@
-export const tutorialElements = [
+export const guideElements = [
   {
     path: 'div[vp-box]',
     text: `Clique nos botões do cabeçalho para acessar as Configurações, 

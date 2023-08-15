@@ -6,8 +6,13 @@ const isPlaying = () => {
   return hasClass($('div[vp-controls]'), 'vpw-playing');
 }
 
-const widgetPosition = () => {
+const getWidgetPosition = () => {
   return window.plugin ? window.plugin.position : undefined;
+}
+
+function setWidgetPosition(position) {
+  window.dispatchEvent(new CustomEvent('vp-widget-wrapper-set-side',
+    { detail: position }));
 }
 
 const $ = (path, element = null) => {
@@ -42,6 +47,6 @@ const getRect = (element) => {
 
 export {
   isPlaying, isFullscreen, $, $$, $0,
-  hasClass, addClass, removeClass,
-  toggleClass, widgetPosition, getRect
+  hasClass, addClass, removeClass, toggleClass,
+  setWidgetPosition, getWidgetPosition, getRect
 }
