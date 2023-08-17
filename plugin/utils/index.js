@@ -20,7 +20,7 @@ const $ = (path, element = null) => {
 }
 
 const $$ = (path, element = null) => {
-  return element ? element.querySelectorAll(path) : $(path, document);
+  return element ? element.querySelectorAll(path) : $$(path, document);
 }
 
 const $0 = document.body;
