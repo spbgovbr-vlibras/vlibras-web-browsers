@@ -115,10 +115,6 @@ function Plugin(options) {
     this.loadImages();
   });
 
-  this.info.on('show', () => {
-    this.player.pause();
-  });
-
   window.addEventListener('vp-widget-close', (event) => {
     this.player.stop();
     this.rateBox.hide();

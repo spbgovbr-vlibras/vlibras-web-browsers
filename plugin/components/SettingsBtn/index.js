@@ -90,7 +90,6 @@ SettingsBtn.prototype.load = function (
 
     if (screen) screen.toggle();
     selectButton(btn);
-    this.player.pause();
   }.bind(this);
 
 };
