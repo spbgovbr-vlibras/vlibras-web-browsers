@@ -39,11 +39,12 @@
       height: 100%;
       color: #FFFFFF;
       text-align: center;
-      font-size: 12px;
+      font-size: 13px;
       font-weight: bold;
 
-      @media only screen and (max-width: 480px) {
+      @media (max-width: 480px) {
         padding: 0 10px;
+        font-size: 12px;
         align-items: center;
         justify-content: center;
       }

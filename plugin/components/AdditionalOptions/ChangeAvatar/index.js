@@ -12,6 +12,7 @@ function ChangeAvatar(player) {
 ChangeAvatar.prototype.load = function (element) {
   this.element = element;
   this.element.innerHTML = template;
+  this.player.avatar = 'icaro';
   const buttons = this.element.querySelectorAll('.vp-button-change-avatar');
 
   buttons.forEach((button, i) => {
@@ -40,6 +41,7 @@ ChangeAvatar.prototype.load = function (element) {
     function (avatar) {
       selectButton(buttons[avatars.indexOf(avatar)])
       this.player.playWellcome();
+      this.player.avatar = avatar;
     }.bind(this)
   );
 
