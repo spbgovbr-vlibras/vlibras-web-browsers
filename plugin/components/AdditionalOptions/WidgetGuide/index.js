@@ -56,6 +56,7 @@ WidgetGuide.prototype.show = function () {
   this.wPosition = window.plugin.position;
   this.updatePosition();
   this.updateFooter();
+  this.addHighlight();
   fixedButtons();
   addClickBlocker(true);
   u.addClass(this.helpButton, 'vp-selected');
@@ -70,6 +71,7 @@ WidgetGuide.prototype.hide = function () {
   this.player.stop();
   this.player.gloss = undefined;
   resetItems();
+  removeHighlight();
   addClickBlocker(false);
   u.removeClass(this.helpButton, 'vp-selected');
   u.setWidgetPosition(this.wPosition);
@@ -83,16 +85,18 @@ WidgetGuide.prototype.toggle = function () {
 WidgetGuide.prototype.next = function () {
   if (this.tab === guideElements.length - 1) return this.hide();
   else this.tab++;
-  this.updatePosition();
   this.updateFooter();
+  this.updatePosition();
+  this.addHighlight();
   callWidgetTranslator.bind(this)();
 }
 
 WidgetGuide.prototype.back = function () {
   if (this.tab === 0) return;
   else this.tab--;
-  this.updatePosition();
   this.updateFooter();
+  this.updatePosition();
+  this.addHighlight();
   callWidgetTranslator.bind(this)();
 }
 
@@ -173,6 +177,15 @@ WidgetGuide.prototype.updatePosition = function () {
 
 }
 
+WidgetGuide.prototype.addHighlight = function () {
+  const element = this.$elements[this.tab];
+  this.$elements.forEach(e => {
+    u.removeClass(e, 'vp-guide-highlight');
+    u.addClass(e, 'vp-guide-transition');
+  });
+  u.addClass(element, 'vp-guide-highlight');
+}
+
 WidgetGuide.prototype.updateFooter = function () {
   if (this.tab === 0) this.backButton.setAttribute('disabled', true);
   else this.backButton.removeAttribute('disabled');
@@ -186,6 +199,13 @@ WidgetGuide.prototype.updateFooter = function () {
   // Toggle actived tab in slider
   if (activedTab) u.removeClass(activedTab, 'vp-actived');
   u.addClass(this.tabSlider.children[this.tab], 'vp-actived');
+}
+
+function removeHighlight() {
+  u.$$('.vp-guide-highlight').forEach(item => {
+    u.removeClass(item, 'vp-guide-highlight');
+    u.removeClass(item, 'vp-guide-transition')
+  })
 }
 
 function callWidgetTranslator() {

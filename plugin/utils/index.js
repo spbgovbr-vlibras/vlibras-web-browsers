@@ -6,6 +6,10 @@ const isPlaying = () => {
   return hasClass($('div[vp-controls]'), 'vpw-playing');
 }
 
+const getAvatar = () => {
+  return window.plugin.player.avatar;
+}
+
 const getWidgetPosition = () => {
   return window.plugin ? window.plugin.position : undefined;
 }
@@ -46,7 +50,7 @@ const getRect = (element) => {
 }
 
 export {
-  isPlaying, isFullscreen, $, $$, $0,
+  isPlaying, isFullscreen, $, $$, $0, getAvatar,
   hasClass, addClass, removeClass, toggleClass,
   setWidgetPosition, getWidgetPosition, getRect
 }

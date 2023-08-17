@@ -154,3 +154,17 @@ span[vp-click-blocker] {
         display: block !important;
     }
 }
+
+[vp] {
+    .vp-guide-highlight {
+        box-shadow: 0 0 20px -5px map-get($blue, 3) !important;
+        outline: 2px solid #FFF !important;
+        transform: scale(1.04) !important;
+        border: none !important;
+        border-radius: 100px !important;
+    }
+
+    .vp-guide-transition {
+        transition: transform .3s ease, border 0s linear !important;
+    }
+}
