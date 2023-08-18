@@ -158,7 +158,6 @@ Controls.prototype.load = function (element) {
   let applied = false;
   this.player.playerManager.on('CounterGloss', () => {
     if (applied) return;
-    else this.player.toggleSubtitle(false);
     welcomeMessage[this.player.avatar].forEach(item => {
       setTimeout(() => this.setLabel(item.m), item.t * 1000)
     });
@@ -169,7 +168,6 @@ Controls.prototype.load = function (element) {
   const interval = setInterval(() => {
     if (this.player.text) {
       this.element.classList.remove('vpw-selectText');
-      this.player.toggleSubtitle(true);
       clearInterval(interval);
     }
   }, 500);
