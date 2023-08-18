@@ -18,6 +18,7 @@ const ChangeAvatar = require('components/AdditionalOptions/ChangeAvatar');
 
 const url = require('url-join');
 const { REVIEW_URL } = require('./config');
+const { ALERT_MESSAGES } = require('./alert-messages');
 
 require('./scss/styles.scss');
 
@@ -127,7 +128,7 @@ function Plugin(options) {
     control = 1;
     this.ChangeAvatar.hide();
     this.controls.setProgress();
-    this.loadingRef = this.messageBox.show('info', 'Traduzindo...');
+    this.loadingRef = this.messageBox.show('info', ALERT_MESSAGES.TRANSLATING_TEXT);
   });
 
   this.player.on('translate:end', () => {
@@ -171,27 +172,27 @@ function Plugin(options) {
         case 'compatibility_error':
           this.messageBox.show(
             'warning',
-            'O seu computador não suporta o WebGL. Por favor, atualize os drivers de vídeo.'
+            ALERT_MESSAGES.COMPATIBILITY_ERROR
           );
           break;
         case 'translation_error':
           this.messageBox.show(
             'warning',
-            'Não foi possível estabelecer conexão com o serviço de tradução do VLibras.',
+            ALERT_MESSAGES.TRANSLATION_ERROR,
             3000
           );
           break;
         case 'internal_error':
           this.messageBox.show(
             'warning',
-            'Ops! Ocorreu um problema, por favor entre em contato com a gente.',
+            ALERT_MESSAGES.INTERNAL_ERROR,
             3000
           );
           break;
         case 'timeout_error':
           this.messageBox.show(
             'warning',
-            'Tempo de requisição excedido.',
+            ALERT_MESSAGES.TIMEOUT_ERROR,
             3000
           );
           break;
@@ -229,7 +230,7 @@ Plugin.prototype.sendReview = function (rate, review) {
   http.onload = () => {
     this.rateBox.hide();
     this.suggestionScreen.hide();
-    this.messageBox.show('success', 'Obrigado pela contribuição!', 3000);
+    this.messageBox.show('success', ALERT_MESSAGES.REVIEW_THANKS, 3000);
   };
 };
 
