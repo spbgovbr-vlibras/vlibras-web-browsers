@@ -80,6 +80,8 @@ $control-height: 68px;
     gap: 10px;
     width: 100%;
     padding: 16px;
+    height: calc(100% - 96px);
+    border-bottom: 1px solid map-get($white, 4);
 
     .vp-title {
       width: 100%;
@@ -155,6 +157,7 @@ $control-height: 68px;
     .vp-suggestion-screen-content {
       gap: 6px;
       padding: 10px;
+      height: calc(100% - 80px);
 
       .vp-text {
         height: 100px;
