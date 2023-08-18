@@ -96,6 +96,8 @@ function Plugin(options) {
       this.player.setPersonalization(this.personalization);
     }
 
+    this.player.toggleSubtitle(false);
+
     this.controls.load(this.element.querySelector('[vp-controls]'));
     this.Box.load(this.element.querySelector('[vp-box]'));
 
