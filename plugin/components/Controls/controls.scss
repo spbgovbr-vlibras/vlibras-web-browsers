@@ -8,7 +8,6 @@
     position: absolute;
     left: 0;
     bottom: 0;
-    border-top: 1px solid map-get($white, 4);
     z-index: 5;
     display: flex;
     flex-direction: row;
@@ -179,7 +178,7 @@
     width: 100%;
     border-radius: 10px;
     overflow: hidden;
-    height: 6px;
+    height: 5px;
     background-color: transparent;
     display: flex;
     align-items: center;

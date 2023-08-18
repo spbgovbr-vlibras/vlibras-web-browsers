@@ -59,6 +59,7 @@ $controls_height: 48px;
     gap: 16px;
     padding: 10px;
     overflow: hidden;
+    border-bottom: 1px solid map-get($white, 4);
 
     span {
       font-size: 16px;
@@ -130,7 +131,7 @@ $controls_height: 48px;
   @media (max-width: 450px) {
     &.vp-enabled {
       visibility: visible;
-      height: 77px;
+      height: 78px;
     }
 
     .vp-rate-box-header {
