@@ -77,7 +77,6 @@
     #vpw-info-main {
 
       .vpw-info-realizadores {
-
         flex-direction: column;
         align-items: stretch;
         -webkit-flex-direction: column;
@@ -93,6 +92,7 @@
       }
 
       .vpw-logo {
+        opacity: 1 !important;
         margin-top: -2px;
         margin: 0.5em 0.35em;
         max-width: 50%;
