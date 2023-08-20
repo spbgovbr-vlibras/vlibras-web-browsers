@@ -159,6 +159,7 @@ span[vp-click-blocker] {
     .vp-guide-highlight {
         box-shadow: 0 5px 20px -5px #1F5AB3 !important;
         outline: 2px solid #FFF !important;
+        outline-offset: -1px;
         transform: scale(1.04) !important;
         transform-origin: center 300%;
         border: none !important;
