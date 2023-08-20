@@ -1,28 +1,23 @@
+// Welcome message with start time (seconds)
 export const welcomeMessage = {
   icaro: [
-    { m: 'OLÁ TUDO BEM?', t: 0 },
-    { m: 'MEU NOME', t: 3.5 },
-    { m: 'ÍCARO', t: 6 },
-    { m: 'MEU SINAL', t: 10 },
-    { m: 'EU AQUI AJUDAR ESCOLHER', t: 13.5 },
-    { m: 'TEXTO LIBRAS VOCÊ', t: 20 },
+    { m: 'Olá, tudo bem?', t: 0 },
+    { m: 'Meu nome é Ícaro.', t: 3.5 },
+    { m: 'Este é meu sinal.', t: 9 },
+    { m: 'Estou aqui para te ajudar<br>traduzindo textos para Libras.', t: 13.5 },
   ],
 
   hozana: [
-    { m: 'OLÁ TUDO BEM?', t: 0 },
-    { m: 'MEU NOME', t: 3.5 },
-    { m: 'HOSANA', t: 6 },
-    { m: 'MEU SINAL', t: 10 },
-    { m: 'EU AQUI AJUDAR ESCOLHER', t: 14 },
-    { m: 'TEXTO LIBRAS VOCÊ', t: 21.5 },
+    { m: 'Olá, tudo bem?', t: 0 },
+    { m: 'Meu nome é Hosana.', t: 4.5 },
+    { m: 'Este é meu sinal.', t: 10 },
+    { m: 'Estou aqui para te ajudar<br>traduzindo textos para Libras.', t: 14 },
   ],
 
   guga: [
-    { m: 'OLÁ TUDO BEM?', t: 0 },
-    { m: 'MEU NOME', t: 3.5 },
-    { m: 'GUGA', t: 6 },
-    { m: 'MEU SINAL', t: 10 },
-    { m: 'EU AQUI AJUDAR ESCOLHER', t: 16 },
-    { m: 'TEXTO LIBRAS VOCÊ', t: 23 },
+    { m: 'Olá, tudo bem?', t: 0 },
+    { m: 'Meu nome é Guga.', t: 4.5 },
+    { m: 'Este é meu sinal.', t: 10 },
+    { m: 'Estou aqui para te ajudar<br>traduzindo textos para Libras.', t: 16 },
   ]
 }
