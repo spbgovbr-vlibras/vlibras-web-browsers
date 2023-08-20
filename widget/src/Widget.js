@@ -4,6 +4,7 @@ const PluginWrapper = require('./components/PluginWrapper');
 require('./scss/reset.scss');
 require('./scss/styles.scss');
 
+const { addClass, $, removeClass } = require('~utils');
 const widgetPosition = ['TL', 'T', 'TR', 'L', 'R', 'BL', 'B', 'BR'];
 
 module.exports = function Widget(rootPath, personalization, opacity, position) {
@@ -75,6 +76,10 @@ module.exports = function Widget(rootPath, personalization, opacity, position) {
     window.addEventListener('vp-widget-close', (event) => {
       access.classList.toggle('active');
       wrapper.classList.toggle('active');
+      addClass($('div[vp-change-avatar]'), 'active');
+      addClass($('div[vp-additional-options]'), 'vp-enabled');
+      removeClass($('div[vp-controls]'), 'vpw-selectText');
+
 
       document.body.removeChild(document.querySelector('.vw-links'));
 
