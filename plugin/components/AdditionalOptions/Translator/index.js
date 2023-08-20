@@ -3,12 +3,12 @@ require('./translator-screen.scss');
 
 const { closeIcon } = require('~icons');
 
-function TranslatorScreen(player) {
+function Translator(player) {
   this.element = null;
   this.player = player;
 }
 
-TranslatorScreen.prototype.load = function (element) {
+Translator.prototype.load = function (element) {
   this.element = element;
   this.element.innerHTML = template;
 
@@ -42,16 +42,16 @@ TranslatorScreen.prototype.load = function (element) {
 
 }
 
-TranslatorScreen.prototype.show = function () {
+Translator.prototype.show = function () {
   this.element.classList.add('vp-enabled');
 }
 
-TranslatorScreen.prototype.hide = function () {
+Translator.prototype.hide = function () {
   this.element.classList.remove('vp-enabled');
 }
 
-TranslatorScreen.prototype.toggle = function () {
+Translator.prototype.toggle = function () {
   this.element.classList.toggle('vp-enabled');
 }
 
-module.exports = TranslatorScreen;
+module.exports = Translator;

@@ -11,7 +11,7 @@ const Box = require('components/Box');
 const CloseScreen = require('components/CloseScreen');
 const RateBox = require('components/RateBox');
 const SuggestionScreen = require('components/SuggestionScreen');
-const TranslatorScreen = require('components/AdditionalOptions/TranslatorScreen');
+const Translator = require('components/AdditionalOptions/Translator');
 const WidgetGuide = require('components/AdditionalOptions/WidgetGuide')
 const AdditionalOptions = require('components/AdditionalOptions');
 const ChangeAvatar = require('components/AdditionalOptions/ChangeAvatar');
@@ -63,13 +63,13 @@ function Plugin(options) {
   );
   this.messageBox = new MessageBox();
   this.suggestionScreen = new SuggestionScreen(this.player);
-  this.translatorScreen = new TranslatorScreen(this.player);
+  this.translator = new Translator(this.player);
   this.widgetGuide = new WidgetGuide(this.player);
   this.rateBox = new RateBox(this.messageBox, this.suggestionScreen);
   this.ChangeAvatar = new ChangeAvatar(this.player);
   this.additionalOptions = new AdditionalOptions(
     this.player,
-    this.translatorScreen,
+    this.translator,
     this.widgetGuide
   );
 
@@ -81,7 +81,7 @@ function Plugin(options) {
   this.suggestionScreen.load(
     this.element.querySelector('[vp-suggestion-screen]')
   );
-  this.translatorScreen.load(
+  this.translator.load(
     this.element.querySelector('[vp-translator-screen]')
   );
 
@@ -122,7 +122,7 @@ function Plugin(options) {
     this.player.stop();
     this.rateBox.hide();
     this.suggestionScreen.hide();
-    this.translatorScreen.hide();
+    this.translator.hide();
   });
 
   let control = 0;
@@ -143,7 +143,7 @@ function Plugin(options) {
     this.additionalOptions.hide();
     this.rateBox.hide();
     this.suggestionScreen.hide();
-    this.translatorScreen.hide();
+    this.translator.hide();
   });
 
   this.player.on('gloss:end', (globalGlosaLenght) => {

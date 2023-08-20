@@ -4,10 +4,10 @@ require('./additional-options.scss');
 const { translatorIcon, helpIcon } = require('~icons');
 const { $ } = require('~utils');
 
-function AdditionalOptions(player, translatorScreen, widgetGuide) {
+function AdditionalOptions(player, translator, widgetGuide) {
   this.player = player;
   this.element = null;
-  this.translatorScreen = translatorScreen;
+  this.translator = translator;
   this.widgetGuide = widgetGuide;
 }
 
@@ -23,7 +23,7 @@ AdditionalOptions.prototype.load = function (element) {
   helpBtn.innerHTML = helpIcon;
 
   // Add actions
-  translatorBtn.onclick = () => this.translatorScreen.toggle();
+  translatorBtn.onclick = () => this.translator.toggle();
   helpBtn.onclick = () => this.widgetGuide.toggle();
 
   window.addEventListener('resize', () => {
