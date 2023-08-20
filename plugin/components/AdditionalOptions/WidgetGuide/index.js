@@ -67,7 +67,7 @@ WidgetGuide.prototype.show = function () {
 WidgetGuide.prototype.hide = function () {
   this.element.classList.remove('vp-enabled');
   this.enabled = false;
-  this.restart();
+  this.reset();
   this.player.stop();
   this.player.gloss = undefined;
   resetItems();
@@ -100,7 +100,7 @@ WidgetGuide.prototype.back = function () {
   callWidgetTranslator.bind(this)();
 }
 
-WidgetGuide.prototype.restart = function () {
+WidgetGuide.prototype.reset = function () {
   this.message.innerHTML = guideElements[0].text;
   this.backButton.setAttribute('disabled', true);
   this.nextButton.innerHTML = 'Avançar';
@@ -172,7 +172,7 @@ WidgetGuide.prototype.updatePosition = function () {
   }
 
   function fitInHalfWindow() {
-    return window.innerWidth / 2 >= eWidth + 20 + (wWidth / 2);
+    return window.innerWidth / 2 >= eWidth + 30 + (wWidth / 2);
   }
 
 }
