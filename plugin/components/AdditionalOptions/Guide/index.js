@@ -101,7 +101,7 @@ Guide.prototype.back = function () {
 }
 
 Guide.prototype.reset = function () {
-  this.message.innerHTML = guideElements[0].text;
+  this.message.innerHTML = guideElements[0].text.replace('//', '');
   this.backButton.setAttribute('disabled', true);
   this.nextButton.innerHTML = 'Avançar';
   this.tab = 0;
@@ -193,7 +193,7 @@ Guide.prototype.updateFooter = function () {
   const { length } = guideElements;
   const activedTab = u.$('.vp-actived', this.tabSlider);
 
-  this.message.innerHTML = guideElements[this.tab].text;
+  this.message.innerHTML = guideElements[this.tab].text.replace('//', '');
   this.nextButton.innerHTML = this.tab === length - 1 ? 'Concluir' : 'Avançar';
 
   // Toggle actived tab in slider
@@ -209,8 +209,15 @@ function removeHighlight() {
 }
 
 function callWidgetTranslator() {
-  const { text } = guideElements[this.tab];
+  let { text, play } = guideElements[this.tab];
+  if (play) text = text.split('//')[0];
   this.player.translate(text);
+
+  this.player.playerManager.on('CounterGloss', (i, max) => {
+    if (!play || !this.enabled || i !== max - 1) return;
+    this.player.play(play);
+    play = false;
+  })
 }
 
 function addClickBlocker(bool) {
