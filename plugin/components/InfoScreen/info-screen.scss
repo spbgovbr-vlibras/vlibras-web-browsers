@@ -12,13 +12,12 @@
     background-color: white;
     color: black;
     font-family: "Rawline", sans-serif;
-    font-size: .14rem;
     align-items: center;
-    font-size: 14px;
     display: none;
     justify-content: start;
     flex-direction: column;
     align-items: start;
+    font-size: 14px;
     border-radius: 0 0 10px 10px;
 
     @media(max-width: 450px) {
@@ -33,7 +32,7 @@
       @include vp-screen-header;
     }
 
-    #vpw-info-main {
+    .vpw-info__main {
       position: relative;
       display: flex;
       flex-direction: column;
@@ -41,42 +40,26 @@
       width: 100%;
       align-items: start;
       justify-content: center;
-    }
+      gap: 10px;
 
-    #vpw-text-svl p {
-      font-size: 14px;
-      margin-bottom: 10px;
-    }
+      .vpw-info__section {}
 
-    .text-black {
-      text-decoration: none;
-      font-weight: 600;
-      font-size: 14px;
-      margin-bottom: 10px;
-
-      @media(max-width: 450px) {
-
-        font-size: 12px;
+      .vpw-info__section-title {
+        text-decoration: none;
+        font-weight: 600;
+        font-size: 1em;
+        margin-bottom: 10px;
       }
-    }
 
-    .format-text {
-      margin: 0px;
-      color: #555;
-      font-style: normal;
-      font-weight: 500;
-      font-size: 14px;
-      line-height: 19px;
-
-      @media(max-width: 450px) {
-        font-size: 11px !important;
-        line-height: 15px;
+      .vpw-info__section-desc {
+        color: #555;
+        font-style: normal;
+        font-weight: 500;
+        font-size: .9em;
+        line-height: 1.5;
       }
-    }
 
-    #vpw-info-main {
-
-      .vpw-info-realizadores {
+      .vpw-info__contributors {
         flex-direction: column;
         align-items: stretch;
         -webkit-flex-direction: column;
@@ -102,7 +85,7 @@
         }
       }
 
-      .vpw-logo-group {
+      .vpw-info__logos-container {
         display: flex;
         flex-direction: row;
         flex-wrap: nowrap;
@@ -113,15 +96,16 @@
         -webkit-align-items: center;
         -webkit-justify-content: space-around;
       }
+
     }
 
-    .vpw-logo-networks {
+    .vpw-info__networks-container {
       display: flex;
       align-items: center;
       flex-direction: row;
       gap: 10px;
 
-      .vpw-networks {
+      a {
         @include control-button;
 
         svg * {
@@ -134,43 +118,26 @@
       }
     }
 
-    .vpw-close-btn {
-      position: absolute;
-      top: 8px;
-      right: 6px;
-      z-index: 4;
-
-      img.icon {
-        width: 34px;
-        height: 34px;
-      }
+    .vpw-info__footer {
+      width: 100%;
     }
 
-    #vpw-info-footer {
-      margin-top: 20px;
-
-      @media(max-width: 450px) {
-        margin-top: 1px;
-      }
-    }
-  }
-}
-
-@media only screen and (-moz-min-device-pixel-ratio: 2),
-only screen and (-o-min-device-pixel-ratio: 2/1),
-only screen and (-webkit-min-device-pixel-ratio: 2),
-only screen and (min-device-pixel-ratio: 2) {
-  [vp] #vpw-info-realizadores .vpw-logo {
-    margin: 0.5em 0.35em;
-    min-width: 10%;
-    max-width: 50%;
-    max-height: 18vh;
   }
 }
 
 @media (max-width: 450px) {
-  [vp] #vpw-info-main {
-    font-size: 0.84em;
-    padding: 10px !important;
+
+  [vp] {
+    .vpw-info-screen {
+      font-size: 11px;
+    }
+
+    .vpw-info__networks-container {
+      gap: 6px;
+    }
+
+    .vpw-info__main {
+      padding: 10px !important;
+    }
   }
 }
