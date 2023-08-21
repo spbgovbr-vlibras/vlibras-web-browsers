@@ -121,6 +121,10 @@ function Plugin(options) {
     this.loadImages();
   });
 
+  this.translator.on('show', () => {
+    this.guideMainScreen.disable();
+  })
+
   window.addEventListener('vp-widget-close', (event) => {
     this.player.stop();
     this.rateBox.hide();
