@@ -12,10 +12,10 @@ const CloseScreen = require('components/CloseScreen');
 const RateBox = require('components/RateBox');
 const SuggestionScreen = require('components/SuggestionScreen');
 const Translator = require('components/AdditionalOptions/Translator');
-const WidgetGuide = require('components/AdditionalOptions/WidgetGuide');
-const WidgetGuideMainScreen = require('components/AdditionalOptions/WidgetGuide/MainScreen');
 const AdditionalOptions = require('components/AdditionalOptions');
 const ChangeAvatar = require('components/AdditionalOptions/ChangeAvatar');
+const Guide = require('components/AdditionalOptions/Guide');
+const GuideMainScreen = require('components/AdditionalOptions/Guide/MainScreen');
 
 const url = require('url-join');
 const { REVIEW_URL } = require('./config');
@@ -65,14 +65,14 @@ function Plugin(options) {
   this.messageBox = new MessageBox();
   this.suggestionScreen = new SuggestionScreen(this.player);
   this.translator = new Translator(this.player);
-  this.widgetGuide = new WidgetGuide(this.player);
-  this.widgetGuideMainScreen = new WidgetGuideMainScreen(this.widgetGuide);
+  this.guide = new Guide(this.player);
+  this.guideMainScreen = new GuideMainScreen(this.guide);
   this.rateBox = new RateBox(this.messageBox, this.suggestionScreen);
   this.ChangeAvatar = new ChangeAvatar(this.player);
   this.additionalOptions = new AdditionalOptions(
     this.player,
     this.translator,
-    this.widgetGuide
+    this.guide
   );
 
   this.loadingRef = null;
@@ -87,8 +87,8 @@ function Plugin(options) {
     this.element.querySelector('[vp-translator-screen]')
   );
 
-  this.widgetGuide.load(createGuideContainer());
-  this.widgetGuideMainScreen.load(document.querySelector('[vp-guide-main-screen]'))
+  this.guide.load(createGuideContainer());
+  this.guideMainScreen.load(document.querySelector('[vp-guide-main-screen]'))
 
   this.player.load(this.element);
 
@@ -147,7 +147,7 @@ function Plugin(options) {
     this.rateBox.hide();
     this.suggestionScreen.hide();
     this.translator.hide();
-    this.widgetGuideMainScreen.disable();
+    this.guideMainScreen.disable();
   });
 
   this.player.on('gloss:end', (globalGlosaLenght) => {
@@ -166,7 +166,7 @@ function Plugin(options) {
 
   this.player.on('stop:welcome', (bool) => {
     if (bool) {
-      this.widgetGuideMainScreen.show();
+      this.guideMainScreen.show();
       this.ChangeAvatar.show();
       this.additionalOptions.show();
     }
@@ -207,7 +207,6 @@ function Plugin(options) {
     }.bind(this)
   );
 
-  this.loadFont();
   this.loadImages();
 }
 
@@ -250,20 +249,6 @@ Plugin.prototype.loadImages = function () {
     const imagePath = image.attributes['data-src'].value;
     image.src = this.buildAbsolutePath(imagePath);
   });
-};
-
-Plugin.prototype.loadFont = function () {
-  const fontPath = this.buildAbsolutePath('assets/OpenSans-Semibold.ttf');
-  const font = new FontFace('Open Sans', 'url(' + fontPath + ')');
-
-  font
-    .load()
-    .then((loaded) => {
-      document.fonts.add(loaded);
-    })
-    .catch((error) => {
-      console.error('Error loading font face:', error);
-    });
 };
 
 module.exports = Plugin;
