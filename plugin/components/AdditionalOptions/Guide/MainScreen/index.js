@@ -4,13 +4,13 @@ require('./guide-main-screen.scss');
 const { $ } = require('~utils');
 const LOCAL_KEY = '@vp-guide';
 
-function WidgetGuideMainScreen(widgetGuide) {
+function GuideMainScreen(widgetGuide) {
   this.element = null;
   this.guide = widgetGuide;
   this.init = true;
 }
 
-WidgetGuideMainScreen.prototype.load = function (element) {
+GuideMainScreen.prototype.load = function (element) {
   this.element = element;
   this.element.innerHTML = template;
 
@@ -30,20 +30,20 @@ WidgetGuideMainScreen.prototype.load = function (element) {
 
 }
 
-WidgetGuideMainScreen.prototype.show = function () {
+GuideMainScreen.prototype.show = function () {
   if (!getDefault()) return;
   this.element.classList.add('vp-enabled');
 }
 
-WidgetGuideMainScreen.prototype.hide = function () {
+GuideMainScreen.prototype.hide = function () {
   this.element.classList.remove('vp-enabled');
 }
 
-WidgetGuideMainScreen.prototype.toggle = function () {
+GuideMainScreen.prototype.toggle = function () {
   this.element.classList.toggle('vp-enabled');
 }
 
-WidgetGuideMainScreen.prototype.disable = function () {
+GuideMainScreen.prototype.disable = function () {
   saveDefault(false);
   this.hide();
 }
@@ -57,4 +57,4 @@ function saveDefault(bool) {
   localStorage.setItem(LOCAL_KEY, JSON.stringify(bool));
 }
 
-module.exports = WidgetGuideMainScreen;
+module.exports = GuideMainScreen;
