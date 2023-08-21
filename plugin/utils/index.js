@@ -41,16 +41,26 @@ const removeClass = (element, clss) => {
   element.classList.remove(clss);
 }
 
-const toggleClass = (element, clss) => {
-  element.classList.toggle(clss);
+const toggleClass = (element, clss, bool) => {
+  if (bool == undefined) element.classList.toggle(clss);
+  else if (bool) addClass(element, clss);
+  else removeClass(element, clss);
 }
 
 const getRect = (element) => {
   return element.getBoundingClientRect();
 }
 
+const canClick = () => {
+  return hasClass($('[vp-controls]'), '.vpw-controls')
+    && !hasClass($('[vp-guide-main-screen]'), 'vp-enabled')
+    && !hasClass($('.vp-guide-container'), 'vp-enabled')
+    && hasClass($('[vw-plugin-wrapper]'), 'active');
+}
+
 export {
   isPlaying, isFullscreen, $, $$, $0, getAvatar,
   hasClass, addClass, removeClass, toggleClass,
-  setWidgetPosition, getWidgetPosition, getRect
+  setWidgetPosition, getWidgetPosition, getRect,
+  canClick
 }
