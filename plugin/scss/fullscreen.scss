@@ -1,7 +1,7 @@
 .vpw-fullscreen {
     overflow: hidden !important;
 
-    .vw-guide-container {
+    .vp-guide-container {
         max-width: 600px !important;
         max-width: 600px !important;
         left: 50% !important;
@@ -40,20 +40,21 @@
         }
 
         [vp-guide-main-screen] {
-            font-size: 16px !important;
+            font-size: 16px;
+            height: 40% !important;
 
             .vpw-guide-main__title {
-                font-size: 16px !important;
+                font-size: 1.2em;
             }
 
             .vpw-guide-main__desc {
-                font-size: 1rem !important;
+                font-size: 1em;
             }
 
             .vpw-guide-main__accept-btn,
             .vpw-guide-main__deny-btn {
                 height: 36px !important;
-                font-size: 1rem !important;
+                font-size: 1em !important;
             }
 
         }
@@ -155,7 +156,7 @@
     }
 
     @media (max-width: 600px) {
-        .vw-guide-container {
+        .vp-guide-container {
             width: calc(100% - 20px);
         }
 

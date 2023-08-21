@@ -1,7 +1,7 @@
 @import '~scss/colors.scss';
 @import '~scss/default-buttons.scss';
 
-.vw-guide-container {
+.vp-guide-container {
     font-family: 'rawline', sans-serif !important;
     background-color: map-get($blue, 2);
     max-width: 340px;
@@ -149,6 +149,8 @@ span[vp-click-blocker] {
     bottom: 0;
     z-index: 9999999 !important;
     display: none !important;
+    border-radius: 10px;
+    opacity: 0;
 
     &.vp-enabled {
         display: block !important;

@@ -12,7 +12,8 @@ const CloseScreen = require('components/CloseScreen');
 const RateBox = require('components/RateBox');
 const SuggestionScreen = require('components/SuggestionScreen');
 const Translator = require('components/AdditionalOptions/Translator');
-const WidgetGuide = require('components/AdditionalOptions/WidgetGuide')
+const WidgetGuide = require('components/AdditionalOptions/WidgetGuide');
+const WidgetGuideMainScreen = require('components/AdditionalOptions/WidgetGuide/MainScreen');
 const AdditionalOptions = require('components/AdditionalOptions');
 const ChangeAvatar = require('components/AdditionalOptions/ChangeAvatar');
 
@@ -65,6 +66,7 @@ function Plugin(options) {
   this.suggestionScreen = new SuggestionScreen(this.player);
   this.translator = new Translator(this.player);
   this.widgetGuide = new WidgetGuide(this.player);
+  this.widgetGuideMainScreen = new WidgetGuideMainScreen(this.widgetGuide);
   this.rateBox = new RateBox(this.messageBox, this.suggestionScreen);
   this.ChangeAvatar = new ChangeAvatar(this.player);
   this.additionalOptions = new AdditionalOptions(
@@ -86,6 +88,7 @@ function Plugin(options) {
   );
 
   this.widgetGuide.load(createGuideContainer());
+  this.widgetGuideMainScreen.load(document.querySelector('[vp-guide-main-screen]'))
 
   this.player.load(this.element);
 
@@ -144,6 +147,7 @@ function Plugin(options) {
     this.rateBox.hide();
     this.suggestionScreen.hide();
     this.translator.hide();
+    this.widgetGuideMainScreen.disable();
   });
 
   this.player.on('gloss:end', (globalGlosaLenght) => {
@@ -162,6 +166,7 @@ function Plugin(options) {
 
   this.player.on('stop:welcome', (bool) => {
     if (bool) {
+      this.widgetGuideMainScreen.show();
       this.ChangeAvatar.show();
       this.additionalOptions.show();
     }
@@ -208,7 +213,7 @@ function Plugin(options) {
 
 function createGuideContainer() {
   const container = document.createElement('div');
-  container.classList.add('vw-guide-container');
+  container.classList.add('vp-guide-container');
   document.body.appendChild(container);
   return container;
 }
