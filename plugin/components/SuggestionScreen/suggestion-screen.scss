@@ -9,15 +9,16 @@ $control-height: 68px;
   position: absolute;
   right: 0;
   left: 0;
-  height: 0;
+  height: 48px;
   bottom: 0;
   width: 100%;
   padding: 0;
   background-color: white;
   z-index: 5;
-  border-radius: 10px 10px 0 0;
+  border-radius: 10px;
+  visibility: hidden;
 
-  transition: all .3s ease;
+  transition: all .3s ease, opacity .5s ease;
 
   ::-webkit-scrollbar {
     width: 10px;
@@ -79,6 +80,8 @@ $control-height: 68px;
     gap: 10px;
     width: 100%;
     padding: 16px;
+    height: calc(100% - 96px);
+    border-bottom: 1px solid map-get($white, 4);
 
     .vp-title {
       width: 100%;
@@ -135,6 +138,7 @@ $control-height: 68px;
 
   &.vp-enabled {
     height: 96px;
+    visibility: visible;
 
     &.vp-expanded {
       height: calc(100% - 60px);
@@ -153,6 +157,7 @@ $control-height: 68px;
     .vp-suggestion-screen-content {
       gap: 6px;
       padding: 10px;
+      height: calc(100% - 80px);
 
       .vp-text {
         height: 100px;

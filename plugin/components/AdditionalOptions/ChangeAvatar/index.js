@@ -1,11 +1,10 @@
 const template = require('./change-avatar.html').default;
 require('./change-avatar.scss');
 
-const { IcaroIcon, hozanaIcon, gugaIcon } = require('../../../assets/icons');
-
+const { IcaroIcon, HosanaIcon, GugaIcon } = require('~icons');
 const avatars = ['icaro', 'hozana', 'guga'];
 
-function ChangeAvatar(player, callbackWelcome) {
+function ChangeAvatar(player) {
   this.player = player;
   this.element = null;
 }
@@ -13,10 +12,11 @@ function ChangeAvatar(player, callbackWelcome) {
 ChangeAvatar.prototype.load = function (element) {
   this.element = element;
   this.element.innerHTML = template;
+  this.player.avatar = 'icaro';
   const buttons = this.element.querySelectorAll('.vp-button-change-avatar');
 
   buttons.forEach((button, i) => {
-    button.innerHTML = [IcaroIcon, hozanaIcon, gugaIcon][i];
+    button.innerHTML = [IcaroIcon, HosanaIcon, GugaIcon][i];
 
     button.onclick = () => {
       if (button.classList.contains('vp-selected')) return;
@@ -40,8 +40,8 @@ ChangeAvatar.prototype.load = function (element) {
     'GetAvatar',
     function (avatar) {
       selectButton(buttons[avatars.indexOf(avatar)])
-
       this.player.playWellcome();
+      this.player.avatar = avatar;
     }.bind(this)
   );
 

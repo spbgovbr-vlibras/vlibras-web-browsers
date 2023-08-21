@@ -1,20 +1,22 @@
 <div align="center">
   <a href="https://www.vlibras.gov.br/">
     <img
-      alt="VLibras"
-      src="https://vlibras.gov.br/assets/imgs/IcaroGrande.png"
+      alt="Banner with VLibras avatars (Hosana, Ícaro and Guga)"
+      width="400"
+      src="/uploads/2078a32902a7a2073027c734e34bbeb0/banner.png"
     />
   </a>
-</div>
 
 # VLibras Web (Plugins and Widget)
 
 VLibras Web Plugins and Widget are extensions for web browsers and HTML pages.
 
-![Version](https://img.shields.io/badge/version-v5.2.0-blue.svg)
+![Version](https://img.shields.io/badge/version-v6.0.0-blue.svg)
 ![Platform](https://img.shields.io/badge/platform-chrome%20%7C%20firefox%20%7C%20safari-lightgrey)
 ![License](https://img.shields.io/badge/license-LGPLv3-blue.svg)
-![VLibras](https://img.shields.io/badge/vlibras%20suite-2019-green.svg?logo=data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAA4AAAAUCAYAAAC9BQwsAAAABmJLR0QA/wD/AP+gvaeTAAAACXBIWXMAAA3XAAAN1wFCKJt4AAAAB3RJTUUH4wIHCiw3NwjjIgAAAQ9JREFUOMuNkjErhWEYhq/nOBmkDNLJaFGyyyYsZzIZKJwfcH6AhcFqtCvFDzD5CQaTFINSlJJBZHI6J5flU5/P937fube357m63+d+nqBEagNYA9pAExgABxHxktU3882hjqtd9d7/+lCPsvpDZNA+MAXsABNU6xHYQ912ON2qC2qQ/X+J4XQXEVe/jwawCzwNAZp/NCLiDVgHejXgKIkVdGpm/FKXU/BJDfytbpWBLfWzAjxVx1Kuxwno5k84Jex0IpyzdN46qfYSjq18bzMHzQHXudifgQtgBuhHxGvKbaPg0Klaan7GdqE2W39LOq8OCo6X6kgdeJ4IZKUKWq1Y+GHVjF3gveTIe8BiCvwBEZmRAXuH6mYAAAAASUVORK5CYII=)
+![VLibras](https://img.shields.io/badge/vlibras%20suite-2023-green.svg?logo=data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAA4AAAAUCAYAAAC9BQwsAAAABmJLR0QA/wD/AP+gvaeTAAAACXBIWXMAAA3XAAAN1wFCKJt4AAAAB3RJTUUH4wIHCiw3NwjjIgAAAQ9JREFUOMuNkjErhWEYhq/nOBmkDNLJaFGyyyYsZzIZKJwfcH6AhcFqtCvFDzD5CQaTFINSlJJBZHI6J5flU5/P937fube357m63+d+nqBEagNYA9pAExgABxHxktU3882hjqtd9d7/+lCPsvpDZNA+MAXsABNU6xHYQ912ON2qC2qQ/X+J4XQXEVe/jwawCzwNAZp/NCLiDVgHejXgKIkVdGpm/FKXU/BJDfytbpWBLfWzAjxVx1Kuxwno5k84Jex0IpyzdN46qfYSjq18bzMHzQHXudifgQtgBuhHxGvKbaPg0Klaan7GdqE2W39LOq8OCo6X6kgdeJ4IZKUKWq1Y+GHVjF3gveTIe8BiCvwBEZmRAXuH6mYAAAAASUVORK5CYII=)
+
+</div>
 
 ## Table of Contents
 
@@ -132,21 +134,27 @@ The Widget can be installed on your website by inserting a few snippets of code 
 
 > Note: The app folder can be copied to any directory, remember to enter the correct path for it.
 
-#### Adding Customization and Opacity
+#### Adding Customization, Opacity and Position
 
-If you want to place a customization in the Widget, you must enter as a parameter a valid URL for Icaro and Hozana to be personalized:
+If you want to place a customization in the Widget, you must enter as a parameter a valid URL for Icaro, Hosana and Guga to be personalized:
 
 ```javascript
     new window.VLibras.Widget('<your-directory-path>/app', 'https://vlibras.gov.br/config/configs.json');
 ```
 
-If you want to change the background opacity of the Widget, you can set the values (0, 0.25, 0.50, 0.75, 1) as a parameter. This opaque parameter indicates a number between 0 (fully transparent) and 1 (fully opaque).
+If you want to change the background opacity of the Widget, you can set the values between 0 and 1 as a parameter. This opaque parameter indicates a number between 0 (fully transparent) and 1 (fully opaque).
 
 ```javascript
     new window.VLibras.Widget('<your-directory-path>/app', '', '0.75');
 ```
 
-You can also change opacity in the Widget menu.
+If you want to change the default widget position, you can set the position values as a parameter. The valid values are: "TL" (top-left), "T" (top), "TR" (top-right), "R" (right), "BR" (bottom-right), "B" (bottom), "BL" (bottom-left), and "L" (left).
+
+```javascript
+    new window.VLibras.Widget('<your-directory-path>/app', '', '', 'R');
+```
+  
+You can also change position in the Widget settings.
 
 ### Installing the Plugins
 
@@ -156,6 +164,7 @@ on your browser's official page.
 
 ## Contributors
 
+* Diêgo Ferreira - <diego.raian@lavid.ufpb.br>
 * Mateus Pires - <mateuspires@lavid.ufpb.br>
 * Suanny Fabyne - <suanny@lavid.ufpb.br>
 * Thiago Filipe - <thiago.filipe@lavid.ufpb.br>

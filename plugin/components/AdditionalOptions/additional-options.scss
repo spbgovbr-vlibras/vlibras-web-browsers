@@ -29,6 +29,7 @@ $bg-color: #9c9c9c;
         outline: 2px solid transparent;
         outline-offset: 0;
         padding: 0 !important;
+        transition: all .3s ease;
 
         svg {
             width: 18px;
@@ -36,6 +37,14 @@ $bg-color: #9c9c9c;
 
             * {
                 fill: #FFF;
+            }
+        }
+
+        &.vp-selected {
+            background-color: map-get($blue, 3);
+
+            &:hover {
+                outline-color: rgba(map-get($blue, 3), .5);
             }
         }
 
@@ -51,12 +60,21 @@ $bg-color: #9c9c9c;
                 position: absolute;
                 border-radius: 20px;
                 color: #FFF;
-                font-size: .9rem;
+                font-size: 16px;
                 font-weight: 500;
                 white-space: nowrap;
                 padding: 4px 10px;
                 left: 40px;
                 display: block;
+
+                @media (max-width: 1200px) {
+                    font-size: 14px;
+                }
+
+                @media (max-width: 450px) {
+                    font-size: 12px;
+                }
+
             }
         }
 
@@ -66,7 +84,16 @@ $bg-color: #9c9c9c;
         display: flex;
     }
 
+    &.vp-fixed {
+        display: flex;
+
+        button {
+            display: flex !important;
+        }
+    }
+
     @media (max-width: 450px) {
         left: 10px;
+        top: 90px;
     }
 }

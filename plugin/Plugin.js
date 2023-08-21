@@ -11,13 +11,15 @@ const Box = require('components/Box');
 const CloseScreen = require('components/CloseScreen');
 const RateBox = require('components/RateBox');
 const SuggestionScreen = require('components/SuggestionScreen');
-const TranslatorScreen = require('components/AdditionalOptions/TranslatorScreen');
-const WidgetHelp = require('components/AdditionalOptions/WidgetHelp')
+const Translator = require('components/AdditionalOptions/Translator');
 const AdditionalOptions = require('components/AdditionalOptions');
 const ChangeAvatar = require('components/AdditionalOptions/ChangeAvatar');
+const Guide = require('components/AdditionalOptions/Guide');
+const GuideMainScreen = require('components/AdditionalOptions/Guide/MainScreen');
 
 const url = require('url-join');
 const { REVIEW_URL } = require('./config');
+const { ALERT_MESSAGES } = require('./alert-messages');
 
 require('./scss/styles.scss');
 
@@ -62,14 +64,15 @@ function Plugin(options) {
   );
   this.messageBox = new MessageBox();
   this.suggestionScreen = new SuggestionScreen(this.player);
-  this.translatorScreen = new TranslatorScreen(this.player);
-  this.widgetHelp = new WidgetHelp();
+  this.translator = new Translator(this.player);
+  this.guide = new Guide(this.player);
+  this.guideMainScreen = new GuideMainScreen(this.guide);
   this.rateBox = new RateBox(this.messageBox, this.suggestionScreen);
   this.ChangeAvatar = new ChangeAvatar(this.player);
   this.additionalOptions = new AdditionalOptions(
     this.player,
-    this.translatorScreen,
-    this.widgetHelp
+    this.translator,
+    this.guide
   );
 
   this.loadingRef = null;
@@ -80,11 +83,12 @@ function Plugin(options) {
   this.suggestionScreen.load(
     this.element.querySelector('[vp-suggestion-screen]')
   );
-  this.translatorScreen.load(
+  this.translator.load(
     this.element.querySelector('[vp-translator-screen]')
   );
 
-  // this.widgetHelp.load(this.element.querySelector('[vp-widget-help]'));
+  this.guide.load(createGuideContainer());
+  this.guideMainScreen.load(document.querySelector('[vp-guide-main-screen]'))
 
   this.player.load(this.element);
 
@@ -94,6 +98,8 @@ function Plugin(options) {
     } else {
       this.player.setPersonalization(this.personalization);
     }
+
+    this.player.toggleSubtitle(false);
 
     this.controls.load(this.element.querySelector('[vp-controls]'));
     this.Box.load(this.element.querySelector('[vp-box]'));
@@ -115,15 +121,15 @@ function Plugin(options) {
     this.loadImages();
   });
 
-  this.info.on('show', () => {
-    this.player.pause();
-  });
+  this.translator.on('show', () => {
+    this.guideMainScreen.disable();
+  })
 
   window.addEventListener('vp-widget-close', (event) => {
     this.player.stop();
     this.rateBox.hide();
     this.suggestionScreen.hide();
-    this.translatorScreen.hide();
+    this.translator.hide();
   });
 
   let control = 0;
@@ -131,7 +137,7 @@ function Plugin(options) {
     control = 1;
     this.ChangeAvatar.hide();
     this.controls.setProgress();
-    this.loadingRef = this.messageBox.show('info', 'Traduzindo...');
+    this.loadingRef = this.messageBox.show('info', ALERT_MESSAGES.TRANSLATING_TEXT);
   });
 
   this.player.on('translate:end', () => {
@@ -141,14 +147,17 @@ function Plugin(options) {
   this.player.on('gloss:start', () => {
     control = 0;
     this.ChangeAvatar.hide();
+    this.additionalOptions.hide();
     this.rateBox.hide();
     this.suggestionScreen.hide();
-    this.translatorScreen.hide();
+    this.translator.hide();
+    this.guideMainScreen.disable();
   });
 
   this.player.on('gloss:end', (globalGlosaLenght) => {
     if (control == 0) {
       this.ChangeAvatar.show();
+      this.additionalOptions.show();
     }
 
     if (this.player.translated && control == 0) {
@@ -161,6 +170,7 @@ function Plugin(options) {
 
   this.player.on('stop:welcome', (bool) => {
     if (bool) {
+      this.guideMainScreen.show();
       this.ChangeAvatar.show();
       this.additionalOptions.show();
     }
@@ -173,27 +183,27 @@ function Plugin(options) {
         case 'compatibility_error':
           this.messageBox.show(
             'warning',
-            'O seu computador não suporta o WebGL. Por favor, atualize os drivers de vídeo.'
+            ALERT_MESSAGES.COMPATIBILITY_ERROR
           );
           break;
         case 'translation_error':
           this.messageBox.show(
             'warning',
-            'Não foi possível estabelecer conexão com o serviço de tradução do VLibras.',
+            ALERT_MESSAGES.TRANSLATION_ERROR,
             3000
           );
           break;
         case 'internal_error':
           this.messageBox.show(
             'warning',
-            'Ops! Ocorreu um problema, por favor entre em contato com a gente.',
+            ALERT_MESSAGES.INTERNAL_ERROR,
             3000
           );
           break;
         case 'timeout_error':
           this.messageBox.show(
             'warning',
-            'Tempo de requisição excedido.',
+            ALERT_MESSAGES.TIMEOUT_ERROR,
             3000
           );
           break;
@@ -201,8 +211,14 @@ function Plugin(options) {
     }.bind(this)
   );
 
-  this.loadFont();
   this.loadImages();
+}
+
+function createGuideContainer() {
+  const container = document.createElement('div');
+  container.classList.add('vp-guide-container');
+  document.body.appendChild(container);
+  return container;
 }
 
 Plugin.prototype.translate = function (text) {
@@ -224,7 +240,7 @@ Plugin.prototype.sendReview = function (rate, review) {
   http.onload = () => {
     this.rateBox.hide();
     this.suggestionScreen.hide();
-    this.messageBox.show('success', 'Obrigado pela contribuição!', 3000);
+    this.messageBox.show('success', ALERT_MESSAGES.REVIEW_THANKS, 3000);
   };
 };
 
@@ -237,20 +253,6 @@ Plugin.prototype.loadImages = function () {
     const imagePath = image.attributes['data-src'].value;
     image.src = this.buildAbsolutePath(imagePath);
   });
-};
-
-Plugin.prototype.loadFont = function () {
-  const fontPath = this.buildAbsolutePath('assets/OpenSans-Semibold.ttf');
-  const font = new FontFace('Open Sans', 'url(' + fontPath + ')');
-
-  font
-    .load()
-    .then((loaded) => {
-      document.fonts.add(loaded);
-    })
-    .catch((error) => {
-      console.error('Error loading font face:', error);
-    });
 };
 
 module.exports = Plugin;

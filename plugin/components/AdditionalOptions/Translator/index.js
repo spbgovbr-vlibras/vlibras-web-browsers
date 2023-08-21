@@ -1,14 +1,20 @@
+const inherits = require('inherits');
+const EventEmitter = require('events').EventEmitter;
+
 const template = require('./translator-screen.html').default;
 require('./translator-screen.scss');
 
-function TranslatorScreen(player) {
+const { closeIcon } = require('~icons');
+
+function Translator(player) {
   this.element = null;
   this.player = player;
+  this.enabled = false;
 }
 
-const { closeIcon } = require('../../../assets/icons')
+inherits(Translator, EventEmitter);
 
-TranslatorScreen.prototype.load = function (element) {
+Translator.prototype.load = function (element) {
   this.element = element;
   this.element.innerHTML = template;
 
@@ -20,13 +26,8 @@ TranslatorScreen.prototype.load = function (element) {
   closeBtn.innerHTML = closeIcon;
 
   // Add actions
-  closeBtn.onclick = function () {
-    this.hide();
-  }.bind(this);
-
-  visualizeBtn.onclick = function () {
-    this.player.translate(userText.value.trim());
-  }.bind(this);
+  closeBtn.onclick = () => this.hide();
+  visualizeBtn.onclick = () => this.player.translate(userText.value.trim());
 
   userText.addEventListener('input', function () {
 
@@ -47,16 +48,21 @@ TranslatorScreen.prototype.load = function (element) {
 
 }
 
-TranslatorScreen.prototype.show = function () {
+Translator.prototype.show = function () {
   this.element.classList.add('vp-enabled');
+  this.enabled = true;
+  this.emit('show');
 }
 
-TranslatorScreen.prototype.hide = function () {
+Translator.prototype.hide = function () {
   this.element.classList.remove('vp-enabled');
+  this.enabled = false;
+  this.emit('hide');
 }
 
-TranslatorScreen.prototype.toggle = function () {
-  this.element.classList.toggle('vp-enabled');
+Translator.prototype.toggle = function () {
+  if (this.enabled) this.hide();
+  else this.show();
 }
 
-module.exports = TranslatorScreen;
+module.exports = Translator;

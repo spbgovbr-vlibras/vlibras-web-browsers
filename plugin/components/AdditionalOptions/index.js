@@ -1,29 +1,35 @@
 const template = require('./additional-options.html').default;
 require('./additional-options.scss');
 
-const { translatorIcon, helpIcon } = require('../../assets/icons/')
+const { translatorIcon, helpIcon } = require('~icons');
+const { $ } = require('~utils');
 
-function AdditionalOptions(player, translatorScreen, widgetHelp) {
+function AdditionalOptions(player, translator, guide) {
   this.player = player;
   this.element = null;
-  this.translatorScreen = translatorScreen;
-  this.widgetHelp = widgetHelp;
+  this.translator = translator;
+  this.guide = guide;
 }
 
 AdditionalOptions.prototype.load = function (element) {
   this.element = element;
   this.element.innerHTML = template;
 
-  const translatorBtn = this.element.querySelector('.vpw-translator-button');
-  // const helpBtn = this.element.querySelector('.vpw-help-button');
+  const translatorBtn = $('.vpw-translator-button', this.element);
+  const helpBtn = $('.vpw-help-button', this.element);
 
   // Add icons
   translatorBtn.innerHTML = translatorIcon;
-  // helpBtn.innerHTML = helpIcon;
+  helpBtn.innerHTML = helpIcon;
 
   // Add actions
-  translatorBtn.onclick = () => this.translatorScreen.toggle();
-  // helpBtn.onclick = () => this.widgetHelp.toggle();
+  translatorBtn.onclick = () => this.translator.toggle();
+  helpBtn.onclick = () => this.guide.toggle();
+
+  window.addEventListener('resize', () => {
+    if (!this.guide.enabled) return;
+    this.guide.updatePosition();
+  })
 
   this.player.on('translate:start', _start.bind(this));
   this.player.on('gloss:start', _start.bind(this));
@@ -33,12 +39,12 @@ AdditionalOptions.prototype.load = function (element) {
 
   function _start() {
     translatorBtn.style.display = 'none';
-    // helpBtn.style.display = 'none';
+    helpBtn.style.display = 'none';
   }
 
   function _end() {
     translatorBtn.style.display = 'flex';
-    // helpBtn.style.display = 'flex';
+    helpBtn.style.display = 'flex';
   }
 
 }
