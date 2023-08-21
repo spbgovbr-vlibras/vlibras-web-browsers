@@ -22,6 +22,7 @@ const { REVIEW_URL } = require('./config');
 const { ALERT_MESSAGES } = require('./alert-messages');
 
 require('./scss/styles.scss');
+require('./scss/text-capture.scss');
 
 function Plugin(options) {
   this.player = new VLibras.Player({
