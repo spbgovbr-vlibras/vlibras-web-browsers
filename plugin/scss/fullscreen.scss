@@ -35,6 +35,29 @@
     }
 
     [vp] {
+        .vpw-selectTextLabel {
+            font-size: 14px !important;
+        }
+
+        [vp-guide-main-screen] {
+            font-size: 16px !important;
+
+            .vpw-guide-main__title {
+                font-size: 16px !important;
+            }
+
+            .vpw-guide-main__desc {
+                font-size: 1rem !important;
+            }
+
+            .vpw-guide-main__accept-btn,
+            .vpw-guide-main__deny-btn {
+                height: 36px !important;
+                font-size: 1rem !important;
+            }
+
+        }
+
         .vpw-box .vpw-mes {
             font-size: 14px;
         }
@@ -64,6 +87,7 @@
 
         .vpw-controls {
             gap: 10px !important;
+            height: 48px !important;
 
             .vpw-controls-fullscreen {
 
@@ -141,6 +165,41 @@
                 min-width: 100vw !important;
             }
         }
+    }
+
+    @media (max-width: 450px) {
+        [vp] {
+            [vp-guide-main-screen] {
+                padding: 16px;
+
+                &.vp-enabled {
+                    height: 35%;
+                }
+
+            }
+
+            [vp-change-avatar],
+            [vp-change-avatar] button,
+            [vp-additional-options] button {
+                width: 36px;
+                height: 36px;
+                min-width: 36px;
+                min-height: 36px;
+            }
+
+            [vp-change-avatar] {
+                top: 56px;
+            }
+
+            [vp-additional-options] {
+                top: 106px;
+            }
+
+            [vp-change-avatar].vp-change-avatar-openned {
+                padding-left: 48px;
+            }
+        }
+
     }
 
 }
