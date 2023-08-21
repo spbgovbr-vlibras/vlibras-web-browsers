@@ -1,0 +1,174 @@
+@import '~scss/colors.scss';
+@import '~scss/default-buttons.scss';
+
+.vp-guide-container {
+    font-family: 'rawline', sans-serif !important;
+    background-color: map-get($blue, 2);
+    max-width: 340px;
+    position: fixed;
+    top: 10px;
+    left: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: 16px;
+    padding: 16px;
+    border-radius: 10px;
+    z-index: 999999999 !important;
+    display: none;
+
+    &.vw-centered {
+        transform: translateX(-50%);
+        right: 50% !important;
+        left: initial !important;
+    }
+
+    &.vw-left::after {
+        left: -4px;
+        right: initial;
+    }
+
+    &.vw-right::after {
+        left: initial;
+        right: -4px;
+    }
+
+    &.vw-top::after {
+        top: 7px;
+        bottom: initial;
+    }
+
+    &.vw-bottom::after {
+        top: initial;
+        bottom: 14px;
+    }
+
+    &::after {
+        content: "";
+        position: absolute;
+        width: 20px;
+        height: 20px;
+        background-color: map-get($blue, 2);
+        transform: rotate(45deg);
+        z-index: -1;
+    }
+
+    &.not-arrow::after {
+        display: none !important;
+    }
+
+    .vpw-tutorial__close-btn {
+        @include reset;
+        @include centralize;
+
+        position: absolute;
+        top: 0;
+        right: 0;
+        width: 34px;
+        height: 34px;
+
+        svg {
+            width: 28px;
+            height: 28px;
+        }
+
+        &:hover {
+            opacity: .8;
+        }
+
+    }
+
+    .vpw-tutorial__message {
+        color: map-get($white, 1);
+        font-size: 1rem;
+        font-weight: 500;
+        line-height: 150%;
+        width: 100%;
+    }
+
+    .vpw-tutorial__footer {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        flex-direction: row;
+        border-top: 1px solid #659AE9;
+        width: 100%;
+        padding-top: 16px;
+
+        .vpw-tutorial__back-btn {
+            @include tutorial-btn--text;
+        }
+
+        .vpw-tutorial__next-btn {
+            @include tutorial-btn--solid;
+        }
+
+        .vpw-tutorial__tab-slider {
+            display: flex;
+            gap: 6px;
+            align-items: center;
+            justify-content: center;
+            flex-direction: row;
+
+            span {
+                width: 6px;
+                height: 6px;
+                border-radius: 50%;
+                opacity: .4;
+                background-color: #FFF;
+
+                &.vp-actived {
+                    opacity: 1;
+                }
+            }
+
+            @media (max-width: 450px) {
+                font-size: 12px;
+            }
+        }
+    }
+
+    &.vp-enabled {
+        display: flex;
+    }
+
+    @media (max-width: 600px) {
+        .vpw-tutorial__message {
+            font-size: 14px;
+        }
+    }
+
+}
+
+span[vp-click-blocker] {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 9999999 !important;
+    display: none !important;
+    border-radius: 10px;
+    opacity: 0;
+
+    &.vp-enabled {
+        display: block !important;
+    }
+}
+
+[vp] {
+    .vp-guide-highlight {
+        box-shadow: 0 5px 20px -5px #1F5AB3 !important;
+        outline: 2px solid #FFF !important;
+        outline-offset: -1px;
+        transform: scale(1.04) !important;
+        transform-origin: center 300%;
+        border: none !important;
+        border-radius: 100px !important;
+    }
+
+    .vp-guide-transition {
+        transition: transform .3s ease, border 0s linear !important;
+    }
+}

@@ -4,9 +4,11 @@ const PluginWrapper = require('./components/PluginWrapper');
 require('./scss/reset.scss');
 require('./scss/styles.scss');
 
+const { addClass, $, removeClass } = require('~utils');
 const widgetPosition = ['TL', 'T', 'TR', 'L', 'R', 'BL', 'B', 'BR'];
 
 module.exports = function Widget(rootPath, personalization, opacity, position) {
+  if (!widgetPosition.includes(position)) position = 'R';
   const widgetWrapper = new PluginWrapper();
   const accessButton = new AccessButton(
     rootPath,
@@ -62,15 +64,22 @@ module.exports = function Widget(rootPath, personalization, opacity, position) {
           ? '0' : '0px 0px 0px -120px';
 
       if (position.includes('R')) access.querySelector('.pop-up')
-        .classList.remove('left')
+        .classList.remove('left');
 
       else access.querySelector('.pop-up')
         .classList.add('left')
+
+      // Set position
+      if (window.plugin) window.plugin.position = position;
     });
 
     window.addEventListener('vp-widget-close', (event) => {
       access.classList.toggle('active');
       wrapper.classList.toggle('active');
+      addClass($('div[vp-change-avatar]'), 'active');
+      addClass($('div[vp-additional-options]'), 'vp-enabled');
+      removeClass($('div[vp-controls]'), 'vpw-selectText');
+
 
       document.body.removeChild(document.querySelector('.vw-links'));
 

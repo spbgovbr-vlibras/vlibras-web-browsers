@@ -53,6 +53,7 @@
         min-height: 28px;
         max-width: 28px;
         max-height: 28px;
+        font-size: 12px;
     }
 }
 
@@ -219,7 +220,7 @@
     font-weight: 600;
 
     @media (max-width: 450px) {
-        height: 28px;
+        height: 32px;
         font-size: 12px;
     }
 }
@@ -268,17 +269,50 @@
     @include centralize;
 
     border-radius: 40px;
-    font-size: 1rem;
+    font-size: 14px;
     outline: 1px solid;
+    height: 36px;
+    min-width: 36px;
+    padding: 0 16px;
+    flex-direction: row;
+    gap: 10px;
+    font-weight: 700;
+
+    &:disabled {
+        opacity: .5;
+        cursor: not-allowed;
+
+        &:hover {
+            opacity: .5;
+        }
+    }
+
+    &:active {
+        opacity: 1;
+    }
+
+    &:hover {
+        opacity: .8;
+    }
 }
 
 @mixin tutorial-btn--outline {
+    @include tutorial-btn;
+
     color: map-get($white, 1);
     outline-color: map-get($white, 1);
-    color: map-get($black, 1);
+}
+
+@mixin tutorial-btn--text {
+    @include tutorial-btn;
+
+    color: map-get($white, 1);
+    outline-color: transparent;
 }
 
 @mixin tutorial-btn--solid {
-    color: map-get($black, 1);
+    @include tutorial-btn;
+
+    color: map-get($blue, 2);
     background-color: map-get($white, 1);
 }

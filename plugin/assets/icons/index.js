@@ -1,6 +1,6 @@
 const IcaroIcon = require('./avatars/icaro.svg');
-const hozanaIcon = require('./avatars/hozana.svg');
-const gugaIcon = require('./avatars/guga.svg');
+const HosanaIcon = require('./avatars/hosana.svg');
+const GugaIcon = require('./avatars/guga.svg');
 const aboutIcon = require('./header/about.svg');
 const closeIcon = require('./header/close.svg');
 const dictionaryIcon = require('./header/dictionary.svg');
@@ -23,11 +23,11 @@ const controlIcons = {
 }
 
 const socialIcons = {
-  face: require('./facebook.svg'),
-  web: require('./web.svg'),
-  twitter: require('./twitter.svg'),
-  insta: require('./instagram.svg'),
-  youtube: require('./youtube.svg'),
+  face: require('./social/facebook.svg'),
+  website: require('./social/website.svg'),
+  twitter: require('./social/twitter.svg'),
+  insta: require('./social/instagram.svg'),
+  youtube: require('./social/youtube.svg'),
 }
 
 const positionIcons = [
@@ -38,7 +38,7 @@ const positionIcons = [
 ]
 
 module.exports = {
-  IcaroIcon, hozanaIcon, gugaIcon, aboutIcon, closeIcon,
+  IcaroIcon, HosanaIcon, GugaIcon, aboutIcon, closeIcon,
   dictionaryIcon, settingsIcon, backIcon, socialIcons,
   positionIcons, arrowIcon, likeLineIcon, likeSolidIcon,
   loadingIcon, translatorIcon, helpIcon, controlIcons

@@ -1,6 +1,15 @@
 .vpw-fullscreen {
-
     overflow: hidden !important;
+
+    .vp-guide-container {
+        max-width: 600px !important;
+        max-width: 600px !important;
+        left: 50% !important;
+        margin: 0 !important;
+        right: auto !important;
+        transform: translateX(-50%);
+        width: 100%;
+    }
 
     [vw] {
         top: 0 !important;
@@ -8,6 +17,11 @@
         transform: none !important;
         margin: 0 !important;
         max-width: 100vw;
+
+        .vpw-box,
+        .vpw-controls {
+            border-radius: 0 !important;
+        }
 
         [vw-plugin-wrapper].active {
             width: 100vw !important;
@@ -21,6 +35,31 @@
     }
 
     [vp] {
+        .vpw-selectTextLabel {
+            font-size: 14px !important;
+        }
+
+        [vp-guide-main-screen] {
+            font-size: 16px;
+            height: 40% !important;
+            border-radius: 10px 10px 0 0;
+
+            .vpw-guide-main__title {
+                font-size: 1.2em;
+            }
+
+            .vpw-guide-main__desc {
+                font-size: 1em;
+            }
+
+            .vpw-guide-main__accept-btn,
+            .vpw-guide-main__deny-btn {
+                height: 36px !important;
+                font-size: 1em !important;
+            }
+
+        }
+
         .vpw-box .vpw-mes {
             font-size: 14px;
         }
@@ -42,13 +81,16 @@
             -webkit-justify-content: start;
         }
 
-        .vpw-dict-container,
-        .vpw-recents-container {
-            height: 80% !important;
+        .vpw-dictionary,
+        .vpw-info-screen,
+        .vpw-settings {
+            border-radius: 0 !important;
+            font-size: 16px;
         }
 
         .vpw-controls {
             gap: 10px !important;
+            height: 48px !important;
 
             .vpw-controls-fullscreen {
 
@@ -80,6 +122,20 @@
             font-size: 14px !important;
             height: 36px !important;
         }
+
+        .vpw-dict-container,
+        .vpw-recents-container {
+            ul li {
+                min-width: 600px !important;
+                font-size: 14px !important;
+            }
+        }
+
+        .vpw-info__logos-container {
+            img {
+                height: 36px !important;
+            }
+        }
     }
 
     @media (min-width: 600px) {
@@ -90,8 +146,7 @@
         [vp] {
             max-width: 600px;
 
-            [vp-box],
-            .vpw-message-box {
+            [vp-box] {
                 border-radius: 0 0 10px 10px !important;
             }
 
@@ -105,11 +160,68 @@
                 -webkit-justify-content: left !important;
                 gap: 40px;
             }
+        }
+    }
 
-            .vpw-recents-container {
-                height: 75% !important;
+    @media (max-width: 600px) {
+        .vp-guide-container {
+            width: calc(100% - 20px);
+        }
+
+        .vpw-dict-container,
+        .vpw-recents-container {
+            ul li {
+                min-width: 100vw !important;
             }
         }
+    }
+
+    @media (max-width: 450px) {
+        [vp] {
+            [vp-guide-main-screen] {
+                padding: 16px;
+
+                &.vp-enabled {
+                    height: 35%;
+                }
+
+            }
+
+            [vp-change-avatar],
+            [vp-change-avatar] button,
+            [vp-additional-options] button {
+                width: 36px;
+                height: 36px;
+                min-width: 36px;
+                min-height: 36px;
+            }
+
+            [vp-change-avatar] {
+                top: 56px;
+
+                .vp-button-change-avatar {
+                    &::after {
+                        top: 40px !important;
+                        transform: translateX(70%) !important;
+                    }
+                }
+
+                &.vp-change-avatar-openned {
+                    padding-left: 48px;
+                }
+            }
+
+            [vp-additional-options] {
+                top: 106px;
+            }
+
+            .vpw-info__logos-container {
+                img {
+                    max-height: 30px !important;
+                }
+            }
+        }
+
     }
 
 }

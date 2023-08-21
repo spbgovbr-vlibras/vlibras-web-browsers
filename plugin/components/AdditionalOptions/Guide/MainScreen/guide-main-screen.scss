@@ -1,0 +1,73 @@
+@import '~scss/colors.scss';
+@import '~scss/default-buttons.scss';
+
+[vp] [vp-guide-main-screen] {
+    display: flex;
+    align-items: center;
+    justify-content: start;
+    flex-direction: column;
+    gap: 10px;
+    border-radius: 10px;
+    width: 100%;
+    font-size: 14px;
+    position: absolute;
+    z-index: 0;
+    padding: 14px;
+    background-color: map-get($white, 1);
+    border-bottom: 1px solid map-get($white, 4);
+    overflow: hidden;
+    visibility: hidden;
+    bottom: 0;
+    height: 0;
+    transition: all .3s ease;
+
+    .vpw-guide-main__title {
+        font-size: 1.2em;
+        color: map-get($black, 1);
+        font-weight: 600;
+        width: 100%;
+    }
+
+    .vpw-guide-main__desc {
+        color: map-get($black, 2);
+        font-weight: 500;
+        font-size: 1em;
+        width: 100%;
+    }
+
+    .vpw-guide-main__buttons-container {
+        margin-top: 10px;
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+
+        .vpw-guide-main__accept-btn {
+            @include suggestion-btn--primary;
+            width: 100%
+        }
+
+        .vpw-guide-main__deny-btn {
+            @include suggestion-btn--secundary;
+
+            width: 100%
+        }
+    }
+
+
+    @media (max-width: 450px) {
+        padding: 10px;
+        font-size: 12px;
+    }
+
+
+    &.vp-enabled {
+        z-index: 6 !important;
+        height: 45%;
+        visibility: visible;
+
+        @media (max-width: 450px) {
+            height: 55%;
+        }
+    }
+}

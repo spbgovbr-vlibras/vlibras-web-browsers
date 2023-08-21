@@ -1,7 +1,7 @@
 const settingsBtnTpl = require('./settings-btn.html').default;
 require('./settings-btn.scss');
 
-const { settingsIcon, dictionaryIcon, aboutIcon, closeIcon } = require('../../assets/icons');
+const { settingsIcon, dictionaryIcon, aboutIcon, closeIcon } = require('~icons');
 
 function SettingsBtn(player, screen, dictionary, infoScreen, option) {
   this.player = player;
@@ -28,17 +28,11 @@ SettingsBtn.prototype.load = function (
   const aboutBtn = this.element.querySelector('.vpw-header-btn-about');
   const closeBtn = this.element.querySelector('.vpw-header-btn-close');
 
-  settingsBtn.classList.add('active');
-
   // Add icons
   settingsBtn.innerHTML = settingsIcon;
   dictionaryBtn.innerHTML = dictionaryIcon;
   aboutBtn.innerHTML = aboutIcon;
   closeBtn.innerHTML = closeIcon;
-
-  if (enable) {
-    closeBtn.style.display = 'flex';
-  }
 
   settingsBtn.addEventListener(
     'click',
@@ -96,7 +90,6 @@ SettingsBtn.prototype.load = function (
 
     if (screen) screen.toggle();
     selectButton(btn);
-    this.player.pause();
   }.bind(this);
 
 };

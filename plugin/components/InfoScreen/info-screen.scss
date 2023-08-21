@@ -1,135 +1,65 @@
 @import '~scss/default-buttons';
 @import '~scss/colors.scss';
+@import '~scss/shared-styles.scss';
 
 [vp] {
   .vpw-info-screen {
     position: absolute;
     top: 40px;
-    padding: 1em;
     width: 100%;
     height: calc(100% - 40px);
-    z-index: 6;
+    z-index: 10;
     background-color: white;
     color: black;
     font-family: "Rawline", sans-serif;
-    font-size: .14rem;
     align-items: center;
-    -webkit-align-items: center;
-    font-size: 14px;
     display: none;
-    -webkit-box-sizing: border-box;
-    -moz-box-sizing: border-box;
-    box-sizing: border-box;
+    justify-content: start;
+    flex-direction: column;
+    align-items: start;
+    font-size: 14px;
+    border-radius: 0 0 10px 10px;
 
     @media(max-width: 450px) {
       max-width: 210px;
     }
 
     &.active {
-      display: -webkit-flex;
       display: flex;
     }
 
     .vpw-info-header {
-      position: absolute;
-      width: 100%;
-      height: 48px;
-      top: 0;
-      left: 0;
-      right: 0;
-      padding-left: 15px;
+      @include vp-screen-header;
+    }
+
+    .vpw-info__main {
+      position: relative;
       display: flex;
-      align-items: center;
-      border-bottom: 1px solid #DDD;
-      z-index: 1;
+      flex-direction: column;
+      padding: 16px;
+      width: 100%;
+      align-items: start;
+      justify-content: center;
       gap: 10px;
 
-      @media(max-width: 450px) {
-        height: 36px;
-      }
+      .vpw-info__section {}
 
-      .vpw-back-button {
-        @include control-button;
-
-        svg * {
-          fill: map-get($blue, 1);
-        }
-
-      }
-
-      .text-black-header {
-        font-size: 16px;
-        color: map-get($black, 1);
+      .vpw-info__section-title {
+        text-decoration: none;
         font-weight: 600;
-
-        @media(max-width: 450px) {
-          font-size: 14px;
-        }
-      }
-    }
-
-    #vpw-info-main {
-      position: relative;
-      top: 0;
-      flex-grow: 4;
-      display: -webkit-flex;
-      display: flex;
-      flex-direction: column;
-      -webkit-flex-direction: column;
-      padding: 0;
-      height: 100%;
-      width: 100%;
-      align-items: center;
-      -webkit-align-items: center;
-    }
-
-    #vpw-text-svl p {
-      font-size: 14px;
-      margin-bottom: 10px;
-    }
-
-    .text-black {
-      text-decoration: none;
-      font-weight: 600;
-      font-size: 14px;
-      margin-bottom: 10px;
-
-      @media(max-width: 450px) {
-
-        font-size: 12px;
-      }
-    }
-
-    .format-text {
-      margin: 0px;
-      color: #555;
-      font-style: normal;
-      font-weight: 500;
-      font-size: 14px;
-      line-height: 19px;
-
-      @media(max-width: 450px) {
-        font-size: 11px !important;
-        line-height: 15px;
-      }
-    }
-
-    #vpw-info-main {
-      height: 100%;
-
-      width: 100%;
-      margin-top: 100px;
-      flex-direction: column;
-      align-items: stretch;
-      -webkit-flex-direction: column;
-      -webkit-align-items: stretch;
-
-      @media(max-width: 450px) {
-        margin-top: 50px;
+        font-size: 1em;
+        margin-bottom: 10px;
       }
 
-      .vpw-info-realizadores {
+      .vpw-info__section-desc {
+        color: #555;
+        font-style: normal;
+        font-weight: 500;
+        font-size: .9em;
+        line-height: 1.5;
+      }
 
+      .vpw-info__contributors {
         flex-direction: column;
         align-items: stretch;
         -webkit-flex-direction: column;
@@ -145,16 +75,17 @@
       }
 
       .vpw-logo {
+        opacity: 1 !important;
         margin-top: -2px;
         margin: 0.5em 0.35em;
         max-width: 50%;
 
         @media (max-width: 450px) {
-          max-height: 25px;
+          max-height: 22px;
         }
       }
 
-      .vpw-logo-group {
+      .vpw-info__logos-container {
         display: flex;
         flex-direction: row;
         flex-wrap: nowrap;
@@ -165,15 +96,16 @@
         -webkit-align-items: center;
         -webkit-justify-content: space-around;
       }
+
     }
 
-    .vpw-logo-networks {
+    .vpw-info__networks-container {
       display: flex;
       align-items: center;
       flex-direction: row;
       gap: 10px;
 
-      .vpw-networks {
+      a {
         @include control-button;
 
         svg * {
@@ -186,42 +118,26 @@
       }
     }
 
-    .vpw-close-btn {
-      position: absolute;
-      top: 8px;
-      right: 6px;
-      z-index: 4;
-
-      img.icon {
-        width: 34px;
-        height: 34px;
-      }
+    .vpw-info__footer {
+      width: 100%;
     }
 
-    #vpw-info-footer {
-      margin-top: 20px;
-
-      @media(max-width: 450px) {
-        margin-top: 1px;
-      }
-    }
   }
 }
 
-@media only screen and (-moz-min-device-pixel-ratio: 2),
-only screen and (-o-min-device-pixel-ratio: 2/1),
-only screen and (-webkit-min-device-pixel-ratio: 2),
-only screen and (min-device-pixel-ratio: 2) {
-  [vp] #vpw-info-realizadores .vpw-logo {
-    margin: 0.5em 0.35em;
-    min-width: 10%;
-    max-width: 50%;
-    max-height: 18vh;
-  }
-}
+@media (max-width: 450px) {
 
-@media only screen and (max-height: 450px) {
-  [vp] #vpw-info-main {
-    font-size: 0.84em;
+  [vp] {
+    .vpw-info-screen {
+      font-size: 11px;
+    }
+
+    .vpw-info__networks-container {
+      gap: 6px;
+    }
+
+    .vpw-info__main {
+      padding: 10px !important;
+    }
   }
 }

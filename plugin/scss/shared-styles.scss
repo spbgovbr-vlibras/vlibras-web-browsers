@@ -1,4 +1,5 @@
 @import '~scss/default-buttons.scss';
+@import '~scss/colors.scss';
 
 @mixin vp-header {
     width: 100%;
@@ -28,4 +29,40 @@
         height: 38px;
         padding: 10px;
     }
+}
+
+@mixin vp-screen-header {
+    width: 100%;
+    background-color: map-get($white, 1);
+    padding: 0 16px;
+    height: 48px;
+    display: flex;
+    align-items: center;
+    font-size: 16px;
+    justify-content: start;
+    gap: 10px;
+    border-bottom: 1px solid map-get($white, 4);
+
+    button {
+        @include control-button;
+
+        svg * {
+            fill: map-get($blue, 4);
+        }
+    }
+
+    span {
+        font-weight: 600;
+        color: map-get($black, 1);
+        font-size: 1em;
+    }
+
+
+    @media (max-width: 450px) {
+        height: 36px !important;
+        padding: 0 10px;
+        font-size: 14px;
+    }
+
+
 }

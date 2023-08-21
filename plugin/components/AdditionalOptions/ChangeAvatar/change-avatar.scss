@@ -19,6 +19,7 @@ $bg-color: #9c9c9c;
   height: 36px;
   width: 36px;
   visibility: visible;
+  border-radius: 40px;
   transition: all .3s ease-in-out;
 
   .vp-button-change-avatar {
@@ -62,8 +63,16 @@ $bg-color: #9c9c9c;
       white-space: nowrap;
 
       color: map-get($white, 1);
-      font-size: .9rem;
+      font-size: 16px;
       font-weight: 500;
+
+      @media (max-width: 1200px) {
+        font-size: 14px;
+      }
+
+      @media (max-width: 450px) {
+        font-size: 12px;
+      }
     }
 
     &:hover {
@@ -106,7 +115,6 @@ $bg-color: #9c9c9c;
       display: block;
     }
 
-
     @media (max-width: 450px) {
       width: 28px;
       height: 28px;
@@ -132,8 +140,14 @@ $bg-color: #9c9c9c;
     display: flex;
   }
 
+  &.vp-fixed {
+    display: flex;
+  }
+
   @media (max-width: 450px) {
     left: 8px;
+    width: 28px;
+    height: 28px;
 
     .vp-button-change-avatar::after {
       top: 32px;
