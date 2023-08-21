@@ -50,7 +50,7 @@ GuideMainScreen.prototype.disable = function () {
 
 function getDefault() {
   const value = localStorage.getItem(LOCAL_KEY);
-  return value === 'true';
+  return value !== 'false';
 }
 
 function saveDefault(bool) {
