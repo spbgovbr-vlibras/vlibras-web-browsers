@@ -19,7 +19,7 @@ InfoScreen.prototype.load = function (element) {
   this.element.classList.add('vpw-info-screen');
 
   const backButton = this.element.querySelector('.vpw-back-button');
-  const social = this.element.querySelector('.vpw-logo-networks').children;
+  const social = this.element.querySelector('.vpw-info__networks-container').children;
 
   // ADD ICONS
   backButton.innerHTML = backIcon;

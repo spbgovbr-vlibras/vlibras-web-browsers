@@ -84,6 +84,7 @@
         .vpw-info-screen,
         .vpw-settings {
             border-radius: 0 !important;
+            font-size: 16px;
         }
 
         .vpw-controls {
@@ -126,6 +127,12 @@
             ul li {
                 min-width: 600px !important;
                 font-size: 14px !important;
+            }
+        }
+
+        .vpw-info__logos-container {
+            img {
+                height: 36px !important;
             }
         }
     }
@@ -190,14 +197,27 @@
 
             [vp-change-avatar] {
                 top: 56px;
+
+                .vp-button-change-avatar {
+                    &::after {
+                        top: 40px !important;
+                        transform: translateX(70%) !important;
+                    }
+                }
+
+                &.vp-change-avatar-openned {
+                    padding-left: 48px;
+                }
             }
 
             [vp-additional-options] {
                 top: 106px;
             }
 
-            [vp-change-avatar].vp-change-avatar-openned {
-                padding-left: 48px;
+            .vpw-info__logos-container {
+                img {
+                    max-height: 30px !important;
+                }
             }
         }
 
