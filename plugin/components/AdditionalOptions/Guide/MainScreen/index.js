@@ -4,9 +4,9 @@ require('./guide-main-screen.scss');
 const { $ } = require('~utils');
 const LOCAL_KEY = '@vp-guide';
 
-function GuideMainScreen(widgetGuide) {
+function GuideMainScreen(guide) {
   this.element = null;
-  this.guide = widgetGuide;
+  this.guide = guide;
   this.init = true;
 }
 
