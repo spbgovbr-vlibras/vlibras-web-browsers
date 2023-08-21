@@ -186,6 +186,11 @@
 
         .vpw-opacity-range {
           @include input-range-container;
+
+          *:focus {
+            outline: none !important;
+            border: none !important;
+          }
         }
 
       }

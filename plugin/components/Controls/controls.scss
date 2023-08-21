@@ -19,12 +19,14 @@
     gap: 10px;
     background: white;
     width: 100%;
+    font-size: 14px;
     border-radius: 0 0 10px 10px;
 
     @media (max-width: 450px) {
       gap: 0 !important;
       padding: 0 10px !important;
       height: 40px;
+      font-size: 12px;
     }
 
     &.vpw-selectText {
@@ -39,7 +41,7 @@
       height: 100%;
       color: #FFFFFF;
       text-align: center;
-      font-size: 14px;
+      font-size: 1em;
       font-weight: 500;
 
       @media (max-width: 480px) {
@@ -165,6 +167,7 @@
     width: 40px;
     min-width: 40px;
     font-weight: bold;
+    padding-bottom: 2px;
 
     @media (max-width: 450px) {
       min-width: 34px;
