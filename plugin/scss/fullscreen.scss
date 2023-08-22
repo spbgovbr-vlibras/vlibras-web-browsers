@@ -91,6 +91,7 @@
         .vpw-controls {
             gap: 10px !important;
             height: 48px !important;
+            padding: 0 16px !important;
 
             .vpw-controls-fullscreen {
 
@@ -136,6 +137,10 @@
                 height: 36px !important;
             }
         }
+
+        .vp-guide-highlight {
+            transform-origin: center 150% !important;
+        }
     }
 
     @media (min-width: 600px) {
@@ -178,6 +183,10 @@
 
     @media (max-width: 450px) {
         [vp] {
+            .vpw-info__main {
+                padding: 16px !important;
+            }
+
             [vp-guide-main-screen] {
                 padding: 16px;
 
@@ -185,6 +194,25 @@
                     height: 35%;
                 }
 
+            }
+
+            [vp-suggestion-screen] {
+                .vp-suggestion-screen-content {
+                    padding: 16px;
+                }
+
+                .vp-suggestion-screen-header {
+                    height: 48px;
+                    padding: 16px;
+                }
+            }
+
+            [vp-rate-box].vp-enabled {
+                height: 96px;
+
+                .vp-rate-box-header {
+                    height: 48px;
+                }
             }
 
             [vp-change-avatar],
