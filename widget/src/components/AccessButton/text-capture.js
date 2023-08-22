@@ -1,15 +1,20 @@
+const { $, addClass, removeClass } = require('~utils');
+
 function loadTextCaptureScript() {
+
   const $root = Array.from([document.body, ...document.body.children]);
-  const vw = document.querySelector('[vw]');
-  const guide = document.querySelector('.vp-guide-container');
-  createTooltip();
+  const vw = $('[vw]');
+  const guide = $('.vp-guide-container');
 
   const hasTag = (el, tags) => tags.includes(el.tagName);
+  const hasTooltip = () => $('.vw-links') ? true : false;
   const isLinkOrButton = el => hasTag(el, ["A", "BUTTON"]);
   const isSubmitInput = el => hasTag(el, "INPUT") && el.type === 'submit';
   const isValidImage = el => hasTag(el, "IMG") && el.alt && el.alt.trim();
   const isSelect = el => hasTag(el, "SELECT");
   const isSVG = el => hasTag(el, ['SVG', 'PATH']);
+
+  createTooltip();
 
   function hasLinkAncestor(el) {
     while (el) {
@@ -37,15 +42,15 @@ function loadTextCaptureScript() {
   }
 
   function highlightElement({ target: element }) {
-    if (isValidElement(element)) element.classList.add('vw-text--hover');
+    if (isValidElement(element)) addClass(element, 'vw-text--hover');
   }
 
   function toggleChecked(element) {
-    const input = element.parentElement.querySelector('input');
+    const input = $('input', element.parentElement);
     if (input && (['radio', 'checkbox'].includes(input.type))) input.checked = !input.checked;
   }
 
-  function printContent(event) {
+  function translateContent(event) {
     removeTooltips();
     const element = event.target;
     const isSubmit = isSubmitInput(element);
@@ -74,19 +79,19 @@ function loadTextCaptureScript() {
 
   function clickHandler(element, event = null) {
     if (event) event.stopPropagation();
-    document.removeEventListener("click", printContent, true);
+    document.removeEventListener("click", translateContent, true);
     element.click();
-    document.addEventListener("click", printContent, true);
+    document.addEventListener("click", translateContent, true);
   }
 
   function removeHighlight(event) {
-    event.target.classList.remove('vw-text--hover');
+    removeClass(event.target, 'vw-text--hover');
   }
 
   function showTooltip(linkElement, event) {
     if (!linkElement) return;
     removeTooltips();
-    const tooltip = document.querySelector('.vw-links');
+    const tooltip = $('.vw-links');
     tooltip.style.display = 'block';
     tooltip.innerText = linkElement.tagName === 'A' ? "Acessar link" : 'Interagir';
 
@@ -105,14 +110,15 @@ function loadTextCaptureScript() {
   }
 
   function removeTooltips() {
-    const tooltip = document.querySelector('.vw-links')
+    const tooltip = $('.vw-links')
     if (tooltip) tooltip.style.display = 'none';
     document.removeEventListener("click", removeTooltips);
   }
 
   function createTooltip() {
+    if (hasTooltip()) return;
     const tooltip = document.createElement('div');
-    tooltip.classList.add('vw-links');
+    addClass(tooltip, 'vw-links');
     document.body.appendChild(tooltip);
   }
 
@@ -120,7 +126,8 @@ function loadTextCaptureScript() {
     document.addEventListener("mouseover", highlightElement);
     document.addEventListener("mouseout", removeHighlight);
     document.addEventListener("scroll", removeTooltips);
-    document.addEventListener("click", printContent, true);
+    document.addEventListener("click", translateContent, true);
+
     window.addEventListener('vp-widget-close', deactivate);
     window.addEventListener('vp-disable-text-capture', deactivate);
   }
@@ -130,14 +137,13 @@ function loadTextCaptureScript() {
     document.removeEventListener("mouseover", highlightElement);
     document.removeEventListener("mouseout", removeHighlight);
     document.removeEventListener("scroll", removeTooltips);
-    document.removeEventListener("click", printContent, true);
+    document.removeEventListener("click", translateContent, true);
+
     window.removeEventListener('vp-widget-close', deactivate);
     window.removeEventListener('vp-disable-text-capture', deactivate);
   }
 
   activate();
-
-  window.addEventListener('vp-widget-close', deactivate);
 
 }
 
