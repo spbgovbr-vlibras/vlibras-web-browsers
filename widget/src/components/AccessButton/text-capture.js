@@ -94,17 +94,17 @@ function loadTextCaptureScript() {
     tooltip.style.display = 'block';
     tooltip.innerText = linkElement.tagName === 'A' ? "Acessar link" : 'Interagir';
 
-    const yView = event.clientY > window.innerHeight - 100;
-    const xView = event.clientX > window.innerWidth - 120;
+    const { clientX, clientY } = event;
+    const yView = clientY > window.innerHeight - 100;
+    const xView = clientX > window.innerWidth - 120;
 
-    if (yView) tooltip.style.bottom = '20px';
-    else tooltip.style.top = yView + event.clientY + 48 + 'px';
+    tooltip.style.bottom = yView ? '20px' : 'auto';
+    tooltip.style.top = !yView ? clientY + 48 + 'px' : 'auto';
 
-    if (xView) tooltip.style.right = '20px';
-    else tooltip.style.left = (event.clientX - 20 < 20 ? 20 : event.clientX - 20) + 'px';
+    tooltip.style.right = xView ? '20px' : 'auto';
+    tooltip.style.left = !xView ? (clientX - 20 < 20 ? 20 : clientX - 20) + 'px' : 'auto';
 
     tooltip.onclick = (e) => clickHandler(linkElement, e);
-
     document.addEventListener("click", removeTooltips);
   }
 
