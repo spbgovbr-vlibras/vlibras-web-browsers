@@ -65,7 +65,7 @@ function Plugin(options) {
   );
   this.messageBox = new MessageBox();
   this.suggestionScreen = new SuggestionScreen(this.player);
-  this.translator = new Translator(this.player);
+  this.translator = new Translator(this.player, this.guideMainScreen);
   this.guide = new Guide(this.player);
   this.guideMainScreen = new GuideMainScreen(this.guide);
   this.rateBox = new RateBox(this.messageBox, this.suggestionScreen);
@@ -121,10 +121,6 @@ function Plugin(options) {
 
     this.loadImages();
   });
-
-  this.translator.on('show', () => {
-    this.guideMainScreen.disable();
-  })
 
   window.addEventListener('vp-widget-close', (event) => {
     this.player.stop();
