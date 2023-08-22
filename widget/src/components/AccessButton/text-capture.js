@@ -121,6 +121,8 @@ function loadTextCaptureScript() {
     document.addEventListener("mouseout", removeHighlight);
     document.addEventListener("scroll", removeTooltips);
     document.addEventListener("click", printContent, true);
+    window.addEventListener('vp-widget-close', deactivate);
+    window.addEventListener('vp-disable-text-capture', deactivate);
   }
 
   function deactivate() {
@@ -129,6 +131,8 @@ function loadTextCaptureScript() {
     document.removeEventListener("mouseout", removeHighlight);
     document.removeEventListener("scroll", removeTooltips);
     document.removeEventListener("click", printContent, true);
+    window.removeEventListener('vp-widget-close', deactivate);
+    window.removeEventListener('vp-disable-text-capture', deactivate);
   }
 
   activate();
