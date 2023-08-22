@@ -51,8 +51,8 @@ const getRect = (element) => {
   return element.getBoundingClientRect();
 }
 
-const canClick = () => {
-  return hasClass($('[vp-controls]'), '.vpw-controls')
+const canTranslate = () => {
+  return hasClass($('[vp-controls]'), 'vpw-controls')
     && !hasClass($('[vp-guide-main-screen]'), 'vp-enabled')
     && !hasClass($('.vp-guide-container'), 'vp-enabled')
     && hasClass($('[vw-plugin-wrapper]'), 'active');
@@ -62,5 +62,5 @@ export {
   isPlaying, isFullscreen, $, $$, $0, getAvatar,
   hasClass, addClass, removeClass, toggleClass,
   setWidgetPosition, getWidgetPosition, getRect,
-  canClick
+  canTranslate
 }
