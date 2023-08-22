@@ -1,7 +1,6 @@
-const { $, addClass, removeClass } = require('~utils');
+const { $, addClass, removeClass, canTranslate } = require('~utils');
 
 function loadTextCaptureScript() {
-
   const $root = Array.from([document.body, ...document.body.children]);
   const vw = $('[vw]');
   const guide = $('.vp-guide-container');
@@ -123,6 +122,7 @@ function loadTextCaptureScript() {
   }
 
   function activate() {
+    if (!canTranslate()) return;
     document.addEventListener("mouseover", highlightElement);
     document.addEventListener("mouseout", removeHighlight);
     document.addEventListener("scroll", removeTooltips);
