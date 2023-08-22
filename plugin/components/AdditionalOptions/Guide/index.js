@@ -27,11 +27,11 @@ Guide.prototype.load = function (element) {
   this.element = element;
   this.element.innerHTML = template;
   this.helpButton = u.$('.vpw-help-button', u.$('div[vw]'));
-  this.message = u.$('.vpw-tutorial__message', this.element);
-  this.backButton = u.$('.vpw-tutorial__back-btn', this.element);
-  this.nextButton = u.$('.vpw-tutorial__next-btn', this.element);
-  this.closeButton = u.$('.vpw-tutorial__close-btn', this.element);
-  this.tabSlider = u.$('.vpw-tutorial__tab-slider', this.element);
+  this.message = u.$('.vpw-guide__message', this.element);
+  this.backButton = u.$('.vpw-guide__back-btn', this.element);
+  this.nextButton = u.$('.vpw-guide__next-btn', this.element);
+  this.closeButton = u.$('.vpw-guide__close-btn', this.element);
+  this.tabSlider = u.$('.vpw-guide__tab-slider', this.element);
   $vw = u.$('div[vw]');
 
   // Add icon
