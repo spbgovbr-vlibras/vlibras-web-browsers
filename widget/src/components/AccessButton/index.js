@@ -1,4 +1,5 @@
 const { loadTextCaptureScript } = require('./text-capture');
+const { canTranslate } = require('~utils');
 
 const template = require('./template.html').default;
 require('./styles.scss');
@@ -12,6 +13,7 @@ function AccessButton(rootPath, pluginWrapper, personalization, opacity, positio
   this.currentSpanElement = null;
   this.opacity = opacity || 1;
   this.position = position || 'R';
+  this.ready = false;
 }
 
 AccessButton.prototype.load = function (element, vw) {
@@ -33,7 +35,15 @@ AccessButton.prototype.load = function (element, vw) {
         position: this.position
       });
 
-    loadTextCaptureScript();
+    if (this.ready) loadTextCaptureScript();
+    else {
+      const _canTranslate = setInterval(() => {
+        if (!canTranslate()) return;
+        loadTextCaptureScript();
+        this.ready = true;
+        clearInterval(_canTranslate);
+      }, 1000)
+    }
   });
 };
 
