@@ -1,18 +1,14 @@
-const inherits = require('inherits');
-const EventEmitter = require('events').EventEmitter;
-
 const template = require('./translator-screen.html').default;
 require('./translator-screen.scss');
 
 const { closeIcon } = require('~icons');
 
-function Translator(player) {
+function Translator(player, guideMainScreen) {
   this.element = null;
   this.player = player;
   this.enabled = false;
+  this.guideMainScreen = guideMainScreen;
 }
-
-inherits(Translator, EventEmitter);
 
 Translator.prototype.load = function (element) {
   this.element = element;
@@ -51,13 +47,12 @@ Translator.prototype.load = function (element) {
 Translator.prototype.show = function () {
   this.element.classList.add('vp-enabled');
   this.enabled = true;
-  this.emit('show');
+  this.guideMainScreen.disable();
 }
 
 Translator.prototype.hide = function () {
   this.element.classList.remove('vp-enabled');
   this.enabled = false;
-  this.emit('hide');
 }
 
 Translator.prototype.toggle = function () {
