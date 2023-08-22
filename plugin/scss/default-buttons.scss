@@ -264,7 +264,7 @@
     }
 }
 
-@mixin tutorial-btn {
+@mixin guide-btn {
     @include reset;
     @include centralize;
 
@@ -296,22 +296,22 @@
     }
 }
 
-@mixin tutorial-btn--outline {
-    @include tutorial-btn;
+@mixin guide-btn--outline {
+    @include guide-btn;
 
     color: map-get($white, 1);
     outline-color: map-get($white, 1);
 }
 
-@mixin tutorial-btn--text {
-    @include tutorial-btn;
+@mixin guide-btn--text {
+    @include guide-btn;
 
     color: map-get($white, 1);
     outline-color: transparent;
 }
 
-@mixin tutorial-btn--solid {
-    @include tutorial-btn;
+@mixin guide-btn--solid {
+    @include guide-btn;
 
     color: map-get($blue, 2);
     background-color: map-get($white, 1);
