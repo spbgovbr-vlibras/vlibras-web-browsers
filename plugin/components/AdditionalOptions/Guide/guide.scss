@@ -58,7 +58,7 @@
         display: none !important;
     }
 
-    .vpw-tutorial__close-btn {
+    .vpw-guide__close-btn {
         @include reset;
         @include centralize;
 
@@ -79,7 +79,7 @@
 
     }
 
-    .vpw-tutorial__message {
+    .vpw-guide__message {
         color: map-get($white, 1);
         font-size: 1rem;
         font-weight: 500;
@@ -87,7 +87,7 @@
         width: 100%;
     }
 
-    .vpw-tutorial__footer {
+    .vpw-guide__footer {
         display: flex;
         align-items: center;
         justify-content: space-between;
@@ -96,15 +96,15 @@
         width: 100%;
         padding-top: 16px;
 
-        .vpw-tutorial__back-btn {
-            @include tutorial-btn--text;
+        .vpw-guide__back-btn {
+            @include guide-btn--text;
         }
 
-        .vpw-tutorial__next-btn {
-            @include tutorial-btn--solid;
+        .vpw-guide__next-btn {
+            @include guide-btn--solid;
         }
 
-        .vpw-tutorial__tab-slider {
+        .vpw-guide__tab-slider {
             display: flex;
             gap: 6px;
             align-items: center;
@@ -134,7 +134,7 @@
     }
 
     @media (max-width: 600px) {
-        .vpw-tutorial__message {
+        .vpw-guide__message {
             font-size: 14px;
         }
     }
