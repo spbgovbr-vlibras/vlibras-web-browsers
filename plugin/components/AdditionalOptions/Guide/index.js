@@ -63,7 +63,7 @@ Guide.prototype.show = function () {
   u.removeClass(u.$('div[vp-change-avatar]'), 'vp-change-avatar-openned');
   callWidgetTranslator.bind(this)();
 
-  // Dispath custom event to disable text capture;
+  // Dispath custom event to disable text capture
   window.dispatchEvent(new CustomEvent('vp-disable-text-capture'));
 }
 
@@ -78,6 +78,9 @@ Guide.prototype.hide = function () {
   addClickBlocker(false);
   u.removeClass(this.helpButton, 'vp-selected');
   u.setWidgetPosition(this.wPosition);
+
+  // Dispath custom event to disable text capture
+  window.dispatchEvent(new CustomEvent('vp-enable-text-capture'));
 }
 
 Guide.prototype.toggle = function () {

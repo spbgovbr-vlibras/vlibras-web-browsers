@@ -130,6 +130,7 @@ function loadTextCaptureScript() {
 
     window.addEventListener('vp-widget-close', deactivate);
     window.addEventListener('vp-disable-text-capture', deactivate);
+    window.addEventListener('vp-enable-text-capture', activate);
   }
 
   function deactivate() {
