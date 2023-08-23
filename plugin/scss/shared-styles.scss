@@ -7,11 +7,12 @@
     border-bottom: 1px solid map-get($white, 4);
     display: flex;
     padding: 16px;
+    font-size: 14px;
     align-items: center;
     justify-content: space-between;
 
     span {
-        font-size: 14px;
+        font-size: 1em;
         font-weight: 600;
     }
 
@@ -28,6 +29,7 @@
     @media (max-width: 450px) {
         height: 38px;
         padding: 10px;
+        font-size: 12px;
     }
 }
 
