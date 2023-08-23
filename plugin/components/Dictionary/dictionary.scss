@@ -17,7 +17,12 @@ $margin_left: 40px;
         flex-direction: column;
         grid-auto-flow: 10px;
         overflow: hidden;
+        font-size: 14px;
         border-radius: 0 0 10px 10px;
+
+        @media (max-width: 450px) {
+            font-size: 12px;
+        }
 
         &.active {
             display: flex;
@@ -227,7 +232,7 @@ $margin_left: 40px;
                 }
 
                 span {
-                    font-size: 14px;
+                    font-size: 1em;
                     font-weight: 700;
                     color: map-get($blue, 4);
                     text-align: center;
