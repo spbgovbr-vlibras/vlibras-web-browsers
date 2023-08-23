@@ -35,17 +35,19 @@
     }
 
     [vp] {
+
+        .vp-rate-box-header,
+        .vp-suggestion-screen-header,
+        .vp-rate-box-content,
+        .vpw-selectTextLabel,
+        .vpw-box .vpw-mes {
+            font-size: 14px !important;
+        }
+
         .vpw-message-box {
             border-radius: 0 0 10px 10px;
         }
 
-        .vp-rate-box-content {
-            font-size: 14px;
-        }
-
-        .vpw-selectTextLabel {
-            font-size: 14px !important;
-        }
 
         [vp-guide-main-screen] {
             font-size: 16px;
@@ -66,10 +68,6 @@
                 font-size: 1em !important;
             }
 
-        }
-
-        .vpw-box .vpw-mes {
-            font-size: 14px;
         }
 
         .vpw-options-container> :last-child {
@@ -191,6 +189,11 @@
 
     @media (max-width: 450px) {
         [vp] {
+            .vpw-info__networks-container a {
+                min-width: 36px;
+                min-height: 36px;
+            }
+
             .vp-rate-box-content {
                 gap: 16px;
             }

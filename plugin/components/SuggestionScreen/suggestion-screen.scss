@@ -99,7 +99,7 @@ $control-height: 68px;
       border-radius: 5px;
       border: 1px solid map-get($white, 4);
       height: 120px;
-      font-size: 1rem !important;
+      font-size: 1em !important;
       outline: none !important;
       display: block !important;
       min-height: auto !important;
@@ -164,7 +164,6 @@ $control-height: 68px;
 
       .vp-text {
         height: 100px;
-        font-size: 1em !important;
       }
 
       .vp-suggestion-buttons-container {
