@@ -97,7 +97,7 @@ div[vw] {
   right: 0;
   top: 50%;
   transform: translateY(-50%);
-  z-index: 999999999 !important;
+  z-index: 2147483647 !important;
   display: none;
   font-family: Arial;
   color: #000;
