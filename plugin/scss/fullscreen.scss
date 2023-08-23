@@ -35,6 +35,11 @@
     }
 
     [vp] {
+
+        .vp-rate-box-content {
+            font-size: 14px;
+        }
+
         .vpw-selectTextLabel {
             font-size: 14px !important;
         }
@@ -183,6 +188,10 @@
 
     @media (max-width: 450px) {
         [vp] {
+            .vp-rate-box-content {
+                gap: 16px;
+            }
+
             .vpw-info__main {
                 padding: 16px !important;
             }

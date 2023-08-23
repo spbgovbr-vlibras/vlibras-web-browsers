@@ -3,213 +3,203 @@
 @import '~scss/shared-styles.scss';
 @import './input-range.scss';
 
-[vp] {
-  .vpw-settings {
-    position: absolute;
-    top: 40px;
+[vp] [vp-settings] {
+  position: absolute;
+  top: 40px;
+  width: 100%;
+  height: calc(100% - 40px);
+  z-index: 10;
+  display: none;
+  border-radius: 0 0 10px 10px;
+  overflow: hidden;
+  font-size: 14px;
+
+  @media (max-width: 450px) {
+    max-width: 210px;
+    font-size: 12px;
+  }
+
+  &.active {
+    display: block;
+  }
+
+  .vpw-screen-header {
+    @include vp-screen-header;
+
+  }
+
+  .vpw-settings-content {
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
     width: 100%;
-    height: calc(100% - 40px);
-    z-index: 10;
-    display: none;
-    border-radius: 0 0 10px 10px;
-    overflow: hidden;
+    height: 100%;
+    position: relative;
+    background-color: map-get($white, 1);
 
     @media (max-width: 450px) {
-      max-width: 210px;
+      height: auto;
     }
+  }
 
-    &.active {
-      display: block;
-    }
+  .vpw-options-container {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    padding: 16px;
 
-    .vpw-screen-header {
-      @include vp-screen-header;
+    .vpw-option-content {
+      color: map-get($black, 1);
+      font-size: 1em;
 
-    }
-
-    .vpw-settings-content {
-      display: flex;
-      flex-direction: column;
-      justify-content: start;
-      width: 100%;
-      height: 100%;
-      position: relative;
-      background-color: map-get($white, 1);
-
-      @media (max-width: 450px) {
-        height: auto;
+      &:first-child>div {
+        display: flex !important;
       }
-    }
 
-    .vpw-options-container {
-      width: 100%;
-      display: flex;
-      flex-direction: column;
-      gap: 16px;
-      padding: 16px;
+      p {
+        font-weight: bold;
+        margin-bottom: 16px;
+      }
 
-      .vpw-option-content {
-        color: map-get($black, 1);
-        font-size: 14px;
+      div {
+        display: block;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+        position: relative;
 
-        &:first-child>div {
-          display: flex !important;
+        span {
+          font-weight: normal;
         }
 
-        p {
-          font-weight: bold;
-          margin-bottom: 16px;
-        }
-
-        div {
-          display: block;
-          flex-direction: row;
-          justify-content: space-between;
+        .vpw-selected-region {
+          display: flex;
           align-items: center;
-          position: relative;
+          justify-content: center;
+          flex-direction: row;
+          padding: 4px;
+          border-radius: 4px;
+          position: absolute;
+          right: 0;
+          cursor: pointer;
 
-          span {
-            font-weight: normal;
-          }
-
-          .vpw-selected-region {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            flex-direction: row;
-            padding: 4px;
+          img {
+            height: 26px;
             border-radius: 4px;
-            position: absolute;
-            right: 0;
-            cursor: pointer;
-
-            img {
-              height: 26px;
-              border-radius: 4px;
-            }
-
-            span {
-              font-weight: bold;
-              color: map-get($blue, 4);
-              font-size: 16px;
-              margin: 0 6px;
-              line-height: 0;
-            }
-
-
-            &:hover {
-              background-color: map-get($white, 5);
-            }
-
-            @media (max-width: 450px) {
-              img {
-                height: 22px;
-              }
-
-              span {
-                font-size: 14px;
-              }
-            }
-
           }
-        }
-
-        .vpw-position-box {
-          width: 128px;
-          height: 114px;
-          margin-top: 16px;
-          gap: 16px;
-          outline: 1px solid #D8D9DB;
-          display: grid;
-          grid-template-columns: 24px 24px 24px;
-          grid-template-rows: 24px 24px 24px;
-          padding: 6px;
 
           span {
-            width: 24px;
-            height: 24px;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            position: relative;
+            font-weight: bold;
+            color: map-get($blue, 4);
+            margin: 0 6px;
+            line-height: 0;
+          }
 
-            svg {
-              visibility: hidden;
-              position: absolute;
-            }
 
-            &::after {
-              content: '';
-              position: absolute;
-              width: 4px;
-              height: 4px;
-              background-color: map-get($white, 2);
-              opacity: .5;
-              display: block;
-            }
-
-            &:hover {
-              background-color: map-get($white, 5);
-            }
-
-            &.vpw-select-pos {
-              cursor: default;
-
-              &::after {
-                display: none;
-              }
-
-              &:hover {
-                background-color: transparent;
-              }
-
-              svg {
-                visibility: visible;
-              }
-            }
+          &:hover {
+            background-color: map-get($white, 5);
           }
 
           @media (max-width: 450px) {
-            width: 114px;
-            height: 88px;
-            gap: 2px;
-            padding: 6px;
+            img {
+              height: 22px;
+            }
           }
-        }
 
-        .vpw-opacity-info {
+        }
+      }
+
+      .vpw-position-box {
+        width: 128px;
+        height: 114px;
+        margin-top: 16px;
+        gap: 16px;
+        outline: 1px solid #D8D9DB;
+        display: grid;
+        grid-template-columns: 24px 24px 24px;
+        grid-template-rows: 24px 24px 24px;
+        padding: 6px;
+
+        span {
+          width: 24px;
+          height: 24px;
+          cursor: pointer;
           display: flex;
-          flex-direction: row;
-          justify-content: space-between;
-        }
+          align-items: center;
+          justify-content: center;
+          position: relative;
 
-        .vpw-opacity-range {
-          @include input-range-container;
+          svg {
+            visibility: hidden;
+            position: absolute;
+          }
 
-          *:focus {
-            outline: none !important;
-            border: none !important;
+          &::after {
+            content: '';
+            position: absolute;
+            width: 4px;
+            height: 4px;
+            background-color: map-get($white, 2);
+            opacity: .5;
+            display: block;
+          }
+
+          &:hover {
+            background-color: map-get($white, 5);
+          }
+
+          &.vpw-select-pos {
+            cursor: default;
+
+            &::after {
+              display: none;
+            }
+
+            &:hover {
+              background-color: transparent;
+            }
+
+            svg {
+              visibility: visible;
+            }
           }
         }
 
+        @media (max-width: 450px) {
+          width: 114px;
+          height: 88px;
+          gap: 2px;
+          padding: 6px;
+        }
       }
 
-      @media (max-width: 450px) {
-        padding: 10px;
-        gap: 10px;
+      .vpw-opacity-info {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+      }
 
-        .vpw-option-content {
-          font-size: 12px;
+      .vpw-opacity-range {
+        @include input-range-container;
+
+        *:focus {
+          outline: none !important;
+          border: none !important;
         }
       }
 
     }
 
-    &.active {
-      visibility: visible;
+    @media (max-width: 450px) {
+      padding: 10px;
+      gap: 10px;
     }
 
+  }
+
+  &.active {
+    visibility: visible;
   }
 
 }
