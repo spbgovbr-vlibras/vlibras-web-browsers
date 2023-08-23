@@ -92,7 +92,6 @@ function loadTextCaptureScript() {
     removeTooltips();
     const tooltip = $('.vw-links');
     tooltip.innerText = linkElement.tagName === 'A' ? "Acessar link" : 'Interagir';
-    tooltip.style.display = 'block';
 
     const { clientX, clientY } = event;
     const yView = clientY > window.innerHeight - 100;
