@@ -1,9 +1,9 @@
-const { $, addClass, removeClass, canTranslate } = require('~utils');
+const { $, addClass, removeClass, canTranslate, toggleClass } = require('~utils');
 
 function loadTextCaptureScript() {
   const $root = Array.from([document.body, ...document.body.children]);
-  const vw = $('[vw]');
-  const guide = $('.vp-guide-container');
+  const $vw = $('[vw]');
+  const $guide = $('.vp-guide-container');
 
   const hasTag = (el, tags) => tags.includes(el.tagName);
   const hasTooltip = () => $('.vw-links') ? true : false;
@@ -25,7 +25,7 @@ function loadTextCaptureScript() {
 
   function isValidElement(element) {
 
-    if (vw.contains(element) || guide.contains(element)) return false;
+    if ($vw.contains(element) || $guide.contains(element)) return false;
 
     return element.matches('.vw-links') ? false
       : hasTextContent(element)
@@ -91,18 +91,21 @@ function loadTextCaptureScript() {
     if (!linkElement) return;
     removeTooltips();
     const tooltip = $('.vw-links');
-    tooltip.style.display = 'block';
     tooltip.innerText = linkElement.tagName === 'A' ? "Acessar link" : 'Interagir';
+    tooltip.style.display = 'block';
 
     const { clientX, clientY } = event;
     const yView = clientY > window.innerHeight - 100;
     const xView = clientX > window.innerWidth - 120;
+    const iWidth = window.innerWidth - clientX - 20;
 
-    tooltip.style.bottom = yView ? '20px' : 'auto';
-    tooltip.style.top = !yView ? clientY + 48 + 'px' : 'auto';
+    toggleClass(tooltip, 'vw-yView', yView);
+    toggleClass(tooltip, 'vw-xView', xView);
 
-    tooltip.style.right = xView ? '20px' : 'auto';
-    tooltip.style.left = !xView ? (clientX - 20 < 20 ? 20 : clientX - 20) + 'px' : 'auto';
+    tooltip.style.top = clientY + (yView ? -68 : 48) + 'px';
+    tooltip.style.right = xView ? (iWidth < 20 ? 20 : iWidth - 20) + 'px' : 'auto';
+    tooltip.style.left = !xView ? (clientX < 20 ? 20 : clientX - 20) + 'px' : 'auto';
+    tooltip.style.display = 'block';
 
     tooltip.onclick = (e) => clickHandler(linkElement, e);
     document.addEventListener("click", removeTooltips);
