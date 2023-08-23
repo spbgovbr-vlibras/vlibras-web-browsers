@@ -37,7 +37,7 @@ Settings.prototype.load = function (element) {
   backButton.onclick = handleReturn.bind(this);
 
   // Access regionalism button
-  const regionalismCont = this.element.querySelector('.vpw-option__regionalism');
+  const regionalismCont = this.element.querySelector('.vpw-option__regionalism div');
   const regionalismBtn = this.element.querySelector('.vpw-selected-region');
   regionalismCont.onclick = accessRegionalism.bind(this);
   regionalismBtn.onclick = accessRegionalism.bind(this);
