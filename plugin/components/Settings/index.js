@@ -37,7 +37,9 @@ Settings.prototype.load = function (element) {
   backButton.onclick = handleReturn.bind(this);
 
   // Access regionalism button
+  const regionalismCont = this.element.querySelector('.vpw-option__regionalism');
   const regionalismBtn = this.element.querySelector('.vpw-selected-region');
+  regionalismCont.onclick = accessRegionalism.bind(this);
   regionalismBtn.onclick = accessRegionalism.bind(this);
   setRegion.bind(this)({ path: 'BR', flag: 'assets/brazil.png', });
 
@@ -57,7 +59,6 @@ Settings.prototype.load = function (element) {
 
   // eslint-disable-next-line guard-for-in
   for (const region of regionsData) {
-
     const element = document.createElement('div');
     element.classList.add('vpw-region');
     element.innerHTML = regionHTML;
