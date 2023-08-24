@@ -44,13 +44,6 @@ ChangeAvatar.prototype.load = function (element) {
       this.player.avatar = avatar;
     }.bind(this)
   );
-
-  this.player.on(
-    'stop:welcome',
-    function () {
-      this.element.classList.add('active');
-    }.bind(this)
-  );
 };
 
 ChangeAvatar.prototype.show = function () {
