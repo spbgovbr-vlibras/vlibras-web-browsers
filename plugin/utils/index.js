@@ -41,10 +41,8 @@ const removeClass = (element, clss) => {
   element.classList.remove(clss);
 }
 
-const toggleClass = (element, clss, bool) => {
-  if (bool == undefined) element.classList.toggle(clss);
-  else if (bool) addClass(element, clss);
-  else removeClass(element, clss);
+const toggleClass = (element, clss, bool = undefined) => {
+  element.classList.toggle(clss, bool);
 }
 
 const getRect = (element) => {
