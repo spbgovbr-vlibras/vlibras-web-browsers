@@ -3,9 +3,11 @@ require('./guide-main-screen.scss');
 
 const u = require('~utils');
 const LOCAL_KEY = '@vp-guide';
+const GUIDE_INTRO_MESSAGE = 'PRIMEIRO&ORDINAL VEZ AQUI [INTERROGAÇÃO] ' +
+  'QUE APRENDER MAIS&QUANTIDADE SOBRE&ASSUNTO FUNCIONAL [INTERROGAÇÃO]'
 
 let boundUpdatePos = null;
-let boundPlayer = null;
+let vwPlayer = null;
 
 function GuideMainScreen(guide, player) {
   this.element = null;
@@ -21,44 +23,43 @@ GuideMainScreen.prototype.load = function (element) {
   const acceptButton = u.$('.vpw-guide-main__accept-btn');
   const denyButton = u.$('.vpw-guide-main__deny-btn');
   boundUpdatePos = updatePosition.bind(this);
-  boundPlayer = this.player;
+  vwPlayer = this.player;
 
   acceptButton.onclick = () => {
     this.hide();
     this.guide.show();
-    saveDefault(false);
   }
 
   denyButton.onclick = () => {
     this.hide();
-    saveDefault(false);
   }
+
 }
 
 GuideMainScreen.prototype.show = function () {
-  if (!getDefault()) return;
+  if (!getDefault() || this.enabled) return;
   this.enabled = true;
   u.addClass(this.element, 'vp-enabled')
+  u.addClickBlocker(true);
   updatePosition.bind(this)();
+  hideAdditionalOptions(true);
   addEvents();
+
+  vwPlayer.play(GUIDE_INTRO_MESSAGE);
 }
 
 GuideMainScreen.prototype.hide = function () {
   if (!this.enabled) return;
   this.enabled = false;
   u.removeClass(this.element, 'vp-enabled');
+  saveDefault(false);
+  hideAdditionalOptions(false);
   removeEvents();
 }
 
 GuideMainScreen.prototype.toggle = function () {
   if (this.enabled) this.hide();
   else this.show();
-}
-
-GuideMainScreen.prototype.disable = function () {
-  saveDefault(false);
-  this.enabled = false;
-  this.hide();
 }
 
 function updatePosition() {
@@ -93,8 +94,17 @@ function getDefault() {
   return value !== 'false';
 }
 
-function clickToDisable() {
-  u.$('.vpw-guide-main__deny-btn').click()
+function boundHide() {
+  vwPlayer.gloss = undefined;
+  u.removeClass(u.$('[vp-guide-main-screen]'), 'vp-enabled');
+  u.addClickBlocker(false);
+  saveDefault(false);
+  removeEvents();
+}
+
+function hideAdditionalOptions(bool) {
+  u.toggleClass(u.$('[vp-change-avatar]'), 'vp--off', bool);
+  u.toggleClass(u.$('[vp-additional-options]'), 'vp--off', bool);
 }
 
 function saveDefault(bool) {
@@ -103,16 +113,14 @@ function saveDefault(bool) {
 
 function addEvents() {
   u._on(window, 'resize', boundUpdatePos);
-  u._on(window, 'click', clickToDisable);
   u._on(window, 'vp-widget-wrapper-set-side', boundUpdatePos);
-  boundPlayer.addListener('translate:start', clickToDisable);
+  u._vwOn(vwPlayer, 'translate:start', boundHide)
 }
 
 function removeEvents() {
   u._off(window, 'resize', boundUpdatePos);
-  u._off(window, 'click', clickToDisable);
   u._off(window, 'vp-widget-wrapper-set-side', boundUpdatePos);
-  boundPlayer.removeListener('translate:start', clickToDisable);
+  u._vwOff(vwPlayer, 'translate:start', boundHide)
 }
 
 module.exports = GuideMainScreen;

@@ -126,13 +126,13 @@ function Plugin(options) {
     this.player.stop();
     this.rateBox.hide();
     this.suggestionScreen.hide();
-    this.translator.hide();
   });
 
   let control = 0;
   this.player.on('translate:start', () => {
     control = 1;
     this.ChangeAvatar.hide();
+    this.additionalOptions.hide();
     this.controls.setProgress();
     this.loadingRef = this.messageBox.show('info', ALERT_MESSAGES.TRANSLATING_TEXT);
   });
@@ -147,8 +147,6 @@ function Plugin(options) {
     this.additionalOptions.hide();
     this.rateBox.hide();
     this.suggestionScreen.hide();
-    this.translator.hide();
-    this.guideMainScreen.disable();
   });
 
   this.player.on('gloss:end', (globalGlosaLenght) => {
