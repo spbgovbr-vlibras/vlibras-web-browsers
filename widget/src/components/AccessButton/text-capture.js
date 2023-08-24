@@ -94,9 +94,9 @@ function loadTextCaptureScript() {
     tooltip.innerText = linkElement.tagName === 'A' ? "Acessar link" : 'Interagir';
 
     const { clientX, clientY } = event;
-    const yView = clientY > window.innerHeight - 100;
-    const xView = clientX > window.innerWidth - 120;
-    const iWidth = window.innerWidth - clientX - 20;
+    const yView = clientY > innerHeight - 100;
+    const xView = clientX > innerWidth - 120;
+    const iWidth = innerWidth - clientX - 20;
 
     toggleClass(tooltip, 'vw-yView', yView);
     toggleClass(tooltip, 'vw-xView', xView);
