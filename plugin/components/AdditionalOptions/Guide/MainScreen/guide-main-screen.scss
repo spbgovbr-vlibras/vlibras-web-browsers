@@ -17,9 +17,25 @@
     border-bottom: 1px solid map-get($white, 4);
     overflow: hidden;
     visibility: hidden;
-    bottom: 0;
-    height: 0;
+    top: 0;
+    height: auto !important;
     transition: all .3s ease;
+    transform: scale(0);
+    transform-origin: top right;
+    box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.15);
+
+    &.vw-isLeft {
+        transform-origin: top left;
+    }
+
+    &.vw-isTopOrBottom .vpw-guide-main__buttons-container {
+        flex-direction: row !important;
+
+        button :nth-child(2) {
+            display: none !important;
+        }
+
+    }
 
     .vpw-guide-main__title {
         font-size: 1.2em;
@@ -52,22 +68,32 @@
 
             width: 100%
         }
+
+        @media (max-width: 600px) {
+            flex-direction: row;
+
+            button {
+                font-size: 12px !important;
+
+                :nth-child(2) {
+                    display: none !important;
+                }
+            }
+        }
+
+        @media (max-width: 500px) {
+            flex-direction: column;
+        }
     }
 
-
-    @media (max-width: 450px) {
+    @media (max-width: 600px) {
         padding: 10px;
         font-size: 12px;
     }
 
-
     &.vp-enabled {
         z-index: 6 !important;
-        height: 45%;
         visibility: visible;
-
-        @media (max-width: 450px) {
-            height: 55%;
-        }
+        transform: scale(1);
     }
 }

@@ -7,6 +7,8 @@ const { closeIcon } = require('~icons');
 const { guideElements } = require('./guide-elements');
 
 let $vw = null;
+let boundCallTranslator = null;
+let playerManager = null;
 
 function Guide(player) {
   this.player = player;
@@ -32,6 +34,8 @@ Guide.prototype.load = function (element) {
   this.nextButton = u.$('.vpw-guide__next-btn', this.element);
   this.closeButton = u.$('.vpw-guide__close-btn', this.element);
   this.tabSlider = u.$('.vpw-guide__tab-slider', this.element);
+
+  playerManager = this.player.playerManager;
   $vw = u.$('div[vw]');
 
   // Add icon
@@ -58,7 +62,7 @@ Guide.prototype.show = function () {
   this.updateFooter();
   this.addHighlight();
   fixedButtons();
-  addClickBlocker(true);
+  u.addClickBlocker(true);
   u.addClass(this.helpButton, 'vp-selected');
   u.removeClass(u.$('div[vp-change-avatar]'), 'vp-change-avatar-openned');
   callWidgetTranslator.bind(this)();
@@ -75,9 +79,10 @@ Guide.prototype.hide = function () {
   this.player.gloss = undefined;
   resetItems();
   removeHighlight();
-  addClickBlocker(false);
+  u.addClickBlocker(false);
   u.removeClass(this.helpButton, 'vp-selected');
   u.setWidgetPosition(this.wPosition);
+  u._vwOff(playerManager, 'CounterGloss', boundCallTranslator);
 
   // Dispath custom event to disable text capture
   window.dispatchEvent(new CustomEvent('vp-enable-text-capture'));
@@ -135,7 +140,7 @@ Guide.prototype.updatePosition = function () {
       u.setWidgetPosition(this.wPosition);
       updateArrow.bind(this)();
 
-    } else if (window.innerWidth >= 600) {
+    } else if (innerWidth >= 600) {
       this.element.style.left = isLeft ? width + 30 + 'px' : 'initial';
       this.element.style.right = !isLeft ? width + 30 + 'px' : 'initial';
       this.element.style.top = top + 'px';
@@ -178,7 +183,7 @@ Guide.prototype.updatePosition = function () {
   }
 
   function fitInHalfWindow() {
-    return window.innerWidth / 2 >= eWidth + 30 + (wWidth / 2);
+    return innerWidth / 2 >= eWidth + 30 + (wWidth / 2);
   }
 
 }
@@ -219,17 +224,14 @@ function callWidgetTranslator() {
   if (play) text = text.split('//')[0];
   this.player.translate(text);
 
-  this.player.playerManager.on('CounterGloss', (i, max) => {
+  boundCallTranslator = (i, max) => {
     if (!play || !this.enabled || i !== max - 1) return;
     this.player.play(play);
     play = false;
-  })
-}
+  }
 
-function addClickBlocker(bool) {
-  const element = u.$('span[vp-click-blocker]');
-  if (bool) u.addClass(element, 'vp-enabled');
-  else u.removeClass(element, 'vp-enabled');
+  u._vwOff(playerManager, 'CounterGloss', boundCallTranslator);
+  u._vwOn(playerManager, 'CounterGloss', boundCallTranslator);
 }
 
 function resetItems() {
