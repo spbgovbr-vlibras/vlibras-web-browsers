@@ -90,13 +90,13 @@ export const _off = (element, event, callback) => {
   element.removeEventListener(event, callback);
 }
 
-// Add an listener to an plugin elemen (ex.: player or playerManager)
-// That's equivalent to: [ex.] player.on('translate:start', callback)
+// Add an listener to an Plugin element (ex.: player or playerManager)
+// That's equivalent to: [ex.] player.on('gloss:end', callback)
 export const _vwOn = (element, event, callback) => {
   element.addListener(event, callback)
 }
 
-// Remove an listener from an element (ex.: player or playerManager)
+// Remove an listener from an Plugin element (ex.: player or playerManager)
 export const _vwOff = (element, event, callback) => {
   element.removeListener(event, callback)
 }
