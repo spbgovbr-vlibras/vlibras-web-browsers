@@ -91,7 +91,7 @@ export const _off = (element, event, callback) => {
 }
 
 // Add an listener to an Plugin element (ex.: player or playerManager)
-// That's equivalent to: [ex.] player.on('gloss:end', callback)
+// That's equivalent, ex., to: player.on('gloss:end', callback)
 export const _vwOn = (element, event, callback) => {
   element.addListener(event, callback)
 }

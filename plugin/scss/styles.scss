@@ -1,61 +1,92 @@
 @import url('https://fonts.cdnfonts.com/css/rawline');
 
-[vp] * {
-  box-sizing: border-box;
-  -webkit-box-sizing: border-box;
-  font-family: 'Rawline', 'Open Sans', sans-serif !important;
-}
-
 [vp] {
   font-size: 16px;
   height: 100%;
   width: 100%;
   position: relative;
-}
 
-[vp] [vp-blue-button] {
-  padding: 7px;
-  border-radius: 6px;
-  font-size: 12px;
-  text-align: center;
-  font-weight: bold;
-  color: white;
-  background-color: #003f86;
-  cursor: pointer;
-  margin: 10px 5px;
-  align-self: center;
-}
-
-[vp] [vp-visualize-signal-button] {
-  padding: 7px;
-  border-radius: 6px;
-  font-size: 12px;
-  text-align: center;
-  font-weight: bold;
-  color: #003f86;
-  background: white;
-  border: 1px solid #003f86;
-  cursor: pointer;
-  margin: 10px 5px;
-  align-self: center;
-}
-
-[vp] [vp-close-button] {
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  align-items: center;
-  width: 28px;
-  height: 28px;
-  border-radius: 14px;
-  background-color: #b3b3b3;
-  cursor: pointer;
-
-  img {
-    width: 100%;
+  * {
+    box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    font-family: 'Rawline', 'Open Sans', sans-serif !important;
   }
-}
 
-#gameContainer {
-  background: rgb(235, 235, 235) !important;
+  [vp-blue-button] {
+    padding: 7px;
+    border-radius: 6px;
+    font-size: 12px;
+    text-align: center;
+    font-weight: bold;
+    color: white;
+    background-color: #003f86;
+    cursor: pointer;
+    margin: 10px 5px;
+    align-self: center;
+  }
+
+  [vp-visualize-signal-button] {
+    padding: 7px;
+    border-radius: 6px;
+    font-size: 12px;
+    text-align: center;
+    font-weight: bold;
+    color: #003f86;
+    background: white;
+    border: 1px solid #003f86;
+    cursor: pointer;
+    margin: 10px 5px;
+    align-self: center;
+  }
+
+  [vp-close-button] {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    width: 28px;
+    height: 28px;
+    border-radius: 14px;
+    background-color: #b3b3b3;
+    cursor: pointer;
+
+    img {
+      width: 100%;
+    }
+  }
+
+  #gameContainer {
+    background: rgb(235, 235, 235) !important;
+  }
+
+  .vp--off {
+    display: none !important;
+  }
+
+  .vp--shaker {
+    animation: shaker 0.7s ease-in-out infinite !important;
+
+    @keyframes shaker {
+
+      0%,
+      100% {
+        transform: translateX(0);
+      }
+
+      10%,
+      30%,
+      50%,
+      70%,
+      90% {
+        transform: translateX(-5px);
+      }
+
+      20%,
+      40%,
+      60%,
+      80% {
+        transform: translateX(5px);
+      }
+    }
+  }
 }
