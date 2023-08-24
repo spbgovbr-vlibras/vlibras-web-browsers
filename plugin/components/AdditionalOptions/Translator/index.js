@@ -47,7 +47,6 @@ Translator.prototype.load = function (element) {
 Translator.prototype.show = function () {
   this.element.classList.add('vp-enabled');
   this.enabled = true;
-  this.guideMainScreen.hide();
 }
 
 Translator.prototype.hide = function () {
