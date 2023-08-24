@@ -2,7 +2,7 @@ const template = require('./additional-options.html').default;
 require('./additional-options.scss');
 
 const { translatorIcon, helpIcon } = require('~icons');
-const { $ } = require('~utils');
+const { $, hasClass, toggleClass, removeClass } = require('~utils');
 
 function AdditionalOptions(player, translator, guide) {
   this.player = player;
@@ -17,6 +17,7 @@ AdditionalOptions.prototype.load = function (element) {
 
   const translatorBtn = $('.vpw-translator-button', this.element);
   const helpBtn = $('.vpw-help-button', this.element);
+  const clickBlocker = $('[vp-click-blocker]');
 
   // Add icons
   translatorBtn.innerHTML = translatorIcon;
@@ -25,27 +26,12 @@ AdditionalOptions.prototype.load = function (element) {
   // Add actions
   translatorBtn.onclick = () => this.translator.toggle();
   helpBtn.onclick = () => this.guide.toggle();
+  clickBlocker.onclick = applyShaker;
 
   window.addEventListener('resize', () => {
     if (!this.guide.enabled) return;
     this.guide.updatePosition();
   })
-
-  this.player.on('translate:start', _start.bind(this));
-  this.player.on('gloss:start', _start.bind(this));
-
-  this.player.on('gloss:end', _end.bind(this));
-  this.player.on('stop:welcome', _end.bind(this));
-
-  function _start() {
-    translatorBtn.style.display = 'none';
-    helpBtn.style.display = 'none';
-  }
-
-  function _end() {
-    translatorBtn.style.display = 'flex';
-    helpBtn.style.display = 'flex';
-  }
 
 }
 
@@ -55,6 +41,13 @@ AdditionalOptions.prototype.show = function () {
 
 AdditionalOptions.prototype.hide = function () {
   this.element.classList.remove('vp-enabled');
+}
+
+function applyShaker() {
+  const guideMainScreen = $('[vp-guide-main-screen');
+  const has = hasClass(guideMainScreen, 'vp-enabled');
+  toggleClass(guideMainScreen, 'vp--shaker', has);
+  setTimeout(() => removeClass(guideMainScreen, 'vp--shaker'), 500);
 }
 
 module.exports = AdditionalOptions;
