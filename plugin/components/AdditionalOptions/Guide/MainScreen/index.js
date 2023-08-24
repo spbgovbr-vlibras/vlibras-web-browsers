@@ -8,6 +8,7 @@ const GUIDE_INTRO_MESSAGE = 'PRIMEIRO&ORDINAL VEZ AQUI [INTERROGAÇÃO] ' +
 
 let boundUpdatePos = null;
 let vwPlayer = null;
+let boundHide = null;
 
 function GuideMainScreen(guide, player) {
   this.element = null;
@@ -24,6 +25,7 @@ GuideMainScreen.prototype.load = function (element) {
   const denyButton = u.$('.vpw-guide-main__deny-btn');
   boundUpdatePos = updatePosition.bind(this);
   vwPlayer = this.player;
+  boundHide = () => this.hide();
 
   acceptButton.onclick = () => {
     this.hide();
@@ -51,7 +53,9 @@ GuideMainScreen.prototype.show = function () {
 GuideMainScreen.prototype.hide = function () {
   if (!this.enabled) return;
   this.enabled = false;
+  vwPlayer.gloss = undefined;
   u.removeClass(this.element, 'vp-enabled');
+  u.addClickBlocker(false);
   saveDefault(false);
   hideAdditionalOptions(false);
   removeEvents();
@@ -86,20 +90,11 @@ function updatePosition() {
     this.element.style.left = isLeft ? wWidth + 10 + 'px' : 'auto';
     this.element.style.right = !isLeft ? wWidth + 10 + 'px' : 'auto';
   }
-
 }
 
 function getDefault() {
   const value = localStorage.getItem(LOCAL_KEY);
   return value !== 'false';
-}
-
-function boundHide() {
-  vwPlayer.gloss = undefined;
-  u.removeClass(u.$('[vp-guide-main-screen]'), 'vp-enabled');
-  u.addClickBlocker(false);
-  saveDefault(false);
-  removeEvents();
 }
 
 function hideAdditionalOptions(bool) {
