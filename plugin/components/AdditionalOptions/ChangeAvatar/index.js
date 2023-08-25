@@ -12,7 +12,6 @@ function ChangeAvatar(player) {
 ChangeAvatar.prototype.load = function (element) {
   this.element = element;
   this.element.innerHTML = template;
-  this.player.avatar = 'icaro';
   const buttons = this.element.querySelectorAll('.vp-button-change-avatar');
 
   buttons.forEach((button, i) => {
@@ -36,14 +35,20 @@ ChangeAvatar.prototype.load = function (element) {
 
   selectButton(buttons[0]);
 
-  this.player.on(
-    'GetAvatar',
-    function (avatar) {
-      selectButton(buttons[avatars.indexOf(avatar)])
+  this.player.on('GetAvatar', function (avatar) {
+    selectButton(buttons[avatars.indexOf(avatar)])
+    this.player.playWellcome();
+    this.player.avatar = avatar;
+  }.bind(this));
+
+
+  if (!this.avatar) {
+    setTimeout(() => {
+      this.player.avatar = 'icaro';
       this.player.playWellcome();
-      this.player.avatar = avatar;
-    }.bind(this)
-  );
+    }, 500);
+  }
+
 };
 
 ChangeAvatar.prototype.show = function () {
