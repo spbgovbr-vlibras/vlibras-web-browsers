@@ -1,66 +1,102 @@
-const isFullscreen = () => {
+// Check if the widget is in fullscreen mode
+export const isFullscreen = () => {
   return hasClass(document.body, 'vpw-fullscreen');
 }
 
-const isPlaying = () => {
+// Check if the widget is playing
+export const isPlaying = () => {
   return hasClass($('div[vp-controls]'), 'vpw-playing');
 }
 
-const getAvatar = () => {
+// Get Widget's current avatar
+export const getAvatar = () => {
   return window.plugin.player.avatar;
 }
 
-const getWidgetPosition = () => {
+// Get Widget's current position
+export const getWidgetPosition = () => {
   return window.plugin ? window.plugin.position : undefined;
 }
 
-function setWidgetPosition(position) {
+// Set Widget's position
+export const setWidgetPosition = (position) => {
   window.dispatchEvent(new CustomEvent('vp-widget-wrapper-set-side',
     { detail: position }));
 }
 
-const $ = (path, element = null) => {
+// Select an element using a CSS selector, optionally within a specific parent element
+export const $ = (path, element = null) => {
   return element ? element.querySelector(path) : $(path, document);
 }
 
-const $$ = (path, element = null) => {
+// Select multiple elements using a CSS selector, optionally within a specific parent element
+export const $$ = (path, element = null) => {
   return element ? element.querySelectorAll(path) : $$(path, document);
 }
 
-const $0 = document.body;
+// Shortcut for selecting the body element
+export const $0 = document.body;
 
-const hasClass = (element, clss) => {
+// Check if an element has a specific class
+export const hasClass = (element, clss) => {
   return element ? element.classList.contains(clss) : undefined;
 }
 
-const addClass = (element, clss) => {
+// Add a class to an element
+export const addClass = (element, clss) => {
   element.classList.add(clss);
 }
 
-const removeClass = (element, clss) => {
+// Get the dimensions of the document's client area
+export const getDocumentDim = () => {
+  const { clientWidth, clientHeight } = document.documentElement;
+  return { w: clientWidth, h: clientHeight }
+}
+
+// Remove a class from an element
+export const removeClass = (element, clss) => {
   element.classList.remove(clss);
 }
 
-const toggleClass = (element, clss, bool) => {
-  if (bool == undefined) element.classList.toggle(clss);
-  else if (bool) addClass(element, clss);
-  else removeClass(element, clss);
+// Toggle a class on an element, optionally controlled by a boolean
+export const toggleClass = (element, clss, bool = undefined) => {
+  element.classList.toggle(clss, bool);
 }
 
-const getRect = (element) => {
+// Get the bounding rectangle of an element
+export const getRect = (element) => {
   return element.getBoundingClientRect();
 }
 
-const canClick = () => {
-  return hasClass($('[vp-controls]'), '.vpw-controls')
-    && !hasClass($('[vp-guide-main-screen]'), 'vp-enabled')
+// Enable or disable Widget's clicks
+export const addClickBlocker = (bool) => {
+  toggleClass($('[vp-click-blocker]'), 'vp-enabled', bool);
+}
+
+// Check if translation is possible (used in text capture)
+export const canTranslate = () => {
+  return hasClass($('[vp-controls]'), 'vpw-controls')
     && !hasClass($('.vp-guide-container'), 'vp-enabled')
     && hasClass($('[vw-plugin-wrapper]'), 'active');
 }
 
-export {
-  isPlaying, isFullscreen, $, $$, $0, getAvatar,
-  hasClass, addClass, removeClass, toggleClass,
-  setWidgetPosition, getWidgetPosition, getRect,
-  canClick
+// Add an event listener to an element
+export const _on = (element, event, callback) => {
+  element.addEventListener(event, callback);
+}
+
+// Remove an event listener from an element
+export const _off = (element, event, callback) => {
+  element.removeEventListener(event, callback);
+}
+
+// Add an listener to an Plugin element (ex.: player or playerManager)
+// That's equivalent, ex., to: player.on('gloss:end', callback)
+export const _vwOn = (element, event, callback) => {
+  element.addListener(event, callback)
+}
+
+// Remove an listener from an Plugin element (ex.: player or playerManager)
+export const _vwOff = (element, event, callback) => {
+  element.removeListener(event, callback)
 }

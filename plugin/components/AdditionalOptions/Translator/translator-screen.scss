@@ -15,28 +15,9 @@ $control-height: 68px;
     padding: 0;
     background-color: white;
     z-index: 5;
+    font-size: 14px;
     border-radius: 10px;
-
     transition: all .3s ease;
-
-    ::-webkit-scrollbar {
-        width: 10px;
-    }
-
-    /* Track */
-    ::-webkit-scrollbar-track {
-        background: #d1d1d1f1 !important;
-    }
-
-    /* Handle */
-    ::-webkit-scrollbar-thumb {
-        background: rgb(139, 139, 153);
-    }
-
-    /* Handle on hover */
-    ::-webkit-scrollbar-thumb:hover {
-        background: #555;
-    }
 
     .vp-translator-screen-header {
         @include vp-header;
@@ -57,7 +38,7 @@ $control-height: 68px;
             width: 100%;
             text-align: left;
             font-weight: 700;
-            font-size: 14px;
+            font-size: 1em;
             color: map-get($black, 1);
         }
 
@@ -68,7 +49,7 @@ $control-height: 68px;
             border-radius: 5px;
             border: 1px solid map-get($white, 4);
             height: 160px;
-            font-size: 1rem !important;
+            font-size: 1em !important;
             outline: none !important;
             display: block !important;
 
@@ -106,6 +87,8 @@ $control-height: 68px;
     }
 
     @media (max-width: 450px) {
+        font-size: 14px;
+
         .vp-translator-screen-content {
             gap: 6px;
             padding: 10px;
@@ -113,7 +96,6 @@ $control-height: 68px;
 
             .vp-text {
                 height: 120px;
-                font-size: .8rem !important;
             }
 
             .vp-translator-buttons-container {

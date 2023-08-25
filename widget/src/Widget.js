@@ -80,9 +80,6 @@ module.exports = function Widget(rootPath, personalization, opacity, position) {
       addClass($('div[vp-additional-options]'), 'vp-enabled');
       removeClass($('div[vp-controls]'), 'vpw-selectText');
 
-
-      document.body.removeChild(document.querySelector('.vw-links'));
-
       const tagsTexts = document.querySelectorAll('.vw-text');
       for (let i = 0; i < tagsTexts.length; i++) {
         const parent = tagsTexts[i].parentNode;
@@ -107,32 +104,3 @@ module.exports = function Widget(rootPath, personalization, opacity, position) {
 
   };
 };
-
-new MutationObserver((mutations) => {
-  if (!document.querySelector('vlibraswidget')) return;
-  const vw = document.querySelector('[vw]');
-
-  mutations.forEach(mut => {
-    if (mut.addedNodes.length === 0) return;
-
-    try {
-      mut.addedNodes.forEach(node => {
-        node.querySelectorAll(
-          'span, h1, h2, h3, h4, h5, h6, label, p, button, div'
-        ).forEach(el => {
-          if (vw.contains(el)) return;
-          const firstChild = el.children[0];
-
-          if (firstChild || !el.textContent) return;
-
-          el.innerHTML = '<vlibraswidget class="vw-text">'
-            + el.textContent + '</vlibraswidget>';
-
-          el.addEventListener('click',
-            () => window.plugin.player.translate(el.textContent));
-        });
-      });
-    } catch { }
-  })
-
-}).observe(document.body, { childList: true, subtree: true });

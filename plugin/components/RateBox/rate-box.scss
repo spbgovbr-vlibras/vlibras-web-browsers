@@ -1,4 +1,5 @@
 @import '~scss/default-buttons.scss';
+@import '~scss/shared-styles.scss';
 @import '~scss/colors.scss';
 
 $controls_height: 48px;
@@ -17,33 +18,10 @@ $controls_height: 48px;
   overflow: hidden;
 
   .vp-rate-box-header {
-    width: 100%;
-    height: 48px;
-    border-bottom: 1px solid map-get($white, 4);
-    display: flex;
-    padding: 16px;
-    align-items: center;
-    justify-content: space-between;
+    @include vp-header;
 
-    span {
-      font-size: 14px;
-      font-weight: 600;
-    }
-
-    button {
-      @include control-button;
-
-      svg>* {
-        fill: map-get($blue, 4);
-      }
-
-      transition: transform .3s;
-
-      &.vp-expanded {
-        svg {
-          transform: rotate(180deg);
-        }
-      }
+    button.vp-expanded svg {
+      transform: rotate(180deg);
     }
 
   }
@@ -59,10 +37,11 @@ $controls_height: 48px;
     gap: 16px;
     padding: 10px;
     overflow: hidden;
+    font-size: 14px;
     border-bottom: 1px solid map-get($white, 4);
 
     span {
-      font-size: 16px;
+      font-size: 1em;
       font-weight: 600;
       color: map-get($black, 1);
     }
@@ -76,6 +55,7 @@ $controls_height: 48px;
 
     button {
       @include rate-button;
+      font-size: .9em;
 
       svg {
         width: 24px;
@@ -141,10 +121,7 @@ $controls_height: 48px;
     .vp-rate-box-content {
       height: calc(100% - 86px);
       gap: 0;
-
-      span {
-        font-size: 12px;
-      }
+      font-size: 12px;
     }
 
   }

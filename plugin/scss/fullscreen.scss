@@ -35,33 +35,39 @@
     }
 
     [vp] {
-        .vpw-selectTextLabel {
+
+        .vp-rate-box-header,
+        .vp-suggestion-screen-header,
+        .vp-rate-box-content,
+        .vpw-selectTextLabel,
+        .vpw-box .vpw-mes {
             font-size: 14px !important;
         }
 
-        [vp-guide-main-screen] {
+        .vpw-message-box {
+            border-radius: 0 0 10px 10px;
+        }
+
+
+        [vp-main-guide-screen] {
             font-size: 16px;
             height: 40% !important;
             border-radius: 10px 10px 0 0;
 
-            .vpw-guide-main__title {
+            .vpw-guide__main__title {
                 font-size: 1.2em;
             }
 
-            .vpw-guide-main__desc {
+            .vpw-guide__main__desc {
                 font-size: 1em;
             }
 
-            .vpw-guide-main__accept-btn,
-            .vpw-guide-main__deny-btn {
+            .vpw-guide__main__accept-btn,
+            .vpw-guide__main__deny-btn {
                 height: 36px !important;
                 font-size: 1em !important;
             }
 
-        }
-
-        .vpw-box .vpw-mes {
-            font-size: 14px;
         }
 
         .vpw-options-container> :last-child {
@@ -91,6 +97,7 @@
         .vpw-controls {
             gap: 10px !important;
             height: 48px !important;
+            padding: 0 16px !important;
 
             .vpw-controls-fullscreen {
 
@@ -136,6 +143,10 @@
                 height: 36px !important;
             }
         }
+
+        .vp-guide-highlight {
+            transform-origin: center 150% !important;
+        }
     }
 
     @media (min-width: 600px) {
@@ -178,13 +189,45 @@
 
     @media (max-width: 450px) {
         [vp] {
-            [vp-guide-main-screen] {
+            .vpw-info__networks-container a {
+                min-width: 36px;
+                min-height: 36px;
+            }
+
+            .vp-rate-box-content {
+                gap: 16px;
+            }
+
+            .vpw-info__main {
+                padding: 16px !important;
+            }
+
+            [vp-main-guide-screen] {
                 padding: 16px;
 
                 &.vp-enabled {
                     height: 35%;
                 }
 
+            }
+
+            [vp-suggestion-screen] {
+                .vp-suggestion-screen-content {
+                    padding: 16px;
+                }
+
+                .vp-suggestion-screen-header {
+                    height: 48px;
+                    padding: 16px;
+                }
+            }
+
+            [vp-rate-box].vp-enabled {
+                height: 96px;
+
+                .vp-rate-box-header {
+                    height: 48px;
+                }
             }
 
             [vp-change-avatar],
