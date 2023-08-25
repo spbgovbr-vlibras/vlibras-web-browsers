@@ -135,6 +135,7 @@ function Plugin(options) {
     this.additionalOptions.hide();
     this.controls.setProgress();
     this.loadingRef = this.messageBox.show('info', ALERT_MESSAGES.TRANSLATING_TEXT);
+    this.closeScreen.closeAll();
   });
 
   this.player.on('translate:end', () => {

@@ -66,14 +66,6 @@ SettingsBtn.prototype.load = function (
     );
   });
 
-  function selectButton(button) {
-    if (button) button.classList.toggle('selected');
-
-    [settingsBtn, dictionaryBtn, aboutBtn]
-      .filter(btn => btn !== button)
-      .forEach(btn => btn.classList.remove('selected'));
-  }
-
   const showScreen = function (screen, btn) {
     if (screen == this.dictionary && !loadedDict) {
       loadDictionary();
@@ -89,7 +81,6 @@ SettingsBtn.prototype.load = function (
       });
 
     if (screen) screen.toggle();
-    selectButton(btn);
   }.bind(this);
 
 };

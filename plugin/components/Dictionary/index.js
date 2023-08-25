@@ -13,6 +13,7 @@ function Dictionary(player) {
   this.visible = false;
   this.player = player;
   this.closeScreen = null;
+  this.button = null;
 }
 
 inherits(Dictionary, EventEmitter);
@@ -21,6 +22,7 @@ Dictionary.prototype.load = function (element, closeScreen) {
   this.element = element;
   this.element.innerHTML = dictionaryTpl;
   this.element.classList.add('vpw-dictionary');
+  this.button = document.querySelector('.vpw-header-btn-dictionary');
   this.closeScreen = closeScreen;
 
   const backButton = this.element.querySelector('.vpw-btn-close');
@@ -181,7 +183,6 @@ Dictionary.prototype.load = function (element, closeScreen) {
 Dictionary.prototype._onItemClick = function (event, word) {
   this.closeScreen.closeAll();
   this.player.play(event);
-  document.querySelector('.vpw-header-btn-dictionary').classList.remove('selected')
 
   if (this.element.querySelectorAll('.buttons-container button')[1]
     .classList.contains('vp-selected')
@@ -205,12 +206,14 @@ Dictionary.prototype.toggle = function () {
 Dictionary.prototype.hide = function () {
   this.visible = false;
   this.element.classList.remove('active');
+  this.button.classList.remove('selected');
   this.emit('hide');
 };
 
 Dictionary.prototype.show = function () {
   this.visible = true;
   this.element.classList.add('active');
+  this.button.classList.add('selected');
   this.emit('show');
 };
 
