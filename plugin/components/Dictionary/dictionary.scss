@@ -4,7 +4,7 @@
 $margin_left: 40px;
 
 [vp] {
-    .vpw-dictionary {
+    [vp-dictionary] {
         display: none;
         position: absolute;
         top: 40px;
@@ -102,10 +102,7 @@ $margin_left: 40px;
             border-top: 1px solid #DDD;
             padding-top: 10px;
 
-            @media(max-width: 450px) {
-                height: 25px;
-                padding: 30px 0px 13px;
-            }
+            @media(max-width: 450px) {}
 
             button {
                 background: map-get($white, 1);
@@ -117,7 +114,7 @@ $margin_left: 40px;
                 margin-bottom: 10px;
                 color: map-get($white, 2);
                 padding: 0 16px;
-                font-size: 14px;
+                font-size: 1em;
                 font-weight: 600;
                 cursor: pointer;
 
@@ -133,7 +130,6 @@ $margin_left: 40px;
 
                 @media(max-width: 450px) {
                     height: 30px;
-                    font-size: 12px;
                     padding: 0 10px;
                     height: 26px;
                 }
@@ -145,7 +141,6 @@ $margin_left: 40px;
             display: none;
             height: 100%;
             width: 100%;
-            font-size: 1rem;
             overflow: auto;
 
             &.enabled {
@@ -171,7 +166,7 @@ $margin_left: 40px;
                 }
 
                 li {
-                    font-size: 14px;
+                    font-size: 1em;
                     cursor: pointer;
                     padding: 6px 16px;
                     font-weight: 500;
@@ -180,7 +175,6 @@ $margin_left: 40px;
                     @media (max-width: 450px) {
                         padding: 6px 10px;
                         min-width: 210px;
-                        font-size: 12px;
                     }
 
                     &:hover {
@@ -218,7 +212,7 @@ $margin_left: 40px;
                 .vpw-loading__img {
                     width: 40px;
                     height: 40px;
-                    animation: loading 1s infinite;
+                    animation: loading .5s infinite linear;
                 }
 
                 @keyframes loading {
@@ -246,7 +240,7 @@ $margin_left: 40px;
                     @include suggestion-btn--secundary;
 
                     margin-top: 10px;
-                    font-size: 12px;
+                    font-size: 1em;
                     max-height: 32px;
                     padding: 0 10px;
                     display: none;
