@@ -7,8 +7,6 @@ const { closeIcon } = require('~icons');
 const { guideElements } = require('./guide-elements');
 
 let $vw = null;
-let boundPlayGloss = null;
-let playerManager = null;
 
 function Guide(player) {
   this.player = player;
@@ -34,10 +32,7 @@ Guide.prototype.load = function (element) {
   this.nextButton = u.$('.vpw-guide__next-btn', this.element);
   this.closeButton = u.$('.vpw-guide__close-btn', this.element);
   this.tabSlider = u.$('.vpw-guide__tab-slider', this.element);
-
   $vw = u.$('div[vw]');
-  playerManager = this.player.playerManager;
-  boundPlayGloss = playGloss.bind(this)
 
   // Add icon
   this.closeButton.innerHTML = closeIcon;
@@ -220,22 +215,8 @@ function removeHighlight() {
 }
 
 function callWidgetTranslator() {
-  let { text, play } = guideElements[this.tab];
-  const hasPlay = play !== undefined;
-  if (hasPlay) text = text.split('//')[0];
-
-  u._vwOff(playerManager, 'CounterGloss', boundPlayGloss);
-
-  this.player.translate(text);
-  if (!hasPlay) return;
-
-  u._vwOn(playerManager, 'CounterGloss', boundPlayGloss);
-}
-
-function playGloss(i, max) {
-  if (!(i === max - 1)) return;
-  u._vwOff(playerManager, 'CounterGloss', boundPlayGloss);
-  this.player.play(guideElements[this.tab].play);
+  const { gloss } = guideElements[this.tab];
+  this.player.play(gloss);
 }
 
 function resetItems() {
