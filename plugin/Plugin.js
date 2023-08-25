@@ -36,6 +36,7 @@ function Plugin(options) {
   this.opacity = options.opacity;
   this.wrapper = options.wrapper;
   this.position = options.position;
+  this.avatar = null;
 
   this.rootPath = options.rootPath;
   this.personalization = options.personalization;

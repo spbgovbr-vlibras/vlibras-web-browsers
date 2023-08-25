@@ -14,6 +14,7 @@ function Controls(player, dictionary) {
   this.dictionary = dictionary;
   this.element = null;
   this.label = null;
+  this.playerManager = player.playerManager;
 
   this.player.on('animation:play', function () {
     this.element.classList.remove('vpw-stopped');
@@ -93,6 +94,7 @@ Controls.prototype.load = function (element) {
   const speed = this.element.querySelector('.vpw-button-speed');
   const subtitles = this.element.querySelector('.vpw-controls-subtitles');
   const fullscreen = this.element.querySelector('.vpw-controls-fullscreen');
+  const boundCallWelcome = callWelcome.bind(this);
 
   // Add icons
   play.querySelector('.vpw-component-play').innerHTML = controlIcons.play;
@@ -147,22 +149,15 @@ Controls.prototype.load = function (element) {
   }.bind(this)
   );
 
-  if (!window.plugin.personalization) {
-    const playWelcome = setInterval(() => {
-      this.player.playWellcome();
-      clearInterval(playWelcome);
-    }, 0)
-  }
-
   // Welcome message in control label
-  let applied = false;
-  this.player.playerManager.on('CounterGloss', () => {
-    if (applied) return;
+  this.playerManager.addListener('CounterGloss', boundCallWelcome);
+
+  function callWelcome() {
+    this.playerManager.removeListener('CounterGloss', boundCallWelcome);
     welcomeMessage[this.player.avatar].forEach(item => {
       setTimeout(() => this.setLabel(item.m), item.t * 1000)
     });
-    applied = true;
-  })
+  }
 
   // Remove label when there is 'player.text'
   const interval = setInterval(() => {
