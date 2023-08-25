@@ -49,21 +49,21 @@
         }
 
 
-        [vp-guide-main-screen] {
+        [vp-main-guide-screen] {
             font-size: 16px;
             height: 40% !important;
             border-radius: 10px 10px 0 0;
 
-            .vpw-guide-main__title {
+            .vpw-guide__main__title {
                 font-size: 1.2em;
             }
 
-            .vpw-guide-main__desc {
+            .vpw-guide__main__desc {
                 font-size: 1em;
             }
 
-            .vpw-guide-main__accept-btn,
-            .vpw-guide-main__deny-btn {
+            .vpw-guide__main__accept-btn,
+            .vpw-guide__main__deny-btn {
                 height: 36px !important;
                 font-size: 1em !important;
             }
@@ -202,7 +202,7 @@
                 padding: 16px !important;
             }
 
-            [vp-guide-main-screen] {
+            [vp-main-guide-screen] {
                 padding: 16px;
 
                 &.vp-enabled {
