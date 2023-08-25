@@ -3,11 +3,10 @@ require('./translator-screen.scss');
 
 const { closeIcon } = require('~icons');
 
-function Translator(player, guideMainScreen) {
+function Translator(player) {
   this.element = null;
   this.player = player;
   this.enabled = false;
-  this.guideMainScreen = guideMainScreen;
 }
 
 Translator.prototype.load = function (element) {

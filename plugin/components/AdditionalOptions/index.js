@@ -44,10 +44,10 @@ AdditionalOptions.prototype.hide = function () {
 }
 
 function applyShaker() {
-  const guideMainScreen = $('[vp-guide-main-screen');
-  const has = hasClass(guideMainScreen, 'vp-enabled');
-  toggleClass(guideMainScreen, 'vp--shaker', has);
-  setTimeout(() => removeClass(guideMainScreen, 'vp--shaker'), 500);
+  const mainScreenGuide = $('[vp-main-guide-screen');
+  const has = hasClass(mainScreenGuide, 'vp-enabled');
+  toggleClass(mainScreenGuide, 'vp--shaker', has);
+  setTimeout(() => removeClass(mainScreenGuide, 'vp--shaker'), 500);
 }
 
 module.exports = AdditionalOptions;

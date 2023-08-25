@@ -1,5 +1,5 @@
-const template = require('./guide-main-screen.html').default;
-require('./guide-main-screen.scss');
+const template = require('./main-guide-screen.html').default;
+require('./main-guide-screen.scss');
 
 const u = require('~utils');
 const LOCAL_KEY = '@vp-guide';
@@ -10,19 +10,19 @@ let boundUpdatePos = null;
 let vwPlayer = null;
 let boundHide = null;
 
-function GuideMainScreen(guide, player) {
+function MainGuideScreen(guide, player) {
   this.element = null;
   this.enabled = false;
   this.player = player;
   this.guide = guide;
 }
 
-GuideMainScreen.prototype.load = function (element) {
+MainGuideScreen.prototype.load = function (element) {
   this.element = element;
   this.element.innerHTML = template;
 
-  const acceptButton = u.$('.vpw-guide-main__accept-btn');
-  const denyButton = u.$('.vpw-guide-main__deny-btn');
+  const acceptButton = u.$('.vpw-guide__main__accept-btn');
+  const denyButton = u.$('.vpw-guide__main__deny-btn');
   boundUpdatePos = updatePosition.bind(this);
   vwPlayer = this.player;
   boundHide = () => this.hide();
@@ -38,7 +38,7 @@ GuideMainScreen.prototype.load = function (element) {
 
 }
 
-GuideMainScreen.prototype.show = function () {
+MainGuideScreen.prototype.show = function () {
   if (!getDefault() || this.enabled) return;
   this.enabled = true;
   u.addClass(this.element, 'vp-enabled')
@@ -50,7 +50,7 @@ GuideMainScreen.prototype.show = function () {
   vwPlayer.play(GUIDE_INTRO_MESSAGE);
 }
 
-GuideMainScreen.prototype.hide = function () {
+MainGuideScreen.prototype.hide = function () {
   if (!this.enabled) return;
   this.enabled = false;
   vwPlayer.gloss = undefined;
@@ -61,7 +61,7 @@ GuideMainScreen.prototype.hide = function () {
   removeEvents();
 }
 
-GuideMainScreen.prototype.toggle = function () {
+MainGuideScreen.prototype.toggle = function () {
   if (this.enabled) this.hide();
   else this.show();
 }
@@ -118,4 +118,4 @@ function removeEvents() {
   u._vwOff(vwPlayer, 'translate:start', boundHide)
 }
 
-module.exports = GuideMainScreen;
+module.exports = MainGuideScreen;

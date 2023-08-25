@@ -15,7 +15,7 @@ const Translator = require('components/AdditionalOptions/Translator');
 const AdditionalOptions = require('components/AdditionalOptions');
 const ChangeAvatar = require('components/AdditionalOptions/ChangeAvatar');
 const Guide = require('components/AdditionalOptions/Guide');
-const GuideMainScreen = require('components/AdditionalOptions/Guide/MainScreen');
+const MainGuideScreen = require('components/AdditionalOptions/Guide/MainScreen');
 
 const url = require('url-join');
 const { REVIEW_URL } = require('./config');
@@ -66,8 +66,8 @@ function Plugin(options) {
   this.messageBox = new MessageBox();
   this.suggestionScreen = new SuggestionScreen(this.player);
   this.guide = new Guide(this.player);
-  this.guideMainScreen = new GuideMainScreen(this.guide, this.player);
-  this.translator = new Translator(this.player, this.guideMainScreen);
+  this.mainGuideScreen = new MainGuideScreen(this.guide, this.player);
+  this.translator = new Translator(this.player);
   this.rateBox = new RateBox(this.messageBox, this.suggestionScreen);
   this.ChangeAvatar = new ChangeAvatar(this.player);
   this.additionalOptions = new AdditionalOptions(
@@ -89,7 +89,7 @@ function Plugin(options) {
   );
 
   this.guide.load(createGuideContainer());
-  this.guideMainScreen.load(document.querySelector('[vp-guide-main-screen]'))
+  this.mainGuideScreen.load(document.querySelector('[vp-main-guide-screen]'))
 
   this.player.load(this.element);
 
@@ -165,7 +165,7 @@ function Plugin(options) {
 
   this.player.on('stop:welcome', (bool) => {
     if (bool) {
-      this.guideMainScreen.show();
+      this.mainGuideScreen.show();
       this.ChangeAvatar.show();
       this.additionalOptions.show();
     }

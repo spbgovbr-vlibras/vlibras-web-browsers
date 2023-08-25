@@ -1,7 +1,7 @@
 @import '~scss/colors.scss';
 @import '~scss/default-buttons.scss';
 
-[vp] [vp-guide-main-screen] {
+[vp] [vp-main-guide-screen] {
     display: flex;
     align-items: center;
     justify-content: start;
@@ -28,7 +28,7 @@
         transform-origin: top left;
     }
 
-    &.vw-isTopOrBottom .vpw-guide-main__buttons-container {
+    &.vw-isTopOrBottom .vpw-guide__main__buttons-container {
         flex-direction: row !important;
 
         button :nth-child(2) {
@@ -37,33 +37,33 @@
 
     }
 
-    .vpw-guide-main__title {
+    .vpw-guide__main__title {
         font-size: 1.2em;
         color: map-get($black, 1);
         font-weight: 600;
         width: 100%;
     }
 
-    .vpw-guide-main__desc {
+    .vpw-guide__main__desc {
         color: map-get($black, 2);
         font-weight: 500;
         font-size: 1em;
         width: 100%;
     }
 
-    .vpw-guide-main__buttons-container {
+    .vpw-guide__main__buttons-container {
         margin-top: 10px;
         width: 100%;
         display: flex;
         flex-direction: column;
         gap: 10px;
 
-        .vpw-guide-main__accept-btn {
+        .vpw-guide__main__accept-btn {
             @include suggestion-btn--primary;
             width: 100%
         }
 
-        .vpw-guide-main__deny-btn {
+        .vpw-guide__main__deny-btn {
             @include suggestion-btn--secundary;
 
             width: 100%
