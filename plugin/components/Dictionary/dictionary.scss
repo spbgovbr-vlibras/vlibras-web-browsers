@@ -58,7 +58,7 @@ $margin_left: 40px;
                     outline: none;
 
                     @media (max-width: 450px) {
-                        font-size: .8rem !important;
+                        font-size: .9rem !important;
                     }
 
                     &:focus {
@@ -86,10 +86,6 @@ $margin_left: 40px;
                         fill: map-get($black, 1);
                     }
                 }
-            }
-
-            @media(max-width: 450px) {
-                height: 91px;
             }
         }
 
@@ -241,7 +237,7 @@ $margin_left: 40px;
 
                     margin-top: 10px;
                     font-size: 1em;
-                    max-height: 32px;
+                    max-height: 36px;
                     padding: 0 10px;
                     display: none;
                 }
@@ -263,6 +259,14 @@ $margin_left: 40px;
 
                     button {
                         display: grid;
+                    }
+                }
+            }
+
+            @media (max-width: 450px) {
+                div {
+                    button {
+                        max-height: 32px;
                     }
                 }
             }
