@@ -13,6 +13,7 @@ function Settings(player, opacity, position, options) {
   this.visible = false;
   this.player = player;
   this.opacityUser = isNaN(opacity) ? 100 : opacity * 100;
+  this.button = null;
   this.positionUser = widgetPositions.includes(position)
     ? position : 'R';
 
@@ -27,6 +28,7 @@ Settings.prototype.load = function (element) {
   this.element.classList.add('vpw-settings');
   this.localism = this.element.querySelector('.vpw-regions-container');
   this.toggleHeader = toggleHeader;
+  this.button = document.querySelector('.vpw-header-btn-settings');
 
   // Header element
   const header = this.element.querySelector('.vpw-screen-header span');
@@ -174,10 +176,11 @@ Settings.prototype.toggle = function () {
   else this.show();
 };
 
-Settings.prototype.hide = function (menuOn) {
+Settings.prototype.hide = function () {
   this.visible = false;
   this.element.classList.remove('active');
   this.localism.classList.remove('active');
+  this.button.classList.remove('selected');
 
   // Removes blur filter
   this.gameContainer.classList.remove('vpw-blur');
@@ -191,6 +194,7 @@ Settings.prototype.hide = function (menuOn) {
 Settings.prototype.show = function () {
   this.visible = true;
   this.element.classList.add('active');
+  this.button.classList.add('selected');
 
   // Apply blur filter
   this.gameContainer.classList.add('vpw-blur');
