@@ -27,11 +27,11 @@ Guide.prototype.load = function (element) {
   this.element = element;
   this.element.innerHTML = template;
   this.helpButton = u.$('.vpw-help-button', u.$('div[vw]'));
-  this.message = u.$('.vpw-tutorial__message', this.element);
-  this.backButton = u.$('.vpw-tutorial__back-btn', this.element);
-  this.nextButton = u.$('.vpw-tutorial__next-btn', this.element);
-  this.closeButton = u.$('.vpw-tutorial__close-btn', this.element);
-  this.tabSlider = u.$('.vpw-tutorial__tab-slider', this.element);
+  this.message = u.$('.vpw-guide__message', this.element);
+  this.backButton = u.$('.vpw-guide__back-btn', this.element);
+  this.nextButton = u.$('.vpw-guide__next-btn', this.element);
+  this.closeButton = u.$('.vpw-guide__close-btn', this.element);
+  this.tabSlider = u.$('.vpw-guide__tab-slider', this.element);
   $vw = u.$('div[vw]');
 
   // Add icon
@@ -58,10 +58,13 @@ Guide.prototype.show = function () {
   this.updateFooter();
   this.addHighlight();
   fixedButtons();
-  addClickBlocker(true);
+  u.addClickBlocker(true);
   u.addClass(this.helpButton, 'vp-selected');
   u.removeClass(u.$('div[vp-change-avatar]'), 'vp-change-avatar-openned');
   callWidgetTranslator.bind(this)();
+
+  // Dispath custom event to disable text capture
+  window.dispatchEvent(new CustomEvent('vp-disable-text-capture'));
 }
 
 Guide.prototype.hide = function () {
@@ -72,9 +75,12 @@ Guide.prototype.hide = function () {
   this.player.gloss = undefined;
   resetItems();
   removeHighlight();
-  addClickBlocker(false);
+  u.addClickBlocker(false);
   u.removeClass(this.helpButton, 'vp-selected');
   u.setWidgetPosition(this.wPosition);
+
+  // Dispath custom event to disable text capture
+  window.dispatchEvent(new CustomEvent('vp-enable-text-capture'));
 }
 
 Guide.prototype.toggle = function () {
@@ -129,7 +135,7 @@ Guide.prototype.updatePosition = function () {
       u.setWidgetPosition(this.wPosition);
       updateArrow.bind(this)();
 
-    } else if (window.innerWidth >= 600) {
+    } else if (innerWidth >= 600) {
       this.element.style.left = isLeft ? width + 30 + 'px' : 'initial';
       this.element.style.right = !isLeft ? width + 30 + 'px' : 'initial';
       this.element.style.top = top + 'px';
@@ -172,7 +178,7 @@ Guide.prototype.updatePosition = function () {
   }
 
   function fitInHalfWindow() {
-    return window.innerWidth / 2 >= eWidth + 30 + (wWidth / 2);
+    return innerWidth / 2 >= eWidth + 30 + (wWidth / 2);
   }
 
 }
@@ -209,21 +215,8 @@ function removeHighlight() {
 }
 
 function callWidgetTranslator() {
-  let { text, play } = guideElements[this.tab];
-  if (play) text = text.split('//')[0];
-  this.player.translate(text);
-
-  this.player.playerManager.on('CounterGloss', (i, max) => {
-    if (!play || !this.enabled || i !== max - 1) return;
-    this.player.play(play);
-    play = false;
-  })
-}
-
-function addClickBlocker(bool) {
-  const element = u.$('span[vp-click-blocker]');
-  if (bool) u.addClass(element, 'vp-enabled');
-  else u.removeClass(element, 'vp-enabled');
+  const { gloss } = guideElements[this.tab];
+  this.player.play(gloss);
 }
 
 function resetItems() {

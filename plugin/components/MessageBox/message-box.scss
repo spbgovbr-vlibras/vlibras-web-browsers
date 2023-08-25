@@ -7,9 +7,9 @@
     position: absolute;
     width: 100%;
     padding: 10px;
-    font-size: 13px;
+    font-size: 12px;
     word-wrap: break-word;
-    color: #000;
+    color: #FFF;
     opacity: 0;
     overflow: hidden;
     -moz-transition: all .15s ease .15s;
@@ -17,11 +17,12 @@
     transition: all .15s ease .15s;
     text-align: center;
     font-weight: 700;
-    background-color: map-get($blue, 1);
-    border-radius: 80px;
+    background-color: transparent;
+    border-radius: 10px;
 
     &.active {
       opacity: 1;
+      min-height: 40px;
       z-index: 10;
     }
 
