@@ -7,7 +7,7 @@ const { closeIcon } = require('~icons');
 const { guideElements } = require('./guide-elements');
 
 let $vw = null;
-let boundCallTranslator = null;
+let boundPlayGloss = null;
 let playerManager = null;
 
 function Guide(player) {
@@ -35,8 +35,9 @@ Guide.prototype.load = function (element) {
   this.closeButton = u.$('.vpw-guide__close-btn', this.element);
   this.tabSlider = u.$('.vpw-guide__tab-slider', this.element);
 
-  playerManager = this.player.playerManager;
   $vw = u.$('div[vw]');
+  playerManager = this.player.playerManager;
+  boundPlayGloss = playGloss.bind(this)
 
   // Add icon
   this.closeButton.innerHTML = closeIcon;
@@ -82,7 +83,6 @@ Guide.prototype.hide = function () {
   u.addClickBlocker(false);
   u.removeClass(this.helpButton, 'vp-selected');
   u.setWidgetPosition(this.wPosition);
-  u._vwOff(playerManager, 'CounterGloss', boundCallTranslator);
 
   // Dispath custom event to disable text capture
   window.dispatchEvent(new CustomEvent('vp-enable-text-capture'));
@@ -221,17 +221,21 @@ function removeHighlight() {
 
 function callWidgetTranslator() {
   let { text, play } = guideElements[this.tab];
-  if (play) text = text.split('//')[0];
+  const hasPlay = play !== undefined;
+  if (hasPlay) text = text.split('//')[0];
+
+  u._vwOff(playerManager, 'CounterGloss', boundPlayGloss);
+
   this.player.translate(text);
+  if (!hasPlay) return;
 
-  boundCallTranslator = (i, max) => {
-    if (!play || !this.enabled || i !== max - 1) return;
-    this.player.play(play);
-    play = false;
-  }
+  u._vwOn(playerManager, 'CounterGloss', boundPlayGloss);
+}
 
-  u._vwOff(playerManager, 'CounterGloss', boundCallTranslator);
-  u._vwOn(playerManager, 'CounterGloss', boundCallTranslator);
+function playGloss(i, max) {
+  if (!(i === max - 1)) return;
+  u._vwOff(playerManager, 'CounterGloss', boundPlayGloss);
+  this.player.play(guideElements[this.tab].play);
 }
 
 function resetItems() {
