@@ -42,8 +42,8 @@ Guide.prototype.load = function (element) {
   this.backButton.onclick = () => this.back();
   this.nextButton.onclick = () => this.next();
 
-  // Get all guide elements (HTMLElements) and push them into "$elements"
-  guideElements.forEach(({ path }) => this.$elements.push(u.$(path)));
+  // Function to populate "$elements" list with HTMLElements using the paths of guide elements.
+  this.populateList = () => guideElements.forEach(({ path }) => this.$elements.push(u.$(path)));
 
   // Create slider element
   const { length } = guideElements;
@@ -51,6 +51,8 @@ Guide.prototype.load = function (element) {
 }
 
 Guide.prototype.show = function () {
+  if (!this.$elements.length) this.populateList();
+
   this.element.classList.add('vp-enabled');
   this.enabled = true;
   this.wPosition = window.plugin.position;
