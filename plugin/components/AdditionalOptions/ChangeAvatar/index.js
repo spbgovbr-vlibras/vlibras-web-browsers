@@ -12,43 +12,39 @@ function ChangeAvatar(player) {
 ChangeAvatar.prototype.load = function (element) {
   this.element = element;
   this.element.innerHTML = template;
+  this.welcomeStarted = false;
+  this.player.avatar = 'icaro';
   const buttons = this.element.querySelectorAll('.vp-button-change-avatar');
 
+  // Add icons and actions
   buttons.forEach((button, i) => {
     button.innerHTML = [IcaroIcon, HosanaIcon, GugaIcon][i];
 
     button.onclick = () => {
-      if (button.classList.contains('vp-selected')) return;
+      if (isSelected(button)) return;
       this.player.changeAvatar(avatars[i]);
       selectButton(button);
     }
   });
 
-  this.element.onclick = () => this.element.classList.toggle('vp-change-avatar-openned');
+  this.element.onclick = () => this.element.classList.toggle('vp-isOpen');
 
   function selectButton(button) {
-    button.classList.add('vp-selected');
-    buttons.forEach(btn => {
-      if (btn !== button) btn.classList.remove('vp-selected');
-    })
+    buttons.forEach(btn => btn.classList.toggle('vp-selected', btn === button))
   }
 
-  selectButton(buttons[0]);
+  function isSelected(button) {
+    return button.classList.contains('vp-selected');
+  }
 
-  this.player.on('GetAvatar', function (avatar) {
-    selectButton(buttons[avatars.indexOf(avatar)])
-    this.player.playWellcome();
+  this.player.on('GetAvatar', avatar => {
+    selectButton(buttons[avatars.indexOf(avatar)]);
+    this.welcomeStarted = true;
     this.player.avatar = avatar;
-  }.bind(this));
+    this.player.playWellcome();
+  });
 
-
-  if (!this.avatar) {
-    setTimeout(() => {
-      this.player.avatar = 'icaro';
-      this.player.playWellcome();
-    }, 500);
-  }
-
+  setTimeout(() => !this.welcomeStarted && this.player.playWellcome(), 300);
 };
 
 ChangeAvatar.prototype.show = function () {

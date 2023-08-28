@@ -62,7 +62,7 @@ Guide.prototype.show = function () {
   fixedButtons();
   u.addClickBlocker(true);
   u.addClass(this.helpButton, 'vp-selected');
-  u.removeClass(u.$('div[vp-change-avatar]'), 'vp-change-avatar-openned');
+  u.removeClass(u.$('div[vp-change-avatar]'), 'vp-isOpen');
   callWidgetTranslator.bind(this)();
 
   // Dispath custom event to disable text capture
