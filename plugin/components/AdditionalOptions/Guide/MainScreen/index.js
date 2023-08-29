@@ -10,9 +10,10 @@ let boundUpdatePos = null;
 let vwPlayer = null;
 let boundHide = null;
 
-function MainGuideScreen(guide, player) {
+function MainGuideScreen(guide, player, closeScreen) {
   this.element = null;
   this.enabled = false;
+  this.closeScreen = closeScreen;
   this.player = player;
   this.guide = guide;
 }
@@ -41,6 +42,7 @@ MainGuideScreen.prototype.load = function (element) {
 MainGuideScreen.prototype.show = function () {
   if (!getDefault() || this.enabled) return;
   this.enabled = true;
+  this.closeScreen.closeAll();
   u.addClass(this.element, 'vp-enabled')
   u.addClickBlocker(true);
   updatePosition.bind(this)();
