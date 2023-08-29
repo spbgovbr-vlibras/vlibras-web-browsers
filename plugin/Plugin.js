@@ -52,18 +52,7 @@ function Plugin(options) {
     this.position,
     options
   );
-  this.closeScreen = new CloseScreen(
-    this.dictionary,
-    this.info,
-    this.settings,
-  );
-  this.settingsBtn = new SettingsBtn(
-    this.player,
-    this.settings,
-    this.dictionary,
-    this.info,
-    options
-  );
+
   this.messageBox = new MessageBox();
   this.suggestionScreen = new SuggestionScreen(this.player);
   this.guide = new Guide(this.player);
@@ -76,7 +65,20 @@ function Plugin(options) {
     this.translator,
     this.guide
   );
-
+  this.closeScreen = new CloseScreen(
+    this.dictionary,
+    this.info,
+    this.settings,
+    this.translator
+  );
+  this.settingsBtn = new SettingsBtn(
+    this.player,
+    this.settings,
+    this.dictionary,
+    this.info,
+    this.translator,
+    options
+  );
   this.loadingRef = null;
 
   this.additionalOptions.load(this.element.querySelector('[vp-additional-options]'));
@@ -126,7 +128,7 @@ function Plugin(options) {
   window.addEventListener('vp-widget-close', (event) => {
     this.player.stop();
     this.rateBox.hide();
-    this.suggestionScreen.hide();
+    this.closeScreen.closeAll();
   });
 
   let control = 0;
@@ -179,31 +181,16 @@ function Plugin(options) {
     function (err) {
       switch (err) {
         case 'compatibility_error':
-          this.messageBox.show(
-            'warning',
-            ALERT_MESSAGES.COMPATIBILITY_ERROR
-          );
+          this.messageBox.show('warning', ALERT_MESSAGES.COMPATIBILITY_ERROR);
           break;
         case 'translation_error':
-          this.messageBox.show(
-            'warning',
-            ALERT_MESSAGES.TRANSLATION_ERROR,
-            3000
-          );
+          this.messageBox.show('warning', ALERT_MESSAGES.TRANSLATION_ERROR, 3000);
           break;
         case 'internal_error':
-          this.messageBox.show(
-            'warning',
-            ALERT_MESSAGES.INTERNAL_ERROR,
-            3000
-          );
+          this.messageBox.show('warning', ALERT_MESSAGES.INTERNAL_ERROR, 3000);
           break;
         case 'timeout_error':
-          this.messageBox.show(
-            'warning',
-            ALERT_MESSAGES.TIMEOUT_ERROR,
-            3000
-          );
+          this.messageBox.show('warning', ALERT_MESSAGES.TIMEOUT_ERROR, 3000);
           break;
       }
     }.bind(this)

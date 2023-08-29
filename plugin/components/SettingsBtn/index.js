@@ -3,11 +3,13 @@ require('./settings-btn.scss');
 
 const { settingsIcon, dictionaryIcon, aboutIcon, closeIcon } = require('~icons');
 
-function SettingsBtn(player, screen, dictionary, infoScreen, option) {
+function SettingsBtn(player, settings, dictionary, infoScreen, translator, option) {
   this.player = player;
-  this.screen = screen;
+  this.settings = settings;
   this.dictionary = dictionary;
   this.infoScreen = infoScreen;
+  this.translator = translator;
+  this.allScreens = [settings, dictionary, infoScreen, translator]
   enable = option.enableMoveWindow;
 }
 
@@ -21,12 +23,11 @@ SettingsBtn.prototype.load = function (
   this.element.innerHTML = settingsBtnTpl;
   this.element.classList.add('vpw-settings-btn');
 
-  let loadedDict = false;
-
   const settingsBtn = this.element.querySelector('.vpw-header-btn-settings');
   const dictionaryBtn = this.element.querySelector('.vpw-header-btn-dictionary');
   const aboutBtn = this.element.querySelector('.vpw-header-btn-about');
   const closeBtn = this.element.querySelector('.vpw-header-btn-close');
+  let loadedDict = false;
 
   // Add icons
   settingsBtn.innerHTML = settingsIcon;
@@ -34,53 +35,30 @@ SettingsBtn.prototype.load = function (
   aboutBtn.innerHTML = aboutIcon;
   closeBtn.innerHTML = closeIcon;
 
-  settingsBtn.addEventListener(
-    'click',
-    function () {
-      showScreen(this.screen, settingsBtn);
-      settingsBtn.blur();
-    }.bind(this),
-  );
-
-  dictionaryBtn.addEventListener(
-    'click',
-    function () {
-      showScreen(this.dictionary, dictionaryBtn);
-      dictionaryBtn.blur();
-    }.bind(this)
-  );
-
-  aboutBtn.addEventListener(
-    'click',
-    function () {
-      showScreen(this.infoScreen, aboutBtn);
-      aboutBtn.blur();
-    }.bind(this)
-  );
-
-  closeBtn.addEventListener('click', function () {
-    showScreen(null, null);
-
+  // Add actions
+  settingsBtn.onclick = () => showScreen(this.settings, settingsBtn);
+  dictionaryBtn.onclick = () => showScreen(this.dictionary, dictionaryBtn);
+  aboutBtn.onclick = () => showScreen(this.infoScreen, aboutBtn);
+  closeBtn.onclick = () => {
     window.dispatchEvent(
       new CustomEvent('vp-widget-close', { detail: { close: true } }),
     );
-  });
+  }
 
-  const showScreen = function (screen, btn) {
-    if (screen == this.dictionary && !loadedDict) {
+  const showScreen = function (screen, button) {
+    button.blur();
+
+    if (screen === this.dictionary && !loadedDict) {
       loadDictionary();
       loadedDict = true;
     }
 
-    [this.screen, this.dictionary,
-    this.infoScreen]
-      .filter(sc => sc !== screen)
-      .forEach(sc => {
-        if (sc == this.dictionary && !loadedDict) return;
-        sc.hide();
-      });
+    this.allScreens
+      .filter(sc => sc !== screen && !(sc === this.dictionary && !loadedDict))
+      .forEach(sc => sc.hide());
 
-    if (screen) screen.toggle();
+    screen.toggle();
+
   }.bind(this);
 
 };
