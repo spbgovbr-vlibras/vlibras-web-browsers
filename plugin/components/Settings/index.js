@@ -7,7 +7,8 @@ require('./regionalism.scss');
 require('./switch.scss');
 
 const regionsData = require('./data');
-const { backIcon, positionIcons } = require('~icons')
+const { backIcon, positionIcons } = require('~icons');
+const { setWidgetPosition } = require('~utils');
 
 function Settings(player, opacity, position, options) {
   this.visible = false;
@@ -103,8 +104,7 @@ Settings.prototype.load = function (element) {
 
     if (!position) span.style.visibility = 'hidden';
     else span.onclick = () => {
-      window.dispatchEvent(
-        new CustomEvent('vp-widget-wrapper-set-side', { detail: position }));
+      setWidgetPosition(position);
 
       positionBox.querySelector('.vpw-select-pos')
         .classList.remove('vpw-select-pos');
