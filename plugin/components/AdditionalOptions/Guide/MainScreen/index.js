@@ -56,6 +56,7 @@ MainGuideScreen.prototype.hide = function () {
   if (!this.enabled) return saveDefault(false);
   this.enabled = false;
   vwPlayer.gloss = undefined;
+  vwPlayer.stop();
   u.removeClass(this.element, 'vp-enabled');
   u.addClickBlocker(false);
   saveDefault(false);
