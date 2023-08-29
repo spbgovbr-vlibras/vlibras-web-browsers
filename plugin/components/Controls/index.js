@@ -4,6 +4,7 @@ require('nouislider/distribute/nouislider.min.css');
 const controlsTpl = require('./controls.html').default;
 require('./controls.scss');
 
+const { $, hasClass } = require('~utils');
 const { controlIcons } = require('~icons');
 const { welcomeMessage } = require('./welcomeMessage');
 
@@ -69,7 +70,6 @@ function Controls(player, dictionary) {
     });
 
     slider.noUiSlider.set([globalGlosaLenght, globalGlosaLenght]);
-    this.element.classList.remove('vpw-selectText');
   }.bind(this)
   );
 
@@ -162,13 +162,15 @@ Controls.prototype.load = function (element) {
     });
   }
 
-  // Remove label when there is 'player.text'
+  const guideIsOpen = () => hasClass($('.vp-guide-container'), 'vp-enabled');
+
+  // Remove label when there is 'player.text' or guide is open
   const interval = setInterval(() => {
-    if (this.player.text) {
+    if (this.player.text || guideIsOpen()) {
       this.element.classList.remove('vpw-selectText');
-      clearInterval(interval);
+      clearInterval(interval)
     }
-  }, 500);
+  }, 1000);
 
   // Pause or continue translation when switching tabs
   let playing = false;
