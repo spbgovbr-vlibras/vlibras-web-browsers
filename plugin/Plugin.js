@@ -56,7 +56,6 @@ function Plugin(options) {
   this.messageBox = new MessageBox();
   this.suggestionScreen = new SuggestionScreen(this.player);
   this.guide = new Guide(this.player);
-  this.mainGuideScreen = new MainGuideScreen(this.guide, this.player, this.closeScreen);
   this.translator = new Translator(this.player);
   this.rateBox = new RateBox(this.messageBox, this.suggestionScreen);
   this.ChangeAvatar = new ChangeAvatar(this.player);
@@ -81,6 +80,7 @@ function Plugin(options) {
   );
   this.loadingRef = null;
 
+  this.mainGuideScreen = new MainGuideScreen(this.guide, this.player, this.closeScreen);
   this.additionalOptions.load(this.element.querySelector('[vp-additional-options]'));
   this.messageBox.load(this.element.querySelector('[vp-message-box]'));
   this.rateBox.load(this.element.querySelector('[vp-rate-box]'));
