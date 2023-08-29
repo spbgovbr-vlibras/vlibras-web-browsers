@@ -120,14 +120,17 @@ Controls.prototype.load = function (element) {
       this.player.pause();
     } else if (this.element.classList.contains('vpw-stopped')) {
       this.player.repeat();
-      this.player.on('gloss:end', () => {
-        if (!this.player.translated) this.rateBox.classList.add('vp-enabled');
-      })
+      this.player.addListener('gloss:end', showRatebox);
     } else {
       this.player.continue();
     }
   }.bind(this)
   );
+
+  const showRatebox = function () {
+    if (!this.player.translated) this.rateBox.classList.add('vp-enabled');
+    this.player.removeListener('gloss:end', showRatebox);
+  }.bind(this)
 
   subtitles.addEventListener('click', function () {
     this.element.classList.toggle('vpw-subtitles');

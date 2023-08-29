@@ -144,6 +144,7 @@ function Plugin(options) {
   this.player.on('translate:end', () => {
     this.messageBox.hide(this.loadingRef);
     this.translator.hide();
+    this.mainGuideScreen.hide();
   });
 
   this.player.on('gloss:start', () => {
