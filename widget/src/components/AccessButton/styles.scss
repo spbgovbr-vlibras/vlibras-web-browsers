@@ -1,9 +1,12 @@
 [vw] [vw-access-button] {
   display: none;
   flex-direction: row-reverse;
-  gap: 10px;
   width: 40px;
   cursor: pointer;
+  overflow: hidden;
+  position: relative;
+  border-radius: 6px;
+  transition: all .5s ease;
 
   img {
     max-height: 40px;
@@ -12,26 +15,32 @@
 
   .access-button {
     width: 40px;
+    height: 40px;
+    z-index: 1;
   }
 
   .pop-up {
-    transform-origin: top right;
-    height: 0;
+    position: absolute;
+    height: 40px;
+    width: 150px;
+    z-index: 0;
+    left: 0;
+    right: auto;
   }
 
   &:hover {
-    .pop-up {
-      height: 40px;
-    }
+    width: 200px;
   }
 
   &.isLeft {
     flex-direction: row;
 
     .pop-up {
-      transform-origin: top left;
+      left: auto;
+      right: 0;
     }
   }
+
 
   &.active {
     display: flex;
