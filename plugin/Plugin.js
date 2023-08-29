@@ -227,6 +227,21 @@ Plugin.prototype.sendReview = function (rate, review) {
     this.rateBox.hide();
     this.suggestionScreen.hide();
     this.messageBox.show('success', ALERT_MESSAGES.REVIEW_THANKS, 3000);
+
+    // Thanks message
+    this.player.play('AGRADECER');
+    this.player.gloss = undefined;
+    const boundToggleSubtitle = toggleSubtitle.bind(this);
+
+    if (this.controls.element.querySelector('.actived-subtitle')) {
+      this.player.toggleSubtitle();
+      this.player.addListener("gloss:end", boundToggleSubtitle);
+    }
+
+    function toggleSubtitle() {
+      this.player.toggleSubtitle();
+      this.player.removeListener("gloss:end", boundToggleSubtitle);
+    }
   };
 };
 
