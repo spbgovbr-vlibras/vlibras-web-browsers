@@ -22,7 +22,7 @@ export const guideElements = [
   },
   {
     path: 'div[vp-controls]',
-    text: `Clique nos botões de controle para parar ou retomar animação, 
+    text: `Clique nos botões de controle para pausar ou retomar animação, 
     ajustar velocidade, ativar legendas e abrir o avatar em tela cheia.`,
     gloss: 'CLIQUE BOTÃO CONTROLE PARAR&HÁBITO OU RETOMAR ANIMAR AJUSTAR VELOCIDADE ' +
       'ATIVAR LEGENDA ABRIR&AFASTAR AVATAR TELA CHEIA&CAPACIDADE [PONTO]'

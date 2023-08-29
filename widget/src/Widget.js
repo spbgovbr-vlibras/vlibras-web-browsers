@@ -59,15 +59,7 @@ module.exports = function Widget(rootPath, personalization, opacity, position) {
         ? 'translateY(calc(-50% - 10px))' : ['T', 'B'].includes(position)
           ? 'translateX(calc(-50% - 10px))' : 'initial';
 
-      document.querySelector('[vw-access-button]')
-        .style.margin = position.includes('R')
-          ? '0' : '0px 0px 0px -120px';
-
-      if (position.includes('R')) access.querySelector('.pop-up')
-        .classList.remove('left');
-
-      else access.querySelector('.pop-up')
-        .classList.add('left')
+      access.classList.toggle('isLeft', position.includes('L'));
 
       // Set position
       if (window.plugin) window.plugin.position = position;
