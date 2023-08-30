@@ -60,6 +60,7 @@ Guide.prototype.show = function () {
   this.updateFooter();
   this.addHighlight();
   fixedButtons();
+  roundedWrapper(true);
   u.addClickBlocker(true);
   u.addClass(this.helpButton, 'vp-selected');
   u.removeClass(u.$('div[vp-change-avatar]'), 'vp-isOpen');
@@ -77,6 +78,7 @@ Guide.prototype.hide = function () {
   this.player.gloss = undefined;
   resetItems();
   removeHighlight();
+  roundedWrapper(false);
   u.addClickBlocker(false);
   u.removeClass(this.helpButton, 'vp-selected');
   u.setWidgetPosition(this.wPosition);
@@ -173,8 +175,8 @@ Guide.prototype.updatePosition = function () {
 
   function updateArrow() {
     u.addClass(this.element, `vw-${isLeft ? 'left' : 'right'}`);
-    u.removeClass(this.element, `vw-${!isLeft ? 'left' : 'right'}`);
     u.addClass(this.element, `vw-${isLowerView ? 'bottom' : 'top'}`);
+    u.removeClass(this.element, `vw-${!isLeft ? 'left' : 'right'}`);
     u.removeClass(this.element, `vw-${!isLowerView ? 'bottom' : 'top'}`);
     u.removeClass(this.element, 'not-arrow');
   }
@@ -233,6 +235,10 @@ function fixedButtons() {
   u.$('div[vp-rate-box]').style.display = 'none';
   u.addClass(u.$('div[vp-change-avatar]'), 'vp-fixed');
   u.addClass(u.$('div[vp-additional-options]'), 'vp-fixed');
+}
+
+function roundedWrapper(bool) {
+  u.toggleClass(u.$('[vw-plugin-wrapper]'), 'vp-rounded', bool)
 }
 
 module.exports = Guide;
