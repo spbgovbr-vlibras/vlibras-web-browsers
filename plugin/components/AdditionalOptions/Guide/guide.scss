@@ -157,13 +157,19 @@ span[vp-click-blocker] {
     }
 }
 
+[vw] {
+    [vw-plugin-wrapper].vp-rounded {
+        border-radius: 20px !important;
+    }
+}
+
 [vp] {
     .vp-guide-highlight {
-        box-shadow: 0 5px 20px -5px #1F5AB3 !important;
+        box-shadow: 0 5px 15px #6290D5 !important;
         outline: 2px solid #FFF !important;
         outline-offset: -1px;
         transform: scale(1.04) !important;
-        transform-origin: center 300%;
+        transform-origin: center 200%;
         border: none !important;
         border-radius: 100px !important;
     }
