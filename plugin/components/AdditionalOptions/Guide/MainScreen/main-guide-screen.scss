@@ -1,5 +1,6 @@
 @import '~scss/colors.scss';
 @import '~scss/default-buttons.scss';
+@import '~scss/shared-styles.scss';
 
 [vp] [vp-main-guide-screen] {
     display: flex;
@@ -22,7 +23,7 @@
     transition: all .3s ease;
     transform: scale(0);
     transform-origin: top right;
-    box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.15);
+    box-shadow: $vp-shadow;
 
     &.vw-isLeft {
         transform-origin: top left;
