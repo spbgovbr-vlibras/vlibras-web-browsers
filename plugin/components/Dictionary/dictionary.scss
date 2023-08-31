@@ -228,7 +228,8 @@ $margin_left: 40px;
                     text-align: center;
                 }
 
-                .vpw-dict-msg--error {
+                .vpw-dict-msg--error,
+                .vpw-dict-msg--max-request {
                     display: none;
                 }
 
@@ -245,11 +246,10 @@ $margin_left: 40px;
 
             &.vpw-dict--error {
                 div {
-                    img {
-                        display: none;
-                    }
 
-                    .vpw-dict-msg--loading {
+                    .vpw-loading__img,
+                    .vpw-dict-msg--loading,
+                    .vpw-dict-msg--max-request {
                         display: none;
                     }
 
@@ -259,6 +259,25 @@ $margin_left: 40px;
 
                     button {
                         display: grid;
+                    }
+                }
+            }
+
+            &.vpw-dict--max-request {
+                div {
+
+                    .vpw-loading__img,
+                    .vpw-dict-msg--loading,
+                    .vpw-dict-msg--error {
+                        display: none;
+                    }
+
+                    .vpw-dict-msg--max-request {
+                        display: inline;
+                    }
+
+                    button {
+                        display: none;
                     }
                 }
             }
