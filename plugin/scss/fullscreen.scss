@@ -35,6 +35,9 @@
     }
 
     [vp] {
+        .vpw-button-speed {
+            font-size: 14px;
+        }
 
         .vp-rate-box-header,
         .vp-suggestion-screen-header,
@@ -198,36 +201,26 @@
                 gap: 16px;
             }
 
-            .vpw-info__main {
-                padding: 16px !important;
-            }
-
-            [vp-main-guide-screen] {
-                padding: 16px;
-
-                &.vp-enabled {
-                    height: 35%;
-                }
-
-            }
-
-            [vp-suggestion-screen] {
-                .vp-suggestion-screen-content {
-                    padding: 16px;
-                }
-
-                .vp-suggestion-screen-header {
-                    height: 48px;
-                    padding: 16px;
-                }
+            [vp-main-guide-screen].vp-enabled {
+                height: 35%;
             }
 
             [vp-rate-box].vp-enabled {
                 height: 96px;
+            }
 
-                .vp-rate-box-header {
-                    height: 48px;
-                }
+            [vp-main-guide-screen],
+            .vp-suggestion-screen-content,
+            .vpw-info__main {
+                padding: 16px;
+            }
+
+            .vp-suggestion-screen-header,
+            .vp-translator-screen-header,
+            .vp-rate-box-header {
+                height: 48px !important;
+                padding: 16px !important;
+                font-size: 14px !important;
             }
 
             [vp-change-avatar],
