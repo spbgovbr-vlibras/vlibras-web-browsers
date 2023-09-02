@@ -45,12 +45,24 @@ $bg-color: #9c9c9c;
       fill: #FFFFFF;
     }
 
+    &::before {
+      content: "";
+      display: none;
+      width: 20px;
+      height: 20px;
+      background-color: map-get($black, 1);
+      top: 42px;
+      position: absolute;
+      z-index: -1;
+      transform: rotate(45deg);
+    }
+
     &::after {
       content: attr(avatar-name);
       display: none;
       align-items: center;
       justify-content: center;
-      top: 38px;
+      top: 44px;
       background-color: map-get($black, 1);
       padding: 0 10px;
       height: 28px;
@@ -58,17 +70,13 @@ $bg-color: #9c9c9c;
       align-items: center;
       justify-content: center;
       position: absolute;
-      border-radius: 0 20px 20px 20px;
-      transform: translateX(60%);
+      border-radius: 20px;
+      transform: translateX(calc(50% - 16px));
       white-space: nowrap;
 
       color: map-get($white, 1);
-      font-size: 16px;
+      font-size: 14px;
       font-weight: 500;
-
-      @media (max-width: 1200px) {
-        font-size: 14px;
-      }
 
       @media (max-width: 450px) {
         font-size: 12px;
@@ -78,7 +86,8 @@ $bg-color: #9c9c9c;
     &:hover {
       outline-color: rgba(map-get($white, 2), .3);
 
-      &::after {
+      &::after,
+      &::before {
         display: flex;
       }
     }
@@ -95,6 +104,10 @@ $bg-color: #9c9c9c;
 
       &:hover {
         outline-color: rgba(map-get($blue, 3), .5);
+      }
+
+      &::before {
+        display: none;
       }
 
       &::after {
@@ -131,15 +144,13 @@ $bg-color: #9c9c9c;
       visibility: visible;
     }
 
-    .vp-selected::after {
+    .vp-selected::after,
+    .vp-selected::before {
       display: none !important;
     }
   }
 
-  &.active {
-    display: flex;
-  }
-
+  &.active,
   &.vp-fixed {
     display: flex;
   }
@@ -149,9 +160,22 @@ $bg-color: #9c9c9c;
     width: 28px;
     height: 28px;
 
-    .vp-button-change-avatar::after {
-      top: 32px;
+    .vp-button-change-avatar {
+      svg {
+        width: 16px;
+        height: 16px;
+      }
+
+      &::after {
+        top: 34px;
+        height: 26px;
+      }
+
+      &::before {
+        top: 34px;
+      }
     }
+
   }
 
 }

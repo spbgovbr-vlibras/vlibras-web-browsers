@@ -107,9 +107,14 @@
 
       a {
         @include control-button;
+        border-radius: 8px !important;
 
-        svg * {
-          fill: map-get($blue, 1);
+        svg {
+          padding: 2px;
+
+          * {
+            fill: map-get($blue, 1);
+          }
         }
 
         outline: 1px solid map-get($white, 4);
@@ -130,10 +135,10 @@
   [vp] {
     .vpw-info-screen {
       font-size: 11px;
-    }
 
-    .vpw-info__networks-container {
-      gap: 6px;
+      .vpw-info__networks-container {
+        gap: 6px;
+      }
     }
 
     .vpw-info__main {
