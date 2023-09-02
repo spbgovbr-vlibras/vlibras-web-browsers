@@ -192,9 +192,19 @@
 
     @media (max-width: 450px) {
         [vp] {
-            .vpw-info__networks-container a {
-                min-width: 36px;
-                min-height: 36px;
+            .vpw-dictionary .vpw-loading-dictionary button {
+                max-height: 36px;
+                height: 36px;
+                font-size: 14px;
+            }
+
+            .vpw-info__networks-container {
+                gap: 10px;
+
+                a {
+                    min-width: 36px;
+                    min-height: 36px;
+                }
             }
 
             .vp-rate-box-content {
@@ -230,15 +240,23 @@
                 height: 36px;
                 min-width: 36px;
                 min-height: 36px;
+
+                svg {
+                    width: 18px;
+                    height: 18px;
+                }
             }
 
             [vp-change-avatar] {
                 top: 56px;
 
                 .vp-button-change-avatar {
+                    &::before {
+                        top: 44px !important;
+                    }
+
                     &::after {
-                        top: 40px !important;
-                        transform: translateX(70%) !important;
+                        top: 46px !important;
                     }
                 }
 
