@@ -93,6 +93,8 @@ $height-set: 450px;
 div[vw] {
   position: fixed;
   max-width: 95vw;
+  min-height: 40px;
+  min-width: 40px;
   right: 0;
   top: 50%;
   transform: translateY(-50%);

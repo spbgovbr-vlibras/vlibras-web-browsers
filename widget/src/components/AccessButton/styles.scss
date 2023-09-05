@@ -2,11 +2,14 @@
   display: none;
   flex-direction: row-reverse;
   width: 40px;
+  height: 40px;
   cursor: pointer;
   overflow: hidden;
-  position: relative;
+  position: absolute;
   border-radius: 8px;
   transition: all .5s ease;
+  right: 0;
+  left: auto;
 
   img {
     max-height: 40px;
@@ -35,11 +38,19 @@
 
   &.isLeft {
     flex-direction: row;
+    left: 0;
+    right: auto;
 
     .pop-up {
       left: auto;
       right: 0;
     }
+  }
+
+  &.isTopOrBottom:hover {
+    bottom: -20px;
+    top: 0;
+    margin-right: -80px;
   }
 
 

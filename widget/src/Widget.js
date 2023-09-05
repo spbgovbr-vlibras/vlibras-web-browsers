@@ -60,6 +60,7 @@ module.exports = function Widget(rootPath, personalization, opacity, position) {
           ? 'translateX(calc(-50% - 10px))' : 'initial';
 
       access.classList.toggle('isLeft', position.includes('L'));
+      access.classList.toggle('isTopOrBottom', 'TB'.includes(position));
 
       // Set position
       if (window.plugin) window.plugin.position = position;
