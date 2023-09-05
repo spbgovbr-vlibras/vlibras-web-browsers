@@ -1,0 +1,181 @@
+@import '~scss/colors';
+@import '~scss/default-buttons';
+
+$control-height: 60px;
+$bg-color: #9c9c9c;
+
+
+[vp] [vp-change-avatar] {
+  justify-content: start;
+  align-items: center;
+  flex-direction: row;
+  gap: 10px;
+  position: absolute;
+  z-index: 2;
+  display: none;
+  max-width: 100%;
+  left: 14px;
+  top: 50px;
+  height: 36px;
+  width: 36px;
+  visibility: visible;
+  border-radius: 40px;
+  transition: all .3s ease-in-out;
+
+  .vp-button-change-avatar {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    background: map-get($white, 2);
+    border-radius: 50px;
+    width: 32px;
+    height: 32px;
+    min-width: 32px;
+    border: 2px solid transparent;
+    outline: 2px solid transparent;
+    padding: 0 !important;
+    z-index: -1;
+    visibility: hidden;
+    transition: all .3s ease-in-out;
+
+    svg {
+      width: 20px;
+      height: 20px;
+      fill: #FFFFFF;
+    }
+
+    &::before {
+      content: "";
+      display: none;
+      width: 20px;
+      height: 20px;
+      background-color: map-get($black, 1);
+      top: 42px;
+      position: absolute;
+      z-index: -1;
+      transform: rotate(45deg);
+    }
+
+    &::after {
+      content: attr(avatar-name);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      top: 44px;
+      background-color: map-get($black, 1);
+      padding: 0 10px;
+      height: 28px;
+      padding-bottom: 4px;
+      align-items: center;
+      justify-content: center;
+      position: absolute;
+      border-radius: 20px;
+      transform: translateX(calc(50% - 16px));
+      white-space: nowrap;
+
+      color: map-get($white, 1);
+      font-size: 14px;
+      font-weight: 500;
+
+      @media (max-width: 450px) {
+        font-size: 12px;
+      }
+    }
+
+    &:hover {
+      outline-color: rgba(map-get($white, 2), .3);
+
+      &::after,
+      &::before {
+        display: flex;
+      }
+    }
+
+    &.vp-selected {
+      display: flex !important;
+      background-color: map-get($blue, 3);
+      outline-color: map-get($blue, 3);
+      border-color: #e0e0e0;
+      position: absolute;
+      left: 2px;
+      z-index: 1;
+      visibility: visible;
+
+      &:hover {
+        outline-color: rgba(map-get($blue, 3), .5);
+      }
+
+      &::before {
+        display: none;
+      }
+
+      &::after {
+        left: 38px;
+        top: 0;
+        border-radius: 20px;
+        transform: none;
+        content: "Trocar avatar";
+
+        @media (max-width: 450px) {
+          display: none !important;
+        }
+      }
+
+    }
+
+    .active {
+      display: block;
+    }
+
+    @media (max-width: 450px) {
+      width: 28px;
+      height: 28px;
+      min-width: 28px;
+    }
+  }
+
+  &.vp-isOpen {
+    padding-left: 42px;
+    width: 120px;
+    overflow: visible;
+
+    button {
+      visibility: visible;
+    }
+
+    .vp-selected::after,
+    .vp-selected::before {
+      display: none !important;
+    }
+  }
+
+  &.active,
+  &.vp-fixed {
+    display: flex;
+  }
+
+  @media (max-width: 450px) {
+    left: 8px;
+    width: 28px;
+    height: 28px;
+
+    .vp-button-change-avatar {
+      svg {
+        width: 16px;
+        height: 16px;
+      }
+
+      &::after {
+        top: 34px;
+        height: 26px;
+      }
+
+      &::before {
+        top: 34px;
+      }
+    }
+
+  }
+
+}

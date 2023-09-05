@@ -8,16 +8,21 @@ const Controls = require('components/Controls');
 
 const MessageBox = require('components/MessageBox');
 const Box = require('components/Box');
-const SettingsCloseBtn = require('components/SettingsCloseBtn');
 const CloseScreen = require('components/CloseScreen');
 const RateBox = require('components/RateBox');
 const SuggestionScreen = require('components/SuggestionScreen');
-const ChangeAvatar = require('components/ChangeAvatar');
+const Translator = require('components/AdditionalOptions/Translator');
+const AdditionalOptions = require('components/AdditionalOptions');
+const ChangeAvatar = require('components/AdditionalOptions/ChangeAvatar');
+const Guide = require('components/AdditionalOptions/Guide');
+const MainGuideScreen = require('components/AdditionalOptions/Guide/MainScreen');
 
 const url = require('url-join');
 const { REVIEW_URL } = require('./config');
+const { ALERT_MESSAGES } = require('./alert-messages');
 
 require('./scss/styles.scss');
+require('./scss/text-capture.scss');
 
 function Plugin(options) {
   this.player = new VLibras.Player({
@@ -30,16 +35,8 @@ function Plugin(options) {
 
   this.opacity = options.opacity;
   this.wrapper = options.wrapper;
-
-  if (this.opacity) {
-    if (this.opacity.includes[(0.0, 0.25, 0.5, 0.75, 1.0)]) {
-      this.opacity = parseFloat(this.opacity);
-    } else {
-      this.opacity = 0.0;
-    }
-  } else {
-    this.opacity = 0.0;
-  }
+  this.position = options.position;
+  this.avatar = null;
 
   this.rootPath = options.rootPath;
   this.personalization = options.personalization;
@@ -51,36 +48,51 @@ function Plugin(options) {
   this.info = new InfoScreen(this.Box);
   this.settings = new Settings(
     this.player,
-    options,
-    this.opacity
+    this.opacity,
+    this.position,
+    options
   );
-  this.settingBtnClose = new SettingsCloseBtn();
+
+  this.messageBox = new MessageBox();
+  this.suggestionScreen = new SuggestionScreen(this.player);
+  this.guide = new Guide(this.player);
+  this.translator = new Translator(this.player);
+  this.rateBox = new RateBox(this.messageBox, this.suggestionScreen);
+  this.ChangeAvatar = new ChangeAvatar(this.player);
+  this.additionalOptions = new AdditionalOptions(
+    this.player,
+    this.translator,
+    this.guide
+  );
   this.closeScreen = new CloseScreen(
     this.dictionary,
     this.info,
     this.settings,
-    this.settingBtnClose
+    this.translator
   );
   this.settingsBtn = new SettingsBtn(
     this.player,
     this.settings,
     this.dictionary,
     this.info,
-    this.settingBtnClose,
+    this.translator,
     options
   );
-  this.messageBox = new MessageBox();
-  this.suggestionScreen = new SuggestionScreen(this.player);
-  this.rateBox = new RateBox(this.messageBox, this.suggestionScreen);
-  this.ChangeAvatar = new ChangeAvatar(this.player);
-
   this.loadingRef = null;
 
+  this.mainGuideScreen = new MainGuideScreen(this.guide, this.player, this.closeScreen);
+  this.additionalOptions.load(this.element.querySelector('[vp-additional-options]'));
   this.messageBox.load(this.element.querySelector('[vp-message-box]'));
   this.rateBox.load(this.element.querySelector('[vp-rate-box]'));
   this.suggestionScreen.load(
     this.element.querySelector('[vp-suggestion-screen]')
   );
+  this.translator.load(
+    this.element.querySelector('[vp-translator-screen]')
+  );
+
+  this.guide.load(createGuideContainer());
+  this.mainGuideScreen.load(document.querySelector('[vp-main-guide-screen]'))
 
   this.player.load(this.element);
 
@@ -91,18 +103,11 @@ function Plugin(options) {
       this.player.setPersonalization(this.personalization);
     }
 
-    if (this.wrapper) {
-      this.wrapper.style.background = `rgba(235,235,235, ${1 - this.opacity})`;
-    }
+    this.player.toggleSubtitle(false);
 
     this.controls.load(this.element.querySelector('[vp-controls]'));
     this.Box.load(this.element.querySelector('[vp-box]'));
-    this.settingBtnClose.load(
-      this.element
-        .querySelector('[vp-box]')
-        .querySelector('[settings-btn-close]'),
-      this.closeScreen
-    );
+
     this.settingsBtn.load(
       this.element.querySelector('[vp-box]').querySelector('[settings-btn]'),
       () =>
@@ -120,31 +125,32 @@ function Plugin(options) {
     this.loadImages();
   });
 
-  this.info.on('show', () => {
-    this.player.pause();
-  });
-
   window.addEventListener('vp-widget-close', (event) => {
     this.player.stop();
     this.rateBox.hide();
-    this.suggestionScreen.hide();
+    this.closeScreen.closeAll();
   });
 
   let control = 0;
   this.player.on('translate:start', () => {
     control = 1;
     this.ChangeAvatar.hide();
+    this.additionalOptions.hide();
     this.controls.setProgress();
-    this.loadingRef = this.messageBox.show('info', 'Traduzindo...');
+    this.loadingRef = this.messageBox.show('info', ALERT_MESSAGES.TRANSLATING_TEXT);
+    this.closeScreen.closeAll();
   });
 
   this.player.on('translate:end', () => {
     this.messageBox.hide(this.loadingRef);
+    this.translator.hide();
+    this.mainGuideScreen.hide();
   });
 
   this.player.on('gloss:start', () => {
     control = 0;
     this.ChangeAvatar.hide();
+    this.additionalOptions.hide();
     this.rateBox.hide();
     this.suggestionScreen.hide();
   });
@@ -152,6 +158,7 @@ function Plugin(options) {
   this.player.on('gloss:end', (globalGlosaLenght) => {
     if (control == 0) {
       this.ChangeAvatar.show();
+      this.additionalOptions.show();
     }
 
     if (this.player.translated && control == 0) {
@@ -164,7 +171,9 @@ function Plugin(options) {
 
   this.player.on('stop:welcome', (bool) => {
     if (bool) {
+      this.mainGuideScreen.show();
       this.ChangeAvatar.show();
+      this.additionalOptions.show();
     }
   });
 
@@ -173,38 +182,29 @@ function Plugin(options) {
     function (err) {
       switch (err) {
         case 'compatibility_error':
-          this.messageBox.show(
-            'warning',
-            'O seu computador não suporta o WebGL. Por favor, atualize os drivers de vídeo.'
-          );
+          this.messageBox.show('warning', ALERT_MESSAGES.COMPATIBILITY_ERROR);
           break;
         case 'translation_error':
-          this.messageBox.show(
-            'warning',
-            'Não foi possível estabelecer conexão com o serviço de tradução do VLibras.',
-            3000
-          );
+          this.messageBox.show('warning', ALERT_MESSAGES.TRANSLATION_ERROR, 3000);
           break;
         case 'internal_error':
-          this.messageBox.show(
-            'warning',
-            'Ops! Ocorreu um problema, por favor entre em contato com a gente.',
-            3000
-          );
+          this.messageBox.show('warning', ALERT_MESSAGES.INTERNAL_ERROR, 3000);
           break;
         case 'timeout_error':
-          this.messageBox.show(
-            'warning',
-            'Tempo de requisição excedido.',
-            3000
-          );
+          this.messageBox.show('warning', ALERT_MESSAGES.TIMEOUT_ERROR, 3000);
           break;
       }
     }.bind(this)
   );
 
-  this.loadFont();
   this.loadImages();
+}
+
+function createGuideContainer() {
+  const container = document.createElement('div');
+  container.classList.add('vp-guide-container');
+  document.body.appendChild(container);
+  return container;
 }
 
 Plugin.prototype.translate = function (text) {
@@ -226,7 +226,22 @@ Plugin.prototype.sendReview = function (rate, review) {
   http.onload = () => {
     this.rateBox.hide();
     this.suggestionScreen.hide();
-    this.messageBox.show('success', 'Obrigado pela contribuição!', 3000);
+    this.messageBox.show('success', ALERT_MESSAGES.REVIEW_THANKS, 3000);
+
+    // Thanks message
+    this.player.play('AGRADECER');
+    this.player.gloss = undefined;
+    const boundToggleSubtitle = toggleSubtitle.bind(this);
+
+    if (this.controls.element.querySelector('.actived-subtitle')) {
+      this.player.toggleSubtitle();
+      this.player.addListener("gloss:end", boundToggleSubtitle);
+    }
+
+    function toggleSubtitle() {
+      this.player.toggleSubtitle();
+      this.player.removeListener("gloss:end", boundToggleSubtitle);
+    }
   };
 };
 
@@ -239,20 +254,6 @@ Plugin.prototype.loadImages = function () {
     const imagePath = image.attributes['data-src'].value;
     image.src = this.buildAbsolutePath(imagePath);
   });
-};
-
-Plugin.prototype.loadFont = function () {
-  const fontPath = this.buildAbsolutePath('assets/OpenSans-Semibold.ttf');
-  const font = new FontFace('Open Sans', 'url(' + fontPath + ')');
-
-  font
-    .load()
-    .then((loaded) => {
-      document.fonts.add(loaded);
-    })
-    .catch((error) => {
-      console.error('Error loading font face:', error);
-    });
 };
 
 module.exports = Plugin;

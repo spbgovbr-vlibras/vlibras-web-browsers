@@ -1,7 +1,7 @@
 const template = require('./suggestion-screen.html').default;
 require('./suggestion-screen.scss');
 
-const { arrowIcon } = require('../../assets/icons/');
+const { arrowIcon } = require('~icons/');
 const { SIGNS_URL } = require('../../config');
 
 const TrieSearch = require('trie-search');
@@ -184,7 +184,7 @@ SuggestionScreen.prototype.load = function (element) {
   this.textElement.addEventListener('input', function () {
     const { end } = getInputSelection(this.textElement);
 
-    if (!this.textElement.value.replace(/[^a-z]/gi, '')) {
+    if (!this.textElement.value.replace(/[^a-z0-9]/gi, '')) {
       this.visualize.setAttribute('disabled', true);
       this.send.setAttribute('disabled', true);
     } else {
@@ -214,6 +214,13 @@ SuggestionScreen.prototype.load = function (element) {
     }
   }.bind(this));
 
+  this.textElement.addEventListener('keypress', function (e) {
+    if (e.key === 'Enter' && !this.send.disabled) {
+      e.preventDefault();
+      this.visualize.click();
+    }
+  }.bind(this));
+
   const xhr = new XMLHttpRequest();
   xhr.open('get', SIGNS_URL, true);
   xhr.responseType = 'text';
@@ -235,14 +242,14 @@ SuggestionScreen.prototype.setGloss = function (gloss) {
 };
 
 SuggestionScreen.prototype.show = function () {
-  this.element.querySelector('.vp-text').style.display = 'block';
+  // this.element.querySelector('.vp-text').style.display = 'block';
   this.element.classList.add('vp-enabled');
   this.element.classList.add('vp-expanded');
   this.element.querySelector('.vp-dropdown-suggest').classList.remove('vp-enabled');
 };
 
 SuggestionScreen.prototype.hide = function () {
-  this.element.querySelector('.vp-text').style.display = 'none';
+  // this.element.querySelector('.vp-text').style.display = 'none';
   this.element.classList.remove('vp-enabled');
 };
 

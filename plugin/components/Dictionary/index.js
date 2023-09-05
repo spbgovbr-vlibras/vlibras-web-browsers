@@ -1,20 +1,19 @@
-const { backIcon, loadingIcon } = require('../../assets/icons')
-
 const inherits = require('inherits');
 const EventEmitter = require('events').EventEmitter;
 
 const dictionaryTpl = require('./dictionary.html').default;
 require('./dictionary.scss');
 
-const { dictionaryIcon } = require('../../assets/icons')
-const { DICTIONARY_URL } = require('../../config');
-
 const Trie = require('./trie.js');
+
+const { backIcon, loadingIcon, dictionaryIcon } = require('~icons');
+const { DICTIONARY_URL } = require('../../config');
 
 function Dictionary(player) {
   this.visible = false;
   this.player = player;
   this.closeScreen = null;
+  this.button = null;
 }
 
 inherits(Dictionary, EventEmitter);
@@ -23,6 +22,7 @@ Dictionary.prototype.load = function (element, closeScreen) {
   this.element = element;
   this.element.innerHTML = dictionaryTpl;
   this.element.classList.add('vpw-dictionary');
+  this.button = document.querySelector('.vpw-header-btn-dictionary');
   this.closeScreen = closeScreen;
 
   const backButton = this.element.querySelector('.vpw-btn-close');
@@ -31,6 +31,7 @@ Dictionary.prototype.load = function (element, closeScreen) {
   const dictWords = this.element.querySelector('.vpw-dict-container');
   const loadingScreen = this.element.querySelector('.vpw-loading-dictionary');
   const reloadDictButton = loadingScreen.querySelector('div button');
+  let reqCounter = 0;
 
   reloadDictButton.onclick = getSigns.bind(this);
 
@@ -113,12 +114,26 @@ Dictionary.prototype.load = function (element, closeScreen) {
     }
   }.bind(this);
 
+  const addRetryBtn = () => loadingScreen.classList.add('vpw-dict--error');
+  const removeRetryBtn = () => loadingScreen.classList.remove('vpw-dict--error');
+  const maxRequest = () => loadingScreen.classList.add('vpw-dict--max-request');
+
   // Request and load list
   function getSigns() {
-    loadingScreen.classList.remove('vpw-dict--error');
+    reqCounter++;
+    removeRetryBtn();
     const xhr = new XMLHttpRequest();
     xhr.open('get', DICTIONARY_URL, true);
     xhr.responseType = 'text';
+    xhr.timeout = 30000;
+
+    xhr.ontimeout = function () {
+      console.error('Request timed out. Please try again later.');
+      addRetryBtn();
+    }
+
+    xhr.onerror = addRetryBtn;
+
     xhr.onload = function () {
       try {
         if (xhr.status == 200) {
@@ -129,12 +144,13 @@ Dictionary.prototype.load = function (element, closeScreen) {
           this.signs.loadSigns('', this.list._insert.bind(this.list));
           loadingScreen.remove();
         } else {
-          loadingScreen.classList.add('vpw-dict--error');
+          if (reqCounter === 5) maxRequest();
+          else addRetryBtn();
           console.error('Bad answer for signs, status: ' + xhr.status);
         }
       } catch (err) {
-        loadingScreen.classList.add('vpw-dict--error');
-        console.log(err);
+        addRetryBtn();
+        console.error(err);
       }
     }.bind(this);
     xhr.send();
@@ -194,12 +210,14 @@ Dictionary.prototype.toggle = function () {
 Dictionary.prototype.hide = function () {
   this.visible = false;
   this.element.classList.remove('active');
+  this.button.classList.remove('selected');
   this.emit('hide');
 };
 
 Dictionary.prototype.show = function () {
   this.visible = true;
   this.element.classList.add('active');
+  this.button.classList.add('selected');
   this.emit('show');
 };
 

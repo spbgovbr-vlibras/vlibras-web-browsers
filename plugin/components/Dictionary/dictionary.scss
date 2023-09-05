@@ -1,82 +1,67 @@
 @import '~scss/colors';
 @import '~scss/default-buttons';
+@import '~scss/shared-styles.scss';
 $margin_left: 40px;
 
 [vp] {
-    .vpw-dictionary {
+    [vp-dictionary] {
         display: none;
         position: absolute;
         top: 40px;
         width: 100%;
         height: calc(100% - 40px);
-        font-family: 'Rawline', sans-serif;
         background-color: white;
-        z-index: 6;
+        z-index: 10;
+        justify-content: start;
+        align-items: center;
+        flex-direction: column;
+        grid-auto-flow: 10px;
+        overflow: hidden;
+        font-size: 14px;
+        border-radius: 0 0 10px 10px;
+
+        @media (max-width: 450px) {
+            font-size: 12px;
+        }
 
         &.active {
-            display: block;
+            display: flex;
         }
 
         .vpw-panel {
-            position: relative;
-            height: 100px;
             background-color: white;
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            align-items: start;
+            flex-direction: column;
 
             .vpw-bar {
-                height: 45px;
-                top: 0;
-                left: 0;
-                right: 0;
-                padding-left: 15px;
-                border-bottom: 1px solid #DDD;
-                display: flex;
-                align-items: center;
-
-                @media(max-width: 450px) {
-                    height: 36px;
-                }
-
-                .vpw-btn-close {
-                    @include control-button;
-
-                    svg * {
-                        fill: map-get($blue, 1);
-                    }
-                }
-
-                .vpw-title {
-                    font-size: 16px;
-                    font-weight: 600;
-                    margin-left: 5px;
-                    margin-bottom: 1px;
-                    display: flex;
-                    align-items: center;
-                    justify-content: center;
-
-                    @media(max-width: 450px) {
-                        font-size: 14px;
-
-                    }
-                }
+                @include vp-screen-header;
             }
 
             .vpw-search {
                 width: 100%;
-                padding: 0 10px;
+                padding: 10px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
 
                 input {
                     width: 100%;
                     height: 36px;
-                    left: 33%;
-                    font-size: 14px;
-                    padding: 10px 10px 10px 10px;
-                    margin-top: 10px;
+                    font-size: 1rem;
+                    padding: 10px;
                     border-radius: 5px;
                     border: 1px solid #DDD;
                     outline: none;
 
-                    &:focus {
+                    @media (max-width: 450px) {
+                        font-size: .9rem !important;
+                    }
 
+                    &:focus {
                         border: 1px solid #003f86;
                         box-shadow: 0px 0px 15px rgba(86, 154, 255, 0.75);
                     }
@@ -86,23 +71,21 @@ $margin_left: 40px;
                 .vpw-icon {
                     display: flex;
                     position: absolute;
-                    top: 57px;
-                    right: 11px;
+                    align-items: center;
+                    justify-content: center;
+                    right: 10px;
                     width: 32px;
                     height: 32px;
 
                     @media(max-width: 450px) {
-                        top: 50px;
+                        width: 26px;
+                        height: 26px;
                     }
 
                     svg>* {
                         fill: map-get($black, 1);
                     }
                 }
-            }
-
-            @media(max-width: 450px) {
-                height: 91px;
             }
         }
 
@@ -115,10 +98,7 @@ $margin_left: 40px;
             border-top: 1px solid #DDD;
             padding-top: 10px;
 
-            @media(max-width: 450px) {
-                height: 25px;
-                padding: 30px 0px 13px;
-            }
+            @media(max-width: 450px) {}
 
             button {
                 background: map-get($white, 1);
@@ -130,7 +110,7 @@ $margin_left: 40px;
                 margin-bottom: 10px;
                 color: map-get($white, 2);
                 padding: 0 16px;
-                font-size: 14px;
+                font-size: 1em;
                 font-weight: 600;
                 cursor: pointer;
 
@@ -146,31 +126,27 @@ $margin_left: 40px;
 
                 @media(max-width: 450px) {
                     height: 30px;
-                    font-size: 12px;
+                    padding: 0 10px;
+                    height: 26px;
                 }
             }
         }
 
         .vpw-dict-container,
         .vpw-recents-container {
-            visibility: hidden;
-            position: absolute;
+            display: none;
+            height: 100%;
             width: 100%;
-            height: 70%;
-            left: 50%;
-            font-size: 18px;
-            transform: translateX(-50%);
+            overflow: auto;
 
             &.enabled {
-                visibility: visible;
+                display: flex;
             }
 
             ul {
-                height: 100%;
                 margin: 0;
                 padding: 0;
                 text-align: left;
-                overflow-y: scroll;
                 list-style-type: none;
 
                 &::-webkit-scrollbar {
@@ -186,22 +162,21 @@ $margin_left: 40px;
                 }
 
                 li {
-                    font-size: 14px;
+                    font-size: 1em;
                     cursor: pointer;
+                    padding: 6px 16px;
+                    font-weight: 500;
+                    min-width: 300px;
 
+                    @media (max-width: 450px) {
+                        padding: 6px 10px;
+                        min-width: 210px;
+                    }
 
                     &:hover {
                         background-color: #EAEAEA;
                         -webkit-transition: brackground-color 0.3s;
                         transition: brackground-color 0.4s;
-                    }
-
-                    &.margin {
-                        height: 114px;
-                    }
-
-                    &:not(.margin) {
-                        padding: 9px 10px 9px 10px;
                     }
                 }
 
@@ -209,6 +184,7 @@ $margin_left: 40px;
                     color: #999;
                     padding: 9px 10px 9px 10px;
                 }
+
             }
         }
 
@@ -232,7 +208,7 @@ $margin_left: 40px;
                 .vpw-loading__img {
                     width: 40px;
                     height: 40px;
-                    animation: loading 1s infinite;
+                    animation: loading .5s infinite linear;
                 }
 
                 @keyframes loading {
@@ -246,13 +222,14 @@ $margin_left: 40px;
                 }
 
                 span {
-                    font-size: 14px;
+                    font-size: 1em;
                     font-weight: 700;
                     color: map-get($blue, 4);
                     text-align: center;
                 }
 
-                .vpw-dict-msg--error {
+                .vpw-dict-msg--error,
+                .vpw-dict-msg--max-request {
                     display: none;
                 }
 
@@ -260,8 +237,8 @@ $margin_left: 40px;
                     @include suggestion-btn--secundary;
 
                     margin-top: 10px;
-                    font-size: 12px;
-                    max-height: 32px;
+                    font-size: 1em;
+                    max-height: 36px;
                     padding: 0 10px;
                     display: none;
                 }
@@ -269,11 +246,10 @@ $margin_left: 40px;
 
             &.vpw-dict--error {
                 div {
-                    img {
-                        display: none;
-                    }
 
-                    .vpw-dict-msg--loading {
+                    .vpw-loading__img,
+                    .vpw-dict-msg--loading,
+                    .vpw-dict-msg--max-request {
                         display: none;
                     }
 
@@ -283,6 +259,33 @@ $margin_left: 40px;
 
                     button {
                         display: grid;
+                    }
+                }
+            }
+
+            &.vpw-dict--max-request {
+                div {
+
+                    .vpw-loading__img,
+                    .vpw-dict-msg--loading,
+                    .vpw-dict-msg--error {
+                        display: none;
+                    }
+
+                    .vpw-dict-msg--max-request {
+                        display: inline;
+                    }
+
+                    button {
+                        display: none;
+                    }
+                }
+            }
+
+            @media (max-width: 450px) {
+                div {
+                    button {
+                        max-height: 32px;
                     }
                 }
             }

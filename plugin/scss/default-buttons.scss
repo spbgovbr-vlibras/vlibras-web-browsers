@@ -53,6 +53,7 @@
         min-height: 28px;
         max-width: 28px;
         max-height: 28px;
+        font-size: 12px;
     }
 }
 
@@ -180,7 +181,6 @@
     border-radius: 4px;
     color: map-get($white, 2);
     position: relative;
-    font-size: 12px;
     font-weight: 500;
     height: 70px !important;
     background-color: map-get($white, 1);
@@ -219,7 +219,7 @@
     font-weight: 600;
 
     @media (max-width: 450px) {
-        height: 28px;
+        height: 32px;
         font-size: 12px;
     }
 }
@@ -261,4 +261,57 @@
         user-select: none;
         color: map-get($white, 2);
     }
+}
+
+@mixin guide-btn {
+    @include reset;
+    @include centralize;
+
+    border-radius: 40px;
+    font-size: 14px;
+    outline: 1px solid;
+    height: 36px;
+    min-width: 36px;
+    padding: 0 16px;
+    flex-direction: row;
+    gap: 10px;
+    font-weight: 700;
+
+    &:disabled {
+        opacity: .5;
+        cursor: not-allowed;
+
+        &:hover {
+            opacity: .5;
+        }
+    }
+
+    &:active {
+        opacity: 1;
+    }
+
+    &:hover {
+        opacity: .8;
+    }
+}
+
+@mixin guide-btn--outline {
+    @include guide-btn;
+
+    color: map-get($white, 1);
+    outline-color: map-get($white, 1);
+}
+
+@mixin guide-btn--text {
+    @include guide-btn;
+
+    color: map-get($white, 1);
+    outline-color: transparent;
+}
+
+@mixin guide-btn--solid {
+    @include guide-btn;
+
+    color: map-get($blue, 2);
+    background-color: map-get($white, 1);
 }

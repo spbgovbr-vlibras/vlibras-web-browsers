@@ -1,0 +1,9 @@
+{
+    "compilerOptions": {
+        "baseUrl": ".",
+        "paths": {
+            "~utils": ["plugin/utils/"],
+            "~icons": ["plugin/assets/icons/"]
+        }
+    }
+}

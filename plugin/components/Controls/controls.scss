@@ -1,37 +1,33 @@
 @import '~scss/flexbox';
 @import '~scss/colors';
 @import '~scss/default-buttons';
+@import '~scss/fullscreen';
 
 [vp] {
-
-  [vp-controls] {
-    position: absolute;
-    left: 50%;
-    border-top: 1px solid map-get($white, 4);
-    transform: translateX(-50%);
-    bottom: 0%;
-    max-width: 900px;
-    z-index: 5;
-
-    @media (max-width: 450px) {
-      gap: 0 !important;
-      padding: 0 10px !important;
-    }
-  }
-
   .vpw-controls {
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    z-index: 5;
     display: flex;
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
-    width: calc(100% - 10px);
     height: 48px;
     padding: 8px 15px;
     flex-direction: row;
-    gap: 18px;
-    background-size: 100% 100%;
+    gap: 10px;
     background: white;
     width: 100%;
+    font-size: 14px;
+    border-radius: 0 0 10px 10px;
+
+    @media (max-width: 450px) {
+      gap: 0 !important;
+      padding: 0 10px !important;
+      height: 40px;
+      font-size: 12px;
+    }
 
     &.vpw-selectText {
       background-color: #003F86 !important;
@@ -45,10 +41,10 @@
       height: 100%;
       color: #FFFFFF;
       text-align: center;
-      font-size: 12px;
-      font-weight: bold;
+      font-size: 1em;
+      font-weight: 500;
 
-      @media only screen and (max-width: 480px) {
+      @media (max-width: 480px) {
         padding: 0 10px;
         align-items: center;
         justify-content: center;
@@ -60,19 +56,11 @@
         display: flex;
       }
 
-      .vpw-controls-button {
-        display: none;
-      }
-
-      .vpw-controls-slider {
-        display: none;
-      }
-
-      .vpw-button-speed {
-        display: none;
-      }
-
-      .vpw-controls-subtitles {
+      .vpw-controls-button,
+      .vpw-controls-slider,
+      .vpw-button-speed,
+      .vpw-controls-subtitles,
+      .vpw-controls-fullscreen {
         display: none;
       }
     }
@@ -80,10 +68,7 @@
     .vpw-controls-button {
       @include control-button;
 
-      .vpw-component-pause {
-        display: none;
-      }
-
+      .vpw-component-pause,
       .vpw-component-restart {
         display: none;
       }
@@ -91,7 +76,9 @@
     }
 
     &.vpw-playing .vpw-controls-button {
-      .vpw-component-play {
+
+      .vpw-component-play,
+      .vpw-component-restart {
         display: none;
       }
 
@@ -99,16 +86,11 @@
         display: flex;
       }
 
-      .vpw-component-restart {
-        display: none;
-      }
     }
 
     &.vpw-stopped .vpw-controls-button {
-      .vpw-component-play {
-        display: none;
-      }
 
+      .vpw-component-play,
       .vpw-component-pause {
         display: none;
       }
@@ -118,8 +100,21 @@
       }
     }
 
-    .vpw-controls-subtitles {
+    .vpw-controls-subtitles,
+    .vpw-controls-fullscreen {
       @include control-button;
+    }
+
+    .vpw-controls-fullscreen {
+      display: flex;
+
+      #vw-min-icon {
+        display: none;
+      }
+
+      #vw-max-icon {
+        display: inline;
+      }
     }
 
   }
@@ -171,10 +166,11 @@
     width: 40px;
     min-width: 40px;
     font-weight: bold;
+    padding-bottom: 2px;
 
     @media (max-width: 450px) {
       min-width: 34px;
-      max-width: 34px;
+      max-width: 28px;
     }
   }
 
@@ -186,10 +182,12 @@
     overflow: hidden;
     height: 5px;
     background-color: transparent;
+    display: flex;
+    align-items: center;
 
     .vpw-slider {
       width: 100%;
-      height: 5px;
+      height: 10px;
 
       &.noUi-target {
         box-shadow: none;
@@ -203,10 +201,6 @@
       .noUi-background {
         background-color: #B8B8B8;
         box-shadow: none;
-      }
-
-      .noUi-origin {
-        border-radius: 1px;
       }
 
       .noUi-handle {
@@ -223,6 +217,5 @@
       }
     }
   }
-
 
 }

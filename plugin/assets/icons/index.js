@@ -1,10 +1,6 @@
-const playIcon = require('./play.svg');
-const pauseIcon = require('./pause.svg');
-const restartIcon = require('./restart.svg');
-const subtitleIcon = require('./subtitle.svg');
 const IcaroIcon = require('./avatars/icaro.svg');
-const hozanaIcon = require('./avatars/hozana.svg');
-const gugaIcon = require('./avatars/guga.svg');
+const HosanaIcon = require('./avatars/hosana.svg');
+const GugaIcon = require('./avatars/guga.svg');
 const aboutIcon = require('./header/about.svg');
 const closeIcon = require('./header/close.svg');
 const dictionaryIcon = require('./header/dictionary.svg');
@@ -14,13 +10,24 @@ const arrowIcon = require('./feedback/arrow-up.svg');
 const likeLineIcon = require('./feedback/like-line.svg');
 const likeSolidIcon = require('./feedback/like-solid.svg');
 const loadingIcon = require('./loading.svg');
+const translatorIcon = require('./additionalOptions/translator.svg');
+const helpIcon = require('./additionalOptions/help.svg');
+
+const controlIcons = {
+  play: require('./controls/play.svg'),
+  pause: require('./controls/pause.svg'),
+  restart: require('./controls/restart.svg'),
+  subtitle: require('./controls/subtitle.svg'),
+  maximize: require('./controls/maximize.svg'),
+  minimize: require('./controls/minimize.svg'),
+}
 
 const socialIcons = {
-  face: require('./facebook.svg'),
-  web: require('./web.svg'),
-  twitter: require('./twitter.svg'),
-  insta: require('./instagram.svg'),
-  youtube: require('./youtube.svg'),
+  face: require('./social/facebook.svg'),
+  website: require('./social/website.svg'),
+  twitter: require('./social/twitter.svg'),
+  insta: require('./social/instagram.svg'),
+  youtube: require('./social/youtube.svg'),
 }
 
 const positionIcons = [
@@ -31,9 +38,9 @@ const positionIcons = [
 ]
 
 module.exports = {
-  playIcon, pauseIcon, restartIcon, subtitleIcon, IcaroIcon,
-  hozanaIcon, gugaIcon, aboutIcon, closeIcon, dictionaryIcon,
-  settingsIcon, backIcon, socialIcons, positionIcons,
-  arrowIcon, likeLineIcon, likeSolidIcon, loadingIcon
+  IcaroIcon, HosanaIcon, GugaIcon, aboutIcon, closeIcon,
+  dictionaryIcon, settingsIcon, backIcon, socialIcons,
+  positionIcons, arrowIcon, likeLineIcon, likeSolidIcon,
+  loadingIcon, translatorIcon, helpIcon, controlIcons
 }
 

@@ -1,46 +1,49 @@
 [vw] [vw-access-button] {
   display: none;
-  width: 160px;
-  text-align: center;
+  flex-direction: row-reverse;
+  width: 40px;
   cursor: pointer;
-  margin: 0px 0px 0px -100px;
-  max-width: none;
+  overflow: hidden;
+  position: relative;
+  border-radius: 8px;
+  transition: all .5s ease;
 
-  &.active {
-    display: block;
+  img {
+    max-height: 40px;
+    transition: all .5s ease;
+    border-radius: 8px;
   }
 
   .access-button {
     width: 40px;
-    float: right;
+    height: 40px;
+    z-index: 1;
   }
-
-  span {
-    font-size: 13px;
-    color: #004088;
-  }
-
-  .access-button:hover+.pop-up {
-    width: calc(100% - 56px);
-  }
-
 
   .pop-up {
-    float: right;
-    width: 0%;
-    margin-right: 6px;
-    -webkit-transition: width 2s;
-    /* For Safari 3.1 to 6.0 */
-    transition: width 0.5s;
+    position: absolute;
+    height: 40px;
+    width: 150px;
+    z-index: 0;
+    left: 0;
+    right: auto;
   }
 
-  .pop-up.left {
-    margin-right: -50px;
-    transform: translateX(100%);
+  &:hover {
+    width: 200px;
   }
 
-  .access-button.left {
-    float: left !important;
-    margin-right: 6px;
+  &.isLeft {
+    flex-direction: row;
+
+    .pop-up {
+      left: auto;
+      right: 0;
+    }
+  }
+
+
+  &.active {
+    display: flex;
   }
 }
