@@ -1,0 +1,100 @@
+@import '~scss/colors.scss';
+@import '~scss/default-buttons.scss';
+@import '~scss/shared-styles.scss';
+
+[vp] [vp-main-guide-screen] {
+    display: flex;
+    align-items: center;
+    justify-content: start;
+    flex-direction: column;
+    gap: 10px;
+    border-radius: 10px;
+    width: 100%;
+    font-size: 14px;
+    position: absolute;
+    z-index: 0;
+    padding: 14px;
+    background-color: map-get($white, 1);
+    border-bottom: 1px solid map-get($white, 4);
+    overflow: hidden;
+    visibility: hidden;
+    top: 0;
+    height: auto !important;
+    transition: all .3s ease;
+    transform: scale(0);
+    transform-origin: top right;
+    box-shadow: $vp-shadow;
+
+    &.vw-isLeft {
+        transform-origin: top left;
+    }
+
+    &.vw-isTopOrBottom .vpw-guide__main__buttons-container {
+        flex-direction: row !important;
+
+        button :nth-child(2) {
+            display: none !important;
+        }
+
+    }
+
+    .vpw-guide__main__title {
+        font-size: 1.2em;
+        color: map-get($black, 1);
+        font-weight: 600;
+        width: 100%;
+    }
+
+    .vpw-guide__main__desc {
+        color: map-get($black, 2);
+        font-weight: 500;
+        font-size: 1em;
+        width: 100%;
+    }
+
+    .vpw-guide__main__buttons-container {
+        margin-top: 10px;
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+
+        .vpw-guide__main__accept-btn {
+            @include suggestion-btn--primary;
+            width: 100%
+        }
+
+        .vpw-guide__main__deny-btn {
+            @include suggestion-btn--secundary;
+
+            width: 100%
+        }
+
+        @media (max-width: 600px) {
+            flex-direction: row;
+
+            button {
+                font-size: 12px !important;
+
+                :nth-child(2) {
+                    display: none !important;
+                }
+            }
+        }
+
+        @media (max-width: 500px) {
+            flex-direction: column;
+        }
+    }
+
+    @media (max-width: 600px) {
+        padding: 10px;
+        font-size: 12px;
+    }
+
+    &.vp-enabled {
+        z-index: 6 !important;
+        visibility: visible;
+        transform: scale(1);
+    }
+}

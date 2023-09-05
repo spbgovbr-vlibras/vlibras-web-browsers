@@ -24,7 +24,7 @@ $height-set: 450px;
   [vp] {
 
     .vpw-controls-slider {
-      width: 40% !important;
+      width: 30% !important;
     }
 
     .vpw-settings-btn .vpw-settings-btn-close,
@@ -87,10 +87,6 @@ $height-set: 450px;
     .vpw-bar .vpw-title {
       margin-right: 40px;
     }
-
-    .vpw-dictionary .vpw-dict-container ul li:not(.margin) {
-      padding: 5px;
-    }
   }
 }
 
@@ -100,7 +96,7 @@ div[vw] {
   right: 0;
   top: 50%;
   transform: translateY(-50%);
-  z-index: 99999999 !important;
+  z-index: 2147483647 !important;
   display: none;
   font-family: Arial;
   color: #000;
@@ -158,15 +154,4 @@ div[vw] {
     }
   }
 
-}
-
-.vw-text:hover {
-  background-color: rgba(0, 63, 134, 0.2);
-  color: #000;
-  cursor: pointer;
-}
-
-.vw-text-active {
-  background-color: rgba(30, 63, 134, 0.2);
-  color: #000;
 }
