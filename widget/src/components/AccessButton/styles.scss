@@ -23,7 +23,7 @@
   .pop-up {
     position: absolute;
     height: 40px;
-    width: 150px;
+    min-width: 150px;
     z-index: 0;
     left: 0;
     right: auto;
