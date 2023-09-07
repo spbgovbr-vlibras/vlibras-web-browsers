@@ -1,8 +1,14 @@
 @import '~scss/colors.scss';
 @import '~scss/default-buttons.scss';
 
-.vp-guide-container {
+.vp-guide-container * {
     font-family: 'rawline', sans-serif !important;
+    box-sizing: border-box;
+    padding: 0;
+    margin: 0;
+}
+
+.vp-guide-container {
     background-color: map-get($blue, 2);
     max-width: 340px;
     position: fixed;
