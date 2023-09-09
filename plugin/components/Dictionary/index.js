@@ -118,10 +118,17 @@ Dictionary.prototype.load = function (element, closeScreen) {
   const removeRetryBtn = () => loadingScreen.classList.remove('vpw-dict--error');
   const maxRequest = () => loadingScreen.classList.add('vpw-dict--max-request');
 
+  function checkRequests(err) {
+    if (err) console.error(err);
+    if (reqCounter >= 5) maxRequest();
+    else addRetryBtn();
+  }
+
   // Request and load list
   function getSigns() {
     reqCounter++;
     removeRetryBtn();
+
     const xhr = new XMLHttpRequest();
     xhr.open('get', DICTIONARY_URL, true);
     xhr.responseType = 'text';
@@ -132,7 +139,7 @@ Dictionary.prototype.load = function (element, closeScreen) {
       addRetryBtn();
     }
 
-    xhr.onerror = addRetryBtn;
+    xhr.onerror = err => checkRequests(err);
 
     xhr.onload = function () {
       try {
@@ -144,13 +151,11 @@ Dictionary.prototype.load = function (element, closeScreen) {
           this.signs.loadSigns('', this.list._insert.bind(this.list));
           loadingScreen.remove();
         } else {
-          if (reqCounter === 5) maxRequest();
-          else addRetryBtn();
+          checkRequests();
           console.error('Bad answer for signs, status: ' + xhr.status);
         }
       } catch (err) {
-        addRetryBtn();
-        console.error(err);
+        checkRequests(err);
       }
     }.bind(this);
     xhr.send();
