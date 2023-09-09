@@ -67,7 +67,7 @@ function loadTextCaptureScript() {
           || element.textContent);
 
     // Call VLibras Widget
-    if (textContent.trim()) window.plugin.translate(textContent);
+    if (textContent && textContent.trim()) window.plugin.translate(textContent);
 
     const linkElement = element.tagName === "A" ? element : hasLinkAncestor(element);
 
