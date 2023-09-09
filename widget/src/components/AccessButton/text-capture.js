@@ -1,8 +1,8 @@
-const { $, addClass, removeClass, canTranslate, toggleClass } = require('~utils');
+const { $, addClass, removeClass, canTranslate, toggleClass, getWidget } = require('~utils');
 
 function loadTextCaptureScript() {
   const $root = Array.from([document.body, ...document.body.children]);
-  const $vw = $('[vw]');
+  const $vw = getWidget();
   const $guide = $('.vp-guide-container');
 
   const hasTag = (el, tags) => tags.includes(el.tagName);
