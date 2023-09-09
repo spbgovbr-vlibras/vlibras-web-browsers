@@ -61,8 +61,7 @@ function loadTextCaptureScript() {
 
     const textContent = (hasTag(element, 'IMG') ? element.alt
       : isSubmit ? element.value
-        : hasTag(element, 'SELECT') ? element.value ? element.value
-          : element.children[0].innerText
+        : hasTag(element, 'SELECT') ? $(element, `[value="${element.value}"]`).innerText
           : element.innerText && element.innerText.replace(/\s+/g, ' ')
           || element.textContent);
 
