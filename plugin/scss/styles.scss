@@ -7,8 +7,8 @@
   position: relative;
 
   * {
-    box-sizing: border-box;
-    -webkit-box-sizing: border-box;
+    box-sizing: border-box !important;
+    -webkit-box-sizing: border-box !important;
     font-family: 'Rawline', 'Open Sans', sans-serif !important;
   }
 
