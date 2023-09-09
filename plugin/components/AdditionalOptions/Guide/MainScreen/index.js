@@ -75,7 +75,7 @@ function updatePosition() {
   const isLeft = wPosition.includes('L');
   const isTop = wPosition === 'T';
   const isBottom = wPosition === 'B';
-  const wWidth = u.$('[vw]').clientWidth;
+  const wWidth = u.getWidget().clientWidth;
   const _innerWidth = u.getDocumentDim().w;
 
   u.toggleClass(this.element, 'vw-isLeft', isLeft);

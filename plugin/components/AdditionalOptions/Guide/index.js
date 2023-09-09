@@ -32,7 +32,7 @@ Guide.prototype.load = function (element) {
   this.nextButton = u.$('.vpw-guide__next-btn', this.element);
   this.closeButton = u.$('.vpw-guide__close-btn', this.element);
   this.tabSlider = u.$('.vpw-guide__tab-slider', this.element);
-  $vw = u.$('div[vw]');
+  $vw = u.getWidget();
 
   // Add icon
   this.closeButton.innerHTML = closeIcon;
