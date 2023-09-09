@@ -46,8 +46,7 @@ Guide.prototype.load = function (element) {
   this.populateList = () => guideElements.forEach(({ path }) => this.$elements.push(u.$(path)));
 
   // Create slider element
-  const { length } = guideElements;
-  this.tabSlider.innerHTML = Array.from({ length }, () => '<span></span>').join('');
+  this.tabSlider.innerHTML = '<span></span>'.repeat(guideElements.length);
 }
 
 Guide.prototype.show = function () {
