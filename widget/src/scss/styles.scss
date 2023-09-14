@@ -16,78 +16,11 @@ $height-set: 450px;
     }
 
     [vw-plugin-wrapper].active {
-      height: 358px !important;
+      height: 340px !important;
       width: 210px !important;
     }
   }
 
-  [vp] {
-
-    .vpw-controls-slider {
-      width: 30% !important;
-    }
-
-    .vpw-settings-btn .vpw-settings-btn-close,
-    .vpw-btn-close .vpw-img {
-      right: 100px;
-    }
-
-    [vp-rate-box].vp-enabled .vp-container {
-      margin-right: 70px;
-      margin-bottom: 80px;
-    }
-
-    [vp-rate-button] .vp-button {
-      margin-right: 110px;
-      margin-bottom: 130px;
-    }
-
-    [vp-rate-button] .vp-button img {
-      width: 32px;
-      margin-bottom: -37px;
-      margin-right: -14px;
-    }
-
-    .vpw-settings .vpw-content .vpw-vlibras-logo {
-      left: 39%;
-      bottom: 125px;
-    }
-
-    .vpw-settings .vpw-content>ul {
-      margin-left: -20px;
-    }
-
-    .vpw-settings .vpw-content>ul li .vpw-name {
-      font-size: 12px;
-    }
-
-    .vpw-settings .vpw-content>ul .vpw-localism .vpw-flag {
-      right: 88px;
-      height: 24px;
-    }
-
-    .vpw-switch {
-      width: 48px;
-      height: 15px;
-      margin-top: -10px;
-      right: 64px;
-    }
-
-    .vpw-slider-check.vpw-round:before {
-      top: -3px;
-    }
-
-    .vpw-slider-check:before {
-      height: 21px;
-      width: 20px;
-      left: -20;
-      bottom: 4px;
-    }
-
-    .vpw-bar .vpw-title {
-      margin-right: 40px;
-    }
-  }
 }
 
 div[vw] {
