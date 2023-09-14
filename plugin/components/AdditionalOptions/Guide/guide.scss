@@ -171,13 +171,23 @@ span[vp-click-blocker] {
 
 [vp] {
     .vp-guide-highlight {
-        box-shadow: 0 5px 15px #6290D5 !important;
         outline: 2px solid #FFF !important;
         outline-offset: -1px;
         transform: scale(1.04) !important;
         transform-origin: center 200%;
         border: none !important;
         border-radius: 100px !important;
+        animation: boxShadowAnim .5s alternate-reverse infinite ease-out;
+
+        @keyframes boxShadowAnim {
+            0% {
+                box-shadow: 0 0 0px transparent;
+            }
+
+            100% {
+                box-shadow: 0 0px 15px map-get($blue, 1);
+            }
+        }
     }
 
     .vp-guide-transition {
