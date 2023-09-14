@@ -25,6 +25,7 @@ Dictionary.prototype.load = function (element, closeScreen) {
   this.element.classList.add('vpw-dictionary');
   this.button = document.querySelector('.vpw-header-btn-dictionary');
   this.closeScreen = closeScreen;
+  this.searchInput = element.querySelector('.vpw-search input')
 
 
   const backButton = this.element.querySelector('.vpw-btn-close');
@@ -36,7 +37,8 @@ Dictionary.prototype.load = function (element, closeScreen) {
   const reloadDictButton = loadingScreen.querySelector('div button');
   let reqCounter = 0;
 
-  this.boundLoadRecentWords = () => loadRecentWords.bind(this)(recentWords)
+  this.boundLoadRecentWords = () => loadRecentWords.bind(this)(recentWords);
+  this.boundToggleWords = (aba) => toggleWords(aba);
 
   reloadDictButton.onclick = () => {
     getSigns.bind(this)();
@@ -154,21 +156,19 @@ Dictionary.prototype.load = function (element, closeScreen) {
   }.bind(this);
 
   // Search
-  this.element.querySelector('.vpw-panel .vpw-search input').addEventListener(
-    'keydown',
-    function (event) {
-      this.list._clear();
-      this.signs.loadSigns(
-        event.target.value.toUpperCase(),
-        this.list._insert.bind(this.list)
-      );
-      if (this.list.childNodes.length === 0) {
-        this.list.innerHTML = '<span>Nenhum sinal encontrado :(</span>';
-      }
+  this.searchInput.addEventListener('input', function (event) {
+    this.list._clear();
+    this.signs.loadSigns(
+      event.target.value.toUpperCase(),
+      this.list._insert.bind(this.list)
+    );
 
-      toggleWords('dict');
+    this.list.parentElement.classList.toggle(
+      'vp-isEmpty', this.list.childNodes.length === 0
+    )
 
-    }.bind(this)
+    toggleWords('dict');
+  }.bind(this)
   );
 };
 
@@ -202,8 +202,17 @@ Dictionary.prototype.show = function () {
   this.visible = true;
   this.element.classList.add('active');
   this.button.classList.add('selected');
+  resetDictionary.bind(this)();
   this.emit('show');
 };
+
+function resetDictionary() {
+  if (!this.signs) return;
+  this.list._clear();
+  this.signs.loadSigns('', this.list._insert.bind(this.list));
+  this.searchInput.value = '';
+  this.boundToggleWords('dict');
+}
 
 function loadRecentWords(recentWordsDiv) {
   let value = localStorage.getItem(DICT_LOCAL_KEY);
