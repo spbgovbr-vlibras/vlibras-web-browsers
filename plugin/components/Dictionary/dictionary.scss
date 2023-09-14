@@ -90,20 +90,17 @@ $margin_left: 40px;
             align-items: center;
             flex-direction: row;
             justify-content: start;
+            gap: 10px;
             width: 100%;
+            padding: 16px;
             border-top: 1px solid #DDD;
-            padding-top: 10px;
 
-            @media(max-width: 450px) {}
-
-            button {
+            .vp-dictionary-btn {
                 background: map-get($white, 1);
                 outline: none;
                 height: 32px;
                 border: 1px solid map-get($white, 4);
                 border-radius: 50px;
-                margin-left: 10px;
-                margin-bottom: 10px;
                 color: map-get($white, 2);
                 padding: 0 16px;
                 font-size: 1em;
@@ -119,8 +116,12 @@ $margin_left: 40px;
                     color: map-get($blue, 2);
                     border-color: map-get($blue, 2);
                 }
+            }
 
-                @media(max-width: 450px) {
+            @media(max-width: 450px) {
+                padding: 10px;
+
+                .vp-dictionary-btn {
                     height: 30px;
                     padding: 0 10px;
                     height: 26px;
@@ -135,7 +136,7 @@ $margin_left: 40px;
             width: 100%;
             overflow: auto;
 
-            &.enabled {
+            &.vp-enabled {
                 display: flex;
             }
 
@@ -176,11 +177,19 @@ $margin_left: 40px;
                     }
                 }
 
-                span {
-                    color: #999;
-                    padding: 9px 10px 9px 10px;
-                }
+            }
 
+            span {
+                display: none;
+                color: #999;
+                margin-left: 16px;
+            }
+
+            &.vp-isEmpty {
+
+                span {
+                    display: inline;
+                }
             }
         }
 
