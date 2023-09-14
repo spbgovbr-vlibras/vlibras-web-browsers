@@ -57,6 +57,13 @@ $margin_left: 40px;
                     border: 1px solid #DDD;
                     outline: none;
 
+                    &::placeholder {
+                        color: #999;
+                        font-weight: 400;
+                        font-style: normal;
+                        text-decoration: none;
+                    }
+
                     &:focus {
                         border: 1px solid #003f86;
                         box-shadow: 0px 0px 15px rgba(86, 154, 255, 0.75);
