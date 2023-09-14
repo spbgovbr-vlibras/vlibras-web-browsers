@@ -175,13 +175,14 @@ Dictionary.prototype.load = function (element, closeScreen) {
 Dictionary.prototype._onItemClick = function (event, word) {
   this.closeScreen.closeAll();
   this.player.play(event);
+  this.player.text = ' ';
 
   if (this.element.querySelectorAll('.buttons-container button')[1]
     .classList.contains('vp-selected')
   ) return;
 
   const recentWords = getRecentWords();
-  recentWords.push(event);
+  recentWords.unshift(event);
 
   saveRecentWords.bind(this)(recentWords);
 };
@@ -225,7 +226,7 @@ function loadRecentWords(recentWordsDiv) {
   const list = recentWordsDiv.querySelector('ul');
   list.innerHTML = "";
 
-  for (word of value.reverse()) {
+  for (word of value) {
     const item = document.createElement('li');
     item.innerHTML = word;
     list.appendChild(item);
@@ -239,6 +240,7 @@ function getRecentWords() {
 }
 
 function saveRecentWords(list) {
+  list = Array.from(new Set(list));
   localStorage.setItem(DICT_LOCAL_KEY, JSON.stringify(list));
   this.boundLoadRecentWords();
 }
