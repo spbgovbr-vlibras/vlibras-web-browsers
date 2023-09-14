@@ -1,7 +1,7 @@
 @import '~scss/colors.scss';
 @import '~scss/default-buttons.scss';
 
-.vp-guide-container * {
+.vp-guide-container {
     font-family: 'Rawline', Verdana, sans-serif !important;
     box-sizing: border-box !important;
     padding: 0;
@@ -23,6 +23,11 @@
     border-radius: 10px;
     z-index: 2147483647 !important;
     display: none;
+    font-size: 16px;
+
+    @media (max-width: 720px) {
+        font-size: 14px;
+    }
 
     &.vw-centered {
         transform: translateX(-50%);
@@ -128,21 +133,11 @@
                     opacity: 1;
                 }
             }
-
-            @media (max-width: 450px) {
-                font-size: 12px;
-            }
         }
     }
 
     &.vp-enabled {
         display: flex;
-    }
-
-    @media (max-width: 600px) {
-        .vpw-guide__message {
-            font-size: 14px;
-        }
     }
 
 }
