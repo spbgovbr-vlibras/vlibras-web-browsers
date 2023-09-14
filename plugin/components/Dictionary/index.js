@@ -8,6 +8,7 @@ const Trie = require('./trie.js');
 
 const { backIcon, loadingIcon, dictionaryIcon } = require('~icons');
 const { DICTIONARY_URL } = require('../../config');
+const DICT_LOCAL_KEY = "@vp-dict-history";
 
 function Dictionary(player) {
   this.visible = false;
@@ -25,55 +26,29 @@ Dictionary.prototype.load = function (element, closeScreen) {
   this.button = document.querySelector('.vpw-header-btn-dictionary');
   this.closeScreen = closeScreen;
 
+
   const backButton = this.element.querySelector('.vpw-btn-close');
-  const buttons = this.element.querySelectorAll('.buttons-container button');
+  const dictBtn = this.element.querySelectorAll('.vp-dictionary-btn')[0];
+  const recentBtn = this.element.querySelectorAll('.vp-dictionary-btn')[1];
   const recentWords = this.element.querySelector('.vpw-recents-container');
   const dictWords = this.element.querySelector('.vpw-dict-container');
   const loadingScreen = this.element.querySelector('.vpw-loading-dictionary');
   const reloadDictButton = loadingScreen.querySelector('div button');
   let reqCounter = 0;
 
-  reloadDictButton.onclick = getSigns.bind(this);
+  this.boundLoadRecentWords = () => loadRecentWords.bind(this)(recentWords)
 
-  this.loadRecentWords = function () {
-    let value = localStorage.getItem('@vp-dict-history');
-    if (value) value = JSON.parse(value);
-    else return;
+  reloadDictButton.onclick = () => {
+    getSigns.bind(this)();
+  }
 
-    const list = recentWords.querySelector('ul');
-    list.innerHTML = "";
-
-    for (word of value.reverse()) {
-      const item = document.createElement('li');
-      item.innerHTML = word;
-      list.appendChild(item);
-
-      item.addEventListener('click', this._onItemClick.bind(this, word));
-    }
-  }.bind(this);
-
-  buttons[0].onclick = () => {
+  dictBtn.onclick = () => {
     toggleWords('dict');
   }
 
-  buttons[1].onclick = () => {
+  recentBtn.onclick = () => {
     toggleWords('recents');
-    this.loadRecentWords();
-  }
-
-  function toggleWords(words) {
-    if (words === 'dict') {
-      buttons[0].classList.add('vp-selected');
-      buttons[1].classList.remove('vp-selected');
-      recentWords.classList.remove('enabled');
-      dictWords.classList.add('enabled');
-    }
-    else if (words === 'recents') {
-      buttons[1].classList.add('vp-selected');
-      buttons[0].classList.remove('vp-selected');
-      recentWords.classList.add('enabled');
-      dictWords.classList.remove('enabled');
-    } else return;
+    this.boundLoadRecentWords();
   }
 
   // Add icon
@@ -89,7 +64,6 @@ Dictionary.prototype.load = function (element, closeScreen) {
         .classList.remove('selected');
     }.bind(this)
   );
-
 
   // Signs trie
   this.signs = null;
@@ -120,7 +94,7 @@ Dictionary.prototype.load = function (element, closeScreen) {
 
   function checkRequests(err) {
     if (err) console.error(err);
-    if (reqCounter >= 5) maxRequest();
+    if (reqCounter > 5) maxRequest();
     else addRetryBtn();
   }
 
@@ -161,6 +135,15 @@ Dictionary.prototype.load = function (element, closeScreen) {
     xhr.send();
   }
 
+  function toggleWords(words) {
+    const isDict = words === 'dict';
+
+    dictBtn.classList.toggle('vp-selected', isDict);
+    recentBtn.classList.toggle('vp-selected', !isDict);
+    dictWords.classList.toggle('vp-enabled', isDict);
+    recentWords.classList.toggle('vp-enabled', !isDict);
+  }
+
   getSigns.bind(this)();
 
   this.defaultItem = this.list.querySelector('li');
@@ -197,14 +180,10 @@ Dictionary.prototype._onItemClick = function (event, word) {
     .classList.contains('vp-selected')
   ) return;
 
-  let value = localStorage.getItem("@vp-dict-history");
-  if (value) {
-    value = JSON.parse(value);
-    value.push(event)
-  } else value = [event];
+  const recentWords = getRecentWords();
+  recentWords.push(event);
 
-  localStorage.setItem("@vp-dict-history", JSON.stringify(value));
-  this.loadRecentWords();
+  saveRecentWords.bind(this)(recentWords);
 };
 
 Dictionary.prototype.toggle = function () {
@@ -225,5 +204,34 @@ Dictionary.prototype.show = function () {
   this.button.classList.add('selected');
   this.emit('show');
 };
+
+function loadRecentWords(recentWordsDiv) {
+  let value = localStorage.getItem(DICT_LOCAL_KEY);
+
+  recentWordsDiv.classList.toggle('vp-isEmpty', !value);
+
+  if (value) value = JSON.parse(value);
+  else return;
+
+  const list = recentWordsDiv.querySelector('ul');
+  list.innerHTML = "";
+
+  for (word of value.reverse()) {
+    const item = document.createElement('li');
+    item.innerHTML = word;
+    list.appendChild(item);
+
+    item.addEventListener('click', this._onItemClick.bind(this, word));
+  }
+}
+
+function getRecentWords() {
+  return JSON.parse(localStorage.getItem(DICT_LOCAL_KEY)) || []
+}
+
+function saveRecentWords(list) {
+  localStorage.setItem(DICT_LOCAL_KEY, JSON.stringify(list));
+  this.boundLoadRecentWords();
+}
 
 module.exports = Dictionary;
