@@ -21,7 +21,7 @@ export const getWidgetPosition = () => {
 // Get a valid Widget element
 // * www.correios.com.br
 export const getWidget = () => {
-  return $('[vw-plugin-wrapper].active').parentElement;
+  return $('[vp]').closest('[vw]');
 }
 
 // Set Widget's position
