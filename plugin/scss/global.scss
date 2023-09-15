@@ -1,0 +1,29 @@
+@import url('https://fonts.cdnfonts.com/css/rawline');
+@import 'colors.scss';
+
+[vw] {
+    img[data-src] {
+        opacity: 1 !important;
+    }
+
+    input,
+    textarea {
+        color: map-get($black, 1) !important;
+        font-weight: 500;
+
+        &::placeholder {
+            color: #999 !important;
+            font-weight: 400;
+            font-style: normal;
+            text-decoration: none;
+            opacity: 1 !important;
+        }
+    }
+
+    * {
+        box-sizing: border-box !important;
+        -webkit-box-sizing: border-box !important;
+        font-family: 'Rawline', Verdana, sans-serif !important;
+        text-shadow: none !important;
+    }
+}
