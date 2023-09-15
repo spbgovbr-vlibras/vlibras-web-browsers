@@ -26,7 +26,7 @@ function Guide(player) {
 Guide.prototype.load = function (element) {
   this.element = element;
   this.element.innerHTML = template;
-  this.helpButton = u.$('.vpw-help-button', u.$('div[vw]'));
+  this.helpButton = u.$('.vpw-help-button');
   this.message = u.$('.vpw-guide__message', this.element);
   this.backButton = u.$('.vpw-guide__back-btn', this.element);
   this.nextButton = u.$('.vpw-guide__next-btn', this.element);
