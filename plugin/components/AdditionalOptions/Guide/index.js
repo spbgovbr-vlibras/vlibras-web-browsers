@@ -75,8 +75,8 @@ Guide.prototype.hide = function () {
   this.reset();
   this.player.stop();
   this.player.gloss = undefined;
+  this.removeHighlight();
   resetItems();
-  removeHighlight();
   roundedWrapper(false);
   u.addClickBlocker(false);
   u.removeClass(this.helpButton, 'vp-selected');
@@ -195,6 +195,13 @@ Guide.prototype.addHighlight = function () {
   u.addClass(element, 'vp-guide-highlight');
 }
 
+Guide.prototype.removeHighlight = function () {
+  this.$elements.forEach(e => {
+    u.removeClass(e, 'vp-guide-highlight');
+    u.removeClass(e, 'vp-guide-transition');
+  })
+}
+
 Guide.prototype.updateFooter = function () {
   if (this.tab === 0) this.backButton.setAttribute('disabled', true);
   else this.backButton.removeAttribute('disabled');
@@ -208,13 +215,6 @@ Guide.prototype.updateFooter = function () {
   // Toggle actived tab in slider
   if (activedTab) u.removeClass(activedTab, 'vp-actived');
   u.addClass(this.tabSlider.children[this.tab], 'vp-actived');
-}
-
-function removeHighlight() {
-  u.$$('.vp-guide-highlight').forEach(item => {
-    u.removeClass(item, 'vp-guide-highlight');
-    u.removeClass(item, 'vp-guide-transition')
-  })
 }
 
 function callWidgetTranslator() {
