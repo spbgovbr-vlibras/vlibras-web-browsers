@@ -1,16 +1,8 @@
-@import url('https://fonts.cdnfonts.com/css/rawline');
-
 [vp] {
   font-size: 16px;
   height: 100%;
   width: 100%;
   position: relative;
-
-  * {
-    box-sizing: border-box !important;
-    -webkit-box-sizing: border-box !important;
-    font-family: 'Rawline', Verdana, sans-serif !important;
-  }
 
   [vp-blue-button] {
     padding: 7px;
