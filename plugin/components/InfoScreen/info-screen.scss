@@ -49,6 +49,7 @@
         font-weight: 600;
         font-size: 1em;
         margin-bottom: 10px;
+        color: map-get($black, 1) !important;
       }
 
       .vpw-info__section-desc {
@@ -75,7 +76,6 @@
       }
 
       .vpw-logo {
-        opacity: 1 !important;
         margin-top: -2px;
         margin: 0.5em 0.35em;
         max-width: 50%;
