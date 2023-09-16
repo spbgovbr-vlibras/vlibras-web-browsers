@@ -39,10 +39,12 @@
       padding: 16px;
       width: 100%;
       align-items: start;
-      justify-content: center;
+      justify-content: start;
       gap: 10px;
 
-      .vpw-info__section {}
+      .vpw-info__section {
+        margin-bottom: 10px;
+      }
 
       .vpw-info__section-title {
         text-decoration: none;
@@ -56,7 +58,7 @@
         color: #555;
         font-style: normal;
         font-weight: 500;
-        font-size: .9em;
+        font-size: 1em;
         line-height: 1.5;
       }
 
