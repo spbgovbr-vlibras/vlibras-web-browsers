@@ -123,6 +123,7 @@ function Plugin(options) {
     this.info.load(this.element.querySelector('[vp-info-screen]'));
     this.ChangeAvatar.load(this.element.querySelector('[vp-change-avatar]'));
 
+    this.loadFonts();
     this.loadImages();
   });
 
@@ -198,6 +199,7 @@ function Plugin(options) {
     }.bind(this)
   );
 
+  this.loadFonts();
   this.loadImages();
 }
 
@@ -256,5 +258,28 @@ Plugin.prototype.loadImages = function () {
     image.src = this.buildAbsolutePath(imagePath);
   });
 };
+
+Plugin.prototype.loadFonts = function () {
+  const fontVariations = [
+    { style: 'normal', weight: 400, url: 'assets/fonts/rawline-400.woff' },
+    { style: 'italic', weight: 400, url: 'assets/fonts/rawline-400i.woff' },
+    { style: 'normal', weight: 500, url: 'assets/fonts/rawline-500.woff' },
+    { style: 'normal', weight: 600, url: 'assets/fonts/rawline-600.woff' },
+    { style: 'normal', weight: 700, url: 'assets/fonts/rawline-700.woff' },
+  ];
+
+  fontVariations.forEach(variation => {
+    const font = new FontFace('rawline', `url(${this.buildAbsolutePath(variation.url)})`, {
+      style: variation.style,
+      weight: variation.weight,
+    });
+
+    font.load()
+      .then((loaded) => document.fonts.add(loaded))
+      .catch((error) => {
+        console.error(`Error loading Rawline font ${variation.style} ${variation.weight}:`, error);
+      });
+  });
+}
 
 module.exports = Plugin;
