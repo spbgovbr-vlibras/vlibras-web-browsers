@@ -141,10 +141,19 @@
       .vpw-info__networks-container {
         gap: 6px;
       }
+
+      .vpw-info__main {
+        padding: 10px !important;
+
+        .vpw-info__section {
+          margin: 0;
+        }
+
+        .vpw-info__section-desc {
+          font-size: .9em;
+        }
+      }
     }
 
-    .vpw-info__main {
-      padding: 10px !important;
-    }
   }
 }

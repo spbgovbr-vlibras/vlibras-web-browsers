@@ -145,6 +145,21 @@
         .vp-guide-highlight {
             transform-origin: center 150% !important;
         }
+
+
+        .vpw-info-screen {
+            .vpw-info__main {
+                padding: 16px !important;
+
+                .vpw-info__section {
+                    margin-bottom: 10px !important;
+                }
+
+                .vpw-info__section-desc {
+                    font-size: 1em;
+                }
+            }
+        }
     }
 
     @media (min-width: 600px) {
