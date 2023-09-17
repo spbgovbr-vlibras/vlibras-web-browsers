@@ -106,7 +106,6 @@
             padding: 0 16px !important;
 
             .vpw-controls-fullscreen {
-
                 #vw-max-icon {
                     display: none !important;
                 }
@@ -136,16 +135,13 @@
             height: 36px !important;
         }
 
-        .vpw-info__logos-container {
-            img {
-                height: 36px !important;
-            }
+        .vpw-info__logos-container img {
+            height: 36px !important;
         }
 
         .vp-guide-highlight {
             transform-origin: center 150% !important;
         }
-
 
         .vpw-info-screen {
             .vpw-info__main {
@@ -206,13 +202,40 @@
         .vpw-recents-container {
             ul li {
                 min-width: 100vw !important;
+                padding: 6px 16px !important;
             }
         }
     }
 
     @media (max-width: 450px) {
         [vp] {
+            .vpw-settings-content {
+                .vpw-options-container {
+                    padding: 16px;
+                }
+
+                .vpw-regions-container {
+                    top: 48px;
+                }
+
+                .vpw-region {
+                    padding: 0 16px !important;
+
+                    .vpw-radio {
+                        right: 16px !important;
+                    }
+                }
+            }
+
             .vpw-dictionary {
+                .vpw-search {
+                    padding: 16px !important;
+
+                    .vpw-icon {
+                        right: 20px;
+                    }
+                }
+
                 .vpw-loading-dictionary button {
                     max-height: 36px;
                     height: 36px;
@@ -234,7 +257,8 @@
             }
 
             .vp-rate-box-content {
-                gap: 16px;
+                gap: 16px !important;
+                height: calc(100% - 96px) !important;
             }
 
             [vp-main-guide-screen].vp-enabled {
@@ -300,10 +324,8 @@
                 top: 106px;
             }
 
-            .vpw-info__logos-container {
-                img {
-                    max-height: 30px !important;
-                }
+            .vpw-info__logos-container img {
+                max-height: 30px !important;
             }
         }
 

@@ -111,15 +111,15 @@ $controls_height: 48px;
   @media (max-width: 450px) {
     &.vp-enabled {
       visibility: visible;
-      height: 78px;
+      height: 80px;
     }
 
     .vp-rate-box-header {
-      height: 38px;
+      height: 40px;
     }
 
     .vp-rate-box-content {
-      height: calc(100% - 86px);
+      height: calc(100% - 80px);
       gap: 0;
       font-size: 12px;
     }
