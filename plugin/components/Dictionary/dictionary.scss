@@ -20,10 +20,6 @@ $margin_left: 40px;
         font-size: 14px;
         border-radius: 0 0 10px 10px;
 
-        @media (max-width: 450px) {
-            font-size: 12px;
-        }
-
         &.active {
             display: flex;
         }
@@ -72,11 +68,6 @@ $margin_left: 40px;
                     width: 32px;
                     height: 32px;
 
-                    @media(max-width: 450px) {
-                        width: 26px;
-                        height: 26px;
-                    }
-
                     svg>* {
                         fill: map-get($black, 1);
                     }
@@ -114,16 +105,6 @@ $margin_left: 40px;
                     background: map-get($blue, 6);
                     color: map-get($blue, 2);
                     border-color: map-get($blue, 2);
-                }
-            }
-
-            @media(max-width: 450px) {
-                padding: 10px;
-
-                .vp-dictionary-btn {
-                    height: 30px;
-                    padding: 0 10px;
-                    height: 26px;
                 }
             }
         }
@@ -164,11 +145,6 @@ $margin_left: 40px;
                     font-weight: 500;
                     min-width: 300px;
                     color: map-get($black, 1) !important;
-
-                    @media (max-width: 450px) {
-                        padding: 6px 10px;
-                        min-width: 210px;
-                    }
 
                     &:hover {
                         background-color: #EAEAEA;
@@ -286,12 +262,44 @@ $margin_left: 40px;
                     }
                 }
             }
+        }
 
-            @media (max-width: 450px) {
+        @media (max-width: 450px) {
+            font-size: 12px;
+
+            .vpw-dict-container,
+            .vpw-recents-container {
+                ul li {
+                    padding: 6px 10px;
+                    min-width: 210px;
+                }
+
+            }
+
+            .vpw-loading-dictionary {
                 div {
                     button {
                         max-height: 32px;
                     }
+                }
+            }
+
+            .vpw-panel {
+                .vpw-search {
+                    .vpw-icon {
+                        width: 26px;
+                        height: 26px;
+                    }
+                }
+            }
+
+            .buttons-container {
+                padding: 10px;
+
+                .vp-dictionary-btn {
+                    height: 30px;
+                    padding: 0 10px;
+                    height: 26px;
                 }
             }
         }

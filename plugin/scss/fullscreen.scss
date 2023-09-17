@@ -242,8 +242,12 @@
                     font-size: 14px;
                 }
 
-                .buttons-container .vp-dictionary-btn {
-                    height: 32px !important;
+                .buttons-container {
+                    padding: 10px 16px !important;
+
+                    .vp-dictionary-btn {
+                        height: 32px !important;
+                    }
                 }
             }
 
