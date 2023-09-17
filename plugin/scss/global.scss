@@ -5,7 +5,7 @@
         opacity: 1 !important;
     }
 
-    input,
+    input:not([type="range"]):not([type="checkbox"]),
     textarea {
         color: map-get($black, 1) !important;
         background: transparent !important;
