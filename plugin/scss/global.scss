@@ -1,0 +1,34 @@
+@import 'colors.scss';
+
+[vw] {
+    img[data-src] {
+        opacity: 1 !important;
+    }
+
+    input:not([type="range"]):not([type="checkbox"]),
+    textarea {
+        color: map-get($black, 1) !important;
+        background: transparent !important;
+        font-weight: 500;
+
+        &::placeholder {
+            color: #999 !important;
+            font-weight: 400;
+            font-style: normal;
+            text-decoration: none;
+            opacity: 1 !important;
+        }
+
+        &:focus {
+            border: 1.6px solid map-get($blue, 3) !important;
+            box-shadow: 0px 0px 15px rgba(86, 154, 255, 0.75) !important;
+        }
+    }
+
+    * {
+        box-sizing: border-box !important;
+        -webkit-box-sizing: border-box !important;
+        font-family: 'Rawline', Verdana, sans-serif !important;
+        text-shadow: none !important;
+    }
+}

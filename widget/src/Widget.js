@@ -4,7 +4,7 @@ const PluginWrapper = require('./components/PluginWrapper');
 require('./scss/reset.scss');
 require('./scss/styles.scss');
 
-const { addClass, $, removeClass } = require('~utils');
+const { addClass, $, removeClass, getWidget } = require('~utils');
 const widgetPosition = ['TL', 'T', 'TR', 'L', 'R', 'BL', 'B', 'BR'];
 
 module.exports = function Widget(rootPath, personalization, opacity, position) {
@@ -28,7 +28,7 @@ module.exports = function Widget(rootPath, personalization, opacity, position) {
       tempF();
     }
 
-    this.element = document.querySelector('[vw]');
+    this.element = document.querySelector('[vw-plugin-wrapper]').closest('[vw]');
 
     const wrapper = document.querySelector('[vw-plugin-wrapper]');
     const access = document.querySelector('[vw-access-button]');
@@ -42,6 +42,8 @@ module.exports = function Widget(rootPath, personalization, opacity, position) {
     window.addEventListener('vp-widget-wrapper-set-side', (event) => {
       const position = event.detail;
       if (!position || !widgetPosition.includes(position)) return;
+
+      this.element = getWidget();
 
       this.element.style.left = position.includes('L')
         ? '0' : ['T', 'B'].includes(position) ? '50%' : 'initial';
@@ -60,6 +62,7 @@ module.exports = function Widget(rootPath, personalization, opacity, position) {
           ? 'translateX(calc(-50% - 10px))' : 'initial';
 
       access.classList.toggle('isLeft', position.includes('L'));
+      access.classList.toggle('isTopOrBottom', 'TB'.includes(position));
 
       // Set position
       if (window.plugin) window.plugin.position = position;

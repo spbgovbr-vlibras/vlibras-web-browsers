@@ -26,13 +26,13 @@ function Guide(player) {
 Guide.prototype.load = function (element) {
   this.element = element;
   this.element.innerHTML = template;
-  this.helpButton = u.$('.vpw-help-button', u.$('div[vw]'));
+  this.helpButton = u.$('.vpw-help-button');
   this.message = u.$('.vpw-guide__message', this.element);
   this.backButton = u.$('.vpw-guide__back-btn', this.element);
   this.nextButton = u.$('.vpw-guide__next-btn', this.element);
   this.closeButton = u.$('.vpw-guide__close-btn', this.element);
   this.tabSlider = u.$('.vpw-guide__tab-slider', this.element);
-  $vw = u.$('div[vw]');
+  $vw = u.getWidget();
 
   // Add icon
   this.closeButton.innerHTML = closeIcon;
@@ -46,8 +46,7 @@ Guide.prototype.load = function (element) {
   this.populateList = () => guideElements.forEach(({ path }) => this.$elements.push(u.$(path)));
 
   // Create slider element
-  const { length } = guideElements;
-  this.tabSlider.innerHTML = Array.from({ length }, () => '<span></span>').join('');
+  this.tabSlider.innerHTML = '<span></span>'.repeat(guideElements.length);
 }
 
 Guide.prototype.show = function () {
@@ -76,8 +75,8 @@ Guide.prototype.hide = function () {
   this.reset();
   this.player.stop();
   this.player.gloss = undefined;
+  this.removeHighlight();
   resetItems();
-  removeHighlight();
   roundedWrapper(false);
   u.addClickBlocker(false);
   u.removeClass(this.helpButton, 'vp-selected');
@@ -196,6 +195,13 @@ Guide.prototype.addHighlight = function () {
   u.addClass(element, 'vp-guide-highlight');
 }
 
+Guide.prototype.removeHighlight = function () {
+  this.$elements.forEach(e => {
+    u.removeClass(e, 'vp-guide-highlight');
+    u.removeClass(e, 'vp-guide-transition');
+  })
+}
+
 Guide.prototype.updateFooter = function () {
   if (this.tab === 0) this.backButton.setAttribute('disabled', true);
   else this.backButton.removeAttribute('disabled');
@@ -209,13 +215,6 @@ Guide.prototype.updateFooter = function () {
   // Toggle actived tab in slider
   if (activedTab) u.removeClass(activedTab, 'vp-actived');
   u.addClass(this.tabSlider.children[this.tab], 'vp-actived');
-}
-
-function removeHighlight() {
-  u.$$('.vp-guide-highlight').forEach(item => {
-    u.removeClass(item, 'vp-guide-highlight');
-    u.removeClass(item, 'vp-guide-transition')
-  })
 }
 
 function callWidgetTranslator() {

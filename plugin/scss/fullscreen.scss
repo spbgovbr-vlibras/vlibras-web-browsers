@@ -30,6 +30,10 @@
             border-radius: 0px;
             -moz-border-radius: 0px;
             -webkit-border-radius: 0px;
+
+            &.vp-rounded {
+                border-radius: 0 !important;
+            }
         }
 
     }
@@ -42,6 +46,7 @@
         .vp-rate-box-header,
         .vp-suggestion-screen-header,
         .vp-rate-box-content,
+        .vpw-settings-content,
         .vpw-selectTextLabel,
         .vpw-box .vpw-mes {
             font-size: 14px !important;
@@ -90,11 +95,9 @@
             -webkit-justify-content: start;
         }
 
-        .vpw-dictionary,
-        .vpw-info-screen,
-        .vpw-settings {
+        .vpw-dictionary {
             border-radius: 0 !important;
-            font-size: 16px;
+            font-size: 14px;
         }
 
         .vpw-controls {
@@ -103,7 +106,6 @@
             padding: 0 16px !important;
 
             .vpw-controls-fullscreen {
-
                 #vw-max-icon {
                     display: none !important;
                 }
@@ -133,6 +135,31 @@
             height: 36px !important;
         }
 
+        .vpw-info__logos-container img {
+            height: 36px !important;
+        }
+
+        .vp-guide-highlight {
+            transform-origin: center 150% !important;
+        }
+
+        .vpw-info-screen {
+            .vpw-info__main {
+                padding: 16px !important;
+
+                .vpw-info__section {
+                    margin-bottom: 10px !important;
+                }
+
+                .vpw-info__section-desc {
+                    font-size: 1em;
+                }
+            }
+        }
+    }
+
+    @media (min-width: 600px) {
+
         .vpw-dict-container,
         .vpw-recents-container {
             ul li {
@@ -141,18 +168,6 @@
             }
         }
 
-        .vpw-info__logos-container {
-            img {
-                height: 36px !important;
-            }
-        }
-
-        .vp-guide-highlight {
-            transform-origin: center 150% !important;
-        }
-    }
-
-    @media (min-width: 600px) {
         [vw-plugin-wrapper].active {
             align-items: center !important;
         }
@@ -180,22 +195,60 @@
     @media (max-width: 600px) {
         .vp-guide-container {
             width: calc(100% - 20px);
+            font-size: 14px;
         }
 
         .vpw-dict-container,
         .vpw-recents-container {
             ul li {
                 min-width: 100vw !important;
+                padding: 6px 16px !important;
             }
         }
     }
 
     @media (max-width: 450px) {
         [vp] {
-            .vpw-dictionary .vpw-loading-dictionary button {
-                max-height: 36px;
-                height: 36px;
-                font-size: 14px;
+            .vpw-settings-content {
+                .vpw-options-container {
+                    padding: 16px;
+                }
+
+                .vpw-regions-container {
+                    top: 48px;
+                }
+
+                .vpw-region {
+                    padding: 0 16px !important;
+
+                    .vpw-radio {
+                        right: 16px !important;
+                    }
+                }
+            }
+
+            .vpw-dictionary {
+                .vpw-search {
+                    padding: 16px !important;
+
+                    .vpw-icon {
+                        right: 20px;
+                    }
+                }
+
+                .vpw-loading-dictionary button {
+                    max-height: 36px;
+                    height: 36px;
+                    font-size: 14px;
+                }
+
+                .buttons-container {
+                    padding: 10px 16px !important;
+
+                    .vp-dictionary-btn {
+                        height: 32px !important;
+                    }
+                }
             }
 
             .vpw-info__networks-container {
@@ -208,7 +261,8 @@
             }
 
             .vp-rate-box-content {
-                gap: 16px;
+                gap: 16px !important;
+                height: calc(100% - 96px) !important;
             }
 
             [vp-main-guide-screen].vp-enabled {
@@ -221,14 +275,20 @@
 
             [vp-main-guide-screen],
             .vp-suggestion-screen-content,
+            .vp-translator-screen-content,
             .vpw-info__main {
-                padding: 16px;
+                padding: 16px !important;
+                font-size: 14px;
             }
 
             .vp-suggestion-screen-header,
             .vp-translator-screen-header,
-            .vp-rate-box-header {
+            .vp-rate-box-header,
+            .vpw-panel .vpw-bar,
+            .vpw-info-header,
+            .vpw-screen-header {
                 height: 48px !important;
+                min-height: 48px !important;
                 padding: 16px !important;
                 font-size: 14px !important;
             }
@@ -269,10 +329,8 @@
                 top: 106px;
             }
 
-            .vpw-info__logos-container {
-                img {
-                    max-height: 30px !important;
-                }
+            .vpw-info__logos-container img {
+                max-height: 30px !important;
             }
         }
 

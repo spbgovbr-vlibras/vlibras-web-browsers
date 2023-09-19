@@ -11,7 +11,7 @@
     z-index: 10;
     background-color: white;
     color: black;
-    font-family: "Rawline", sans-serif;
+    font-family: 'Rawline', Verdana, sans-serif !important;
     align-items: center;
     display: none;
     justify-content: start;
@@ -39,23 +39,26 @@
       padding: 16px;
       width: 100%;
       align-items: start;
-      justify-content: center;
+      justify-content: start;
       gap: 10px;
 
-      .vpw-info__section {}
+      .vpw-info__section {
+        margin-bottom: 10px;
+      }
 
       .vpw-info__section-title {
         text-decoration: none;
         font-weight: 600;
         font-size: 1em;
         margin-bottom: 10px;
+        color: map-get($black, 1) !important;
       }
 
       .vpw-info__section-desc {
         color: #555;
         font-style: normal;
         font-weight: 500;
-        font-size: .9em;
+        font-size: 1em;
         line-height: 1.5;
       }
 
@@ -75,7 +78,6 @@
       }
 
       .vpw-logo {
-        opacity: 1 !important;
         margin-top: -2px;
         margin: 0.5em 0.35em;
         max-width: 50%;
@@ -139,10 +141,19 @@
       .vpw-info__networks-container {
         gap: 6px;
       }
+
+      .vpw-info__main {
+        padding: 10px !important;
+
+        .vpw-info__section {
+          margin: 0;
+        }
+
+        .vpw-info__section-desc {
+          font-size: .9em;
+        }
+      }
     }
 
-    .vpw-info__main {
-      padding: 10px !important;
-    }
   }
 }

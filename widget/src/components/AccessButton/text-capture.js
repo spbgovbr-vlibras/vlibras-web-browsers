@@ -1,8 +1,8 @@
-const { $, addClass, removeClass, canTranslate, toggleClass } = require('~utils');
+const { $, addClass, removeClass, canTranslate, toggleClass, getWidget } = require('~utils');
 
 function loadTextCaptureScript() {
   const $root = Array.from([document.body, ...document.body.children]);
-  const $vw = $('[vw]');
+  const $vw = getWidget();
   const $guide = $('.vp-guide-container');
 
   const hasTag = (el, tags) => tags.includes(el.tagName);
@@ -61,13 +61,12 @@ function loadTextCaptureScript() {
 
     const textContent = (hasTag(element, 'IMG') ? element.alt
       : isSubmit ? element.value
-        : hasTag(element, 'SELECT') ? element.value ? element.value
-          : element.children[0].innerText
+        : hasTag(element, 'SELECT') ? $(element, `[value="${element.value}"]`).innerText
           : element.innerText && element.innerText.replace(/\s+/g, ' ')
           || element.textContent);
 
     // Call VLibras Widget
-    if (textContent.trim()) window.plugin.translate(textContent);
+    if (textContent && textContent.trim()) window.plugin.translate(textContent);
 
     const linkElement = element.tagName === "A" ? element : hasLinkAncestor(element);
 
