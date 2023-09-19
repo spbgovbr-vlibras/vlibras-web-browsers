@@ -230,9 +230,11 @@ Plugin.prototype.sendReview = function (rate, review) {
     this.messageBox.show('success', ALERT_MESSAGES.REVIEW_THANKS, 3000);
 
     // Thanks message
+    const oldGloss = this.player.gloss;
+    const boundToggleSubtitle = toggleSubtitle.bind(this);
+
     this.player.play('AGRADECER');
     this.player.gloss = undefined;
-    const boundToggleSubtitle = toggleSubtitle.bind(this);
 
     if (this.controls.element.querySelector('.actived-subtitle')) {
       this.player.toggleSubtitle();
@@ -242,6 +244,7 @@ Plugin.prototype.sendReview = function (rate, review) {
     function toggleSubtitle() {
       this.player.toggleSubtitle();
       this.player.removeListener("gloss:end", boundToggleSubtitle);
+      this.player.gloss = oldGloss;
     }
   };
 };
