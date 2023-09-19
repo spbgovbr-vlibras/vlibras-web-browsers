@@ -9,7 +9,7 @@ export const guideElements = [
   {
     path: 'div[vp-change-avatar]',
     text: `Clique neste botão para alterar o avatar. 
-    Você poderá poderá escolher entre Ícaro, Guga e Hosana.`,
+    Você pode escolher entre Ícaro, Guga e Hosana.`,
     gloss: 'CLIQUE BOTÃO ALTERAR AVATAR [PONTO] VOCÊ PODER&POSSIBILIDADE ESCOLHER ENTRE ' +
       '[WLCM]ICARO_SINAL [WLCM]GUGA_SINAL [WLCM]HOZANA_SINAL'
   },

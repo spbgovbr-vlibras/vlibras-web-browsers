@@ -1,8 +1,15 @@
 @import '~scss/colors.scss';
 @import '~scss/default-buttons.scss';
 
+.vp-guide-container * {
+    font-family: 'Rawline', Verdana, sans-serif !important;
+    box-sizing: border-box !important;
+    padding: 0;
+    margin: 0;
+    text-shadow: none !important;
+}
+
 .vp-guide-container {
-    font-family: 'rawline', sans-serif !important;
     background-color: map-get($blue, 2);
     max-width: 340px;
     position: fixed;
@@ -17,6 +24,11 @@
     border-radius: 10px;
     z-index: 2147483647 !important;
     display: none;
+    font-size: 16px;
+
+    @media (max-width: 720px) {
+        font-size: 14px;
+    }
 
     &.vw-centered {
         transform: translateX(-50%);
@@ -81,7 +93,7 @@
 
     .vpw-guide__message {
         color: map-get($white, 1);
-        font-size: 1rem;
+        font-size: 1em;
         font-weight: 500;
         line-height: 150%;
         width: 100%;
@@ -122,21 +134,11 @@
                     opacity: 1;
                 }
             }
-
-            @media (max-width: 450px) {
-                font-size: 12px;
-            }
         }
     }
 
     &.vp-enabled {
         display: flex;
-    }
-
-    @media (max-width: 600px) {
-        .vpw-guide__message {
-            font-size: 14px;
-        }
     }
 
 }
@@ -165,13 +167,23 @@ span[vp-click-blocker] {
 
 [vp] {
     .vp-guide-highlight {
-        box-shadow: 0 5px 15px #6290D5 !important;
         outline: 2px solid #FFF !important;
         outline-offset: -1px;
         transform: scale(1.04) !important;
         transform-origin: center 200%;
         border: none !important;
         border-radius: 100px !important;
+        animation: boxShadowAnim .5s alternate-reverse infinite ease-out;
+
+        @keyframes boxShadowAnim {
+            0% {
+                box-shadow: 0 0 0px transparent;
+            }
+
+            100% {
+                box-shadow: 0 0px 15px map-get($blue, 1);
+            }
+        }
     }
 
     .vp-guide-transition {

@@ -4,7 +4,6 @@ const EventEmitter = require('events').EventEmitter;
 const settingsTpl = require('./settings.html').default;
 require('./settings.scss');
 require('./regionalism.scss');
-require('./switch.scss');
 
 const regionsData = require('./data');
 const { backIcon, positionIcons } = require('~icons');

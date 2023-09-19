@@ -18,6 +18,12 @@ export const getWidgetPosition = () => {
   return window.plugin ? window.plugin.position : undefined;
 }
 
+// Get a valid Widget element
+// * www.correios.com.br
+export const getWidget = () => {
+  return $('[vp]').closest('[vw]');
+}
+
 // Set Widget's position
 export const setWidgetPosition = (position) => {
   window.dispatchEvent(new CustomEvent('vp-widget-wrapper-set-side',

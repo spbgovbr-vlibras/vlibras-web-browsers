@@ -21,6 +21,7 @@ const url = require('url-join');
 const { REVIEW_URL } = require('./config');
 const { ALERT_MESSAGES } = require('./alert-messages');
 
+require('./scss/global.scss');
 require('./scss/styles.scss');
 require('./scss/text-capture.scss');
 
@@ -122,6 +123,7 @@ function Plugin(options) {
     this.info.load(this.element.querySelector('[vp-info-screen]'));
     this.ChangeAvatar.load(this.element.querySelector('[vp-change-avatar]'));
 
+    this.loadFonts();
     this.loadImages();
   });
 
@@ -197,6 +199,7 @@ function Plugin(options) {
     }.bind(this)
   );
 
+  this.loadFonts();
   this.loadImages();
 }
 
@@ -229,9 +232,11 @@ Plugin.prototype.sendReview = function (rate, review) {
     this.messageBox.show('success', ALERT_MESSAGES.REVIEW_THANKS, 3000);
 
     // Thanks message
+    const oldGloss = this.player.gloss;
+    const boundToggleSubtitle = toggleSubtitle.bind(this);
+
     this.player.play('AGRADECER');
     this.player.gloss = undefined;
-    const boundToggleSubtitle = toggleSubtitle.bind(this);
 
     if (this.controls.element.querySelector('.actived-subtitle')) {
       this.player.toggleSubtitle();
@@ -241,6 +246,7 @@ Plugin.prototype.sendReview = function (rate, review) {
     function toggleSubtitle() {
       this.player.toggleSubtitle();
       this.player.removeListener("gloss:end", boundToggleSubtitle);
+      this.player.gloss = oldGloss;
     }
   };
 };
@@ -255,5 +261,28 @@ Plugin.prototype.loadImages = function () {
     image.src = this.buildAbsolutePath(imagePath);
   });
 };
+
+Plugin.prototype.loadFonts = function () {
+  const fontVariations = [
+    { style: 'normal', weight: 400, url: 'assets/fonts/rawline-400.woff' },
+    { style: 'italic', weight: 400, url: 'assets/fonts/rawline-400i.woff' },
+    { style: 'normal', weight: 500, url: 'assets/fonts/rawline-500.woff' },
+    { style: 'normal', weight: 600, url: 'assets/fonts/rawline-600.woff' },
+    { style: 'normal', weight: 700, url: 'assets/fonts/rawline-700.woff' },
+  ];
+
+  fontVariations.forEach(variation => {
+    const font = new FontFace('rawline', `url(${this.buildAbsolutePath(variation.url)})`, {
+      style: variation.style,
+      weight: variation.weight,
+    });
+
+    font.load()
+      .then((loaded) => document.fonts.add(loaded))
+      .catch((error) => {
+        console.error(`Error loading Rawline font ${variation.style} ${variation.weight}:`, error);
+      });
+  });
+}
 
 module.exports = Plugin;
