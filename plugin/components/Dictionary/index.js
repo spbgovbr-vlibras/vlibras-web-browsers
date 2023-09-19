@@ -8,6 +8,7 @@ const Trie = require('./trie.js');
 
 const { backIcon, loadingIcon, dictionaryIcon } = require('~icons');
 const { DICTIONARY_URL } = require('../../config');
+const DICT_LOCAL_KEY = "@vp-dict-history";
 
 function Dictionary(player) {
   this.visible = false;
@@ -24,56 +25,32 @@ Dictionary.prototype.load = function (element, closeScreen) {
   this.element.classList.add('vpw-dictionary');
   this.button = document.querySelector('.vpw-header-btn-dictionary');
   this.closeScreen = closeScreen;
+  this.searchInput = element.querySelector('.vpw-search input')
+
 
   const backButton = this.element.querySelector('.vpw-btn-close');
-  const buttons = this.element.querySelectorAll('.buttons-container button');
+  const dictBtn = this.element.querySelectorAll('.vp-dictionary-btn')[0];
+  const recentBtn = this.element.querySelectorAll('.vp-dictionary-btn')[1];
   const recentWords = this.element.querySelector('.vpw-recents-container');
   const dictWords = this.element.querySelector('.vpw-dict-container');
   const loadingScreen = this.element.querySelector('.vpw-loading-dictionary');
   const reloadDictButton = loadingScreen.querySelector('div button');
   let reqCounter = 0;
 
-  reloadDictButton.onclick = getSigns.bind(this);
+  this.boundLoadRecentWords = () => loadRecentWords.bind(this)(recentWords);
+  this.boundToggleWords = (aba) => toggleWords(aba);
 
-  this.loadRecentWords = function () {
-    let value = localStorage.getItem('@vp-dict-history');
-    if (value) value = JSON.parse(value);
-    else return;
+  reloadDictButton.onclick = () => {
+    getSigns.bind(this)();
+  }
 
-    const list = recentWords.querySelector('ul');
-    list.innerHTML = "";
-
-    for (word of value.reverse()) {
-      const item = document.createElement('li');
-      item.innerHTML = word;
-      list.appendChild(item);
-
-      item.addEventListener('click', this._onItemClick.bind(this, word));
-    }
-  }.bind(this);
-
-  buttons[0].onclick = () => {
+  dictBtn.onclick = () => {
     toggleWords('dict');
   }
 
-  buttons[1].onclick = () => {
+  recentBtn.onclick = () => {
     toggleWords('recents');
-    this.loadRecentWords();
-  }
-
-  function toggleWords(words) {
-    if (words === 'dict') {
-      buttons[0].classList.add('vp-selected');
-      buttons[1].classList.remove('vp-selected');
-      recentWords.classList.remove('enabled');
-      dictWords.classList.add('enabled');
-    }
-    else if (words === 'recents') {
-      buttons[1].classList.add('vp-selected');
-      buttons[0].classList.remove('vp-selected');
-      recentWords.classList.add('enabled');
-      dictWords.classList.remove('enabled');
-    } else return;
+    this.boundLoadRecentWords();
   }
 
   // Add icon
@@ -90,12 +67,12 @@ Dictionary.prototype.load = function (element, closeScreen) {
     }.bind(this)
   );
 
-
   // Signs trie
   this.signs = null;
 
   // List
   this.list = dictWords.querySelector('ul');
+  this.list.onclick = e => this._onItemClick(e);
 
   // Insert item method
   this.list._insert = function (word) {
@@ -105,11 +82,9 @@ Dictionary.prototype.load = function (element, closeScreen) {
       regex = word.replace('&', '(');
       regex = regex + ')';
       item.innerHTML = regex;
-      item.addEventListener('click', this._onItemClick.bind(this, word));
       this.list.appendChild(item);
     } else {
       item.innerHTML = word;
-      item.addEventListener('click', this._onItemClick.bind(this, word));
       this.list.appendChild(item);
     }
   }.bind(this);
@@ -118,10 +93,17 @@ Dictionary.prototype.load = function (element, closeScreen) {
   const removeRetryBtn = () => loadingScreen.classList.remove('vpw-dict--error');
   const maxRequest = () => loadingScreen.classList.add('vpw-dict--max-request');
 
+  function checkRequests(err) {
+    if (err) console.error(err);
+    if (reqCounter > 5) maxRequest();
+    else addRetryBtn();
+  }
+
   // Request and load list
   function getSigns() {
     reqCounter++;
     removeRetryBtn();
+
     const xhr = new XMLHttpRequest();
     xhr.open('get', DICTIONARY_URL, true);
     xhr.responseType = 'text';
@@ -132,7 +114,7 @@ Dictionary.prototype.load = function (element, closeScreen) {
       addRetryBtn();
     }
 
-    xhr.onerror = addRetryBtn;
+    xhr.onerror = err => checkRequests(err);
 
     xhr.onload = function () {
       try {
@@ -144,16 +126,23 @@ Dictionary.prototype.load = function (element, closeScreen) {
           this.signs.loadSigns('', this.list._insert.bind(this.list));
           loadingScreen.remove();
         } else {
-          if (reqCounter === 5) maxRequest();
-          else addRetryBtn();
+          checkRequests();
           console.error('Bad answer for signs, status: ' + xhr.status);
         }
       } catch (err) {
-        addRetryBtn();
-        console.error(err);
+        checkRequests(err);
       }
     }.bind(this);
     xhr.send();
+  }
+
+  function toggleWords(words) {
+    const isDict = words === 'dict';
+
+    dictBtn.classList.toggle('vp-selected', isDict);
+    recentBtn.classList.toggle('vp-selected', !isDict);
+    dictWords.classList.toggle('vp-enabled', isDict);
+    recentWords.classList.toggle('vp-enabled', !isDict);
   }
 
   getSigns.bind(this)();
@@ -166,40 +155,38 @@ Dictionary.prototype.load = function (element, closeScreen) {
   }.bind(this);
 
   // Search
-  this.element.querySelector('.vpw-panel .vpw-search input').addEventListener(
-    'keydown',
-    function (event) {
-      this.list._clear();
-      this.signs.loadSigns(
-        event.target.value.toUpperCase(),
-        this.list._insert.bind(this.list)
-      );
-      if (this.list.childNodes.length === 0) {
-        this.list.innerHTML = '<span>Nenhum sinal encontrado :(</span>';
-      }
+  this.searchInput.addEventListener('input', function (event) {
+    this.list._clear();
+    this.signs.loadSigns(
+      event.target.value.toUpperCase(),
+      this.list._insert.bind(this.list)
+    );
 
-      toggleWords('dict');
+    this.list.parentElement.classList.toggle(
+      'vp-isEmpty', this.list.childNodes.length === 0
+    )
 
-    }.bind(this)
+    toggleWords('dict');
+  }.bind(this)
   );
 };
 
-Dictionary.prototype._onItemClick = function (event, word) {
+Dictionary.prototype._onItemClick = function (event) {
+  if (event.target.tagName !== 'LI') return;
+  const word = event.target.textContent;
+
   this.closeScreen.closeAll();
-  this.player.play(event);
+  this.player.play(word);
+  this.player.text = ' ';
 
   if (this.element.querySelectorAll('.buttons-container button')[1]
     .classList.contains('vp-selected')
   ) return;
 
-  let value = localStorage.getItem("@vp-dict-history");
-  if (value) {
-    value = JSON.parse(value);
-    value.push(event)
-  } else value = [event];
+  const recentWords = getRecentWords();
+  recentWords.unshift(word);
 
-  localStorage.setItem("@vp-dict-history", JSON.stringify(value));
-  this.loadRecentWords();
+  saveRecentWords.bind(this)(recentWords);
 };
 
 Dictionary.prototype.toggle = function () {
@@ -218,7 +205,45 @@ Dictionary.prototype.show = function () {
   this.visible = true;
   this.element.classList.add('active');
   this.button.classList.add('selected');
+  resetDictionary.bind(this)();
   this.emit('show');
 };
+
+function resetDictionary() {
+  if (!this.signs) return;
+  this.list._clear();
+  this.signs.loadSigns('', this.list._insert.bind(this.list));
+  this.searchInput.value = '';
+  this.boundToggleWords('dict');
+}
+
+function loadRecentWords(recentWordsDiv) {
+  let value = localStorage.getItem(DICT_LOCAL_KEY);
+
+  recentWordsDiv.classList.toggle('vp-isEmpty', !value);
+
+  if (value) value = JSON.parse(value);
+  else return;
+
+  const list = recentWordsDiv.querySelector('ul');
+  list.onclick = e => this._onItemClick(e);
+  list.innerHTML = "";
+
+  for (word of value) {
+    const item = document.createElement('li');
+    item.innerHTML = word;
+    list.appendChild(item);
+  }
+}
+
+function getRecentWords() {
+  return JSON.parse(localStorage.getItem(DICT_LOCAL_KEY)) || []
+}
+
+function saveRecentWords(list) {
+  list = Array.from(new Set(list));
+  localStorage.setItem(DICT_LOCAL_KEY, JSON.stringify(list));
+  this.boundLoadRecentWords();
+}
 
 module.exports = Dictionary;
