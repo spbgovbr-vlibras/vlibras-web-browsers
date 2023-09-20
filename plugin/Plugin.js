@@ -235,17 +235,16 @@ Plugin.prototype.sendReview = function (rate, review) {
     // Thanks message
     const oldGloss = this.player.gloss;
     const boundToggleSubtitle = toggleSubtitle.bind(this);
+    const subtitleIsActived = this.controls.element.querySelector('.actived-subtitle');
 
     this.player.play('AGRADECER');
     this.player.gloss = undefined;
 
-    if (this.controls.element.querySelector('.actived-subtitle')) {
-      this.player.toggleSubtitle();
-      this.player.addListener("gloss:end", boundToggleSubtitle);
-    }
+    subtitleIsActived && this.player.toggleSubtitle();
+    this.player.addListener("gloss:end", boundToggleSubtitle);
 
     function toggleSubtitle() {
-      this.player.toggleSubtitle();
+      subtitleIsActived && this.player.toggleSubtitle();
       this.player.removeListener("gloss:end", boundToggleSubtitle);
       this.player.gloss = oldGloss;
     }
