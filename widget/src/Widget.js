@@ -7,16 +7,22 @@ require('./scss/styles.scss');
 const { addClass, $, removeClass, getWidget } = require('~utils');
 const widgetPosition = ['TL', 'T', 'TR', 'L', 'R', 'BL', 'B', 'BR'];
 
-module.exports = function Widget(rootPath, personalization, opacity, position) {
+module.exports = function Widget(...args) {
+  const optObject = typeof args[0] === 'object' && args[0];
+
+  const rootPath = optObject ? optObject.rootPath : args[0];
+  const personalization = optObject ? optObject.personalization : args[1];
+  const opacity = optObject ? optObject.opacity : args[2];
+  let position = optObject ? optObject.position : args[3];
+
   if (!widgetPosition.includes(position)) position = 'R';
+
   const widgetWrapper = new PluginWrapper();
   const accessButton = new AccessButton(
-    rootPath,
-    widgetWrapper,
-    personalization,
-    opacity,
-    position
+    rootPath, widgetWrapper,
+    personalization, opacity, position
   );
+
   let tempF;
 
   if (window.onload) {
@@ -24,19 +30,14 @@ module.exports = function Widget(rootPath, personalization, opacity, position) {
   }
 
   window.onload = () => {
-    if (tempF) {
-      tempF();
-    }
+    if (tempF) tempF();
 
     this.element = document.querySelector('[vw-plugin-wrapper]').closest('[vw]');
 
     const wrapper = document.querySelector('[vw-plugin-wrapper]');
     const access = document.querySelector('[vw-access-button]');
 
-    accessButton.load(
-      document.querySelector('[vw-access-button]'),
-      this.element
-    );
+    accessButton.load(document.querySelector('[vw-access-button]'), this.element);
     widgetWrapper.load(document.querySelector('[vw-plugin-wrapper]'));
 
     window.addEventListener('vp-widget-wrapper-set-side', (event) => {
@@ -74,12 +75,6 @@ module.exports = function Widget(rootPath, personalization, opacity, position) {
       addClass($('div[vp-change-avatar]'), 'active');
       addClass($('div[vp-additional-options]'), 'vp-enabled');
       removeClass($('div[vp-controls]'), 'vpw-selectText');
-
-      const tagsTexts = document.querySelectorAll('.vw-text');
-      for (let i = 0; i < tagsTexts.length; i++) {
-        const parent = tagsTexts[i].parentNode;
-        parent.innerHTML = tagsTexts[i].innerHTML;
-      }
     });
 
     window.addEventListener('vw-change-opacity', (event) => {
