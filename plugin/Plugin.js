@@ -114,7 +114,8 @@ function Plugin(options) {
       () =>
         this.dictionary.load(
           this.element.querySelector('[vp-dictionary]'),
-          this.closeScreen
+          this.closeScreen,
+          this.mainGuideScreen
         ),
       this.element.querySelector('[vp-dictionary]'),
       this.rootPath
