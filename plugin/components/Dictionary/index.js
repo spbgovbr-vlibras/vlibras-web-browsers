@@ -19,14 +19,16 @@ function Dictionary(player) {
 
 inherits(Dictionary, EventEmitter);
 
-Dictionary.prototype.load = function (element, closeScreen) {
+Dictionary.prototype.load = function (element, closeScreen, initGuide) {
   this.element = element;
   this.element.innerHTML = dictionaryTpl;
+  this.closeScreen = closeScreen;
+  this.initGuide = initGuide;
   this.element.classList.add('vpw-dictionary');
   this.button = document.querySelector('.vpw-header-btn-dictionary');
-  this.closeScreen = closeScreen;
-  this.searchInput = element.querySelector('.vpw-search input')
+  this.searchInput = element.querySelector('.vpw-search input');
 
+  this.boundCloseAllScreen = closeAllScreen.bind(this);
 
   const backButton = this.element.querySelector('.vpw-btn-close');
   const dictBtn = this.element.querySelectorAll('.vp-dictionary-btn')[0];
@@ -175,9 +177,10 @@ Dictionary.prototype._onItemClick = function (event) {
   if (event.target.tagName !== 'LI') return;
   const word = event.target.textContent;
 
-  this.closeScreen.closeAll();
+  this.boundCloseAllScreen();
   this.player.play(word);
   this.player.text = ' ';
+  this.player.translated = false;
 
   if (this.element.querySelectorAll('.buttons-container button')[1]
     .classList.contains('vp-selected')
@@ -208,6 +211,11 @@ Dictionary.prototype.show = function () {
   resetDictionary.bind(this)();
   this.emit('show');
 };
+
+function closeAllScreen() {
+  this.closeScreen.closeAll();
+  this.initGuide.hide();
+}
 
 function resetDictionary() {
   if (!this.signs) return;

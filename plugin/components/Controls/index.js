@@ -128,7 +128,9 @@ Controls.prototype.load = function (element) {
   );
 
   const showRatebox = function () {
-    if (!this.player.translated) this.rateBox.classList.add('vp-enabled');
+    if (!this.player.translated && this.player.text.trim()) {
+      this.rateBox.classList.add('vp-enabled');
+    }
     this.player.removeListener('gloss:end', showRatebox);
   }.bind(this)
 
