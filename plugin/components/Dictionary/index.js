@@ -182,10 +182,6 @@ Dictionary.prototype._onItemClick = function (event) {
   this.player.text = ' ';
   this.player.translated = false;
 
-  if (this.element.querySelectorAll('.buttons-container button')[1]
-    .classList.contains('vp-selected')
-  ) return;
-
   const recentWords = getRecentWords();
   recentWords.unshift(word);
 
