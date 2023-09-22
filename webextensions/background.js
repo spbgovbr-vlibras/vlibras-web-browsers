@@ -24,7 +24,7 @@ chrome.contextMenus.onClicked.addListener( function(info) {
           top: 10,
           left: 10,
           width: 300,
-          height: 452,
+          height: 500,
           type: 'popup',
 
         },

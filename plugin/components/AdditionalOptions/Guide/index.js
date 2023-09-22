@@ -65,6 +65,8 @@ Guide.prototype.show = function () {
   u.removeClass(u.$('div[vp-change-avatar]'), 'vp-isOpen');
   callWidgetTranslator.bind(this)();
 
+  isWidget = options.enableMoveWindow;
+
   // Dispath custom event to disable text capture
   window.dispatchEvent(new CustomEvent('vp-disable-text-capture'));
 }
@@ -118,7 +120,7 @@ Guide.prototype.reset = function () {
 
 Guide.prototype.updatePosition = function () {
   const position = window.plugin.position;
-  const isLeft = position.includes('L');
+  const isLeft = isWidget ? position.includes('L') : true;
   const item = this.$elements[this.tab];
   const { top: wTop, width: wWidth, height: wHeight } = u.getRect($vw);
   const { top: iTop, height: iHeight } = u.getRect(item);
