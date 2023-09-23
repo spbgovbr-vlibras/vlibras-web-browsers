@@ -2,10 +2,11 @@ const template = require('./change-avatar.html').default;
 require('./change-avatar.scss');
 
 const { IcaroIcon, HosanaIcon, GugaIcon } = require('~icons');
-const avatars = ['icaro', 'hozana', 'guga'];
+const availableAvatars = ['icaro', 'hosana', 'guga', 'random'];
 
-function ChangeAvatar(player) {
+function ChangeAvatar(player, controls) {
   this.player = player;
+  this.controls = controls;
   this.element = null;
 }
 
@@ -13,7 +14,6 @@ ChangeAvatar.prototype.load = function (element) {
   this.element = element;
   this.element.innerHTML = template;
   this.welcomeStarted = false;
-  this.player.avatar = 'icaro';
   const buttons = this.element.querySelectorAll('.vp-button-change-avatar');
 
   // Add icons and actions
@@ -22,12 +22,35 @@ ChangeAvatar.prototype.load = function (element) {
 
     button.onclick = () => {
       if (isSelected(button)) return;
-      this.player.changeAvatar(avatars[i]);
+      const avatar = availableAvatars[i];
+      this.player.changeAvatar(avatar);
+      this.player.avatar = avatar;
       selectButton(button);
     }
   });
 
   this.element.onclick = () => this.element.classList.toggle('vp-isOpen');
+
+  if (this.player.avatar === 'random') this.player.avatar = generateRandomAvatar();
+  this.player.changeAvatar(this.player.avatar);
+  selectButton(getAvatarButton(this.player.avatar));
+
+  const _ = setInterval(() => {
+    if (!this.controls.loaded) return;
+    setTimeout(callWelcome.bind(this), 500);
+    clearInterval(_);
+  }, 500)
+
+  function changeAvatar() {
+    if (this.player.avatar === 'random') this.player.avatar = generateRandomAvatar();
+    this.player.changeAvatar(this.player.avatar);
+    selectButton(getAvatarButton(this.player.avatar));
+  }
+
+  function callWelcome() {
+    changeAvatar.bind(this)();
+    this.player.playWellcome();
+  }
 
   function selectButton(button) {
     buttons.forEach(btn => btn.classList.toggle('vp-selected', btn === button))
@@ -37,15 +60,15 @@ ChangeAvatar.prototype.load = function (element) {
     return button.classList.contains('vp-selected');
   }
 
-  this.player.on('GetAvatar', avatar => {
-    selectButton(buttons[avatars.indexOf(avatar)]);
-    this.welcomeStarted = true;
-    this.player.avatar = avatar;
-    this.player.playWellcome();
-  });
+  function getAvatarButton(avatar) {
+    return buttons[availableAvatars.indexOf(avatar)];
+  }
 
-  setTimeout(() => !this.welcomeStarted && this.player.playWellcome(), 300);
 };
+
+function generateRandomAvatar() {
+  return availableAvatars[Math.floor(Math.random() * 3)];
+}
 
 ChangeAvatar.prototype.show = function () {
   this.enabled = true;
