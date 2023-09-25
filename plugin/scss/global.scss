@@ -10,6 +10,8 @@
         color: map-get($black, 1) !important;
         background: transparent !important;
         font-weight: 500;
+        margin: 0;
+        padding: 0;
 
         &::placeholder {
             color: #999 !important;
