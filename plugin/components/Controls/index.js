@@ -92,6 +92,7 @@ Controls.prototype.load = function (element, rateBox) {
   const fullscreen = this.element.querySelector('.vpw-controls-fullscreen');
   const skipWelcome = this.element.querySelector('.vpw-skip-welcome-message');
   const boundCallWelcome = callWelcome.bind(this);
+  let welcomeFinished = false;
 
   // Add icons
   play.querySelector('.vpw-component-play').innerHTML = controlIcons.play;
@@ -152,6 +153,7 @@ Controls.prototype.load = function (element, rateBox) {
   });
 
   this.player.on('stop:welcome', function () {
+    welcomeFinished = true;
     this.setLabel('Escolha um texto para traduzir.');
     removeClass(skipWelcome, 'vp-enabled');
   }.bind(this));
@@ -168,11 +170,13 @@ Controls.prototype.load = function (element, rateBox) {
   function callWelcome() {
     this.playerManager.removeListener('CounterGloss', boundCallWelcome);
     welcomeMessage[this.player.avatar].forEach(item => {
-      setTimeout(() => this.setLabel(item.m), item.t * 1000)
+      setTimeout(() => !welcomeFinished && this.setLabel(item.m), item.t * 1000)
     });
   }
 
   function handleSkip() {
+    welcomeFinished = true;
+    this.player.emit('stop:welcome', true);
     this.player.skipped = true;
     this.player.stop();
   }
@@ -186,10 +190,11 @@ Controls.prototype.load = function (element, rateBox) {
   // Remove label when there is 'player.text' or guide is open
   const interval = setInterval(() => {
     if (this.player.text || guideIsOpen()) {
-      this.element.classList.remove('vpw-selectText');
-      clearInterval(interval)
+      removeClass(this.element, 'vpw-selectText');
+      removeClass(skipWelcome, 'vp-enabled');
+      clearInterval(interval);
     }
-  }, 1000);
+  }, 600);
 
   // Pause or continue translation when switching tabs
   let playing = false;
