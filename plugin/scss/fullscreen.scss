@@ -105,6 +105,12 @@
             height: 48px !important;
             padding: 0 16px !important;
 
+            .vpw-skip-welcome-message {
+                padding: 10px 16px;
+                height: 36px;
+                top: -46px;
+            }
+
             .vpw-controls-fullscreen {
                 #vw-max-icon {
                     display: none !important;

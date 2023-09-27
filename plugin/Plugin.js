@@ -60,8 +60,8 @@ function Plugin(options) {
   this.suggestionScreen = new SuggestionScreen(this.player);
   this.guide = new Guide(this.player);
   this.translator = new Translator(this.player);
-  this.rateBox = new RateBox(this.messageBox, this.suggestionScreen);
-  this.ChangeAvatar = new ChangeAvatar(this.player, this.controls);
+  this.rateBox = new RateBox(this.messageBox, this.suggestionScreen, this.player);
+  this.ChangeAvatar = new ChangeAvatar(this.player);
   this.additionalOptions = new AdditionalOptions(
     this.player,
     this.translator,
@@ -108,7 +108,7 @@ function Plugin(options) {
 
     this.player.toggleSubtitle(false);
 
-    this.controls.load(this.element.querySelector('[vp-controls]'));
+    this.controls.load(this.element.querySelector('[vp-controls]'), this.rateBox);
     this.Box.load(this.element.querySelector('[vp-box]'));
 
     this.settingsBtn.load(

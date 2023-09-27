@@ -76,6 +76,7 @@ export const getRect = (element) => {
 
 // Enable or disable Widget's clicks
 export const addClickBlocker = (bool) => {
+  toggleClass($('.vpw-skip-welcome-message'), 'vp-disabled', bool);
   toggleClass($('[vp-click-blocker]'), 'vp-enabled', bool);
 }
 
