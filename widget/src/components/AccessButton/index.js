@@ -4,15 +4,17 @@ const { canTranslate } = require('~utils');
 const template = require('./template.html').default;
 require('./styles.scss');
 
-function AccessButton(rootPath, pluginWrapper, personalization, opacity, position) {
-  this.personalization = personalization;
-  this.rootPath = rootPath;
-  this.pluginWrapper = pluginWrapper;
+function AccessButton(props) {
+  this.personalization = props.personalization;
+  this.rootPath = props.rootPath;
+  this.enableWelcome = props.enableWelcome;
+  this.pluginWrapper = props.pluginWrapper;
+  this.opacity = props.opacity;
+  this.position = props.position;
+  this.avatar = props.avatar;
   this.vw_links = null;
   this.currentElement = null;
   this.currentSpanElement = null;
-  this.opacity = opacity || 1;
-  this.position = position || 'R';
   this.ready = false;
 }
 
@@ -27,12 +29,13 @@ AccessButton.prototype.load = function (element, vw) {
       window.plugin ||
       new window.VLibras.Plugin({
         enableMoveWindow: true,
-        playWellcome: true,
-        rootPath: this.rootPath,
+        enableWelcome: true,
         personalization: this.personalization,
-        opacity: this.opacity,
         wrapper: this.pluginWrapper.element,
-        position: this.position
+        position: this.position,
+        rootPath: this.rootPath,
+        opacity: this.opacity,
+        avatar: this.avatar
       });
 
     if (this.ready) loadTextCaptureScript();
