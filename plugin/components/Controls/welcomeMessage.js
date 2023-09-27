@@ -7,7 +7,7 @@ export const welcomeMessage = {
     { m: 'Estou aqui para te ajudar<br>traduzindo textos para Libras.', t: 13.5 },
   ],
 
-  hozana: [
+  hosana: [
     { m: 'Olá, tudo bem?', t: 0 },
     { m: 'Meu nome é Hosana.', t: 4.5 },
     { m: 'Este é meu sinal.', t: 10 },

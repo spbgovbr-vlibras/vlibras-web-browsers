@@ -16,6 +16,7 @@ function Controls(player, dictionary) {
   this.rateBox = null;
   this.element = null;
   this.label = null;
+  this.loaded = false;
   this.playerManager = player.playerManager;
 
   this.player.on('animation:play', function () {
@@ -83,6 +84,7 @@ Controls.prototype.load = function (element, rateBox) {
   this.element.classList.add('vpw-subtitles');
   this.label = this.element.querySelector('.vpw-selectTextLabel');
   this.element.classList.add('vpw-selectText');
+  this.loaded = true;
 
   const wrapper = document.querySelector('div[vw-plugin-wrapper]');
   const play = this.element.querySelector('.vpw-controls-button');
