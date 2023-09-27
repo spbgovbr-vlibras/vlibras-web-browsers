@@ -147,18 +147,18 @@ Controls.prototype.load = function (element, rateBox) {
 
   this.player.addListener('gloss:start', () => {
     window.plugin.player.skipped = false;
-    addClass(skipWelcome, 'vp-enabled');
+    setTimeout(() => addClass(skipWelcome, 'vp-enabled'), 0);
   });
 
   this.player.addListener('gloss:end', () => {
-    removeClass(skipWelcome, 'vp-enabled');
     if (this.player.text.trim()) this.rateBox.show();
+    removeClass(skipWelcome, 'vp-enabled');
   });
 
   this.player.on('stop:welcome', function () {
-    welcomeFinished = true;
-    this.setLabel('Escolha um texto para traduzir.');
     removeClass(skipWelcome, 'vp-enabled');
+    this.setLabel('Escolha um texto para traduzir.');
+    welcomeFinished = true;
   }.bind(this));
 
   this.player.on('start:welcome', function () {
