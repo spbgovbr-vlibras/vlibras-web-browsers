@@ -61,7 +61,7 @@ function Plugin(options) {
   this.guide = new Guide(this.player);
   this.translator = new Translator(this.player);
   this.rateBox = new RateBox(this.messageBox, this.suggestionScreen, this.player);
-  this.ChangeAvatar = new ChangeAvatar(this.player);
+  this.ChangeAvatar = new ChangeAvatar(this.player, this.controls);
   this.additionalOptions = new AdditionalOptions(
     this.player,
     this.translator,
