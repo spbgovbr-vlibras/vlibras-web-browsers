@@ -32,12 +32,14 @@ function Plugin(options) {
     personalization: options.personalization,
     opacity: options.opacity,
     wrapper: options.wrapper,
+    // enableWelcome: options.enableWelcome
   });
+
+  this.player.avatar = options.avatar;
 
   this.opacity = options.opacity;
   this.wrapper = options.wrapper;
   this.position = options.position;
-  this.avatar = null;
 
   this.rootPath = options.rootPath;
   this.personalization = options.personalization;
