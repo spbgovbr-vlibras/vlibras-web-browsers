@@ -23,17 +23,6 @@
     font-size: 14px;
     border-radius: 0 0 10px 10px;
 
-    @media (max-width: 450px) {
-      gap: 0 !important;
-      padding: 0 10px !important;
-      height: 40px;
-      font-size: 12px;
-
-      .vpw-controls-slider {
-        width: 30%;
-      }
-    }
-
     &.vpw-selectText {
       background-color: #003F86 !important;
     }
@@ -170,6 +159,24 @@
 
       #vw-max-icon {
         display: inline;
+      }
+    }
+
+
+    @media (max-width: 450px) {
+      gap: 0 !important;
+      padding: 0 10px !important;
+      height: 40px;
+      font-size: 12px;
+
+      .vpw-controls-slider {
+        width: 30%;
+      }
+
+      .vpw-skip-welcome-message {
+        padding: 0 10px;
+        height: 30px;
+        top: -38px;
       }
     }
 
