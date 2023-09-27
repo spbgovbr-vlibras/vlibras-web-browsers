@@ -151,7 +151,7 @@ Controls.prototype.load = function (element, rateBox) {
   });
 
   this.player.addListener('gloss:end', () => {
-    if (this.player.text.trim()) this.rateBox.show();
+    if (this.player.text && this.player.text.trim()) this.rateBox.show();
     removeClass(skipWelcome, 'vp-enabled');
   });
 
