@@ -237,15 +237,18 @@ Plugin.prototype.sendReview = function (rate, review) {
     // Thanks message
     const oldGloss = this.player.gloss;
     const boundToggleSubtitle = toggleSubtitle.bind(this);
+    const skipButton = this.controls.element.querySelector('.vpw-skip-welcome-message');
     const subtitleIsActived = this.controls.element.querySelector('.actived-subtitle');
 
     this.player.play('AGRADECER');
     this.player.gloss = undefined;
 
+    skipButton.classList.add('vp-disabled');
     subtitleIsActived && this.player.toggleSubtitle();
     this.player.addListener("gloss:end", boundToggleSubtitle);
 
     function toggleSubtitle() {
+      skipButton.classList.remove('vp-disabled');
       subtitleIsActived && this.player.toggleSubtitle();
       this.player.removeListener("gloss:end", boundToggleSubtitle);
       this.player.gloss = oldGloss;
