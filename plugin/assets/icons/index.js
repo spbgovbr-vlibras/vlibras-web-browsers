@@ -20,6 +20,7 @@ const controlIcons = {
   subtitle: require('./controls/subtitle.svg'),
   maximize: require('./controls/maximize.svg'),
   minimize: require('./controls/minimize.svg'),
+  skip: require('./controls/skip.svg'),
 }
 
 const socialIcons = {
