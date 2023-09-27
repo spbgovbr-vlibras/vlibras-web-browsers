@@ -150,6 +150,7 @@ Controls.prototype.load = function (element, rateBox) {
 
   this.player.addListener('gloss:end', () => {
     removeClass(skipWelcome, 'vp-enabled');
+    if (this.player.text.trim()) this.rateBox.show();
   });
 
   this.player.on('stop:welcome', function () {
