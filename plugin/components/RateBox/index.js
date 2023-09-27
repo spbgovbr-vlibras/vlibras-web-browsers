@@ -3,10 +3,11 @@ require('./rate-box.scss');
 
 const { arrowIcon, likeLineIcon, likeSolidIcon } = require('~icons/');
 
-function RateBox(messageBox, suggestionScreen) {
+function RateBox(messageBox, suggestionScreen, player) {
   this.element = null;
   this.suggestionScreen = suggestionScreen;
   this.messageBox = messageBox;
+  this.player = player;
 }
 
 RateBox.prototype.load = function (element) {
@@ -43,7 +44,7 @@ RateBox.prototype.reload = function () {
 };
 
 RateBox.prototype.show = function () {
-  if (window.plugin.player.gloss == undefined) return;
+  if (this.player.gloss == undefined || this.player.skipped) return;
   this.element.classList.add('vp-enabled');
 };
 

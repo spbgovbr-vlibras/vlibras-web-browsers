@@ -2,6 +2,7 @@
 @import '~scss/colors';
 @import '~scss/default-buttons';
 @import '~scss/fullscreen';
+@import "~scss/shared-styles";
 
 [vp] {
   .vpw-controls {
@@ -35,6 +36,57 @@
 
     &.vpw-selectText {
       background-color: #003F86 !important;
+    }
+
+    .vpw-skip-welcome-message {
+      @include reset;
+
+      background-color: #FFF;
+      border: 1px solid #eee;
+      transition: all .3s ease;
+      justify-content: center;
+      flex-direction: row;
+      transform: scale(0);
+      align-items: center;
+      padding: 10px 16px;
+      border-radius: 8px;
+      position: absolute;
+      overflow: hidden;
+      cursor: pointer;
+      display: flex;
+      height: 36px;
+      right: 10px;
+      top: -46px;
+      gap: 10px;
+
+      svg {
+        width: 12px;
+        height: 12px;
+
+        * {
+          fill: map-get($blue, 4);
+        }
+      }
+
+      span {
+        color: map-get($blue, 4);
+        font-weight: 600;
+        line-height: 0;
+        font-size: 1em;
+        padding-bottom: 2px;
+      }
+
+      &:hover {
+        box-shadow: $vp-shadow;
+      }
+
+      &.vp-enabled {
+        transform: scale(1);
+      }
+
+      &.vp-disabled {
+        display: none !important;
+      }
     }
 
     .vpw-selectTextLabel {
