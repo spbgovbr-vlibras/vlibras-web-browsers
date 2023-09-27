@@ -84,6 +84,7 @@ Controls.prototype.load = function (element, rateBox) {
   this.element.classList.add('vpw-subtitles');
   this.label = this.element.querySelector('.vpw-selectTextLabel');
   this.element.classList.add('vpw-selectText');
+  this.player.avatar = this.player.avatar || 'icaro'
   this.loaded = true;
 
   const wrapper = document.querySelector('div[vw-plugin-wrapper]');
@@ -147,7 +148,7 @@ Controls.prototype.load = function (element, rateBox) {
 
   this.player.addListener('gloss:start', () => {
     window.plugin.player.skipped = false;
-    setTimeout(() => addClass(skipWelcome, 'vp-enabled'), 0);
+    setTimeout(() => addClass(skipWelcome, 'vp-enabled'), 300);
   });
 
   this.player.addListener('gloss:end', () => {
