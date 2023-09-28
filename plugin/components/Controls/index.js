@@ -4,9 +4,9 @@ require('nouislider/distribute/nouislider.min.css');
 const controlsTpl = require('./controls.html').default;
 require('./controls.scss');
 
-const { $, hasClass, addClass, removeClass, $0 } = require('~utils');
 const { controlIcons } = require('~icons');
 const { welcomeMessage } = require('./welcomeMessage');
+const { $, hasClass, addClass, removeClass, $0 } = require('~utils');
 
 const availableSpeeds = [0.5, 1, 1.5, 2, 3];
 
@@ -139,6 +139,10 @@ Controls.prototype.load = function (element, rateBox) {
     document.body.classList.toggle('vpw-fullscreen');
   });
 
+  document.addEventListener('keyup', e => {
+    if (e.key === 'Escape') removeClass(document.body, 'vpw-fullscreen');
+  })
+
   skipWelcome.onclick = () => handleSkip.bind(this)();
 
   speed.addEventListener('click', function () {
@@ -148,7 +152,7 @@ Controls.prototype.load = function (element, rateBox) {
 
   this.player.addListener('gloss:start', () => {
     window.plugin.player.skipped = false;
-    setTimeout(() => addClass(skipWelcome, 'vp-enabled'), 300);
+    setTimeout(() => addClass(skipWelcome, 'vp-enabled'), 500);
   });
 
   this.player.addListener('gloss:end', () => {
