@@ -250,6 +250,7 @@ SuggestionScreen.prototype.show = function () {
 
 SuggestionScreen.prototype.hide = function () {
   // this.element.querySelector('.vp-text').style.display = 'none';
+  this.element.classList.remove('vp-expanded');
   this.element.classList.remove('vp-enabled');
 };
 
