@@ -95,6 +95,7 @@ Controls.prototype.load = function (element, rateBox) {
   const fullscreen = this.element.querySelector('.vpw-controls-fullscreen');
   const skipWelcome = this.element.querySelector('.vpw-skip-welcome-message');
   const boundCallWelcome = callWelcome.bind(this);
+  const boundSuggestionScreen = showSuggestionScreen.bind(this);
   let welcomeFinished = false;
 
   // Add icons
@@ -121,6 +122,7 @@ Controls.prototype.load = function (element, rateBox) {
     if (this.element.classList.contains('vpw-playing')) {
       this.player.pause();
     } else if (this.element.classList.contains('vpw-stopped')) {
+      if (isSuggestionOpen()) this.player.addListener('gloss:end', boundSuggestionScreen);
       this.player.repeat();
     } else {
       this.player.continue();
@@ -174,6 +176,15 @@ Controls.prototype.load = function (element, rateBox) {
   this.playerManager.addListener('CounterGloss', boundCallWelcome);
 
   window.addEventListener('vp-widget-close', removeFullscreen);
+
+  function isSuggestionOpen() {
+    return !!$('[vp-suggestion-screen].vp-enabled');
+  }
+
+  function showSuggestionScreen() {
+    addClass($('[vp-suggestion-screen]'), 'vp-enabled');
+    this.player.removeListener('gloss:end', boundSuggestionScreen);
+  }
 
   function callWelcome() {
     this.playerManager.removeListener('CounterGloss', boundCallWelcome);
