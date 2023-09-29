@@ -5,18 +5,21 @@ require('./scss/reset.scss');
 require('./scss/styles.scss');
 
 const { addClass, $, removeClass, getWidget } = require('~utils');
+
+const DEFAULT_ROOTPAH = 'https://vlibras.gov.br/app';
 const availablePositions = ['TL', 'T', 'TR', 'L', 'R', 'BL', 'B', 'BR'];
 const availableAvatars = ['icaro', 'hosana', 'guga', 'random'];
 
 module.exports = function Widget(...args) {
   const optObject = typeof args[0] === 'object' && args[0];
 
-  const rootPath = optObject ? optObject.rootPath : args[0];
   const personalization = optObject ? optObject.personalization : args[1];
+  let rootPath = optObject ? optObject.rootPath : args[0];
   let position = optObject ? optObject.position : args[3];
   let opacity = optObject ? optObject.opacity : args[2];
   let avatar = optObject.avatar;
 
+  if (rootPath === undefined) rootPath = DEFAULT_ROOTPAH;
   if (!isNaN(opacity) || opacity < 0 || opacity > 1) opacity = 1;
   if (!availablePositions.includes(position)) position = 'R';
   if (!availableAvatars.includes(avatar)) avatar = 'icaro';
