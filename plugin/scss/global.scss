@@ -1,8 +1,20 @@
 @import 'colors.scss';
 
 [vw] {
+    * {
+        box-sizing: border-box !important;
+        -webkit-box-sizing: border-box !important;
+        font-family: 'Rawline', Verdana, sans-serif !important;
+        text-shadow: none !important;
+        text-transform: none;
+    }
+
     img[data-src] {
         opacity: 1 !important;
+    }
+
+    [vp] {
+        text-align: left;
     }
 
     input:not([type="range"]):not([type="checkbox"]),
@@ -27,10 +39,4 @@
         }
     }
 
-    * {
-        box-sizing: border-box !important;
-        -webkit-box-sizing: border-box !important;
-        font-family: 'Rawline', Verdana, sans-serif !important;
-        text-shadow: none !important;
-    }
 }

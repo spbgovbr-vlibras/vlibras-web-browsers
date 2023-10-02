@@ -57,7 +57,7 @@
                 width: 18px;
                 height: 18px;
                 border-radius: 18px;
-                outline: 1px solid map-get($white, 2);
+                outline: 1px solid map-get($white, 2) !important;
                 outline-offset: -1px;
                 right: 16px;
                 display: flex;
@@ -80,7 +80,7 @@
                 top: 6px;
 
                 .vpw-radio {
-                    outline-color: map-get($blue, 3);
+                    outline-color: map-get($blue, 3) !important;
                     outline-width: 2px;
 
                     &::after {

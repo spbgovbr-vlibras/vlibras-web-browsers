@@ -33,7 +33,7 @@ $bg-color: #9c9c9c;
     height: 32px;
     min-width: 32px;
     border: 2px solid transparent;
-    outline: 2px solid transparent;
+    outline: 2px solid transparent !important;
     padding: 0 !important;
     z-index: -1;
     text-transform: none;
@@ -85,7 +85,7 @@ $bg-color: #9c9c9c;
     }
 
     &:hover {
-      outline-color: rgba(map-get($white, 2), .3);
+      outline-color: rgba(map-get($white, 2), .3) !important;
 
       &::after,
       &::before {
@@ -96,7 +96,7 @@ $bg-color: #9c9c9c;
     &.vp-selected {
       display: flex !important;
       background-color: map-get($blue, 3);
-      outline-color: map-get($blue, 3);
+      outline-color: map-get($blue, 3) !important;
       border-color: #e0e0e0;
       position: absolute;
       left: 2px;
@@ -104,7 +104,7 @@ $bg-color: #9c9c9c;
       visibility: visible;
 
       &:hover {
-        outline-color: rgba(map-get($blue, 3), .5);
+        outline-color: rgba(map-get($blue, 3), .5) !important;
       }
 
       &::before {
