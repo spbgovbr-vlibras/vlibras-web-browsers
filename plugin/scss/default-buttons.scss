@@ -47,7 +47,7 @@
     max-width: 32px;
     max-height: 32px;
     border-radius: 4px;
-    outline: 2px solid transparent;
+    outline: 2px solid transparent !important;
     outline-offset: -2px;
 
     @media (max-width: 450px) {
@@ -94,7 +94,7 @@
 
     &:focus {
         background-color: map-get($blue, 2);
-        outline-color: map-get($white, 1);
+        outline-color: map-get($white, 1) !important;
         box-shadow: 0 0 12px 0 rgba(86, 154, 255, 75%);
     }
 
@@ -149,7 +149,7 @@
 
     &:focus {
         background-color: map-get($white, 1);
-        outline-color: map-get($blue, 3);
+        outline-color: map-get($blue, 3) !important;
     }
 
     &:disabled {
@@ -186,7 +186,7 @@
     font-weight: 500;
     height: 70px !important;
     background-color: map-get($white, 1);
-    outline: 2px solid transparent;
+    outline: 2px solid transparent !important;
     outline-offset: -2px;
 
     svg {
@@ -204,7 +204,7 @@
     }
 
     &:active {
-        outline-color: map-get($blue, 3);
+        outline-color: map-get($blue, 3) !important;
         box-shadow: 0px 0px 15px rgba(86, 154, 255, 0.75);
     }
 }
@@ -271,7 +271,7 @@
 
     border-radius: 40px;
     font-size: 14px;
-    outline: 1px solid;
+    outline: 1px solid !important;
     height: 36px;
     min-width: 36px;
     padding: 0 16px;
@@ -301,14 +301,14 @@
     @include guide-btn;
 
     color: map-get($white, 1);
-    outline-color: map-get($white, 1);
+    outline-color: map-get($white, 1) !important;
 }
 
 @mixin guide-btn--text {
     @include guide-btn;
 
     color: map-get($white, 1);
-    outline-color: transparent;
+    outline-color: transparent !important;
 }
 
 @mixin guide-btn--solid {
