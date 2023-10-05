@@ -141,6 +141,12 @@ Controls.prototype.load = function (element, rateBox) {
     document.body.classList.toggle('vpw-fullscreen');
   });
 
+  // Toggle fullscreen on double click in 'gameContainer'
+  $('[vw] #gameContainer').ondblclick = () => {
+    if (welcomeFinished) document.body.classList.toggle('vpw-fullscreen');
+  }
+
+  // Disable fullscreen on press 'ESC' key
   document.addEventListener('keyup', e => {
     if (e.key === 'Escape') removeClass(document.body, 'vpw-fullscreen');
   })
