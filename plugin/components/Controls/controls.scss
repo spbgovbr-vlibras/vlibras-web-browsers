@@ -67,6 +67,7 @@
 
       &:hover {
         box-shadow: $vp-shadow;
+        background-color: map-get($white, 5);
       }
 
       &.vp-enabled {
