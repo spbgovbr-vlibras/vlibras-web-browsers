@@ -4,7 +4,7 @@ const PluginWrapper = require('./components/PluginWrapper');
 require('./scss/reset.scss');
 require('./scss/styles.scss');
 
-const { addClass, $, removeClass, getWidget } = require('~utils');
+const { addClass, $, $$, removeClass, getWidget } = require('~utils');
 
 const DEFAULT_ROOTPAH = 'https://vlibras.gov.br/app';
 const availablePositions = ['TL', 'T', 'TR', 'L', 'R', 'BL', 'B', 'BR'];
@@ -37,6 +37,8 @@ module.exports = function Widget(...args) {
   }
 
   window.onload = () => {
+    ressolveMultipleWidgetsIssue();
+
     if (tempF) tempF();
 
     this.element = document.querySelector('[vw-plugin-wrapper]').closest('[vw]');
@@ -100,5 +102,11 @@ module.exports = function Widget(...args) {
     }
 
   };
+
+  function ressolveMultipleWidgetsIssue() {
+    $$('[vw]').forEach(vw => {
+      if (!($('[vp]'), vw)) vw.removeAttribute('vw');
+    })
+  }
 
 };
