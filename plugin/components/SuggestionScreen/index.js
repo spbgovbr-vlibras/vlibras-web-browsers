@@ -104,8 +104,8 @@ SuggestionScreen.prototype.load = function (element) {
 
   this.textElement = this.element.querySelector('.vp-text');
 
-  this.send = this.element.querySelector('.vp-send-button');
-  this.visualize = this.element.querySelector('.vp-visualize-signal-button');
+  this.send = this.element.querySelector('.vp-send-gloss-button');
+  this.visualize = this.element.querySelector('.vp-play-gloss-button');
 
   const close = this.element.querySelector('.vp-suggestion-screen-header button');
   const dropdownSuggest = this.element.querySelector('.vp-dropdown-suggest');

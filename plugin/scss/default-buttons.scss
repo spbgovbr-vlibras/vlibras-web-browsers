@@ -216,9 +216,14 @@
     height: 36px;
     border-radius: 40px;
     border: 1px solid map-get($blue, 1);
+    flex-direction: row;
 
     font-size: 14px;
     font-weight: 600;
+
+    svg {
+        margin-left: 6px;
+    }
 
     @media (max-width: 450px) {
         height: 32px;
@@ -230,6 +235,18 @@
     @include suggestion-btn--default;
     background-color: map-get($blue, 1);
     color: map-get($white, 1);
+
+    * {
+        color: map-get($white, 1);
+    }
+
+    svg {
+        width: 20px;
+
+        * {
+            fill: map-get($white, 1);
+        }
+    }
 
     &:hover {
         background-color: map-get($blue, 3);
@@ -250,10 +267,34 @@
     background-color: map-get($white, 1);
     color: map-get($blue, 1);
 
+    * {
+        color: map-get($blue, 1);
+    }
+
+    svg {
+        width: 20px;
+
+        * {
+            fill: map-get($blue, 1);
+        }
+    }
+
     &:hover {
         border-color: map-get($white, 2);
         background-color: map-get($white, 5);
         color: map-get($blue, 4);
+
+        * {
+            color: map-get($blue, 4);
+        }
+
+        svg {
+            width: 20px;
+
+            * {
+                fill: map-get($blue, 4);
+            }
+        }
     }
 
     &:disabled {

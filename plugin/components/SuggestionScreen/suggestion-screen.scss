@@ -18,6 +18,7 @@ $control-height: 68px;
   border-radius: 10px;
   visibility: hidden;
   font-size: 14px;
+  max-height: 600px;
 
   transition: all .5s ease, opacity .5s ease;
 
@@ -126,13 +127,13 @@ $control-height: 68px;
         width: 100% !important;
       }
 
-      .vp-visualize-signal-button {
-        @include suggestion-btn--primary;
+      .vp-play-gloss-button {
+        @include suggestion-btn--secundary;
 
       }
 
-      .vp-send-button {
-        @include suggestion-btn--secundary;
+      .vp-send-gloss-button {
+        @include suggestion-btn--primary;
       }
     }
   }
