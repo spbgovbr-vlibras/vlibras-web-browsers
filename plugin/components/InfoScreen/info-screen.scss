@@ -38,9 +38,14 @@
       flex-direction: column;
       padding: 16px;
       width: 100%;
+      font-size: 1em;
       align-items: start;
       justify-content: start;
       gap: 10px;
+
+      * {
+        font-size: 1em;
+      }
 
       .vpw-info__section {
         margin-bottom: 10px !important;
