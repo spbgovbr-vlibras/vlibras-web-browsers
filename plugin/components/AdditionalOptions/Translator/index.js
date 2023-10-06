@@ -14,8 +14,8 @@ Translator.prototype.load = function (element) {
   this.element.innerHTML = template;
 
   const closeBtn = this.element.querySelector('.vp-translator-screen-header button');
+  const visualizeBtn = this.element.querySelector('.vp-play-gloss-button');
   const userText = this.element.querySelector('.vp-text');
-  const visualizeBtn = this.element.querySelector('.vp-visualize-signal-button');
 
   // Add icons
   closeBtn.innerHTML = closeIcon;
