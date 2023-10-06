@@ -39,8 +39,28 @@
     }
 
     [vp] {
+        .vp-rate-box-content {
+            div {
+                font-size: 16px !important;
+            }
+
+            .vp-rate-box__gloss {
+                span {
+                    max-width: 280px;
+                }
+
+                a {
+                    font-size: 16px !important;
+                }
+            }
+        }
+
         .vpw-button-speed {
             font-size: 14px;
+        }
+
+        [vp-rate-box].vp-expanded {
+            height: 30% !important;
         }
 
         .vp-rate-box-header,
@@ -135,8 +155,8 @@
             width: 60% !important;
         }
 
-        .vp-visualize-signal-button,
-        .vp-send-button {
+        .vp-play-gloss-button,
+        .vp-send-gloss-button {
             font-size: 14px !important;
             height: 36px !important;
         }
