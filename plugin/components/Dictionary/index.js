@@ -179,8 +179,10 @@ Dictionary.prototype._onItemClick = function (event) {
 
   this.boundCloseAllScreen();
   this.player.play(word);
-  this.player.text = ' ';
+  this.player.text = word;
+  this.player.translation = word;
   this.player.translated = false;
+  this.player.fromDictionary = true;
 
   const recentWords = getRecentWords();
   recentWords.unshift(word);
