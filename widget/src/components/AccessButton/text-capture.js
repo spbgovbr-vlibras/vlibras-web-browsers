@@ -59,11 +59,17 @@ function loadTextCaptureScript() {
     event.preventDefault();
     event.stopPropagation();
 
-    const textContent = (hasTag(element, 'IMG') ? element.alt
-      : isSubmit ? element.value
-        : hasTag(element, 'SELECT') ? $(element, `[value="${element.value}"]`).innerText
-          : element.innerText && element.innerText.replace(/\s+/g, ' ')
-          || element.textContent);
+    const getTextContent = () => {
+      try {
+        if (hasTag(element, 'IMG')) return element.alt;
+        else if (isSubmit) return element.value;
+        else if (hasTag(element, 'SELECT')) return $(element, `[value="${element.value}"]`).innerText;
+        else if (element.innerText) return element.innerText.replace(/\s+/g, ' ');
+        else element.textContent;
+      } catch { }
+    }
+
+    const textContent = getTextContent();
 
     // Call VLibras Widget
     if (textContent && textContent.trim()) window.plugin.translate(textContent);
