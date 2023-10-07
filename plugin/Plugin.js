@@ -139,6 +139,7 @@ function Plugin(options) {
   let control = 0;
   this.player.on('translate:start', () => {
     control = 1;
+    this.player.fromDictionary = false;
     this.ChangeAvatar.hide();
     this.additionalOptions.hide();
     this.controls.setProgress();
@@ -156,8 +157,8 @@ function Plugin(options) {
     control = 0;
     this.ChangeAvatar.hide();
     this.additionalOptions.hide();
-    this.rateBox.hide();
     this.suggestionScreen.hide();
+    this.rateBox.hide();
   });
 
   this.player.on('gloss:end', (globalGlosaLenght) => {
