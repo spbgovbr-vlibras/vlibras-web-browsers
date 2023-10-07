@@ -189,6 +189,7 @@ Controls.prototype.load = function (element, rateBox) {
 
   function showSuggestionScreen() {
     addClass($('[vp-suggestion-screen]'), 'vp-enabled');
+    addClass($('[vp-suggestion-screen]'), 'vp-expanded');
     this.player.removeListener('gloss:end', boundSuggestionScreen);
   }
 
