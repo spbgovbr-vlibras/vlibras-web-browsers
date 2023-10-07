@@ -12,6 +12,7 @@ const likeSolidIcon = require('./feedback/like-solid.svg');
 const loadingIcon = require('./loading.svg');
 const translatorIcon = require('./additionalOptions/translator.svg');
 const helpIcon = require('./additionalOptions/help.svg');
+const arrowOutward = require('./feedback/arrow-outward.svg');
 
 const controlIcons = {
   play: require('./controls/play.svg'),
@@ -20,6 +21,7 @@ const controlIcons = {
   subtitle: require('./controls/subtitle.svg'),
   maximize: require('./controls/maximize.svg'),
   minimize: require('./controls/minimize.svg'),
+  skip: require('./controls/skip.svg'),
 }
 
 const socialIcons = {
@@ -41,6 +43,7 @@ module.exports = {
   IcaroIcon, HosanaIcon, GugaIcon, aboutIcon, closeIcon,
   dictionaryIcon, settingsIcon, backIcon, socialIcons,
   positionIcons, arrowIcon, likeLineIcon, likeSolidIcon,
-  loadingIcon, translatorIcon, helpIcon, controlIcons
+  loadingIcon, translatorIcon, helpIcon, controlIcons,
+  arrowOutward
 }
 

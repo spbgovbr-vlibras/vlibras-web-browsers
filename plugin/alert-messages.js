@@ -3,6 +3,6 @@ export const ALERT_MESSAGES = {
   TRANSLATION_ERROR: "Não foi possível estabelecer conexão com o serviço de tradução do VLibras.",
   INTERNAL_ERROR: "Ops! Ocorreu um problema, por favor entre em contato com a gente.",
   TIMEOUT_ERROR: "Tempo de requisição excedido.",
-  REVIEW_THANKS: "Obrigado pela contribuição!",
+  REVIEW_THANKS: "Agradecemos a contribuição!",
   TRANSLATING_TEXT: 'Traduzindo...'
 };

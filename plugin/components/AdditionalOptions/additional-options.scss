@@ -26,8 +26,9 @@ $bg-color: #9c9c9c;
         cursor: pointer;
         background-color: map-get($white, 2);
         border: 2px solid transparent;
-        outline: 2px solid transparent;
+        outline: 2px solid transparent !important;
         outline-offset: 0;
+        text-transform: none;
         padding: 0 !important;
         transition: all .3s ease;
 
@@ -44,12 +45,12 @@ $bg-color: #9c9c9c;
             background-color: map-get($blue, 3);
 
             &:hover {
-                outline-color: rgba(map-get($blue, 3), .5);
+                outline-color: rgba(map-get($blue, 3), .5) !important;
             }
         }
 
         &:hover {
-            outline-color: rgba(map-get($white, 2), .3);
+            outline-color: rgba(map-get($white, 2), .3) !important;
             opacity: 1 !important;
         }
 

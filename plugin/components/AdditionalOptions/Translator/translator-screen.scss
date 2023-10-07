@@ -18,6 +18,7 @@ $control-height: 68px;
     font-size: 14px;
     border-radius: 10px;
     transition: all .3s ease;
+    max-height: 600px;
 
     .vp-translator-screen-header {
         @include vp-header;
@@ -75,9 +76,8 @@ $control-height: 68px;
                 width: 100% !important;
             }
 
-            .vp-visualize-signal-button {
+            .vp-play-gloss-button {
                 @include suggestion-btn--primary;
-
             }
         }
     }
