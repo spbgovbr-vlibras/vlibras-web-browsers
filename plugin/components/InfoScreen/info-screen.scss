@@ -38,19 +38,24 @@
       flex-direction: column;
       padding: 16px;
       width: 100%;
+      font-size: 1em;
       align-items: start;
       justify-content: start;
       gap: 10px;
 
+      * {
+        font-size: 1em;
+      }
+
       .vpw-info__section {
-        margin-bottom: 10px;
+        margin-bottom: 10px !important;
       }
 
       .vpw-info__section-title {
         text-decoration: none;
         font-weight: 600;
         font-size: 1em;
-        margin-bottom: 10px;
+        margin-bottom: 10px !important;
         color: map-get($black, 1) !important;
       }
 
@@ -119,7 +124,7 @@
           }
         }
 
-        outline: 1px solid map-get($white, 4);
+        outline: 1px solid map-get($white, 4) !important;
         border-radius: 4px;
 
       }

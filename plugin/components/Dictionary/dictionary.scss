@@ -90,6 +90,7 @@ $margin_left: 40px;
                 outline: none;
                 height: 32px;
                 border: 1px solid map-get($white, 4);
+                text-transform: none;
                 border-radius: 50px;
                 color: map-get($white, 2);
                 padding: 0 16px;
@@ -219,6 +220,7 @@ $margin_left: 40px;
 
                     margin-top: 10px;
                     font-size: 1em;
+                    text-transform: none;
                     max-height: 36px;
                     padding: 0 10px;
                     display: none;

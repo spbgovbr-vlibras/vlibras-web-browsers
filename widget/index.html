@@ -202,7 +202,14 @@
 
   <script src="app/vlibras-plugin.js"></script>
   <script>
-    new window.VLibras.Widget('app', 'https://vlibras.gov.br/config/configs.json');
+    // new window.VLibras.Widget('app', 'https://vlibras.gov.br/config/configs.json');
+    new window.VLibras.Widget({
+      rootPath: 'app',
+      personalization: 'https://vlibras.gov.br/config/configs.json',
+      opacity: 0.5,
+      position: 'R',
+      avatar: 'random'
+    });
   </script>
 </body>
 
