@@ -68,7 +68,7 @@ RateBox.prototype.toggleWikiContainer = function (bool) {
   this.isOpenWikiContainer = bool;
   this.content.classList.toggle('vp-from-dictionary', bool);
   this.boxGloss.title = this.player.gloss;
-  this.boxGloss.innerHTML = formatGloss(this.player.gloss);
+  this.boxGloss.innerHTML = `"${formatGloss(this.player.gloss)}"`;
   this.headerButton.innerHTML = this.isOpenWikiContainer ? closeIcon : arrowIcon;
 }
 
