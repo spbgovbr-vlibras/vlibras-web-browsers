@@ -106,12 +106,22 @@ $controls_height: 48px;
       position: relative;
     }
 
-    .vp-rate-box__translation {
-      display: flex;
-    }
-
     .vp-rate-box__gloss {
-      display: none;
+      padding: 0 24px;
+      position: absolute;
+      bottom: 0;
+      height: 0;
+      transition: all .3s ease-out;
+      overflow: hidden;
+
+      span {
+        font-weight: 500;
+
+        box-gloss {
+          color: #000;
+          font-weight: 800;
+        }
+      }
 
       a {
         @include suggestion-btn--secundary;
@@ -123,7 +133,7 @@ $controls_height: 48px;
 
     &.vp-from-dictionary {
       .vp-rate-box__gloss {
-        display: flex;
+        height: 100%;
       }
 
       .vp-rate-box__translation {
@@ -135,6 +145,11 @@ $controls_height: 48px;
   &.vp-enabled {
     visibility: visible;
     height: 96px;
+
+    .vp-rate-box__translation,
+    .vp-rate-box__gloss {
+      display: flex;
+    }
   }
 
   &.vp-expanded {

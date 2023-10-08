@@ -16,6 +16,7 @@ RateBox.prototype.load = function (element) {
   this.isOpenWikiContainer = false;
   this.content = this.element.querySelector('.vp-rate-box-content');
   this.headerButton = this.element.querySelector('.vp-rate-box-header button');
+  this.boxGloss = this.content.querySelector('box-gloss');
   const likeBtn = this.element.querySelector('.vp-rate-btns--like');
   const deslikeBtn = this.element.querySelector('.vp-rate-btns--deslike');
   const wikiLink = this.element.querySelector('.vp-rate-box__gloss a');
@@ -66,11 +67,17 @@ RateBox.prototype.hide = function () {
 RateBox.prototype.toggleWikiContainer = function (bool) {
   this.isOpenWikiContainer = bool;
   this.content.classList.toggle('vp-from-dictionary', bool);
+  this.boxGloss.title = this.player.gloss;
+  this.boxGloss.innerHTML = `"${formatGloss(this.player.gloss)}"`;
   this.headerButton.innerHTML = this.isOpenWikiContainer ? closeIcon : arrowIcon;
 }
 
 RateBox.prototype.getElement = function () {
   return this.element;
+}
+
+function formatGloss(gloss) {
+  return gloss.length < 15 ? gloss : gloss.substring(0, 15) + "...";
 }
 
 module.exports = RateBox;
