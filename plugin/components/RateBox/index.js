@@ -67,9 +67,10 @@ RateBox.prototype.hide = function () {
 RateBox.prototype.toggleWikiContainer = function (bool) {
   this.isOpenWikiContainer = bool;
   this.content.classList.toggle('vp-from-dictionary', bool);
+  this.headerButton.innerHTML = this.isOpenWikiContainer ? closeIcon : arrowIcon;
+  if (!bool) return;
   this.boxGloss.title = this.player.gloss;
   this.boxGloss.innerHTML = `"${formatGloss(this.player.gloss)}"`;
-  this.headerButton.innerHTML = this.isOpenWikiContainer ? closeIcon : arrowIcon;
 }
 
 RateBox.prototype.getElement = function () {
@@ -77,7 +78,7 @@ RateBox.prototype.getElement = function () {
 }
 
 function formatGloss(gloss) {
-  return gloss.length < 15 ? gloss : gloss.substring(0, 15) + "...";
+  return gloss.length <= 15 ? gloss : gloss.substring(0, 15) + "...";
 }
 
 module.exports = RateBox;
