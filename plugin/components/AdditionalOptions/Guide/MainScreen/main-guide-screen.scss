@@ -24,6 +24,7 @@
     transform: scale(0);
     transform-origin: top right;
     box-shadow: $vp-shadow;
+    text-align: left;
 
     &.vw-isLeft {
         transform-origin: top left;

@@ -2,6 +2,7 @@
 @import '~scss/colors';
 @import '~scss/default-buttons';
 @import '~scss/fullscreen';
+@import "~scss/shared-styles";
 
 [vp] {
   .vpw-controls {
@@ -22,19 +23,60 @@
     font-size: 14px;
     border-radius: 0 0 10px 10px;
 
-    @media (max-width: 450px) {
-      gap: 0 !important;
-      padding: 0 10px !important;
-      height: 40px;
-      font-size: 12px;
-
-      .vpw-controls-slider {
-        width: 30%;
-      }
-    }
-
     &.vpw-selectText {
       background-color: #003F86 !important;
+    }
+
+    .vpw-skip-welcome-message {
+      @include reset;
+
+      background-color: #FFF;
+      border: 1px solid #eee;
+      transition: all .3s ease;
+      justify-content: center;
+      flex-direction: row;
+      transform: scale(0);
+      align-items: center;
+      padding: 10px 16px;
+      border-radius: 8px;
+      position: absolute;
+      overflow: hidden;
+      cursor: pointer;
+      display: flex;
+      height: 36px;
+      right: 10px;
+      top: -46px;
+      gap: 10px;
+
+      svg {
+        width: 12px;
+        height: 12px;
+
+        * {
+          fill: map-get($blue, 4);
+        }
+      }
+
+      span {
+        color: map-get($blue, 4);
+        font-weight: 600;
+        line-height: 0;
+        font-size: 1em;
+        padding-bottom: 2px;
+      }
+
+      &:hover {
+        box-shadow: $vp-shadow;
+        background-color: map-get($white, 5);
+      }
+
+      &.vp-enabled {
+        transform: scale(1);
+      }
+
+      &.vp-disabled {
+        display: none !important;
+      }
     }
 
     .vpw-selectTextLabel {
@@ -121,47 +163,24 @@
       }
     }
 
-  }
 
+    @media (max-width: 450px) {
+      gap: 0 !important;
+      padding: 0 10px !important;
+      height: 40px;
+      font-size: 12px;
 
-  @-webkit-keyframes spin {
-    0% {
-      -webkit-transform: rotate(0deg);
-      /* Chrome, Opera 15+, Safari 3.1+ */
-      -ms-transform: rotate(0deg);
-      /* IE 9 */
-      transform: rotate(0deg);
-      /* Firefox 16+, IE 10+, Opera */
+      .vpw-controls-slider {
+        width: 30%;
+      }
+
+      .vpw-skip-welcome-message {
+        padding: 0 10px;
+        height: 30px;
+        top: -38px;
+      }
     }
 
-    100% {
-      -webkit-transform: rotate(360deg);
-      /* Chrome, Opera 15+, Safari 3.1+ */
-      -ms-transform: rotate(360deg);
-      /* IE 9 */
-      transform: rotate(360deg);
-      /* Firefox 16+, IE 10+, Opera */
-    }
-  }
-
-  @keyframes spin {
-    0% {
-      -webkit-transform: rotate(0deg);
-      /* Chrome, Opera 15+, Safari 3.1+ */
-      -ms-transform: rotate(0deg);
-      /* IE 9 */
-      transform: rotate(0deg);
-      /* Firefox 16+, IE 10+, Opera */
-    }
-
-    100% {
-      -webkit-transform: rotate(360deg);
-      /* Chrome, Opera 15+, Safari 3.1+ */
-      -ms-transform: rotate(360deg);
-      /* IE 9 */
-      transform: rotate(360deg);
-      /* Firefox 16+, IE 10+, Opera */
-    }
   }
 
   .vpw-button-speed {

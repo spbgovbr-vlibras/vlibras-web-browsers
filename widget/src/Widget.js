@@ -4,19 +4,32 @@ const PluginWrapper = require('./components/PluginWrapper');
 require('./scss/reset.scss');
 require('./scss/styles.scss');
 
-const { addClass, $, removeClass, getWidget } = require('~utils');
-const widgetPosition = ['TL', 'T', 'TR', 'L', 'R', 'BL', 'B', 'BR'];
+const { addClass, $, $$, removeClass, getWidget } = require('~utils');
 
-module.exports = function Widget(rootPath, personalization, opacity, position) {
-  if (!widgetPosition.includes(position)) position = 'R';
-  const widgetWrapper = new PluginWrapper();
-  const accessButton = new AccessButton(
-    rootPath,
-    widgetWrapper,
-    personalization,
-    opacity,
-    position
-  );
+const DEFAULT_ROOTPAH = 'https://vlibras.gov.br/app';
+const availablePositions = ['TL', 'T', 'TR', 'L', 'R', 'BL', 'B', 'BR'];
+const availableAvatars = ['icaro', 'hosana', 'guga', 'random'];
+
+module.exports = function Widget(...args) {
+  const optObject = typeof args[0] === 'object' && args[0];
+
+  const personalization = optObject ? optObject.personalization : args[1];
+  let rootPath = optObject ? optObject.rootPath : args[0];
+  let position = optObject ? optObject.position : args[3];
+  let opacity = optObject ? optObject.opacity : args[2];
+  let avatar = optObject.avatar;
+
+  if (rootPath === undefined) rootPath = DEFAULT_ROOTPAH;
+  if (!isNaN(opacity) || opacity < 0 || opacity > 1) opacity = 1;
+  if (!availablePositions.includes(position)) position = 'R';
+  if (!availableAvatars.includes(avatar)) avatar = 'icaro';
+
+  const pluginWrapper = new PluginWrapper();
+  const accessButton = new AccessButton({
+    rootPath, pluginWrapper, personalization,
+    opacity, position, avatar
+  });
+
   let tempF;
 
   if (window.onload) {
@@ -24,24 +37,21 @@ module.exports = function Widget(rootPath, personalization, opacity, position) {
   }
 
   window.onload = () => {
-    if (tempF) {
-      tempF();
-    }
+    ressolveMultipleWidgetsIssue();
+
+    if (tempF) tempF();
 
     this.element = document.querySelector('[vw-plugin-wrapper]').closest('[vw]');
 
     const wrapper = document.querySelector('[vw-plugin-wrapper]');
     const access = document.querySelector('[vw-access-button]');
 
-    accessButton.load(
-      document.querySelector('[vw-access-button]'),
-      this.element
-    );
-    widgetWrapper.load(document.querySelector('[vw-plugin-wrapper]'));
+    accessButton.load(document.querySelector('[vw-access-button]'), this.element);
+    pluginWrapper.load(document.querySelector('[vw-plugin-wrapper]'));
 
     window.addEventListener('vp-widget-wrapper-set-side', (event) => {
       const position = event.detail;
-      if (!position || !widgetPosition.includes(position)) return;
+      if (!position || !availablePositions.includes(position)) return;
 
       this.element = getWidget();
 
@@ -74,12 +84,6 @@ module.exports = function Widget(rootPath, personalization, opacity, position) {
       addClass($('div[vp-change-avatar]'), 'active');
       addClass($('div[vp-additional-options]'), 'vp-enabled');
       removeClass($('div[vp-controls]'), 'vpw-selectText');
-
-      const tagsTexts = document.querySelectorAll('.vw-text');
-      for (let i = 0; i < tagsTexts.length; i++) {
-        const parent = tagsTexts[i].parentNode;
-        parent.innerHTML = tagsTexts[i].innerHTML;
-      }
     });
 
     window.addEventListener('vw-change-opacity', (event) => {
@@ -92,10 +96,17 @@ module.exports = function Widget(rootPath, personalization, opacity, position) {
     });
 
     // Apply Widget default position
-    if (widgetPosition.includes(position)) {
+    if (availablePositions.includes(position)) {
       window.dispatchEvent(
         new CustomEvent('vp-widget-wrapper-set-side', { detail: position }));
     }
 
   };
+
+  function ressolveMultipleWidgetsIssue() {
+    $$('[vw]').forEach(vw => {
+      if (!($('[vp]'), vw)) vw.removeAttribute('vw');
+    })
+  }
+
 };

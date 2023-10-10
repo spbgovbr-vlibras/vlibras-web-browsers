@@ -49,7 +49,7 @@ MainGuideScreen.prototype.show = function () {
   hideAdditionalOptions(true);
   addEvents();
 
-  vwPlayer.play(GUIDE_INTRO_MESSAGE);
+  setTimeout(() => vwPlayer.play(GUIDE_INTRO_MESSAGE), 500);
 }
 
 MainGuideScreen.prototype.hide = function () {
