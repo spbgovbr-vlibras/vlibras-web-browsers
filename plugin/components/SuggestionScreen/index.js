@@ -136,18 +136,19 @@ SuggestionScreen.prototype.load = function (element) {
   };
 
   this.visualize.addEventListener('click', () => {
-    let openAfterEnd = true;
     const oldGloss = this.player.gloss;
+    const boundOpenAfterEnd = openAfterEnd.bind(this);
+
     this.hide();
     this.player.play(this.textElement.value.trim());
-    this.player.on('gloss:end', () => {
-      if (openAfterEnd) {
-        this.show();
-        this.rateBox.classList.add('vp-enabled');
-      }
+    this.player.on('gloss:end', boundOpenAfterEnd);
+
+    function openAfterEnd() {
+      this.player.removeListener('gloss:end', boundOpenAfterEnd);
+      this.rateBox.classList.add('vp-enabled');
       this.player.gloss = oldGloss;
-      openAfterEnd = false;
-    });
+      this.show();
+    }
   });
 
   const buildSelect = (listOfSuggestions, end) => {
