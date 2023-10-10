@@ -1,26 +1,28 @@
 {
-
-  "manifest_version": 2,
+  "manifest_version": 3,
   "name": "VLibras",
-  "version": "2.1.0",
-
-  "description": "Um tradutor de Português para LIBRAS.",
+  "version": "6.0.0",
+  "description": "Um tradutor de Português para Libras",
   "homepage_url": "http://vlibras.lavid.ufpb.br/",
   "icons": {
     "16": "icons/vlibras16.png",
     "48": "icons/vlibras48.png",
     "128": "icons/vlibras128.png"
   },
-
   "permissions": [
     "activeTab",
     "contextMenus"
   ],
-
   "background": {
-    "scripts": ["background.js"]
+    "service_worker": "service_worker.js"
   },
-
-  "content_security_policy": "default-src 'self' blob:; script-src 'self' 'unsafe-eval' blob:;  connect-src *; style-src * 'unsafe-inline' 'self' blob:; img-src 'self' data:; font-src 'self' data:;"
-
+  "sandbox": {
+    "pages": [
+      "app/player/index.html"
+    ]
+  },
+  "content_security_policy": {
+    "extension_pages": "default-src 'self'; script-src 'self';  connect-src *; style-src * 'unsafe-inline' 'self' blob:; img-src 'self' data:; font-src 'self' data:;",
+    "sandbox": "sandbox allow-scripts; script-src 'self' 'wasm-unsafe-eval' 'unsafe-inline' 'unsafe-eval' blob:"
+  }
 }
