@@ -21,6 +21,11 @@
     border-radius: 10px;
     line-height: 1.5;
 
+    .vpw-message {
+      color: #FFF;
+      font-size: 1em;
+    }
+
     &.active {
       opacity: 1;
       min-height: 40px;

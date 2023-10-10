@@ -32,12 +32,14 @@ function Plugin(options) {
     personalization: options.personalization,
     opacity: options.opacity,
     wrapper: options.wrapper,
+    // enableWelcome: options.enableWelcome
   });
+
+  this.player.avatar = options.avatar;
 
   this.opacity = options.opacity;
   this.wrapper = options.wrapper;
   this.position = options.position;
-  this.avatar = null;
 
   this.rootPath = options.rootPath;
   this.personalization = options.personalization;
@@ -58,8 +60,8 @@ function Plugin(options) {
   this.suggestionScreen = new SuggestionScreen(this.player);
   this.guide = new Guide(this.player);
   this.translator = new Translator(this.player);
-  this.rateBox = new RateBox(this.messageBox, this.suggestionScreen);
-  this.ChangeAvatar = new ChangeAvatar(this.player);
+  this.rateBox = new RateBox(this.messageBox, this.suggestionScreen, this.player);
+  this.ChangeAvatar = new ChangeAvatar(this.player, this.controls);
   this.additionalOptions = new AdditionalOptions(
     this.player,
     this.translator,
@@ -106,7 +108,7 @@ function Plugin(options) {
 
     this.player.toggleSubtitle(false);
 
-    this.controls.load(this.element.querySelector('[vp-controls]'));
+    this.controls.load(this.element.querySelector('[vp-controls]'), this.rateBox);
     this.Box.load(this.element.querySelector('[vp-box]'));
 
     this.settingsBtn.load(
@@ -114,7 +116,8 @@ function Plugin(options) {
       () =>
         this.dictionary.load(
           this.element.querySelector('[vp-dictionary]'),
-          this.closeScreen
+          this.closeScreen,
+          this.mainGuideScreen
         ),
       this.element.querySelector('[vp-dictionary]'),
       this.rootPath
@@ -136,6 +139,7 @@ function Plugin(options) {
   let control = 0;
   this.player.on('translate:start', () => {
     control = 1;
+    this.player.fromDictionary = false;
     this.ChangeAvatar.hide();
     this.additionalOptions.hide();
     this.controls.setProgress();
@@ -153,8 +157,8 @@ function Plugin(options) {
     control = 0;
     this.ChangeAvatar.hide();
     this.additionalOptions.hide();
-    this.rateBox.hide();
     this.suggestionScreen.hide();
+    this.rateBox.hide();
   });
 
   this.player.on('gloss:end', (globalGlosaLenght) => {
@@ -234,17 +238,19 @@ Plugin.prototype.sendReview = function (rate, review) {
     // Thanks message
     const oldGloss = this.player.gloss;
     const boundToggleSubtitle = toggleSubtitle.bind(this);
+    const skipButton = this.controls.element.querySelector('.vpw-skip-welcome-message');
+    const subtitleIsActived = this.controls.element.querySelector('.actived-subtitle');
 
     this.player.play('AGRADECER');
     this.player.gloss = undefined;
 
-    if (this.controls.element.querySelector('.actived-subtitle')) {
-      this.player.toggleSubtitle();
-      this.player.addListener("gloss:end", boundToggleSubtitle);
-    }
+    skipButton.classList.add('vp-disabled');
+    subtitleIsActived && this.player.toggleSubtitle();
+    this.player.addListener("gloss:end", boundToggleSubtitle);
 
     function toggleSubtitle() {
-      this.player.toggleSubtitle();
+      skipButton.classList.remove('vp-disabled');
+      subtitleIsActived && this.player.toggleSubtitle();
       this.player.removeListener("gloss:end", boundToggleSubtitle);
       this.player.gloss = oldGloss;
     }

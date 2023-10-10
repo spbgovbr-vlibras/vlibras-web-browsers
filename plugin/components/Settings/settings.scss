@@ -55,7 +55,7 @@
 
       p {
         font-weight: bold;
-        margin-bottom: 16px;
+        margin-bottom: 16px !important;
         color: map-get($black, 1) !important;
       }
 
@@ -112,7 +112,7 @@
         height: 114px;
         margin-top: 16px;
         gap: 16px;
-        outline: 1px solid #D8D9DB;
+        outline: 1px solid #D8D9DB !important;
         display: grid;
         grid-template-columns: 24px 24px 24px;
         grid-template-rows: 24px 24px 24px;

@@ -4,17 +4,19 @@ require('nouislider/distribute/nouislider.min.css');
 const controlsTpl = require('./controls.html').default;
 require('./controls.scss');
 
-const { $, hasClass } = require('~utils');
 const { controlIcons } = require('~icons');
 const { welcomeMessage } = require('./welcomeMessage');
+const { $, hasClass, addClass, removeClass, $0 } = require('~utils');
 
 const availableSpeeds = [0.5, 1, 1.5, 2, 3];
 
 function Controls(player, dictionary) {
   this.player = player;
   this.dictionary = dictionary;
+  this.rateBox = null;
   this.element = null;
   this.label = null;
+  this.loaded = false;
   this.playerManager = player.playerManager;
 
   this.player.on('animation:play', function () {
@@ -72,21 +74,18 @@ function Controls(player, dictionary) {
     slider.noUiSlider.set([globalGlosaLenght, globalGlosaLenght]);
   }.bind(this)
   );
-
-  this.player.on('stop:welcome', function () {
-    this.setLabel('Escolha um texto para traduzir.');
-  }.bind(this)
-  );
 }
 
-Controls.prototype.load = function (element) {
+Controls.prototype.load = function (element, rateBox) {
   this.element = element;
+  this.rateBox = rateBox;
   this.element.innerHTML = controlsTpl;
   this.element.classList.add('vpw-controls');
   this.element.classList.add('vpw-subtitles');
-  this.rateBox = document.querySelector('div[vp-rate-box]');
   this.label = this.element.querySelector('.vpw-selectTextLabel');
   this.element.classList.add('vpw-selectText');
+  this.player.avatar = this.player.avatar || 'icaro'
+  this.loaded = true;
 
   const wrapper = document.querySelector('div[vw-plugin-wrapper]');
   const play = this.element.querySelector('.vpw-controls-button');
@@ -94,13 +93,17 @@ Controls.prototype.load = function (element) {
   const speed = this.element.querySelector('.vpw-button-speed');
   const subtitles = this.element.querySelector('.vpw-controls-subtitles');
   const fullscreen = this.element.querySelector('.vpw-controls-fullscreen');
+  const skipWelcome = this.element.querySelector('.vpw-skip-welcome-message');
   const boundCallWelcome = callWelcome.bind(this);
+  const boundSuggestionScreen = showSuggestionScreen.bind(this);
+  let welcomeFinished = false;
 
   // Add icons
   play.querySelector('.vpw-component-play').innerHTML = controlIcons.play;
   play.querySelector('.vpw-component-pause').innerHTML = controlIcons.pause;
   play.querySelector('.vpw-component-restart').innerHTML = controlIcons.restart;
   fullscreen.innerHTML = controlIcons.maximize + controlIcons.minimize;
+  skipWelcome.innerHTML = controlIcons.skip + '<span>Pular</span>';
   subtitles.innerHTML = controlIcons.subtitle;
 
   noUiSlider.create(slider, {
@@ -119,18 +122,13 @@ Controls.prototype.load = function (element) {
     if (this.element.classList.contains('vpw-playing')) {
       this.player.pause();
     } else if (this.element.classList.contains('vpw-stopped')) {
+      if (isSuggestionOpen()) this.player.addListener('gloss:end', boundSuggestionScreen);
       this.player.repeat();
-      this.player.addListener('gloss:end', showRatebox);
     } else {
       this.player.continue();
     }
   }.bind(this)
   );
-
-  const showRatebox = function () {
-    if (!this.player.translated) this.rateBox.classList.add('vp-enabled');
-    this.player.removeListener('gloss:end', showRatebox);
-  }.bind(this)
 
   subtitles.addEventListener('click', function () {
     this.element.classList.toggle('vpw-subtitles');
@@ -143,23 +141,74 @@ Controls.prototype.load = function (element) {
     document.body.classList.toggle('vpw-fullscreen');
   });
 
-  window.addEventListener('vp-widget-close', function () {
-    document.body.classList.remove('vpw-fullscreen');
-  });
+  // Toggle fullscreen on double click in 'gameContainer'
+  $('[vw] #gameContainer').ondblclick = () => {
+    if (welcomeFinished) document.body.classList.toggle('vpw-fullscreen');
+  }
+
+  // Disable fullscreen on press 'ESC' key
+  document.addEventListener('keyup', e => {
+    if (e.key === 'Escape') removeClass(document.body, 'vpw-fullscreen');
+  })
+
+  skipWelcome.onclick = () => handleSkip.bind(this)();
 
   speed.addEventListener('click', function () {
     this.setSpeed(speed);
   }.bind(this)
   );
 
+  this.player.addListener('gloss:start', () => {
+    window.plugin.player.skipped = false;
+    setTimeout(() => addClass(skipWelcome, 'vp-enabled'), 500);
+  });
+
+  this.player.addListener('gloss:end', () => {
+    if (this.player.text && this.player.text.trim()) this.rateBox.show();
+    removeClass(skipWelcome, 'vp-enabled');
+  });
+
+  this.player.on('stop:welcome', function () {
+    removeClass(skipWelcome, 'vp-enabled');
+    this.setLabel('Escolha um texto para traduzir.');
+    welcomeFinished = true;
+  }.bind(this));
+
+  this.player.on('start:welcome', function () {
+    addClass(skipWelcome, 'vp-enabled');
+  }.bind(this));
+
   // Welcome message in control label
   this.playerManager.addListener('CounterGloss', boundCallWelcome);
+
+  window.addEventListener('vp-widget-close', removeFullscreen);
+
+  function isSuggestionOpen() {
+    return !!$('[vp-suggestion-screen].vp-enabled');
+  }
+
+  function showSuggestionScreen() {
+    addClass($('[vp-suggestion-screen]'), 'vp-enabled');
+    addClass($('[vp-suggestion-screen]'), 'vp-expanded');
+    this.player.removeListener('gloss:end', boundSuggestionScreen);
+  }
 
   function callWelcome() {
     this.playerManager.removeListener('CounterGloss', boundCallWelcome);
     welcomeMessage[this.player.avatar].forEach(item => {
-      setTimeout(() => this.setLabel(item.m), item.t * 1000)
+      setTimeout(() => !welcomeFinished && this.setLabel(item.m), item.t * 1000)
     });
+  }
+
+  function handleSkip() {
+    welcomeFinished = true;
+    this.player.emit('stop:welcome', true);
+    this.player.skipped = true;
+    this.player.stop();
+  }
+
+  function removeFullscreen() {
+    removeClass($0, 'vpw-fullscreen');
   }
 
   const guideIsOpen = () => hasClass($('.vp-guide-container'), 'vp-enabled');
@@ -167,10 +216,11 @@ Controls.prototype.load = function (element) {
   // Remove label when there is 'player.text' or guide is open
   const interval = setInterval(() => {
     if (this.player.text || guideIsOpen()) {
-      this.element.classList.remove('vpw-selectText');
-      clearInterval(interval)
+      removeClass(this.element, 'vpw-selectText');
+      removeClass(skipWelcome, 'vp-enabled');
+      clearInterval(interval);
     }
-  }, 1000);
+  }, 600);
 
   // Pause or continue translation when switching tabs
   let playing = false;

@@ -229,7 +229,6 @@ function resetItems() {
   u.removeClass(u.$('div[vp-rate-box]'), 'vp-enabled');
   u.removeClass(u.$('div[vp-change-avatar]'), 'vp-fixed');
   u.removeClass(u.$('div[vp-additional-options]'), 'vp-fixed');
-
 }
 
 function fixedButtons() {

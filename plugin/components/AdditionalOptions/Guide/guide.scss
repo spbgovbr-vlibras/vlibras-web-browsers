@@ -6,10 +6,12 @@
     box-sizing: border-box !important;
     padding: 0;
     margin: 0;
+    text-transform: none;
     text-shadow: none !important;
 }
 
 .vp-guide-container {
+    text-align: left;
     background-color: map-get($blue, 2);
     max-width: 340px;
     position: fixed;
@@ -20,7 +22,7 @@
     justify-content: center;
     flex-direction: column;
     gap: 16px;
-    padding: 16px;
+    padding: 16px !important;
     border-radius: 10px;
     z-index: 2147483647 !important;
     display: none;

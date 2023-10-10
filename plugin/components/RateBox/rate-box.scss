@@ -35,61 +35,109 @@ $controls_height: 48px;
     justify-content: center;
     flex-direction: column;
     gap: 16px;
-    padding: 10px;
+    padding: 24px;
     overflow: hidden;
-    font-size: 14px;
+    font-size: 16px;
+    text-align: center;
     border-bottom: 1px solid map-get($white, 4);
+
+    .vp-rate-btns {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+
+      button {
+        @include rate-button;
+        font-size: .9em;
+
+        svg {
+          width: 24px;
+        }
+
+        &.vp-rate-btns--deslike {
+          svg {
+            transform: scaleY(-1);
+          }
+        }
+
+        :nth-child(1) {
+          * {
+            fill: map-get($white, 2);
+          }
+        }
+
+        :nth-child(2) {
+          visibility: hidden;
+
+          * {
+            fill: map-get($blue, 1);
+          }
+        }
+
+        &:hover,
+        &:focus {
+          :nth-child(1) {
+            width: 0;
+          }
+
+          :nth-child(2) {
+            visibility: visible;
+          }
+        }
+      }
+    }
 
     span {
       font-size: 1em;
       font-weight: 600;
       color: map-get($black, 1);
     }
-  }
 
-  .vp-rate-btns {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 10px;
+    .vp-rate-box__translation,
+    .vp-rate-box__gloss {
+      display: none;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      gap: 10px;
+      width: 100%;
+      height: 100%;
+      position: relative;
+    }
 
-    button {
-      @include rate-button;
-      font-size: .9em;
+    .vp-rate-box__gloss {
+      padding: 0 24px;
+      position: absolute;
+      bottom: 0;
+      height: 0;
+      transition: all .3s ease-out;
+      overflow: hidden;
 
-      svg {
-        width: 24px;
-      }
+      span {
+        font-weight: 500;
 
-      &.vp-rate-btns--deslike {
-        svg {
-          transform: scaleY(-1);
+        box-gloss {
+          color: #000;
+          font-weight: 800;
         }
       }
 
-      :nth-child(1) {
-        * {
-          fill: map-get($white, 2);
-        }
+      a {
+        @include suggestion-btn--secundary;
+        padding: 0 16px;
+        white-space: nowrap;
+        text-decoration: none;
+      }
+    }
+
+    &.vp-from-dictionary {
+      .vp-rate-box__gloss {
+        height: 100%;
       }
 
-      :nth-child(2) {
-        visibility: hidden;
-
-        * {
-          fill: map-get($blue, 1);
-        }
-      }
-
-      &:hover,
-      &:focus {
-        :nth-child(1) {
-          width: 0;
-        }
-
-        :nth-child(2) {
-          visibility: visible;
-        }
+      .vp-rate-box__translation {
+        display: none;
       }
     }
   }
@@ -97,6 +145,11 @@ $controls_height: 48px;
   &.vp-enabled {
     visibility: visible;
     height: 96px;
+
+    .vp-rate-box__translation,
+    .vp-rate-box__gloss {
+      display: flex;
+    }
   }
 
   &.vp-expanded {
@@ -120,8 +173,18 @@ $controls_height: 48px;
 
     .vp-rate-box-content {
       height: calc(100% - 80px);
-      gap: 0;
       font-size: 12px;
+      gap: 0;
+
+      .vp-rate-box__gloss a {
+        white-space: normal;
+        min-height: 32px;
+
+        svg {
+          display: none;
+        }
+      }
+
     }
 
   }
