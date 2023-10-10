@@ -10,7 +10,7 @@ const { $, hasClass, addClass, removeClass, $0 } = require('~utils');
 
 const availableSpeeds = [0.5, 1, 1.5, 2, 3];
 
-function Controls(player, dictionary) {
+function Controls(player, dictionary, options) {
   this.player = player;
   this.dictionary = dictionary;
   this.rateBox = null;
@@ -18,6 +18,7 @@ function Controls(player, dictionary) {
   this.label = null;
   this.loaded = false;
   this.playerManager = player.playerManager;
+  this.isWidget = options.enableMoveWindow;
 
   this.player.on('animation:play', function () {
     this.element.classList.remove('vpw-stopped');
@@ -137,19 +138,21 @@ Controls.prototype.load = function (element, rateBox) {
   }.bind(this)
   );
 
-  fullscreen.addEventListener('click', function () {
-    document.body.classList.toggle('vpw-fullscreen');
-  });
+  if (this.isWidget) {
+    fullscreen.addEventListener('click', function () {
+      document.body.classList.toggle('vpw-fullscreen');
+    });
 
-  // Toggle fullscreen on double click in 'gameContainer'
-  $('[vw] #gameContainer').ondblclick = () => {
-    if (welcomeFinished) document.body.classList.toggle('vpw-fullscreen');
+    // Toggle fullscreen on double click in 'gameContainer'
+    $('[vw] #gameContainer').ondblclick = () => {
+      if (welcomeFinished) document.body.classList.toggle('vpw-fullscreen');
+    }
+
+    // Disable fullscreen on press 'ESC' key
+    document.addEventListener('keyup', e => {
+      if (e.key === 'Escape') removeClass(document.body, 'vpw-fullscreen');
+    })
   }
-
-  // Disable fullscreen on press 'ESC' key
-  document.addEventListener('keyup', e => {
-    if (e.key === 'Escape') removeClass(document.body, 'vpw-fullscreen');
-  })
 
   skipWelcome.onclick = () => handleSkip.bind(this)();
 

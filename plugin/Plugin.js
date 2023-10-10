@@ -46,7 +46,7 @@ function Plugin(options) {
   this.element = document.querySelector('[vp]');
 
   this.dictionary = new Dictionary(this.player);
-  this.controls = new Controls(this.player, this.dictionary);
+  this.controls = new Controls(this.player, this.dictionary, options);
   this.Box = new Box();
   this.info = new InfoScreen(this.Box);
   this.settings = new Settings(
