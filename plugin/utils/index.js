@@ -87,6 +87,11 @@ export const canTranslate = () => {
     && hasClass($('[vw-plugin-wrapper]'), 'active');
 }
 
+export const toggleUnityMainLoop = (bool) => {
+  if (bool) window.plugin.player.player.Module.resumeMainLoop();
+  else window.plugin.player.player.Module.pauseMainLoop();
+}
+
 // Add an event listener to an element
 export const _on = (element, event, callback) => {
   element.addEventListener(event, callback);
