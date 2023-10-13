@@ -4,7 +4,7 @@ const PluginWrapper = require('./components/PluginWrapper');
 require('./scss/reset.scss');
 require('./scss/styles.scss');
 
-const { addClass, $, $$, removeClass, getWidget } = require('~utils');
+const { addClass, $, $$, removeClass, getWidget, toggleUnityMainLoop } = require('~utils');
 
 const DEFAULT_ROOTPAH = 'https://vlibras.gov.br/app';
 const availablePositions = ['TL', 'T', 'TR', 'L', 'R', 'BL', 'B', 'BR'];
@@ -84,6 +84,7 @@ module.exports = function Widget(...args) {
       addClass($('div[vp-change-avatar]'), 'active');
       addClass($('div[vp-additional-options]'), 'vp-enabled');
       removeClass($('div[vp-controls]'), 'vpw-selectText');
+      toggleUnityMainLoop(false);
     });
 
     window.addEventListener('vw-change-opacity', (event) => {
