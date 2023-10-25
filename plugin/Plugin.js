@@ -36,6 +36,7 @@ function Plugin(options) {
   });
 
   this.player.avatar = options.avatar;
+  this.isWidget = options.enableMoveWindow;
 
   this.opacity = options.opacity;
   this.wrapper = options.wrapper;
@@ -45,57 +46,33 @@ function Plugin(options) {
   this.personalization = options.personalization;
   this.element = document.querySelector('[vp]');
 
-  this.dictionary = new Dictionary(this.player);
-  this.controls = new Controls(this.player, this.dictionary, options);
+  this.dictionary = new Dictionary(this.player, this.isWidget);
+  this.controls = new Controls(this.player, this.dictionary, this.isWidget);
   this.Box = new Box();
   this.info = new InfoScreen(this.Box);
-  this.settings = new Settings(
-    this.player,
-    this.opacity,
-    this.position,
-    options
-  );
+  this.settings = new Settings(this.player, this.opacity, this.position, options);
 
   this.messageBox = new MessageBox();
   this.suggestionScreen = new SuggestionScreen(this.player);
-  this.guide = new Guide(this.player);
+  this.guide = this.isWidget && new Guide(this.player);
   this.translator = new Translator(this.player);
   this.rateBox = new RateBox(this.messageBox, this.suggestionScreen, this.player);
   this.ChangeAvatar = new ChangeAvatar(this.player, this.controls);
-  this.additionalOptions = new AdditionalOptions(
-    this.player,
-    this.translator,
-    this.guide
-  );
-  this.closeScreen = new CloseScreen(
-    this.dictionary,
-    this.info,
-    this.settings,
-    this.translator
-  );
-  this.settingsBtn = new SettingsBtn(
-    this.player,
-    this.settings,
-    this.dictionary,
-    this.info,
-    this.translator,
-    options
-  );
+  this.additionalOptions = new AdditionalOptions(this.player, this.translator, this.guide, this.isWidget);
+  this.closeScreen = new CloseScreen(this.dictionary, this.info, this.settings, this.translator);
+  this.settingsBtn = new SettingsBtn(this.player, this.settings, this.dictionary, this.info, this.translator, options);
+
   this.loadingRef = null;
 
-  this.mainGuideScreen = new MainGuideScreen(this.guide, this.player, this.closeScreen);
+  this.mainGuideScreen = this.isWidget && new MainGuideScreen(this.guide, this.player, this.closeScreen);
   this.additionalOptions.load(this.element.querySelector('[vp-additional-options]'));
   this.messageBox.load(this.element.querySelector('[vp-message-box]'));
   this.rateBox.load(this.element.querySelector('[vp-rate-box]'));
-  this.suggestionScreen.load(
-    this.element.querySelector('[vp-suggestion-screen]')
-  );
-  this.translator.load(
-    this.element.querySelector('[vp-translator-screen]')
-  );
+  this.suggestionScreen.load(this.element.querySelector('[vp-suggestion-screen]'));
+  this.translator.load(this.element.querySelector('[vp-translator-screen]'));
 
-  this.guide.load(createGuideContainer());
-  this.mainGuideScreen.load(document.querySelector('[vp-main-guide-screen]'))
+  this.guide && this.guide.load(createGuideContainer());
+  this.mainGuideScreen && this.mainGuideScreen.load(document.querySelector('[vp-main-guide-screen]'))
 
   this.player.load(this.element);
 
@@ -111,14 +88,8 @@ function Plugin(options) {
     this.controls.load(this.element.querySelector('[vp-controls]'), this.rateBox);
     this.Box.load(this.element.querySelector('[vp-box]'));
 
-    this.settingsBtn.load(
-      this.element.querySelector('[vp-box]').querySelector('[settings-btn]'),
-      () =>
-        this.dictionary.load(
-          this.element.querySelector('[vp-dictionary]'),
-          this.closeScreen,
-          this.mainGuideScreen
-        ),
+    this.settingsBtn.load(this.element.querySelector('[vp-box]').querySelector('[settings-btn]'),
+      () => this.dictionary.load(this.element.querySelector('[vp-dictionary]'), this.closeScreen, this.mainGuideScreen),
       this.element.querySelector('[vp-dictionary]'),
       this.rootPath
     );
@@ -150,7 +121,7 @@ function Plugin(options) {
   this.player.on('translate:end', () => {
     this.messageBox.hide(this.loadingRef);
     this.translator.hide();
-    this.mainGuideScreen.hide();
+    this.isWidget && this.mainGuideScreen.hide();
   });
 
   this.player.on('gloss:start', () => {
@@ -177,7 +148,7 @@ function Plugin(options) {
 
   this.player.on('stop:welcome', (bool) => {
     if (bool) {
-      this.mainGuideScreen.show();
+      this.isWidget && this.mainGuideScreen.show();
       this.ChangeAvatar.show();
       this.additionalOptions.show();
     }

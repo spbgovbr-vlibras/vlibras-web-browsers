@@ -10,11 +10,12 @@ const { backIcon, loadingIcon, dictionaryIcon } = require('~icons');
 const { DICTIONARY_URL } = require('../../config');
 const DICT_LOCAL_KEY = "@vp-dict-history";
 
-function Dictionary(player) {
+function Dictionary(player, isWidget) {
   this.visible = false;
   this.player = player;
   this.closeScreen = null;
   this.button = null;
+  this.isWidget = isWidget;
 }
 
 inherits(Dictionary, EventEmitter);
@@ -212,7 +213,7 @@ Dictionary.prototype.show = function () {
 
 function closeAllScreen() {
   this.closeScreen.closeAll();
-  this.initGuide.hide();
+  this.isWidget && this.initGuide.hide();
 }
 
 function resetDictionary() {
