@@ -11,4 +11,14 @@ window.addEventListener('load', function () {
 
   window.plugin = (window.plugin || new window.VLibras.Plugin({ enableMoveWindow: false }));
 
+
+  window.plugin.player.on('load', () => {
+    setTimeout(() => {
+      window.plugin.player.stop();
+      const text = new URL(location.href).searchParams.get('text');
+      window.plugin.translate(text);
+    }, 1000);
+
+  })
+
 });
