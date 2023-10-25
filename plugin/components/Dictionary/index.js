@@ -88,6 +88,7 @@ Dictionary.prototype.load = function (element, closeScreen, initGuide) {
       this.list.appendChild(item);
     } else {
       item.innerHTML = word;
+      item.setAttribute('data-gloss', word);
       this.list.appendChild(item);
     }
   }.bind(this);
@@ -176,7 +177,7 @@ Dictionary.prototype.load = function (element, closeScreen, initGuide) {
 
 Dictionary.prototype._onItemClick = function (event) {
   if (event.target.tagName !== 'LI') return;
-  const word = event.target.textContent;
+  const word = event.target.getAttribute('data-gloss');
 
   this.boundCloseAllScreen();
   this.player.play(word);
