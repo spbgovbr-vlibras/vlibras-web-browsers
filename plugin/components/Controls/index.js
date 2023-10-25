@@ -10,7 +10,7 @@ const { $, hasClass, addClass, removeClass, $0 } = require('~utils');
 
 const availableSpeeds = [0.5, 1, 1.5, 2, 3];
 
-function Controls(player, dictionary, options) {
+function Controls(player, dictionary, isWidget) {
   this.player = player;
   this.dictionary = dictionary;
   this.rateBox = null;
@@ -18,7 +18,7 @@ function Controls(player, dictionary, options) {
   this.label = null;
   this.loaded = false;
   this.playerManager = player.playerManager;
-  this.isWidget = options.enableMoveWindow;
+  this.isWidget = isWidget;
 
   this.player.on('animation:play', function () {
     this.element.classList.remove('vpw-stopped');
@@ -106,6 +106,8 @@ Controls.prototype.load = function (element, rateBox) {
   fullscreen.innerHTML = controlIcons.maximize + controlIcons.minimize;
   skipWelcome.innerHTML = controlIcons.skip + '<span>Pular</span>';
   subtitles.innerHTML = controlIcons.subtitle;
+
+  if (!this.isWidget) fullscreen.style.display = 'none';
 
   noUiSlider.create(slider, {
     start: 0.0,

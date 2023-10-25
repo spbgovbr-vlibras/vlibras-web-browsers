@@ -65,8 +65,6 @@ Guide.prototype.show = function () {
   u.removeClass(u.$('div[vp-change-avatar]'), 'vp-isOpen');
   callWidgetTranslator.bind(this)();
 
-  isWidget = options.enableMoveWindow;
-
   // Dispath custom event to disable text capture
   window.dispatchEvent(new CustomEvent('vp-disable-text-capture'));
 }

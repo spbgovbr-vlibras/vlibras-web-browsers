@@ -49,7 +49,7 @@ ChangeAvatar.prototype.load = function (element) {
 
   function callWelcome() {
     changeAvatar.bind(this)();
-    this.player.playWellcome();
+    if (this.controls.isWidget) this.player.playWellcome();
   }
 
   function selectButton(button) {
