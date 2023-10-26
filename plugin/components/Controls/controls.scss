@@ -1,8 +1,9 @@
-@import '~scss/flexbox';
 @import '~scss/colors';
-@import '~scss/default-buttons';
+@import '~scss/flexbox';
+@import '~scss/variables';
 @import '~scss/fullscreen';
 @import "~scss/shared-styles";
+@import '~scss/default-buttons';
 
 [vp] {
   .vpw-controls {
@@ -164,20 +165,22 @@
     }
 
 
-    @media (max-width: 450px) {
-      gap: 0 !important;
-      padding: 0 10px !important;
-      height: 40px;
-      font-size: 12px;
+    @if $is-widget==1 {
+      @media (max-width: 450px) {
+        gap: 0 !important;
+        padding: 0 10px !important;
+        height: 40px;
+        font-size: 12px;
 
-      .vpw-controls-slider {
-        width: 30%;
-      }
+        .vpw-controls-slider {
+          width: 30%;
+        }
 
-      .vpw-skip-welcome-message {
-        padding: 0 10px;
-        height: 30px;
-        top: -38px;
+        .vpw-skip-welcome-message {
+          padding: 0 10px;
+          height: 30px;
+          top: -38px;
+        }
       }
     }
 
@@ -191,9 +194,11 @@
     font-weight: bold;
     padding-bottom: 2px;
 
-    @media (max-width: 450px) {
-      min-width: 34px;
-      max-width: 28px;
+    @if $is-widget==1 {
+      @media (max-width: 450px) {
+        min-width: 34px;
+        max-width: 28px;
+      }
     }
   }
 

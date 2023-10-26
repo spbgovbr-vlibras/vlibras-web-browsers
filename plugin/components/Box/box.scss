@@ -1,4 +1,5 @@
 @import '~scss/colors';
+@import '~scss/variables';
 
 [vp] {
   .vpw-box {
@@ -12,7 +13,10 @@
     color: #ffffff;
     background-size: 100% 100%;
     z-index: 10;
-    border-radius: 10px 10px 0 0;
+
+    @if $is-widget==1 {
+      border-radius: 10px 10px 0 0;
+    }
 
     .vpw-mes {
       position: absolute;

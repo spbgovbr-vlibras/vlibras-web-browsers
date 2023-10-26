@@ -1,5 +1,6 @@
-@import '~scss/default-buttons.scss';
-@import '~scss/colors.scss';
+@import './default-buttons';
+@import './variables';
+@import './colors';
 
 $vp-shadow: 0px 0px 15px rgba(0, 0, 0, 0.2);
 
@@ -29,10 +30,12 @@ $vp-shadow: 0px 0px 15px rgba(0, 0, 0, 0.2);
         transition: transform .3s;
     }
 
-    @media (max-width: 450px) {
-        height: 40px;
-        padding: 10px;
-        font-size: 12px;
+    @if $is-widget==1 {
+        @media (max-width: 450px) {
+            height: 40px;
+            padding: 10px;
+            font-size: 12px;
+        }
     }
 }
 
@@ -64,12 +67,13 @@ $vp-shadow: 0px 0px 15px rgba(0, 0, 0, 0.2);
     }
 
 
-    @media (max-width: 450px) {
-        height: 36px !important;
-        min-height: 36px;
-        padding: 0 10px;
-        font-size: 14px;
+    @if $is-widget==1 {
+        @media (max-width: 450px) {
+            height: 36px !important;
+            min-height: 36px;
+            padding: 0 10px;
+            font-size: 14px;
+        }
     }
-
 
 }

@@ -1,7 +1,8 @@
-@import '~scss/colors';
 @import '~scss/default-buttons';
-@import '~scss/shared-styles.scss';
-$margin_left: 40px;
+@import '~scss/shared-styles';
+@import '~scss/variables';
+@import '~scss/colors';
+
 
 [vp] {
     [vp-dictionary] {
@@ -266,42 +267,44 @@ $margin_left: 40px;
             }
         }
 
-        @media (max-width: 450px) {
-            font-size: 12px;
+        @if $is-widget==1 {
+            @media (max-width: 450px) {
+                font-size: 12px;
 
-            .vpw-dict-container,
-            .vpw-recents-container {
-                ul li {
-                    padding: 6px 10px;
-                    min-width: 210px;
+                .vpw-dict-container,
+                .vpw-recents-container {
+                    ul li {
+                        padding: 6px 10px;
+                        min-width: 210px;
+                    }
+
                 }
 
-            }
-
-            .vpw-loading-dictionary {
-                div {
-                    button {
-                        max-height: 32px;
+                .vpw-loading-dictionary {
+                    div {
+                        button {
+                            max-height: 32px;
+                        }
                     }
                 }
-            }
 
-            .vpw-panel {
-                .vpw-search {
-                    .vpw-icon {
-                        width: 26px;
+                .vpw-panel {
+                    .vpw-search {
+                        .vpw-icon {
+                            width: 26px;
+                            height: 26px;
+                        }
+                    }
+                }
+
+                .buttons-container {
+                    padding: 10px;
+
+                    .vp-dictionary-btn {
+                        height: 30px;
+                        padding: 0 10px;
                         height: 26px;
                     }
-                }
-            }
-
-            .buttons-container {
-                padding: 10px;
-
-                .vp-dictionary-btn {
-                    height: 30px;
-                    padding: 0 10px;
-                    height: 26px;
                 }
             }
         }

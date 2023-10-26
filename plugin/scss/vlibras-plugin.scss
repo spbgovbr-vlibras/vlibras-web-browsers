@@ -27,51 +27,9 @@ body {
   font-size: 16px;
 }
 
-[vp] {
-  height: 100%;
-  width: 100%;
-  z-index: 1;
-  min-width: 300px;
-  min-height: 450px;
-
-
-  canvas {
-    width: 100%;
-    height: 100%
-  }
-
-  [vp-suggestion-button] {
-    bottom: 46px;
-  }
-
-  [vp-suggestion-screen] {
-    top: 41px;
-  }
-
-  [vp-message-box] {
-    position: fixed;
-    z-index: 5;
-  }
-
-  [vp-info-screen] {
-    z-index: 3;
-  }
-
-  [vp-settings] {}
-
-  [vp-settings-btn] {
-    z-index: 2;
-  }
-
-  [vp-dictionary] {
-    z-index: 10;
-  }
-}
-
-
 [vp] #gameContainer {
   position: absolute !important;
-  top: -20px;
+  top: -10px;
   left: 0;
   right: 0;
   bottom: 0;

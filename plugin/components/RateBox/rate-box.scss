@@ -1,6 +1,7 @@
 @import '~scss/default-buttons.scss';
 @import '~scss/shared-styles.scss';
 @import '~scss/colors.scss';
+@import '~scss/variables';
 
 $controls_height: 48px;
 
@@ -161,32 +162,34 @@ $controls_height: 48px;
 
   }
 
-  @media (max-width: 450px) {
-    &.vp-enabled {
-      visibility: visible;
-      height: 80px;
-    }
+  @if $is-widget==1 {
+    @media (max-width: 450px) {
+      &.vp-enabled {
+        visibility: visible;
+        height: 80px;
+      }
 
-    .vp-rate-box-header {
-      height: 40px;
-    }
+      .vp-rate-box-header {
+        height: 40px;
+      }
 
-    .vp-rate-box-content {
-      height: calc(100% - 80px);
-      font-size: 12px;
-      gap: 0;
+      .vp-rate-box-content {
+        height: calc(100% - 80px);
+        font-size: 12px;
+        gap: 0;
 
-      .vp-rate-box__gloss a {
-        white-space: normal;
-        min-height: 32px;
+        .vp-rate-box__gloss a {
+          white-space: normal;
+          min-height: 32px;
 
-        svg {
-          display: none;
+          svg {
+            display: none;
+          }
         }
+
       }
 
     }
-
   }
 
 }

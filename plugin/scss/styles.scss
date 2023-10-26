@@ -1,8 +1,14 @@
+@import '~scss/variables';
+
 [vp] {
   font-size: 16px;
   height: 100%;
   width: 100%;
   position: relative;
+
+  @if $is-widget==0 {
+    background-color: #e0e0e0;
+  }
 
   #gameContainer {
     background: rgb(235, 235, 235) !important;
