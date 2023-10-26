@@ -84,7 +84,7 @@ Controls.prototype.load = function (element, rateBox) {
   this.element.classList.add('vpw-controls');
   this.element.classList.add('vpw-subtitles');
   this.label = this.element.querySelector('.vpw-selectTextLabel');
-  this.element.classList.add('vpw-selectText');
+  this.element.classList.toggle('vpw-selectText', this.isWidget);
   this.player.avatar = this.player.avatar || 'icaro'
   this.loaded = true;
 
