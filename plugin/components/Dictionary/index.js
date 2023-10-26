@@ -80,6 +80,7 @@ Dictionary.prototype.load = function (element, closeScreen, initGuide) {
   // Insert item method
   this.list._insert = function (word) {
     const item = document.createElement('li');
+    item.setAttribute('data-gloss', word);
 
     if (word.indexOf('&') != -1) {
       regex = word.replace('&', '(');
@@ -176,7 +177,7 @@ Dictionary.prototype.load = function (element, closeScreen, initGuide) {
 
 Dictionary.prototype._onItemClick = function (event) {
   if (event.target.tagName !== 'LI') return;
-  const word = event.target.textContent;
+  const word = event.target.getAttribute('data-gloss');
 
   this.boundCloseAllScreen();
   this.player.play(word);

@@ -25,7 +25,7 @@ function loadTextCaptureScript() {
 
   function isValidElement(element) {
 
-    if ($vw.contains(element) || $guide.contains(element)) return false;
+    if ($vw.contains(element) || !$guide || $guide.contains(element)) return false;
 
     return element.matches('.vw-links') ? false
       : hasTextContent(element)
