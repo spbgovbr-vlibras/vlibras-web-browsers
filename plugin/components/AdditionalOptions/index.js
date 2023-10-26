@@ -4,11 +4,12 @@ require('./additional-options.scss');
 const { translatorIcon, helpIcon } = require('~icons');
 const { $, hasClass, toggleClass, removeClass } = require('~utils');
 
-function AdditionalOptions(player, translator, guide) {
+function AdditionalOptions(player, translator, guide, isWidget) {
   this.player = player;
   this.element = null;
   this.translator = translator;
   this.guide = guide;
+  this.isWidget = isWidget;
 }
 
 AdditionalOptions.prototype.load = function (element) {
@@ -29,9 +30,11 @@ AdditionalOptions.prototype.load = function (element) {
   clickBlocker.onclick = applyShaker;
 
   window.addEventListener('resize', () => {
-    if (!this.guide.enabled) return;
+    if (!this.isWidget || !this.guide.enabled) return;
     this.guide.updatePosition();
-  })
+  });
+
+  if (!this.isWidget) helpBtn.style.display = 'none';
 
 }
 

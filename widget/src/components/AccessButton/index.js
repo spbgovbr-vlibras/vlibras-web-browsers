@@ -1,5 +1,5 @@
 const { loadTextCaptureScript } = require('./text-capture');
-const { canTranslate } = require('~utils');
+const { canTranslate, toggleUnityMainLoop } = require('~utils');
 
 const template = require('./template.html').default;
 require('./styles.scss');
@@ -24,6 +24,7 @@ AccessButton.prototype.load = function (element, vw) {
   this.element.addEventListener('click', () => {
     this.element.classList.toggle('active');
     this.pluginWrapper.element.classList.toggle('active');
+    if (this.ready) toggleUnityMainLoop(true);
 
     window.plugin =
       window.plugin ||
