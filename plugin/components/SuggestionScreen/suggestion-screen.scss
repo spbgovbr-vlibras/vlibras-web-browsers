@@ -1,6 +1,7 @@
-@import '~scss/colors.scss';
-@import '~scss/default-buttons.scss';
-@import '~scss/shared-styles.scss';
+@import '~scss/colors';
+@import '~scss/variables';
+@import '~scss/shared-styles';
+@import '~scss/default-buttons';
 
 $control-height: 68px;
 
@@ -155,20 +156,22 @@ $control-height: 68px;
     }
   }
 
-  @media (max-width: 450px) {
-    font-size: 12px;
+  @if $is-widget==1 {
+    @media (max-width: 450px) {
+      font-size: 12px;
 
-    .vp-suggestion-screen-content {
-      gap: 6px;
-      padding: 10px;
-      height: calc(100% - 80px);
-
-      .vp-text {
-        height: 100px;
-      }
-
-      .vp-suggestion-buttons-container {
+      .vp-suggestion-screen-content {
         gap: 6px;
+        padding: 10px;
+        height: calc(100% - 80px);
+
+        .vp-text {
+          height: 100px;
+        }
+
+        .vp-suggestion-buttons-container {
+          gap: 6px;
+        }
       }
     }
   }

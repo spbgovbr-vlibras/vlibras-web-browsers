@@ -1,4 +1,5 @@
 @import '~scss/colors';
+@import '~scss/variables';
 @import '~scss/default-buttons';
 
 $control-height: 60px;
@@ -79,8 +80,10 @@ $bg-color: #9c9c9c;
       font-size: 14px;
       font-weight: 500;
 
-      @media (max-width: 450px) {
-        font-size: 12px;
+      @if $is-widget==1 {
+        @media (max-width: 450px) {
+          font-size: 12px;
+        }
       }
     }
 
@@ -118,8 +121,10 @@ $bg-color: #9c9c9c;
         transform: none;
         content: "Trocar avatar";
 
-        @media (max-width: 450px) {
-          display: none !important;
+        @if $is-widget==1 {
+          @media (max-width: 450px) {
+            display: none !important;
+          }
         }
       }
 
@@ -129,10 +134,12 @@ $bg-color: #9c9c9c;
       display: block;
     }
 
-    @media (max-width: 450px) {
-      width: 28px;
-      height: 28px;
-      min-width: 28px;
+    @if $is-widget==1 {
+      @media (max-width: 450px) {
+        width: 28px;
+        height: 28px;
+        min-width: 28px;
+      }
     }
   }
 
@@ -156,27 +163,29 @@ $bg-color: #9c9c9c;
     display: flex;
   }
 
-  @media (max-width: 450px) {
-    left: 8px;
-    width: 28px;
-    height: 28px;
+  @if $is-widget==1 {
+    @media (max-width: 450px) {
+      left: 8px;
+      width: 28px;
+      height: 28px;
 
-    .vp-button-change-avatar {
-      svg {
-        width: 16px;
-        height: 16px;
+      .vp-button-change-avatar {
+        svg {
+          width: 16px;
+          height: 16px;
+        }
+
+        &::after {
+          top: 34px;
+          height: 26px;
+        }
+
+        &::before {
+          top: 34px;
+        }
       }
 
-      &::after {
-        top: 34px;
-        height: 26px;
-      }
-
-      &::before {
-        top: 34px;
-      }
     }
-
   }
 
 }

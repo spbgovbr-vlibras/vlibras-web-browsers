@@ -1,4 +1,5 @@
 @import '~scss/colors';
+@import '~scss/variables';
 @import '~scss/default-buttons';
 
 $control-height: 60px;
@@ -68,8 +69,10 @@ $bg-color: #9c9c9c;
                 left: 40px;
                 display: block;
 
-                @media (max-width: 450px) {
-                    font-size: 12px;
+                @if $is-widget==1 {
+                    @media (max-width: 450px) {
+                        font-size: 12px;
+                    }
                 }
 
             }
@@ -89,13 +92,15 @@ $bg-color: #9c9c9c;
         }
     }
 
-    @media (max-width: 450px) {
-        left: 10px;
-        top: 90px;
+    @if $is-widget==1 {
+        @media (max-width: 450px) {
+            left: 10px;
+            top: 90px;
 
-        button svg {
-            width: 16px;
-            height: 16px;
+            button svg {
+                width: 16px;
+                height: 16px;
+            }
         }
     }
 }

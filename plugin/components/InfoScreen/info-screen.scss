@@ -1,6 +1,7 @@
 @import '~scss/default-buttons';
-@import '~scss/colors.scss';
-@import '~scss/shared-styles.scss';
+@import '~scss/shared-styles';
+@import '~scss/variables';
+@import '~scss/colors';
 
 [vp] {
   .vpw-info-screen {
@@ -19,10 +20,6 @@
     align-items: start;
     font-size: 14px;
     border-radius: 0 0 10px 10px;
-
-    @media(max-width: 450px) {
-      max-width: 210px;
-    }
 
     &.active {
       display: flex;
@@ -57,6 +54,10 @@
         font-size: 1em;
         margin-bottom: 10px !important;
         color: map-get($black, 1) !important;
+
+        @if $is-widget==0 {
+          margin-top: 0 !important;
+        }
       }
 
       .vpw-info__section-desc {
@@ -87,8 +88,10 @@
         margin: 0.5em 0.35em;
         max-width: 50%;
 
-        @media (max-width: 450px) {
-          max-height: 22px;
+        @if $is-widget==1 {
+          @media (max-width: 450px) {
+            max-height: 22px;
+          }
         }
       }
 
@@ -135,30 +138,31 @@
     }
 
   }
-}
 
-@media (max-width: 450px) {
 
-  [vp] {
-    .vpw-info-screen {
-      font-size: 11px;
+  @if $is-widget==1 {
+    @media (max-width: 450px) {
+      .vpw-info-screen {
+        font-size: 11px;
+        max-width: 210px;
 
-      .vpw-info__networks-container {
-        gap: 6px;
-      }
-
-      .vpw-info__main {
-        padding: 10px !important;
-
-        .vpw-info__section {
-          margin: 0;
+        .vpw-info__networks-container {
+          gap: 6px;
         }
 
-        .vpw-info__section-desc {
-          font-size: .9em;
+        .vpw-info__main {
+          padding: 10px !important;
+
+          .vpw-info__section {
+            margin: 0;
+          }
+
+          .vpw-info__section-desc {
+            font-size: .9em;
+          }
         }
       }
     }
-
   }
+
 }

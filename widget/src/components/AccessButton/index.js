@@ -28,7 +28,7 @@ AccessButton.prototype.load = function (element, vw) {
     window.plugin =
       window.plugin ||
       new window.VLibras.Plugin({
-        enableMoveWindow: true,
+        enableMoveWindow: false,
         enableWelcome: true,
         personalization: this.personalization,
         wrapper: this.pluginWrapper.element,

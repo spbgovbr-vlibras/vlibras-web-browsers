@@ -1,7 +1,8 @@
-@import '~scss/colors.scss';
 @import '~scss/default-buttons';
-@import '~scss/shared-styles.scss';
+@import '~scss/shared-styles';
 @import './input-range.scss';
+@import '~scss/variables';
+@import '~scss/colors';
 
 [vp] [vp-settings] {
   position: absolute;
@@ -14,9 +15,11 @@
   overflow: hidden;
   font-size: 14px;
 
-  @media (max-width: 450px) {
-    max-width: 210px;
-    font-size: 12px;
+  @if $is-widget==1 {
+    @media (max-width: 450px) {
+      max-width: 210px;
+      font-size: 12px;
+    }
   }
 
   &.active {
@@ -98,9 +101,11 @@
             background-color: map-get($white, 5);
           }
 
-          @media (max-width: 450px) {
-            img {
-              height: 22px;
+          @if $is-widget==1 {
+            @media (max-width: 450px) {
+              img {
+                height: 22px;
+              }
             }
           }
 
@@ -163,11 +168,13 @@
           }
         }
 
-        @media (max-width: 450px) {
-          width: 114px;
-          height: 88px;
-          gap: 2px;
-          padding: 6px;
+        @if $is-widget==1 {
+          @media (max-width: 450px) {
+            width: 114px;
+            height: 88px;
+            gap: 2px;
+            padding: 6px;
+          }
         }
       }
 
@@ -198,9 +205,11 @@
 
     }
 
-    @media (max-width: 450px) {
-      padding: 10px;
-      gap: 10px;
+    @if $is-widget==1 {
+      @media (max-width: 450px) {
+        padding: 10px;
+        gap: 10px;
+      }
     }
 
   }
