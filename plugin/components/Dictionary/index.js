@@ -80,6 +80,7 @@ Dictionary.prototype.load = function (element, closeScreen, initGuide) {
   // Insert item method
   this.list._insert = function (word) {
     const item = document.createElement('li');
+    item.setAttribute('data-gloss', word);
 
     if (word.indexOf('&') != -1) {
       regex = word.replace('&', '(');
@@ -88,7 +89,6 @@ Dictionary.prototype.load = function (element, closeScreen, initGuide) {
       this.list.appendChild(item);
     } else {
       item.innerHTML = word;
-      item.setAttribute('data-gloss', word);
       this.list.appendChild(item);
     }
   }.bind(this);
