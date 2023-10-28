@@ -1,6 +1,7 @@
 const template = require('./rate-box.html').default;
 require('./rate-box.scss');
 
+const { formatGloss } = require('~utils');
 const { arrowIcon, likeLineIcon, likeSolidIcon, arrowOutward, closeIcon } = require('~icons');
 
 function RateBox(messageBox, suggestionScreen, player) {
@@ -69,15 +70,16 @@ RateBox.prototype.toggleWikiContainer = function (bool) {
   this.content.classList.toggle('vp-from-dictionary', bool);
   this.headerButton.innerHTML = this.isOpenWikiContainer ? closeIcon : arrowIcon;
   if (!bool) return;
-  this.boxGloss.title = this.player.gloss;
-  this.boxGloss.innerHTML = `"${formatGloss(this.player.gloss)}"`;
+  this.boxGloss.title = formatGloss(this.player.gloss);
+  this.boxGloss.innerHTML = `"${glossAbbrev(this.player.gloss)}"`;
 }
 
 RateBox.prototype.getElement = function () {
   return this.element;
 }
 
-function formatGloss(gloss) {
+function glossAbbrev(gloss) {
+  gloss = formatGloss(gloss);
   return gloss.length <= 15 ? gloss : gloss.substring(0, 15) + "...";
 }
 
