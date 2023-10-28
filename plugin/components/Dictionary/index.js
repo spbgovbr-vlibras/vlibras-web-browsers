@@ -114,7 +114,7 @@ Dictionary.prototype.load = function (element, closeScreen, initGuide) {
     removeRetryBtn();
 
     const xhr = new XMLHttpRequest();
-    xhr.open('get', 'app/dictionary.json', true);
+    xhr.open('get', DICTIONARY_URL, true);
     xhr.responseType = 'text';
     xhr.timeout = 30000;
 
