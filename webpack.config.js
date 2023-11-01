@@ -5,7 +5,7 @@ const CompressionPlugin = require('compression-webpack-plugin');
 require('es6-promise').polyfill();
 
 const webpackConfig = {
-  mode: process.env.MODE || 'development',
+  mode: 'production' || 'development', // MODIFICAR DEPOIS
   output: {
     filename: 'vlibras-plugin.js',
     // libraryExport: 'default',
@@ -58,7 +58,7 @@ const webpackConfig = {
     minimizer: [
       new TerserPlugin({
         parallel: true,
-        sourceMap: true, // Must be set to true if using source-maps in production
+        sourceMap: true,
         terserOptions: {
           compress: {
             drop_console: true,
