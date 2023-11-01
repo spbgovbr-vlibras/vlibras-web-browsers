@@ -20,7 +20,7 @@
     visibility: hidden;
     top: 0;
     height: auto !important;
-    transition: all .3s ease;
+    transition: transform .3s ease;
     transform: scale(0);
     transform-origin: top right;
     box-shadow: $vp-shadow;
@@ -97,5 +97,6 @@
         z-index: 6 !important;
         visibility: visible;
         transform: scale(1);
+        transition: transform .3s ease;
     }
 }

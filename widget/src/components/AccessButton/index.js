@@ -21,14 +21,14 @@ function AccessButton(props) {
 AccessButton.prototype.load = function (element, vw) {
   this.element = element;
   this.element.innerHTML = template;
-  this.element.addEventListener('click', () => {
+  this.loadImages();
+  this.element.addEventListener('click', async () => {
     this.element.classList.toggle('active');
     this.pluginWrapper.element.classList.toggle('active');
     if (this.ready) toggleUnityMainLoop(true);
 
     window.plugin =
-      window.plugin ||
-      new window.VLibras.Plugin({
+      window.plugin || new (await import(/* webpackChunkName: "meu-chunk", webpackPrefetch: true */ '/plugin')).Plugin({
         enableMoveWindow: true,
         enableWelcome: true,
         personalization: this.personalization,
@@ -37,7 +37,9 @@ AccessButton.prototype.load = function (element, vw) {
         rootPath: this.rootPath,
         opacity: this.opacity,
         avatar: this.avatar
-      });
+      })
+
+
 
     if (this.ready) loadTextCaptureScript();
     else {
@@ -48,7 +50,21 @@ AccessButton.prototype.load = function (element, vw) {
         clearInterval(_canTranslate);
       }, 1000)
     }
+
   });
+};
+
+AccessButton.prototype.loadImages = function () {
+  this.element.querySelectorAll('img[data-src]').forEach((image) => {
+    image.onload = () => {
+      image.src = buildAbsolutePath.bind(this)(image.getAttribute('data-src'));
+      image.onload = null;
+    }
+  });
+
+  function buildAbsolutePath(path) {
+    return this.rootPath ? this.rootPath + '/' + path : path;
+  };
 };
 
 module.exports = AccessButton;
