@@ -28,7 +28,7 @@ AccessButton.prototype.load = function (element, vw) {
     if (this.ready) toggleUnityMainLoop(true);
 
     window.plugin =
-      window.plugin || new (await import(/* webpackChunkName: "meu-chunk", webpackPrefetch: true */ '/plugin')).Plugin({
+      window.plugin || new (await import(/* webpackPrefetch: true */ '../../../../plugin/')).Plugin({
         enableMoveWindow: true,
         enableWelcome: true,
         personalization: this.personalization,
