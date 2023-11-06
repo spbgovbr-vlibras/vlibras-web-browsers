@@ -1,96 +1,41 @@
-$width-set: 300px;
-$height-set: 450px;
-
-html {
-  -webkit-box-sizing: border-box;
-  -moz-box-sizing: border-box;
-  box-sizing: border-box;
-}
-
-*,
-*:before,
-*:after {
-  -webkit-box-sizing: inherit;
-  -moz-box-sizing: inherit;
-  box-sizing: inherit;
-}
-
-html,
-body {
-  width: 100%;
-  height: 100%;
-}
-
-body {
-  margin: 0;
-  overflow: hidden;
-  font-size: 16px;
-}
-
 [vp] {
-  height: 100%;
-  width: 100%;
-  z-index: 1;
-  min-width: 300px;
-  min-height: 450px;
-
-
-  canvas {
-    width: 100%;
-    height: 100%
-  }
-}
-
-
-[vp] #gameContainer {
-  position: absolute !important;
-  top: -20px;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  margin: auto !important;
-  min-height: calc(0.70 * #{$height-set});
-  min-width: calc(0.90 * #{$width-set});
-  width: 100%;
-  height: 82%;
-  overflow: hidden;
-  -moz-border-radius: 10px;
-  -webkit-border-radius: 10px;
-  border-radius: 0px;
-  background: rgb(235, 235, 235) !important;
-
-  canvas {
-    min-height: calc(0.70 * #{$height-set});
-    min-width: calc(0.90 * #{$width-set});
+    font-size: 16px;
     height: 100%;
     width: 100%;
-    -webkit-filter: blur(0px);
-    -moz-filter: blur(0px);
-    -ms-filter: blur(0px);
-    -o-filter: blur(0px);
-    filter: blur(0px);
-  }
-}
+    position: relative;
 
+    #gameContainer {
+        background: rgb(235, 235, 235) !important;
+    }
 
-canvas {
-  -webkit-filter: blur(0px);
-  -moz-filter: blur(0px);
-  -ms-filter: blur(0px);
-  -o-filter: blur(0px);
-  filter: blur(0px);
+    .vp--off {
+        display: none !important;
+    }
 
-  -webkit-transition: filter 0.3s;
-  transition: filter 0.3s;
-}
+    .vp--shaker {
+        animation: shaker 0.7s ease-in-out infinite !important;
 
-canvas.vpw-blur {
-  -webkit-filter: blur(2px);
-  -moz-filter: blur(2px);
-  -ms-filter: blur(2px);
-  -o-filter: blur(2px);
-  filter: blur(2px);
+        @keyframes shaker {
 
-  -webkit-transition: filter 0.3s;
-  transition: filter 0.3s;
+            0%,
+            100% {
+                transform: translateX(0);
+            }
+
+            10%,
+            30%,
+            50%,
+            70%,
+            90% {
+                transform: translateX(-5px);
+            }
+
+            20%,
+            40%,
+            60%,
+            80% {
+                transform: translateX(5px);
+            }
+        }
+    }
 }
