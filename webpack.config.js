@@ -1,3 +1,4 @@
+require('dotenv').config();
 const path = require('path');
 const TerserPlugin = require('terser-webpack-plugin');
 const CompressionPlugin = require('compression-webpack-plugin');
@@ -5,12 +6,13 @@ const CompressionPlugin = require('compression-webpack-plugin');
 require('es6-promise').polyfill();
 
 const webpackConfig = {
-  mode: 'production' || 'development', // MODIFICAR DEPOIS
+  mode: process.env.MODE === 'development' ? 'development' : 'production',
   output: {
     filename: 'vlibras-plugin.js',
     // libraryExport: 'default',
     library: 'VLibras',
     libraryTarget: 'window',
+    publicPath: process.env['ROOT_PATH__' + `${process.env.MODE}`.toUpperCase()],
   },
   resolve: {
     modules: [
@@ -20,7 +22,7 @@ const webpackConfig = {
 
     alias: {
       '~utils': path.resolve(__dirname, 'plugin/utils'),
-      '~icons': path.resolve(__dirname, 'plugin/assets/icons')
+      '~icons': path.resolve(__dirname, 'plugin/assets/icons'),
     }
   },
   externals: {
