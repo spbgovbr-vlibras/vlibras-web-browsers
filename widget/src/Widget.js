@@ -6,7 +6,7 @@ require('./scss/styles.scss');
 
 const { addClass, $, $$, removeClass, getWidget, toggleUnityMainLoop } = require('~utils');
 
-const DEFAULT_ROOTPAH = 'https://vlibras.gov.br/app';
+const DEFAULT_ROOT_PATH = process.env['ROOT_PATH__' + `${process.env.MODE}`.toUpperCase()];
 const availablePositions = ['TL', 'T', 'TR', 'L', 'R', 'BL', 'B', 'BR'];
 const availableAvatars = ['icaro', 'hosana', 'guga', 'random'];
 
@@ -19,7 +19,7 @@ module.exports = function Widget(...args) {
   let opacity = optObject ? optObject.opacity : args[2];
   let avatar = optObject.avatar;
 
-  if (rootPath === undefined) rootPath = DEFAULT_ROOTPAH;
+  if (rootPath === undefined) rootPath = DEFAULT_ROOT_PATH;
   if (isNaN(opacity) || opacity < 0 || opacity > 1) opacity = 1;
   if (!availablePositions.includes(position)) position = 'R';
   if (!availableAvatars.includes(avatar)) avatar = 'icaro';
