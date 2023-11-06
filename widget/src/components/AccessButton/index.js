@@ -1,8 +1,9 @@
-const { loadTextCaptureScript } = require('./text-capture');
-const { canTranslate, toggleUnityMainLoop } = require('~utils');
+require('./styles.scss');
 
 const template = require('./template.html').default;
-require('./styles.scss');
+
+const { loadTextCaptureScript } = require('./text-capture');
+const { canTranslate, toggleUnityMainLoop } = require('~utils');
 
 function AccessButton(props) {
   this.personalization = props.personalization;
@@ -21,25 +22,25 @@ function AccessButton(props) {
 AccessButton.prototype.load = function (element, vw) {
   this.element = element;
   this.element.innerHTML = template;
-  this.loadImages();
   this.element.addEventListener('click', async () => {
     this.element.classList.toggle('active');
     this.pluginWrapper.element.classList.toggle('active');
     if (this.ready) toggleUnityMainLoop(true);
 
-    window.plugin =
-      window.plugin || new (await import(/* webpackPrefetch: true */ '../../../../plugin/')).Plugin({
-        enableMoveWindow: true,
-        enableWelcome: true,
-        personalization: this.personalization,
-        wrapper: this.pluginWrapper.element,
-        position: this.position,
-        rootPath: this.rootPath,
-        opacity: this.opacity,
-        avatar: this.avatar
-      })
+    const config = {
+      enableMoveWindow: true,
+      enableWelcome: true,
+      personalization: this.personalization,
+      wrapper: this.pluginWrapper.element,
+      position: this.position,
+      rootPath: this.rootPath,
+      opacity: this.opacity,
+      avatar: this.avatar
+    }
 
-
+    if (!window.plugin) {
+      window.plugin = new (await import('../../../../plugin/')).Plugin(config)
+    }
 
     if (this.ready) loadTextCaptureScript();
     else {
@@ -52,19 +53,6 @@ AccessButton.prototype.load = function (element, vw) {
     }
 
   });
-};
-
-AccessButton.prototype.loadImages = function () {
-  this.element.querySelectorAll('img[data-src]').forEach((image) => {
-    image.onload = () => {
-      image.src = buildAbsolutePath.bind(this)(image.getAttribute('data-src'));
-      image.onload = null;
-    }
-  });
-
-  function buildAbsolutePath(path) {
-    return this.rootPath ? this.rootPath + '/' + path : path;
-  };
 };
 
 module.exports = AccessButton;
