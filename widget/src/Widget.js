@@ -20,6 +20,7 @@ module.exports = function Widget(...args) {
   let avatar = optObject.avatar;
 
   if (rootPath === undefined) rootPath = DEFAULT_ROOT_PATH;
+  else if (rootPath && !rootPath.endsWith('/')) rootPath += '/';
   if (isNaN(opacity) || opacity < 0 || opacity > 1) opacity = 1;
   if (!availablePositions.includes(position)) position = 'R';
   if (!availableAvatars.includes(avatar)) avatar = 'icaro';
