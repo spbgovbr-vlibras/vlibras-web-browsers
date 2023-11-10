@@ -2,7 +2,7 @@ const template = require('./suggestion-screen.html').default;
 require('./suggestion-screen.scss');
 
 const { arrowIcon } = require('~icons/');
-const { SIGNS_URL } = require('../../config');
+const { SIGNS_URL } = require('~constants');
 
 const TrieSearch = require('trie-search');
 const getCaretCoordinates = require('textarea-caret');

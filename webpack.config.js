@@ -1,7 +1,10 @@
 require('dotenv').config();
+
 const path = require('path');
+const webpack = require('webpack');
 const TerserPlugin = require('terser-webpack-plugin');
 const CompressionPlugin = require('compression-webpack-plugin');
+const constants = require(`./plugin/constants/${process.env.MODE}-paths`);
 
 require('es6-promise').polyfill();
 
@@ -12,7 +15,7 @@ const webpackConfig = {
     // libraryExport: 'default',
     library: 'VLibras',
     libraryTarget: 'window',
-    publicPath: process.env['ROOT_PATH__' + `${process.env.MODE}`.toUpperCase()],
+    publicPath: constants.PUBLIC_PATH
   },
   resolve: {
     modules: [
@@ -23,6 +26,7 @@ const webpackConfig = {
     alias: {
       '~utils': path.resolve(__dirname, 'plugin/utils'),
       '~icons': path.resolve(__dirname, 'plugin/assets/icons'),
+      '~constants': path.resolve(__dirname, `plugin/constants/${process.env.MODE}-paths`),
     }
   },
   externals: {
@@ -33,15 +37,9 @@ const webpackConfig = {
       {
         test: /\.s?css/,
         use: [
-          {
-            loader: 'style-loader',
-          },
-          {
-            loader: 'css-loader',
-          },
-          {
-            loader: 'sass-loader',
-          },
+          { loader: 'style-loader' },
+          { loader: 'css-loader' },
+          { loader: 'sass-loader' },
         ],
       },
       {
@@ -54,7 +52,10 @@ const webpackConfig = {
       }
     ],
   },
-  plugins: [new CompressionPlugin()],
+  plugins: [
+    new CompressionPlugin(),
+    new webpack.ProvidePlugin({ '~constants': '~constants' }),
+  ],
   optimization: {
     minimize: true,
     minimizer: [

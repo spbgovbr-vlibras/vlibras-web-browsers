@@ -6,10 +6,11 @@ require('./dictionary.scss');
 
 const Trie = require('./trie.js');
 
-const { backIcon, loadingIcon, dictionaryIcon } = require('~icons');
-const { DICTIONARY_URL } = require('../../config');
-const { formatGloss } = require('~utils');
 const DICT_LOCAL_KEY = "@vp-dict-history";
+
+const { backIcon, loadingIcon, dictionaryIcon } = require('~icons');
+const { DICTIONARY_URL } = require('~constants');
+const { formatGloss } = require('~utils');
 
 function Dictionary(player, isWidget) {
   this.visible = false;
