@@ -5,8 +5,7 @@ require('./scss/reset.scss');
 require('./scss/styles.scss');
 
 const { addClass, $, $$, removeClass, getWidget, toggleUnityMainLoop } = require('~utils');
-
-const DEFAULT_ROOT_PATH = 'https://www.vlibras.gov.br/app/';
+const { ROOT_PATH: DEFAULT_ROOT_PATH } = require('~constants');
 
 const availablePositions = ['TL', 'T', 'TR', 'L', 'R', 'BL', 'B', 'BR'];
 const availableAvatars = ['icaro', 'hosana', 'guga', 'random'];
