@@ -3,7 +3,8 @@
         "baseUrl": ".",
         "paths": {
             "~utils": ["plugin/utils/"],
-            "~icons": ["plugin/assets/icons/"]
+            "~icons": ["plugin/assets/icons/"],
+            "~constants": ["plugin/constants/"]
         }
     }
 }
