@@ -1,8 +1,7 @@
-require('./styles.scss');
-
 const template = require('./template.html').default;
 
-const { loadTextCaptureScript } = require('./text-capture');
+require('./styles.scss');
+
 const { canTranslate, toggleUnityMainLoop } = require('~utils');
 
 function AccessButton(props) {
@@ -27,6 +26,12 @@ AccessButton.prototype.load = function (element, vw) {
     this.pluginWrapper.element.classList.toggle('active');
     if (this.ready) toggleUnityMainLoop(true);
 
+    // Dynamic imports
+    const { Plugin } = (await import('../../../../plugin/'));
+    const { loadTextCaptureScript } = (await import('./text-capture'));
+
+    window.VLibras.Plugin = Plugin;
+
     const config = {
       enableMoveWindow: true,
       enableWelcome: true,
@@ -38,9 +43,7 @@ AccessButton.prototype.load = function (element, vw) {
       avatar: this.avatar
     }
 
-    if (!window.plugin) {
-      window.plugin = new (await import('../../../../plugin/')).Plugin(config)
-    }
+    if (!window.plugin) window.plugin = new window.VLibras.Plugin(config);
 
     if (this.ready) loadTextCaptureScript();
     else {
