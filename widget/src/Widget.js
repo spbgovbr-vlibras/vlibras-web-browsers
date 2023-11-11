@@ -38,7 +38,7 @@ module.exports = function Widget(...args) {
   }
 
   window.onload = () => {
-    ressolveMultipleWidgetsIssue();
+    resolveMultipleWidgetsIssue();
 
     if (tempF) tempF();
 
@@ -105,7 +105,7 @@ module.exports = function Widget(...args) {
 
   };
 
-  function ressolveMultipleWidgetsIssue() {
+  function resolveMultipleWidgetsIssue() {
     $$('[vw]').forEach(vw => {
       if (!($('[vp]'), vw)) vw.removeAttribute('vw');
     })
