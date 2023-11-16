@@ -15,7 +15,7 @@ const webpackConfig = {
     // libraryExport: 'default',
     library: 'VLibras',
     libraryTarget: 'window',
-    publicPath: constants.PUBLIC_PATH
+    publicPath: constants.ROOT_PATH
   },
   resolve: {
     modules: [

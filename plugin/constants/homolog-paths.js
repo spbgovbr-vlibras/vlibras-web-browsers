@@ -1,5 +1,4 @@
 module.exports = {
-  PUBLIC_PATH: 'https://www-dth.vlibras.gov.br/app/',
   ROOT_PATH: 'https://www-dth.vlibras.gov.br/app/',
 
   DICTIONARY_URL: 'https://dicionario2-dth.vlibras.gov.br/signs?version=2018.3.1',
