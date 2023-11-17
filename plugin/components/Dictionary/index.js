@@ -187,17 +187,19 @@ Dictionary.prototype.load = function (element, closeScreen, initGuide) {
 
 Dictionary.prototype._onItemClick = function (event) {
   if (event.target.tagName !== 'LI') return;
-  const word = event.target.getAttribute('data-gloss');
+
+  const gloss = event.target.getAttribute('data-gloss');
+  const label = event.target.innerText;
 
   this.boundCloseAllScreen();
-  this.player.play(word);
-  this.player.text = word;
-  this.player.translation = word;
+  this.player.play(gloss);
+  this.player.text = gloss;
+  this.player.translation = gloss;
   this.player.translated = false;
   this.player.fromDictionary = true;
 
   const recentWords = getRecentWords();
-  recentWords.unshift(word);
+  recentWords.unshift(JSON.stringify({ gloss, label }));
 
   saveRecentWords.bind(this)(recentWords);
 };
@@ -236,21 +238,23 @@ function resetDictionary() {
 }
 
 function loadRecentWords(recentWordsDiv) {
-  let value = localStorage.getItem(DICT_LOCAL_KEY);
+  let data = localStorage.getItem(DICT_LOCAL_KEY);
 
-  recentWordsDiv.classList.toggle('vp-isEmpty', !value);
+  recentWordsDiv.classList.toggle('vp-isEmpty', !data);
 
-  if (value) value = JSON.parse(value);
+  if (data) data = JSON.parse(data);
   else return;
 
   const list = recentWordsDiv.querySelector('ul');
   list.onclick = e => this._onItemClick(e);
   list.innerHTML = "";
 
-  for (word of value) {
-    const item = document.createElement('li');
-    item.innerHTML = word;
-    list.appendChild(item);
+  for (item of data) {
+    const { label, gloss } = JSON.parse(item);
+    const li = document.createElement('li');
+    li.innerHTML = label;
+    li.setAttribute('data-gloss', gloss);
+    list.appendChild(li);
   }
 }
 
