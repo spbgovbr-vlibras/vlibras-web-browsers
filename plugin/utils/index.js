@@ -97,6 +97,12 @@ export const toggleUnityMainLoop = (bool) => {
   else window.plugin.player.player.Module.pauseMainLoop();
 }
 
+// Disable 'play/pause/repeat' button in controls
+export const disableControlsButton = (bool = true) => {
+  if (bool) $('[vp-controls] .vpw-controls-button').setAttribute('disabled', true);
+  else $('[vp-controls] .vpw-controls-button').removeAttribute('disabled');
+}
+
 // Add an event listener to an element
 export const _on = (element, event, callback) => {
   element.addEventListener(event, callback);
