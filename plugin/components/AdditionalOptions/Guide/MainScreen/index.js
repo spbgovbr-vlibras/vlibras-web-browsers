@@ -59,6 +59,7 @@ MainGuideScreen.prototype.hide = function () {
   vwPlayer.stop();
   u.removeClass(this.element, 'vp-enabled');
   u.addClickBlocker(false);
+  u.disableControlsButton();
   saveDefault(false);
   hideAdditionalOptions(false);
   removeEvents();

@@ -78,6 +78,7 @@ Guide.prototype.hide = function () {
   this.removeHighlight();
   resetItems();
   roundedWrapper(false);
+  u.disableControlsButton();
   u.addClickBlocker(false);
   u.removeClass(this.helpButton, 'vp-selected');
   u.setWidgetPosition(this.wPosition);

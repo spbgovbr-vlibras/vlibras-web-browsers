@@ -6,7 +6,7 @@ require('./controls.scss');
 
 const { controlIcons } = require('~icons');
 const { welcomeMessage } = require('./welcomeMessage');
-const { $, hasClass, addClass, removeClass, $0 } = require('~utils');
+const { $, hasClass, addClass, removeClass, $0, disableControlsButton } = require('~utils');
 
 const availableSpeeds = [0.5, 1, 1.5, 2, 3];
 
@@ -162,6 +162,7 @@ Controls.prototype.load = function (element, rateBox) {
   );
 
   this.player.addListener('gloss:start', () => {
+    disableControlsButton(false);
     window.plugin.player.skipped = false;
     setTimeout(() => addClass(skipWelcome, 'vp-enabled'), 500);
   });
