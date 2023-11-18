@@ -99,7 +99,7 @@ Dictionary.prototype.load = function (element, closeScreen, initGuide) {
 
   function lazyLoading(e) {
     const { scrollTop, clientHeight, scrollHeight } = dictWords;
-    if (scrollTop + clientHeight === scrollHeight) {
+    if (scrollTop + clientHeight >= scrollHeight - 20) {
       for (i = 0; i < 5 && tempList.length; i++) this.list.appendChild(tempList.shift());
     }
   }

@@ -159,7 +159,8 @@ $margin_left: 40px;
             span {
                 display: none;
                 color: #999;
-                margin-left: 16px;
+                width: 100%;
+                padding: 0 10px;
             }
 
             &.vp-isEmpty {
@@ -271,9 +272,15 @@ $margin_left: 40px;
 
             .vpw-dict-container,
             .vpw-recents-container {
-                ul li {
-                    padding: 6px 10px;
-                    min-width: 210px;
+                ul {
+                    li {
+                        padding: 6px 10px;
+                        min-width: 210px;
+                    }
+
+                    span {
+                        padding: 0 16px;
+                    }
                 }
 
             }
