@@ -7,6 +7,7 @@ require('./dictionary.scss');
 const Trie = require('./trie.js');
 
 const DICT_LOCAL_KEY = "@vp-dict-history";
+const FIX_DICT_KEY = '@vp-dict-fixed.v1';
 
 const { backIcon, loadingIcon, dictionaryIcon } = require('~icons');
 const { DICTIONARY_URL } = require('~constants');
@@ -185,7 +186,7 @@ Dictionary.prototype.load = function (element, closeScreen, initGuide) {
   );
 };
 
-Dictionary.prototype._onItemClick = function (event) {
+Dictionary.prototype._onItemClick = function (event, isRecent = false) {
   if (event.target.tagName !== 'LI') return;
 
   const gloss = event.target.getAttribute('data-gloss');
@@ -197,6 +198,8 @@ Dictionary.prototype._onItemClick = function (event) {
   this.player.translation = gloss;
   this.player.translated = false;
   this.player.fromDictionary = true;
+
+  if (isRecent) return;
 
   const recentWords = getRecentWords();
   recentWords.unshift(JSON.stringify({ gloss, label }));
@@ -221,6 +224,7 @@ Dictionary.prototype.show = function () {
   this.element.classList.add('active');
   this.button.classList.add('selected');
   resetDictionary.bind(this)();
+  fixRecentWords();
   this.emit('show');
 };
 
@@ -246,7 +250,7 @@ function loadRecentWords(recentWordsDiv) {
   else return;
 
   const list = recentWordsDiv.querySelector('ul');
-  list.onclick = e => this._onItemClick(e);
+  list.onclick = e => this._onItemClick(e, true);
   list.innerHTML = "";
 
   for (item of data) {
@@ -265,7 +269,14 @@ function getRecentWords() {
 function saveRecentWords(list) {
   list = Array.from(new Set(list));
   localStorage.setItem(DICT_LOCAL_KEY, JSON.stringify(list));
-  this.boundLoadRecentWords();
+}
+
+function fixRecentWords() {
+  if (localStorage.getItem(FIX_DICT_KEY) == 'true') return;
+  localStorage.removeItem(DICT_LOCAL_KEY);
+  localStorage.setItem(FIX_DICT_KEY, 'true');
+
+  console.log('%cFIX DO HISTORICO', 'font-size: 32px; color: red')
 }
 
 module.exports = Dictionary;
