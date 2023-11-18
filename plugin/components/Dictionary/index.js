@@ -275,8 +275,6 @@ function fixRecentWords() {
   if (localStorage.getItem(FIX_DICT_KEY) == 'true') return;
   localStorage.removeItem(DICT_LOCAL_KEY);
   localStorage.setItem(FIX_DICT_KEY, 'true');
-
-  console.log('%cFIX DO HISTORICO', 'font-size: 32px; color: red')
 }
 
 module.exports = Dictionary;
