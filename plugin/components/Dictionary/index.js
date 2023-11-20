@@ -6,8 +6,7 @@ require('./dictionary.scss');
 
 const Trie = require('./trie.js');
 
-const DICT_LOCAL_KEY = "@vp-dict-history";
-const FIX_DICT_KEY = '@vp-dict-fixed.v1';
+const DICT_LOCAL_KEY = "@vp-dict-history.v2";
 
 const { backIcon, loadingIcon, dictionaryIcon } = require('~icons');
 const { DICTIONARY_URL } = require('~constants');
@@ -202,7 +201,7 @@ Dictionary.prototype._onItemClick = function (event, isRecent = false) {
   if (isRecent) return;
 
   const recentWords = getRecentWords();
-  recentWords.unshift(JSON.stringify({ gloss, label }));
+  recentWords.unshift(JSON.stringify([gloss, label]));
 
   saveRecentWords.bind(this)(recentWords);
 };
@@ -224,7 +223,6 @@ Dictionary.prototype.show = function () {
   this.element.classList.add('active');
   this.button.classList.add('selected');
   resetDictionary.bind(this)();
-  fixRecentWords();
   this.emit('show');
 };
 
@@ -254,7 +252,7 @@ function loadRecentWords(recentWordsDiv) {
   list.innerHTML = "";
 
   for (item of data) {
-    const { label, gloss } = JSON.parse(item);
+    const [gloss, label] = JSON.parse(item);
     const li = document.createElement('li');
     li.innerHTML = label;
     li.setAttribute('data-gloss', gloss);
@@ -269,12 +267,6 @@ function getRecentWords() {
 function saveRecentWords(list) {
   list = Array.from(new Set(list));
   localStorage.setItem(DICT_LOCAL_KEY, JSON.stringify(list));
-}
-
-function fixRecentWords() {
-  if (localStorage.getItem(FIX_DICT_KEY) == 'true') return;
-  localStorage.removeItem(DICT_LOCAL_KEY);
-  localStorage.setItem(FIX_DICT_KEY, 'true');
 }
 
 module.exports = Dictionary;
