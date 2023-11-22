@@ -127,40 +127,42 @@ The Widget can be installed on your website by inserting a few snippets of code 
   </div>
   <script src="<your-directory-path>/app/vlibras-plugin.js"></script>
   <script>
-    new window.VLibras.Widget('<your-directory-path>/app');
+    new window.VLibras.Widget();
   </script>
 </body> <!-- End of the page body -->
 ```
 
 > Note: The app folder can be copied to any directory, remember to enter the correct path for it.
 
-#### Adding Customization, Opacity and Position
+#### Default Values Configuration
 
-If you want to place a customization in the Widget, you must enter as a parameter a valid URL for Icaro, Hosana and Guga to be personalized:
+When using the Widget, you can customize various aspects such as personalization, opacity, position, and avatar. Below are the available parameters:
+
+
+| Parameter         | Default Value                    | Description  |
+| ----------------- | -------------------------------- | ------------ |
+| `rootPath`        | `"https://vlibras.gov.br/app/"`  | The base path for resources used by the Widget. Can be configured to point to a specific directory. In development, use your local path. |
+| `personalization` | `null`                           | Specifies a valid JSON URL for custom avatar configurations. |
+| `opacity`         | `1`                              | Controls the background opacity of the Widget. A value between 0 (completely transparent) and 1 (completely opaque). |
+| `position`        | `"R"`                            | Sets the initial position of the Widget on the page. The valid values are: "TL" (top-left), "T" (top), "TR" (top-right), "R" (right), "BR" (bottom-right), "B" (bottom), "BL" (bottom-left), and "L" (left). |
+| `avatar`          | `"icaro"`                        | Define the initial VLibras avatar. The available avatars are: "icaro", "hosana" and "guga". You can also use "random". |
+
+Usage example: 
 
 ```javascript
-    new window.VLibras.Widget('<your-directory-path>/app', 'https://vlibras.gov.br/config/configs.json');
+new window.VLibras.Widget({
+  rootPath: "/app",
+  personalization: 'https://vlibras.gov.br/config/configs.json',
+  opacity: 0.75,
+  position: 'L',
+  avatar: 'random'
+});
 ```
-
-If you want to change the background opacity of the Widget, you can set the values between 0 and 1 as a parameter. This opaque parameter indicates a number between 0 (fully transparent) and 1 (fully opaque).
-
-```javascript
-    new window.VLibras.Widget('<your-directory-path>/app', '', '0.75');
-```
-
-If you want to change the default widget position, you can set the position values as a parameter. The valid values are: "TL" (top-left), "T" (top), "TR" (top-right), "R" (right), "BR" (bottom-right), "B" (bottom), "BL" (bottom-left), and "L" (left).
-
-```javascript
-    new window.VLibras.Widget('<your-directory-path>/app', '', '', 'R');
-```
-  
-You can also change position in the Widget settings.
 
 ### Installing the Plugins
 
-VLibras already has official versions of the plugins in the Chrome, Firefox and Safari extensions store.
-To use the version of the plugins built in your machine, see the extensions installation instructions
-on your browser's official page.
+VLibras already has official versions of the plugins in the Chrome and Firefox extensions store.
+To use the version of the plugins built in your machine, see the extensions installation instructions on your browser's official page.
 
 ## Contributors
 
