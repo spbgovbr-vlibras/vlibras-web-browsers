@@ -18,9 +18,11 @@ RateBox.prototype.load = function (element) {
   this.content = this.element.querySelector('.vp-rate-box-content');
   this.headerButton = this.element.querySelector('.vp-rate-box-header button');
   this.boxGloss = this.content.querySelector('box-gloss');
+
   const likeBtn = this.element.querySelector('.vp-rate-btns--like');
   const deslikeBtn = this.element.querySelector('.vp-rate-btns--deslike');
-  const wikiLink = this.element.querySelector('.vp-rate-box__gloss a');
+  const wikiLink = this.element.querySelector('.vp-rate-box__suggestion-wiki');
+  const denyReview = this.element.querySelector('.vp-rate-box__suggestion-deny');
 
   // Add icon
   this.headerButton.innerHTML = arrowIcon;
@@ -28,13 +30,10 @@ RateBox.prototype.load = function (element) {
   deslikeBtn.innerHTML = likeLineIcon + likeSolidIcon + deslikeBtn.innerHTML;
   wikiLink.innerHTML += arrowOutward;
 
-  this.headerButton.onclick = function () {
-    if (this.isOpenWikiContainer) window.plugin.sendReview('bad');
-    this.element.classList.toggle('vp-expanded');
-  }.bind(this);
-
+  this.headerButton.onclick = this.toggleExpanded.bind(this);
   likeBtn.onclick = () => window.plugin.sendReview('good');
   wikiLink.onclick = () => window.plugin.sendReview('bad');
+  denyReview.onclick = () => window.plugin.sendReview('good');
 
   deslikeBtn.onclick = function () {
     if (this.player.fromDictionary) return this.toggleWikiContainer(true);
@@ -45,8 +44,7 @@ RateBox.prototype.load = function (element) {
 
   this.player.addListener('gloss:end', () => {
     this.toggleWikiContainer(false);
-  })
-
+  });
 };
 
 RateBox.prototype.reload = function () {
@@ -64,6 +62,11 @@ RateBox.prototype.hide = function () {
   this.element.classList.remove('vp-enabled');
   this.element.classList.remove('vp-expanded');
 };
+
+RateBox.prototype.toggleExpanded = function () {
+  if (this.isOpenWikiContainer) this.hide();
+  else this.element.classList.toggle('vp-expanded');
+}
 
 RateBox.prototype.toggleWikiContainer = function (bool) {
   this.isOpenWikiContainer = bool;

@@ -45,12 +45,16 @@
             }
 
             .vp-rate-box__gloss {
-                span {
+                .vp-rate-box__suggestion-text {
                     max-width: 280px;
                 }
 
-                a {
+                .vp-rate-box__suggestion-wiki,
+                .vp-rate-box__suggestion-deny {
+                    padding: 0 16px !important;
                     font-size: 16px !important;
+                    min-height: 40px !important;
+                    max-width: 280px;
                 }
             }
         }
@@ -268,7 +272,7 @@
                     font-size: 14px;
                 }
 
-                .buttons-container {
+                .vpw-buttons-container {
                     padding: 10px 16px !important;
 
                     .vp-dictionary-btn {
