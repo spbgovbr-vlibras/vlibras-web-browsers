@@ -6,9 +6,12 @@ require('./dictionary.scss');
 
 const Trie = require('./trie.js');
 
-const { backIcon, loadingIcon, dictionaryIcon } = require('~icons');
-const { DICTIONARY_URL } = require('../../config');
 const DICT_LOCAL_KEY = "@vp-dict-history";
+const FIX_DICT_KEY = '@vp-dict-fixed.v1';
+
+const { backIcon, loadingIcon, dictionaryIcon } = require('~icons');
+const { DICTIONARY_URL } = require('../../config.js');
+const { formatGloss } = require('~utils');
 
 function Dictionary(player, isWidget) {
   this.visible = false;
@@ -38,10 +41,13 @@ Dictionary.prototype.load = function (element, closeScreen, initGuide) {
   const dictWords = this.element.querySelector('.vpw-dict-container');
   const loadingScreen = this.element.querySelector('.vpw-loading-dictionary');
   const reloadDictButton = loadingScreen.querySelector('div button');
+  const headerBtn = document.querySelector('.vpw-header-btn-dictionary');
   let reqCounter = 0;
 
   this.boundLoadRecentWords = () => loadRecentWords.bind(this)(recentWords);
   this.boundToggleWords = (aba) => toggleWords(aba);
+
+  if (!this.isWidget) recentBtn.style.display = 'none';
 
   reloadDictButton.onclick = () => {
     getSigns.bind(this)();
@@ -61,41 +67,44 @@ Dictionary.prototype.load = function (element, closeScreen, initGuide) {
   this.element.querySelector('.vpw-btn-close').innerHTML = backIcon;
   document.querySelector('.vpw-loading__img').innerHTML = loadingIcon;
 
-  backButton.addEventListener(
-    'click',
-    function () {
-      this.hide();
-      document.querySelector('.vpw-header-btn-dictionary')
-        .classList.remove('selected');
-    }.bind(this)
-  );
+  backButton.onclick = function () {
+    headerBtn.classList.remove('selected');
+    this.hide();
+  }.bind(this)
 
   // Signs trie
   this.signs = null;
 
   // List
   this.list = dictWords.querySelector('ul');
+  this.list.lastTop = -1;
   this.list.onclick = e => this._onItemClick(e);
+  dictWords.onscroll = lazyLoading.bind(this);
 
   // Insert item method
+  let count = 0;
+  const tempList = [];
+
   this.list._insert = function (word) {
     const item = document.createElement('li');
     item.setAttribute('data-gloss', word);
+    item.innerHTML = formatGloss(word);
 
-    if (word.indexOf('&') != -1) {
-      regex = word.replace('&', '(');
-      regex = regex + ')';
-      item.innerHTML = regex;
-      this.list.appendChild(item);
-    } else {
-      item.innerHTML = word;
-      this.list.appendChild(item);
-    }
+    if (count++ >= 50) tempList.push(item);
+    else this.list.appendChild(item);
+
   }.bind(this);
 
   const addRetryBtn = () => loadingScreen.classList.add('vpw-dict--error');
   const removeRetryBtn = () => loadingScreen.classList.remove('vpw-dict--error');
   const maxRequest = () => loadingScreen.classList.add('vpw-dict--max-request');
+
+  function lazyLoading(e) {
+    const { scrollTop, clientHeight, scrollHeight } = dictWords;
+    if (scrollTop + clientHeight === scrollHeight) {
+      for (i = 0; i < 5 && tempList.length; i++) this.list.appendChild(tempList.shift());
+    }
+  }
 
   function checkRequests(err) {
     if (err) console.error(err);
@@ -155,7 +164,11 @@ Dictionary.prototype.load = function (element, closeScreen, initGuide) {
 
   // Clear list method
   this.list._clear = function () {
+    this.list.closest('div').scrollTop = 0;
     this.list.innerHTML = '';
+    this.list.lastTop = -1;
+    count = 0;
+    tempList.length = 0;
   }.bind(this);
 
   // Search
@@ -175,19 +188,23 @@ Dictionary.prototype.load = function (element, closeScreen, initGuide) {
   );
 };
 
-Dictionary.prototype._onItemClick = function (event) {
+Dictionary.prototype._onItemClick = function (event, isRecent = false) {
   if (event.target.tagName !== 'LI') return;
-  const word = event.target.getAttribute('data-gloss');
+
+  const gloss = event.target.getAttribute('data-gloss');
+  const label = event.target.innerText;
 
   this.boundCloseAllScreen();
-  this.player.play(word);
-  this.player.text = word;
-  this.player.translation = word;
+  this.player.play(gloss);
+  this.player.text = gloss;
+  this.player.translation = gloss;
   this.player.translated = false;
   this.player.fromDictionary = true;
 
+  if (isRecent) return;
+
   const recentWords = getRecentWords();
-  recentWords.unshift(word);
+  recentWords.unshift(JSON.stringify({ gloss, label }));
 
   saveRecentWords.bind(this)(recentWords);
 };
@@ -209,6 +226,7 @@ Dictionary.prototype.show = function () {
   this.element.classList.add('active');
   this.button.classList.add('selected');
   resetDictionary.bind(this)();
+  fixRecentWords();
   this.emit('show');
 };
 
@@ -226,21 +244,23 @@ function resetDictionary() {
 }
 
 function loadRecentWords(recentWordsDiv) {
-  let value = localStorage.getItem(DICT_LOCAL_KEY);
+  let data = localStorage.getItem(DICT_LOCAL_KEY);
 
-  recentWordsDiv.classList.toggle('vp-isEmpty', !value);
+  recentWordsDiv.classList.toggle('vp-isEmpty', !data);
 
-  if (value) value = JSON.parse(value);
+  if (data) data = JSON.parse(data);
   else return;
 
   const list = recentWordsDiv.querySelector('ul');
-  list.onclick = e => this._onItemClick(e);
+  list.onclick = e => this._onItemClick(e, true);
   list.innerHTML = "";
 
-  for (word of value) {
-    const item = document.createElement('li');
-    item.innerHTML = word;
-    list.appendChild(item);
+  for (item of data) {
+    const { label, gloss } = JSON.parse(item);
+    const li = document.createElement('li');
+    li.innerHTML = label;
+    li.setAttribute('data-gloss', gloss);
+    list.appendChild(li);
   }
 }
 
@@ -251,7 +271,14 @@ function getRecentWords() {
 function saveRecentWords(list) {
   list = Array.from(new Set(list));
   localStorage.setItem(DICT_LOCAL_KEY, JSON.stringify(list));
-  this.boundLoadRecentWords();
+}
+
+function fixRecentWords() {
+  if (localStorage.getItem(FIX_DICT_KEY) == 'true') return;
+  localStorage.removeItem(DICT_LOCAL_KEY);
+  localStorage.setItem(FIX_DICT_KEY, 'true');
+
+  console.log('%cFIX DO HISTORICO', 'font-size: 32px; color: red')
 }
 
 module.exports = Dictionary;
