@@ -18,6 +18,11 @@ export const getWidgetPosition = () => {
   return window.plugin ? window.plugin.position : undefined;
 }
 
+// Format the gloss => EXAMPLE&EXAMPLE to EXAMPLE(EXAMPLE)
+export const formatGloss = gloss => {
+  return gloss.indexOf('&') != -1 ? gloss.replace('&', '(') + ')' : gloss;
+}
+
 // Get a valid Widget element
 // * www.correios.com.br
 export const getWidget = () => {
