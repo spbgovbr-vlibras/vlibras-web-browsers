@@ -114,7 +114,7 @@ $controls_height: 48px;
       transition: all .3s ease-out;
       overflow: hidden;
 
-      span {
+      .vp-rate-box__suggestion-text {
         font-weight: 500;
 
         box-gloss {
@@ -123,9 +123,18 @@ $controls_height: 48px;
         }
       }
 
-      a {
+      .vp-rate-box__suggestion-wiki {
+        @include suggestion-btn--primary;
+      }
+
+      .vp-rate-box__suggestion-deny {
         @include suggestion-btn--secundary;
+      }
+
+      .vp-rate-box__suggestion-wiki,
+      .vp-rate-box__suggestion-deny {
         padding: 0 16px;
+        width: 100%;
         white-space: nowrap;
         text-decoration: none;
       }
@@ -158,13 +167,16 @@ $controls_height: 48px;
     .vp-rate-box-header button svg {
       transform: rotate(180deg);
     }
-
   }
 
   @media (max-width: 450px) {
     &.vp-enabled {
       visibility: visible;
       height: 80px;
+    }
+
+    &.vp-expanded {
+      height: 70% !important;
     }
 
     .vp-rate-box-header {
@@ -176,17 +188,20 @@ $controls_height: 48px;
       font-size: 12px;
       gap: 0;
 
-      .vp-rate-box__gloss a {
-        white-space: normal;
-        min-height: 32px;
+      .vp-rate-box__gloss {
 
-        svg {
-          display: none;
+        .vp-rate-box__suggestion-wiki,
+        .vp-rate-box__suggestion-deny {
+          padding: 0 10px;
+          white-space: normal;
+          min-height: 32px;
+
+          svg {
+            display: none;
+          }
         }
       }
 
     }
-
   }
-
 }
