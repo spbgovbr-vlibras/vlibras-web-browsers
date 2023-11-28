@@ -7,7 +7,6 @@ require('./dictionary.scss');
 const Trie = require('./trie.js');
 
 const DICT_LOCAL_KEY = "@vp-dict-history";
-const FIX_DICT_KEY = '@vp-dict-fixed.v1';
 
 const { backIcon, loadingIcon, dictionaryIcon } = require('~icons');
 const { DICTIONARY_URL } = require('../../config.js');
@@ -226,7 +225,6 @@ Dictionary.prototype.show = function () {
   this.element.classList.add('active');
   this.button.classList.add('selected');
   resetDictionary.bind(this)();
-  fixRecentWords();
   this.emit('show');
 };
 
@@ -271,14 +269,6 @@ function getRecentWords() {
 function saveRecentWords(list) {
   list = Array.from(new Set(list));
   localStorage.setItem(DICT_LOCAL_KEY, JSON.stringify(list));
-}
-
-function fixRecentWords() {
-  if (localStorage.getItem(FIX_DICT_KEY) == 'true') return;
-  localStorage.removeItem(DICT_LOCAL_KEY);
-  localStorage.setItem(FIX_DICT_KEY, 'true');
-
-  console.log('%cFIX DO HISTORICO', 'font-size: 32px; color: red')
 }
 
 module.exports = Dictionary;
