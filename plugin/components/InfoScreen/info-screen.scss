@@ -29,7 +29,7 @@
     }
 
     .vpw-info-header {
-      @include vp-screen-header;
+      @include vp-screen__header;
     }
 
     .vpw-info__main {
