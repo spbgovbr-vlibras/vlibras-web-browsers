@@ -34,7 +34,7 @@ $margin_left: 40px;
             flex-direction: column;
 
             .vpw-bar {
-                @include vp-screen-header;
+                @include vp-screen__header;
             }
 
             .vpw-search {
