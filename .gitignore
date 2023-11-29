@@ -1,12 +1,13 @@
 node_modules
 .idea
+.env
 build
 builds/
 
 chrome/app/player
 firefox/data/player
 safari.safariextension/app/player
-webextensions/app/player
+webextensions/*/*/player
 widget/app
 
 *.log
