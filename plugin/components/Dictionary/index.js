@@ -185,7 +185,7 @@ Dictionary.prototype.load = function (element, closeScreen, initGuide) {
   );
 };
 
-Dictionary.prototype._onItemClick = function (event, isRecent = false) {
+Dictionary.prototype._onItemClick = function (event) {
   if (event.target.tagName !== 'LI') return;
 
   const gloss = event.target.getAttribute('data-gloss');
@@ -197,8 +197,6 @@ Dictionary.prototype._onItemClick = function (event, isRecent = false) {
   this.player.translation = gloss;
   this.player.translated = false;
   this.player.fromDictionary = true;
-
-  if (isRecent) return;
 
   const recentWords = getRecentWords();
   recentWords.unshift(JSON.stringify([gloss, label]));
@@ -248,7 +246,7 @@ function loadRecentWords(recentWordsDiv) {
   else return;
 
   const list = recentWordsDiv.querySelector('ul');
-  list.onclick = e => this._onItemClick(e, true);
+  list.onclick = e => this._onItemClick(e);
   list.innerHTML = "";
 
   for (item of data) {
