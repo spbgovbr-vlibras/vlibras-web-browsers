@@ -85,34 +85,12 @@ $control-height: 68px;
     height: calc(100% - 96px);
     border-bottom: 1px solid map-get($white, 4);
 
-    .vp-title {
-      width: 100%;
-      text-align: left;
-      font-weight: 700;
-      font-size: 1em;
-      color: map-get($black, 1);
+    .vp-suggestion-screen__title {
+      @include vp-screen__title;
     }
 
     .vp-text {
-      padding: 10px;
-      width: 100%;
-      resize: none;
-      border-radius: 5px;
-      border: 1px solid map-get($white, 4);
-      height: 120px;
-      font-size: 1em !important;
-      outline: none !important;
-      display: block !important;
-      min-height: auto !important;
-
-      &:hover {
-        border-color: map-get($white, 2);
-      }
-
-      &:focus {
-        border: 1.6px solid map-get($blue, 3);
-        box-shadow: 0px 0px 15px rgba(86, 154, 255, 0.75);
-      }
+      @include vp-screen__textarea;
     }
 
     .vp-suggestion-buttons-container {

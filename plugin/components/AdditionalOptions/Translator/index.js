@@ -15,6 +15,7 @@ Translator.prototype.load = function (element) {
 
   const closeBtn = this.element.querySelector('.vp-translator-screen-header button');
   const visualizeBtn = this.element.querySelector('.vp-play-gloss-button');
+  const clearBtn = this.element.querySelector('vp-clear-textarea');
   const userText = this.element.querySelector('.vp-text');
 
   // Add icons
@@ -23,8 +24,10 @@ Translator.prototype.load = function (element) {
   // Add actions
   closeBtn.onclick = () => this.hide();
   visualizeBtn.onclick = () => this.player.translate(userText.value.trim());
+  clearBtn.onclick = clearUserText;
 
   userText.addEventListener('input', function () {
+    clearBtn.classList.toggle('vp-enabled', !!userText.value.trim());
 
     if (!userText.value.replace(/[^a-z0-9]/gi, '')) {
       visualizeBtn.setAttribute('disabled', true);
@@ -39,8 +42,13 @@ Translator.prototype.load = function (element) {
       e.preventDefault();
       visualizeBtn.click();
     }
-  })
+  });
 
+  function clearUserText() {
+    userText.value = '';
+    visualizeBtn.setAttribute('disabled', true);
+    clearBtn.classList.remove('vp-enabled');
+  }
 }
 
 Translator.prototype.show = function () {
