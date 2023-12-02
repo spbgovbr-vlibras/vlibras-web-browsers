@@ -44,8 +44,9 @@ $control-height: 68px;
                 color: #f75252;
                 background: none;
                 border-radius: 20px;
-                padding: 2px 8px;
+                padding: 4px 8px;
                 transition: all .3s ease;
+                line-height: 1;
                 cursor: pointer;
 
                 &.vp-enabled {
