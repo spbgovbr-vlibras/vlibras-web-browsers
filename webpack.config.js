@@ -55,6 +55,7 @@ const webpackConfig = {
   plugins: [
     new CompressionPlugin(),
     new webpack.ProvidePlugin({ '~constants': '~constants' }),
+    new webpack.optimize.LimitChunkCountPlugin({ maxChunks: 2 }),
   ],
   optimization: {
     minimize: true,
