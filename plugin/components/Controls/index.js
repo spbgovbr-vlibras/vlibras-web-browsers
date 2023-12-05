@@ -165,7 +165,7 @@ Controls.prototype.load = function (element, rateBox) {
   this.player.addListener('gloss:start', () => {
     disableControlsButton(false);
     window.plugin.player.skipped = false;
-    setTimeout(() => addClass(skipAnimationBtn, 'vp-enabled'), 500);
+    addClass(skipAnimationBtn, 'vp-enabled');
   });
 
   this.player.addListener('gloss:end', () => {
