@@ -3,6 +3,7 @@ node_modules
 build
 builds/
 .env
+keys
 
 chrome/app/player
 firefox/data/player
