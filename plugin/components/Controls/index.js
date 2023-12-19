@@ -174,6 +174,7 @@ Controls.prototype.load = function (element, rateBox) {
   });
 
   this.player.on('stop:welcome', function () {
+    if (welcomeFinished) return;
     removeClass(skipAnimationBtn, 'vp-enabled');
     this.setLabel('Escolha um texto para traduzir.');
     welcomeFinished = true;
@@ -206,8 +207,7 @@ Controls.prototype.load = function (element, rateBox) {
   }
 
   function handleSkip() {
-    welcomeFinished = true;
-    this.player.emit('stop:welcome', true);
+    if (!welcomeFinished) this.player.emit('stop:welcome');
     this.player.skipped = true;
     this.player.stop();
   }
@@ -222,7 +222,7 @@ Controls.prototype.load = function (element, rateBox) {
   const interval = setInterval(() => {
     if (this.player.text || guideIsOpen()) {
       removeClass(this.element, 'vpw-selectText');
-      removeClass(skipAnimationBtn, 'vp-enabled');
+      if (!welcomeFinished) removeClass(skipAnimationBtn, 'vp-enabled');
       clearInterval(interval);
     }
   }, 600);
