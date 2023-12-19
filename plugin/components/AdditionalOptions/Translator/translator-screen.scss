@@ -37,30 +37,47 @@ $control-height: 68px;
 
         .vp-translator-screen__title {
             @include vp-screen__title;
+        }
 
-            vp-clear-textarea {
-                font-size: .8em;
-                display: none;
-                color: #f75252;
-                background: none;
-                border-radius: 20px;
-                padding: 4px 8px;
-                transition: all .3s ease;
-                line-height: 1;
+        .vp-user-textarea-container {
+            @include vp-screen__user-textarea;
+
+            .vp-clear-textarea {
+                @include reset;
+                
+                position: absolute;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                right: 0;
+                bottom: 0;
                 cursor: pointer;
+                width: 32px;
+                height: 32px;
 
-                &.vp-enabled {
-                    display: inline;
+                svg {
+                    width: 24px;
+                    height: 24px;
+
+                    * {
+                        fill: map-get($blue, 1);
+                    }
                 }
 
                 &:hover {
-                    background: #ffdfdf;
+                    svg * {
+                        fill: map-get($blue, 3);
+                    }
+                }
+
+                &:disabled {
+                    cursor: not-allowed;
+
+                    svg * {
+                        fill: map-get($white, 4);
+                    }
                 }
             }
-        }
-
-        .vp-text {
-            @include vp-screen__textarea;
         }
 
         .vp-translator-buttons-container {
@@ -93,7 +110,7 @@ $control-height: 68px;
             padding: 10px;
             height: calc(100% - 80px);
 
-            .vp-text {
+            .vp-user-textarea-container {
                 height: 120px;
             }
 
@@ -104,3 +121,4 @@ $control-height: 68px;
     }
 
 }
+

@@ -13,6 +13,7 @@ const loadingIcon = require('./loading.svg');
 const translatorIcon = require('./additionalOptions/translator.svg');
 const helpIcon = require('./additionalOptions/help.svg');
 const arrowOutward = require('./feedback/arrow-outward.svg');
+const deleteIcon = require('./delete.svg')
 
 const controlIcons = {
   play: require('./controls/play.svg'),
@@ -44,6 +45,6 @@ module.exports = {
   dictionaryIcon, settingsIcon, backIcon, socialIcons,
   positionIcons, arrowIcon, likeLineIcon, likeSolidIcon,
   loadingIcon, translatorIcon, helpIcon, controlIcons,
-  arrowOutward
+  arrowOutward, deleteIcon
 }
 

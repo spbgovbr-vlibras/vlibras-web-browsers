@@ -102,7 +102,7 @@ SuggestionScreen.prototype.load = function (element) {
   this.rateBox = document.querySelector('div[vp-rate-box]');
   this.gloss = null;
 
-  this.textElement = this.element.querySelector('.vp-text');
+  this.textElement = this.element.querySelector('.vp-user-textarea');
 
   this.send = this.element.querySelector('.vp-send-gloss-button');
   this.visualize = this.element.querySelector('.vp-play-gloss-button');
@@ -243,14 +243,12 @@ SuggestionScreen.prototype.setGloss = function (gloss) {
 };
 
 SuggestionScreen.prototype.show = function () {
-  // this.element.querySelector('.vp-text').style.display = 'block';
   this.element.classList.add('vp-enabled');
   this.element.classList.add('vp-expanded');
   this.element.querySelector('.vp-dropdown-suggest').classList.remove('vp-enabled');
 };
 
 SuggestionScreen.prototype.hide = function () {
-  // this.element.querySelector('.vp-text').style.display = 'none';
   this.element.classList.remove('vp-expanded');
   this.element.classList.remove('vp-enabled');
 };

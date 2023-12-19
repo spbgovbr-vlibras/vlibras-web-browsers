@@ -89,8 +89,8 @@ $control-height: 68px;
       @include vp-screen__title;
     }
 
-    .vp-text {
-      @include vp-screen__textarea;
+    .vp-user-textarea-container {
+      @include vp-screen__user-textarea;
     }
 
     .vp-suggestion-buttons-container {
@@ -141,7 +141,7 @@ $control-height: 68px;
       padding: 10px;
       height: calc(100% - 80px);
 
-      .vp-text {
+      .vp-user-textarea-container {
         height: 100px;
       }
 

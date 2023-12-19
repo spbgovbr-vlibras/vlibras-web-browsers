@@ -1,7 +1,7 @@
 const template = require('./translator-screen.html').default;
 require('./translator-screen.scss');
 
-const { closeIcon } = require('~icons');
+const { closeIcon, deleteIcon } = require('~icons');
 
 function Translator(player) {
   this.element = null;
@@ -15,11 +15,12 @@ Translator.prototype.load = function (element) {
 
   const closeBtn = this.element.querySelector('.vp-translator-screen-header button');
   const visualizeBtn = this.element.querySelector('.vp-play-gloss-button');
-  const clearBtn = this.element.querySelector('vp-clear-textarea');
-  const userText = this.element.querySelector('.vp-text');
+  const clearBtn = this.element.querySelector('.vp-clear-textarea');
+  const userText = this.element.querySelector('.vp-user-textarea');
 
   // Add icons
   closeBtn.innerHTML = closeIcon;
+  clearBtn.innerHTML = deleteIcon;
 
   // Add actions
   closeBtn.onclick = () => this.hide();
@@ -27,14 +28,8 @@ Translator.prototype.load = function (element) {
   clearBtn.onclick = clearUserText;
 
   userText.addEventListener('input', function () {
-    clearBtn.classList.toggle('vp-enabled', !!userText.value.trim());
-
-    if (!userText.value.replace(/[^a-z0-9]/gi, '')) {
-      visualizeBtn.setAttribute('disabled', true);
-    } else {
-      visualizeBtn.removeAttribute('disabled');
-    }
-
+    clearBtn.disabled = !userText.value.trim();
+    visualizeBtn.disabled = !userText.value.replace(/[^a-z0-9]/gi, '');
   });
 
   userText.addEventListener('keypress', e => {
@@ -46,8 +41,8 @@ Translator.prototype.load = function (element) {
 
   function clearUserText() {
     userText.value = '';
-    visualizeBtn.setAttribute('disabled', true);
-    clearBtn.classList.remove('vp-enabled');
+    visualizeBtn.disabled = true;
+    clearBtn.disabled = true;
   }
 }
 
