@@ -1,5 +1,5 @@
 module.exports = [
-  { name: 'Brasil', path: 'BR', flag: 'assets/brazil.png' },
+  { name: 'Brasil (Padrão)', path: 'BR', flag: 'assets/brazil.png' },
   { name: 'Acré', path: 'AC', flag: 'assets/1AC.png' },
   { name: 'Alagoas', path: 'AL', flag: 'assets/2AL.png' },
   { name: 'Amapá', path: 'AP', flag: 'assets/3AP.png' },

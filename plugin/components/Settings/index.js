@@ -7,7 +7,7 @@ require('./regionalism.scss');
 
 const regionsData = require('./data');
 const { backIcon, positionIcons } = require('~icons');
-const { setWidgetPosition } = require('~utils');
+const { setWidgetPosition, $ } = require('~utils');
 
 function Settings(player, opacity, position, options) {
   this.visible = false;
@@ -70,11 +70,8 @@ Settings.prototype.load = function (element) {
       activeRegion = element;
     }
 
-    element.querySelector('.vpw-flag').setAttribute('data-src', region.flag);
-    element.querySelector('.vpw-name').innerHTML =
-      region === regionsData[0]
-        ? 'Brasil (Padrão Nacional)'
-        : `${region.name} - ${region.path}`
+    $('.vpw-flag', element).setAttribute('data-src', region.flag);
+    $('.vpw-name', element).innerHTML = region.path === 'BR' ? region.name : `${region.name} - ${region.path}`;
 
     element.onclick = () => {
       if (activeRegion === element) return;
