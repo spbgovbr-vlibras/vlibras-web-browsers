@@ -107,7 +107,14 @@ module.exports = function Widget(...args) {
 
   function resolveMultipleWidgetsIssue() {
     $$('[vw]').forEach(vw => {
-      if (!($('[vp]'), vw)) vw.removeAttribute('vw');
+      if (!($('[vp]'), vw)) {
+        vw.removeAttribute('vw');
+
+        // testing only...
+        if (location.hostname.includes('correios.com.br')) {
+          removeClass(vw, 'enabled');
+        }
+      }
     })
   }
 
