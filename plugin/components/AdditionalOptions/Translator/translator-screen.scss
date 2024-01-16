@@ -44,38 +44,19 @@ $control-height: 68px;
 
             .vp-clear-textarea {
                 @include reset;
+                @include vp-flex-center;
                 
+                transition: all .3s ease;
+                padding: 0 8px 2px 8px;
+                border-radius: 20px;
                 position: absolute;
-                display: flex;
-                align-items: center;
-                justify-content: center;
-                right: 0;
-                bottom: 0;
                 cursor: pointer;
-                width: 32px;
-                height: 32px;
-
-                svg {
-                    width: 24px;
-                    height: 24px;
-
-                    * {
-                        fill: map-get($blue, 1);
-                    }
-                }
-
-                &:hover {
-                    svg * {
-                        fill: map-get($blue, 3);
-                    }
-                }
+                height: 20px;
+                right: 0;
+                top: -30px;
 
                 &:disabled {
-                    cursor: not-allowed;
-
-                    svg * {
-                        fill: map-get($white, 4);
-                    }
+                    display: none;
                 }
             }
         }

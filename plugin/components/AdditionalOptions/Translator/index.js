@@ -1,7 +1,7 @@
 const template = require('./translator-screen.html').default;
 require('./translator-screen.scss');
 
-const { closeIcon, deleteIcon } = require('~icons');
+const { closeIcon } = require('~icons');
 
 function Translator(player) {
   this.element = null;
@@ -20,7 +20,6 @@ Translator.prototype.load = function (element) {
 
   // Add icons
   closeBtn.innerHTML = closeIcon;
-  clearBtn.innerHTML = deleteIcon;
 
   // Add actions
   closeBtn.onclick = () => this.hide();

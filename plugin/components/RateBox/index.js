@@ -71,6 +71,7 @@ RateBox.prototype.toggleExpanded = function () {
 RateBox.prototype.toggleWikiContainer = function (bool) {
   this.isOpenWikiContainer = bool;
   this.content.classList.toggle('vp-from-dictionary', bool);
+  this.element.classList.toggle('vp-expanded-wiki', bool);
   this.headerButton.innerHTML = this.isOpenWikiContainer ? closeIcon : arrowIcon;
   if (!bool) return;
   this.boxGloss.title = formatGloss(this.player.gloss);

@@ -63,7 +63,8 @@
             font-size: 14px;
         }
 
-        [vp-rate-box].vp-expanded {
+        [vp-rate-box].vp-expanded,
+        [vp-rate-box].vp-expanded.vp-expanded-wiki {
             height: 30% !important;
         }
 
