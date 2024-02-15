@@ -27,6 +27,7 @@ const webpackConfig = {
       '~utils': path.resolve(__dirname, 'plugin/utils'),
       '~icons': path.resolve(__dirname, 'plugin/assets/icons'),
       '~constants': path.resolve(__dirname, `plugin/constants/${process.env.MODE}-paths`),
+      '~widget-constants': path.resolve(__dirname, `plugin/constants/widget/${process.env.MODE}-paths`)
     }
   },
   externals: {

@@ -5,7 +5,8 @@ require('./scss/reset.scss');
 require('./scss/styles.scss');
 
 const { addClass, $, $$, removeClass, getWidget, toggleUnityMainLoop } = require('~utils');
-const { ROOT_PATH: DEFAULT_ROOT_PATH } = require('~constants');
+const { ROOT_PATH: DEFAULT_ROOT_PATH } = require('~widget-constants');
+const { sendWidgetPing } = require('./services')
 
 const availablePositions = ['TL', 'T', 'TR', 'L', 'R', 'BL', 'B', 'BR'];
 const availableAvatars = ['icaro', 'hosana', 'guga', 'random'];
@@ -39,6 +40,7 @@ module.exports = function Widget(...args) {
 
   window.onload = () => {
     resolveMultipleWidgetsIssue();
+    sendWidgetPing();
 
     if (tempF) tempF();
 
