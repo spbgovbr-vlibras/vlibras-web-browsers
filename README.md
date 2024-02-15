@@ -66,6 +66,15 @@ git clone https://gitlab.lavid.ufpb.br/vlibras2019/vlibras-web-extensions/vlibra
 
 > Note: It is necessary to have access to the VLibras Player WebJS repository to be able to clone it.
 
+### Configuration
+
+Before running the application, make sure to create a `.env` file in the project root and set the following environment variable:
+
+```dotenv
+# Content of .env (set to "production", "homolog" or "development")
+MODE=development
+```
+
 ### Installing
 
 After installing all the prerequisites, install the project by running the command:
