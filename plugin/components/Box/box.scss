@@ -29,7 +29,9 @@
       font-weight: bold;
 
       @media (max-width: 450px) {
-        font-size: 10px;
+        @if $is-widget==1 {
+          font-size: 12px;
+        }
       }
     }
   }

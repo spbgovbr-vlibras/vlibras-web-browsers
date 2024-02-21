@@ -102,6 +102,7 @@ function Plugin(options) {
   });
 
   window.addEventListener('vp-widget-close', (event) => {
+    if (!this.isWidget) return;
     this.player.stop();
     this.rateBox.hide();
     this.closeScreen.closeAll();
