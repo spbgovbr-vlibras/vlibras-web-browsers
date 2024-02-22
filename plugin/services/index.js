@@ -4,6 +4,6 @@ export function sendPluginPing() {
   fetch(PING_URL, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
-    body: `{ "site": "${location.hostname}" }`,
+    body: `{ "s": "${location.hostname}" }`,
   }).catch((err) => console.error(err));
 }
