@@ -2,6 +2,8 @@ const template = require('./main-guide-screen.html').default;
 require('./main-guide-screen.scss');
 
 const u = require('~utils');
+const { formatGlossWithU200E } = require('../utils');
+
 const LOCAL_KEY = '@vp-guide';
 const GUIDE_INTRO_MESSAGE = 'PRIMEIRO&ORDINAL VEZ AQUI [INTERROGAÇÃO] ' +
   'QUE APRENDER MAIS&QUANTIDADE SOBRE&ASSUNTO FUNCIONAL [INTERROGAÇÃO]'
@@ -49,7 +51,8 @@ MainGuideScreen.prototype.show = function () {
   hideAdditionalOptions(true);
   addEvents();
 
-  setTimeout(() => vwPlayer.play(GUIDE_INTRO_MESSAGE), 500);
+  const formattedMessage = formatGlossWithU200E(GUIDE_INTRO_MESSAGE)
+  setTimeout(() => vwPlayer.play(formattedMessage), 500);
 }
 
 MainGuideScreen.prototype.hide = function () {

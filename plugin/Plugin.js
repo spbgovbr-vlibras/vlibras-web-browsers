@@ -21,6 +21,7 @@ const url = require('url-join');
 const { REVIEW_URL } = require('~constants');
 const { ALERT_MESSAGES } = require('./alert-messages');
 const { sendPluginPing } = require('./services');
+const { formatGlossWithU200E } = require('./components/AdditionalOptions/Guide/utils');
 
 require('./scss/global.scss');
 require('./scss/styles.scss');
@@ -184,8 +185,8 @@ function createGuideContainer() {
   return container;
 }
 
-Plugin.prototype.translate = function (text) {
-  this.player.translate(text);
+Plugin.prototype.translate = function (text, { isEnabledStats = true } = {}) {
+  this.player.translate(text, { isEnabledStats });
 };
 
 Plugin.prototype.sendReview = function (rate, review) {
@@ -211,7 +212,7 @@ Plugin.prototype.sendReview = function (rate, review) {
     const skipButton = this.controls.element.querySelector('.vpw-skip-welcome-message');
     const subtitleIsActived = this.controls.element.querySelector('.actived-subtitle');
 
-    this.player.play('AGRADECER');
+    this.player.play(formatGlossWithU200E('AGRADECER'), { isEnabledStats: false });
     this.player.gloss = undefined;
 
     skipButton.classList.add('vp-disabled');

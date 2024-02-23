@@ -5,6 +5,7 @@ require('./guide.scss');
 const u = require('~utils');
 const { closeIcon } = require('~icons');
 const { guideElements } = require('./guide-elements');
+const { formatGlossWithU200E } = require('./utils');
 
 let $vw = null;
 
@@ -220,7 +221,7 @@ Guide.prototype.updateFooter = function () {
 
 function callWidgetTranslator() {
   const { gloss } = guideElements[this.tab];
-  this.player.play(gloss);
+  this.player.play(formatGlossWithU200E(gloss), { isEnabledStats: false });
 }
 
 function resetItems() {
