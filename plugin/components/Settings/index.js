@@ -71,7 +71,10 @@ Settings.prototype.load = function (element) {
     }
 
     $('.vpw-flag', element).setAttribute('data-src', region.flag);
-    $('.vpw-name', element).innerHTML = region.path === 'BR' ? region.name : `${region.name} - ${region.path}`;
+    $('.vpw-name', element).innerHTML = 
+      region.path === 'BR'
+        ? region.name 
+        : `${region.name}<span> - ${region.path}</span>`;
 
     element.onclick = () => {
       if (activeRegion === element) return;

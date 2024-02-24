@@ -46,10 +46,12 @@
                 height: 28px;
             }
 
-            span {
+            .vpw-name {
                 font-size: 1em;
                 font-weight: 600;
                 color: map-get($blue, 4);
+                display: inline-flex;
+                gap: 4px;
             }
 
             .vpw-radio {
@@ -112,6 +114,10 @@
 
             img {
                 height: 20px !important;
+            }
+
+            .vpw-name span {
+                display: none;
             }
 
             .vpw-radio {
