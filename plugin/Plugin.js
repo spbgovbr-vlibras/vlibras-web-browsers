@@ -23,6 +23,7 @@ const { ALERT_MESSAGES } = require('./alert-messages');
 const { sendPluginPing } = require('./services');
 const { formatGlossWithU200E } = require('./components/AdditionalOptions/Guide/utils');
 
+require('./scss/reset.scss');
 require('./scss/global.scss');
 require('./scss/styles.scss');
 require('./scss/text-capture.scss');
