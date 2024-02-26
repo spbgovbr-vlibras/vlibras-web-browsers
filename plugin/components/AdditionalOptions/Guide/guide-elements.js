@@ -3,7 +3,7 @@ export const guideElements = [
     path: 'div[vp-box]',
     text: `Clique nos botões do cabeçalho para acessar as Configurações, 
     pesquisar sinais no Dicionário ou saber mais sobre o VLibras.`,
-    gloss: 'CLIQUE BOTÃO CABEÇALHO ACESSAR CONFIGURAÇÃO PESQUISAR SINAL&ANTENA ' +
+    gloss: 'CLIQUE BOTÃO CABEÇALHO ACESSAR CONFIGURAÇÃO PESQUISAR SINAL ' +
       'DICIONÁRIO OU SABER MAIS&QUANTIDADE SOBRE&ASSUNTO VLIBRAS [PONTO]'
   },
   {
