@@ -52,7 +52,9 @@ MainGuideScreen.prototype.show = function () {
   addEvents();
 
   const formattedMessage = formatGlossWithU200E(GUIDE_INTRO_MESSAGE)
-  setTimeout(() => vwPlayer.play(formattedMessage), 500);
+  setTimeout(() => {
+    vwPlayer.play(formattedMessage, { isEnabledStats: false })
+  }, 500);
 }
 
 MainGuideScreen.prototype.hide = function () {
