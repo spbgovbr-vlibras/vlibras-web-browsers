@@ -29,7 +29,7 @@ AccessButton.prototype.load = function (element, vw) {
     // Dynamic imports
     const { Plugin } = await import('../../../../plugin/');
     const { loadTextCaptureScript } = await import('./text-capture');
-    const { createWidgetEventListeners } = await import('./event-listeners');
+    const { addWidgetEventListeners } = await import('./event-listeners');
 
     window.VLibras.Plugin = Plugin;
 
@@ -56,7 +56,7 @@ AccessButton.prototype.load = function (element, vw) {
       }, 1000);
     }
 
-    createWidgetEventListeners();
+    addWidgetEventListeners();
   });
 };
 

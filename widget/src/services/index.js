@@ -1,7 +1,9 @@
-const { PING_URL } = require('~widget-constants');
+const { ACCESS_URL } = require('~widget-constants');
 
-export function sendWidgetPing() {
-  fetch(PING_URL, {
+export function sendAccessCount() {
+  if (!ACCESS_URL) return;
+
+  fetch(ACCESS_URL, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: `{ "s": "${location.hostname}" }`,

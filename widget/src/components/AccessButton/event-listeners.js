@@ -1,8 +1,8 @@
 const { addClass, $, removeClass, toggleUnityMainLoop } = require('~utils');
 
-export function createWidgetEventListeners() {
-  const wrapper = document.querySelector('[vw-plugin-wrapper]');
-  const access = document.querySelector('[vw-access-button]');
+export function addWidgetEventListeners() {
+  const wrapper = $('[vw-plugin-wrapper]');
+  const access = $('[vw-access-button]');
 
   window.addEventListener('vp-widget-close', (event) => {
     access.classList.toggle('active');

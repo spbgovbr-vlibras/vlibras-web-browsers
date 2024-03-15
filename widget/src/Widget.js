@@ -5,7 +5,7 @@ require('./scss/styles.scss');
 
 const { $, $$, removeClass, getWidget } = require('~utils');
 const { ROOT_PATH: DEFAULT_ROOT_PATH } = require('~widget-constants');
-const { sendWidgetPing } = require('./services');
+const { sendAccessCount } = require('./services');
 
 const availablePositions = ['TL', 'T', 'TR', 'L', 'R', 'BL', 'B', 'BR'];
 const availableAvatars = ['icaro', 'hosana', 'guga', 'random'];
@@ -39,7 +39,7 @@ module.exports = function Widget(...args) {
 
   window.onload = () => {
     resolveMultipleWidgetsIssue();
-    sendWidgetPing();
+    sendAccessCount();
 
     if (tempF) tempF();
 
@@ -97,8 +97,7 @@ module.exports = function Widget(...args) {
       if (!($('[vp]'), vw)) {
         vw.removeAttribute('vw');
 
-        // testing only...
-        if (location.hostname.includes('correios.com.br')) {
+         if (location.hostname.includes('correios.com.br')) {
           removeClass(vw, 'enabled');
         }
       }
