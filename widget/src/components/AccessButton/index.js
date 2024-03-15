@@ -27,8 +27,9 @@ AccessButton.prototype.load = function (element, vw) {
     if (this.ready) toggleUnityMainLoop(true);
 
     // Dynamic imports
-    const { Plugin } = (await import('../../../../plugin/'));
-    const { loadTextCaptureScript } = (await import('./text-capture'));
+    const { Plugin } = await import('../../../../plugin/');
+    const { loadTextCaptureScript } = await import('./text-capture');
+    const { addWidgetEventListeners } = await import('./event-listeners');
 
     window.VLibras.Plugin = Plugin;
 
@@ -40,8 +41,8 @@ AccessButton.prototype.load = function (element, vw) {
       position: this.position,
       rootPath: this.rootPath,
       opacity: this.opacity,
-      avatar: this.avatar
-    }
+      avatar: this.avatar,
+    };
 
     if (!window.plugin) window.plugin = new window.VLibras.Plugin(config);
 
@@ -52,9 +53,10 @@ AccessButton.prototype.load = function (element, vw) {
         loadTextCaptureScript();
         this.ready = true;
         clearInterval(_canTranslate);
-      }, 1000)
+      }, 1000);
     }
 
+    addWidgetEventListeners();
   });
 };
 

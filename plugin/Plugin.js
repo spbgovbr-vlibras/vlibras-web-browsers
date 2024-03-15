@@ -20,15 +20,16 @@ const MainGuideScreen = require('components/AdditionalOptions/Guide/MainScreen')
 const url = require('url-join');
 const { REVIEW_URL } = require('~constants');
 const { ALERT_MESSAGES } = require('./alert-messages');
-const { sendPluginPing } = require('./services');
+const { sendAccessCount } = require('./services');
 const { formatGlossWithU200E } = require('./components/AdditionalOptions/Guide/utils');
 
+require('./scss/reset.scss');
 require('./scss/global.scss');
 require('./scss/styles.scss');
 require('./scss/text-capture.scss');
 
 function Plugin(options) {
-  sendPluginPing()
+  sendAccessCount()
 
   this.player = new VLibras.Player({
     // onLoad: options.playWellcome && (() => this.player.playWellcome()),
