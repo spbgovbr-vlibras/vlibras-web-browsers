@@ -4,7 +4,7 @@ const PluginWrapper = require('./components/PluginWrapper');
 require('./scss/styles.scss');
 
 const { $, $$, removeClass, getWidget } = require('~utils');
-const { ROOT_PATH: DEFAULT_ROOT_PATH } = require('~widget-constants');
+const { ROOT_PATH: DEFAULT_ROOT_PATH } = require('~constants');
 const { sendAccessCount } = require('./services');
 
 const availablePositions = ['TL', 'T', 'TR', 'L', 'R', 'BL', 'B', 'BR'];

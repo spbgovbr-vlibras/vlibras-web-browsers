@@ -1,4 +1,4 @@
-const { ACCESS_URL } = require('~widget-constants');
+const { ACCESS_URL } = require('~constants');
 
 export function sendAccessCount() {
   if (!ACCESS_URL) return;

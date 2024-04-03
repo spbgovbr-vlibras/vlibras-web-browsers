@@ -5,7 +5,6 @@
             "~utils": ["plugin/utils/"],
             "~icons": ["plugin/assets/icons/"],
             "~constants": ["plugin/constants/"],
-            "~widget-constants": ["plugin/constants/widget/"],
         }
     }
 }
