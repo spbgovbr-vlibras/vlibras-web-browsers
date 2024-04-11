@@ -3,7 +3,7 @@ const PluginWrapper = require('./components/PluginWrapper');
 
 require('./scss/styles.scss');
 
-const { $, $$, removeClass, getWidget } = require('~utils');
+const { $, $$, addClass, toggleUnityMainLoop, removeClass, getWidget } = require('~utils');
 const { ROOT_PATH: DEFAULT_ROOT_PATH } = require('~constants');
 const { sendAccessCount } = require('./services');
 
@@ -45,6 +45,9 @@ module.exports = function Widget(...args) {
 
     this.element = $('[vw-plugin-wrapper]').closest('[vw]');
 
+    const wrapper = $('[vw-plugin-wrapper]');
+    const access = $('[vw-access-button]');
+
     accessButton.load($('[vw-access-button]'), this.element);
     pluginWrapper.load($('[vw-plugin-wrapper]'));
 
@@ -84,12 +87,24 @@ module.exports = function Widget(...args) {
       image.src = rootPath ? rootPath + '/' + imagePath : imagePath;
     });
 
+    window.addEventListener('vp-widget-close', (event) => {
+      access.classList.toggle('active');
+      wrapper.classList.toggle('active');
+      addClass($('div[vp-change-avatar]'), 'active');
+      addClass($('div[vp-additional-options]'), 'vp-enabled');
+      removeClass($('div[vp-controls]'), 'vpw-selectText');
+      toggleUnityMainLoop(false);
+    });
+  
+    window.addEventListener('vw-change-opacity', (event) => {
+      wrapper.style.background = `rgba(235,235,235, ${event.detail})`;
+    });
+
     // Apply Widget default position
     if (availablePositions.includes(position)) {
       window.dispatchEvent(
         new CustomEvent('vp-widget-wrapper-set-side', { detail: position }));
     }
-
   };
 
   function resolveMultipleWidgetsIssue() {

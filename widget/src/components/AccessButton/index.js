@@ -29,7 +29,6 @@ AccessButton.prototype.load = function (element, vw) {
     // Dynamic imports
     const { Plugin } = await import('../../../../plugin/');
     const { loadTextCaptureScript } = await import('./text-capture');
-    const { addWidgetEventListeners } = await import('./event-listeners');
 
     window.VLibras.Plugin = Plugin;
 
@@ -55,8 +54,6 @@ AccessButton.prototype.load = function (element, vw) {
         clearInterval(_canTranslate);
       }, 1000);
     }
-
-    addWidgetEventListeners();
   });
 };
 
