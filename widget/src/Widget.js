@@ -5,7 +5,6 @@ require('./scss/styles.scss');
 
 const { $, $$, addClass, toggleUnityMainLoop, removeClass, getWidget } = require('~utils');
 const { ROOT_PATH: DEFAULT_ROOT_PATH } = require('~constants');
-const { sendAccessCount } = require('./services');
 
 const availablePositions = ['TL', 'T', 'TR', 'L', 'R', 'BL', 'B', 'BR'];
 const availableAvatars = ['icaro', 'hosana', 'guga', 'random'];
@@ -39,7 +38,6 @@ module.exports = function Widget(...args) {
 
   window.onload = () => {
     resolveMultipleWidgetsIssue();
-    sendAccessCount();
 
     if (tempF) tempF();
 

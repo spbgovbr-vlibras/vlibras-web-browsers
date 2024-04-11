@@ -1,9 +1,9 @@
-const { ACCESS_URL_BASE } = require('~constants');
+const { ACCESS_URL } = require('~constants');
 
 export function sendAccessCount() {
-  if (!ACCESS_URL_BASE) return;
+  if (!ACCESS_URL) return;
 
-  fetch(ACCESS_URL_BASE + '/plugin', {
+  fetch(ACCESS_URL, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: `{ "s": "${location.hostname}" }`,

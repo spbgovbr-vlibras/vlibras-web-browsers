@@ -4,5 +4,5 @@ module.exports = {
   DICTIONARY_URL: 'https://dicionario2-dth.vlibras.gov.br/signs?version=2018.3.1',
   REVIEW_URL: 'https://traducao2-dth.vlibras.gov.br/dl/review',
   SIGNS_URL: 'https://repositorio-dth.vlibras.gov.br/api/signs',
-  ACCESS_URL_BASE: 'https://video-dth.vlibras.gov.br',
+  ACCESS_URL: 'https://video-dth.vlibras.gov.br/plugin',
 };
