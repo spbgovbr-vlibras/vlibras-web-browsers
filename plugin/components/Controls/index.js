@@ -40,7 +40,7 @@ function Controls(player, dictionary, isWidget) {
   );
 
   this.player.on('response:glosa', function (counter, glosaLenght) {
-    counter = counter - 2;
+    counter = counter - 1;
 
     if (counter != -1) {
       const slider = this.element.querySelector(
