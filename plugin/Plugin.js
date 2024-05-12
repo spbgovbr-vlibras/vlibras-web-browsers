@@ -29,7 +29,7 @@ require('./scss/styles.scss');
 require('./scss/text-capture.scss');
 
 function Plugin(options) {
-  sendAccessCount()
+  sendAccessCount();
 
   this.player = new VLibras.Player({
     // onLoad: options.playWellcome && (() => this.player.playWellcome()),
