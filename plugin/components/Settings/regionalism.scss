@@ -1,135 +1,136 @@
 @import '~scss/colors.scss';
+@import '~scss/variables.scss';
 @import '~scss/default-buttons';
 
 [vp] {
-    .vpw-regions-container {
-        overflow-y: scroll;
-        height: calc(100% - 48px);
-        display: none;
-        align-items: center;
-        flex-direction: column;
-        justify-content: start;
-        padding-bottom: 10px;
+  .vpw-regions-container {
+    overflow-y: scroll;
+    height: calc(100% - 48px);
+    display: none;
+    align-items: center;
+    flex-direction: column;
+    justify-content: start;
+    padding-bottom: 10px;
+    gap: 4px;
+    position: relative;
+    padding-top: 48px;
+    width: 100%;
+    position: absolute;
+    top: 48px;
+    background-color: map-get($white, 1);
+    z-index: 10;
+    font-size: 14px;
+
+    // &::-webkit-scrollbar {
+    //     width: 0;
+    // }
+
+    .vpw-region {
+      display: flex;
+      align-items: center;
+      justify-content: start;
+      gap: 10px;
+      flex-direction: row;
+      width: 100%;
+      padding: 0 16px;
+      cursor: pointer;
+      height: 40px;
+      min-height: 40px;
+      position: relative;
+
+      &:hover {
+        background-color: map-get($white, 5);
+      }
+
+      img {
+        border-radius: 4px;
+        height: 28px;
+      }
+
+      .vpw-name {
+        font-size: 1em;
+        font-weight: 600;
+        color: map-get($blue, 4);
+        display: inline-flex;
         gap: 4px;
-        position: relative;
-        padding-top: 48px;
-        width: 100%;
+      }
+
+      .vpw-radio {
         position: absolute;
-        top: 48px;
-        background-color: map-get($white, 1);
-        z-index: 10;
-        font-size: 14px;
+        width: 18px;
+        height: 18px;
+        border-radius: 18px;
+        outline: 1px solid map-get($white, 2) !important;
+        outline-offset: -1px;
+        right: 16px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
 
-        // &::-webkit-scrollbar {
-        //     width: 0;
-        // }
-
-        .vpw-region {
-            display: flex;
-            align-items: center;
-            justify-content: start;
-            gap: 10px;
-            flex-direction: row;
-            width: 100%;
-            padding: 0 16px;
-            cursor: pointer;
-            height: 40px;
-            min-height: 40px;
-            position: relative;
-
-            &:hover {
-                background-color: map-get($white, 5);
-            }
-
-            img {
-                border-radius: 4px;
-                height: 28px;
-            }
-
-            .vpw-name {
-                font-size: 1em;
-                font-weight: 600;
-                color: map-get($blue, 4);
-                display: inline-flex;
-                gap: 4px;
-            }
-
-            .vpw-radio {
-                position: absolute;
-                width: 18px;
-                height: 18px;
-                border-radius: 18px;
-                outline: 1px solid map-get($white, 2) !important;
-                outline-offset: -1px;
-                right: 16px;
-                display: flex;
-                align-items: center;
-                justify-content: center;
-
-                &::after {
-                    border-radius: 10px;
-                    position: absolute;
-                    content: "";
-                    width: 10px;
-                    height: 10px;
-                    background-color: map-get($blue, 3);
-                    visibility: hidden;
-                }
-            }
-
-            &.selected {
-                position: absolute;
-                top: 6px;
-
-                .vpw-radio {
-                    outline-color: map-get($blue, 3) !important;
-                    outline-width: 2px;
-
-                    &::after {
-                        visibility: visible;
-                    }
-                }
-            }
-
+        &::after {
+          border-radius: 10px;
+          position: absolute;
+          content: '';
+          width: 10px;
+          height: 10px;
+          background-color: map-get($blue, 3);
+          visibility: hidden;
         }
+      }
 
-        &.active {
-            display: flex;
+      &.selected {
+        position: absolute;
+        top: 6px;
+
+        .vpw-radio {
+          outline-color: map-get($blue, 3) !important;
+          outline-width: 2px;
+
+          &::after {
+            visibility: visible;
+          }
         }
-
+      }
     }
 
+    &.active {
+      display: flex;
+    }
+  }
+
+  @if $is-widget==1 {
     @media (max-width: 450px) {
-        .vpw-regions-container {
-            padding-top: 36px !important;
-            top: 36px;
-            font-size: 12px;
-            height: calc(100% - 36px);
+      .vpw-regions-container {
+        padding-top: 36px !important;
+        top: 36px;
+        font-size: 12px;
+        height: calc(100% - 36px);
+      }
+
+      .vpw-region {
+        height: 28px !important;
+        min-height: 28px !important;
+        padding: 0 10px !important;
+
+        img {
+          height: 20px !important;
         }
 
-        .vpw-region {
-            height: 28px !important;
-            min-height: 28px !important;
-            padding: 0 10px !important;
-
-            img {
-                height: 20px !important;
-            }
-
-            .vpw-name span {
-                display: none;
-            }
-
-            .vpw-radio {
-                width: 14px !important;
-                height: 14px !important;
-                right: 10px !important;
-
-                &::after {
-                    width: 8px !important;
-                    height: 8px !important;
-                }
-            }
+        .vpw-name span {
+          display: none;
         }
+
+        .vpw-radio {
+          width: 14px !important;
+          height: 14px !important;
+          right: 10px !important;
+
+          &::after {
+            width: 8px !important;
+            height: 8px !important;
+          }
+        }
+      }
     }
+  }
 }

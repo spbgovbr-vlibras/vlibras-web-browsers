@@ -1,9 +1,9 @@
 @import '~scss/colors';
+@import '~scss/variables';
 @import '~scss/default-buttons';
 
 $control-height: 60px;
 $bg-color: #9c9c9c;
-
 
 [vp] [vp-change-avatar] {
   justify-content: start;
@@ -20,7 +20,7 @@ $bg-color: #9c9c9c;
   width: 36px;
   visibility: visible;
   border-radius: 40px;
-  transition: all .3s ease-in-out;
+  transition: all 0.3s ease-in-out;
 
   .vp-button-change-avatar {
     display: flex;
@@ -38,16 +38,16 @@ $bg-color: #9c9c9c;
     z-index: -1;
     text-transform: none;
     visibility: hidden;
-    transition: all .3s ease-in-out;
+    transition: all 0.3s ease-in-out;
 
     svg {
       width: 20px;
       height: 20px;
-      fill: #FFFFFF;
+      fill: #ffffff;
     }
 
     &::before {
-      content: "";
+      content: '';
       display: none;
       width: 20px;
       height: 20px;
@@ -79,13 +79,15 @@ $bg-color: #9c9c9c;
       font-size: 14px;
       font-weight: 500;
 
-      @media (max-width: 450px) {
-        font-size: 12px;
+      @if $is-widget==1 {
+        @media (max-width: 450px) {
+          font-size: 12px;
+        }
       }
     }
 
     &:hover {
-      outline-color: rgba(map-get($white, 2), .3) !important;
+      outline-color: rgba(map-get($white, 2), 0.3) !important;
 
       &::after,
       &::before {
@@ -104,7 +106,7 @@ $bg-color: #9c9c9c;
       visibility: visible;
 
       &:hover {
-        outline-color: rgba(map-get($blue, 3), .5) !important;
+        outline-color: rgba(map-get($blue, 3), 0.5) !important;
       }
 
       &::before {
@@ -116,23 +118,26 @@ $bg-color: #9c9c9c;
         top: 0;
         border-radius: 20px;
         transform: none;
-        content: "Trocar avatar";
+        content: 'Trocar avatar';
 
-        @media (max-width: 450px) {
-          display: none !important;
+        @if $is-widget==1 {
+          @media (max-width: 450px) {
+            display: none !important;
+          }
         }
       }
-
     }
 
     .active {
       display: block;
     }
 
-    @media (max-width: 450px) {
-      width: 28px;
-      height: 28px;
-      min-width: 28px;
+    @if $is-widget==1 {
+      @media (max-width: 450px) {
+        width: 28px;
+        height: 28px;
+        min-width: 28px;
+      }
     }
   }
 
@@ -156,27 +161,27 @@ $bg-color: #9c9c9c;
     display: flex;
   }
 
-  @media (max-width: 450px) {
-    left: 8px;
-    width: 28px;
-    height: 28px;
+  @if $is-widget==1 {
+    @media (max-width: 450px) {
+      left: 8px;
+      width: 28px;
+      height: 28px;
 
-    .vp-button-change-avatar {
-      svg {
-        width: 16px;
-        height: 16px;
-      }
+      .vp-button-change-avatar {
+        svg {
+          width: 16px;
+          height: 16px;
+        }
 
-      &::after {
-        top: 34px;
-        height: 26px;
-      }
+        &::after {
+          top: 34px;
+          height: 26px;
+        }
 
-      &::before {
-        top: 34px;
+        &::before {
+          top: 34px;
+        }
       }
     }
-
   }
-
 }

@@ -46,6 +46,8 @@ Dictionary.prototype.load = function (element, closeScreen, initGuide) {
   this.boundLoadRecentWords = () => loadRecentWords.bind(this)(recentWords);
   this.boundToggleWords = (aba) => toggleWords(aba);
 
+  if (!this.isWidget) recentBtn.style.display = 'none';
+
   reloadDictButton.onclick = () => {
     getSigns.bind(this)();
   }
@@ -185,7 +187,7 @@ Dictionary.prototype.load = function (element, closeScreen, initGuide) {
   );
 };
 
-Dictionary.prototype._onItemClick = function (event) {
+Dictionary.prototype._onItemClick = function (event, isRecent = false) {
   if (event.target.tagName !== 'LI') return;
 
   const gloss = event.target.getAttribute('data-gloss');
@@ -197,6 +199,8 @@ Dictionary.prototype._onItemClick = function (event) {
   this.player.translation = gloss;
   this.player.translated = false;
   this.player.fromDictionary = true;
+
+  if (isRecent) return;
 
   const recentWords = getRecentWords();
   recentWords.unshift(JSON.stringify([gloss, label]));
@@ -246,7 +250,7 @@ function loadRecentWords(recentWordsDiv) {
   else return;
 
   const list = recentWordsDiv.querySelector('ul');
-  list.onclick = e => this._onItemClick(e);
+  list.onclick = e => this._onItemClick(e, true);
   list.innerHTML = "";
 
   for (item of data) {

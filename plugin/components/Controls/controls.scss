@@ -1,8 +1,9 @@
-@import '~scss/flexbox';
 @import '~scss/colors';
-@import '~scss/default-buttons';
+@import '~scss/flexbox';
+@import '~scss/variables';
 @import '~scss/fullscreen';
-@import "~scss/shared-styles";
+@import '~scss/shared-styles';
+@import '~scss/default-buttons';
 
 [vp] {
   .vpw-controls {
@@ -24,15 +25,15 @@
     border-radius: 0 0 10px 10px;
 
     &.vpw-selectText {
-      background-color: #003F86 !important;
+      background-color: #003f86 !important;
     }
 
     .vpw-skip-welcome-message {
       @include reset;
 
-      background-color: #FFF;
+      background-color: #fff;
       border: 1px solid #eee;
-      transition: all .3s ease;
+      transition: all 0.3s ease;
       justify-content: center;
       flex-direction: row;
       transform: scale(0);
@@ -85,7 +86,7 @@
       justify-content: center;
       width: 100%;
       height: 100%;
-      color: #FFFFFF;
+      color: #ffffff;
       text-align: center;
       font-size: 1em;
       font-weight: 500;
@@ -118,11 +119,9 @@
       .vpw-component-restart {
         display: none;
       }
-
     }
 
     &.vpw-playing .vpw-controls-button {
-
       .vpw-component-play,
       .vpw-component-restart {
         display: none;
@@ -131,11 +130,9 @@
       .vpw-component-pause {
         display: flex;
       }
-
     }
 
     &.vpw-stopped .vpw-controls-button {
-
       .vpw-component-play,
       .vpw-component-pause {
         display: none;
@@ -163,24 +160,24 @@
       }
     }
 
+    @if $is-widget==1 {
+      @media (max-width: 450px) {
+        gap: 0 !important;
+        padding: 0 10px !important;
+        height: 40px;
+        font-size: 12px;
 
-    @media (max-width: 450px) {
-      gap: 0 !important;
-      padding: 0 10px !important;
-      height: 40px;
-      font-size: 12px;
+        .vpw-controls-slider {
+          width: 30%;
+        }
 
-      .vpw-controls-slider {
-        width: 30%;
-      }
-
-      .vpw-skip-welcome-message {
-        padding: 0 10px;
-        height: 30px;
-        top: -38px;
+        .vpw-skip-welcome-message {
+          padding: 0 10px;
+          height: 30px;
+          top: -38px;
+        }
       }
     }
-
   }
 
   .vpw-button-speed {
@@ -191,9 +188,11 @@
     font-weight: bold;
     padding-bottom: 2px;
 
-    @media (max-width: 450px) {
-      min-width: 34px;
-      max-width: 28px;
+    @if $is-widget==1 {
+      @media (max-width: 450px) {
+        min-width: 34px;
+        max-width: 28px;
+      }
     }
   }
 
@@ -218,12 +217,12 @@
       }
 
       &.noUi-connect {
-        background-color: #003F86;
+        background-color: #003f86;
         opacity: 1;
       }
 
       .noUi-background {
-        background-color: #B8B8B8;
+        background-color: #b8b8b8;
         box-shadow: none;
       }
 
@@ -241,5 +240,4 @@
       }
     }
   }
-
 }

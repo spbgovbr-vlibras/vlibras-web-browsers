@@ -6,9 +6,9 @@ const webpackConfig = require('./webpack.config.js');
 
 const options = {
   dest: {
-    webextensions: 'webextensions/app/player',
-    safari: 'safari.safariextension/app/player',
     widget: 'widget/app',
+    chrome: 'webextensions/chrome.extension/app/player',
+    firefox: 'webextensions/firefox.extension/app/player',
   },
 };
 
@@ -44,16 +44,17 @@ function build(target, {
   );
 }
 
-gulp.task('build:webextensions', () => build('webextensions'));
+gulp.task('build:chrome', () => build('chrome'));
+gulp.task('build:firefox', () => build('firefox'));
+
+gulp.task('build:webextensions', gulp.series('build:chrome', 'build:firefox'));
 
 gulp.task('build:widget', () => build('widget', {
   script: 'widget/src/index.js',
   template: 'widget/src/index.html',
 }));
 
-gulp.task('build:safari', () => build('safari'));
-
-gulp.task('build', gulp.series('build:webextensions', 'build:safari', 'build:widget'));
+gulp.task('build', gulp.series('build:webextensions', 'build:widget'));
 
 gulp.task('run:widget', (done) => nodemon({
   script: 'widget/server.js',

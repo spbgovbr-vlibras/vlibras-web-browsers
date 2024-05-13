@@ -1,6 +1,7 @@
 @import '~scss/default-buttons.scss';
 @import '~scss/shared-styles.scss';
 @import '~scss/colors.scss';
+@import '~scss/variables';
 
 $controls_height: 48px;
 
@@ -12,7 +13,7 @@ $controls_height: 48px;
   padding-bottom: 0;
   z-index: 3;
   visibility: hidden;
-  transition: height .5s;
+  transition: height 0.5s;
   background-color: map-get($white, 1);
   border-radius: 10px;
   overflow: hidden;
@@ -23,7 +24,6 @@ $controls_height: 48px;
     button.vp-expanded svg {
       transform: rotate(180deg);
     }
-
   }
 
   .vp-rate-box-content {
@@ -49,7 +49,7 @@ $controls_height: 48px;
 
       button {
         @include rate-button;
-        font-size: .9em;
+        font-size: 0.9em;
 
         svg {
           width: 24px;
@@ -111,7 +111,7 @@ $controls_height: 48px;
       position: absolute;
       bottom: 0;
       height: 0;
-      transition: all .3s ease-out;
+      transition: all 0.3s ease-out;
       overflow: hidden;
 
       .vp-rate-box__suggestion-text {
@@ -169,43 +169,43 @@ $controls_height: 48px;
     }
   }
 
-  @media (max-width: 450px) {
-    &.vp-enabled {
-      visibility: visible;
-      height: 80px;
-    }
-
-    &.vp-expanded {
-      height: 60% !important;
-
-      &.vp-expanded-wiki {
-        height: 70% !important;
+  @if $is-widget==1 {
+    @media (max-width: 450px) {
+      &.vp-enabled {
+        visibility: visible;
+        height: 80px;
       }
-    }
 
-    .vp-rate-box-header {
-      height: 40px;
-    }
+      &.vp-expanded {
+        height: 60% !important;
 
-    .vp-rate-box-content {
-      height: calc(100% - 80px);
-      font-size: 12px;
-      gap: 0;
-
-      .vp-rate-box__gloss {
-
-        .vp-rate-box__suggestion-wiki,
-        .vp-rate-box__suggestion-deny {
-          padding: 0 10px;
-          white-space: normal;
-          min-height: 32px;
-
-          svg {
-            display: none;
-          }
+        &.vp-expanded-wiki {
+          height: 70% !important;
         }
       }
 
+      .vp-rate-box-header {
+        height: 40px;
+      }
+
+      .vp-rate-box-content {
+        height: calc(100% - 80px);
+        font-size: 12px;
+        gap: 0;
+
+        .vp-rate-box__gloss {
+          .vp-rate-box__suggestion-wiki,
+          .vp-rate-box__suggestion-deny {
+            padding: 0 10px;
+            white-space: normal;
+            min-height: 32px;
+
+            svg {
+              display: none;
+            }
+          }
+        }
+      }
     }
   }
 }

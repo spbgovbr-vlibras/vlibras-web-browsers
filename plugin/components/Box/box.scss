@@ -1,4 +1,5 @@
 @import '~scss/colors';
+@import '~scss/variables';
 
 [vp] {
   .vpw-box {
@@ -12,20 +13,25 @@
     color: #ffffff;
     background-size: 100% 100%;
     z-index: 10;
-    border-radius: 10px 10px 0 0;
+
+    @if $is-widget==1 {
+      border-radius: 10px 10px 0 0;
+    }
 
     .vpw-mes {
       position: absolute;
       left: 50%;
       top: 50%;
-      color: #FFF;
+      color: #fff;
       transform: translate(-50%, -50%);
       font-size: 14px;
       font-family: 'Rawline', Verdana, sans-serif !important;
       font-weight: bold;
 
       @media (max-width: 450px) {
-        font-size: 10px;
+        @if $is-widget==1 {
+          font-size: 12px;
+        }
       }
     }
   }

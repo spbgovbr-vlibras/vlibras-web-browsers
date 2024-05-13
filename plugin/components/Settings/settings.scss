@@ -1,7 +1,8 @@
-@import '~scss/colors.scss';
 @import '~scss/default-buttons';
-@import '~scss/shared-styles.scss';
+@import '~scss/shared-styles';
 @import './input-range.scss';
+@import '~scss/variables';
+@import '~scss/colors';
 
 [vp] [vp-settings] {
   position: absolute;
@@ -14,9 +15,11 @@
   overflow: hidden;
   font-size: 14px;
 
-  @media (max-width: 450px) {
-    max-width: 210px;
-    font-size: 12px;
+  @if $is-widget==1 {
+    @media (max-width: 450px) {
+      max-width: 210px;
+      font-size: 12px;
+    }
   }
 
   &.active {
@@ -25,7 +28,6 @@
 
   .vpw-screen-header {
     @include vp-screen__header;
-
   }
 
   .vpw-settings-content {
@@ -49,7 +51,7 @@
       color: map-get($black, 1);
       font-size: 1em;
 
-      &:first-child>div {
+      &:first-child > div {
         display: flex !important;
       }
 
@@ -93,17 +95,17 @@
             line-height: 0;
           }
 
-
           &:hover {
             background-color: map-get($white, 5);
           }
 
-          @media (max-width: 450px) {
-            img {
-              height: 22px;
+          @if $is-widget==1 {
+            @media (max-width: 450px) {
+              img {
+                height: 22px;
+              }
             }
           }
-
         }
       }
 
@@ -112,7 +114,7 @@
         height: 114px;
         margin-top: 16px;
         gap: 16px;
-        outline: 1px solid #D8D9DB !important;
+        outline: 1px solid #d8d9db !important;
         display: grid;
         grid-template-columns: 24px 24px 24px;
         grid-template-rows: 24px 24px 24px;
@@ -138,7 +140,7 @@
             width: 4px;
             height: 4px;
             background-color: map-get($white, 2);
-            opacity: .5;
+            opacity: 0.5;
             display: block;
           }
 
@@ -163,11 +165,13 @@
           }
         }
 
-        @media (max-width: 450px) {
-          width: 114px;
-          height: 88px;
-          gap: 2px;
-          padding: 6px;
+        @if $is-widget==1 {
+          @media (max-width: 450px) {
+            width: 114px;
+            height: 88px;
+            gap: 2px;
+            padding: 6px;
+          }
         }
       }
 
@@ -195,18 +199,17 @@
           cursor: pointer;
         }
       }
-
     }
 
-    @media (max-width: 450px) {
-      padding: 10px;
-      gap: 10px;
+    @if $is-widget==1 {
+      @media (max-width: 450px) {
+        padding: 10px;
+        gap: 10px;
+      }
     }
-
   }
 
   &.active {
     visibility: visible;
   }
-
 }

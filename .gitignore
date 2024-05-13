@@ -1,5 +1,6 @@
 node_modules
 .idea
+.env
 build
 builds/
 .env
@@ -8,7 +9,7 @@ keys
 chrome/app/player
 firefox/data/player
 safari.safariextension/app/player
-webextensions/app/player
+webextensions/*/*/player
 widget/app
 
 *.log

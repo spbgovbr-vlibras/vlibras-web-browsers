@@ -26,7 +26,7 @@ AdditionalOptions.prototype.load = function (element) {
 
   // Add actions
   translatorBtn.onclick = () => this.translator.toggle();
-  helpBtn.onclick = () => this.guide.toggle();
+  helpBtn.onclick = () => this.isWidget && this.guide.toggle();
   clickBlocker.onclick = applyShaker;
 
   window.addEventListener('resize', () => {

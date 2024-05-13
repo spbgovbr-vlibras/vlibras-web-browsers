@@ -84,7 +84,7 @@ Controls.prototype.load = function (element, rateBox) {
   this.element.classList.add('vpw-controls');
   this.element.classList.add('vpw-subtitles');
   this.label = this.element.querySelector('.vpw-selectTextLabel');
-  this.element.classList.add('vpw-selectText');
+  this.element.classList.toggle('vpw-selectText', this.isWidget);
   this.player.avatar = this.player.avatar || 'icaro'
   this.loaded = true;
 
@@ -141,19 +141,21 @@ Controls.prototype.load = function (element, rateBox) {
   }.bind(this)
   );
 
-  fullscreenBtn.addEventListener('click', function () {
-    document.body.classList.toggle('vpw-fullscreen');
-  });
+  if (this.isWidget) {
+    fullscreenBtn.addEventListener('click', function () {
+      document.body.classList.toggle('vpw-fullscreen');
+    });
 
-  // Toggle fullscreen on double click in 'gameContainer'
-  $('[vw] #gameContainer').ondblclick = () => {
-    if (welcomeFinished) document.body.classList.toggle('vpw-fullscreen');
+    // Toggle fullscreen on double click in 'gameContainer'
+    $('[vw] #gameContainer').ondblclick = () => {
+      if (welcomeFinished) document.body.classList.toggle('vpw-fullscreen');
+    }
+
+    // Disable fullscreen on press 'ESC' key
+    document.addEventListener('keyup', e => {
+      if (e.key === 'Escape') removeClass(document.body, 'vpw-fullscreen');
+    })
   }
-
-  // Disable fullscreen on press 'ESC' key
-  document.addEventListener('keyup', e => {
-    if (e.key === 'Escape') removeClass(document.body, 'vpw-fullscreen');
-  })
 
   skipAnimationBtn.onclick = () => handleSkip.bind(this)();
 
@@ -222,7 +224,7 @@ Controls.prototype.load = function (element, rateBox) {
   const interval = setInterval(() => {
     if (this.player.text || guideIsOpen()) {
       removeClass(this.element, 'vpw-selectText');
-      if (!welcomeFinished) removeClass(skipAnimationBtn, 'vp-enabled');
+      if (!welcomeFinished && this.isWidget) removeClass(skipAnimationBtn, 'vp-enabled');
       clearInterval(interval);
     }
   }, 600);

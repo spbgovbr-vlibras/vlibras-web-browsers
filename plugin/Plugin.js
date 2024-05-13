@@ -29,7 +29,7 @@ require('./scss/styles.scss');
 require('./scss/text-capture.scss');
 
 function Plugin(options) {
-  sendAccessCount();
+  sendAccessCount(!options.enableMoveWindow);
 
   this.player = new VLibras.Player({
     // onLoad: options.playWellcome && (() => this.player.playWellcome()),
@@ -82,6 +82,7 @@ function Plugin(options) {
   this.player.load(this.element);
 
   this.player.on('load', () => {
+    if (!this.isWidget) this.element.style.backgroundColor = '#eee';
     if (this.personalization == undefined) this.player.setPersonalization('');
     else this.player.setPersonalization(this.personalization);
 
@@ -103,6 +104,7 @@ function Plugin(options) {
   });
 
   window.addEventListener('vp-widget-close', (event) => {
+    if (!this.isWidget) return;
     this.player.stop();
     this.rateBox.hide();
     this.closeScreen.closeAll();

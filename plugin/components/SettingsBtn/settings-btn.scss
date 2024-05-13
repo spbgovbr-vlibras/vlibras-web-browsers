@@ -22,6 +22,15 @@
       button {
         @include header-button;
       }
+
+      @if $is-widget==0 {
+        .vpw-header-btn-close {
+          cursor: not-allowed !important;
+          box-shadow: none !important;
+          background: none !important;
+          outline: none !important;
+        }
+      }
     }
 
     .vpw-container-dict {
@@ -37,6 +46,5 @@
         gap: 4px;
       }
     }
-
   }
 }

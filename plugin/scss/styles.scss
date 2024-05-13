@@ -1,8 +1,10 @@
+@import '~scss/variables';
+
 $width-set: 300px;
 $height-set: 450px;
 
 @media (max-width: 450px) {
-  div[vw] {
+  div[vp] {
     canvas {
       min-height: unset !important;
       min-width: unset !important;
@@ -21,7 +23,6 @@ $height-set: 450px;
     }
   }
 }
-
 
 #gameContainer {
   position: absolute !important;
@@ -51,7 +52,7 @@ $height-set: 450px;
   }
 }
 
-div[vw] {
+div[vp] {
   font-family: 'Rawline', Verdana, sans-serif !important;
   color: #000;
   line-height: 1.3;
@@ -64,6 +65,10 @@ div[vw] {
   width: 100%;
   position: relative;
 
+  @if $is-widget==0 {
+    background-color: #fff;
+  }
+
   .vp--off {
     display: none !important;
   }
@@ -72,7 +77,6 @@ div[vw] {
     animation: shaker 0.7s ease-in-out infinite !important;
 
     @keyframes shaker {
-
       0%,
       100% {
         transform: translateX(0);

@@ -1,317 +1,331 @@
-@import '~scss/colors';
 @import '~scss/default-buttons';
-@import '~scss/shared-styles.scss';
-$margin_left: 40px;
+@import '~scss/shared-styles';
+@import '~scss/variables';
+@import '~scss/colors';
 
 [vp] {
-    [vp-dictionary] {
-        display: none;
-        position: absolute;
-        top: 40px;
+  [vp-dictionary] {
+    display: none;
+    position: absolute;
+    top: 40px;
+    width: 100%;
+    height: calc(100% - 40px);
+    background-color: white;
+    z-index: 10;
+    justify-content: start;
+    align-items: center;
+    flex-direction: column;
+    grid-auto-flow: 10px;
+    overflow: hidden;
+    font-size: 14px;
+    border-radius: 0 0 10px 10px;
+
+    &.active {
+      display: flex;
+    }
+
+    .vpw-panel {
+      background-color: white;
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      align-items: start;
+      flex-direction: column;
+
+      .vpw-bar {
+        @include vp-screen__header;
+      }
+
+      .vpw-search {
         width: 100%;
-        height: calc(100% - 40px);
-        background-color: white;
-        z-index: 10;
-        justify-content: start;
+        padding: 10px;
+        display: flex;
         align-items: center;
+        justify-content: center;
+
+        input {
+          width: 100%;
+          height: 36px;
+          font-size: 1em;
+          padding: 10px;
+          border-radius: 5px;
+          border: 1px solid #ddd;
+          outline: none;
+
+          &:focus {
+            border: 1px solid #003f86;
+            box-shadow: 0px 0px 15px rgba(86, 154, 255, 0.75);
+          }
+        }
+
+        .vpw-icon {
+          display: flex;
+          position: absolute;
+          align-items: center;
+          justify-content: center;
+          right: 10px;
+          width: 32px;
+          height: 32px;
+
+          svg > * {
+            fill: map-get($black, 1);
+          }
+        }
+      }
+    }
+
+    .vpw-buttons-container {
+      display: flex;
+      align-items: center;
+      flex-direction: row;
+      justify-content: start;
+      gap: 10px;
+      width: 100%;
+      padding: 16px;
+      border-top: 1px solid #ddd;
+
+      .vp-dictionary-btn {
+        background: map-get($white, 1);
+        outline: none;
+        height: 32px;
+        border: 1px solid map-get($white, 4);
+        text-transform: none;
+        border-radius: 50px;
+        color: map-get($white, 2);
+        padding: 0 16px;
+        font-size: 1em;
+        font-weight: 600;
+        cursor: pointer;
+
+        &:hover {
+          border: 1px solid #2470e0;
+        }
+
+        &.vp-selected {
+          background: map-get($blue, 6);
+          color: map-get($blue, 2);
+          border-color: map-get($blue, 2);
+        }
+      }
+    }
+
+    .vpw-dict-container,
+    .vpw-recents-container {
+      display: none;
+      height: 100%;
+      width: 100%;
+      overflow: auto;
+
+      &.vp-enabled {
+        display: flex;
+      }
+
+      ul {
+        margin: 0;
+        padding: 0;
+        text-align: left;
+        list-style-type: none;
+
+        &::-webkit-scrollbar {
+          width: 8px;
+        }
+
+        &::-webkit-scrollbar-track {
+          background-color: #ddd;
+        }
+
+        &::-webkit-scrollbar-thumb {
+          background-color: #bcbcbc;
+        }
+
+        li {
+          font-size: 1em;
+          cursor: pointer;
+          padding: 6px 16px;
+          font-weight: 500;
+          min-width: 300px;
+          color: map-get($black, 1) !important;
+
+          &:hover {
+            background-color: #eaeaea;
+            -webkit-transition: brackground-color 0.3s;
+            transition: brackground-color 0.4s;
+          }
+        }
+      }
+
+      span {
+        display: none;
+        color: #999;
+        width: 100%;
+        padding: 0 10px;
+      }
+
+      &.vp-isEmpty {
+        span {
+          display: inline;
+        }
+      }
+    }
+
+    .vpw-loading-dictionary {
+      display: grid;
+      place-content: center;
+      width: 100%;
+      height: 100%;
+      position: absolute;
+      top: 0;
+      left: 0;
+      background-color: map-get($white, 1);
+      z-index: 10;
+
+      div {
+        display: flex;
+        align-items: center;
+        justify-content: center;
         flex-direction: column;
-        grid-auto-flow: 10px;
-        overflow: hidden;
-        font-size: 14px;
-        border-radius: 0 0 10px 10px;
 
-        &.active {
-            display: flex;
+        .vpw-loading__img {
+          width: 40px;
+          height: 40px;
+          animation: loading 0.5s infinite linear;
         }
 
-        .vpw-panel {
-            background-color: white;
-            width: 100%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            align-items: start;
-            flex-direction: column;
+        @keyframes loading {
+          to {
+            transform: rotate(0deg);
+          }
 
-            .vpw-bar {
-                @include vp-screen__header;
-            }
-
-            .vpw-search {
-                width: 100%;
-                padding: 10px;
-                display: flex;
-                align-items: center;
-                justify-content: center;
-
-                input {
-                    width: 100%;
-                    height: 36px;
-                    font-size: 1em;
-                    padding: 10px;
-                    border-radius: 5px;
-                    border: 1px solid #DDD;
-                    outline: none;
-
-                    &:focus {
-                        border: 1px solid #003f86;
-                        box-shadow: 0px 0px 15px rgba(86, 154, 255, 0.75);
-                    }
-                }
-
-                .vpw-icon {
-                    display: flex;
-                    position: absolute;
-                    align-items: center;
-                    justify-content: center;
-                    right: 10px;
-                    width: 32px;
-                    height: 32px;
-
-                    svg>* {
-                        fill: map-get($black, 1);
-                    }
-                }
-            }
+          from {
+            transform: rotate(-360deg);
+          }
         }
 
-        .vpw-buttons-container {
-            display: flex;
-            align-items: center;
-            flex-direction: row;
-            justify-content: start;
-            gap: 10px;
-            width: 100%;
-            padding: 16px;
-            border-top: 1px solid #DDD;
-
-            .vp-dictionary-btn {
-                background: map-get($white, 1);
-                outline: none;
-                height: 32px;
-                border: 1px solid map-get($white, 4);
-                text-transform: none;
-                border-radius: 50px;
-                color: map-get($white, 2);
-                padding: 0 16px;
-                font-size: 1em;
-                font-weight: 600;
-                cursor: pointer;
-
-                &:hover {
-                    border: 1px solid #2470E0;
-                }
-
-                &.vp-selected {
-                    background: map-get($blue, 6);
-                    color: map-get($blue, 2);
-                    border-color: map-get($blue, 2);
-                }
-            }
+        span {
+          font-size: 1em;
+          font-weight: 700;
+          color: map-get($blue, 4);
+          text-align: center;
         }
+
+        .vpw-dict-msg--error,
+        .vpw-dict-msg--max-request {
+          display: none;
+        }
+
+        button {
+          @include suggestion-btn--secundary;
+
+          margin-top: 10px;
+          font-size: 1em;
+          text-transform: none;
+          max-height: 36px;
+          padding: 0 10px;
+          display: none;
+        }
+      }
+
+      &.vpw-dict--error {
+        div {
+          .vpw-loading__img,
+          .vpw-dict-msg--loading,
+          .vpw-dict-msg--max-request {
+            display: none;
+          }
+
+          .vpw-dict-msg--error {
+            display: inline;
+          }
+
+          button {
+            display: grid;
+          }
+        }
+      }
+
+      &.vpw-dict--max-request {
+        div {
+          .vpw-loading__img,
+          .vpw-dict-msg--loading,
+          .vpw-dict-msg--error {
+            display: none;
+          }
+
+          .vpw-dict-msg--max-request {
+            display: inline;
+          }
+
+          button {
+            display: none;
+          }
+        }
+      }
+    }
+
+    @if $is-widget==1 {
+      @media (max-width: 450px) {
+        font-size: 12px;
 
         .vpw-dict-container,
         .vpw-recents-container {
-            display: none;
-            height: 100%;
-            width: 100%;
-            overflow: auto;
+          ul li {
+            padding: 6px 10px;
+            min-width: 210px;
+          }
 
-            &.vp-enabled {
-                display: flex;
-            }
-
+          .vpw-dict-container,
+          .vpw-recents-container {
             ul {
-                margin: 0;
-                padding: 0;
-                text-align: left;
-                list-style-type: none;
+              li {
+                padding: 6px 10px;
+                min-width: 210px;
+              }
 
-                &::-webkit-scrollbar {
-                    width: 8px;
-                }
-
-                &::-webkit-scrollbar-track {
-                    background-color: #DDD;
-                }
-
-                &::-webkit-scrollbar-thumb {
-                    background-color: #BCBCBC;
-                }
-
-                li {
-                    font-size: 1em;
-                    cursor: pointer;
-                    padding: 6px 16px;
-                    font-weight: 500;
-                    min-width: 300px;
-                    color: map-get($black, 1) !important;
-
-                    &:hover {
-                        background-color: #EAEAEA;
-                        -webkit-transition: brackground-color 0.3s;
-                        transition: brackground-color 0.4s;
-                    }
-                }
-
-            }
-
-            span {
-                display: none;
-                color: #999;
-                width: 100%;
-                padding: 0 10px;
-            }
-
-            &.vp-isEmpty {
-
-                span {
-                    display: inline;
-                }
-            }
-        }
-
-        .vpw-loading-dictionary {
-            display: grid;
-            place-content: center;
-            width: 100%;
-            height: 100%;
-            position: absolute;
-            top: 0;
-            left: 0;
-            background-color: map-get($white, 1);
-            z-index: 10;
-
-            div {
-                display: flex;
-                align-items: center;
-                justify-content: center;
-                flex-direction: column;
-
-                .vpw-loading__img {
-                    width: 40px;
-                    height: 40px;
-                    animation: loading .5s infinite linear;
-                }
-
-                @keyframes loading {
-                    to {
-                        transform: rotate(0deg);
-                    }
-
-                    from {
-                        transform: rotate(-360deg);
-                    }
-                }
-
-                span {
-                    font-size: 1em;
-                    font-weight: 700;
-                    color: map-get($blue, 4);
-                    text-align: center;
-                }
-
-                .vpw-dict-msg--error,
-                .vpw-dict-msg--max-request {
-                    display: none;
-                }
-
-                button {
-                    @include suggestion-btn--secundary;
-
-                    margin-top: 10px;
-                    font-size: 1em;
-                    text-transform: none;
-                    max-height: 36px;
-                    padding: 0 10px;
-                    display: none;
-                }
-            }
-
-            &.vpw-dict--error {
-                div {
-
-                    .vpw-loading__img,
-                    .vpw-dict-msg--loading,
-                    .vpw-dict-msg--max-request {
-                        display: none;
-                    }
-
-                    .vpw-dict-msg--error {
-                        display: inline;
-                    }
-
-                    button {
-                        display: grid;
-                    }
-                }
-            }
-
-            &.vpw-dict--max-request {
-                div {
-
-                    .vpw-loading__img,
-                    .vpw-dict-msg--loading,
-                    .vpw-dict-msg--error {
-                        display: none;
-                    }
-
-                    .vpw-dict-msg--max-request {
-                        display: inline;
-                    }
-
-                    button {
-                        display: none;
-                    }
-                }
-            }
-        }
-
-        @media (max-width: 450px) {
-            font-size: 12px;
-
-            .vpw-dict-container,
-            .vpw-recents-container {
-                ul {
-                    li {
-                        padding: 6px 10px;
-                        min-width: 210px;
-                    }
-
-                    span {
-                        padding: 0 16px;
-                    }
-                }
-
+              span {
+                padding: 0 16px;
+              }
             }
 
             .vpw-loading-dictionary {
-                div {
-                    button {
-                        max-height: 32px;
-                    }
+              div {
+                button {
+                  max-height: 32px;
                 }
+              }
             }
 
             .vpw-panel {
-                .vpw-search {
-                    .vpw-icon {
-                        width: 26px;
-                        height: 26px;
-                    }
+              .vpw-search {
+                .vpw-icon {
+                  width: 26px;
+                  height: 26px;
                 }
+              }
             }
 
-            .vpw-buttons-container {
-                padding: 10px;
+            .buttons-container {
+              padding: 10px;
 
-                .vp-dictionary-btn {
-                    height: 30px;
-                    padding: 0 10px;
-                    height: 26px;
-                }
+              .vp-dictionary-btn {
+                height: 30px;
+                padding: 0 10px;
+                height: 26px;
+              }
             }
+          }
+
+          .vpw-buttons-container {
+            padding: 10px;
+
+            .vp-dictionary-btn {
+              height: 30px;
+              padding: 0 10px;
+              height: 26px;
+            }
+          }
         }
-
+      }
     }
+  }
 }

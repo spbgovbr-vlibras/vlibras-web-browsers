@@ -17,7 +17,7 @@ function Settings(player, opacity, position, options) {
   this.positionUser = widgetPositions.includes(position)
     ? position : 'R';
 
-  enable = options.enableMoveWindow;
+  isWidget = options.enableMoveWindow;
 }
 
 inherits(Settings, EventEmitter);
@@ -58,6 +58,15 @@ Settings.prototype.load = function (element) {
   // Creates regions grid
   const regionHTML = require('./region.html').default;
   let activeRegion = null;
+
+  if (!isWidget) {
+    this.element.querySelector(
+      '.vpw-widget-exclusive-opacity'
+    ).style.display = 'none';
+    this.element.querySelector(
+      '.vpw-widget-exclusive-position'
+    ).style.display = 'none';
+  }
 
   // eslint-disable-next-line guard-for-in
   for (const region of regionsData) {
