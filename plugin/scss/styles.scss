@@ -4,6 +4,11 @@ $width-set: 300px;
 $height-set: 450px;
 
 @media (max-width: 450px) {
+  [vw-plugin-wrapper].active {
+    height: 350px !important;
+    width: 210px !important;
+  }
+
   div[vp] {
     canvas {
       min-height: unset !important;
@@ -15,11 +20,6 @@ $height-set: 450px;
       filter: blur(0px);
       min-height: calc(0.35 * 680px) !important;
       min-width: calc(0.35 * 420px) !important;
-    }
-
-    [vw-plugin-wrapper].active {
-      height: 350px !important;
-      width: 210px !important;
     }
   }
 }
@@ -49,6 +49,17 @@ $height-set: 450px;
     -ms-filter: blur(0px);
     -o-filter: blur(0px);
     filter: blur(0px);
+  }
+
+  @media (max-width: 450px) {
+    > div {
+      top: 40% !important;
+      max-width: 120px !important;
+    }
+
+    & div:last-child {
+      box-shadow: -3px 0 0 0 #222c36 !important;
+    }
   }
 }
 
