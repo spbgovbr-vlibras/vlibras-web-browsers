@@ -112,3 +112,8 @@ $control-height: 68px;
 
 }
 
+@media (max-width: 450px) {
+        body:not(.vpw-fullscreen) .vp-translator-screen__title {
+          font-size: 12px !important;
+        }
+}

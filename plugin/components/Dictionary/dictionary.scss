@@ -84,6 +84,12 @@
       width: 100%;
       padding: 16px;
       border-top: 1px solid #ddd;
+      position: relative;
+
+      @media (max-width: 450px) {
+        padding: 10px;
+        gap: 6px;
+      }
 
       .vp-dictionary-btn {
         background: map-get($white, 1);
@@ -159,7 +165,7 @@
         display: none;
         color: #999;
         width: 100%;
-        padding: 0 10px;
+        padding: 0 16px;
       }
 
       &.vp-isEmpty {
@@ -272,6 +278,10 @@
           ul li {
             padding: 6px 10px;
             min-width: 210px;
+          }
+
+          span {
+            padding: 0 10px;
           }
 
           .vpw-dict-container,
