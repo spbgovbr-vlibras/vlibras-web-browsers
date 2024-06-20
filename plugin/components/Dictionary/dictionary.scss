@@ -10,7 +10,7 @@
     top: 40px;
     width: 100%;
     height: calc(100% - 40px);
-    background-color: white;
+    background-color: var(--vp-background);
     z-index: 10;
     justify-content: start;
     align-items: center;
@@ -25,7 +25,6 @@
     }
 
     .vpw-panel {
-      background-color: white;
       width: 100%;
       display: flex;
       align-items: center;
@@ -50,7 +49,7 @@
           font-size: 1em;
           padding: 10px;
           border-radius: 5px;
-          border: 1px solid #ddd;
+          border: 1px solid var(--vp-border);
           outline: none;
 
           &:focus {
@@ -69,7 +68,7 @@
           height: 32px;
 
           svg > * {
-            fill: map-get($black, 1);
+            fill: var(--vp-muted);
           }
         }
       }
@@ -83,7 +82,7 @@
       gap: 10px;
       width: 100%;
       padding: 16px;
-      border-top: 1px solid #ddd;
+      border-top: 1px solid var(--vp-border);
       position: relative;
 
       @media (max-width: 450px) {
@@ -92,32 +91,35 @@
       }
 
       .vp-dictionary-btn {
-        background: map-get($white, 1);
+        background: var(--vp-background);
         outline: none;
         height: 32px;
-        border: 1px solid map-get($white, 4);
+        border: 1px solid var(--vp-border);
         text-transform: none;
         border-radius: 50px;
-        color: map-get($white, 2);
+        color: var(--vp-muted);
         padding: 0 16px;
-        font-size: 1em;
+        font-size: 12px;
         font-weight: 600;
         cursor: pointer;
 
         &:hover {
-          border: 1px solid #2470e0;
+          border: 1px solid var(--vp-primary-accent);
+          color: var(--vp-primary-accent);
         }
 
         &.vp-selected {
-          background: map-get($blue, 6);
-          color: map-get($blue, 2);
-          border-color: map-get($blue, 2);
+          background: var(--vp-primary-selected);
+          color: var(--vp-primary-accent);
+          border-color: var(--vp-primary-accent);
         }
       }
     }
 
     .vpw-dict-container,
     .vpw-recents-container {
+      @include vp-scrollbar;
+
       display: none;
       height: 100%;
       width: 100%;
@@ -133,28 +135,16 @@
         text-align: left;
         list-style-type: none;
 
-        &::-webkit-scrollbar {
-          width: 8px;
-        }
-
-        &::-webkit-scrollbar-track {
-          background-color: #ddd;
-        }
-
-        &::-webkit-scrollbar-thumb {
-          background-color: #bcbcbc;
-        }
-
         li {
           font-size: 1em;
           cursor: pointer;
           padding: 6px 16px;
           font-weight: 500;
           min-width: 300px;
-          color: map-get($black, 1) !important;
+          color: var(--vp-foreground) !important;
 
           &:hover {
-            background-color: #eaeaea;
+            background-color: var(--vp-accent);
             -webkit-transition: brackground-color 0.3s;
             transition: brackground-color 0.4s;
           }
@@ -183,7 +173,7 @@
       position: absolute;
       top: 0;
       left: 0;
-      background-color: map-get($white, 1);
+      background-color: var(--vp-background);
       z-index: 10;
 
       div {
@@ -210,8 +200,8 @@
 
         span {
           font-size: 1em;
-          font-weight: 700;
-          color: map-get($blue, 4);
+          font-weight: 600;
+          color: var(--vp-button-text-outline);
           text-align: center;
         }
 

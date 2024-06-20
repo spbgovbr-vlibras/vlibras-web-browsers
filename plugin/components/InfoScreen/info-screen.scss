@@ -10,7 +10,7 @@
     width: 100%;
     height: calc(100% - 40px);
     z-index: 10;
-    background-color: white;
+    background-color: var(--vp-background);
     color: black;
     font-family: 'Rawline', Verdana, sans-serif !important;
     align-items: center;
@@ -53,7 +53,7 @@
         font-weight: 600;
         font-size: 1em;
         margin-bottom: 10px !important;
-        color: map-get($black, 1) !important;
+        color: var(--vp-foreground) !important;
 
         @if $is-widget==0 {
           margin-top: 0 !important;
@@ -61,9 +61,8 @@
       }
 
       .vpw-info__section-desc {
-        color: #555;
+        color: var(--vp-subtitle);
         font-style: normal;
-        font-weight: 500;
         font-size: 1em;
         line-height: 1.5;
       }

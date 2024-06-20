@@ -1,9 +1,12 @@
 @import '~scss/colors.scss';
 @import '~scss/variables.scss';
 @import '~scss/default-buttons';
+@import '~scss/shared-styles';
 
 [vp] {
   .vpw-regions-container {
+    @include vp-scrollbar;
+
     overflow-y: scroll;
     height: calc(100% - 48px);
     display: none;
@@ -17,13 +20,9 @@
     width: 100%;
     position: absolute;
     top: 48px;
-    background-color: map-get($white, 1);
+    background-color: var(--vp-background);
     z-index: 10;
     font-size: 14px;
-
-    // &::-webkit-scrollbar {
-    //     width: 0;
-    // }
 
     .vpw-region {
       display: flex;
@@ -39,7 +38,7 @@
       position: relative;
 
       &:hover {
-        background-color: map-get($white, 5);
+        background-color: var(--vp-accent);
       }
 
       img {
@@ -49,8 +48,8 @@
 
       .vpw-name {
         font-size: 1em;
-        font-weight: 600;
-        color: map-get($blue, 4);
+        font-weight: 500;
+        color: var(--vp-foreground);
         display: inline-flex;
         gap: 4px;
       }
@@ -60,7 +59,7 @@
         width: 18px;
         height: 18px;
         border-radius: 18px;
-        outline: 1px solid map-get($white, 2) !important;
+        outline: 1px solid var(--vp-checkbox-border) !important;
         outline-offset: -1px;
         right: 16px;
         display: flex;
@@ -73,7 +72,7 @@
           content: '';
           width: 10px;
           height: 10px;
-          background-color: map-get($blue, 3);
+          background-color: var(--vp-primary-accent);
           visibility: hidden;
         }
       }
@@ -83,7 +82,7 @@
         top: 6px;
 
         .vpw-radio {
-          outline-color: map-get($blue, 3) !important;
+          outline-color: var(--vp-primary-accent) !important;
           outline-width: 2px;
 
           &::after {

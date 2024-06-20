@@ -13,7 +13,7 @@ $vp-shadow: 0px 0px 15px rgba(0, 0, 0, 0.2);
 @mixin vp-header {
   width: 100%;
   height: 48px;
-  border-bottom: 1px solid map-get($white, 4);
+  border-bottom: 1px solid var(--vp-border);
   display: flex;
   padding: 16px;
   font-size: 14px;
@@ -23,14 +23,14 @@ $vp-shadow: 0px 0px 15px rgba(0, 0, 0, 0.2);
   span {
     font-size: 1em;
     font-weight: 600;
-    color: map-get($black, 1);
+    color: var(--vp-foreground);
   }
 
   button {
     @include control-button;
 
     svg > * {
-      fill: map-get($black, 1);
+      fill: var(--vp-foreground);
     }
 
     transition: transform 0.3s;
@@ -47,7 +47,6 @@ $vp-shadow: 0px 0px 15px rgba(0, 0, 0, 0.2);
 
 @mixin vp-screen__header {
   width: 100%;
-  background-color: map-get($white, 1);
   padding: 0 16px;
   height: 48px;
   min-height: 48px;
@@ -56,19 +55,19 @@ $vp-shadow: 0px 0px 15px rgba(0, 0, 0, 0.2);
   font-size: 16px;
   justify-content: start;
   gap: 10px;
-  border-bottom: 1px solid map-get($white, 4);
+  border-bottom: 1px solid var(--vp-border);
 
   button {
     @include control-button;
 
     svg * {
-      fill: map-get($black, 1);
+      fill: var(--vp-foreground);
     }
   }
 
   span {
     font-weight: 600;
-    color: map-get($black, 1);
+    color: var(--vp-foreground);
     font-size: 1em;
   }
 
@@ -92,7 +91,7 @@ $vp-shadow: 0px 0px 15px rgba(0, 0, 0, 0.2);
   font-weight: 700;
   font-size: 1em;
   height: 20px;
-  color: map-get($black, 1);
+  color: var(--vp-foreground);
 }
 
 @mixin vp-screen__user-textarea {
@@ -107,18 +106,18 @@ $vp-shadow: 0px 0px 15px rgba(0, 0, 0, 0.2);
     padding: 10px;
     border-radius: 6px;
     outline: none !important;
-    border: 1px solid map-get($white, 4);
+    border: 1px solid var(--vp-border);
     font-size: 1em !important;
     resize: none;
     width: 100%;
     height: 100%;
 
     &:hover {
-      border-color: map-get($white, 2);
+      border-color: var(--vp-accent);
     }
 
     &:focus {
-      border: 1.6px solid map-get($blue, 3);
+      border: 1.6px solid var(--vp-primary-accent);
       box-shadow: 0px 0px 15px rgba(86, 154, 255, 0.75);
     }
   }
@@ -132,4 +131,32 @@ $vp-shadow: 0px 0px 15px rgba(0, 0, 0, 0.2);
   -ms-overflow-style: none;
   scrollbar-width: none;
   scrollbar-color: transparent transparent;
+}
+
+@mixin vp-scrollbar {
+  scrollbar-color: var(--vp-primary) var(--vp-background);
+
+  &::-webkit-scrollbar-track {
+    background: var(--vp-background) !important;
+  }
+
+  &::-webkit-scrollbar-thumb:hover {
+    background: var(--vp-accent);
+  }
+
+  &::-moz-scrollbar-thumb {
+    background: var(--vp-background);
+  }
+
+  &::-moz-scrollbar-track {
+    background: var(--vp-primary);
+  }
+
+  &::-moz-scrollbar-thumb:hover {
+    background: var(--vp-accent);
+  }
+
+  @media (max-width: 450px) {
+    scrollbar-width: thin !important;
+  }
 }

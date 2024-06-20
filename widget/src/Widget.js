@@ -97,7 +97,7 @@ module.exports = function Widget(...args) {
     window.addEventListener('vw-change-opacity', (event) => {
       wrapper.style.background = `rgba(235,235,235, ${event.detail})`;
     });
-
+    
     // Apply Widget default position
     if (availablePositions.includes(position)) {
       window.dispatchEvent(

@@ -21,11 +21,14 @@ const url = require('url-join');
 const { REVIEW_URL } = require('~constants');
 const { ALERT_MESSAGES } = require('./alert-messages');
 const { sendAccessCount } = require('./services');
-const { formatGlossWithU200E } = require('./components/AdditionalOptions/Guide/utils');
+const {
+  formatGlossWithU200E,
+} = require('./components/AdditionalOptions/Guide/utils');
 
 require('./scss/reset.scss');
 require('./scss/global.scss');
 require('./scss/styles.scss');
+require('./scss/theme.scss');
 require('./scss/text-capture.scss');
 
 function Plugin(options) {
@@ -42,6 +45,7 @@ function Plugin(options) {
 
   this.player.avatar = options.avatar;
   this.isWidget = options.enableMoveWindow;
+  this.loadingRef;
 
   this.opacity = options.opacity;
   this.wrapper = options.wrapper;
@@ -51,33 +55,75 @@ function Plugin(options) {
   this.personalization = options.personalization;
   this.element = document.querySelector('[vp]');
 
-  this.dictionary = new Dictionary(this.player, this.isWidget);
-  this.controls = new Controls(this.player, this.dictionary, this.isWidget);
-  this.Box = new Box();
-  this.info = new InfoScreen(this.Box);
-  this.settings = new Settings(this.player, this.opacity, this.position, options);
+  {
+    this.dictionary = new Dictionary(this.player, this.isWidget);
+    this.controls = new Controls(this.player, this.dictionary, this.isWidget);
+    this.Box = new Box();
+    this.info = new InfoScreen(this.Box);
+    this.messageBox = new MessageBox();
+    this.suggestionScreen = new SuggestionScreen(this.player);
+    this.guide = this.isWidget && new Guide(this.player);
+    this.translator = new Translator(this.player);
+    this.ChangeAvatar = new ChangeAvatar(this.player, this.controls);
 
-  this.messageBox = new MessageBox();
-  this.suggestionScreen = new SuggestionScreen(this.player);
-  this.guide = this.isWidget && new Guide(this.player);
-  this.translator = new Translator(this.player);
-  this.rateBox = new RateBox(this.messageBox, this.suggestionScreen, this.player);
-  this.ChangeAvatar = new ChangeAvatar(this.player, this.controls);
-  this.additionalOptions = new AdditionalOptions(this.player, this.translator, this.guide, this.isWidget);
-  this.closeScreen = new CloseScreen(this.dictionary, this.info, this.settings, this.translator);
-  this.settingsBtn = new SettingsBtn(this.player, this.settings, this.dictionary, this.info, this.translator, options);
+    this.settings = new Settings(
+      this.player,
+      this.opacity,
+      this.position,
+      options
+    );
 
-  this.loadingRef = null;
+    this.rateBox = new RateBox(
+      this.messageBox,
+      this.suggestionScreen,
+      this.player
+    );
 
-  this.mainGuideScreen = this.isWidget && new MainGuideScreen(this.guide, this.player, this.closeScreen);
-  this.additionalOptions.load(this.element.querySelector('[vp-additional-options]'));
+    this.additionalOptions = new AdditionalOptions(
+      this.player,
+      this.translator,
+      this.guide,
+      this.isWidget
+    );
+
+    this.closeScreen = new CloseScreen(
+      this.dictionary,
+      this.info,
+      this.settings,
+      this.translator
+    );
+
+    this.settingsBtn = new SettingsBtn(
+      this.player,
+      this.settings,
+      this.dictionary,
+      this.info,
+      this.translator,
+      options
+    );
+
+    if (this.isWidget) {
+      this.mainGuideScreen = new MainGuideScreen(
+        this.guide,
+        this.player,
+        this.closeScreen
+      );
+    }
+  }
+
+  this.additionalOptions.load(
+    this.element.querySelector('[vp-additional-options]')
+  );
   this.messageBox.load(this.element.querySelector('[vp-message-box]'));
   this.rateBox.load(this.element.querySelector('[vp-rate-box]'));
-  this.suggestionScreen.load(this.element.querySelector('[vp-suggestion-screen]'));
+  this.suggestionScreen.load(
+    this.element.querySelector('[vp-suggestion-screen]')
+  );
   this.translator.load(this.element.querySelector('[vp-translator-screen]'));
 
   this.guide && this.guide.load(createGuideContainer());
-  this.mainGuideScreen && this.mainGuideScreen.load(document.querySelector('[vp-main-guide-screen]'))
+  this.mainGuideScreen &&
+    this.mainGuideScreen.load(document.querySelector('[vp-main-guide-screen]'));
 
   this.player.load(this.element);
 
@@ -87,11 +133,20 @@ function Plugin(options) {
     else this.player.setPersonalization(this.personalization);
 
     this.player.toggleSubtitle(false);
-    this.controls.load(this.element.querySelector('[vp-controls]'), this.rateBox);
+    this.controls.load(
+      this.element.querySelector('[vp-controls]'),
+      this.rateBox
+    );
     this.Box.load(this.element.querySelector('[vp-box]'));
 
-    this.settingsBtn.load(this.element.querySelector('[vp-box]').querySelector('[settings-btn]'),
-      () => this.dictionary.load(this.element.querySelector('[vp-dictionary]'), this.closeScreen, this.mainGuideScreen),
+    this.settingsBtn.load(
+      this.element.querySelector('[vp-box]').querySelector('[settings-btn]'),
+      () =>
+        this.dictionary.load(
+          this.element.querySelector('[vp-dictionary]'),
+          this.closeScreen,
+          this.mainGuideScreen
+        ),
       this.element.querySelector('[vp-dictionary]'),
       this.rootPath
     );
@@ -117,7 +172,10 @@ function Plugin(options) {
     this.ChangeAvatar.hide();
     this.additionalOptions.hide();
     this.controls.setProgress();
-    this.loadingRef = this.messageBox.show('info', ALERT_MESSAGES.TRANSLATING_TEXT);
+    this.loadingRef = this.messageBox.show(
+      'info',
+      ALERT_MESSAGES.TRANSLATING_TEXT
+    );
     this.closeScreen.closeAll();
   });
 
@@ -165,7 +223,11 @@ function Plugin(options) {
           this.messageBox.show('warning', ALERT_MESSAGES.COMPATIBILITY_ERROR);
           break;
         case 'translation_error':
-          this.messageBox.show('warning', ALERT_MESSAGES.TRANSLATION_ERROR, 3000);
+          this.messageBox.show(
+            'warning',
+            ALERT_MESSAGES.TRANSLATION_ERROR,
+            3000
+          );
           break;
         case 'internal_error':
           this.messageBox.show('warning', ALERT_MESSAGES.INTERNAL_ERROR, 3000);
@@ -212,20 +274,25 @@ Plugin.prototype.sendReview = function (rate, review) {
     // Thanks message
     const oldGloss = this.player.gloss;
     const boundToggleSubtitle = toggleSubtitle.bind(this);
-    const skipButton = this.controls.element.querySelector('.vpw-skip-welcome-message');
-    const subtitleIsActived = this.controls.element.querySelector('.actived-subtitle');
+    const skipButton = this.controls.element.querySelector(
+      '.vpw-skip-welcome-message'
+    );
+    const subtitleIsActived =
+      this.controls.element.querySelector('.actived-subtitle');
 
-    this.player.play(formatGlossWithU200E('AGRADECER'), { isEnabledStats: false });
+    this.player.play(formatGlossWithU200E('AGRADECER'), {
+      isEnabledStats: false,
+    });
     this.player.gloss = undefined;
 
     skipButton.classList.add('vp-disabled');
     subtitleIsActived && this.player.toggleSubtitle();
-    this.player.addListener("gloss:end", boundToggleSubtitle);
+    this.player.addListener('gloss:end', boundToggleSubtitle);
 
     function toggleSubtitle() {
       skipButton.classList.remove('vp-disabled');
       subtitleIsActived && this.player.toggleSubtitle();
-      this.player.removeListener("gloss:end", boundToggleSubtitle);
+      this.player.removeListener('gloss:end', boundToggleSubtitle);
       this.player.gloss = oldGloss;
     }
   };
@@ -251,18 +318,26 @@ Plugin.prototype.loadFonts = function () {
     { style: 'normal', weight: 700, url: 'assets/fonts/rawline-700.woff' },
   ];
 
-  fontVariations.forEach(variation => {
-    const font = new FontFace('rawline', `url(${this.buildAbsolutePath(variation.url)})`, {
-      style: variation.style,
-      weight: variation.weight,
-    });
+  fontVariations.forEach((variation) => {
+    const font = new FontFace(
+      'rawline',
+      `url(${this.buildAbsolutePath(variation.url)})`,
+      {
+        style: variation.style,
+        weight: variation.weight,
+      }
+    );
 
-    font.load()
+    font
+      .load()
       .then((loaded) => document.fonts.add(loaded))
       .catch((error) => {
-        console.error(`Error loading Rawline font ${variation.style} ${variation.weight}:`, error);
+        console.error(
+          `Error loading Rawline font ${variation.style} ${variation.weight}:`,
+          error
+        );
       });
   });
-}
+};
 
 module.exports = Plugin;

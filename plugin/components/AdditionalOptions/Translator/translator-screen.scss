@@ -5,115 +5,114 @@
 $control-height: 68px;
 
 [vp] [vp-translator-screen] {
-    overflow: hidden;
-    position: absolute;
-    right: 0;
-    left: 0;
-    height: 0;
-    bottom: 0;
-    width: 100%;
-    padding: 0;
-    background-color: white;
-    z-index: 5;
-    font-size: 14px;
-    border-radius: 10px;
-    transition: all .3s ease;
-    max-height: 600px;
+  overflow: hidden;
+  position: absolute;
+  right: 0;
+  left: 0;
+  height: 0;
+  bottom: 0;
+  width: 100%;
+  padding: 0;
+  background-color: var(--vp-background);
+  z-index: 5;
+  font-size: 14px;
+  border-radius: 10px;
+  transition: all 0.3s ease;
+  max-height: 600px;
 
-    .vp-translator-screen-header {
-        @include vp-header;
+  .vp-translator-screen-header {
+    @include vp-header;
+  }
+
+  .vp-translator-screen-content {
+    display: flex;
+    align-items: center;
+    justify-content: start;
+    flex-direction: column;
+    gap: 10px;
+    width: 100%;
+    height: calc(100% - 96px);
+    border-bottom: 1px solid var(--vp-border);
+    padding: 16px;
+
+    .vp-translator-screen__title {
+      @include vp-screen__title;
     }
+
+    .vp-user-textarea-container {
+      @include vp-screen__user-textarea;
+
+      .vp-clear-textarea {
+        @include reset;
+        @include vp-flex-center;
+
+        transition: all 0.3s ease;
+        padding: 0 8px 2px 8px;
+        border-radius: 20px;
+        position: absolute;
+        cursor: pointer;
+        height: 20px;
+        right: 0;
+        top: -30px;
+        opacity: 0.7;
+
+        font-weight: 600;
+        font-size: 0.9em;
+        color: #ec2d2d;
+
+        &:hover {
+          opacity: 1;
+        }
+
+        &:disabled {
+          display: none;
+        }
+      }
+    }
+
+    .vp-translator-buttons-container {
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      gap: 10px;
+
+      button {
+        width: 100% !important;
+      }
+
+      .vp-play-gloss-button {
+        @include suggestion-btn--primary;
+      }
+    }
+  }
+
+  &.vp-enabled {
+    height: calc(100% - 60px);
+  }
+
+  @media (max-width: 450px) {
+    font-size: 14px;
 
     .vp-translator-screen-content {
-        display: flex;
-        align-items: center;
-        justify-content: start;
-        flex-direction: column;
-        gap: 10px;
-        width: 100%;
-        height: calc(100% - 96px);
-        border-bottom: 1px solid map-get($white, 4);
-        padding: 16px;
+      gap: 6px;
+      padding: 10px;
+      height: calc(100% - 80px);
 
-        .vp-translator-screen__title {
-            @include vp-screen__title;
-        }
+      .vp-user-textarea-container {
+        height: 120px;
+      }
 
-        .vp-user-textarea-container {
-            @include vp-screen__user-textarea;
-
-            .vp-clear-textarea {
-                @include reset;
-                @include vp-flex-center;
-                
-                transition: all .3s ease;
-                padding: 0 8px 2px 8px;
-                border-radius: 20px;
-                position: absolute;
-                cursor: pointer;
-                height: 20px;
-                right: 0;
-                top: -30px;
-                opacity: .7;
-
-                font-weight: 600;
-                font-size: .9em;
-                color: #ec2d2d;
-
-                &:hover {
-                    opacity: 1;
-                }
-
-                &:disabled {
-                    display: none;
-                }
-            }
-        }
-
-        .vp-translator-buttons-container {
-            width: 100%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            flex-direction: column;
-            gap: 10px;
-
-            button {
-                width: 100% !important;
-            }
-
-            .vp-play-gloss-button {
-                @include suggestion-btn--primary;
-            }
-        }
+      .vp-translator-buttons-container {
+        gap: 6px;
+      }
     }
-
-    &.vp-enabled {
-        height: calc(100% - 60px);
-    }
-
-    @media (max-width: 450px) {
-        font-size: 14px;
-
-        .vp-translator-screen-content {
-            gap: 6px;
-            padding: 10px;
-            height: calc(100% - 80px);
-
-            .vp-user-textarea-container {
-                height: 120px;
-            }
-
-            .vp-translator-buttons-container {
-                gap: 6px;
-            }
-        }
-    }
-
+  }
 }
 
 @media (max-width: 450px) {
-        body:not(.vpw-fullscreen) .vp-translator-screen__title {
-          font-size: 12px !important;
-        }
+  body:not(.vpw-fullscreen) .vp-translator-screen__title {
+    font-size: 12px !important;
+  }
 }

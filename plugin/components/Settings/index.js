@@ -7,15 +7,14 @@ require('./regionalism.scss');
 
 const regionsData = require('./data');
 const { backIcon, positionIcons } = require('~icons');
-const { setWidgetPosition, $ } = require('~utils');
+const { setWidgetPosition, removeClass, addClass, $ } = require('~utils');
 
 function Settings(player, opacity, position, options) {
   this.visible = false;
   this.player = player;
   this.opacityUser = isNaN(opacity) ? 100 : opacity * 100;
   this.button = null;
-  this.positionUser = widgetPositions.includes(position)
-    ? position : 'R';
+  this.positionUser = widgetPositions.includes(position) ? position : 'R';
 
   isWidget = options.enableMoveWindow;
 }
@@ -26,46 +25,46 @@ Settings.prototype.load = function (element) {
   this.element = element;
   this.element.innerHTML = settingsTpl;
   this.element.classList.add('vpw-settings');
-  this.localism = this.element.querySelector('.vpw-regions-container');
+  this.localism = $('.vpw-regions-container', this.element);
   this.toggleHeader = toggleHeader;
-  this.button = document.querySelector('.vpw-header-btn-settings');
+  this.button = $('.vpw-header-btn-settings');
+
+  const toggleThemeButton = $('#vw-toggle-theme', this.element);
+  toggleThemeButton.onclick = toggleTheme;
 
   // Header element
-  const header = this.element.querySelector('.vpw-screen-header span');
+  const headerTitle = $('.vpw-screen-header span', this.element);
 
   // Config back button
-  const backButton = this.element.querySelector('.vpw-screen-header button');
+  const backButton = $('.vpw-screen-header button', this.element);
   backButton.innerHTML = backIcon;
   backButton.onclick = handleReturn.bind(this);
 
   // Access regionalism button
-  const regionalismCont = this.element.querySelector('.vpw-option__regionalism div');
-  const regionalismBtn = this.element.querySelector('.vpw-selected-region');
+  const regionalismCont = $('.vpw-option__regionalism div', this.element);
+  const regionalismBtn = $('.vpw-selected-region', this.element);
   regionalismCont.onclick = accessRegionalism.bind(this);
   regionalismBtn.onclick = accessRegionalism.bind(this);
-  setRegion.bind(this)({ path: 'BR', flag: 'assets/brazil.png', });
+  setRegion.bind(this)({ path: 'BR', flag: 'assets/brazil.png' });
 
   // Opacity option
-  const opacityInput = this.element.querySelector('.vpw-opacity-range input');
-  const opacitySlider = this.element.querySelector('.vpw-opacity-range vpw-slider');
-  const opacityValue = this.element.querySelector('.vpw-opacity-value');
+  const opacityInput = $('.vpw-opacity-range input', this.element);
+  const opacitySlider = $('.vpw-opacity-range vpw-slider', this.element);
+  const opacityValue = $('.vpw-opacity-value', this.element);
+
   opacityInput.oninput = (e) => setOpacity(e.target.value);
   setOpacity(this.opacityUser);
 
   // Position option box
-  const positionBox = this.element.querySelector('.vpw-position-box');
+  const positionBox = $('.vpw-position-box', this.element);
 
   // Creates regions grid
   const regionHTML = require('./region.html').default;
   let activeRegion = null;
 
   if (!isWidget) {
-    this.element.querySelector(
-      '.vpw-widget-exclusive-opacity'
-    ).style.display = 'none';
-    this.element.querySelector(
-      '.vpw-widget-exclusive-position'
-    ).style.display = 'none';
+    $('.vpw-widget-exclusive-opacity', this.element).style.display = 'none';
+    $('.vpw-widget-exclusive-position', this.element).style.display = 'none';
   }
 
   // eslint-disable-next-line guard-for-in
@@ -80,9 +79,9 @@ Settings.prototype.load = function (element) {
     }
 
     $('.vpw-flag', element).setAttribute('data-src', region.flag);
-    $('.vpw-name', element).innerHTML = 
+    $('.vpw-name', element).innerHTML =
       region.path === 'BR'
-        ? region.name 
+        ? region.name
         : `${region.name}<span> - ${region.path}</span>`;
 
     element.onclick = () => {
@@ -95,7 +94,7 @@ Settings.prototype.load = function (element) {
       setRegion.bind(this)(region);
 
       handleReturn.bind(this)();
-    }
+    };
     this.localism.appendChild(element);
   }
 
@@ -103,31 +102,34 @@ Settings.prototype.load = function (element) {
   for (const position of widgetPositions) {
     const span = document.createElement('span');
 
-    if (position) span.innerHTML =
-      positionIcons[widgetPositions.indexOf(position)];
+    if (position)
+      span.innerHTML = positionIcons[widgetPositions.indexOf(position)];
 
-    if (position === this.positionUser) span.classList.add('vpw-select-pos');
+    if (position === this.positionUser) addClass(span, 'vpw-select-pos');
 
     positionBox.appendChild(span);
 
     if (!position) span.style.visibility = 'hidden';
-    else span.onclick = () => {
-      setWidgetPosition(position);
-
-      positionBox.querySelector('.vpw-select-pos')
-        .classList.remove('vpw-select-pos');
-
-      span.classList.add('vpw-select-pos');
+    else {
+      span.onclick = () => {
+        setWidgetPosition(position);
+        removeClass($('.vpw-select-pos', positionBox), 'vpw-select-pos');
+        addClass(span, 'vpw-select-pos', span);
+      };
     }
   }
 
   // Elements to apply blur filter
-  this.gameContainer = document.querySelector('div#gameContainer');
-  this.controlsElement = document.querySelector('.vpw-controls');
+  this.gameContainer = $('div#gameContainer');
+  this.controlsElement = $('.vpw-controls');
+
+  function toggleTheme() {
+    $('[vp]').classList.toggle('vp-dark-theme');
+  }
 
   function setOpacity(opacity) {
     const value = Number(opacity > 100 ? 100 : opacity < 0 ? 0 : opacity);
-    const percent = (value < 25 && !isFullscreen()) ? value + 5 : value;
+    const percent = value < 25 && !isFullscreen() ? value + 5 : value;
 
     opacityInput.value = opacity;
     opacitySlider.style.width = percent + '%';
@@ -145,7 +147,8 @@ Settings.prototype.load = function (element) {
   function setRegion(region) {
     regionalismBtn.querySelector('span').innerHTML = region.path;
     regionalismBtn.querySelector('img').src = window.plugin.rootPath
-      ? window.plugin.rootPath + '/' + region.flag : region.flag;
+      ? window.plugin.rootPath + '/' + region.flag
+      : region.flag;
 
     this.player.setRegion(region.path);
   }
@@ -155,28 +158,30 @@ Settings.prototype.load = function (element) {
     toggleHeader();
   }
 
-  const panelIsOpen = function () {
+  const isRegionalismOpen = () => {
     return this.localism.classList.contains('active');
-  }.bind(this);
+  };
 
   function handleReturn() {
-    if (panelIsOpen()) {
+    if (isRegionalismOpen()) {
       this.localism.scrollTo(0, 0);
       this.localism.classList.remove('active');
     } else {
       this.hide();
-      document.querySelector('.vpw-header-btn-settings')
-        .classList.remove('selected');
+      $('.vpw-header-btn-settings').classList.remove('selected');
     }
     toggleHeader();
   }
 
   function toggleHeader() {
-    header.innerHTML = panelIsOpen()
-      ? 'Regionalismo'
-      : 'Configurações';
+    if (isRegionalismOpen()) {
+      headerTitle.innerHTML = 'Regionalismo';
+      toggleThemeButton.style.display = 'none';
+    } else {
+      headerTitle.innerHTML = 'Configurações';
+      toggleThemeButton.style.display = 'flex';
+    }
   }
-
 };
 
 Settings.prototype.toggle = function () {
@@ -213,9 +218,4 @@ Settings.prototype.show = function () {
 
 module.exports = Settings;
 
-
-const widgetPositions = [
-  'TL', 'T', 'TR',
-  'L', null, 'R',
-  'BL', 'B', 'BR'
-]
+const widgetPositions = ['TL', 'T', 'TR', 'L', null, 'R', 'BL', 'B', 'BR'];

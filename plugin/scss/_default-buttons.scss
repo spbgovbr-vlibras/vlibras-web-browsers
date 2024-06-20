@@ -91,7 +91,7 @@
     background-color: map-get($blue, 4);
 
     &svg > * {
-      fill: map-get($blue, 3);
+      fill: var(--vp-primary-accent);
     }
   }
 
@@ -102,7 +102,7 @@
   }
 
   &:disabled {
-    background-color: map-get($white, 2);
+    background-color: var(--vp-accent);
     cursor: not-allowed;
     opacity: 0.3;
   }
@@ -116,8 +116,8 @@
   @include default-button;
 
   position: relative;
-  background-color: map-get($white, 1);
-  color: map-get($blue, 4);
+  background-color: var(--vp-background);
+  color: var(--vp-foreground);
 
   span {
     @include centralize;
@@ -129,7 +129,7 @@
     position: absolute;
 
     * {
-      fill: map-get($blue, 4);
+      fill: var(--vp-secondary);
     }
   }
 
@@ -138,11 +138,11 @@
   }
 
   &:hover {
-    background-color: map-get($white, 5);
+    background-color: var(--vp-accent);
   }
 
   &:active {
-    background-color: map -get($white, 1);
+    background-color: var(--vp-accent);
 
     &svg > * {
       fill: map-get($blue, 4);
@@ -150,8 +150,8 @@
   }
 
   &:focus {
-    background-color: map-get($white, 1);
-    outline-color: map-get($blue, 3) !important;
+    background-color: var(--vp-background);
+    outline-color: var(--vp-primary-accent) !important;
   }
 
   &:disabled {
@@ -163,7 +163,7 @@
     background-color: map-get($blue, 2);
 
     &:hover {
-      background-color: map-get($blue, 3);
+      background-color: var(--vp-primary-accent);
     }
 
     svg > * {
@@ -181,13 +181,11 @@
   flex-direction: column;
   padding: 40px 12px 12px 12px;
   border-radius: 4px;
-  color: map-get($white, 2);
   position: relative;
-  font-weight: 500;
   height: 70px !important;
-  background-color: map-get($white, 1);
   outline: 2px solid transparent !important;
   outline-offset: -2px;
+  color: var(--vp-muted);
 
   svg {
     width: 24px;
@@ -195,16 +193,16 @@
     top: 12px;
 
     * {
-      fill: map-get($white, 2);
+      fill: var(--vp-muted);
     }
   }
 
   &:hover {
-    background-color: map-get($white, 5);
+    background-color: var(--vp-accent);
   }
 
   &:active {
-    outline-color: map-get($blue, 3) !important;
+    outline-color: var(--vp-primary-accent) !important;
     box-shadow: 0px 0px 15px rgba(86, 154, 255, 0.75);
   }
 }
@@ -215,7 +213,7 @@
 
   height: 36px;
   border-radius: 40px;
-  border: 1px solid map-get($blue, 1);
+  border: 1px solid transparent;
   flex-direction: row;
 
   font-size: 14px;
@@ -251,50 +249,51 @@
   }
 
   &:hover {
-    background-color: map-get($blue, 3);
-    border-color: map-get($blue, 3);
+    background-color: var(--vp-primary-accent);
+    border-color: var(--vp-primary-accent);
   }
 
   &:disabled {
-    background-color: map-get($white, 5);
-    border-color: map-get($white, 4);
     cursor: not-allowed;
+    background-color: var(--vp-accent);
+    border-color: var(--vp-border);
     user-select: none;
-    color: map-get($white, 2);
+    color: var(--vp-muted);
   }
 }
 
 @mixin suggestion-btn--secundary {
   @include suggestion-btn--default;
-  background-color: map-get($white, 1);
-  color: map-get($blue, 1);
+  background-color: var(--vp-button-background-outline);
+  color: var(--vp-button-text-outline);
+  border-color: var(--vp-button-border-outline);
 
   * {
-    color: map-get($blue, 1);
+    color: var(--vp-button-text-outline);
   }
 
   svg {
     width: 20px;
 
     * {
-      fill: map-get($blue, 1);
+      fill: var(--vp-button-text-outline);
     }
   }
 
   &:hover {
-    border-color: map-get($white, 2);
-    background-color: map-get($white, 5);
-    color: map-get($blue, 4);
+    border-color: var(--vp-button-outline-hover-border);
+    background-color: var(--vp-button-hover-background-outline);
+    color: var(--vp-button-hover-text-outline);
 
     * {
-      color: map-get($blue, 4);
+      color: var(--vp-button-hover-text-outline);
     }
 
     svg {
       width: 20px;
 
       * {
-        fill: map-get($blue, 4);
+        fill: var(--vp-button-hover-text-outline);
       }
     }
   }
@@ -304,7 +303,7 @@
     border-color: map-get($white, 4);
     cursor: not-allowed;
     user-select: none;
-    color: map-get($white, 2);
+    color: var(--vp-accent);
   }
 }
 
@@ -320,7 +319,7 @@
   padding: 0 16px;
   flex-direction: row;
   gap: 10px;
-  font-weight: 700;
+  font-weight: 600;
 
   &:disabled {
     opacity: 0.5;
