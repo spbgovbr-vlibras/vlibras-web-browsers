@@ -1,10 +1,10 @@
 {
-    "compilerOptions": {
-        "baseUrl": ".",
-        "paths": {
-            "~utils": ["plugin/utils/"],
-            "~icons": ["plugin/assets/icons/"],
-            "~constants": ["plugin/constants/"],
-        }
+  "compilerOptions": {
+    "baseUrl": ".",
+    "paths": {
+      "~utils": ["plugin/utils/"],
+      "~icons": ["plugin/assets/icons/"],
+      "~constants": ["plugin/constants/"]
     }
+  }
 }

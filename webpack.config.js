@@ -1,33 +1,31 @@
 require('dotenv').config();
 
+const mode = process.env.MODE;
 const path = require('path');
 const webpack = require('webpack');
 const TerserPlugin = require('terser-webpack-plugin');
 const CompressionPlugin = require('compression-webpack-plugin');
-const constants = require(`./plugin/constants/${process.env.MODE}-paths`);
-
-require('es6-promise').polyfill();
+const constants = require(`./plugin/constants/${mode}-paths`);
 
 const webpackConfig = {
-  mode: process.env.MODE === 'development' ? 'development' : 'production',
+  mode: mode === 'development' ? 'development' : 'production',
   output: {
     filename: 'vlibras-plugin.js',
-    // libraryExport: 'default',
     library: 'VLibras',
     libraryTarget: 'window',
-    publicPath: constants.ROOT_PATH
+    publicPath: constants.ROOT_PATH,
   },
   resolve: {
-    modules: [
-      path.join(__dirname, 'plugin'),
-      'node_modules',
-    ],
-
+    modules: [path.join(__dirname, 'plugin'), 'node_modules'],
     alias: {
       '~utils': path.resolve(__dirname, 'plugin/utils'),
       '~icons': path.resolve(__dirname, 'plugin/assets/icons'),
-      '~constants': path.resolve(__dirname, `plugin/constants/${process.env.MODE}-paths`),
-    }
+      '~constants': path.resolve(__dirname, `plugin/constants/${mode}-paths`),
+    },
+    fallback: {
+      path: require.resolve('path-browserify'),
+      events: require.resolve('events/'),
+    },
   },
   externals: {
     window: 'window',
@@ -48,8 +46,8 @@ const webpackConfig = {
       },
       {
         test: /\.svg$/,
-        loader: 'svg-inline-loader'
-      }
+        loader: 'svg-inline-loader',
+      },
     ],
   },
   plugins: [
@@ -62,18 +60,16 @@ const webpackConfig = {
     minimizer: [
       new TerserPlugin({
         parallel: true,
-        sourceMap: true,
+        extractComments: true,
         terserOptions: {
           compress: {
             drop_console: true,
           },
         },
-        extractComments: true,
       }),
     ],
   },
 };
-
 
 const pluginWebpackConfig = {
   entry: {
@@ -89,7 +85,4 @@ const widgetWebpackConfig = {
   ...webpackConfig,
 };
 
-module.exports = {
-  pluginWebpackConfig,
-  widgetWebpackConfig,
-};
+module.exports = { pluginWebpackConfig, widgetWebpackConfig };
