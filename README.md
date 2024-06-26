@@ -48,7 +48,7 @@ Before starting the build of the tools, you need to install some prerequisites:
 [Node.js](https://nodejs.org/en/)
 
 ```sh
-curl -sL https://deb.nodesource.com/setup_10.x | sudo -E bash -
+curl -sL https://deb.nodesource.com/setup_current.x | sudo -E bash -
 ```
 
 ```sh
