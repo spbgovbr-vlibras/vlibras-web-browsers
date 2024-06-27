@@ -101,6 +101,12 @@ The compiled file can be found in the `widget/app/` folder. Go to the [Widget in
 
 ### Building the Plugins
 
+Before building, you must set `$is-widget` to `0` in `plugin/scss/_variables.scss`:
+
+```scss
+$is-widget: 0;
+````
+
 To build the plugin you have two different options of building, according to the target browser you wish to build to:
 
 - Firefox/Chrome - the compiled files can be found in the `webextensions` folder.
