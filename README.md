@@ -105,7 +105,7 @@ Before building, you must set `$is-widget` to `0` in `plugin/scss/_variables.scs
 
 ```scss
 $is-widget: 0;
-````
+```
 
 To build the plugin you have two different options of building, according to the target browser you wish to build to:
 
