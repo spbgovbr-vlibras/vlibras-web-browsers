@@ -1,14 +1,15 @@
+const inherits = require('inherits');
+const EventEmitter = require('events').EventEmitter;
 
-var inherits = require('inherits');
-var EventEmitter = require('events').EventEmitter;
+const { socialIcons, backIcon } = require('~icons');
 
-var infoScreenTpl = require('./info-screen.html').default;
+const infoScreenTpl = require('./info-screen.html').default;
 require('./info-screen.scss');
 
 function InfoScreen(box) {
-  // this.settingBtnClose = settingBtnClose;
   this.visible = false;
   this.box = box;
+  this.button = null;
 }
 
 inherits(InfoScreen, EventEmitter);
@@ -17,52 +18,20 @@ InfoScreen.prototype.load = function (element) {
   this.element = element;
   this.element.innerHTML = infoScreenTpl;
   this.element.classList.add('vpw-info-screen');
+  this.button = document.querySelector('.vpw-header-btn-about');
 
-  var main = this.element.querySelector('#vpw-info-main');
-  var realizadores = this.element.querySelector('#vpw-info-realizadores');
-  var left = this.element.querySelector('.vpw-arrow-left');
-  var right = this.element.querySelector('.vpw-arrow-right');
-  var bullets = this.element.querySelectorAll('.vpw-info-bullet');
-  var bullet_src_imgs = {
-    first: bullets[0].attributes['data-src'].value,
-    second:bullets[1].attributes['data-src'].value
-  };
-  
-  
-  
+  const backButton = this.element.querySelector('.vpw-back-button');
+  const social = this.element.querySelector('.vpw-info__networks-container').children;
 
-  
+  // ADD ICONS
+  backButton.innerHTML = backIcon;
+  social[0].innerHTML = socialIcons.website;
+  social[1].innerHTML = socialIcons.face;
+  social[2].innerHTML = socialIcons.insta;
+  social[3].innerHTML = socialIcons.twitter;
+  social[4].innerHTML = socialIcons.youtube;
 
-  left.addEventListener('click', function() {
-    realizadores.classList.remove('active');
-    main.classList.add('active');
-
-    this.classList.remove('active');
-    right.classList.add('active');
-    srcTmp = bullets[0].src;
-    bullets[0].src = bullets[1].src;
-    bullets[1].src = srcTmp;
-    // bullets[0].classList.add('active');
-  });
-
-  right.addEventListener('click', function() {
-    main.classList.remove('active');
-    realizadores.classList.add('active');
-
-    this.classList.remove('active');
-    left.classList.add('active');
-
-    srcTmp = bullets[0].src;
-    bullets[0].src = bullets[1].src;
-    bullets[1].src = srcTmp;
-  });
-
-  // this.settingBtnClose.element.firstChild.addEventListener('click', function() {
-  //   this.hide();
-  //   this.settingBtnClose.element.firstChild.style.visibility = 'hidden;'
-  // }.bind(this));
-
-  // this.hide();
+  backButton.onclick = () => this.hide();
 };
 
 InfoScreen.prototype.toggle = function () {
@@ -72,17 +41,15 @@ InfoScreen.prototype.toggle = function () {
 
 InfoScreen.prototype.hide = function () {
   this.visible = false;
-  // this.settingBtnClose.element.firstChild.style.visibility = 'hidden';
-  // this.box.element.querySelector('[settings-btn]').style.visibility = 'visible';
   this.element.classList.remove('active');
+  this.button.classList.remove('selected');
   this.emit('hide');
 };
 
 InfoScreen.prototype.show = function () {
-  // this.settingBtnClose.element.firstChild.style.visibility = 'visible';
-  // this.box.element.querySelector('[settings-btn]').style.visibility = 'hidden';
   this.visible = true;
   this.element.classList.add('active');
+  this.button.classList.add('selected');
   this.emit('show');
 };
 

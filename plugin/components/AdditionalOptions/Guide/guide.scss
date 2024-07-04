@@ -1,0 +1,194 @@
+@import '~scss/colors.scss';
+@import '~scss/default-buttons.scss';
+
+.vp-guide-container * {
+    font-family: 'Rawline', Verdana, sans-serif !important;
+    box-sizing: border-box !important;
+    padding: 0;
+    margin: 0;
+    text-transform: none;
+    text-shadow: none !important;
+}
+
+.vp-guide-container {
+    text-align: left;
+    background-color: map-get($blue, 2);
+    max-width: 340px;
+    position: fixed;
+    top: 10px;
+    left: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: 16px;
+    padding: 16px !important;
+    border-radius: 10px;
+    z-index: 2147483647 !important;
+    display: none;
+    font-size: 16px;
+
+    @media (max-width: 720px) {
+        font-size: 14px;
+    }
+
+    &.vw-centered {
+        transform: translateX(-50%);
+        right: 50% !important;
+        left: initial !important;
+    }
+
+    &.vw-left::after {
+        left: -4px;
+        right: initial;
+    }
+
+    &.vw-right::after {
+        left: initial;
+        right: -4px;
+    }
+
+    &.vw-top::after {
+        top: 7px;
+        bottom: initial;
+    }
+
+    &.vw-bottom::after {
+        top: initial;
+        bottom: 14px;
+    }
+
+    &::after {
+        content: "";
+        position: absolute;
+        width: 20px;
+        height: 20px;
+        background-color: map-get($blue, 2);
+        transform: rotate(45deg);
+        z-index: -1;
+    }
+
+    &.not-arrow::after {
+        display: none !important;
+    }
+
+    .vpw-guide__close-btn {
+        @include reset;
+        @include centralize;
+
+        position: absolute;
+        top: 0;
+        right: 0;
+        width: 34px;
+        height: 34px;
+
+        svg {
+            width: 28px;
+            height: 28px;
+        }
+
+        &:hover {
+            opacity: .8;
+        }
+
+    }
+
+    .vpw-guide__message {
+        color: map-get($white, 1);
+        font-size: 1em;
+        font-weight: 500;
+        line-height: 150%;
+        width: 100%;
+    }
+
+    .vpw-guide__footer {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        flex-direction: row;
+        border-top: 1px solid #659AE9;
+        width: 100%;
+        padding-top: 16px;
+
+        .vpw-guide__back-btn {
+            @include guide-btn--text;
+        }
+
+        .vpw-guide__next-btn {
+            @include guide-btn--solid;
+        }
+
+        .vpw-guide__tab-slider {
+            display: flex;
+            gap: 6px;
+            align-items: center;
+            justify-content: center;
+            flex-direction: row;
+
+            span {
+                width: 6px;
+                height: 6px;
+                border-radius: 50%;
+                opacity: .4;
+                background-color: #FFF;
+
+                &.vp-actived {
+                    opacity: 1;
+                }
+            }
+        }
+    }
+
+    &.vp-enabled {
+        display: flex;
+    }
+
+}
+
+span[vp-click-blocker] {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 9999999 !important;
+    display: none !important;
+    border-radius: 10px;
+    opacity: 0;
+
+    &.vp-enabled {
+        display: block !important;
+    }
+}
+
+[vw] {
+    [vw-plugin-wrapper].vp-rounded {
+        border-radius: 20px !important;
+    }
+}
+
+[vp] {
+    .vp-guide-highlight {
+        outline: 2px solid #FFF !important;
+        outline-offset: -1px;
+        transform: scale(1.04) !important;
+        transform-origin: center 200%;
+        border: none !important;
+        border-radius: 100px !important;
+        animation: boxShadowAnim .5s alternate-reverse infinite ease-out;
+
+        @keyframes boxShadowAnim {
+            0% {
+                box-shadow: 0 0 0px transparent;
+            }
+
+            100% {
+                box-shadow: 0 0px 15px map-get($blue, 1);
+            }
+        }
+    }
+
+    .vp-guide-transition {
+        transition: transform .3s ease, border 0s linear !important;
+    }
+}

@@ -1,22 +1,32 @@
+require('dotenv').config();
+
+const mode = process.env.MODE;
 const path = require('path');
+const webpack = require('webpack');
 const TerserPlugin = require('terser-webpack-plugin');
 const CompressionPlugin = require('compression-webpack-plugin');
-
-require('es6-promise').polyfill();
+const constants = require(`./plugin/constants/${mode}-paths`);
 
 const webpackConfig = {
-  mode: process.env.MODE || 'development',
+  mode: mode === 'development' ? 'development' : 'production',
   output: {
     filename: 'vlibras-plugin.js',
-    // libraryExport: 'default',
+    chunkFilename: 'vlibras-plugin.chunk.js',
     library: 'VLibras',
     libraryTarget: 'window',
+    publicPath: constants.ROOT_PATH,
   },
   resolve: {
-    modules: [
-      path.join(__dirname, 'plugin'),
-      'node_modules',
-    ],
+    modules: [path.join(__dirname, 'plugin'), 'node_modules'],
+    alias: {
+      '~utils': path.resolve(__dirname, 'plugin/utils'),
+      '~icons': path.resolve(__dirname, 'plugin/assets/icons'),
+      '~constants': path.resolve(__dirname, `plugin/constants/${mode}-paths`),
+    },
+    fallback: {
+      path: require.resolve('path-browserify'),
+      events: require.resolve('events/'),
+    },
   },
   externals: {
     window: 'window',
@@ -26,41 +36,41 @@ const webpackConfig = {
       {
         test: /\.s?css/,
         use: [
-          {
-            loader: 'style-loader',
-          },
-          {
-            loader: 'css-loader',
-          },
-          {
-            loader: 'sass-loader',
-          },
+          { loader: 'style-loader' },
+          { loader: 'css-loader' },
+          { loader: 'sass-loader' },
         ],
       },
       {
         test: /\.html/,
         loader: 'raw-loader',
       },
+      {
+        test: /\.svg$/,
+        loader: 'svg-inline-loader',
+      },
     ],
   },
-  plugins: [new CompressionPlugin()],
+  plugins: [
+    new CompressionPlugin(),
+    new webpack.ProvidePlugin({ '~constants': '~constants' }),
+    new webpack.optimize.LimitChunkCountPlugin({ maxChunks: 2 }),
+  ],
   optimization: {
     minimize: true,
     minimizer: [
       new TerserPlugin({
         parallel: true,
-        sourceMap: true, // Must be set to true if using source-maps in production
+        extractComments: true,
         terserOptions: {
           compress: {
             drop_console: true,
           },
         },
-        extractComments: true,
       }),
     ],
   },
 };
-
 
 const pluginWebpackConfig = {
   entry: {
@@ -76,7 +86,4 @@ const widgetWebpackConfig = {
   ...webpackConfig,
 };
 
-module.exports = {
-  pluginWebpackConfig,
-  widgetWebpackConfig,
-};
+module.exports = { pluginWebpackConfig, widgetWebpackConfig };

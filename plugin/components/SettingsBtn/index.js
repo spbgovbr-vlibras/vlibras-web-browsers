@@ -1,50 +1,65 @@
-var settingsBtnTpl = require('./settings-btn.html').default;
+const settingsBtnTpl = require('./settings-btn.html').default;
 require('./settings-btn.scss');
 
-function SettingsBtn(player, screen, settingsBtnClose,option) {
+const { settingsIcon, dictionaryIcon, aboutIcon, closeIcon } = require('~icons');
+
+function SettingsBtn(player, settings, dictionary, infoScreen, translator, option) {
   this.player = player;
-  this.screen = screen;
-  this.settingsBtnClose = settingsBtnClose;
+  this.settings = settings;
+  this.dictionary = dictionary;
+  this.infoScreen = infoScreen;
+  this.translator = translator;
+  this.allScreens = [settings, dictionary, infoScreen, translator]
   enable = option.enableMoveWindow;
 }
 
-SettingsBtn.prototype.load = function (element, loadDictionary, elementDict, rootPath ) {
+SettingsBtn.prototype.load = function (
+  element,
+  loadDictionary,
+  elementDict,
+  rootPath,
+) {
   this.element = element;
   this.element.innerHTML = settingsBtnTpl;
   this.element.classList.add('vpw-settings-btn');
-  var fistTime = true;
 
-  var btn_menu = this.element.querySelector('.vpw-settings-btn-menu');
-  btn_menu.classList.add('active');
-  var btn_close = this.element.querySelector('.vpw-settings-btn-close');
+  const settingsBtn = this.element.querySelector('.vpw-header-btn-settings');
+  const dictionaryBtn = this.element.querySelector('.vpw-header-btn-dictionary');
+  const aboutBtn = this.element.querySelector('.vpw-header-btn-about');
+  const closeBtn = this.element.querySelector('.vpw-header-btn-close');
+  let loadedDict = false;
 
-  if (enable) {
-    btn_close.style.display = 'block';
+  // Add icons
+  settingsBtn.innerHTML = settingsIcon;
+  dictionaryBtn.innerHTML = dictionaryIcon;
+  aboutBtn.innerHTML = aboutIcon;
+  closeBtn.innerHTML = closeIcon;
+
+  // Add actions
+  settingsBtn.onclick = () => showScreen(this.settings, settingsBtn);
+  dictionaryBtn.onclick = () => showScreen(this.dictionary, dictionaryBtn);
+  aboutBtn.onclick = () => showScreen(this.infoScreen, aboutBtn);
+  closeBtn.onclick = () => {
+    window.dispatchEvent(
+      new CustomEvent('vp-widget-close', { detail: { close: true } }),
+    );
   }
 
+  const showScreen = function (screen, button) {
+    button.blur();
 
-  btn_menu.addEventListener('click', function () {
-    this.element.classList.toggle('active');
-    if (fistTime) {
+    if (screen === this.dictionary && !loadedDict) {
       loadDictionary();
-      elementDict.querySelectorAll("img[data-src]").forEach((image) => {
-        const imagePath = image.attributes["data-src"].value;
-        image.src =  rootPath ? rootPath + "/" + imagePath : imagePath;
-      });
-      fistTime = false;
+      loadedDict = true;
     }
-    if(this.settingsBtnClose.element.classList.contains('active')){
-      this.settingsBtnClose.element.classList.remove('active');
-    }else{
-      this.settingsBtnClose.element.classList.add('active');
-    }
-    this.player.pause();
-    this.screen.toggle();
-  }.bind(this));
 
-  btn_close.addEventListener('click', function () {
-    window.dispatchEvent(new CustomEvent('vp-widget-close', {detail: {close: true}})); 
-  }.bind(this));
+    this.allScreens
+      .filter(sc => sc !== screen && !(sc === this.dictionary && !loadedDict))
+      .forEach(sc => sc.hide());
+
+    screen.toggle();
+
+  }.bind(this);
 
 };
 

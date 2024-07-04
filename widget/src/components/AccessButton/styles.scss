@@ -1,45 +1,62 @@
 [vw] [vw-access-button] {
   display: none;
-  width: 140px;
-  text-align: center;
+  flex-direction: row-reverse;
+  width: 40px;
+  height: 40px;
   cursor: pointer;
-  margin: 0px 0px 0px -100px;
-  max-width: none;
+  overflow: hidden;
+  position: absolute;
+  border-radius: 8px;
+  transition: all .5s ease;
+  right: 0;
+  left: auto;
 
-  &.active {
-    display: block;
+  img {
+    max-height: 40px;
+    transition: all .5s ease;
+    border-radius: 8px;
+    opacity: 1 !important;
+    visibility: visible !important;
   }
-  
+
   .access-button {
-    width: 27%;
-    float: right;
+    width: 40px;
+    height: 40px;
+    z-index: 1;
   }
-  
-  span {
-    font-size: 13px;
-    color: #004088;
-  }
-
-  .access-button:hover + .pop-up {
-    width: 68%;
-  }
-
 
   .pop-up {
-    float: right;
-    width: 0%;
-    margin-right: 6px;
-    -webkit-transition: width 2s; /* For Safari 3.1 to 6.0 */
-    transition: width 0.5s;
+    position: absolute;
+    height: 40px;
+    min-width: 150px;
+    z-index: 0;
+    left: 0;
+    right: auto;
   }
 
-  .pop-up.left {
-    float: left !important;
-    margin-right: 0px;
+  &:hover {
+    width: 200px;
   }
 
-  .access-button.left {
-    float: left !important;
-    margin-right: 6px;
+  &.isLeft {
+    flex-direction: row;
+    left: 0;
+    right: auto;
+
+    .pop-up {
+      left: auto;
+      right: 0;
+    }
+  }
+
+  &.isTopOrBottom:hover {
+    bottom: -20px;
+    top: 0;
+    margin-right: -80px;
+  }
+
+
+  &.active {
+    display: flex;
   }
 }

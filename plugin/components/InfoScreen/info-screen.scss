@@ -1,215 +1,163 @@
+@import '~scss/default-buttons';
+@import '~scss/shared-styles';
+@import '~scss/variables';
+@import '~scss/colors';
+
 [vp] {
   .vpw-info-screen {
-    position: relative;
-    padding: 1em;
+    position: absolute;
+    top: 40px;
     width: 100%;
     height: calc(100% - 40px);
-    z-index: 4;
-
+    z-index: 10;
     background-color: white;
     color: black;
-    font-family: "Open Sans", sans-serif;
-    text-align: center;
-
+    font-family: 'Rawline', Verdana, sans-serif !important;
     align-items: center;
-    -webkit-align-items: center;
-    font-size: 11px;
-
     display: none;
-
-    -webkit-box-sizing: border-box;
-    -moz-box-sizing: border-box;
-    box-sizing: border-box;
+    justify-content: start;
+    flex-direction: column;
+    align-items: start;
+    font-size: 14px;
+    border-radius: 0 0 10px 10px;
 
     &.active {
-      display: -webkit-flex;
       display: flex;
     }
 
-    .vpw-arrow {
-      flex-grow: 1;
-      -webkit-flex-grow: 1;
-      visibility: hidden;
+    .vpw-info-header {
+      @include vp-screen__header;
     }
 
-    .vpw-arrow.active {
-      visibility: visible;
-    }
-
-    #vpw-info-tabset {
+    .vpw-info__main {
       position: relative;
-      top: 0;
-      flex-grow: 4;
-      display: -webkit-flex;
       display: flex;
       flex-direction: column;
-      -webkit-flex-direction: column;
-      padding: 0;
-      height: 100%;
+      padding: 16px;
       width: 100%;
+      font-size: 1em;
+      align-items: start;
+      justify-content: start;
+      gap: 10px;
 
-      align-items: center;
-      -webkit-align-items: center;
-    }
+      * {
+        font-size: 1em;
+      }
 
-    #vpw-info-main {
-      max-width: 600px;
-      font-family: "Open Sans", sans-serif;
+      .vpw-info__section {
+        margin-bottom: 10px !important;
+      }
 
-      flex-direction: column;
-      -webkit-flex-direction: column;
+      .vpw-info__section-title {
+        text-decoration: none;
+        font-weight: 600;
+        font-size: 1em;
+        margin-bottom: 10px !important;
+        color: map-get($black, 1) !important;
+
+        @if $is-widget==0 {
+          margin-top: 0 !important;
+        }
+      }
+
+      .vpw-info__section-desc {
+        color: #555;
+        font-style: normal;
+        font-weight: 500;
+        font-size: 1em;
+        line-height: 1.5;
+      }
+
+      .vpw-info__contributors {
+        flex-direction: column;
+        align-items: stretch;
+        -webkit-flex-direction: column;
+        -webkit-align-items: stretch;
+      }
+
       &.active {
         display: flex;
         align-content: center;
         justify-content: center;
         align-items: center;
-      }
-    }
-
-    #vpw-info-logo img {
-      height: 90px;
-    }
-
-    #vpw-info-realizadores {
-      height: 100%;
-      min-width: 230px;
-      width: 50%;
-
-      flex-direction: column;
-      align-items: stretch;
-
-      -webkit-flex-direction: column;
-      -webkit-align-items: stretch;
-      #vpw-realiz {
-        font-size: 20px;
-      }
-
-      &.active {
-        display: flex;
-        align-content: center;
-        justify-content: center;
-        align-items: center;
-      }
-
-      .vpw-siz {
-        max-width: 55% !important;
+        gap: 10px;
       }
 
       .vpw-logo {
         margin-top: -2px;
         margin: 0.5em 0.35em;
-        min-width: 10%;
-        max-width: 29%;
-        max-height: 15vh;
+        max-width: 50%;
 
-        .vpw-short-ver {
-          max-width: none;
-          min-height: 16px;
+        @if $is-widget==1 {
+          @media (max-width: 450px) {
+            max-height: 22px;
+          }
         }
       }
 
-      .vpw-logo-group {
+      .vpw-info__logos-container {
         display: flex;
-        padding: 0.5% 2%;
-
         flex-direction: row;
-        flex-wrap: wrap;
+        flex-wrap: nowrap;
         align-items: center;
         justify-content: space-around;
-
         -webkit-flex-direction: row;
-        -webkit-flex-wrap: wrap;
+        -webkit-flex-wrap: nowrap;
         -webkit-align-items: center;
         -webkit-justify-content: space-around;
-        line-height: 1.1;
+      }
+    }
 
-        .p-separator {
-          margin-top: 10px;
-          margin-bottom: 10px;
-          width: 118px;
+    .vpw-info__networks-container {
+      display: flex;
+      align-items: center;
+      flex-direction: row;
+      gap: 10px;
+
+      a {
+        @include control-button;
+        border-radius: 8px !important;
+
+        svg {
+          padding: 2px;
+
+          * {
+            fill: map-get($blue, 1);
+          }
         }
-        .format-text {
-          margin: 0px;
-        }
+
+        outline: 1px solid map-get($white, 4) !important;
+        border-radius: 4px;
       }
     }
 
-    .vpw-info-tab {
-      flex-grow: 3;
-      -webkit-flex-grow: 3;
-      display: none;
-
-      .vpw-info-tab-label {
-        position: absolute;
-        top: 0%;
-        font-size: 16px;
-        font-family: "Open Sans", sans-serif;
-      }
-      .vpw-info-tab-label-two {
-        font-size: 16px;
-        font-family: "Open Sans", sans-serif;
-        margin-top: 10px;
-      }
-    }
-
-    .vpw-info-tab.active {
-      display: block;
-    }
-
-    #vpw-info-meta p {
-      margin: 0.5em 0 0;
-    }
-
-    #vpw-info-meta a {
-      text-decoration: none;
-    }
-
-    .vpw-info-bullet {
-      background-size: 15px 15px;
-      display: inline-block;
-      width: 15px;
-      height: 15px;
-      content: "";
-    }
-    #vpw-info-tab-bullets {
+    .vpw-info__footer {
       width: 100%;
-      height: auto;
-      position: absolute;
-      bottom: 0%;
-      text-align: center;
-      flex-grow: 1;
-      -webkit-flex-grow: 1;
-      cursor: pointer;
     }
+  }
 
-    .vpw-close-btn {
-      position: absolute;
-      top: 8px;
-      right: 6px;
-      z-index: 4;
+  @if $is-widget==1 {
+    @media (max-width: 450px) {
+      .vpw-info-screen {
+        font-size: 11px;
+        max-width: 210px;
 
-      img.icon {
-        width: 34px;
-        height: 34px;
+        .vpw-info__networks-container {
+          gap: 6px;
+        }
+
+        .vpw-info__main {
+          padding: 10px !important;
+
+          .vpw-info__section {
+            margin: 0;
+          }
+
+          .vpw-info__section-desc {
+            font-size: 0.9em;
+          }
+        }
       }
     }
-  }
-}
-
-@media only screen and (-moz-min-device-pixel-ratio: 2),
-  only screen and (-o-min-device-pixel-ratio: 2/1),
-  only screen and (-webkit-min-device-pixel-ratio: 2),
-  only screen and (min-device-pixel-ratio: 2) {
-  [vp] #vpw-info-realizadores .vpw-logo {
-    margin: 0.5em 0.35em;
-    min-width: 10%;
-    max-width: 50%;
-    max-height: 18vh;
-  }
-}
-
-@media only screen and (max-height: 360px) {
-  [vp] #vpw-info-main {
-    font-size: 0.84em;
   }
 }

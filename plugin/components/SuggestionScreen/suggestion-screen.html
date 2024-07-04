@@ -1,15 +1,21 @@
-<span class="vp-title"> A glosa está correta? </span>
-
-<textarea class="vp-text"> </textarea>
-<ul class="vp-dropdown-suggest"></ul>
-
-<div vp-sugestion-area>
-  <span vp-visualize-signal-button class="vp-visualize-signal-button">
-    Ver em LIBRAS
-  </span>
-  <span vp-blue-button class="vp-send-button"> Enviar Sugestão </span>
+<div class="vp-suggestion-screen-header">
+  <span>Feedback</span>
+  <button></button>
 </div>
 
-<span vp-close-button class="vp-close-button">
-  <img data-src="assets/close.svg" />
-</span>
+<div class="vp-suggestion-screen-content">
+
+  <span class="vp-suggestion-screen__title">Informe a glosa correta</span>
+
+  <div class="vp-user-textarea-container">
+    <textarea class="vp-user-textarea"></textarea>
+  </div>
+  
+  <ul class="vp-dropdown-suggest"></ul>
+
+  <div vp-sugestion-area class="vp-suggestion-buttons-container">
+    <button class="vp-send-gloss-button">Enviar sugestão</button>
+    <button class="vp-play-gloss-button">Reproduzir</button>
+  </div>
+
+</div>

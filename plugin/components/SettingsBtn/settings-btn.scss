@@ -1,33 +1,50 @@
+@import '~scss/default-buttons';
 
-[vp]{
+[vp] {
   .vpw-settings-btn {
     position: absolute;
     z-index: 1;
     height: 100%;
     width: 100%;
- 
-    cursor: pointer;
-  
-  
-    .vpw-settings-btn-menu {
-      display: none;
-      &.active{display: block;}
-      position: absolute;
-      top: 50%;
-      transform: translateY(-50%);
-      width: 20px;
-      height: 18px;
-      left: 20px;
-  
+    display: flex;
+    padding: 0 16px;
+    align-items: center;
+    flex-direction: row;
+    justify-content: space-between;
+
+    div {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: row;
+      gap: 10px;
+
+      button {
+        @include header-button;
+      }
+
+      @if $is-widget==0 {
+        .vpw-header-btn-close {
+          cursor: not-allowed !important;
+          box-shadow: none !important;
+          background: none !important;
+          outline: none !important;
+        }
+      }
     }
-  
-    .vpw-settings-btn-close {
-      display: none;
+
+    .vpw-container-dict {
       position: absolute;
-      top: 50%;
-      transform: translateY(-50%);
-      right: 5px;
+      left: 0;
+      top: 0;
     }
-  
+
+    @media (max-width: 450px) {
+      padding: 0 10px;
+
+      div {
+        gap: 4px;
+      }
+    }
   }
 }

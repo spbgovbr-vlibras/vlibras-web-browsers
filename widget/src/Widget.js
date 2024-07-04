@@ -1,72 +1,120 @@
 const AccessButton = require('./components/AccessButton');
 const PluginWrapper = require('./components/PluginWrapper');
 
-require('./scss/reset.scss');
 require('./scss/styles.scss');
 
-module.exports = function Widget(rootPath, personalization, opacity) {
-    const widgetWrapper = new PluginWrapper();
-    const accessButton = new AccessButton(rootPath, widgetWrapper, personalization, opacity);
-    var temp_f;
+const { $, $$, addClass, toggleUnityMainLoop, removeClass, getWidget } = require('~utils');
+const { ROOT_PATH: DEFAULT_ROOT_PATH } = require('~constants');
 
+const availablePositions = ['TL', 'T', 'TR', 'L', 'R', 'BL', 'B', 'BR'];
+const availableAvatars = ['icaro', 'hosana', 'guga', 'random'];
 
-    if(window.onload) {
-    	temp_f = window.onload;
-  	}
+module.exports = function Widget(...args) {
+  const optObject = typeof args[0] === 'object' && args[0];
 
-    window.onload = () => {
+  const personalization = optObject ? optObject.personalization : args[1];
+  let rootPath = optObject ? optObject.rootPath : args[0];
+  let position = optObject ? optObject.position : args[3];
+  let opacity = optObject ? optObject.opacity : args[2];
+  let avatar = optObject.avatar;
 
-	  	if(temp_f) {
-	        temp_f();
-	    }
+  if (rootPath === undefined) rootPath = DEFAULT_ROOT_PATH;
+  else if (rootPath && !rootPath.endsWith('/')) rootPath += '/';
+  if (isNaN(opacity) || opacity < 0 || opacity > 1) opacity = 1;
+  if (!availablePositions.includes(position)) position = 'R';
+  if (!availableAvatars.includes(avatar)) avatar = 'icaro';
 
-    	this.element = document.querySelector('[vw]');
+  const pluginWrapper = new PluginWrapper();
+  const accessButton = new AccessButton({
+    rootPath, pluginWrapper, personalization,
+    opacity, position, avatar
+  });
 
-		const wrapper = document.querySelector('[vw-plugin-wrapper]');
-		const access = document.querySelector('[vw-access-button]');
+  let tempF;
 
-		accessButton.load(document.querySelector('[vw-access-button]'), this.element);
-		widgetWrapper.load(document.querySelector('[vw-plugin-wrapper]'));
+  if (window.onload) {
+    tempF = window.onload;
+  }
 
-		window.addEventListener('vp-widget-wrapper-set-side', (event) => {
-			if (event.detail.right) {
-				this.element.style.left = '0';
-				this.element.style.right = 'initial';
-				access.querySelector('.access-button').classList.add("left");
-				access.querySelector('.pop-up').classList.add("left");
-				document.querySelector('[vw-access-button]').style.margin = "0px -100px 0px 0px"; 
+  window.onload = () => {
+    resolveMultipleWidgetsIssue();
 
-			} else {
-				this.element.style.right = '0';
-				this.element.style.left = 'initial';
-				access.querySelector('.access-button').classList.remove("left");
-				access.querySelector('.pop-up').classList.remove("left");
-				document.querySelector('[vw-access-button]').style.margin = "0px 0px 0px -100px"; 
-			}
-		});
+    if (tempF) tempF();
 
-		window.addEventListener('vp-widget-close', (event) => {
-			access.classList.toggle('active');
-			wrapper.classList.toggle('active');
+    this.element = $('[vw-plugin-wrapper]').closest('[vw]');
 
-			document.body.removeChild(document.querySelector('.vw-links'))
+    const wrapper = $('[vw-plugin-wrapper]');
+    const access = $('[vw-access-button]');
 
-			var tagsTexts = document.querySelectorAll('.vw-text');
-			for (var i = 0; i < tagsTexts.length; i++) {
-				var parent  = tagsTexts[i].parentNode;
-				parent.innerHTML = tagsTexts[i].innerHTML;
-			}	
+    accessButton.load($('[vw-access-button]'), this.element);
+    pluginWrapper.load($('[vw-plugin-wrapper]'));
+
+    window.addEventListener('vp-widget-wrapper-set-side', (event) => {
+      const position = event.detail;
+      if (!position || !availablePositions.includes(position)) return;
+
+      this.element = getWidget();
+
+      this.element.style.left = position.includes('L')
+        ? '0' : ['T', 'B'].includes(position) ? '50%' : 'initial';
+
+      this.element.style.right = position.includes('R')
+        ? '0' : 'initial';
+
+      this.element.style.top = position.includes('T')
+        ? '0' : ['L', 'R'].includes(position) ? '50%' : 'initial';
+
+      this.element.style.bottom = position.includes('B')
+        ? '0' : 'initial';
+
+      this.element.style.transform = ['L', 'R'].includes(position)
+        ? 'translateY(calc(-50% - 10px))' : ['T', 'B'].includes(position)
+          ? 'translateX(calc(-50% - 10px))' : 'initial';
+
+      const access = $('[vw-access-button]');
+
+      access.classList.toggle('isLeft', position.includes('L'));
+      access.classList.toggle('isTopOrBottom', 'TB'.includes(position));
+
+      // Set position
+      if (window.plugin) window.plugin.position = position;
     });
 
-	window.addEventListener('vw-change-opacity', (event) => {
-		wrapper.style.background = `rgba(235,235,235, ${event.detail})`;
-		//wrapper.setAttribute( 'style', `background: rgba(235, 235, 235, ${event.detail})`);
-	});
-
-
-    this.element.querySelectorAll('img[data-src]').forEach((image) => {
-			const imagePath = image.attributes['data-src'].value;
+    $$('img[data-src]', this.element).forEach((image) => {
+      const imagePath = image.attributes['data-src'].value;
       image.src = rootPath ? rootPath + '/' + imagePath : imagePath;
     });
+
+    window.addEventListener('vp-widget-close', (event) => {
+      access.classList.toggle('active');
+      wrapper.classList.toggle('active');
+      addClass($('div[vp-change-avatar]'), 'active');
+      addClass($('div[vp-additional-options]'), 'vp-enabled');
+      removeClass($('div[vp-controls]'), 'vpw-selectText');
+      toggleUnityMainLoop(false);
+    });
+  
+    window.addEventListener('vw-change-opacity', (event) => {
+      wrapper.style.background = `rgba(235,235,235, ${event.detail})`;
+    });
+
+    // Apply Widget default position
+    if (availablePositions.includes(position)) {
+      window.dispatchEvent(
+        new CustomEvent('vp-widget-wrapper-set-side', { detail: position }));
+    }
   };
-}
+
+  function resolveMultipleWidgetsIssue() {
+    $$('[vw]').forEach(vw => {
+      if (!($('[vp]'), vw)) {
+        vw.removeAttribute('vw');
+
+         if (location.hostname.includes('correios.com.br')) {
+          removeClass(vw, 'enabled');
+        }
+      }
+    })
+  }
+
+};

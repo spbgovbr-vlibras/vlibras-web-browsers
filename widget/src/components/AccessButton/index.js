@@ -1,187 +1,60 @@
 const template = require('./template.html').default;
+
 require('./styles.scss');
 
-function AccessButton(rootPath, pluginWrapper, personalization, opacity) {
-  this.personalization = personalization;
-  this.rootPath = rootPath;
-  this.pluginWrapper = pluginWrapper;
+const { canTranslate, toggleUnityMainLoop } = require('~utils');
+
+function AccessButton(props) {
+  this.personalization = props.personalization;
+  this.rootPath = props.rootPath;
+  this.enableWelcome = props.enableWelcome;
+  this.pluginWrapper = props.pluginWrapper;
+  this.opacity = props.opacity;
+  this.position = props.position;
+  this.avatar = props.avatar;
   this.vw_links = null;
   this.currentElement = null;
   this.currentSpanElement = null;
-  this.opacity = opacity;
+  this.ready = false;
 }
 
 AccessButton.prototype.load = function (element, vw) {
   this.element = element;
   this.element.innerHTML = template;
-  this.element.addEventListener('click', () => {
+  this.element.addEventListener('click', async () => {
     this.element.classList.toggle('active');
     this.pluginWrapper.element.classList.toggle('active');
+    if (this.ready) toggleUnityMainLoop(true);
 
+    // Dynamic imports
+    const { Plugin } = await import('../../../../plugin/');
+    const { loadTextCaptureScript } = await import('./text-capture');
 
-    window.plugin = (window.plugin || new window.VLibras.Plugin({
+    window.VLibras.Plugin = Plugin;
+
+    const config = {
       enableMoveWindow: true,
-      playWellcome: true,
-      rootPath: this.rootPath,
+      enableWelcome: true,
       personalization: this.personalization,
-      opacity: this.opacity,
       wrapper: this.pluginWrapper.element,
-    }));
+      position: this.position,
+      rootPath: this.rootPath,
+      opacity: this.opacity,
+      avatar: this.avatar,
+    };
 
-    this.addTagsTexts(vw);
-    
+    if (!window.plugin) window.plugin = new window.VLibras.Plugin(config);
+
+    if (this.ready) loadTextCaptureScript();
+    else {
+      const _canTranslate = setInterval(() => {
+        if (!canTranslate()) return;
+        loadTextCaptureScript();
+        this.ready = true;
+        clearInterval(_canTranslate);
+      }, 1000);
+    }
   });
-  
 };
 
 module.exports = AccessButton;
-
-var control = 0;
-
-function updatePosition(){
-  if(this.currentElement != null && this.vw_links!= null && this.currentSpanElement != null){
-    positionElement = getPosition(this.currentElement);
-    var width = this.currentSpanElement.offsetWidth;
-    var height = this.currentSpanElement.offsetHeight;
-    this.vw_links.style.top = (positionElement.y + (height/2)) + 'px';
-    this.vw_links.style.left = (positionElement.x + (width/2)) + 'px';
-  }
-}
-
-function hasParent(el, fn) {
-  var node = el.parentElement;
-  
-  while ( node != null  ) { 
-    if (fn(node)) return node;
-    node = node.parentElement;
-  }
-  
-  return false;
-}
-
-function getPosition(elem) {
-  var xPos = 0;
-  var yPos = 0;
- 
-  var box = elem.getBoundingClientRect();
-
-    var body = document.body;
-    var docEl = document.documentElement;
-
-    var scrollTop = window.pageYOffset || docEl.scrollTop || body.scrollTop;
-    var scrollLeft = window.pageXOffset || docEl.scrollLeft || body.scrollLeft;
-
-    var clientTop = docEl.clientTop || body.clientTop || 0;
-    var clientLeft = docEl.clientLeft || body.clientLeft || 0;
-
-    var top  = box.top +  scrollTop - clientTop;
-    var left = box.left + scrollLeft - clientLeft;
-
-    return { y: Math.round(top), x: Math.round(left) };
-  return {
-    x: xPos,
-    y: yPos
-  };
-}
-
-function createAccessLinkBox(){
-  var template = require('./tooltip.html').default;  
-  let div = document.createElement('div');
-  div.className = 'vw-links';
-  div.innerHTML = template;
-  document.body.appendChild(div);
-}
-
-AccessButton.prototype.divBox = function(linkContent, event){
-  nodeAnchor = hasParent(linkContent, function (parent) { 
-    return parent.nodeName == 'A'; 
-  });
-  if(!nodeAnchor){
-    return;
-  }
-  event.stopPropagation();
-  this.currentElement = nodeAnchor;
-  this.currentSpanElement = linkContent;
-  positionElement = getPosition(nodeAnchor);
-  var width = linkContent.offsetWidth;
-  var height = linkContent.offsetHeight;
-
-  anchorElement = this.vw_links.querySelector('a');
-  anchorElement.href = nodeAnchor.href;
-  this.vw_links.style.top = (positionElement.y + (height/2)) + 'px';
-  this.vw_links.style.left = (positionElement.x + (width/2)) + 'px';
-  this.vw_links.firstChild.classList.add('active');
-
-}
-
-AccessButton.prototype.addTagsTexts = function (vw) {
-  self = this;
-  getAllNodeTexts(document.body, function (node) {
-    if (vw.contains(node)) return;
-    node.innerHTML = '<vlibraswidget>' + node.innerHTML + '</vlibraswidget>';
-    const span = node.querySelector('vlibraswidget');
-    if(!span)
-      return;
-    span.classList.add('vw-text');
-    span.addEventListener('click', function (e) {
-      e.preventDefault();
-      self.divBox(this, e);     
-      if (control) window.plugin.player.stop();
-      window.plugin.player.translate(this.textContent);
-      deactivateAll();
-      this.classList.add('vw-text-active');
-      control++;
-    });
-  }, function(textNode, parent) {
-    if (/^\s+$/.test(textNode.nodeValue)) {
-      return true;
-    }
-    return false;
-  });
-  createAccessLinkBox();
-  this.vw_links = document.body.getElementsByClassName('vw-links')[0];
-    document.body.onclick = function(e){
-      if(this.vw_links!= null){
-        this.vw_links.firstChild.classList.remove('active');
-      }
-    }.bind(this);
-    window.addEventListener("scroll", updatePosition.bind(this), false);
-    window.addEventListener("resize", updatePosition.bind(this), false);
-}
-
-
-
-function getAllNodeTexts(root, callback) {
-  var noop = function () {};
-  var headElements = ['SCRIPT', 'TITLE', 'META', 'STYLE', 'LINK', 'BASE'];
-
-  for(var i = 0; i < root.childNodes.length; i++) {
-    var node    = root.childNodes[i];
-    var anyText = false;
-
-    if (headElements.indexOf(node.tagName) != -1) {
-      continue;
-    }
-
-    for(var j = 0; j < node.childNodes.length; j++) {
-      var child = node.childNodes[j];
-      if (child.nodeType == Node.TEXT_NODE && child.nodeValue.trim() != '') {
-        anyText = true;
-        break;
-      }   
-    }
-
-    if (anyText) {
-      (callback || noop)(node);
-    } else {
-      getAllNodeTexts(node, callback);
-    }
-  }
-}
-
-function deactivateAll() {
-  var active = document.querySelector('.vw-text.vw-text-active');
-  if (active) {
-    active.classList.remove('vw-text-active');
-  }
-}

@@ -6,9 +6,9 @@ const webpackConfig = require('./webpack.config.js');
 
 const options = {
   dest: {
-    webextensions: 'webextensions/app/player',
-    safari: 'safari.safariextension/app/player',
     widget: 'widget/app',
+    chrome: 'webextensions/chrome.extension/app/player',
+    firefox: 'webextensions/firefox.extension/app/player',
   },
 };
 
@@ -21,14 +21,17 @@ function build(target, {
 
   const webpackCfg = target === 'widget' ? webpackConfig.widgetWebpackConfig : webpackConfig.pluginWebpackConfig;
 
+  const pluginOptions = { cwd: 'plugin', base: 'plugin' };
+  const targetOptions = { cwd: target, base: target };
+
   const playerSrc = gulp.src(player).pipe(gulp.dest(`${destPath}/target`));
-  const scriptSrc = gulp.src(script).pipe(webpack(webpackCfg))
-    .pipe(gulp.dest(destPath));
+  const scriptSrc = gulp.src(script).pipe(webpack(webpackCfg)).pipe(gulp.dest(destPath));
   const templateSrc = gulp.src(template).pipe(gulp.dest(destPath));
-  const assetsPluginSrc = gulp.src('assets/*', { cwd: 'plugin', base: 'plugin' })
-    .pipe(gulp.dest(destPath));
-  const assetsTargetSrc = gulp.src('assets/*', { cwd: target, base: target })
-    .pipe(gulp.dest(destPath));
+
+  const assetsPluginSrc = gulp.src('assets/*', pluginOptions).pipe(gulp.dest(destPath));
+  const assetsTargetSrc = gulp.src('assets/*', targetOptions).pipe(gulp.dest(destPath));
+  const fontsPluginSrc = gulp.src('assets/fonts/*', pluginOptions).pipe(gulp.dest(destPath));
+  const fontsTargetSrc = gulp.src('assets/fonts/*', targetOptions).pipe(gulp.dest(destPath));
 
   return mergeStream(
     playerSrc,
@@ -36,19 +39,22 @@ function build(target, {
     templateSrc,
     assetsPluginSrc,
     assetsTargetSrc,
+    fontsPluginSrc,
+    fontsTargetSrc
   );
 }
 
-gulp.task('build:webextensions', () => build('webextensions'));
+gulp.task('build:chrome', () => build('chrome'));
+gulp.task('build:firefox', () => build('firefox'));
+
+gulp.task('build:webextensions', gulp.series('build:chrome', 'build:firefox'));
 
 gulp.task('build:widget', () => build('widget', {
   script: 'widget/src/index.js',
   template: 'widget/src/index.html',
 }));
 
-gulp.task('build:safari', () => build('safari'));
-
-gulp.task('build', gulp.series('build:webextensions', 'build:safari', 'build:widget'));
+gulp.task('build', gulp.series('build:webextensions', 'build:widget'));
 
 gulp.task('run:widget', (done) => nodemon({
   script: 'widget/server.js',

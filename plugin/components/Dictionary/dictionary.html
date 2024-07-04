@@ -1,17 +1,45 @@
-<div class="vpw-panel">
-    <div class="vpw-bar">
-        <span class="vpw-title">Dicionário</span>
-        <img class="vpw-btn-close" data-src="assets/Close.png">
-    </div>
-
-    <div class="vpw-search">
-        <input type="text">
-        <span class="vpw-icon">
-            <img data-src="assets/search.jpg">
+<div class="vpw-loading-dictionary">
+    <div>
+        <span class="vpw-loading__img"></span>
+        <span class="vpw-dict-msg--loading">
+            Carregando<br>
+            Dicionário
         </span>
+        <span class="vpw-dict-msg--error">
+            Falha no<br>
+            Carregamento
+        </span>
+        <span class="vpw-dict-msg--max-request">
+            Desculpe,<br>
+            algo saiu errado :(
+        </span>
+        <button>Tentar novamente</button>
     </div>
 </div>
 
-<div class="vpw-dict-container">
+<div class="vpw-panel">
+    <div class="vpw-bar">
+        <button class="vpw-btn-close"></button>
+        <span class="vpw-title">Dicionário</span>
+    </div>
+
+    <div class="vpw-search">
+        <input type="text" placeholder="Pesquisar por um sinal">
+        <span class="vpw-icon"></span>
+    </div>
+</div>
+
+<div class="vpw-buttons-container">
+    <button class="vp-dictionary-btn vp-selected">A-Z</button>
+    <button class="vp-dictionary-btn">Recentes</button>
+</div>
+
+<div class="vpw-recents-container vp-isEmpty">
     <ul></ul>
+    <span>Nenhuma tradução recente foi feita</span>
+</div>
+
+<div class="vpw-dict-container vp-enabled">
+    <ul></ul>
+    <span>Nenhum sinal encontrado :(</span>
 </div>

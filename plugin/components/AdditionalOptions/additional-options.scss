@@ -1,0 +1,104 @@
+@import '~scss/colors';
+@import '~scss/variables';
+@import '~scss/default-buttons';
+
+$control-height: 60px;
+$bg-color: #9c9c9c;
+
+[vp] [vp-additional-options] {
+  justify-content: center;
+  flex-direction: column;
+  gap: 10px;
+  position: absolute;
+  z-index: 2;
+  display: none;
+  max-width: 100%;
+  opacity: 1;
+  transition: max-width 0s, visibility 0s, opacity 0.4s;
+  left: 16px;
+  top: 96px;
+
+  button {
+    @include default-button;
+
+    width: 32px;
+    border-radius: 50%;
+    height: 32px;
+    cursor: pointer;
+    background-color: map-get($white, 2);
+    border: 2px solid transparent;
+    outline: 2px solid transparent !important;
+    outline-offset: 0;
+    text-transform: none;
+    padding: 0 !important;
+    transition: all 0.3s ease;
+
+    svg {
+      width: 18px;
+      height: 18px;
+
+      * {
+        fill: #fff;
+      }
+    }
+
+    &.vp-selected {
+      background-color: map-get($blue, 3);
+
+      &:hover {
+        outline-color: rgba(map-get($blue, 3), 0.5) !important;
+      }
+    }
+
+    &:hover {
+      outline-color: rgba(map-get($white, 2), 0.3) !important;
+      opacity: 1 !important;
+    }
+
+    @media (hover: hover) {
+      &[data-title]:hover::after {
+        content: attr(data-title);
+        background-color: map-get($black, 1);
+        position: absolute;
+        border-radius: 20px;
+        color: #fff;
+        font-size: 14px;
+        font-weight: 500;
+        white-space: nowrap;
+        padding: 4px 10px;
+        left: 40px;
+        display: block;
+
+        @if $is-widget==1 {
+          @media (max-width: 450px) {
+            font-size: 12px;
+          }
+        }
+      }
+    }
+  }
+
+  &.vp-enabled {
+    display: flex;
+  }
+
+  &.vp-fixed {
+    display: flex;
+
+    button {
+      display: flex !important;
+    }
+  }
+
+  @if $is-widget==1 {
+    @media (max-width: 450px) {
+      left: 10px;
+      top: 90px;
+
+      button svg {
+        width: 16px;
+        height: 16px;
+      }
+    }
+  }
+}

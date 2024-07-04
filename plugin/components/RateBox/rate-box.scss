@@ -1,68 +1,211 @@
-$control-height: 68px;
+@import '~scss/default-buttons.scss';
+@import '~scss/shared-styles.scss';
+@import '~scss/colors.scss';
+@import '~scss/variables';
+
+$controls_height: 48px;
 
 [vp] [vp-rate-box] {
-  display: flex;
-  flex-direction: row;
-  justify-content: flex-end;
   position: absolute;
   width: 100%;
-  bottom: $control-height;
+  height: 0;
+  bottom: 0;
+  padding-bottom: 0;
+  z-index: 3;
+  visibility: hidden;
+  transition: height 0.5s;
+  background-color: map-get($white, 1);
+  border-radius: 10px;
   overflow: hidden;
-  z-index: 2;
 
-  .vp-container {
-    display: flex;
-    flex-direction: column;
+  .vp-rate-box-header {
+    @include vp-header;
+
+    button.vp-expanded svg {
+      transform: rotate(180deg);
+    }
+  }
+
+  .vp-rate-box-content {
     width: 100%;
-    padding-top: 10px;
-    padding-bottom: 10px;
-    background-color: rgba(255, 255, 255, 0.96);
+    position: relative;
+    height: calc(100% - 96px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: 16px;
+    padding: 24px;
+    overflow: hidden;
+    font-size: 16px;
+    text-align: center;
+    border-bottom: 1px solid map-get($white, 4);
 
-    max-height: 0;
-    transform: translateY(69px);
-    transition: max-height 0s, transform 0.4s linear 0.05s;
+    .vp-rate-btns {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
 
-    .vp-text {
-      text-align: center;
-      font-size: 14px;
-      font-weight: bold;
-      color: #003f86;
+      button {
+        @include rate-button;
+        font-size: 0.9em;
+
+        svg {
+          width: 24px;
+        }
+
+        &.vp-rate-btns--deslike {
+          svg {
+            transform: scaleY(-1);
+          }
+        }
+
+        :nth-child(1) {
+          * {
+            fill: map-get($white, 2);
+          }
+        }
+
+        :nth-child(2) {
+          visibility: hidden;
+
+          * {
+            fill: map-get($blue, 1);
+          }
+        }
+
+        &:hover,
+        &:focus {
+          :nth-child(1) {
+            width: 0;
+          }
+
+          :nth-child(2) {
+            visibility: visible;
+          }
+        }
+      }
     }
 
-    .vp-buttons {
-      display: flex;
-      flex-direction: row;
-      justify-content: center;
-      margin-top: 10px;
+    span {
+      font-size: 1em;
+      font-weight: 600;
+      color: map-get($black, 1);
+    }
 
-      .vp-button {
-        display: flex;
-        flex-direction: row;
-        align-items: center;
-        font-size: 13px;
-        font-weight: bold;
-        color: #545454;
-        cursor: pointer;
-        
-        &:not(:last-child) {
-          margin-right: 22px;
+    .vp-rate-box__translation,
+    .vp-rate-box__gloss {
+      display: none;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      gap: 10px;
+      width: 100%;
+      height: 100%;
+      position: relative;
+    }
+
+    .vp-rate-box__gloss {
+      padding: 0 24px;
+      position: absolute;
+      bottom: 0;
+      height: 0;
+      transition: all 0.3s ease-out;
+      overflow: hidden;
+
+      .vp-rate-box__suggestion-text {
+        font-weight: 500;
+
+        box-gloss {
+          color: #000;
+          font-weight: 800;
         }
-        
-        img {
-          height: 22px;
-          margin-right: 6px;
-        }
+      }
+
+      .vp-rate-box__suggestion-wiki {
+        @include suggestion-btn--primary;
+      }
+
+      .vp-rate-box__suggestion-deny {
+        @include suggestion-btn--secundary;
+      }
+
+      .vp-rate-box__suggestion-wiki,
+      .vp-rate-box__suggestion-deny {
+        padding: 0 16px;
+        width: 100%;
+        white-space: nowrap;
+        text-decoration: none;
+      }
+    }
+
+    &.vp-from-dictionary {
+      .vp-rate-box__gloss {
+        height: 100%;
+      }
+
+      .vp-rate-box__translation {
+        display: none;
       }
     }
   }
 
   &.vp-enabled {
-    z-index: 4;
+    visibility: visible;
+    height: 96px;
 
-    .vp-container {
-      max-height: 100%;
-      transform: translateY(0);
-      transition: transform 0.4s, max-height 0s linear 0.4s;
+    .vp-rate-box__translation,
+    .vp-rate-box__gloss {
+      display: flex;
+    }
+  }
+
+  &.vp-expanded {
+    height: 60% !important;
+
+    .vp-rate-box-header button svg {
+      transform: rotate(180deg);
+    }
+  }
+
+  @if $is-widget==1 {
+    @media (max-width: 450px) {
+      &.vp-enabled {
+        visibility: visible;
+        height: 80px;
+      }
+
+      &.vp-expanded {
+        height: 60% !important;
+
+        &.vp-expanded-wiki {
+          height: 70% !important;
+        }
+      }
+
+      .vp-rate-box-header {
+        height: 40px;
+      }
+
+      .vp-rate-box-content {
+        height: calc(100% - 80px);
+        font-size: 12px;
+        gap: 0;
+
+        .vp-rate-box__gloss {
+          .vp-rate-box__suggestion-wiki,
+          .vp-rate-box__suggestion-deny {
+            padding: 0 10px;
+            white-space: normal;
+            min-height: 32px;
+
+            svg {
+              display: none;
+            }
+          }
+        }
+      }
     }
   }
 }

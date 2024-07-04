@@ -1,20 +1,27 @@
+@import '~scss/colors';
+@import '~scss/variables';
+@import '~scss/shared-styles';
+@import '~scss/default-buttons';
+
 $control-height: 68px;
 
 [vp] [vp-suggestion-screen] {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+  overflow: hidden;
   position: absolute;
-  top: 45px;
   right: 0;
+  left: 0;
+  height: 0px;
   bottom: 0;
   width: 100%;
-  padding: 16px;
+  padding: 0;
   background-color: white;
-  z-index: 3;
+  z-index: 5;
+  border-radius: 10px;
+  visibility: hidden;
+  font-size: 14px;
+  max-height: 600px;
 
-  left: 100%;
-  transition: left 0.4s ease-in;
+  transition: all 0.5s ease, opacity 0.5s ease;
 
   ::-webkit-scrollbar {
     width: 10px;
@@ -37,17 +44,16 @@ $control-height: 68px;
 
   .vp-dropdown-suggest {
     display: none;
-    font-family: "Open Sans", sans-serif;
 
     &.vp-enabled {
       display: block;
       position: absolute;
-      height: 54px;
       width: 120px;
+      height: 54px;
       overflow: hidden auto;
       color: white;
       background: rgb(0, 63, 134);
-      border-radius: 3px;
+      border-radius: 5px;
       font-weight: 600;
       list-style-type: none;
       padding: 0px;
@@ -58,39 +64,102 @@ $control-height: 68px;
     cursor: pointer;
     font-size: 12px;
     margin: 5px 0px -4px 6px;
+    color: #ffffff;
 
     &:hover {
       color: rgb(128, 182, 243);
     }
   }
 
-  .vp-title {
-    text-align: center;
-    font-size: 14px;
-    font-weight: bold;
-    color: #003f86;
+  .vp-suggestion-screen-header {
+    @include vp-header;
   }
 
-  .vp-text {
-    display: none;
-    flex: 1;
-    align-self: stretch;
-    margin-top: 10px;
-    margin-left: 20px;
-    margin-right: 20px;
-    padding: 8px 10px 6px;
-    font-size: 12px;
-    border: none;
-    border-radius: 12px;
-    background-color: #efeff2;
-  }
+  .vp-suggestion-screen-content {
+    display: flex;
+    align-items: center;
+    justify-content: start;
+    flex-direction: column;
+    gap: 10px;
+    width: 100%;
+    padding: 16px;
+    height: calc(100% - 96px);
+    border-bottom: 1px solid map-get($white, 4);
 
-  .vp-close-button {
-    margin-top: 8px;
+    .vp-suggestion-screen__title {
+      @include vp-screen__title;
+    }
+
+    .vp-user-textarea-container {
+      @include vp-screen__user-textarea;
+    }
+
+    .vp-suggestion-buttons-container {
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      gap: 10px;
+
+      button {
+        width: 100% !important;
+      }
+
+      .vp-play-gloss-button {
+        @include suggestion-btn--secundary;
+      }
+
+      .vp-send-gloss-button {
+        @include suggestion-btn--primary;
+      }
+    }
   }
 
   &.vp-enabled {
-    left: 0;
-    transition: left 0.4s ease-out 0.8s;
+    height: 96px;
+    visibility: visible;
+
+    &.vp-expanded {
+      height: calc(100% - 60px);
+
+      .vp-suggestion-screen-header {
+        button {
+          svg {
+            transform: rotate(180deg) !important;
+          }
+        }
+      }
+    }
+  }
+
+  @if $is-widget==1 {
+    @media (max-width: 450px) {
+      font-size: 12px;
+
+      .vp-suggestion-screen-content {
+        gap: 6px;
+        padding: 10px;
+        height: calc(100% - 80px);
+
+        .vp-user-textarea-container {
+          height: 100px;
+        }
+
+        .vp-suggestion-buttons-container {
+          gap: 6px;
+          padding: 10px;
+          height: calc(100% - 80px);
+
+          .vp-text {
+            height: 100px;
+          }
+
+          .vp-suggestion-buttons-container {
+            gap: 6px;
+          }
+        }
+      }
+    }
   }
 }

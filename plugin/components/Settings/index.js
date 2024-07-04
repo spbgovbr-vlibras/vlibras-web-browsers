@@ -1,203 +1,182 @@
-var inherits = require('inherits');
-var EventEmitter = require('events').EventEmitter;
+const inherits = require('inherits');
+const EventEmitter = require('events').EventEmitter;
 
-var settingsTpl = require('./settings.html').default;
+const settingsTpl = require('./settings.html').default;
 require('./settings.scss');
-require('./switch.scss');
+require('./regionalism.scss');
 
-function Settings(player, infoScreen, menu, dictionary,option,opacity) {
+const regionsData = require('./data');
+const { backIcon, positionIcons } = require('~icons');
+const { setWidgetPosition, $ } = require('~utils');
+
+function Settings(player, opacity, position, options) {
   this.visible = false;
   this.player = player;
-  this.infoScreen = infoScreen;
-  // this.btnClose = btnClose;
-  this.menu = menu;
-  this.dictionary = dictionary;
-  
-  enable = option.enableMoveWindow;
-  opacity_user = opacity;
+  this.opacityUser = isNaN(opacity) ? 100 : opacity * 100;
+  this.button = null;
+  this.positionUser = widgetPositions.includes(position)
+    ? position : 'R';
+
+  isWidget = options.enableMoveWindow;
 }
 
 inherits(Settings, EventEmitter);
 
 Settings.prototype.load = function (element) {
-  this.menu = this.menu.element.querySelector('[settings-btn]').firstChild;
-
   this.element = element;
   this.element.innerHTML = settingsTpl;
   this.element.classList.add('vpw-settings');
+  this.localism = this.element.querySelector('.vpw-regions-container');
+  this.toggleHeader = toggleHeader;
+  this.button = document.querySelector('.vpw-header-btn-settings');
 
+  // Header element
+  const header = this.element.querySelector('.vpw-screen-header span');
 
-  // Localism panel
-  this.localism = this.element.querySelector('.vpw-content > .vpw-localism');
-  
-  this.dictionaryBtn = this.element.querySelector('.vpw-dict');
+  // Config back button
+  const backButton = this.element.querySelector('.vpw-screen-header button');
+  backButton.innerHTML = backIcon;
+  backButton.onclick = handleReturn.bind(this);
 
-  
-  // Close events
+  // Access regionalism button
+  const regionalismCont = this.element.querySelector('.vpw-option__regionalism div');
+  const regionalismBtn = this.element.querySelector('.vpw-selected-region');
+  regionalismCont.onclick = accessRegionalism.bind(this);
+  regionalismBtn.onclick = accessRegionalism.bind(this);
+  setRegion.bind(this)({ path: 'BR', flag: 'assets/brazil.png', });
 
-  // this.btnClose.element.firstChild.addEventListener('click',this.hide.bind(this))
-  // Selected region
-  this.selectedRegion = this.element.querySelector('.vpw-content > ul .vpw-localism');
+  // Opacity option
+  const opacityInput = this.element.querySelector('.vpw-opacity-range input');
+  const opacitySlider = this.element.querySelector('.vpw-opacity-range vpw-slider');
+  const opacityValue = this.element.querySelector('.vpw-opacity-value');
+  opacityInput.oninput = (e) => setOpacity(e.target.value);
+  setOpacity(this.opacityUser);
 
-  if (enable) {
-    this.position = this.element.querySelector('.vpw-content > ul .vpw-position');
-    this.position.style.display = 'block';
-    this.position_op = this.element.querySelector('.vpw-content > ul .vpw-opacity');
-    this.position_op.style.display = 'block';
-  }
-
-  this.selectedRegion._name = this.selectedRegion.querySelector('.vpw-abbrev');
-  this.selectedRegion._flag = this.selectedRegion.querySelector('img.vpw-flag');
-  this.selectedRegion.addEventListener('click', function() {
-  this.localism.classList.toggle('active');
-  }.bind(this));
-
-  this.dictionaryBtn.addEventListener('click', function(event){
-    // console.log(event.target);
-    this.loadingDic = this.element.querySelector('.vpw-controls-dictionary');
-    if (!(this.loadingDic.classList.contains('vpw-loading-dictionary')))
-    { 
-      this.element.classList.remove('active');
-      this.dictionary.show();
-      this.player.pause();
-    }
-  }.bind(this));
-  
-  var OnLeft = 1;
-  var selector = this.element.querySelector('input[name=checkbox]')
-
-  this.element.querySelector('.vpw-content > ul .vpw-position')
-    .addEventListener('click', function() {
-      if(OnLeft){
-        window.dispatchEvent(new CustomEvent('vp-widget-wrapper-set-side', {detail: {right: true}})); 
-        OnLeft=0;
-        selector.checked = false;
-      }
-      else{
-        window.dispatchEvent(new CustomEvent('vp-widget-wrapper-set-side', {detail: {right: false}})); 
-        OnLeft=1;
-        selector.checked = true;
-      }
-    }.bind(this));
-
-   //
-
-  this.opacity = this.element.querySelector('.vpw-content > ul .vpw-opacity');
-  this.opacity_button_left = this.opacity.querySelector('img.arrow-left-opac');
-  this.opacity_button_right = this.opacity.querySelector('img.arrow-right-opac');
-  this.percent =  this.opacity.querySelector('span.vpw-percent');
-
-
-  var opacity = opacity_user;
-  this.percent.innerHTML = opacity*100 + '%';
-  
-  this.opacity_button_right.addEventListener('click', function() {
-
-      if(opacity){
-        opacity-=0.25
-      } else {
-        opacity=0
-      }
-      this.percent.innerHTML = opacity*100 + '%';
-      window.dispatchEvent(new CustomEvent('vw-change-opacity', {detail: 1-opacity})); 
-
-  }.bind(this));
-
-  this.opacity_button_left.addEventListener('click', function() {
-
-      if(opacity < 1.0){
-        opacity+=0.25
-      } else {
-        opacity=1.0
-      }
-
-      if (opacity > 1) {
-        opacity=1.0
-      }
-
-      this.percent.innerHTML = opacity*100 + '%';
-      window.dispatchEvent(new CustomEvent('vw-change-opacity', {detail: 1-opacity})); 
-
-  }.bind(this));
-
-
-  this.element.querySelector('.vpw-content > ul .vpw-about')
-    .addEventListener('click', function() {
-      this.hide(false);
-      this.infoScreen.show();
-    }.bind(this));
-
-
-  // About button
-  this.element.querySelector('.vpw-content > ul .vpw-about')
-    .addEventListener('click', function() {
-      this.hide(false);
-      this.infoScreen.show();
-    }.bind(this));
-
-
-  // National
-  this.national = this.localism.querySelector('.vpw-national');
-  this.national._data = nationalData;
-  this.national.classList.add('vpw-selected');
-  this.national.addEventListener('click', function() {
-    this.setRegion(this.national);
-  }.bind(this));
-
-  // Selected region
-  this.region = this.national;
+  // Position option box
+  const positionBox = this.element.querySelector('.vpw-position-box');
 
   // Creates regions grid
-  var regions = this.localism.querySelector('.vpw-regions');
-  var regionHTML = require('./region.html').default;
+  const regionHTML = require('./region.html').default;
+  let activeRegion = null;
 
-  for (var i in regionsData) {
-    var data = regionsData[i];
+  if (!isWidget) {
+    this.element.querySelector(
+      '.vpw-widget-exclusive-opacity'
+    ).style.display = 'none';
+    this.element.querySelector(
+      '.vpw-widget-exclusive-position'
+    ).style.display = 'none';
+  }
 
-    var region = document.createElement('div');
-    region.classList.add('vpw-container-regions');
-    region.innerHTML = regionHTML;
+  // eslint-disable-next-line guard-for-in
+  for (const region of regionsData) {
+    const element = document.createElement('div');
+    element.classList.add('vpw-region');
+    element.innerHTML = regionHTML;
 
-    region._data = data;
-    region._setRegion = this.setRegion.bind(this);
+    if (region === regionsData[0]) {
+      element.classList.add('selected');
+      activeRegion = element;
+    }
 
-    region.querySelector('img.vpw-flag').setAttribute("data-src", data.flag);
-    region.querySelector('.vpw-name').innerHTML = data.name;
-    region.addEventListener('click', function() {
-      this._setRegion(this);
-    });
+    $('.vpw-flag', element).setAttribute('data-src', region.flag);
+    $('.vpw-name', element).innerHTML = 
+      region.path === 'BR'
+        ? region.name 
+        : `${region.name}<span> - ${region.path}</span>`;
 
-    regions.appendChild(region);
+    element.onclick = () => {
+      if (activeRegion === element) return;
+      element.classList.add('selected');
+      activeRegion.classList.remove('selected');
+      activeRegion = element;
+
+      // Set region button/player
+      setRegion.bind(this)(region);
+
+      handleReturn.bind(this)();
+    }
+    this.localism.appendChild(element);
+  }
+
+  // Add positions in box
+  for (const position of widgetPositions) {
+    const span = document.createElement('span');
+
+    if (position) span.innerHTML =
+      positionIcons[widgetPositions.indexOf(position)];
+
+    if (position === this.positionUser) span.classList.add('vpw-select-pos');
+
+    positionBox.appendChild(span);
+
+    if (!position) span.style.visibility = 'hidden';
+    else span.onclick = () => {
+      setWidgetPosition(position);
+
+      positionBox.querySelector('.vpw-select-pos')
+        .classList.remove('vpw-select-pos');
+
+      span.classList.add('vpw-select-pos');
+    }
   }
 
   // Elements to apply blur filter
   this.gameContainer = document.querySelector('div#gameContainer');
   this.controlsElement = document.querySelector('.vpw-controls');
 
-  // this.hide();
-};
+  function setOpacity(opacity) {
+    const value = Number(opacity > 100 ? 100 : opacity < 0 ? 0 : opacity);
+    const percent = (value < 25 && !isFullscreen()) ? value + 5 : value;
 
-Settings.prototype.setRegion = function (region) {
-  // Deactivate localism panel
-  this.localism.classList.remove('active');
-  // this.menu.element.firstChild.classList.add('active');
-  
+    opacityInput.value = opacity;
+    opacitySlider.style.width = percent + '%';
+    opacityValue.innerHTML = value + '%';
 
-  // Select new region
-  this.region.classList.remove('vpw-selected');
-  this.region = region;
-  this.region.classList.add('vpw-selected');
-
-  // Updates selected region
-  this.selectedRegion._name.innerHTML = this.region._data.name;
-  if(window.plugin.rootPath){
-    this.selectedRegion._flag.src = window.plugin.rootPath + '/' + this.region._data.flag;
-  } else {
-    this.selectedRegion._flag.src = this.region._data.flag;
+    window.dispatchEvent(
+      new CustomEvent('vw-change-opacity', { detail: value / 100 })
+    );
   }
 
-  // Sends to player
-  this.player.setRegion(this.region._data.path);
+  function isFullscreen() {
+    return document.body.classList.contains('vpw-fullscreen');
+  }
+
+  function setRegion(region) {
+    regionalismBtn.querySelector('span').innerHTML = region.path;
+    regionalismBtn.querySelector('img').src = window.plugin.rootPath
+      ? window.plugin.rootPath + '/' + region.flag : region.flag;
+
+    this.player.setRegion(region.path);
+  }
+
+  function accessRegionalism() {
+    this.localism.classList.add('active');
+    toggleHeader();
+  }
+
+  const panelIsOpen = function () {
+    return this.localism.classList.contains('active');
+  }.bind(this);
+
+  function handleReturn() {
+    if (panelIsOpen()) {
+      this.localism.scrollTo(0, 0);
+      this.localism.classList.remove('active');
+    } else {
+      this.hide();
+      document.querySelector('.vpw-header-btn-settings')
+        .classList.remove('selected');
+    }
+    toggleHeader();
+  }
+
+  function toggleHeader() {
+    header.innerHTML = panelIsOpen()
+      ? 'Regionalismo'
+      : 'Configurações';
+  }
+
 };
 
 Settings.prototype.toggle = function () {
@@ -205,69 +184,38 @@ Settings.prototype.toggle = function () {
   else this.show();
 };
 
-Settings.prototype.hide = function (menuOn) {
+Settings.prototype.hide = function () {
   this.visible = false;
   this.element.classList.remove('active');
   this.localism.classList.remove('active');
-  // this.btnClose.element.firstChild.style.visibility = 'hidden';
-  if(menuOn){
-    this.menu.classList.add('active');
-  }
+  this.button.classList.remove('selected');
 
   // Removes blur filter
   this.gameContainer.classList.remove('vpw-blur');
   this.controlsElement.classList.remove('vpw-blur');
-  
-  this.emit('hide');
-};
 
-Settings.prototype.showMenu = function(){
-  this.menu.classList.add('active');
+  this.toggleHeader();
+
+  this.emit('hide');
 };
 
 Settings.prototype.show = function () {
   this.visible = true;
   this.element.classList.add('active');
-  // this.btnClose.element.firstChild.style.visibility = 'visible';
-  this.menu.classList.remove('active');
-  
+  this.button.classList.add('selected');
 
   // Apply blur filter
   this.gameContainer.classList.add('vpw-blur');
   this.controlsElement.classList.add('vpw-blur');
-  
+
   this.emit('show');
 };
 
 module.exports = Settings;
 
-var nationalData = { name: 'BR', path: '', flag: 'assets/brazil.png' };
-var regionsData = [
-  { name: 'AC', path: 'AC', flag: 'assets/1AC.png' },
-  { name: 'MA', path: 'MA', flag: 'assets/10MA.png' },
-  { name: 'RJ', path: 'RJ', flag: 'assets/19RJ.png' },
-  { name: 'AL', path: 'AL', flag: 'assets/2AL.png' },
-  { name: 'MT', path: 'MT', flag: 'assets/11MT.png' },
-  { name: 'RN', path: 'RN', flag: 'assets/20RN.png' },
-  { name: 'AP', path: 'AP', flag: 'assets/3AP.png' },
-  { name: 'MS', path: 'MS', flag: 'assets/12MS.png' },
-  { name: 'RS', path: 'RS', flag: 'assets/21RS.png' },
-  { name: 'AM', path: 'AM', flag: 'assets/4AM.png' },
-  { name: 'MG', path: 'MG', flag: 'assets/13MG.png' },
-  { name: 'RO', path: 'RO', flag: 'assets/22RO.png' },
-  { name: 'BA', path: 'BA', flag: 'assets/5BA.png' },
-  { name: 'PA', path: 'PA', flag: 'assets/14PA.png' },
-  { name: 'RR', path: 'RR', flag: 'assets/23RR.png' },
-  { name: 'DF', path: 'DF', flag: 'assets/7DF.png' },
-  { name: 'PB', path: 'PB', flag: 'assets/15PB.png' },
-  { name: 'SC', path: 'SC', flag: 'assets/24SC.png' },
-  { name: 'CE', path: 'CE', flag: 'assets/6CE.png' },
-  { name: 'PR', path: 'PR', flag: 'assets/16PR.png' },
-  { name: 'SP', path: 'SP', flag: 'assets/25SP.png' },
-  { name: 'ES', path: 'ES', flag: 'assets/8ES.png' },
-  { name: 'PE', path: 'PE', flag: 'assets/17PE.png' },
-  { name: 'SE', path: 'SE', flag: 'assets/26SE.png' },
-  { name: 'GO', path: 'GO', flag: 'assets/9GO.png' },
-  { name: 'PI', path: 'PI', flag: 'assets/18PI.png' },
-  { name: 'TO', path: 'TO', flag: 'assets/27TO.png' }
-];
+
+const widgetPositions = [
+  'TL', 'T', 'TR',
+  'L', null, 'R',
+  'BL', 'B', 'BR'
+]
