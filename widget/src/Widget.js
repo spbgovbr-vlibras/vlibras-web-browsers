@@ -3,7 +3,14 @@ const PluginWrapper = require('./components/PluginWrapper');
 
 require('./scss/styles.scss');
 
-const { $, $$, addClass, toggleUnityMainLoop, removeClass, getWidget } = require('~utils');
+const {
+  $,
+  $$,
+  addClass,
+  toggleUnityMainLoop,
+  removeClass,
+  getWidget,
+} = require('~utils');
 const { ROOT_PATH: DEFAULT_ROOT_PATH } = require('~constants');
 
 const availablePositions = ['TL', 'T', 'TR', 'L', 'R', 'BL', 'B', 'BR'];
@@ -26,8 +33,12 @@ module.exports = function Widget(...args) {
 
   const pluginWrapper = new PluginWrapper();
   const accessButton = new AccessButton({
-    rootPath, pluginWrapper, personalization,
-    opacity, position, avatar
+    rootPath,
+    pluginWrapper,
+    personalization,
+    opacity,
+    position,
+    avatar,
   });
 
   let tempF;
@@ -56,20 +67,26 @@ module.exports = function Widget(...args) {
       this.element = getWidget();
 
       this.element.style.left = position.includes('L')
-        ? '0' : ['T', 'B'].includes(position) ? '50%' : 'initial';
+        ? '0'
+        : ['T', 'B'].includes(position)
+        ? '50%'
+        : 'initial';
 
-      this.element.style.right = position.includes('R')
-        ? '0' : 'initial';
+      this.element.style.right = position.includes('R') ? '0' : 'initial';
 
       this.element.style.top = position.includes('T')
-        ? '0' : ['L', 'R'].includes(position) ? '50%' : 'initial';
+        ? '0'
+        : ['L', 'R'].includes(position)
+        ? '50%'
+        : 'initial';
 
-      this.element.style.bottom = position.includes('B')
-        ? '0' : 'initial';
+      this.element.style.bottom = position.includes('B') ? '0' : 'initial';
 
       this.element.style.transform = ['L', 'R'].includes(position)
-        ? 'translateY(calc(-50% - 10px))' : ['T', 'B'].includes(position)
-          ? 'translateX(calc(-50% - 10px))' : 'initial';
+        ? 'translateY(calc(-50% - 10px))'
+        : ['T', 'B'].includes(position)
+        ? 'translateX(calc(-50% - 10px))'
+        : 'initial';
 
       const access = $('[vw-access-button]');
 
@@ -89,11 +106,11 @@ module.exports = function Widget(...args) {
       access.classList.toggle('active');
       wrapper.classList.toggle('active');
       addClass($('div[vp-change-avatar]'), 'active');
-      addClass($('div[vp-additional-options]'), 'vp-enabled');
+      addClass($('div[vp-aux-controls]'), 'vp-enabled');
       removeClass($('div[vp-controls]'), 'vpw-selectText');
       toggleUnityMainLoop(false);
     });
-  
+
     window.addEventListener('vw-change-opacity', (event) => {
       wrapper.style.background = `rgba(235,235,235, ${event.detail})`;
     });
@@ -101,20 +118,20 @@ module.exports = function Widget(...args) {
     // Apply Widget default position
     if (availablePositions.includes(position)) {
       window.dispatchEvent(
-        new CustomEvent('vp-widget-wrapper-set-side', { detail: position }));
+        new CustomEvent('vp-widget-wrapper-set-side', { detail: position })
+      );
     }
   };
 
   function resolveMultipleWidgetsIssue() {
-    $$('[vw]').forEach(vw => {
+    $$('[vw]').forEach((vw) => {
       if (!($('[vp]'), vw)) {
         vw.removeAttribute('vw');
 
-         if (location.hostname.includes('correios.com.br')) {
+        if (location.hostname.includes('correios.com.br')) {
           removeClass(vw, 'enabled');
         }
       }
-    })
+    });
   }
-
 };

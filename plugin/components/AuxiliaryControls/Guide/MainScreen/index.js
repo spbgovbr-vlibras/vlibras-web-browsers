@@ -2,11 +2,12 @@ const template = require('./main-guide-screen.html').default;
 require('./main-guide-screen.scss');
 
 const u = require('~utils');
-const { formatGlossWithU200E } = require('../utils');
+const { noCachedGloss } = require('../utils');
 
 const LOCAL_KEY = '@vp-guide';
-const GUIDE_INTRO_MESSAGE = 'PRIMEIRO&ORDINAL VEZ AQUI [INTERROGAÇÃO] ' +
-  'QUE APRENDER MAIS&QUANTIDADE SOBRE&ASSUNTO FUNCIONAL [INTERROGAÇÃO]'
+const GUIDE_INTRO_MESSAGE =
+  'PRIMEIRO&ORDINAL VEZ AQUI [INTERROGAÇÃO] ' +
+  'QUE APRENDER MAIS&QUANTIDADE SOBRE&ASSUNTO FUNCIONAL [INTERROGAÇÃO]';
 
 let boundUpdatePos = null;
 let vwPlayer = null;
@@ -33,29 +34,28 @@ MainGuideScreen.prototype.load = function (element) {
   acceptButton.onclick = () => {
     this.hide();
     this.guide.show();
-  }
+  };
 
   denyButton.onclick = () => {
     this.hide();
-  }
-
-}
+  };
+};
 
 MainGuideScreen.prototype.show = function () {
   if (!getDefault() || this.enabled) return;
   this.enabled = true;
   this.closeScreen.closeAll();
-  u.addClass(this.element, 'vp-enabled')
+  u.addClass(this.element, 'vp-enabled');
   u.addClickBlocker(true);
   updatePosition.bind(this)();
-  hideAdditionalOptions(true);
+  hideAuxControls(true);
   addEvents();
 
-  const formattedMessage = formatGlossWithU200E(GUIDE_INTRO_MESSAGE)
+  const formattedMessage = noCachedGloss(GUIDE_INTRO_MESSAGE);
   setTimeout(() => {
-    vwPlayer.play(formattedMessage, { isEnabledStats: false })
+    vwPlayer.play(formattedMessage, { isEnabledStats: false });
   }, 500);
-}
+};
 
 MainGuideScreen.prototype.hide = function () {
   if (!this.enabled) return saveDefault(false);
@@ -66,14 +66,14 @@ MainGuideScreen.prototype.hide = function () {
   u.addClickBlocker(false);
   u.disableControlsButton();
   saveDefault(false);
-  hideAdditionalOptions(false);
+  hideAuxControls(false);
   removeEvents();
-}
+};
 
 MainGuideScreen.prototype.toggle = function () {
   if (this.enabled) this.hide();
   else this.show();
-}
+};
 
 function updatePosition() {
   if (!this.enabled) return;
@@ -106,9 +106,9 @@ function getDefault() {
   return value !== 'false';
 }
 
-function hideAdditionalOptions(bool) {
+function hideAuxControls(bool) {
   u.toggleClass(u.$('[vp-change-avatar]'), 'vp--off', bool);
-  u.toggleClass(u.$('[vp-additional-options]'), 'vp--off', bool);
+  u.toggleClass(u.$('[vp-aux-controls]'), 'vp--off', bool);
 }
 
 function saveDefault(bool) {
@@ -118,13 +118,13 @@ function saveDefault(bool) {
 function addEvents() {
   u._on(window, 'resize', boundUpdatePos);
   u._on(window, 'vp-widget-wrapper-set-side', boundUpdatePos);
-  u._vwOn(vwPlayer, 'translate:start', boundHide)
+  u._vwOn(vwPlayer, 'translate:start', boundHide);
 }
 
 function removeEvents() {
   u._off(window, 'resize', boundUpdatePos);
   u._off(window, 'vp-widget-wrapper-set-side', boundUpdatePos);
-  u._vwOff(vwPlayer, 'translate:start', boundHide)
+  u._vwOff(vwPlayer, 'translate:start', boundHide);
 }
 
 module.exports = MainGuideScreen;

@@ -10,10 +10,19 @@ const arrowIcon = require('./feedback/arrow-up.svg');
 const likeLineIcon = require('./feedback/like-line.svg');
 const likeSolidIcon = require('./feedback/like-solid.svg');
 const loadingIcon = require('./loading.svg');
-const translatorIcon = require('./additionalOptions/translator.svg');
-const helpIcon = require('./additionalOptions/help.svg');
+const translatorIcon = require('./aux-controls/translator.svg');
+const moreOptionsIcon = require('./aux-controls/more-options.svg');
+const helpIcon = require('./aux-controls/help.svg');
 const arrowOutward = require('./feedback/arrow-outward.svg');
-const deleteIcon = require('./delete.svg')
+const deleteIcon = require('./delete.svg');
+const bugReportIcon = require('./aux-controls/bug-report.svg');
+
+const emotions = {
+  satisfied: require('./emotions/satisfied.svg'),
+  'very-satisfied': require('./emotions/very-satisfied.svg'),
+  dissatisfied: require('./emotions/dissatisfied.svg'),
+  automatic: require('./emotions/automatic.svg'),
+};
 
 const controlIcons = {
   play: require('./controls/play.svg'),
@@ -23,7 +32,7 @@ const controlIcons = {
   maximize: require('./controls/maximize.svg'),
   minimize: require('./controls/minimize.svg'),
   skip: require('./controls/skip.svg'),
-}
+};
 
 const socialIcons = {
   face: require('./social/facebook.svg'),
@@ -31,20 +40,41 @@ const socialIcons = {
   twitter: require('./social/twitter.svg'),
   insta: require('./social/instagram.svg'),
   youtube: require('./social/youtube.svg'),
-}
+};
 
 const positionIcons = [
-  require('./positions/top-left.svg'), require('./positions/top.svg'),
-  require('./positions/top-right.svg'), require('./positions/left.svg'),
-  null, require('./positions/right.svg'), require('./positions/bottom-left.svg'),
-  require('./positions/bottom.svg'), require('./positions/bottom-right.svg')
-]
+  require('./positions/top-left.svg'),
+  require('./positions/top.svg'),
+  require('./positions/top-right.svg'),
+  require('./positions/left.svg'),
+  null,
+  require('./positions/right.svg'),
+  require('./positions/bottom-left.svg'),
+  require('./positions/bottom.svg'),
+  require('./positions/bottom-right.svg'),
+];
 
 module.exports = {
-  IcaroIcon, HosanaIcon, GugaIcon, aboutIcon, closeIcon,
-  dictionaryIcon, settingsIcon, backIcon, socialIcons,
-  positionIcons, arrowIcon, likeLineIcon, likeSolidIcon,
-  loadingIcon, translatorIcon, helpIcon, controlIcons,
-  arrowOutward, deleteIcon
-}
-
+  IcaroIcon,
+  HosanaIcon,
+  GugaIcon,
+  aboutIcon,
+  closeIcon,
+  dictionaryIcon,
+  settingsIcon,
+  backIcon,
+  socialIcons,
+  positionIcons,
+  arrowIcon,
+  likeLineIcon,
+  likeSolidIcon,
+  loadingIcon,
+  translatorIcon,
+  moreOptionsIcon,
+  helpIcon,
+  controlIcons,
+  arrowOutward,
+  deleteIcon,
+  emotions,
+  bugReportIcon,
+};

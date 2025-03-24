@@ -11,17 +11,18 @@ const Box = require('components/Box');
 const CloseScreen = require('components/CloseScreen');
 const RateBox = require('components/RateBox');
 const SuggestionScreen = require('components/SuggestionScreen');
-const Translator = require('components/AdditionalOptions/Translator');
-const AdditionalOptions = require('components/AdditionalOptions');
-const ChangeAvatar = require('components/AdditionalOptions/ChangeAvatar');
-const Guide = require('components/AdditionalOptions/Guide');
-const MainGuideScreen = require('components/AdditionalOptions/Guide/MainScreen');
+const Translator = require('components/Translator');
+const AuxiliaryControls = require('components/AuxiliaryControls');
+const ChangeAvatar = require('components/AuxiliaryControls/ChangeAvatar');
+const Guide = require('components/AuxiliaryControls/Guide');
+const MainGuideScreen = require('components/AuxiliaryControls/Guide/MainScreen');
+const MoreOptions = require('components/AuxiliaryControls/MoreOptions');
 
 const url = require('url-join');
 const { REVIEW_URL } = require('~constants');
 const { ALERT_MESSAGES } = require('./alert-messages');
 const { sendAccessCount } = require('./services');
-const { formatGlossWithU200E } = require('./components/AdditionalOptions/Guide/utils');
+const { noCachedGloss } = require('./components/AuxiliaryControls/Guide/utils');
 
 require('./scss/reset.scss');
 require('./scss/global.scss');
@@ -55,29 +56,60 @@ function Plugin(options) {
   this.controls = new Controls(this.player, this.dictionary, this.isWidget);
   this.Box = new Box();
   this.info = new InfoScreen(this.Box);
-  this.settings = new Settings(this.player, this.opacity, this.position, options);
+  this.settings = new Settings(
+    this.player,
+    this.opacity,
+    this.position,
+    options
+  );
 
   this.messageBox = new MessageBox();
   this.suggestionScreen = new SuggestionScreen(this.player);
   this.guide = this.isWidget && new Guide(this.player);
   this.translator = new Translator(this.player);
-  this.rateBox = new RateBox(this.messageBox, this.suggestionScreen, this.player);
-  this.ChangeAvatar = new ChangeAvatar(this.player, this.controls);
-  this.additionalOptions = new AdditionalOptions(this.player, this.translator, this.guide, this.isWidget);
-  this.closeScreen = new CloseScreen(this.dictionary, this.info, this.settings, this.translator);
-  this.settingsBtn = new SettingsBtn(this.player, this.settings, this.dictionary, this.info, this.translator, options);
+  this.rateBox = new RateBox(
+    this.messageBox,
+    this.suggestionScreen,
+    this.player
+  );
+  this.changeAvatar = new ChangeAvatar(this.player, this.controls);
+  this.auxControls = new AuxiliaryControls(
+    this.player,
+    this.guide,
+    this.translator,
+    this.isWidget
+  );
+  this.closeScreen = new CloseScreen(
+    this.dictionary,
+    this.info,
+    this.settings,
+    this.translator
+  );
+  this.settingsBtn = new SettingsBtn(
+    this.player,
+    this.settings,
+    this.dictionary,
+    this.info,
+    this.translator,
+    options
+  );
 
   this.loadingRef = null;
 
-  this.mainGuideScreen = this.isWidget && new MainGuideScreen(this.guide, this.player, this.closeScreen);
-  this.additionalOptions.load(this.element.querySelector('[vp-additional-options]'));
+  this.mainGuideScreen =
+    this.isWidget &&
+    new MainGuideScreen(this.guide, this.player, this.closeScreen);
+  this.auxControls.load(this.element.querySelector('[vp-aux-controls]'));
   this.messageBox.load(this.element.querySelector('[vp-message-box]'));
   this.rateBox.load(this.element.querySelector('[vp-rate-box]'));
-  this.suggestionScreen.load(this.element.querySelector('[vp-suggestion-screen]'));
+  this.suggestionScreen.load(
+    this.element.querySelector('[vp-suggestion-screen]')
+  );
   this.translator.load(this.element.querySelector('[vp-translator-screen]'));
 
   this.guide && this.guide.load(createGuideContainer());
-  this.mainGuideScreen && this.mainGuideScreen.load(document.querySelector('[vp-main-guide-screen]'))
+  this.mainGuideScreen &&
+    this.mainGuideScreen.load(document.querySelector('[vp-main-guide-screen]'));
 
   this.player.load(this.element);
 
@@ -87,17 +119,26 @@ function Plugin(options) {
     else this.player.setPersonalization(this.personalization);
 
     this.player.toggleSubtitle(false);
-    this.controls.load(this.element.querySelector('[vp-controls]'), this.rateBox);
+    this.controls.load(
+      this.element.querySelector('[vp-controls]'),
+      this.rateBox
+    );
     this.Box.load(this.element.querySelector('[vp-box]'));
 
-    this.settingsBtn.load(this.element.querySelector('[vp-box]').querySelector('[settings-btn]'),
-      () => this.dictionary.load(this.element.querySelector('[vp-dictionary]'), this.closeScreen, this.mainGuideScreen),
+    this.settingsBtn.load(
+      this.element.querySelector('[vp-box]').querySelector('[settings-btn]'),
+      () =>
+        this.dictionary.load(
+          this.element.querySelector('[vp-dictionary]'),
+          this.closeScreen,
+          this.mainGuideScreen
+        ),
       this.element.querySelector('[vp-dictionary]'),
       this.rootPath
     );
     this.settings.load(this.element.querySelector('[vp-settings]'));
     this.info.load(this.element.querySelector('[vp-info-screen]'));
-    this.ChangeAvatar.load(this.element.querySelector('[vp-change-avatar]'));
+    this.changeAvatar.load(this.element.querySelector('[vp-change-avatar]'));
 
     this.loadFonts();
     this.loadImages();
@@ -114,10 +155,13 @@ function Plugin(options) {
   this.player.on('translate:start', () => {
     control = 1;
     this.player.fromDictionary = false;
-    this.ChangeAvatar.hide();
-    this.additionalOptions.hide();
+    this.changeAvatar.hide();
+    this.auxControls.hide();
     this.controls.setProgress();
-    this.loadingRef = this.messageBox.show('info', ALERT_MESSAGES.TRANSLATING_TEXT);
+    this.loadingRef = this.messageBox.show(
+      'info',
+      ALERT_MESSAGES.TRANSLATING_TEXT
+    );
     this.closeScreen.closeAll();
   });
 
@@ -129,16 +173,16 @@ function Plugin(options) {
 
   this.player.on('gloss:start', () => {
     control = 0;
-    this.ChangeAvatar.hide();
-    this.additionalOptions.hide();
+    this.changeAvatar.hide();
+    this.auxControls.hide();
     this.suggestionScreen.hide();
     this.rateBox.hide();
   });
 
-  this.player.on('gloss:end', (globalGlosaLenght) => {
+  this.player.on('gloss:end', () => {
     if (control == 0) {
-      this.ChangeAvatar.show();
-      this.additionalOptions.show();
+      this.changeAvatar.show();
+      this.auxControls.show();
     }
 
     if (this.player.translated && control == 0) {
@@ -152,8 +196,8 @@ function Plugin(options) {
   this.player.on('stop:welcome', (bool) => {
     if (bool) {
       this.isWidget && this.mainGuideScreen.show();
-      this.ChangeAvatar.show();
-      this.additionalOptions.show();
+      this.changeAvatar.show();
+      this.auxControls.show();
     }
   });
 
@@ -165,7 +209,11 @@ function Plugin(options) {
           this.messageBox.show('warning', ALERT_MESSAGES.COMPATIBILITY_ERROR);
           break;
         case 'translation_error':
-          this.messageBox.show('warning', ALERT_MESSAGES.TRANSLATION_ERROR, 3000);
+          this.messageBox.show(
+            'warning',
+            ALERT_MESSAGES.TRANSLATION_ERROR,
+            3000
+          );
           break;
         case 'internal_error':
           this.messageBox.show('warning', ALERT_MESSAGES.INTERNAL_ERROR, 3000);
@@ -212,20 +260,23 @@ Plugin.prototype.sendReview = function (rate, review) {
     // Thanks message
     const oldGloss = this.player.gloss;
     const boundToggleSubtitle = toggleSubtitle.bind(this);
-    const skipButton = this.controls.element.querySelector('.vpw-skip-welcome-message');
-    const subtitleIsActived = this.controls.element.querySelector('.actived-subtitle');
+    const skipButton = this.controls.element.querySelector(
+      '.vpw-skip-welcome-message'
+    );
+    const subtitleIsActived =
+      this.controls.element.querySelector('.actived-subtitle');
 
-    this.player.play(formatGlossWithU200E('AGRADECER'), { isEnabledStats: false });
+    this.player.play(noCachedGloss('AGRADECER'), { isEnabledStats: false });
     this.player.gloss = undefined;
 
     skipButton.classList.add('vp-disabled');
     subtitleIsActived && this.player.toggleSubtitle();
-    this.player.addListener("gloss:end", boundToggleSubtitle);
+    this.player.addListener('gloss:end', boundToggleSubtitle);
 
     function toggleSubtitle() {
       skipButton.classList.remove('vp-disabled');
       subtitleIsActived && this.player.toggleSubtitle();
-      this.player.removeListener("gloss:end", boundToggleSubtitle);
+      this.player.removeListener('gloss:end', boundToggleSubtitle);
       this.player.gloss = oldGloss;
     }
   };
@@ -251,18 +302,26 @@ Plugin.prototype.loadFonts = function () {
     { style: 'normal', weight: 700, url: 'assets/fonts/rawline-700.woff' },
   ];
 
-  fontVariations.forEach(variation => {
-    const font = new FontFace('rawline', `url(${this.buildAbsolutePath(variation.url)})`, {
-      style: variation.style,
-      weight: variation.weight,
-    });
+  fontVariations.forEach((variation) => {
+    const font = new FontFace(
+      'rawline',
+      `url(${this.buildAbsolutePath(variation.url)})`,
+      {
+        style: variation.style,
+        weight: variation.weight,
+      }
+    );
 
-    font.load()
+    font
+      .load()
       .then((loaded) => document.fonts.add(loaded))
       .catch((error) => {
-        console.error(`Error loading Rawline font ${variation.style} ${variation.weight}:`, error);
+        console.error(
+          `Error loading Rawline font ${variation.style} ${variation.weight}:`,
+          error
+        );
       });
   });
-}
+};
 
 module.exports = Plugin;

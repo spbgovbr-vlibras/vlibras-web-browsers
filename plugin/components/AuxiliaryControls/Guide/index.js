@@ -1,11 +1,10 @@
-
 const template = require('./guide.html').default;
 require('./guide.scss');
 
 const u = require('~utils');
 const { closeIcon } = require('~icons');
 const { guideElements } = require('./guide-elements');
-const { formatGlossWithU200E } = require('./utils');
+const { noCachedGloss } = require('./utils');
 
 let $vw = null;
 
@@ -44,11 +43,12 @@ Guide.prototype.load = function (element) {
   this.nextButton.onclick = () => this.next();
 
   // Function to populate "$elements" list with HTMLElements using the paths of guide elements.
-  this.populateList = () => guideElements.forEach(({ path }) => this.$elements.push(u.$(path)));
+  this.populateList = () =>
+    guideElements.forEach(({ path }) => this.$elements.push(u.$(path)));
 
   // Create slider element
   this.tabSlider.innerHTML = '<span></span>'.repeat(guideElements.length);
-}
+};
 
 Guide.prototype.show = function () {
   if (!this.$elements.length) this.populateList();
@@ -68,7 +68,7 @@ Guide.prototype.show = function () {
 
   // Dispath custom event to disable text capture
   window.dispatchEvent(new CustomEvent('vp-disable-text-capture'));
-}
+};
 
 Guide.prototype.hide = function () {
   this.element.classList.remove('vp-enabled');
@@ -86,12 +86,12 @@ Guide.prototype.hide = function () {
 
   // Dispath custom event to disable text capture
   window.dispatchEvent(new CustomEvent('vp-enable-text-capture'));
-}
+};
 
 Guide.prototype.toggle = function () {
   if (this.enabled) this.hide();
   else this.show();
-}
+};
 
 Guide.prototype.next = function () {
   if (this.tab === guideElements.length - 1) return this.hide();
@@ -100,7 +100,7 @@ Guide.prototype.next = function () {
   this.updatePosition();
   this.addHighlight();
   callWidgetTranslator.bind(this)();
-}
+};
 
 Guide.prototype.back = function () {
   if (this.tab === 0) return;
@@ -109,14 +109,14 @@ Guide.prototype.back = function () {
   this.updatePosition();
   this.addHighlight();
   callWidgetTranslator.bind(this)();
-}
+};
 
 Guide.prototype.reset = function () {
   this.message.innerHTML = guideElements[0].text.replace('//', '');
   this.backButton.setAttribute('disabled', true);
   this.nextButton.innerHTML = 'Avançar';
   this.tab = 0;
-}
+};
 
 Guide.prototype.updatePosition = function () {
   const position = window.plugin.position;
@@ -131,7 +131,7 @@ Guide.prototype.updatePosition = function () {
 
   const width = wWidth;
   const height = wHeight;
-  const top = !item ? wTop : isLowerView ? (iTop - eHeight + iHeight) : iTop;
+  const top = !item ? wTop : isLowerView ? iTop - eHeight + iHeight : iTop;
 
   if (!u.isFullscreen()) {
     if (fitInHalfWindow() && 'TB'.includes(this.wPosition)) {
@@ -139,7 +139,6 @@ Guide.prototype.updatePosition = function () {
       this.element.style.top = top + 'px';
       u.setWidgetPosition(this.wPosition);
       updateArrow.bind(this)();
-
     } else if (innerWidth >= 600) {
       this.element.style.left = isLeft ? width + 30 + 'px' : 'initial';
       this.element.style.right = !isLeft ? width + 30 + 'px' : 'initial';
@@ -150,8 +149,7 @@ Guide.prototype.updatePosition = function () {
       updateArrow.bind(this)();
 
       const wp = this.wPosition;
-      u.setWidgetPosition('TB'.includes(wp) ? wp + 'R' : wp)
-
+      u.setWidgetPosition('TB'.includes(wp) ? wp + 'R' : wp);
     } else {
       this.element.style.top = height + 20 + 'px';
       this.element.style.bottom = 'initial';
@@ -183,26 +181,25 @@ Guide.prototype.updatePosition = function () {
   }
 
   function fitInHalfWindow() {
-    return innerWidth / 2 >= eWidth + 30 + (wWidth / 2);
+    return innerWidth / 2 >= eWidth + 30 + wWidth / 2;
   }
-
-}
+};
 
 Guide.prototype.addHighlight = function () {
   const element = this.$elements[this.tab];
-  this.$elements.forEach(e => {
+  this.$elements.forEach((e) => {
     u.removeClass(e, 'vp-guide-highlight');
     u.addClass(e, 'vp-guide-transition');
   });
   u.addClass(element, 'vp-guide-highlight');
-}
+};
 
 Guide.prototype.removeHighlight = function () {
-  this.$elements.forEach(e => {
+  this.$elements.forEach((e) => {
     u.removeClass(e, 'vp-guide-highlight');
     u.removeClass(e, 'vp-guide-transition');
-  })
-}
+  });
+};
 
 Guide.prototype.updateFooter = function () {
   if (this.tab === 0) this.backButton.setAttribute('disabled', true);
@@ -217,28 +214,28 @@ Guide.prototype.updateFooter = function () {
   // Toggle actived tab in slider
   if (activedTab) u.removeClass(activedTab, 'vp-actived');
   u.addClass(this.tabSlider.children[this.tab], 'vp-actived');
-}
+};
 
 function callWidgetTranslator() {
   const { gloss } = guideElements[this.tab];
-  this.player.play(formatGlossWithU200E(gloss), { isEnabledStats: false });
+  this.player.play(noCachedGloss(gloss), { isEnabledStats: false });
 }
 
 function resetItems() {
   u.$('div[vp-rate-box]').style.display = 'block';
   u.removeClass(u.$('div[vp-rate-box]'), 'vp-enabled');
   u.removeClass(u.$('div[vp-change-avatar]'), 'vp-fixed');
-  u.removeClass(u.$('div[vp-additional-options]'), 'vp-fixed');
+  u.removeClass(u.$('div[vp-aux-controls]'), 'vp-fixed');
 }
 
 function fixedButtons() {
   u.$('div[vp-rate-box]').style.display = 'none';
   u.addClass(u.$('div[vp-change-avatar]'), 'vp-fixed');
-  u.addClass(u.$('div[vp-additional-options]'), 'vp-fixed');
+  u.addClass(u.$('div[vp-aux-controls]'), 'vp-fixed');
 }
 
 function roundedWrapper(bool) {
-  u.toggleClass(u.$('[vw-plugin-wrapper]'), 'vp-rounded', bool)
+  u.toggleClass(u.$('[vw-plugin-wrapper]'), 'vp-rounded', bool);
 }
 
 module.exports = Guide;
