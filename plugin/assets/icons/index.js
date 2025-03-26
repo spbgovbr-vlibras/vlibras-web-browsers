@@ -11,11 +11,11 @@ const likeLineIcon = require('./feedback/like-line.svg');
 const likeSolidIcon = require('./feedback/like-solid.svg');
 const loadingIcon = require('./loading.svg');
 const translatorIcon = require('./aux-controls/translator.svg');
+const accessibilityIcon = require('./aux-controls/accessibility.svg');
 const moreOptionsIcon = require('./aux-controls/more-options.svg');
 const helpIcon = require('./aux-controls/help.svg');
 const arrowOutward = require('./feedback/arrow-outward.svg');
 const deleteIcon = require('./delete.svg');
-const bugReportIcon = require('./aux-controls/bug-report.svg');
 
 const emotions = {
   satisfied: require('./emotions/satisfied.svg'),
@@ -76,5 +76,5 @@ module.exports = {
   arrowOutward,
   deleteIcon,
   emotions,
-  bugReportIcon,
+  accessibilityIcon,
 };

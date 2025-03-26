@@ -45,8 +45,9 @@ AccessButton.prototype.load = function (element, vw) {
 
     if (!window.plugin) window.plugin = new window.VLibras.Plugin(config);
 
-    if (this.ready) loadTextCaptureScript();
-    else {
+    if (this.ready) {
+      loadTextCaptureScript();
+    } else {
       const _canTranslate = setInterval(() => {
         if (!canTranslate()) return;
         loadTextCaptureScript();

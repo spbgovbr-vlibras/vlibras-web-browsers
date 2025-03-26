@@ -16,7 +16,6 @@ const AuxiliaryControls = require('components/AuxiliaryControls');
 const ChangeAvatar = require('components/AuxiliaryControls/ChangeAvatar');
 const Guide = require('components/AuxiliaryControls/Guide');
 const MainGuideScreen = require('components/AuxiliaryControls/Guide/MainScreen');
-const MoreOptions = require('components/AuxiliaryControls/MoreOptions');
 
 const url = require('url-join');
 const { REVIEW_URL } = require('~constants');
@@ -77,6 +76,7 @@ function Plugin(options) {
     this.player,
     this.guide,
     this.translator,
+    this.rateBox,
     this.isWidget
   );
   this.closeScreen = new CloseScreen(

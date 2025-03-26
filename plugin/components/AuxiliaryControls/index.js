@@ -6,12 +6,13 @@ const MoreOptions = require('./MoreOptions');
 const { moreOptionsIcon, helpIcon } = require('~icons');
 const { $, hasClass, toggleClass, removeClass } = require('~utils');
 
-function AuxiliaryControls(player, guide, translator, isWidget) {
+function AuxiliaryControls(player, guide, translator, rateBox, isWidget) {
   this.player = player;
   this.element = null;
   this.guide = guide;
   this.translator = translator;
   this.isWidget = isWidget;
+  this.rateBox = rateBox;
   this.isActive = false;
 
   this.state = {
@@ -19,11 +20,20 @@ function AuxiliaryControls(player, guide, translator, isWidget) {
   };
 }
 
+AuxiliaryControls.prototype.loadComponents = function () {
+  this.moreOptions = new MoreOptions(
+    this.player,
+    this.translator,
+    this.rateBox
+  );
+  this.moreOptions.load($('[vp-more-options-screen]'));
+};
+
 AuxiliaryControls.prototype.load = function (element) {
   this.element = element;
   this.element.innerHTML = template;
 
-  this.moreOptions = new MoreOptions(this.translator);
+  this.loadComponents();
 
   const helpBtn = $('.vpw-help-button', this.element);
   const moreOptionsBtn = $('.vpw-more-options-button', this.element);
@@ -35,8 +45,6 @@ AuxiliaryControls.prototype.load = function (element) {
 
   // Add actions
   moreOptionsBtn.onclick = () => {
-    if (!this.moreOptions.isLoaded)
-      this.moreOptions.load($('[vp-more-options-screen]'));
     this.moreOptions.toggle();
   };
 
@@ -56,7 +64,11 @@ AuxiliaryControls.prototype.show = function () {
   this.element.classList.add('vp-enabled');
   this.active = true;
 
-  if (this.moreOptions.isLoaded && this.state.prevMoreOptionsActive) {
+  if (
+    this.moreOptions.isLoaded &&
+    this.state.prevMoreOptionsActive &&
+    window.plugin.player.skipped
+  ) {
     this.moreOptions.show();
   }
 };
