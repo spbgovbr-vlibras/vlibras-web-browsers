@@ -35,6 +35,8 @@ EmotionsTooltip.prototype.load = function (element) {
     });
   });
 
+  document.body.addEventListener('click', () => this.hide());
+
   this.isLoaded = true;
 };
 

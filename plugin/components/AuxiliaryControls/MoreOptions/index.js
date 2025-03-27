@@ -45,7 +45,9 @@ MoreOptions.prototype.load = function (element) {
     this.translator.toggle();
   });
 
-  emotionsBtn.addEventListener('click', () => {
+  emotionsBtn.addEventListener('click', (e) => {
+    e.stopPropagation();
+
     if (!this.emotionsTooltip.isLoaded) {
       this.emotionsTooltip.load($('[vp-emotions-tooltip]'));
     }
