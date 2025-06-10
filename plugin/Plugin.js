@@ -20,7 +20,6 @@ const MainGuideScreen = require('components/AuxiliaryControls/Guide/MainScreen')
 const url = require('url-join');
 const { REVIEW_URL } = require('~constants');
 const { ALERT_MESSAGES } = require('./alert-messages');
-const { sendAccessCount } = require('./services');
 const { noCachedGloss } = require('./components/AuxiliaryControls/Guide/utils');
 
 require('./scss/reset.scss');
@@ -29,8 +28,6 @@ require('./scss/styles.scss');
 require('./scss/text-capture.scss');
 
 function Plugin(options) {
-  sendAccessCount(!options.enableMoveWindow);
-
   this.player = new VLibras.Player({
     // onLoad: options.playWellcome && (() => this.player.playWellcome()),
     targetPath: options.rootPath ? url(options.rootPath, '/target') : 'target',
