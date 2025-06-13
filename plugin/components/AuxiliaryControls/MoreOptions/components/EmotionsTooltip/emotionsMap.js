@@ -1,22 +1,22 @@
 import { emotions } from '~icons';
 
-export const UNITY_EMOTIONS_OBJECT = 'FacialExpressionBridge';
+export const UNITY_EMOTIONS_OBJECT = 'EmotionBridge';
 
 export const emotionsMap = {
   default: {
-    action: 'ApplyDefaultExpression',
+    action: 'ApplyDefaultEmotion',
     icon: emotions.satisfied,
   },
   happy: {
-    action: 'ApplyHappyExpression',
+    action: 'ApplyHappyEmotion',
     icon: emotions['very-satisfied'],
   },
   sad: {
-    action: 'ApplySadExpression',
+    action: 'ApplySadEmotion',
     icon: emotions.dissatisfied,
   },
   automatic: {
-    action: 'ApplyDoubtExpression',
+    action: 'ApplyDoubtEmotion',
     icon: emotions.automatic,
   },
 };
