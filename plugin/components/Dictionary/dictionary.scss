@@ -49,6 +49,7 @@
           height: 36px;
           font-size: 1em;
           padding: 10px;
+          padding-right: 32px;
           border-radius: 5px;
           border: 1px solid #ddd;
           outline: none;
@@ -64,12 +65,12 @@
           position: absolute;
           align-items: center;
           justify-content: center;
-          right: 10px;
-          width: 32px;
-          height: 32px;
+          right: 16px;
+          width: 24px;
+          height: 24px;
 
           svg > * {
-            fill: map-get($black, 1);
+            fill: map-get($black, 2);
           }
         }
       }

@@ -4,6 +4,7 @@ const GugaIcon = require('./avatars/guga.svg');
 const aboutIcon = require('./header/about.svg');
 const closeIcon = require('./header/close.svg');
 const dictionaryIcon = require('./header/dictionary.svg');
+const searchIcon = require('./header/search.svg');
 const settingsIcon = require('./header/settings.svg');
 const backIcon = require('./back.svg');
 const arrowIcon = require('./feedback/arrow-up.svg');
@@ -61,6 +62,7 @@ module.exports = {
   aboutIcon,
   closeIcon,
   dictionaryIcon,
+  searchIcon,
   settingsIcon,
   backIcon,
   socialIcons,

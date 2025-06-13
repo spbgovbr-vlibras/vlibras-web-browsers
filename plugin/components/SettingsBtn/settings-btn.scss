@@ -2,7 +2,6 @@
 
 [vp] {
   .vpw-settings-btn {
-    position: absolute;
     z-index: 1;
     height: 100%;
     width: 100%;
@@ -17,7 +16,7 @@
       align-items: center;
       justify-content: center;
       flex-direction: row;
-      gap: 10px;
+      gap: 8px;
 
       button {
         @include header-button;

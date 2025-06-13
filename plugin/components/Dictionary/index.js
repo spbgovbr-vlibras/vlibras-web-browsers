@@ -8,7 +8,7 @@ const Trie = require('./trie.js');
 
 const DICT_LOCAL_KEY = "@vp-dict-history.v2";
 
-const { backIcon, loadingIcon, dictionaryIcon } = require('~icons');
+const { backIcon, loadingIcon, searchIcon } = require('~icons');
 const { DICTIONARY_URL } = require('~constants');
 const { formatGloss } = require('~utils');
 
@@ -62,7 +62,7 @@ Dictionary.prototype.load = function (element, closeScreen, initGuide) {
   }
 
   // Add icon
-  this.element.querySelector('.vpw-icon').innerHTML = dictionaryIcon;
+  this.element.querySelector('.vpw-icon').innerHTML = searchIcon;
   this.element.querySelector('.vpw-btn-close').innerHTML = backIcon;
   document.querySelector('.vpw-loading__img').innerHTML = loadingIcon;
 
@@ -77,7 +77,7 @@ Dictionary.prototype.load = function (element, closeScreen, initGuide) {
   // List
   this.list = dictWords.querySelector('ul');
   this.list.lastTop = -1;
-  this.list.onclick = e => this._onItemClick(e);
+  this.list.onclick = e => this.onGlossClick(e);
   dictWords.onscroll = lazyLoading.bind(this);
 
   // Insert item method
@@ -187,11 +187,13 @@ Dictionary.prototype.load = function (element, closeScreen, initGuide) {
   );
 };
 
-Dictionary.prototype._onItemClick = function (event, isRecent = false) {
+Dictionary.prototype.onGlossClick = function (event, isRecent = false) {
   if (event.target.tagName !== 'LI') return;
 
-  const gloss = event.target.getAttribute('data-gloss');
+  let gloss = event.target.getAttribute('data-gloss');
   const label = event.target.innerText;
+
+  if (gloss === '%') gloss = "%25";
 
   this.boundCloseAllScreen();
   this.player.play(gloss);
@@ -250,7 +252,7 @@ function loadRecentWords(recentWordsDiv) {
   else return;
 
   const list = recentWordsDiv.querySelector('ul');
-  list.onclick = e => this._onItemClick(e, true);
+  list.onclick = e => this.onGlossClick(e, true);
   list.innerHTML = "";
 
   for (item of data) {
