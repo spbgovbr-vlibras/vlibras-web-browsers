@@ -8,7 +8,7 @@ const { controlIcons } = require('~icons');
 const { welcomeMessage } = require('./welcomeMessage');
 const { $, hasClass, addClass, removeClass, $0, disableControlsButton } = require('~utils');
 
-const availableSpeeds = [0.5, 1, 1.5, 2, 3];
+const availableSpeeds = [0.5, 1, 1.5, 2, 2.5];
 
 function Controls(player, dictionary, isWidget) {
   this.player = player;
@@ -48,10 +48,7 @@ function Controls(player, dictionary, isWidget) {
       );
 
       slider.noUiSlider.updateOptions({
-        range: {
-          min: 0,
-          max: glosaLenght,
-        },
+        range: { min: 0, max: glosaLenght },
       });
 
       slider.noUiSlider.set([counter, glosaLenght]);
