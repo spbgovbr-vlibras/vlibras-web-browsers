@@ -129,9 +129,7 @@ function Plugin(options) {
           this.element.querySelector('[vp-dictionary]'),
           this.closeScreen,
           this.mainGuideScreen
-        ),
-      this.element.querySelector('[vp-dictionary]'),
-      this.rootPath
+        )
     );
     this.settings.load(this.element.querySelector('[vp-settings]'));
     this.info.load(this.element.querySelector('[vp-info-screen]'));

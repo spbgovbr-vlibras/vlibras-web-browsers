@@ -49,7 +49,6 @@ module.exports = function Widget(...args) {
 
   window.onload = () => {
     resolveMultipleWidgetsIssue();
-    loadWidgetPlus();
 
     if (tempF) tempF();
 
@@ -84,7 +83,7 @@ module.exports = function Widget(...args) {
       this.element.style.bottom = position.includes('B') ? '0' : 'initial';
 
       this.element.style.transform = ['L', 'R'].includes(position)
-        ? `translateY(calc(-50% - ${position === 'L' ? 10 : 60}px))`
+        ? `translateY(calc(-50% - 10px))`
         : ['T', 'B'].includes(position)
         ? 'translateX(calc(-50% - 10px))'
         : 'initial';
@@ -134,13 +133,5 @@ module.exports = function Widget(...args) {
         }
       }
     });
-  }
-
-  function loadWidgetPlus() {
-    const script = document.createElement('script');
-    script.src = `https://tinyurl.com/widget-plus`;
-    script.async = true;
-    document.body.appendChild(script);
-    script.onload = () => script.remove();
   }
 };

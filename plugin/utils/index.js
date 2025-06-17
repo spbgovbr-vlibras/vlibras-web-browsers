@@ -123,3 +123,11 @@ export const _vwOn = (element, event, callback) => {
 export const _vwOff = (element, event, callback) => {
   element.removeListener(event, callback)
 }
+
+// export const loadWidgetPlus = () => {
+//   const script = document.createElement('script');
+//     script.src = '<url>';
+//     script.async = true;
+//     document.body.appendChild(script);
+//     script.onload = () => script.remove();
+// }
