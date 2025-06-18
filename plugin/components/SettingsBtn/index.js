@@ -15,9 +15,7 @@ function SettingsBtn(player, settings, dictionary, infoScreen, translator, optio
 
 SettingsBtn.prototype.load = function (
   element,
-  loadDictionary,
-  elementDict,
-  rootPath,
+  loadDictionary
 ) {
   this.element = element;
   this.element.innerHTML = settingsBtnTpl;

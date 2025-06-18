@@ -7,25 +7,25 @@
   overflow: hidden;
   position: absolute;
   border-radius: 8px;
-  transition: all .5s ease;
+  transition: all 0.5s ease;
   right: 0;
   left: auto;
 
   img {
     max-height: 40px;
-    transition: all .5s ease;
+    transition: all 0.5s ease;
     border-radius: 8px;
     opacity: 1 !important;
     visibility: visible !important;
   }
 
-  .access-button {
+  .vp-access-button {
     width: 40px;
     height: 40px;
     z-index: 1;
   }
 
-  .pop-up {
+  .vp-pop-up {
     position: absolute;
     height: 40px;
     min-width: 150px;
@@ -43,7 +43,7 @@
     left: 0;
     right: auto;
 
-    .pop-up {
+    .vp-pop-up {
       left: auto;
       right: 0;
     }
@@ -54,7 +54,6 @@
     top: 0;
     margin-right: -80px;
   }
-
 
   &.active {
     display: flex;
