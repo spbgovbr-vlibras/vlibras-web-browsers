@@ -27,9 +27,8 @@
 
   .vp-more-options-content {
     padding: 16px;
-    gap: 16px;
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
+    display: flex;
+    gap: 24px;
   }
 
   &[data-active='true'] {

@@ -25,6 +25,7 @@
   transform: translateX(-50%);
   box-shadow: $vp-shadow;
   padding: 6px !important;
+  width: 128px;
 
   &[data-active='true'] {
     display: flex;

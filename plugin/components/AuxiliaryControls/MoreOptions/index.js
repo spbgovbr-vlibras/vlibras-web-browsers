@@ -55,9 +55,11 @@ MoreOptions.prototype.load = function (element) {
   });
 
   otherResourcesBtn.addEventListener('click', () => {
-    if (!window?.VLibrasWidgetPlus?.isOpen) {
-      window?.VLibrasWidgetPlusAccessButton?.element?.click();
-    }
+    this.hide();
+    window?.VLibrasWidgetPlus?.open();
+    window.dispatchEvent(
+      new CustomEvent('vp-widget-close', { detail: { close: true } })
+    );
   });
 
   this.isLoaded = true;
