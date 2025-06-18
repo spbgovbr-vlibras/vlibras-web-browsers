@@ -121,6 +121,13 @@ module.exports = function Widget(...args) {
         new CustomEvent('vp-widget-wrapper-set-side', { detail: position })
       );
     }
+
+    setTimeout(() => {
+      const width = accessButton.element.style.width;
+      accessButton.element.style.width = '200px';
+
+      setTimeout(() => (accessButton.element.style.width = width), 3000);
+    }, 2000);
   };
 
   function resolveMultipleWidgetsIssue() {
