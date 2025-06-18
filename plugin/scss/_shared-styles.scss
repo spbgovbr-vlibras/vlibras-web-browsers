@@ -55,14 +55,19 @@ $vp-shadow: 0px 0px 15px rgba(0, 0, 0, 0.2);
   align-items: center;
   font-size: 16px;
   justify-content: start;
-  gap: 10px;
+  gap: 4px;
   border-bottom: 1px solid map-get($white, 4);
 
   button {
     @include control-button;
 
-    svg * {
-      fill: map-get($black, 1);
+    svg {
+      width: 28px;
+      height: 28px;
+
+      * {
+        fill: map-get($black, 1);
+      }
     }
   }
 

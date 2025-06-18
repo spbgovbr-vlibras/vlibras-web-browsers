@@ -164,9 +164,16 @@
 
       span {
         display: none;
-        color: #999;
+        color: map-get($black, 2);
         width: 100%;
         padding: 0 16px;
+        line-height: 1.5;
+
+        strong {
+          color: map-get($black, 1);
+          font-weight: bold;
+          word-break: break-all;
+        }
       }
 
       &.vp-isEmpty {

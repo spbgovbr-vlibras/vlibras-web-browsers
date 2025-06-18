@@ -6,7 +6,7 @@ require('./dictionary.scss');
 
 const Trie = require('./trie.js');
 
-const DICT_LOCAL_KEY = "@vp-dict-history.v2";
+const DICT_LOCAL_KEY = '@vp-dict-history.v2';
 
 const { backIcon, loadingIcon, searchIcon } = require('~icons');
 const { DICTIONARY_URL } = require('~constants');
@@ -50,16 +50,16 @@ Dictionary.prototype.load = function (element, closeScreen, initGuide) {
 
   reloadDictButton.onclick = () => {
     getSigns.bind(this)();
-  }
+  };
 
   dictBtn.onclick = () => {
     toggleWords('dict');
-  }
+  };
 
   recentBtn.onclick = () => {
     toggleWords('recents');
     this.boundLoadRecentWords();
-  }
+  };
 
   // Add icon
   this.element.querySelector('.vpw-icon').innerHTML = searchIcon;
@@ -69,7 +69,7 @@ Dictionary.prototype.load = function (element, closeScreen, initGuide) {
   backButton.onclick = function () {
     headerBtn.classList.remove('selected');
     this.hide();
-  }.bind(this)
+  }.bind(this);
 
   // Signs trie
   this.signs = null;
@@ -77,8 +77,11 @@ Dictionary.prototype.load = function (element, closeScreen, initGuide) {
   // List
   this.list = dictWords.querySelector('ul');
   this.list.lastTop = -1;
-  this.list.onclick = e => this.onGlossClick(e);
+  this.list.onclick = (e) => this.onGlossClick(e);
   dictWords.onscroll = lazyLoading.bind(this);
+
+  // Message
+  this.message = this.list.parentElement.querySelector('span');
 
   // Insert item method
   let count = 0;
@@ -91,17 +94,18 @@ Dictionary.prototype.load = function (element, closeScreen, initGuide) {
 
     if (count++ >= 50) tempList.push(item);
     else this.list.appendChild(item);
-
   }.bind(this);
 
   const addRetryBtn = () => loadingScreen.classList.add('vpw-dict--error');
-  const removeRetryBtn = () => loadingScreen.classList.remove('vpw-dict--error');
+  const removeRetryBtn = () =>
+    loadingScreen.classList.remove('vpw-dict--error');
   const maxRequest = () => loadingScreen.classList.add('vpw-dict--max-request');
 
   function lazyLoading(e) {
     const { scrollTop, clientHeight, scrollHeight } = dictWords;
     if (scrollTop + clientHeight >= scrollHeight - 20) {
-      for (i = 0; i < 5 && tempList.length; i++) this.list.appendChild(tempList.shift());
+      for (i = 0; i < 5 && tempList.length; i++)
+        this.list.appendChild(tempList.shift());
     }
   }
 
@@ -124,9 +128,9 @@ Dictionary.prototype.load = function (element, closeScreen, initGuide) {
     xhr.ontimeout = function () {
       console.error('Request timed out. Please try again later.');
       addRetryBtn();
-    }
+    };
 
-    xhr.onerror = err => checkRequests(err);
+    xhr.onerror = (err) => checkRequests(err);
 
     xhr.onload = function () {
       try {
@@ -171,19 +175,22 @@ Dictionary.prototype.load = function (element, closeScreen, initGuide) {
   }.bind(this);
 
   // Search
-  this.searchInput.addEventListener('input', function (event) {
-    this.list._clear();
-    this.signs.loadSigns(
-      event.target.value.toUpperCase(),
-      this.list._insert.bind(this.list)
-    );
+  this.searchInput.addEventListener(
+    'input',
+    function (event) {
+      this.list._clear();
+      this.signs.loadSigns(
+        event.target.value.toUpperCase(),
+        this.list._insert.bind(this.list)
+      );
 
-    this.list.parentElement.classList.toggle(
-      'vp-isEmpty', this.list.childNodes.length === 0
-    )
+      const isEmpty = this.list.childNodes.length === 0;
 
-    toggleWords('dict');
-  }.bind(this)
+      this.list.parentElement.classList.toggle('vp-isEmpty', isEmpty);
+      this.message.innerHTML = `Sem resultados para <strong>"${event.target.value}"</strong>`;
+
+      toggleWords('dict');
+    }.bind(this)
   );
 };
 
@@ -193,7 +200,7 @@ Dictionary.prototype.onGlossClick = function (event, isRecent = false) {
   let gloss = event.target.getAttribute('data-gloss');
   const label = event.target.innerText;
 
-  if (gloss === '%') gloss = "%25";
+  if (gloss === '%') gloss = '%25';
 
   this.boundCloseAllScreen();
   this.player.play(gloss);
@@ -252,8 +259,8 @@ function loadRecentWords(recentWordsDiv) {
   else return;
 
   const list = recentWordsDiv.querySelector('ul');
-  list.onclick = e => this.onGlossClick(e, true);
-  list.innerHTML = "";
+  list.onclick = (e) => this.onGlossClick(e, true);
+  list.innerHTML = '';
 
   for (item of data) {
     const [gloss, label] = JSON.parse(item);
@@ -265,7 +272,7 @@ function loadRecentWords(recentWordsDiv) {
 }
 
 function getRecentWords() {
-  return JSON.parse(localStorage.getItem(DICT_LOCAL_KEY)) || []
+  return JSON.parse(localStorage.getItem(DICT_LOCAL_KEY)) || [];
 }
 
 function saveRecentWords(list) {
