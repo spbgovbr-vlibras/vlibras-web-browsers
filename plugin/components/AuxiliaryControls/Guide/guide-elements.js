@@ -17,11 +17,11 @@ export const guideElements = [
   },
   {
     path: '.vpw-more-options-button',
-    text: `Precisa traduzir um texto específico? 
-    Clique neste botão para abrir o Tradutor do VLibras Widget.`,
+    text: `Acesse opções extras da ferramenta.
+    Clique neste botão para abrir o Tradutor ou alterar a emoção do avatar.`,
     gloss:
-      'PRECISAR TRADUZIR TEXTO ESPECÍFICO [INTERROGAÇÃO] ' +
-      'CLIQUE BOTÃO ABRIR&COMEÇAR TRADUTOR VLIBRAS WIDGET [PONTO]',
+      'ACESSAR OPÇÃO EXTRA VLIBRAS ' +
+      'CLIQUE BOTÃO ABRIR&COMEÇAR TRADUTOR VLIBRAS ALTERAR EMOÇÃO AVATAR [PONTO]',
   },
   {
     path: 'div[vp-controls]',
