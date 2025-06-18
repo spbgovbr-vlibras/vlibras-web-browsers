@@ -175,7 +175,7 @@ Controls.prototype.load = function (element, rateBox) {
   this.player.on('stop:welcome', function () {
     if (welcomeFinished) return;
     removeClass(skipAnimationBtn, 'vp-enabled');
-    this.setLabel('Escolha um texto para traduzir.');
+    this.setLabel('Clique em um texto para traduzi-lo.');
     welcomeFinished = true;
   }.bind(this));
 
@@ -229,7 +229,7 @@ Controls.prototype.load = function (element, rateBox) {
   // Pause or continue translation when switching tabs
   let playing = false;
   window.addEventListener('visibilitychange', function () {
-    if (!wrapper.classList.contains('active')) return;
+  if (!wrapper.classList.contains('active')) return;
     if (document.visibilityState === 'visible') {
       if (!playing) return;
       setTimeout(() => window.plugin.player.continue(), 1000)
