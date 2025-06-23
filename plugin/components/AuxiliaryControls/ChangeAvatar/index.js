@@ -2,6 +2,7 @@ const template = require('./change-avatar.html').default;
 require('./change-avatar.scss');
 
 const { IcaroIcon, HosanaIcon, GugaIcon } = require('~icons');
+const { $ } = require('~utils');
 const availableAvatars = ['icaro', 'hosana', 'guga', 'random'];
 
 function ChangeAvatar(player, controls) {
@@ -30,6 +31,10 @@ ChangeAvatar.prototype.load = function (element) {
   });
 
   this.element.onclick = () => this.element.classList.toggle('vp-isOpen');
+  $('div[vp]').addEventListener('click', (e) => {
+     if (e.target === this.element || this.element.contains(e.target)) return;
+    this.element.classList.remove('vp-isOpen')
+  })
 
   if (this.player.avatar === 'random') this.player.avatar = generateRandomAvatar();
   this.player.changeAvatar(this.player.avatar);
