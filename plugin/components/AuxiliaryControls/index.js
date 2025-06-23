@@ -3,7 +3,7 @@ require('./aux-controls.scss');
 
 const MoreOptions = require('./MoreOptions');
 
-const { moreOptionsIcon, helpIcon } = require('~icons');
+const { moreOptionsIcon, guideIcon } = require('~icons');
 const { $, hasClass, toggleClass, removeClass } = require('~utils');
 
 function AuxiliaryControls(player, guide, translator, rateBox, isWidget) {
@@ -41,7 +41,7 @@ AuxiliaryControls.prototype.load = function (element) {
 
   // Add icons
   moreOptionsBtn.innerHTML = moreOptionsIcon;
-  helpBtn.innerHTML = helpIcon;
+  helpBtn.innerHTML = guideIcon;
 
   // Add actions
   moreOptionsBtn.onclick = () => {

@@ -50,11 +50,15 @@
       border: none;
       cursor: pointer;
       border-radius: 50%;
-      width: 40px;
-      height: 40px;
+      max-width: 40px;
+      max-height: 40px;
+      min-width: 40px;
+      max-width: 40px;
       display: grid;
       place-items: center;
       background-color: #cbe0ff;
+      padding: 0 !important;
+      margin: 0 !important;
 
       &:hover {
         background-color: #bdd6fd;

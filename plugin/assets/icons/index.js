@@ -14,7 +14,7 @@ const loadingIcon = require('./loading.svg');
 const translatorIcon = require('./aux-controls/translator.svg');
 const accessibilityIcon = require('./aux-controls/accessibility.svg');
 const moreOptionsIcon = require('./aux-controls/more-options.svg');
-const helpIcon = require('./aux-controls/help.svg');
+const guideIcon = require('./aux-controls/guide.svg');
 const arrowOutward = require('./feedback/arrow-outward.svg');
 const deleteIcon = require('./delete.svg');
 
@@ -73,7 +73,7 @@ module.exports = {
   loadingIcon,
   translatorIcon,
   moreOptionsIcon,
-  helpIcon,
+  guideIcon,
   controlIcons,
   arrowOutward,
   deleteIcon,
