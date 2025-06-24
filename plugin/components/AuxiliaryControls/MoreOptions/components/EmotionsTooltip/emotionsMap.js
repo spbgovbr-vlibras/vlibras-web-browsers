@@ -15,6 +15,10 @@ export const emotionsMap = {
     action: 'ApplySadEmotion',
     icon: emotions.dissatisfied,
   },
+  doubt: {
+    action: 'ApplyDoubtEmotion',
+    icon: emotions.doubt,
+  },
   automatic: {
     action: 'ApplyDoubtEmotion',
     icon: emotions.automatic,

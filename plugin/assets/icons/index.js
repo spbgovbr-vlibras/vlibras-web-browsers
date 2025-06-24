@@ -23,6 +23,7 @@ const emotions = {
   'very-satisfied': require('./emotions/very-satisfied.svg'),
   dissatisfied: require('./emotions/dissatisfied.svg'),
   automatic: require('./emotions/automatic.svg'),
+  doubt: require('./emotions/doubt.svg'),
 };
 
 const controlIcons = {
