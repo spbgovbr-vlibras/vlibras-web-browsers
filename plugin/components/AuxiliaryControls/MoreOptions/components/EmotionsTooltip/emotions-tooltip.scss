@@ -38,9 +38,10 @@
     width: 100%;
     display: flex;
     align-items: center;
-    padding: 4px !important;
+    padding: 4px;
     gap: 8px;
     border: 1px solid transparent;
+    height: auto;
 
     &[data-active='true'] {
       background: #cbe0ff !important;
