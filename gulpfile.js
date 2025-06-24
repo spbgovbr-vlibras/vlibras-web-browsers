@@ -28,8 +28,8 @@ function build(target, {
   const scriptSrc = gulp.src(script).pipe(webpack(webpackCfg)).pipe(gulp.dest(destPath));
   const templateSrc = gulp.src(template).pipe(gulp.dest(destPath));
 
-  const assetsPluginSrc = gulp.src('assets/*', pluginOptions).pipe(gulp.dest(destPath));
-  const assetsTargetSrc = gulp.src('assets/*', targetOptions).pipe(gulp.dest(destPath));
+  const assetsPluginSrc = gulp.src(['assets/*', '!assets/icons/**'], pluginOptions).pipe(gulp.dest(destPath));
+  const assetsTargetSrc = gulp.src(['assets/*', '!assets/icons/**'], targetOptions).pipe(gulp.dest(destPath));
   const fontsPluginSrc = gulp.src('assets/fonts/*', pluginOptions).pipe(gulp.dest(destPath));
   const fontsTargetSrc = gulp.src('assets/fonts/*', targetOptions).pipe(gulp.dest(destPath));
 
