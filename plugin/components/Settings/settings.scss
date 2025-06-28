@@ -28,6 +28,10 @@
 
   .vpw-screen-header {
     @include vp-screen__header;
+
+    #vw-toggle-theme {
+      margin-left: auto;
+    }
   }
 
   .vpw-settings-content {
@@ -37,7 +41,7 @@
     width: 100%;
     height: 100%;
     position: relative;
-    background-color: map-get($white, 1);
+    background-color: var(--vp-background);
   }
 
   .vpw-options-container {
@@ -48,7 +52,7 @@
     padding: 16px;
 
     .vpw-option-content {
-      color: map-get($black, 1);
+      color: var(--vp-subtitle);
       font-size: 1em;
 
       &:first-child > div {
@@ -58,7 +62,7 @@
       p {
         font-weight: bold;
         margin-bottom: 16px !important;
-        color: map-get($black, 1) !important;
+        color: var(--vp-foreground) !important;
       }
 
       div {
@@ -90,13 +94,13 @@
 
           span {
             font-weight: bold;
-            color: map-get($blue, 4);
+            color: var(--vp-foreground);
             margin: 0 6px;
             line-height: 0;
           }
 
           &:hover {
-            background-color: map-get($white, 5);
+            background-color: var(--vp-accent);
           }
 
           @if $is-widget==1 {
@@ -114,7 +118,7 @@
         height: 114px;
         margin-top: 16px;
         gap: 16px;
-        outline: 1px solid #d8d9db !important;
+        outline: 1px solid var(--vp-border) !important;
         display: grid;
         grid-template-columns: 24px 24px 24px;
         grid-template-rows: 24px 24px 24px;
@@ -139,13 +143,13 @@
             position: absolute;
             width: 4px;
             height: 4px;
-            background-color: map-get($white, 2);
+            background-color: var(--vp-muted);
             opacity: 0.5;
             display: block;
           }
 
           &:hover {
-            background-color: map-get($white, 5);
+            background-color: var(--vp-accent);
           }
 
           &.vpw-select-pos {

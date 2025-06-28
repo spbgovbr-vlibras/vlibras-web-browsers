@@ -14,7 +14,7 @@ $controls_height: 48px;
   z-index: 3;
   visibility: hidden;
   transition: height 0.5s;
-  background-color: map-get($white, 1);
+  background-color: var(--vp-background);
   border-radius: 10px;
   overflow: hidden;
 
@@ -63,7 +63,7 @@ $controls_height: 48px;
 
         :nth-child(1) {
           * {
-            fill: map-get($white, 2);
+            fill: var(--vp-muted);
           }
         }
 
@@ -71,7 +71,7 @@ $controls_height: 48px;
           visibility: hidden;
 
           * {
-            fill: map-get($blue, 1);
+            fill: var(--vp-button-hover-text-outline);
           }
         }
 
@@ -90,8 +90,8 @@ $controls_height: 48px;
 
     span {
       font-size: 1em;
-      font-weight: 600;
-      color: map-get($black, 1);
+      font-weight: 500;
+      color: var(--vp-foreground);
     }
 
     .vp-rate-box__translation,

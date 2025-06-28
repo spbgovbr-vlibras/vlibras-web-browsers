@@ -77,7 +77,7 @@ Dictionary.prototype.load = function (element, closeScreen, initGuide) {
   // List
   this.list = dictWords.querySelector('ul');
   this.list.lastTop = -1;
-  this.list.onclick = (e) => this.onGlossClick(e);
+  this.list.onclick = (e) => this._onItemClick(e);
   dictWords.onscroll = lazyLoading.bind(this);
 
   // Message
@@ -184,10 +184,10 @@ Dictionary.prototype.load = function (element, closeScreen, initGuide) {
         this.list._insert.bind(this.list)
       );
 
-      const isEmpty = this.list.childNodes.length === 0;
-
-      this.list.parentElement.classList.toggle('vp-isEmpty', isEmpty);
-      this.message.innerHTML = `Sem resultados para <strong>"${event.target.value}"</strong>`;
+      this.list.parentElement.classList.toggle(
+        'vp-isEmpty',
+        this.list.childNodes.length === 0
+      );
 
       toggleWords('dict');
     }.bind(this)
@@ -259,7 +259,7 @@ function loadRecentWords(recentWordsDiv) {
   else return;
 
   const list = recentWordsDiv.querySelector('ul');
-  list.onclick = (e) => this.onGlossClick(e, true);
+  list.onclick = (e) => this._onItemClick(e, true);
   list.innerHTML = '';
 
   for (item of data) {

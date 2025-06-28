@@ -25,6 +25,7 @@ const { noCachedGloss } = require('./components/AuxiliaryControls/Guide/utils');
 require('./scss/reset.scss');
 require('./scss/global.scss');
 require('./scss/styles.scss');
+require('./scss/theme.scss');
 require('./scss/text-capture.scss');
 
 function Plugin(options) {
@@ -39,6 +40,7 @@ function Plugin(options) {
 
   this.player.avatar = options.avatar;
   this.isWidget = options.enableMoveWindow;
+  this.loadingRef;
 
   this.opacity = options.opacity;
   this.wrapper = options.wrapper;
@@ -90,8 +92,6 @@ function Plugin(options) {
     this.translator,
     options
   );
-
-  this.loadingRef = null;
 
   this.mainGuideScreen =
     this.isWidget &&

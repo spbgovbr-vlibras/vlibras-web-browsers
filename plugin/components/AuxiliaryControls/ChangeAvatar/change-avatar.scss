@@ -27,7 +27,7 @@ $bg-color: #9c9c9c;
     justify-content: center;
     align-items: center;
     cursor: pointer;
-    background: map-get($white, 2);
+    background: var(--vp-muted);
     border-radius: 50px;
     width: 32px;
     height: 32px;
@@ -64,7 +64,7 @@ $bg-color: #9c9c9c;
       align-items: center;
       justify-content: center;
       top: 44px;
-      background-color: map-get($black, 1);
+      background-color: #363636;
       padding: 0 10px;
       height: 28px;
       padding-bottom: 3px;
@@ -75,7 +75,7 @@ $bg-color: #9c9c9c;
       transform: translateX(calc(50% - 16px));
       white-space: nowrap;
 
-      color: map-get($white, 1);
+      color: #fff;
       font-size: 14px;
       font-weight: 500;
 
@@ -87,7 +87,7 @@ $bg-color: #9c9c9c;
     }
 
     &:hover {
-      outline-color: rgba(map-get($white, 2), 0.3) !important;
+      outline-color: var(--vp-muted__50) !important;
 
       &::after,
       &::before {
@@ -97,8 +97,8 @@ $bg-color: #9c9c9c;
 
     &.vp-selected {
       display: flex !important;
-      background-color: map-get($blue, 3);
-      outline-color: map-get($blue, 3) !important;
+      background-color: var(--vp-primary-accent);
+      outline-color: var(--vp-primary-accent) !important;
       border-color: #e0e0e0;
       position: absolute;
       left: 2px;
@@ -106,7 +106,7 @@ $bg-color: #9c9c9c;
       visibility: visible;
 
       &:hover {
-        outline-color: rgba(map-get($blue, 3), 0.5) !important;
+        outline-color: var(--vp-primary-accent__50) !important;
       }
 
       &::before {

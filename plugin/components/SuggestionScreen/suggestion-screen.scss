@@ -6,6 +6,8 @@
 $control-height: 68px;
 
 [vp] [vp-suggestion-screen] {
+  @include vp-scrollbar;
+
   overflow: hidden;
   position: absolute;
   right: 0;
@@ -14,33 +16,13 @@ $control-height: 68px;
   bottom: 0;
   width: 100%;
   padding: 0;
-  background-color: white;
+  background-color: var(--vp-background);
   z-index: 5;
   border-radius: 10px;
   visibility: hidden;
   font-size: 14px;
   max-height: 600px;
-
   transition: all 0.5s ease, opacity 0.5s ease;
-
-  ::-webkit-scrollbar {
-    width: 10px;
-  }
-
-  /* Track */
-  ::-webkit-scrollbar-track {
-    background: #d1d1d1f1 !important;
-  }
-
-  /* Handle */
-  ::-webkit-scrollbar-thumb {
-    background: rgb(139, 139, 153);
-  }
-
-  /* Handle on hover */
-  ::-webkit-scrollbar-thumb:hover {
-    background: #555;
-  }
 
   .vp-dropdown-suggest {
     display: none;
@@ -84,7 +66,7 @@ $control-height: 68px;
     width: 100%;
     padding: 16px;
     height: calc(100% - 96px);
-    border-bottom: 1px solid map-get($white, 4);
+    border-bottom: 1px solid var(--vp-border);
 
     .vp-suggestion-screen__title {
       @include vp-screen__title;

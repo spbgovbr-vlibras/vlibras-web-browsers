@@ -25,7 +25,7 @@ $bg-color: #9c9c9c;
     border-radius: 50%;
     height: 32px;
     cursor: pointer;
-    background-color: map-get($white, 2);
+    background-color: var(--vp-muted);
     border: 2px solid transparent;
     outline: 2px solid transparent !important;
     outline-offset: 0;
@@ -43,22 +43,18 @@ $bg-color: #9c9c9c;
     }
 
     &.vp-selected {
-      background-color: map-get($blue, 3);
-
-      &:hover {
-        outline-color: rgba(map-get($blue, 3), 0.5) !important;
-      }
+      background-color: var(--vp-primary-accent);
     }
 
     &:hover {
-      outline-color: rgba(map-get($white, 2), 0.3) !important;
+      outline-color: var(--vp-muted__50) !important;
       opacity: 1 !important;
     }
 
     @media (hover: hover) {
       &[data-title]:hover::after {
         content: attr(data-title);
-        background-color: map-get($black, 1);
+        background-color: #363636;
         position: absolute;
         border-radius: 20px;
         color: #fff;

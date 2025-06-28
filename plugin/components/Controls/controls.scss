@@ -17,8 +17,8 @@
     height: 48px;
     padding: 8px 16px;
     flex-direction: row;
-    gap: 8px;
-    background: white;
+    gap: 10px;
+    background: var(--vp-background);
     width: 100%;
     font-size: 14px;
     border-radius: 0 0 10px 10px;
@@ -30,8 +30,8 @@
     .vpw-skip-welcome-message {
       @include reset;
 
-      background-color: #fff;
-      border: 1px solid #eee;
+      background-color: var(--vp-background);
+      border: 1px solid var(--vp-border);
       transition: all 0.3s ease;
       justify-content: center;
       flex-direction: row;
@@ -53,12 +53,12 @@
         height: 12px;
 
         * {
-          fill: map-get($blue, 4);
+          fill: var(--vp-foreground);
         }
       }
 
       span {
-        color: map-get($blue, 4);
+        color: var(--vp-foreground);
         font-weight: 600;
         line-height: 0;
         font-size: 1em;
@@ -66,8 +66,8 @@
       }
 
       &:hover {
-        box-shadow: $vp-shadow;
-        background-color: map-get($white, 5);
+        box-shadow: var(--vp-shadow);
+        background-color: var(--vp-accent);
       }
 
       &.vp-enabled {
@@ -212,12 +212,12 @@
       }
 
       &.noUi-connect {
-        background-color: #003f86;
+        background-color: var(--vp-secondary);
         opacity: 1;
       }
 
       .noUi-background {
-        background-color: #b8b8b8;
+        background-color: var(--vp-accent);
         box-shadow: none;
       }
 

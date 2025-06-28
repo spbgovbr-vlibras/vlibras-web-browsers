@@ -1,7 +1,6 @@
 @import '~scss/default-buttons';
 @import '~scss/shared-styles';
 @import '~scss/variables';
-@import '~scss/colors';
 
 [vp] {
   .vpw-info-screen {
@@ -10,7 +9,7 @@
     width: 100%;
     height: calc(100% - 40px);
     z-index: 10;
-    background-color: white;
+    background-color: var(--vp-background);
     color: black;
     font-family: 'Rawline', Verdana, sans-serif !important;
     align-items: center;
@@ -53,7 +52,7 @@
         font-weight: 600;
         font-size: 1em;
         margin-bottom: 10px !important;
-        color: map-get($black, 1) !important;
+        color: var(--vp-foreground) !important;
 
         @if $is-widget==0 {
           margin-top: 0 !important;
@@ -61,9 +60,8 @@
       }
 
       .vpw-info__section-desc {
-        color: #555;
+        color: var(--vp-subtitle);
         font-style: normal;
-        font-weight: 500;
         font-size: 1em;
         line-height: 1.5;
       }
@@ -116,18 +114,17 @@
 
       a {
         @include control-button;
+
         border-radius: 8px !important;
+        outline: 1px solid var(--vp-border) !important;
 
         svg {
           padding: 2px;
 
           * {
-            fill: map-get($blue, 1);
+            fill: var(--vp-foreground);
           }
         }
-
-        outline: 1px solid map-get($white, 4) !important;
-        border-radius: 4px;
       }
     }
 

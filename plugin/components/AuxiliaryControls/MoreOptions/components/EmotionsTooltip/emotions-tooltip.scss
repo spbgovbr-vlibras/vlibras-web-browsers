@@ -23,7 +23,7 @@
   bottom: calc(40%);
   left: 50%;
   transform: translateX(-50%);
-  box-shadow: $vp-shadow;
+  box-shadow: var(--vp-shadow);
   padding: 6px !important;
   width: 128px;
 

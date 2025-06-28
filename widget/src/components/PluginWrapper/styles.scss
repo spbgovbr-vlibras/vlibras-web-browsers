@@ -12,9 +12,9 @@
     height: 100%;
     float: right;
     background: white;
-    -webkit-box-shadow: $vp-shadow;
-    -moz-box-shadow: $vp-shadow;
-    box-shadow: $vp-shadow;
+    -webkit-box-shadow: var(--vp-shadow);
+    -moz-box-shadow: var(--vp-shadow);
+    box-shadow: var(--vp-shadow);
     border-radius: 12px;
     -moz-border-radius: 12px;
     -webkit-border-radius: 12px;
