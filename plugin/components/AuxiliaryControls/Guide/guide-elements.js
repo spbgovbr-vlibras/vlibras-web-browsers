@@ -18,10 +18,10 @@ export const guideElements = [
   {
     path: '.vpw-more-options-button',
     text: `Acesse opções extras da ferramenta.
-    Clique neste botão para abrir o Tradutor ou alterar a emoção do avatar.`,
+    Clique neste botão para acessar o Tradutor ou alterar a emoção do avatar.`,
     gloss:
       'ACESSAR OPÇÃO EXTRA VLIBRAS ' +
-      'CLIQUE BOTÃO ABRIR&COMEÇAR TRADUTOR VLIBRAS ALTERAR EMOÇÃO AVATAR [PONTO]',
+      'CLIQUE BOTÃO ACESSAR TRADUTOR VLIBRAS ALTERAR EMOÇÃO AVATAR [PONTO]',
   },
   {
     path: 'div[vp-controls]',
