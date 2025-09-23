@@ -19,11 +19,15 @@ const arrowOutward = require('./feedback/arrow-outward.svg');
 const deleteIcon = require('./delete.svg');
 
 const emotions = {
-  satisfied: require('./emotions/satisfied.svg'),
-  'very-satisfied': require('./emotions/very-satisfied.svg'),
-  dissatisfied: require('./emotions/dissatisfied.svg'),
-  automatic: require('./emotions/automatic.svg'),
+  default: require('./emotions/default.svg'),
+  happy: require('./emotions/happy.svg'),
+  sad: require('./emotions/sad.svg'),
   doubt: require('./emotions/doubt.svg'),
+  surprise: require('./emotions/surprise.svg'),
+  angry: require('./emotions/angry.svg'),
+  fear: require('./emotions/fear.svg'),
+  disgust: require('./emotions/disgust.svg'),
+  automatic: require('./emotions/automatic.svg'),
 };
 
 const controlIcons = {

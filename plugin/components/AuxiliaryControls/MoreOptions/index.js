@@ -33,7 +33,7 @@ MoreOptions.prototype.load = function (element) {
   // add icons
   closeBtn.innerHTML = closeIcon;
   translatorBtn.innerHTML += translatorIcon;
-  emotionsBtn.innerHTML += emotions.satisfied;
+  emotionsBtn.innerHTML += emotions.default;
   otherResourcesBtn.innerHTML += accessibilityIcon;
 
   // add actions

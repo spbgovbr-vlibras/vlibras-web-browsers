@@ -122,7 +122,7 @@ Settings.prototype.load = function (element) {
   }
 
   // Elements to apply blur filter
-  this.gameContainer = document.querySelector('div#gameContainer');
+  this.gameContainer = document.querySelector('#gameContainer');
   this.controlsElement = document.querySelector('.vpw-controls');
 
   function setOpacity(opacity) {

@@ -1,7 +1,7 @@
 module.exports = {
-  ROOT_PATH: 'https://portal-dth.vlibras.lavid.ufpb.br/app/',
+  ROOT_PATH: 'https://diegofrr.github.io/vlibras-widget-plus/app/',
 
-  DICTIONARY_URL: 'https://dicionario2-dth.vlibras.gov.br/signs?version=2018.3.1',
-  REVIEW_URL: 'https://traducao2-dth.vlibras.gov.br/dl/review',
-  SIGNS_URL: 'https://dicionario2-dth.vlibras.gov.br/bundles',
+  DICTIONARY_URL: 'https://dicionario2.vlibras.gov.br/signs?version=2018.3.1',
+  REVIEW_URL: 'https://traducao2.vlibras.gov.br/review',
+  SIGNS_URL: 'https://dicionario2.vlibras.gov.br/bundles',
 };

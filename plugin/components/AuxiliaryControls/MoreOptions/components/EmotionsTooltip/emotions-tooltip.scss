@@ -18,14 +18,25 @@
   border: 1px solid map-get($white, 4) !important;
   background: map-get($white, 1);
   z-index: 9999999;
-  display: flex;
+  display: grid !important;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0 12px;
   position: absolute;
   bottom: calc(40%);
   left: 50%;
   transform: translateX(-50%);
   box-shadow: $vp-shadow;
   padding: 6px !important;
-  width: 128px;
+  width: max-content;
+
+  .vp-divider {
+    position: absolute;
+    left: 50%;
+    height: 100%;
+    width: 1px;
+    transform: translateX(-50%);
+    background-color: map-get($white, 4);
+  }
 
   &[data-active='true'] {
     display: flex;
@@ -34,7 +45,7 @@
   .vp-emotions-item {
     @include reset;
 
-    border-radius: 4px;
+    border-radius: 6px;
     width: 100%;
     display: flex;
     align-items: center;
@@ -43,12 +54,13 @@
     border: 1px solid transparent;
     height: auto;
 
-    &[data-active='true'] {
-      background: #cbe0ff !important;
+    &[data-emotion='doubt'] {
+      pointer-events: none;
+      opacity: 0.5;
     }
 
-    &:last-child {
-      border-top: 1px solid map-get($white, 4);
+    &[data-active='true'] {
+      background: #cbe0ff !important;
     }
 
     &:hover {
