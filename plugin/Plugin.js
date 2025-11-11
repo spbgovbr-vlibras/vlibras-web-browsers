@@ -160,6 +160,49 @@ function Plugin(options) {
     this.closeScreen.closeAll();
   });
 
+  this.player.on('response:gloss', (idx, length) => {
+    try {
+      const glosses = this.player.gloss.split(' ');
+      const sentiments = this.player.translateData.sentimentoPorSentenca;
+
+      const ranges = [];
+      let currentIndex = 0;
+
+      for (const sentiment of sentiments) {
+        const parts = sentiment.traducao.split(' ');
+
+        let start = -1;
+
+        for (let i = currentIndex; i <= glosses.length - parts.length; i++) {
+          const slice = glosses.slice(i, i + parts.length);
+          if (slice.join(' ') === sentiment.traducao) {
+            start = i;
+            currentIndex = i + parts.length;
+            break;
+          }
+        }
+
+        if (start !== -1) {
+          ranges.push({
+            start,
+            end: start + parts.length - 1,
+            sentimento: sentiment.sentimento,
+          });
+        }
+      }
+
+      const current = ranges.find((r) => idx >= r.start && idx <= r.end);
+
+      const sentimentsMap = {
+        Feliz: 'ApplyHappyEmotion',
+        Tristeza: 'ApplySadEmotion',
+        Neutro: 'ApplyDefaultEmotion',
+      };
+
+      if (current) this.player.applyEmotion(sentimentsMap[current.sentimento]);
+    } catch {}
+  });
+
   this.player.on('translate:end', () => {
     this.messageBox.hide(this.loadingRef);
     this.translator.hide();

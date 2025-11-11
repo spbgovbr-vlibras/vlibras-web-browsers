@@ -39,7 +39,7 @@ function Controls(player, dictionary, isWidget) {
   }.bind(this)
   );
 
-  this.player.on('response:glosa', function (counter, glosaLenght) {
+  this.player.on('response:gloss', function (counter, glosaLenght) {
     counter = counter - 1;
 
     if (counter != -1) {
