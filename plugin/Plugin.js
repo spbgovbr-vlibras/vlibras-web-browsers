@@ -21,6 +21,7 @@ const url = require('url-join');
 const { REVIEW_URL } = require('~constants');
 const { ALERT_MESSAGES } = require('./alert-messages');
 const { noCachedGloss } = require('./components/AuxiliaryControls/Guide/utils');
+const { sentimentsMap } = require('./sentiments-map');
 
 require('./scss/reset.scss');
 require('./scss/global.scss');
@@ -160,7 +161,9 @@ function Plugin(options) {
     this.closeScreen.closeAll();
   });
 
-  this.player.on('response:gloss', (idx, length) => {
+  this.player.on('response:gloss', (idx, l) => {
+    if (this.emotion !== 'auto') return;
+
     try {
       const glosses = this.player.gloss.split(' ');
       const sentiments = this.player.translateData.sentimentoPorSentenca;
@@ -193,13 +196,10 @@ function Plugin(options) {
 
       const current = ranges.find((r) => idx >= r.start && idx <= r.end);
 
-      const sentimentsMap = {
-        Feliz: 'ApplyHappyEmotion',
-        Tristeza: 'ApplySadEmotion',
-        Neutro: 'ApplyDefaultEmotion',
-      };
-
-      if (current) this.player.applyEmotion(sentimentsMap[current.sentimento]);
+      if (current) {
+        const sentiment = sentimentsMap[current.sentimento];
+        this.player.applyEmotion(sentiment, true);
+      }
     } catch {}
   });
 
@@ -218,6 +218,10 @@ function Plugin(options) {
   });
 
   this.player.on('gloss:end', () => {
+    if (this.player.emotion === 'auto' || this.player.emotion === 'default') {
+      this.player.playerManager.applyEmotion('ApplyDefaultEmotion');
+    }
+
     if (control == 0) {
       this.changeAvatar.show();
       this.auxControls.show();

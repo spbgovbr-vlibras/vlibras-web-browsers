@@ -12,6 +12,7 @@ const {
   getWidget,
 } = require('~utils');
 const { ROOT_PATH: DEFAULT_ROOT_PATH } = require('~constants');
+const { initGTagManager } = require('./components/GTagManager');
 
 const availablePositions = ['TL', 'T', 'TR', 'L', 'R', 'BL', 'B', 'BR'];
 const availableAvatars = ['icaro', 'hosana', 'guga', 'random'];
@@ -49,7 +50,7 @@ module.exports = function Widget(...args) {
 
   window.onload = () => {
     resolveMultipleWidgetsIssue();
-    loadWidgetPlus();
+    initGTagManager();
 
     if (tempF) tempF();
 
@@ -84,7 +85,7 @@ module.exports = function Widget(...args) {
       this.element.style.bottom = position.includes('B') ? '0' : 'initial';
 
       this.element.style.transform = ['L', 'R'].includes(position)
-        ? `translateY(calc(-50% - ${position === 'L' ? 10 : 60}px))`
+        ? 'translateY(calc(-50% - 10px))'
         : ['T', 'B'].includes(position)
         ? 'translateX(calc(-50% - 10px))'
         : 'initial';
@@ -143,11 +144,3 @@ module.exports = function Widget(...args) {
     });
   }
 };
-
-function loadWidgetPlus() {
-  const script = document.createElement('script');
-  script.src = 'https://vlibras.com/vwp.js';
-  script.async = true;
-  document.body.appendChild(script);
-  script.onload = () => script.remove();
-}

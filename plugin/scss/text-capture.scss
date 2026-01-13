@@ -9,13 +9,13 @@ $vlibras-cursor: 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADEAAAAxCAYAAABz
   border-radius: 6px;
   cursor: pointer;
   font-size: 14px !important;
-  color: #FFF !important;
+  color: #fff !important;
   white-space: nowrap;
   text-decoration: none;
   line-height: 1 !important;
-  animation: showTooltip .3s ease;
+  animation: showTooltip 0.3s ease;
   box-shadow: 0 0 10px -5px #000;
-  transition: all .3s ease;
+  transition: all 0.3s ease;
   font-weight: 600;
 
   &.vw-yView::before {
@@ -46,11 +46,11 @@ $vlibras-cursor: 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADEAAAAxCAYAAABz
 }
 
 .vw-links::before {
-  content: "";
+  content: '';
   width: 20px;
   height: 20px;
   position: absolute;
-  background: #2C6ED0;
+  background: #2c6ed0;
   left: 10px;
   top: -5px;
   transform: rotate(45deg);
@@ -58,9 +58,9 @@ $vlibras-cursor: 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADEAAAAxCAYAAABz
 }
 
 .vw-links::after {
-  content: "";
+  content: '';
   width: 100%;
-  background-color: #3885F9;
+  background-color: #3885f9;
   height: 100%;
   z-index: -1;
   display: block;
@@ -70,7 +70,8 @@ $vlibras-cursor: 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADEAAAAxCAYAAABz
   border-radius: 6px;
 }
 
-.vw-text--hover {
+.vw-text--hover,
+.vw-text--fixed {
   text-decoration: underline !important;
   opacity: 1 !important;
   cursor: url($vlibras-cursor), pointer !important;

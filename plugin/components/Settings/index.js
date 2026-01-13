@@ -126,15 +126,12 @@ Settings.prototype.load = function (element) {
   this.controlsElement = document.querySelector('.vpw-controls');
 
   function setOpacity(opacity) {
-    const value = Number(opacity > 100 ? 100 : opacity < 0 ? 0 : opacity);
-    const percent = (value < 25 && !isFullscreen()) ? value + 5 : value;
-
     opacityInput.value = opacity;
-    opacitySlider.style.width = percent + '%';
-    opacityValue.innerHTML = value + '%';
+    opacitySlider.style.width = opacity + '%';
+    opacityValue.innerHTML = opacity + '%';
 
     window.dispatchEvent(
-      new CustomEvent('vw-change-opacity', { detail: value / 100 })
+      new CustomEvent('vw-change-opacity', { detail: opacity / 100 })
     );
   }
 

@@ -26,7 +26,7 @@
   left: 50%;
   transform: translateX(-50%);
   box-shadow: $vp-shadow;
-  padding: 6px !important;
+  padding: 4px !important;
   width: max-content;
 
   .vp-divider {
@@ -50,14 +50,9 @@
     display: flex;
     align-items: center;
     padding: 4px;
-    gap: 8px;
+    gap: 4px;
     border: 1px solid transparent;
     height: auto;
-
-    &[data-emotion='doubt'] {
-      pointer-events: none;
-      opacity: 0.5;
-    }
 
     &[data-active='true'] {
       background: #cbe0ff !important;
@@ -68,6 +63,8 @@
     }
 
     span {
+      position: relative;
+      top: -1px;
       font-size: 14px;
       font-weight: 600;
       color: map-get($black, 1);
@@ -86,13 +83,17 @@
   @if $is-widget==1 {
     @media (max-width: 450px) {
       font-size: 12px;
-      left: 120px;
 
       .vp-emotions-item {
-        padding: 4px;
+        padding: 3px;
 
         span {
           font-size: 12px;
+        }
+
+        svg {
+          width: 16px;
+          height: 16px;
         }
       }
     }

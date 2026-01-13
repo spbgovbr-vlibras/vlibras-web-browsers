@@ -15,6 +15,11 @@ function loadTextCaptureScript() {
 
   createTooltip();
 
+  window.plugin.player.on('gloss:end', () => {
+    const fixedElements = document.querySelectorAll('.vw-text--fixed');
+    fixedElements.forEach(el => removeClass(el, 'vw-text--fixed'));
+  });
+
   function hasLinkAncestor(el) {
     while (el) {
       if ($root.includes(el)) break;
@@ -72,7 +77,12 @@ function loadTextCaptureScript() {
     const textContent = getTextContent();
 
     // Call VLibras Widget
-    if (textContent && textContent.trim()) window.plugin.translate(textContent);
+    if (textContent && textContent.trim()) {
+      removeFixedHighlight();
+      addClass(element, 'vw-text--fixed');
+
+      window.plugin.translate(textContent);
+    }
 
     const linkElement = element.tagName === "A" ? element : hasLinkAncestor(element);
 
@@ -90,6 +100,11 @@ function loadTextCaptureScript() {
 
   function removeHighlight(event) {
     removeClass(event.target, 'vw-text--hover');
+  }
+  
+  function removeFixedHighlight() {
+    const fixedElements = document.querySelectorAll('.vw-text--fixed');
+    fixedElements.forEach(el => removeClass(el, 'vw-text--fixed'));
   }
 
   function showTooltip(linkElement, event) {

@@ -51,7 +51,7 @@ export const emotionsMap = {
   },
 
   automatic: {
-    action: 'ApplyDoubtEmotion',
+    action: 'ApplyAutoEmotion',
     icon: emotions.automatic,
     intensity: 2,
   },

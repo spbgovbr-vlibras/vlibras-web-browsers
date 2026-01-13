@@ -17,6 +17,7 @@ $controls_height: 48px;
   background-color: map-get($white, 1);
   border-radius: 10px;
   overflow: hidden;
+  box-shadow: 0 -5px 15px -5px #0000005b;
 
   .vp-rate-box-header {
     @include vp-header;

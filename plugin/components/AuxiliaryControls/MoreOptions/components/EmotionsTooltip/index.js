@@ -1,5 +1,5 @@
 const { $$, $ } = require('~utils');
-const { emotionsMap } = require('./emotionsMap');
+const { emotionsMap } = require('./emotions-map');
 
 const template = require('./emotions-tooltip.html').default;
 require('./emotions-tooltip.scss');
@@ -18,12 +18,12 @@ EmotionsTooltip.prototype.load = function (element) {
 
   emotionButtons.forEach((button) => {
     const emotion = button.dataset.emotion;
-    const { action, icon, intensity } = emotionsMap[emotion];
+    const { action, icon } = emotionsMap[emotion];
 
     button.innerHTML = icon + button.innerHTML;
 
     button.addEventListener('click', () => {
-      if (emotion === 'automatic' || button.dataset.active === 'true') return;
+      if (button.dataset.active === 'true') return;
 
       emotionButtons.forEach(
         (btn) => (btn.dataset.active = btn.dataset.emotion === emotion)
@@ -32,7 +32,11 @@ EmotionsTooltip.prototype.load = function (element) {
       tooltipButton.innerHTML = icon;
       tooltipButton.dataset.emotion = emotion !== 'default';
 
-      this.player.applyEmotion(action, intensity);
+      if (emotion === 'automatic') {
+        this.player.playerManager.applyEmotion('ApplyDefaultEmotion');
+      }
+
+      this.player.applyEmotion(action);
       this.hide();
     });
   });
