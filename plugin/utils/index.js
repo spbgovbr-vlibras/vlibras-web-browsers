@@ -18,9 +18,17 @@ export const getWidgetPosition = () => {
   return window.plugin ? window.plugin.position : undefined;
 }
 
-// Format the gloss => EXAMPLE&EXAMPLE to EXAMPLE(EXAMPLE)
+// Format the gloss => EXAMPLE&EXAMPLE to EXAMPLE(EXAMPLE) and replace underscores with spaces
 export const formatGloss = gloss => {
-  return gloss.indexOf('&') != -1 ? gloss.replace('&', '(') + ')' : gloss;
+  // Primeiro trata o &
+  let formatted = gloss.indexOf('&') != -1 ? gloss.replace('&', '(') + ')' : gloss;
+  
+  // Substitui underscores por espaços (mantém em CAIXA ALTA)
+  if (formatted.indexOf('_') != -1) {
+    formatted = formatted.replace(/_/g, ' ');
+  }
+  
+  return formatted;
 }
 
 // Get a valid Widget element

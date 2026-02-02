@@ -17,6 +17,9 @@ const moreOptionsIcon = require('./aux-controls/more-options.svg');
 const guideIcon = require('./aux-controls/guide.svg');
 const arrowOutward = require('./feedback/arrow-outward.svg');
 const deleteIcon = require('./delete.svg');
+const chevronDownIcon = require('./chevron-down.svg');
+const handsTranslateIcon = require('./dictionary/union.svg');
+
 
 const emotions = {
   default: require('./emotions/default.svg'),
@@ -60,6 +63,26 @@ const positionIcons = [
   require('./positions/bottom-right.svg'),
 ];
 
+const categoryIcons = {
+  'animais': require('./dictionary/animais.svg'),
+  'comidas': require('./dictionary/comidas.svg'),
+  'corpo': require('./dictionary/corpo.svg'),
+  'esporte': require('./dictionary/esporte.svg'),
+  'familia': require('./dictionary/familia.svg'),
+  'frutas': require('./dictionary/frutas.svg'),
+  'lugares': require('./dictionary/lugares.svg'),
+  'medidas': require('./dictionary/medidas.svg'),
+  'natureza': require('./dictionary/natureza.svg'),
+  'numeros': require('./dictionary/numeros.svg'),
+  'pais': require('./dictionary/pais.svg'),
+  'saude': require('./dictionary/saude.svg'),
+  'sentimentos': require('./dictionary/sentimentos.svg'),
+  'verbos': require('./dictionary/verbos.svg'),
+  'alfabeto': require('./dictionary/alfabeto.svg'),
+  'trabalho': require('./dictionary/trabalho.svg'),
+  'maquinas': require('./dictionary/maquinas.svg'),
+};
+
 module.exports = {
   IcaroIcon,
   HosanaIcon,
@@ -84,4 +107,7 @@ module.exports = {
   deleteIcon,
   emotions,
   accessibilityIcon,
+  categoryIcons,
+  chevronDownIcon,
+  handsTranslateIcon,
 };

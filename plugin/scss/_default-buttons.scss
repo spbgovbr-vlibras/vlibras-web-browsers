@@ -147,9 +147,9 @@
   }
 
   &:active {
-    background-color: map -get($white, 1);
+    background-color: map-get($white, 1);
 
-    &svg > * {
+    svg > * {
       fill: map-get($blue, 4);
     }
   }

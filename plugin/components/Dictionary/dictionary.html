@@ -24,14 +24,27 @@
     </div>
 
     <div class="vpw-search">
-        <input type="text" placeholder="Pesquisar por um sinal">
+        <input type="text" placeholder="Digite um sinal para pesquisar">
         <span class="vpw-icon"></span>
     </div>
 </div>
 
 <div class="vpw-buttons-container">
-    <button class="vp-dictionary-btn vp-selected">A-Z</button>
-    <button class="vp-dictionary-btn">Recentes</button>
+    <button class="vp-dictionary-btn vp-selected" data-tab="categories">Categorias</button>
+    <button class="vp-dictionary-btn" data-tab="az">A-Z</button>
+    <button class="vp-dictionary-btn" data-tab="recents">Recentes</button>
+</div>
+
+<div class="vpw-categories-header">
+    <button class="vpw-btn-back"></button>
+    <span class="vpw-category-header-icon"></span>
+    <span class="vpw-category-title"></span>
+</div>
+
+<div class="vpw-categories-container vp-enabled">
+    <ul class="vpw-categories-list"></ul>
+    <ul class="vpw-category-signs-list"></ul>
+    <span class="vpw-empty-message">Nenhum sinal encontrado</span>
 </div>
 
 <div class="vpw-recents-container vp-isEmpty">
@@ -39,7 +52,10 @@
     <span>Nenhuma tradução recente foi feita</span>
 </div>
 
-<div class="vpw-dict-container vp-enabled">
-    <ul></ul>
-    <span></span>
+<div class="vpw-dict-container">
+    <div class="vpw-az-accordion"></div>
+    <div class="vpw-az-search-results" style="display: none;">
+        <ul></ul>
+        <span></span>
+    </div>
 </div>
