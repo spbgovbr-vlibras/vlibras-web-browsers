@@ -234,7 +234,23 @@
     .vpw-recents-container {
       ul li {
         min-width: 100vw !important;
-        padding: 6px 16px !important;
+        padding: 10px 16px !important;
+        font-size: 13px !important;
+      }
+    }
+
+    // Ajustes para a área de definição no fullscreen mobile
+    .vpw-sign-definition {
+      padding: 12px !important;
+      font-size: 13px !important;
+
+      .vpw-word-class {
+        font-size: 0.7em !important;
+      }
+
+      .vpw-definition-text {
+        font-size: 0.9em !important;
+        line-height: 1.5 !important;
       }
     }
   }
@@ -260,11 +276,17 @@
       }
 
       .vpw-dictionary {
+        font-size: 12px !important;
+
         .vpw-search {
-          padding: 16px !important;
+          padding: 12px !important;
+
+          input {
+            font-size: 1em !important;
+          }
 
           .vpw-icon {
-            right: 20px;
+            right: 18px;
           }
         }
 
@@ -275,10 +297,65 @@
         }
 
         .vpw-buttons-container {
-          padding: 10px 16px !important;
+          padding: 8px 12px !important;
+          gap: 4px !important;
 
           .vp-dictionary-btn {
-            height: 32px !important;
+            height: 30px !important;
+            padding: 0 12px !important;
+            font-size: 0.9em !important;
+          }
+        }
+
+        // Melhorar tamanho da área de significado
+        .vpw-sign-definition {
+          padding: 10px !important;
+          font-size: 11px !important;
+
+          .vpw-word-class {
+            font-size: 0.65em !important;
+            margin-bottom: 8px !important;
+          }
+
+          .vpw-definition-row {
+            padding: 8px 0 !important;
+
+            .vpw-definition-text {
+              font-size: 0.85em !important;
+              line-height: 1.4 !important;
+            }
+          }
+        }
+
+        // Ajustes para categorias
+        .vpw-categories-container {
+          .vpw-categories-list li {
+            padding: 12px 14px !important;
+          }
+        }
+
+        .vpw-categories-header {
+          padding: 10px 14px !important;
+        }
+
+        // Ajustes para acordeão A-Z
+        .vpw-az-accordion {
+          .vpw-az-section {
+            .vpw-az-header {
+              padding: 12px 14px !important;
+            }
+
+            .vpw-az-content ul li {
+              padding: 12px 14px 12px 26px !important;
+            }
+          }
+        }
+
+        // Container de recentes e dicionário
+        .vpw-dict-container,
+        .vpw-recents-container {
+          ul li {
+            padding: 10px 14px !important;
           }
         }
       }

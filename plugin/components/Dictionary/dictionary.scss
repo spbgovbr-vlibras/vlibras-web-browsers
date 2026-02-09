@@ -803,67 +803,183 @@
 
     @if $is-widget==1 {
       @media (max-width: 450px) {
-        font-size: 12px;
+        font-size: 11px;
+
+        .vpw-buttons-container {
+          padding: 8px 10px;
+          gap: 4px;
+          overflow-x: auto;
+          white-space: nowrap;
+
+          .vp-dictionary-btn {
+            height: 28px;
+            padding: 0 12px;
+            font-size: 0.95em;
+            flex-shrink: 0;
+          }
+        }
 
         .vpw-dict-container,
         .vpw-recents-container {
           ul li {
-            padding: 6px 10px;
+            padding: 8px 10px;
             min-width: 210px;
+            font-size: 1em;
           }
 
           span {
             padding: 0 10px;
+            font-size: 1em;
+          }
+        }
+
+        // Ajustes para a área de definição (significado)
+        .vpw-sign-definition {
+          padding: 10px;
+          margin-top: 8px;
+          font-size: 0.95em;
+
+          .vpw-word-class {
+            font-size: 0.7em;
+            margin: 0 0 8px 0;
           }
 
-          .vpw-dict-container,
-          .vpw-recents-container {
-            ul {
-              li {
-                padding: 6px 10px;
-                min-width: 210px;
-              }
+          .vpw-definition-row {
+            padding: 8px 0;
 
-              span {
-                padding: 0 16px;
-              }
-            }
-
-            .vpw-loading-dictionary {
-              div {
-                button {
-                  max-height: 32px;
-                }
-              }
-            }
-
-            .vpw-panel {
-              .vpw-search {
-                .vpw-icon {
-                  width: 26px;
-                  height: 26px;
-                }
-              }
-            }
-
-            .buttons-container {
-              padding: 10px;
-
-              .vp-dictionary-btn {
-                height: 30px;
-                padding: 0 10px;
-                height: 26px;
-              }
+            .vpw-definition-text {
+              font-size: 0.85em;
+              line-height: 1.4;
+              padding-right: 8px;
             }
           }
 
-          .vpw-buttons-container {
-            padding: 10px;
+          .vpw-translate-btn {
+            width: 28px;
+            height: 28px;
 
-            .vp-dictionary-btn {
-              height: 30px;
-              padding: 0 10px;
-              height: 26px;
+            svg {
+              width: 20px;
+              height: 20px;
+            }
+          }
+        }
+
+        // Ajustes para categorias
+        .vpw-categories-container {
+          .vpw-categories-list li {
+            padding: 10px 12px;
+
+            .vpw-category-icon {
+              width: 24px;
+              height: 24px;
+              margin-right: 10px;
+
+              svg {
+                width: 20px;
+                height: 20px;
+              }
+            }
+
+            .vpw-category-name {
+              font-size: 0.95em;
+            }
+          }
+        }
+
+        // Ajustes para o cabeçalho de categorias
+        .vpw-categories-header {
+          padding: 10px 12px;
+
+          .vpw-btn-back {
+            width: 24px;
+            height: 24px;
+            margin-right: 6px;
+
+            svg {
+              width: 18px;
+              height: 18px;
+            }
+          }
+
+          .vpw-category-header-icon {
+            margin-right: 8px;
+
+            svg {
+              width: 20px;
+              height: 20px;
+            }
+          }
+
+          .vpw-category-title {
+            font-size: 0.95em;
+          }
+        }
+
+        // Ajustes para acordeão A-Z
+        .vpw-az-accordion {
+          .vpw-az-section {
+            .vpw-az-header {
+              padding: 10px 12px;
+
+              .vpw-az-letter {
+                font-size: 0.95em;
+              }
+
+              .vpw-az-chevron svg {
+                width: 18px;
+                height: 18px;
+              }
+            }
+
+            .vpw-az-content ul li {
+              padding: 10px 12px 10px 24px;
+
+              .vpw-sign-text {
+                font-size: 0.95em;
+              }
+            }
+          }
+        }
+
+        // Ajustes para botão de expandir
+        .vpw-sign-expand-btn {
+          width: 20px;
+          height: 20px;
+          margin-left: 4px;
+
+          svg {
+            width: 16px;
+            height: 16px;
+          }
+        }
+
+        .vpw-loading-dictionary {
+          div {
+            button {
+              max-height: 32px;
+            }
+          }
+        }
+
+        .vpw-panel {
+          .vpw-search {
+            padding: 8px;
+
+            input {
+              height: 32px;
+              font-size: 0.95em;
+            }
+
+            .vpw-icon {
+              width: 20px;
+              height: 20px;
+              right: 12px;
+
+              svg {
+                width: 18px;
+                height: 18px;
+              }
             }
           }
         }
