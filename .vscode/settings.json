@@ -1,5 +1,19 @@
 {
-  "editor.codeActionsOnSave": {
-    "source.fixAll.eslint": "explicit"
-  }
+	"[typescriptreact]": {
+		"editor.defaultFormatter": "biomejs.biome"
+	},
+	"[typescript]": {
+		"editor.defaultFormatter": "biomejs.biome"
+	},
+	"[json]": {
+		"editor.defaultFormatter": "biomejs.biome"
+	},
+	"[css]": {
+		"editor.defaultFormatter": "biomejs.biome"
+	},
+	"cSpell.words": ["actived", "Icaro", "vlibras"],
+	"editor.codeActionsOnSave": {
+		"source.fixAll.biome": "explicit",
+		"source.action.useSortedKeys.biome": "explicit"
+	}
 }

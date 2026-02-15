@@ -1,0 +1,24 @@
+{
+	"$schema": "https://unpkg.com/release-it@17/schema/release-it.json",
+	"plugins": {
+		"@release-it/conventional-changelog": {
+			"preset": {
+				"name": "angular"
+			},
+			"infile": "CHANGELOG.md"
+		}
+	},
+	"git": {
+		"tag": true,
+		"tagMatch": "*",
+		"commit": false,
+		"push": false,
+		"requireCleanWorkingDir": false
+	},
+	"npm": {
+		"publish": false
+	},
+	"hooks": {
+		"after:release": "node ./src/scripts/post-release.js"
+	}
+}
