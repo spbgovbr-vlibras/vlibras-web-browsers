@@ -1,7 +1,40 @@
-let popup = undefined;
 let selectedText = undefined;
+let popupId = null;
 
-// Creates the context menu to translate texts
+const createPopup = () => {
+  chrome.windows.create(
+    {
+      url: 'index.html',
+      top: 10,
+      left: 10,
+      width: 320,
+      height: 500,
+      type: 'popup',
+    },
+    (w) => {
+      popupId = w.id;
+      chrome.storage.local.set({ popupId: popupId });
+    }
+  );
+};
+
+const updatePopup = () => {
+  chrome.windows.update(popupId, { focused: true }, () => {
+    if (chrome.runtime.lastError) {
+      popupId = null;
+      chrome.storage.local.remove('popupId');
+      return;
+    }
+
+    chrome.runtime.sendMessage({ selectedText });
+    selectedText = undefined;
+  });
+};
+
+chrome.storage.local.get('popupId', ({ popupId: stored }) => {
+  popupId = stored ?? null;
+});
+
 chrome.contextMenus.create(
   {
     id: 'translate_contextmenu',
@@ -15,45 +48,36 @@ chrome.contextMenus.create(
   }
 );
 
-// Listening the event click
-chrome.contextMenus.onClicked.addListener(function (info) {
+chrome.contextMenus.onClicked.addListener(async (info) => {
+  if (!info.selectionText) return;
+
   selectedText = info.selectionText;
 
-  if (!selectedText) return;
-
-  // Creates the window if it exists
-  if (popup === undefined) {
-    chrome.windows.create(
-      {
-        url: 'index.html',
-        top: 10,
-        left: 10,
-        width: 320,
-        height: 500,
-        type: 'popup',
-      },
-      (w) => {
-        popup = w;
-      }
-    );
-  } else {
-    chrome.windows.update(popup.id, { focused: true }, () => {
-      chrome.runtime.sendMessage({ selectedText });
-      selectedText = undefined;
-    });
+  let exists = false;
+  if (popupId !== null) {
+    try {
+      await chrome.windows.get(popupId);
+      exists = true;
+    } catch (e) {
+      exists = false;
+      popupId = null;
+      chrome.storage.local.remove('popupId');
+    }
   }
+
+  if (!exists) createPopup();
+  else updatePopup();
 });
 
-// Frees variable if the popup doesn't to exist anymore
 chrome.windows.onRemoved.addListener((windowId) => {
-  if (windowId == popup.id) {
-    popup = undefined;
+  if (windowId === popupId) {
+    popupId = null;
+    chrome.storage.local.remove('popupId');
   }
 });
 
-// Listening the ready event of the popup
-chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
-  if (request.ready === true && selectedText !== undefined) {
+chrome.runtime.onMessage.addListener((request) => {
+  if (request.ready && selectedText) {
     chrome.runtime.sendMessage({ selectedText });
     selectedText = undefined;
   }
