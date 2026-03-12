@@ -1,6 +1,6 @@
 import { Button } from "@/widget/components/ui/button";
 import { ArrowLeftIcon, IcaroIcon } from "@/widget/icons";
-import { useScreensStore } from "@/widget/stores/useScreensStore";
+import { useScreensStore } from "@/widget/stores/use-screens.store";
 import { Screen, ScreenContent, ScreenHeader, ScreenTitle } from "../components";
 import { ActiveDarkMode } from "./components/dark-mode";
 

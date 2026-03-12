@@ -1,0 +1,83 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <style>
+      * {
+        box-sizing: border-box;
+      }
+      html,
+      body {
+        margin: 0;
+        width: 100%;
+        height: 100%;
+        overflow: hidden;
+      }
+      canvas {
+        width: 100%;
+        height: 100%;
+      }
+    </style>
+  </head>
+  <body>
+    <canvas id="unity-canvas"></canvas>
+    <script src="./webgl.loader.js"></script>
+
+    <script>
+      let unity;
+
+      createUnityInstance(
+        document.getElementById("unity-canvas"),
+        {
+          dataUrl: "./webgl.data",
+          frameworkUrl: "./build.framework.js",
+          codeUrl: "./build.wasm",
+        },
+        (progress) => {
+          window.parent.postMessage(
+            { type: "unity_event", event: "update_progress", data: progress },
+            "*",
+          );
+        },
+      ).then((instance) => (unity = instance));
+
+      window.addEventListener("message", (e) => {
+        const m = e.data;
+
+        if (!unity) return;
+        if (m.type !== "unity") return;
+
+        unity.SendMessage(m.object, m.method, m.params);
+      });
+
+      // isPlaying, isPaused,  isPlayingIntervalAnimation, isLoading, isRepeatable
+      window.onPlayingStateChange = (...data) => {
+        window.parent.postMessage(
+          { type: "unity_event", event: "on_playing_state_change", data },
+          "*",
+        );
+      };
+
+      window.CounterGloss = (data) => {
+        window.parent.postMessage(
+          { type: "unity_event", event: "counter_gloss", data },
+          "*",
+        );
+      };
+
+      window.onLoadPlayer = () => {
+        window.parent.postMessage(
+          { type: "unity_event", event: "on_load_player" },
+          "*",
+        );
+      };
+
+      window.GetAvatar = (data) => {
+        window.parent.postMessage(
+          { type: "unity_event", event: "get_avatar", data },
+          "*",
+        );
+      };
+    </script>
+  </body>
+</html>

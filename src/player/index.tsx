@@ -1,0 +1,35 @@
+import { type ComponentPropsWithoutRef, Fragment } from "preact/compat";
+import { useEffect, useRef } from "preact/hooks";
+import { useConfig } from "@/common/hooks";
+import type { UNITY_METHODS, UNITY_OBJECTS } from "./constants/unity";
+import { PlayerEventsProvider } from "./events-provider";
+import { usePlayerStore } from "./use-player.store";
+
+export const Player = (props: ComponentPropsWithoutRef<"iframe">) => {
+	const iframeRef = useRef<HTMLIFrameElement>(null);
+	const { path } = useConfig();
+	const { isLoaded } = usePlayerStore();
+
+	const send = (object: UNITY_OBJECTS, method: UNITY_METHODS, params?: unknown) => {
+		iframeRef.current?.contentWindow?.postMessage({ type: "unity", object, method, params }, "*");
+	};
+
+	useEffect(() => {
+		if (!iframeRef.current) return;
+		usePlayerStore.setState({ send });
+	}, []);
+
+	return (
+		<Fragment>
+			<iframe
+				ref={iframeRef}
+				title="vlibras-player"
+				src={`${path}/unity/index.html`}
+				style={{ border: "none", overflow: "hidden", opacity: isLoaded ? 1 : 0 }}
+				{...props}
+			/>
+
+			<PlayerEventsProvider />
+		</Fragment>
+	);
+};

@@ -2,7 +2,7 @@ import { type ComponentChildren, type ComponentProps, Fragment } from "preact";
 import { useEffect, useImperativeHandle, useRef } from "preact/hooks";
 import { cn } from "@/common/lib/utils";
 import { useDialog } from "@/widget/providers/dialog";
-import { useWidgetStore } from "@/widget/stores/useWidgetStore";
+import { useWidgetStore } from "@/widget/stores/use-widget.store";
 
 type DialogProps = {
 	children: ComponentChildren;

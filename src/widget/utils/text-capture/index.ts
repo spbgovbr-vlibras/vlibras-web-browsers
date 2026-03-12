@@ -1,6 +1,6 @@
 import { startTransition } from "preact/compat";
 import { $ } from "@/common/utils/dom";
-import { useTooltipStore } from "@/widget/stores/useTooltipStore";
+import { useTooltipStore } from "@/widget/stores/use-tooltip.store";
 import {
 	findInteractiveElement,
 	getTextContent,

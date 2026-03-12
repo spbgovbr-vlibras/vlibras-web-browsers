@@ -1,5 +1,7 @@
 /// <reference types="vite/client" />
 
+declare const __APP_VERSION__: string;
+
 declare namespace YT {
 	interface Player {
 		mute(): void;
@@ -9,38 +11,18 @@ declare namespace YT {
 
 declare global {
 	interface Window {
-		VLibrasWidgetPlus?: {
+		VLibrasWidget?: {
 			path: string;
 			isOpen: boolean;
 			initBtn?: Element;
 			open: () => void;
 		};
 
-		SpeechRecognition?: {
-			prototype: SpeechRecognition;
-			new (): SpeechRecognition;
-		};
-
-		webkitSpeechRecognition?: {
-			prototype: SpeechRecognition;
-			new (): SpeechRecognition;
-		};
-
-		onYouTubeIframeAPIReady?: () => void;
-
-		YT?: {
-			Player: {
-				prototype: YT.Player;
-				new (
-					element: Element,
-					options: {
-						events?: {
-							onReady?: (event: { target: { mute: () => void; unMute: () => void } }) => void;
-						};
-					},
-				): YT.Player;
-			};
-		};
+		createUnityInstance: (
+			canvas: HTMLCanvasElement,
+			config: Record<string, unknown>,
+			progress: (progress: number) => void,
+		) => Promise<unknown>;
 	}
 }
 

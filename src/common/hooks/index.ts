@@ -1,7 +1,8 @@
 export { use } from "./use";
-export { useConfig } from "./useConfig";
-export { useMediaQuery } from "./useMediaQuery";
-export { useMousePosition } from "./useMousePosition";
-export { useTheme } from "./useTheme";
-export { useTouchDevice } from "./useTouchDevice";
-export { useWindowSize } from "./useWindowSize";
+export { useClient } from "./use-client";
+export { useConfig } from "./use-config";
+export { useMediaQuery } from "./use-media-query";
+export { useMousePosition } from "./use-mouse-position";
+export { useTheme } from "./use-theme";
+export { useTouchDevice } from "./use-touch-device";
+export { useWindowSize } from "./use-window-size";

@@ -6,7 +6,7 @@ import { createRoot } from "@/core/dom";
 import { loadDefaultFont } from "@/core/fonts";
 import { WidgetApp } from "@/widget/app";
 import { Providers } from "@/widget/providers";
-import { useWidgetStore } from "@/widget/stores/useWidgetStore";
+import { useWidgetStore } from "@/widget/stores/use-widget.store";
 
 const { root, shadowRoot, isRootActive } = createRoot();
 
@@ -15,6 +15,8 @@ function App() {
 	const { path } = useConfig();
 
 	useEffect(() => {
+		if (!path) return;
+
 		(async () => {
 			await loadDefaultFont(path, shadowRoot);
 			setLoaded(true);
@@ -34,6 +36,8 @@ function App() {
 
 		return () => observer.disconnect();
 	}, [path, setOpenWidget, isLoaded, setLoaded]);
+
+	if (!isLoaded) return null;
 
 	return (
 		<StyleProvider>

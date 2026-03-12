@@ -21,7 +21,7 @@ export const Tooltip = ({
 	disabled,
 	content,
 	arrow,
-	offset = 0,
+	offset = -4,
 	align = "center",
 	placement = "top",
 	className,
@@ -66,8 +66,8 @@ export const Tooltip = ({
 					role="tooltip"
 					style={{ boxShadow: "2px 2px 15px -5px rgba(0, 0, 0, .2)", ...getStyleOffset() }}
 					className={cn(
-						"absolute z-2147483647 rounded-md border bg-popover px-3 py-1.5 text-popover-foreground text-sm shadow-lg transition-opacity duration-200",
-						placement === "bottom" && "-bottom-4 left-1/2 -translate-x-1/2 translate-y-full",
+						"absolute z-2147483647 rounded-lg border bg-popover px-3 py-1.5 text-popover-foreground text-sm shadow-lg transition-opacity duration-200",
+						placement === "bottom" && "-bottom-4 left-1/2 -translate-x-1/2 translate-y-full animate-move-down",
 						placement === "top" && "-top-4 left-1/2 -translate-x-1/2 -translate-y-full",
 						placement === "right" && "top-1/2 translate-x-1/2 -translate-y-1/2",
 						placement === "left" && "top-1/2 -translate-y-1/2",
@@ -86,7 +86,7 @@ export const Tooltip = ({
 									arrow.position.includes("top") && "-top-[13.444px]",
 									arrow.position.includes("bottom") && "-bottom-[13.444px]",
 									arrow.position.includes("left") && "left-2",
-									arrow.position.includes("right") && "right-0 left-auto",
+									arrow.position.includes("right") && "-right-1 left-auto",
 									arrow.position === "right" && "top-1/2 -right-6 left-auto -translate-y-1/2 -rotate-90",
 									arrow.position === "left" && "top-1/2 right-auto -left-4 -translate-y-1/2 rotate-90",
 								)}

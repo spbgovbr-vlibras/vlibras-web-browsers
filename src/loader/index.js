@@ -1,4 +1,4 @@
-const path = "https://diegofrr.github.io/vlibras-widget-plus/dist";
+const path = window.vw_path || "https://vlibras.com/dist";
 
 const template = `
 <div id="vp-access-wrapper">
@@ -65,7 +65,7 @@ const open = () => {
   if (widget) return (widget.dataset.active = true);
 
   const script = document.createElement("script");
-  script.src = `${dist}/vlibras-widget-plus-app.umd.cjs`;
+  script.src = `${path}/vlibras-plugin-app.umd.cjs`;
   script.async = true;
   script.onload = () => {
     widget = document.getElementById("vp-app-root");
@@ -77,7 +77,7 @@ const open = () => {
 
 initBtn.onclick = open;
 
-window.VLibrasWidgetPlus = {};
-window.VLibrasWidgetPlus = { path, initBtn, open };
+window.VLibrasWidget = {};
+window.VLibrasWidget = { path, initBtn, open };
 
 if (localStorage.getItem("@vlibras-wp").includes('"isActive":true')) open();

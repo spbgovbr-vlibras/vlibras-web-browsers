@@ -1,3 +1,4 @@
+import path from "node:path";
 import preact from "@preact/preset-vite";
 import tailwindcss from "@tailwindcss/vite";
 import { defineConfig } from "vite";
@@ -16,13 +17,19 @@ export default defineConfig({
 			fileName: "vlibras-plugin-app",
 		},
 	},
+	resolve: {
+		alias: {
+			"@": path.resolve(__dirname, "./src"),
+		},
+	},
 	plugins: [
 		preact(),
 		tailwindcss(),
 		viteStaticCopy({
 			targets: [
 				{
-					src: "src/scripts/vlibras-plugin.js",
+					src: "src/loader/index.js",
+					rename: "vlibras-plugin.js",
 					dest: "scripts",
 				},
 			],
