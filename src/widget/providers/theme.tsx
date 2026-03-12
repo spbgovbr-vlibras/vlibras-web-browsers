@@ -1,5 +1,5 @@
 import { useEffect } from "preact/hooks";
-import { useTheme } from "@/common/hooks/useTheme";
+import { useTheme } from "@/common/hooks/use-theme";
 
 interface ThemeProviderProps {
 	children: preact.ComponentChildren;

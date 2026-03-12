@@ -4,7 +4,6 @@ import { DialogProvider } from "./providers/dialog";
 export const WidgetApp = () => {
 	return (
 		<WidgetWrapper>
-			init
 			<DialogProvider />
 		</WidgetWrapper>
 	);

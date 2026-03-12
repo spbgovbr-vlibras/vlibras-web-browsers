@@ -1,13 +1,20 @@
 import type { Dispatch, StateUpdater } from "preact/hooks";
 import { create } from "zustand";
 import { persist } from "zustand/middleware";
+import type { OnlyState } from "@/common/types";
+import type { WidgetPosition } from "@/widget/types";
 import { resolveValue } from "./utils";
 
-export const defaultState: Partial<WidgetStoreState> = {
+export const defaultState: OnlyState<WidgetStoreState> = {
+	position: "right",
+	isOpenWidget: false,
+	isExpanded: false,
+	isLoaded: false,
 	isActive: false,
 };
 
 export interface WidgetStoreState {
+	position: WidgetPosition;
 	isOpenWidget: boolean;
 	isExpanded: boolean;
 	isLoaded: boolean;
@@ -21,18 +28,14 @@ export interface WidgetStoreState {
 export const useWidgetStore = create<WidgetStoreState>()(
 	persist(
 		(set) => ({
-			position: "right",
-			isOpenWidget: false,
-			isExpanded: false,
-			isLoaded: false,
-			isActive: false,
+			...defaultState,
 			setLoaded: (isLoaded: boolean) => set({ isLoaded }),
 			setExpanded: (value) => set((state) => ({ isExpanded: resolveValue(value, state.isExpanded) })),
 			setOpenWidget: (value) => set((state) => ({ isOpenWidget: resolveValue(value, state.isOpenWidget) })),
 			reset: () => set(defaultState),
 		}),
 		{
-			name: "@vlibras-widget-plus",
+			name: "@vlibras-widget",
 			partialize: (state) => state,
 			version: 1,
 		},

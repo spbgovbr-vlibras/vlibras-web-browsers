@@ -1,7 +1,6 @@
 import type { ComponentChildren } from "preact";
+import global from "@/common/styles/global.css?inline";
 import { ThemeProvider } from "@/widget/providers/theme";
-
-import global from "./styles/global.css?inline";
 
 type ProvidersProps = {
 	children: ComponentChildren;
