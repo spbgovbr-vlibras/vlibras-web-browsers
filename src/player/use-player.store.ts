@@ -1,5 +1,7 @@
 import { create } from "zustand";
+import { createJSONStorage, persist } from "zustand/middleware";
 import type { OnlyState } from "@/common/types";
+import { pickKeys } from "@/common/utils";
 import type { UNITY_METHODS, UNITY_OBJECTS } from "./constants/unity";
 import type { PlayerAvatar, PlayerConfig, PlayerStatus } from "./types";
 
@@ -14,12 +16,14 @@ export interface PlayerStoreState {
 	progress: number;
 	isLoaded: boolean;
 	isPlayingWelcome: boolean;
+	showSubtitles: boolean;
 	send: (object: UNITY_OBJECTS, method: UNITY_METHODS, params?: unknown) => void;
 	reset: () => void;
 }
 
 const defaults: OnlyState<PlayerStoreState> = {
 	config: { baseUrl: "", personalizationUrl: "" },
+	showSubtitles: false,
 	avatar: "icaro",
 	status: "idle",
 	gloss: undefined,
@@ -31,8 +35,18 @@ const defaults: OnlyState<PlayerStoreState> = {
 	isLoaded: false,
 };
 
-export const usePlayerStore = create<PlayerStoreState>((set) => ({
-	...defaults,
-	send: () => {},
-	reset: () => set((state) => ({ ...defaults, avatar: state.avatar })),
-}));
+export const usePlayerStore = create<PlayerStoreState>()(
+	persist(
+		(set) => ({
+			...defaults,
+			send: () => {},
+			reset: () => set((state) => ({ ...defaults, avatar: state.avatar })),
+		}),
+		{
+			name: "@vlibras/player",
+			version: 1,
+			storage: createJSONStorage(() => localStorage),
+			partialize: (state) => pickKeys(state, "speed", "showSubtitles", "avatar", "config"),
+		},
+	),
+);

@@ -1,13 +1,6 @@
-declare const __APP_VERSION__: string;
+// biome-ignore-all lint/correctness/noUnusedVariables: ...
 
-// biome-ignore lint/correctness/noUnusedVariables: ...
-interface Window {
-	createUnityInstance: (
-		canvas: HTMLCanvasElement,
-		config: UnityConfig,
-		onProgress?: (progress: number) => void,
-	) => Promise<UnityInstance>;
-}
+declare const __APP_VERSION__: string;
 
 interface UnityInstance {
 	SendMessage<T>(objectName: string, methodName: string, params?: T): void;
@@ -22,5 +15,3 @@ interface UnityConfig {
 	productName: string;
 	productVersion: string;
 }
-
-export {};

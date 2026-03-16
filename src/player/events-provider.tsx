@@ -1,6 +1,7 @@
 import { useEffect } from "preact/hooks";
 import type { UNITY_EVENTS } from "./constants/unity";
 import { usePlayerStore } from "./use-player.store";
+import { playingStatesToBoolean } from "./utils/playing-states-to-boolean";
 
 export const PlayerEventsProvider = () => {
 	useEffect(() => {
@@ -21,10 +22,11 @@ export const PlayerEventsProvider = () => {
 				}
 
 				if (event.data.event === "on_playing_state_change") {
-					const [isPlaying, isPaused] = event.data.data as string[];
+					const { isPlaying, isPaused, isLoading } = playingStatesToBoolean(event.data.data as string[]);
 
-					if (isPlaying === "True") usePlayerStore.setState({ status: "playing" });
-					else if (isPaused === "True") usePlayerStore.setState({ status: "paused" });
+					if (isPaused) usePlayerStore.setState({ status: "paused" });
+					else if (isPlaying && !isPaused) usePlayerStore.setState({ status: "playing" });
+					else if (!isPlaying && !isLoading) usePlayerStore.setState({ status: "idle" });
 				}
 			}
 		};

@@ -1,3 +1,4 @@
+import { useCallback } from "preact/hooks";
 import { UNITY_METHODS, UNITY_OBJECTS } from "./constants/unity";
 import type { PlayerAvatar, PlayerConfig } from "./types";
 import { usePlayerStore } from "./use-player.store";
@@ -33,11 +34,30 @@ export const usePlayer = () => {
 	const playWelcome = () => {
 		store.send(UNITY_OBJECTS.PLAYER, UNITY_METHODS.PLAY_WELCOME);
 		usePlayerStore.setState({ isPlayingWelcome: true });
+		store.send(UNITY_OBJECTS.PLAYER, UNITY_METHODS.SET_SUBTITLES_STATE, 0);
 	};
 
 	const play = (gloss?: string) => {
-		if (gloss) store.send(UNITY_OBJECTS.PLAYER, UNITY_METHODS.PLAY, gloss);
-		else store.send(UNITY_OBJECTS.PLAYER, UNITY_METHODS.SET_PAUSE_STATE, 0);
+		if (gloss) {
+			store.send(UNITY_OBJECTS.PLAYER, UNITY_METHODS.PLAY, gloss);
+			usePlayerStore.setState({ gloss });
+		} else store.send(UNITY_OBJECTS.PLAYER, UNITY_METHODS.SET_PAUSE_STATE, 0);
+	};
+
+	const repeat = useCallback(() => {
+		if (store.gloss) play(store.gloss);
+	}, [store.gloss]);
+
+	const stop = () => {
+		store.send(UNITY_OBJECTS.PLAYER, UNITY_METHODS.STOP);
+	};
+
+	const pause = () => {
+		store.send(UNITY_OBJECTS.PLAYER, UNITY_METHODS.SET_PAUSE_STATE, 1);
+	};
+
+	const setSpeed = (speed: number) => {
+		usePlayerStore.setState({ speed });
 	};
 
 	const toggleAvatar = (avatar?: PlayerAvatar) => {
@@ -48,23 +68,11 @@ export const usePlayer = () => {
 		usePlayerStore.setState({ avatar: nextAvatar });
 	};
 
-	const stop = () => {
-		store.send(UNITY_OBJECTS.PLAYER, UNITY_METHODS.STOP);
-		usePlayerStore.setState({ status: "stopped" });
-	};
+	const toggleSubtitles = (show?: boolean) => {
+		const showSubtitles = show ?? !store.showSubtitles;
 
-	const pause = () => {
-		store.send(UNITY_OBJECTS.PLAYER, UNITY_METHODS.SET_PAUSE_STATE, 1);
-		usePlayerStore.setState({ status: "paused" });
-	};
-
-	const setSpeed = (speed: number) => {
-		store.send(UNITY_OBJECTS.PLAYER, UNITY_METHODS.SET_SPEED, speed);
-		usePlayerStore.setState({ speed });
-	};
-
-	const repeat = () => {
-		if (!store.gloss) play(store.gloss);
+		store.send(UNITY_OBJECTS.PLAYER, UNITY_METHODS.SET_SUBTITLES_STATE, Number(showSubtitles));
+		usePlayerStore.setState({ showSubtitles });
 	};
 
 	const sendReview = async (review: unknown) => {
@@ -81,6 +89,7 @@ export const usePlayer = () => {
 		sendReview,
 		toggleAvatar,
 		playWelcome,
+		toggleSubtitles,
 		...store,
 	};
 };

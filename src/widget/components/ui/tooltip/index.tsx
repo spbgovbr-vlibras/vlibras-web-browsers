@@ -1,14 +1,29 @@
+import { cva, type VariantProps } from "class-variance-authority";
 import type { ComponentChildren, ComponentProps } from "preact";
 import { useState } from "preact/hooks";
 import { cn } from "@/common/lib/utils";
 
-type TooltipCustomProps = {
+const tooltipVariants = cva("border bg-popover", {
+	variants: {
+		variant: {
+			default: "",
+			primary: "border-primary bg-primary text-primary-foreground",
+			destructive: "border-destructive bg-destructive text-destructive-foreground",
+			info: "border-blue-500 bg-blue-500 text-blue-50",
+			warning: "border-orange-500 bg-orange-500 text-orange-50",
+			success: "border-green-700 bg-green-700 text-green-50",
+		},
+	},
+});
+
+type TooltipCustomProps = VariantProps<typeof tooltipVariants> & {
 	content?: ComponentChildren;
 	disabled?: boolean;
 	placement?: "top" | "bottom" | "left" | "right";
 	align?: "start" | "center" | "end";
 	offset?: number;
 	arrow?: {
+		containerClassName?: string;
 		className?: string;
 		position: "top" | "bottom" | "right" | "left" | "top-left" | "bottom-left" | "top-right" | "bottom-right";
 	};
@@ -24,6 +39,7 @@ export const Tooltip = ({
 	offset = -4,
 	align = "center",
 	placement = "top",
+	variant = "default",
 	className,
 	...props
 }: TooltipProps) => {
@@ -66,9 +82,10 @@ export const Tooltip = ({
 					role="tooltip"
 					style={{ boxShadow: "2px 2px 15px -5px rgba(0, 0, 0, .2)", ...getStyleOffset() }}
 					className={cn(
-						"absolute z-2147483647 rounded-lg border bg-popover px-3 py-1.5 text-popover-foreground text-sm shadow-lg transition-opacity duration-200",
+						tooltipVariants({ variant }),
+						"absolute z-2147483647 rounded-lg px-3 py-1.5 text-popover-foreground text-sm shadow-lg transition-opacity duration-200",
 						placement === "bottom" && "-bottom-4 left-1/2 -translate-x-1/2 translate-y-full animate-move-down",
-						placement === "top" && "-top-4 left-1/2 -translate-x-1/2 -translate-y-full",
+						placement === "top" && "-top-4 left-1/2 -translate-x-1/2 -translate-y-full animate-move-up",
 						placement === "right" && "top-1/2 translate-x-1/2 -translate-y-1/2",
 						placement === "left" && "top-1/2 -translate-y-1/2",
 						align === "start" && "right-auto! left-0! translate-x-0",
@@ -81,6 +98,7 @@ export const Tooltip = ({
 						{content}
 						{arrow && (
 							<div
+								data-slot="arrow-container"
 								className={cn(
 									"absolute left-1/2 -ml-2 flex max-h-2 items-center justify-center overflow-hidden",
 									arrow.position.includes("top") && "-top-[13.444px]",
@@ -89,11 +107,14 @@ export const Tooltip = ({
 									arrow.position.includes("right") && "-right-1 left-auto",
 									arrow.position === "right" && "top-1/2 -right-6 left-auto -translate-y-1/2 -rotate-90",
 									arrow.position === "left" && "top-1/2 right-auto -left-4 -translate-y-1/2 rotate-90",
+									arrow.containerClassName,
 								)}
 							>
 								<span
+									data-slot="arrow"
 									className={cn(
-										"-z-50 h-4 w-4 rotate-45 border bg-popover",
+										"-z-50 h-4 w-4 rotate-45",
+										tooltipVariants({ variant }),
 										arrow.position.includes("top") ? "mt-3.5" : "mb-3.5",
 										arrow.className,
 									)}

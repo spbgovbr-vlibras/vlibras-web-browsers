@@ -180,7 +180,7 @@
 
 @layer base {
 	* {
-		@apply border-border border-solid outline-ring/50 focus:outline-solid focus:outline-primary focus:outline-1 -outline-offset-1;
+		@apply box-border border-border border-solid outline-ring/50 focus:outline-solid focus:outline-primary focus:outline-1 -outline-offset-1;
 	}
 	:host {
 		@apply text-foreground border-border fill-foreground;

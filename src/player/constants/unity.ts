@@ -15,6 +15,7 @@ export const UNITY_METHODS = {
 	SET_PAUSE_STATE: "setPauseState",
 	SET_BASE_URL: "setBaseUrl",
 	SET_PERSONALIZATION: "setURL",
+	SET_SUBTITLES_STATE: "setSubtitlesState",
 } as const;
 
 export const UNITY_EVENTS = {

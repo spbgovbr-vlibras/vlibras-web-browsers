@@ -1,7 +1,7 @@
 import { useEffect, useState } from "preact/hooks";
 
 export const useConfig = () => {
- 	const [version, setVersion] = useState("");
+	const [version, setVersion] = useState("");
 	const [path, setPath] = useState("");
 
 	useEffect(() => {
