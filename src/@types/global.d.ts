@@ -22,3 +22,5 @@ interface UnityConfig {
 	productName: string;
 	productVersion: string;
 }
+
+export {};
