@@ -1,26 +1,26 @@
 const path = window.vw_path || "https://vlibras.com/dist";
 
 const template = `
-<div id="vp-access-wrapper">
-	<img id="vp-access-popup" src="${path}/assets/images/vp-popup.webp" />
-	<button type="button" aria-label="Recursos assistivos com VLibras Widget+" id="vp-access-button">
-      <img src="${path}/assets/images/vp-access.svg" />
+<div id="vlb-access-wrapper">
+	<img id="vlb-access-popup" src="${path}/assets/images/vlb-popup.webp" />
+	<button type="button" aria-label="Recursos assistivos com VLibras Widget+" id="vlb-access-button">
+      <img src="${path}/assets/images/vlb-access.svg" />
     </button>
 </div>
 <style>
-#vp-access-wrapper {
+#vlb-access-wrapper {
 	height: 40px;
 	width: 40px;
 }
 
-#vp-access-button,
-#vp-access-popup {
+#vlb-access-button,
+#vlb-access-popup {
 	border-radius: 8px;
 	overflow: hidden;
 	height: 40px;
 }
 
-#vp-access-wrapper {
+#vlb-access-wrapper {
 	display: flex;
 	align-items: center;
 	position: fixed;
@@ -35,7 +35,7 @@ const template = `
 	}
 }
 
-#vp-access-button {
+#vlb-access-button {
 	right: 0;
 	z-index: 1;
 	position: absolute;
@@ -53,13 +53,13 @@ const template = `
 
 const wrapper = document.createElement("div");
 const shadow = wrapper.attachShadow({ mode: "open" });
-wrapper.id = "vp-app-wrapper";
+wrapper.id = "vlb-app-wrapper";
 
 shadow.innerHTML = template;
 document.body.appendChild(wrapper);
 
 let widget;
-const initBtn = shadow.querySelector("#vp-access-button");
+const initBtn = shadow.querySelector("#vlb-access-button");
 
 const open = () => {
   if (widget) return (widget.dataset.active = true);
@@ -68,7 +68,7 @@ const open = () => {
   script.src = `${path}/vlibras-plugin-app.umd.cjs`;
   script.async = true;
   script.onload = () => {
-    widget = document.getElementById("vp-app-root");
+    widget = document.getElementById("vlb-app-root");
     widget.dataset.active = true;
   };
 

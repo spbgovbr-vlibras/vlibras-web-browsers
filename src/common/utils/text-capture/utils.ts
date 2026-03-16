@@ -1,7 +1,7 @@
 import { $ } from "../dom";
 
 const $root = Array.from([document.body, ...document.body.children]);
-const $guide = $(".vp-guide-container");
+const $guide = $(".vlb-guide-container");
 
 export const getTextContent = (element: HTMLElement) => {
 	if (hasTag(element, ["IMG"])) return (element as HTMLImageElement).alt;
@@ -26,7 +26,7 @@ export const findInteractiveElement = (el: HTMLElement) => {
 export const isValidElement = (element: HTMLElement) => {
 	if ($guide?.contains(element)) return false;
 
-	return element.matches(".vw-links")
+	return element.matches(".vlb-links")
 		? false
 		: hasTextContent(element) ||
 				findInteractiveElement(element) ||
@@ -119,6 +119,10 @@ export const removeClass = (clss: string) => {
 		parent.replaceChild(textNode, span);
 		parent.normalize();
 	});
+};
+
+export const removeAllClasses = (clss: string) => {
+	document.querySelectorAll(`.${clss}`).forEach((el) => el.classList.remove(clss));
 };
 
 export const markWord = () => {};
