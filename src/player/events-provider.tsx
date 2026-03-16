@@ -6,6 +6,11 @@ export const PlayerEventsProvider = () => {
 	useEffect(() => {
 		const handleMessage = (event: MessageEvent<{ type: string; event: UNITY_EVENTS; data: unknown }>) => {
 			if (event.data?.type === "unity_event") {
+				if (event.data.event === "finish_welcome") {
+					const isFinish = event.data.data as boolean;
+					usePlayerStore.setState({ isPlayingWelcome: !isFinish });
+				}
+
 				if (event.data.event === "on_load_player") {
 					usePlayerStore.setState({ isLoaded: true });
 				}
@@ -15,7 +20,6 @@ export const PlayerEventsProvider = () => {
 					if (!Number.isNaN(progress)) usePlayerStore.setState({ progress: Number((progress * 100).toFixed(0)) });
 				}
 
-				// isPlaying, isPaused,  isPlayingIntervalAnimation, isLoading, isRepeatable
 				if (event.data.event === "on_playing_state_change") {
 					const [isPlaying, isPaused] = event.data.data as string[];
 

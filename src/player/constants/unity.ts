@@ -1,10 +1,11 @@
 export const UNITY_OBJECTS = {
 	PLAYER: "PlayerManager",
 	EMOTION: "EmotionBridge",
-	CUSTOM: "CustomizationBridge",
+	CUSTOMIZATION: "CustomizationBridge",
 } as const;
 
 export const UNITY_METHODS = {
+	PLAY_WELCOME: "playWellcome",
 	PLAY: "playNow",
 	STOP: "stopAll",
 	REPEAT: "repeat",
@@ -12,7 +13,8 @@ export const UNITY_METHODS = {
 	SET_SPEED: "setSpeed",
 	SET_AVATAR: "Change",
 	SET_PAUSE_STATE: "setPauseState",
-	PLAY_WELCOME: "playWellcome",
+	SET_BASE_URL: "setBaseUrl",
+	SET_PERSONALIZATION: "setURL",
 } as const;
 
 export const UNITY_EVENTS = {
@@ -21,6 +23,7 @@ export const UNITY_EVENTS = {
 	COUNTER_GLOSS: "counter_gloss",
 	UPDATE_PROGRESS: "update_progress",
 	GET_AVATAR: "get_avatar",
+	FINISH_WELCOME: "finish_welcome",
 } as const;
 
 export type UNITY_EVENTS = (typeof UNITY_EVENTS)[keyof typeof UNITY_EVENTS];

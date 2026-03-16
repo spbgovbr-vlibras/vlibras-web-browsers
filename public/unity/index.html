@@ -26,6 +26,10 @@
     <script>
       let unity;
 
+      const postEvent = (event, data) => {
+        window.parent.postMessage({ type: "unity_event", event, data }, "*");
+      };
+
       createUnityInstance(
         document.getElementById("unity-canvas"),
         {
@@ -33,12 +37,7 @@
           frameworkUrl: "./build.framework.js",
           codeUrl: "./build.wasm",
         },
-        (progress) => {
-          window.parent.postMessage(
-            { type: "unity_event", event: "update_progress", data: progress },
-            "*",
-          );
-        },
+        (progress) => postEvent("update_progress", progress),
       ).then((instance) => (unity = instance));
 
       window.addEventListener("message", (e) => {
@@ -52,31 +51,23 @@
 
       // isPlaying, isPaused,  isPlayingIntervalAnimation, isLoading, isRepeatable
       window.onPlayingStateChange = (...data) => {
-        window.parent.postMessage(
-          { type: "unity_event", event: "on_playing_state_change", data },
-          "*",
-        );
+        postEvent("on_playing_state_change", data);
       };
 
       window.CounterGloss = (data) => {
-        window.parent.postMessage(
-          { type: "unity_event", event: "counter_gloss", data },
-          "*",
-        );
+        postEvent("counter_gloss", data);
       };
 
       window.onLoadPlayer = () => {
-        window.parent.postMessage(
-          { type: "unity_event", event: "on_load_player" },
-          "*",
-        );
+        postEvent("on_load_player");
       };
 
       window.GetAvatar = (data) => {
-        window.parent.postMessage(
-          { type: "unity_event", event: "get_avatar", data },
-          "*",
-        );
+        postEvent("get_avatar", data);
+      };
+
+      window.FinishWelcome = (data) => {
+        postEvent("finish_welcome", data);
       };
     </script>
   </body>

@@ -7,7 +7,7 @@ export const WidgetContent = (props: Omit<ComponentPropsWithRef<"div">, "childre
 	return (
 		<div {...props} className="flex flex-col">
 			<WidgetHeader />
-			<Player className="h-96 w-full sm:h-104" />
+			<Player className="h-96 w-full sm:h-z" />
 			<WidgetControls />
 		</div>
 	);
