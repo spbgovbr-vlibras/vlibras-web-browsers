@@ -1,14 +1,14 @@
-import { usePlayer } from "@/player/use-player";
 import { Button } from "@/widget/components/ui/button";
 import { XIcon } from "@/widget/icons";
+import { useWidgetStore } from "@/widget/stores/use-widget.store";
 
 export const WidgetHeader = () => {
-	const { play } = usePlayer();
+	const { setOpenWidget } = useWidgetStore();
 
 	return (
 		<div className="absolute top-2 right-2 flex">
 			<Button
-				onClick={() => play("testando")}
+				onClick={() => setOpenWidget(false)}
 				aria-label="Fechar"
 				title="Fechar"
 				size="icon"

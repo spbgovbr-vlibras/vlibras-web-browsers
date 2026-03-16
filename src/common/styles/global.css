@@ -101,6 +101,18 @@
 	--breakpoint-xs: 30rem;
 }
 
+:host {
+	--widget-width: 248px;
+	--player-height: 368px;
+	
+	@media (min-width: 640px) {
+ 		--widget-width: 280px;
+		--player-height: 400px;
+	}
+}
+
+
+
 @keyframes scale {
 	0% {
 		transform: scale(0);

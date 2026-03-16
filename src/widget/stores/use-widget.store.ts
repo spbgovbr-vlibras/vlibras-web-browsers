@@ -7,7 +7,7 @@ import type { WidgetPosition } from "@/widget/types";
 import { resolveValue } from "./utils";
 
 export const defaultState: OnlyState<WidgetStoreState> = {
-	position: "right",
+	position: "bottom-left",
 	isOpenWidget: false,
 	isExpanded: false,
 	isLoaded: false,
@@ -37,7 +37,7 @@ export const useWidgetStore = create<WidgetStoreState>()(
 		}),
 		{
 			name: "@vlibras-widget",
-			partialize: (state) => omitKeys(state, "isLoaded"),
+			partialize: (state) => omitKeys(state, "isLoaded", "position"),
 			version: 1,
 		},
 	),
