@@ -8,6 +8,7 @@ import {
 	hasTag,
 	isSubmitInput,
 	isValidElement,
+	removeAllClasses,
 	removeClass,
 	toggleChecked,
 } from "./utils";
@@ -15,10 +16,11 @@ import {
 type TextCaptureProps = {
 	callback?: (text: string) => void;
 	hoverClss?: string;
+	activeClass?: string;
 	isWordByWord?: boolean;
 };
 
-export const textCapture = ({ callback, isWordByWord, hoverClss }: TextCaptureProps) => {
+export const textCapture = ({ callback, isWordByWord, hoverClss, activeClass }: TextCaptureProps) => {
 	const handleMouseOver = (event: MouseEvent) => {
 		if (!hoverClss) return;
 		const element = event.target as HTMLElement;
@@ -56,6 +58,9 @@ export const textCapture = ({ callback, isWordByWord, hoverClss }: TextCapturePr
 		const selectedText = selection?.toString().trim();
 
 		useTooltipStore.setState({ isActive: false });
+
+		if (activeClass) removeAllClasses(activeClass);
+		if (activeClass && !selectedText) element.classList.add(activeClass);
 
 		if (!isValidElement(element)) return;
 		if (selectedText && !isWordByWord) return callback?.(selectedText);

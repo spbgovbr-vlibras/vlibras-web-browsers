@@ -1,12 +1,11 @@
 import { render } from "preact";
 import { useEffect } from "preact/hooks";
 import { useConfig } from "@/common/hooks";
-import { StyleProvider } from "@/common/providers/style";
 import { createRoot } from "@/core/dom";
 import { loadDefaultFont } from "@/core/fonts";
 import { WidgetApp } from "@/widget/app";
-import { Providers } from "@/widget/providers";
 import { useWidgetStore } from "@/widget/stores/use-widget.store";
+import { Providers } from "./widget/providers";
 
 const { root, shadowRoot, isRootActive } = createRoot();
 
@@ -40,11 +39,9 @@ function App() {
 	if (!isLoaded) return null;
 
 	return (
-		<StyleProvider>
-			<Providers root={shadowRoot}>
-				<WidgetApp />
-			</Providers>
-		</StyleProvider>
+		<Providers root={shadowRoot}>
+			<WidgetApp />
+		</Providers>
 	);
 }
 

@@ -121,4 +121,8 @@ export const removeClass = (clss: string) => {
 	});
 };
 
+export const removeAllClasses = (clss: string) => {
+	document.querySelectorAll(`.${clss}`).forEach((el) => el.classList.remove(clss));
+};
+
 export const markWord = () => {};
