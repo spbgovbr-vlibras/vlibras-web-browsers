@@ -18,3 +18,7 @@ export const capitalize = (str: string) => {
 };
 
 export const delay = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
+
+export const sanitizeUrl = (url: string): string => {
+	return url.replace(/\/+/g, "/");
+};
