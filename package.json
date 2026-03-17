@@ -18,19 +18,13 @@
 		"release": "release-it"
 	},
 	"dependencies": {
-		"@mozilla/readability": "^0.6.0",
 		"@tailwindcss/vite": "^4.1.18",
-		"@types/youtube": "^0.1.2",
 		"class-variance-authority": "^0.7.1",
 		"clsx": "^2.1.1",
 		"daisyui": "^5.5.18",
-		"dompurify": "^3.3.1",
-		"html-react-parser": "^5.2.17",
-		"node-polyglot": "^2.6.0",
 		"preact": "^10.28.3",
 		"tailwind-merge": "^3.4.0",
 		"tailwindcss": "^4.1.18",
-		"ua-parser-js": "^2.0.9",
 		"zustand": "^5.0.11"
 	},
 	"devDependencies": {
