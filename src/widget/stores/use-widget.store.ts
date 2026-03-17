@@ -42,5 +42,3 @@ export const useWidgetStore = create<WidgetStoreState>()(
 		},
 	),
 );
-
-export const getState = (): WidgetStoreState => useWidgetStore.getState();

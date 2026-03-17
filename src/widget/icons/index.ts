@@ -1,5 +1,6 @@
 export { ArrowLeftIcon } from "./arrow-left";
 export { CheckedIcon } from "./checked";
+export { GovBRIcon } from "./govbr";
 export { IcaroIcon } from "./icaro";
 export { LinkIcon } from "./link";
 export { MoonIcon } from "./moon";

@@ -1,14 +1,14 @@
-import { type ComponentPropsWithRef, useEffect } from "preact/compat";
+import { type ComponentProps, useEffect } from "preact/compat";
 import { cn } from "@/common/lib/utils";
-import { textCapture } from "@/common/utils/text-capture";
 import { createStyle } from "@/core/dom";
 import { Player } from "@/player";
 import { usePlayer } from "@/player/use-player";
+import { WidgetControls } from "@/widget/components/controls";
+import { WidgetHeader } from "@/widget/components/header";
 import css from "@/widget/styles/text-capture.css?inline";
-import { WidgetControls } from "../controls";
-import { WidgetHeader } from "../header";
+import { textCapture } from "@/widget/utils/text-capture";
 
-export const WidgetContent = ({ className, ...props }: Omit<ComponentPropsWithRef<"div">, "children">) => {
+export const WidgetContent = ({ className, ...props }: Omit<ComponentProps<"div">, "children">) => {
 	const { play, isLoaded } = usePlayer();
 
 	useEffect(() => {
@@ -26,7 +26,7 @@ export const WidgetContent = ({ className, ...props }: Omit<ComponentPropsWithRe
 	return (
 		<div {...props} className={cn("flex flex-col", className)}>
 			<WidgetHeader />
-			<Player className="h-(--player-height) w-full" />
+			<Player className="pointer-events-none h-(--player-height) w-full" />
 			<WidgetControls />
 		</div>
 	);
