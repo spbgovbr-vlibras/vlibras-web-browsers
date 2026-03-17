@@ -3,7 +3,11 @@ import { cn } from "@/common/lib/utils";
 
 export const Screen = ({ children, className, ...props }: ComponentPropsWithoutRef<"div">) => {
 	return (
-		<div className={cn("flex h-full animate-move-right flex-col bg-background", className)} {...props}>
+		<div
+			autofocus
+			className={cn("absolute inset-0 flex animate-move-right flex-col rounded-2xl bg-background", className)}
+			{...props}
+		>
 			{children}
 		</div>
 	);
@@ -11,7 +15,7 @@ export const Screen = ({ children, className, ...props }: ComponentPropsWithoutR
 
 export const ScreenHeader = ({ children, className, ...props }: ComponentPropsWithoutRef<"div">) => {
 	return (
-		<div className={cn("flex items-center gap-2 border-b p-4", className)} {...props}>
+		<div className={cn("flex items-center gap-1.5 border-b p-4", className)} {...props}>
 			{children}
 		</div>
 	);
@@ -19,7 +23,7 @@ export const ScreenHeader = ({ children, className, ...props }: ComponentPropsWi
 
 export const ScreenTitle = ({ children, className, ...props }: ComponentPropsWithoutRef<"h3">) => {
 	return (
-		<h3 className={cn("font-semibold text-lg", className)} {...props}>
+		<h3 className={cn("font-semibold", className)} {...props}>
 			{children}
 		</h3>
 	);

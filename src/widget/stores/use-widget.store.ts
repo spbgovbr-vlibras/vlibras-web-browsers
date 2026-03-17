@@ -7,7 +7,7 @@ import type { WidgetPosition } from "@/widget/types";
 import { resolveValue } from "./utils";
 
 export const defaultState: OnlyState<WidgetStoreState> = {
-	position: "bottom-left",
+	position: "right",
 	isOpenWidget: false,
 	isExpanded: false,
 	isLoaded: false,

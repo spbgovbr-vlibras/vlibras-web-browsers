@@ -7,11 +7,11 @@ const tooltipVariants = cva("border bg-popover", {
 	variants: {
 		variant: {
 			default: "",
-			primary: "border-primary bg-primary text-primary-foreground",
-			destructive: "border-destructive bg-destructive text-destructive-foreground",
-			info: "border-blue-500 bg-blue-500 text-blue-50",
-			warning: "border-orange-500 bg-orange-500 text-orange-50",
-			success: "border-green-700 bg-green-700 text-green-50",
+			primary: "border-primary bg-primary *:text-primary-foreground",
+			destructive: "border-destructive bg-destructive *:text-destructive-foreground",
+			info: "border-blue-500 bg-blue-500 *:text-blue-50",
+			warning: "border-orange-500 bg-orange-500 *:text-orange-50",
+			success: "border-green-700 bg-green-700 *:text-green-50",
 		},
 	},
 });

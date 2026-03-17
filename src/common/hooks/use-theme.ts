@@ -23,7 +23,7 @@ export const useTheme = create<ThemeStoreState>((set) => ({
 		set((state) => {
 			const newTheme = state.theme === "dark" ? "light" : "dark";
 			localStorage.setItem(THEME_KEY, newTheme);
-			return { theme: newTheme };
+			return { theme: newTheme, isDark: newTheme === "dark" };
 		}),
 	setTheme: (theme: Theme) => {
 		localStorage.setItem(THEME_KEY, theme);

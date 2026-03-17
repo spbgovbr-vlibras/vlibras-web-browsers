@@ -3,8 +3,8 @@ import { cn } from "@/common/lib/utils";
 import { usePlayer } from "@/player/use-player";
 import { usePlayerStore } from "@/player/use-player.store";
 import { getWidgetPositionClasses } from "./app.styles";
+import { WidgetAppProviders } from "./app-providers";
 import { WidgetContent } from "./components/content";
-import { DialogProvider } from "./providers/dialog";
 import { useWidgetStore } from "./stores/use-widget.store";
 
 export const WidgetApp = () => {
@@ -29,7 +29,7 @@ export const WidgetApp = () => {
 			)}
 
 			<WidgetContent />
-			<DialogProvider />
+			<WidgetAppProviders />
 		</div>
 	);
 };

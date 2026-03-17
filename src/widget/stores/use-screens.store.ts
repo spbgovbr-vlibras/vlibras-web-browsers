@@ -1,25 +1,15 @@
 import { create } from "zustand";
-import { omitKeys } from "@/common/utils";
 
-type Screen = keyof Omit<ScreensStoreState, "open">;
+type Screen = "main" | "settings" | "about";
 
 interface ScreensStoreState {
-	main?: boolean;
-	settings?: boolean;
-	about?: boolean;
-	open: (_screen: Screen) => void;
+	screen: Screen;
+	openScreen: (_screen: Screen) => void;
+	closeAllScreens: () => void;
 }
 
-const defaultState: ScreensStoreState = {
-	main: true,
-	settings: false,
-	about: false,
-	open: () => {},
-};
-
-const allClosed = { ...omitKeys(defaultState, "main", "open"), main: false };
-
 export const useScreensStore = create<ScreensStoreState>()((set) => ({
-	...defaultState,
-	open: (screen) => set({ ...allClosed, [screen]: true }),
+	screen: "main",
+	openScreen: (screen) => set({ screen }),
+	closeAllScreens: () => set({ screen: "main" }),
 }));

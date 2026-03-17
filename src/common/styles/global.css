@@ -114,56 +114,28 @@
 
 
 @keyframes scale {
-	0% {
-		transform: scale(0);
-	}
-	100% {
-		transform: scale(1);
-	}
+	0% { transform: scale(0); }
+	100% { transform: scale(1); }
 }
 
 @keyframes move-left {
-	0% {
-		transform: translateX(-20%);
-		opacity: 0;
-	}
-	100% {
-		transform: translateX(0);
-		opacity: 1;
-	}
+	0% { transform: translateX(-20%); opacity: 0; }
+	100% { transform: translateX(0); opacity: 1; }
 }
 
 @keyframes move-right {
-	0% {
-		transform: translateX(20%);
-		opacity: 0;
-	}
-	100% {
-		transform: translateX(0);
-		opacity: 1;
-	}
+	0% { transform: translateX(20%); opacity: 0; }
+	100% { transform: translateX(0); opacity: 1; }
 }
 
 @keyframes move-up {
-	0% {
-		transform: translateY(20%);
-		opacity: 0;
-	}
-	100% {
-		transform: translateY(0);
-		opacity: 1;
-	}
+	0% { transform: translateY(20%); opacity: 0; }
+	100% { transform: translateY(0); opacity: 1; }
 }
 
 @keyframes move-down {
-	0% {
-		transform: translateY(-20%);
-		opacity: 0;
-	}
-	100% {
-		transform: translateY(0);
-		opacity: 1;
-	}
+	0% { transform: translateY(-20%); opacity: 0; }
+	100% { transform: translateY(0); opacity: 1; }
 }
 
 @utility bg-light {

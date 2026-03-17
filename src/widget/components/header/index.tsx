@@ -5,10 +5,17 @@ import { useWidgetStore } from "@/widget/stores/use-widget.store";
 export const WidgetHeader = () => {
 	const { setOpenWidget } = useWidgetStore();
 
+	const onClose = () => {
+		setOpenWidget(false);
+		setTimeout(() => {
+			setOpenWidget(true);
+		}, 1000);
+	};
+
 	return (
 		<div className="absolute top-2 right-2 flex">
 			<Button
-				onClick={() => setOpenWidget(false)}
+				onClick={onClose}
 				aria-label="Fechar"
 				title="Fechar"
 				size="icon"
