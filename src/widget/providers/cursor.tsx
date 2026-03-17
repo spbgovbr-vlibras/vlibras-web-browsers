@@ -26,12 +26,10 @@ export const CustomCursor = () => {
 		};
 	}, []);
 
-	return;
-
 	return (
 		<div
 			ref={cursorRef}
-			className={`pointer-events-none fixed top-0 left-0 z-9999 flex -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full border-2 border-white mix-blend-difference transition-[width,height,background-color] duration-300 ease-out ${cursorType === "pointer" ? "h-12 w-12 bg-white/20" : "h-5 w-5 bg-transparent"}
+			className={`sr-only pointer-events-none fixed top-0 left-0 z-9999 -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full border-2 border-white mix-blend-difference transition-[width,height,background-color] duration-300 ease-out ${cursorType === "pointer" ? "h-12 w-12 bg-white/20" : "h-5 w-5 bg-transparent"}
         ${cursorType === "text" ? "h-8 w-1 rounded-none bg-blue-500" : ""}
       `}
 		>
