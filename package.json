@@ -22,7 +22,7 @@
 		"class-variance-authority": "^0.7.1",
 		"clsx": "^2.1.1",
 		"daisyui": "^5.5.18",
-		"preact": "^10.28.3",
+		"preact": "11.0.0-beta.1",
 		"tailwind-merge": "^3.4.0",
 		"tailwindcss": "^4.1.18",
 		"zustand": "^5.0.11"
