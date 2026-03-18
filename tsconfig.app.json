@@ -9,7 +9,8 @@
     "paths": {
       "react": ["./node_modules/preact/compat/"],
       "react-dom": ["./node_modules/preact/compat/"],
-      "@/*": ["./src/*"]
+      "@/*": ["./src/*"],
+      "@/public/*": ["./public/*"]
     },
     "moduleResolution": "bundler",
     "allowImportingTsExtensions": true,
