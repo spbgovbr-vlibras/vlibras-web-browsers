@@ -1,7 +1,7 @@
-import type { ComponentPropsWithoutRef } from "preact/compat";
+import type { ComponentProps } from "preact/compat";
 import { cn } from "@/common/lib/utils";
 
-export const Screen = ({ children, className, ...props }: ComponentPropsWithoutRef<"div">) => {
+export const Screen = ({ children, className, ...props }: ComponentProps<"div">) => {
 	return (
 		<div
 			autofocus
@@ -13,7 +13,7 @@ export const Screen = ({ children, className, ...props }: ComponentPropsWithoutR
 	);
 };
 
-export const ScreenHeader = ({ children, className, ...props }: ComponentPropsWithoutRef<"div">) => {
+export const ScreenHeader = ({ children, className, ...props }: ComponentProps<"div">) => {
 	return (
 		<div className={cn("flex items-center gap-1.5 border-b p-4", className)} {...props}>
 			{children}
@@ -21,7 +21,7 @@ export const ScreenHeader = ({ children, className, ...props }: ComponentPropsWi
 	);
 };
 
-export const ScreenTitle = ({ children, className, ...props }: ComponentPropsWithoutRef<"h3">) => {
+export const ScreenTitle = ({ children, className, ...props }: ComponentProps<"h3">) => {
 	return (
 		<h3 className={cn("font-semibold", className)} {...props}>
 			{children}
@@ -29,7 +29,7 @@ export const ScreenTitle = ({ children, className, ...props }: ComponentPropsWit
 	);
 };
 
-export const ScreenContent = ({ children, className, ...props }: ComponentPropsWithoutRef<"div">) => {
+export const ScreenContent = ({ children, className, ...props }: ComponentProps<"div">) => {
 	return (
 		<div className={cn("h-full overflow-y-auto p-4", className)} {...props}>
 			{children}
