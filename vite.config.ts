@@ -9,6 +9,7 @@ export default defineConfig({
 	server: {
 		port: 3003,
 		hmr: true,
+		open: true
 	},
 	build: {
 		lib: {
