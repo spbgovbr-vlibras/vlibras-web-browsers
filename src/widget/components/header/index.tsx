@@ -3,19 +3,12 @@ import { XIcon } from "@/widget/icons";
 import { useWidgetStore } from "@/widget/stores/use-widget.store";
 
 export const WidgetHeader = () => {
-	const { setOpenWidget } = useWidgetStore();
-
-	const onClose = () => {
-		setOpenWidget(false);
-		setTimeout(() => {
-			setOpenWidget(true);
-		}, 1000);
-	};
+	const { setOpen } = useWidgetStore();
 
 	return (
 		<div className="absolute top-2 right-2 flex">
 			<Button
-				onClick={onClose}
+				onClick={() => setOpen(false)}
 				aria-label="Fechar"
 				title="Fechar"
 				size="icon"

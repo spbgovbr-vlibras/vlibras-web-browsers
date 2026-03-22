@@ -10,7 +10,7 @@ import { Providers } from "./widget/providers";
 const { root, shadowRoot, isRootActive } = createRoot();
 
 function App() {
-	const { setOpenWidget, isLoaded, setLoaded } = useWidgetStore();
+	const { setOpen, isLoaded, setLoaded } = useWidgetStore();
 	const { path } = useConfig();
 
 	useEffect(() => {
@@ -23,18 +23,18 @@ function App() {
 
 		if (!isLoaded) return;
 
-		setOpenWidget(isRootActive());
+		setOpen(isRootActive());
 
-		if (import.meta.env.MODE === "development") setOpenWidget(true);
+		if (import.meta.env.MODE === "development") setOpen(true);
 
-		const observer = new MutationObserver(() => setOpenWidget(isRootActive()));
+		const observer = new MutationObserver(() => setOpen(isRootActive()));
 		observer.observe(root as HTMLElement, {
 			attributes: true,
 			attributeFilter: ["data-active"],
 		});
 
 		return () => observer.disconnect();
-	}, [path, setOpenWidget, isLoaded, setLoaded]);
+	}, [path, setOpen, isLoaded, setLoaded]);
 
 	if (!isLoaded) return null;
 
