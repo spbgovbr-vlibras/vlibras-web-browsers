@@ -4,7 +4,7 @@
 
 Promovendo uma navegação mais acessível.
 
-![Version](https://img.shields.io/badge/version-7.0.0-blue)
+![Version](https://img.shields.io/badge/version-7.0.0_alpha.0-blue)
 
 </div>
 
