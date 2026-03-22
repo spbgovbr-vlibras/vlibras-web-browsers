@@ -32,7 +32,7 @@ export default defineConfig({
 				{
 					src: "src/loader/index.js",
 					rename: "vlibras-plugin.js",
-					dest: "scripts",
+					dest: ".",
 				},
 			],
 		}),
