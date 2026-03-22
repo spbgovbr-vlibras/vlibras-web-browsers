@@ -4,15 +4,9 @@ import tailwindcss from "@tailwindcss/vite";
 import { defineConfig } from "vite";
 import { viteStaticCopy } from "vite-plugin-static-copy";
 import pkg from "./package.json";
-
-const appRoots = {
-	production: "https://www.vlibras.gov.br/app",
-	dth: "https://portal-dth.vlibras.lavid.ufpb.br/app/",
-};
+import { minifyCode } from "./vite.config.utils";
 
 export default defineConfig(({ mode }) => {
-	const appRoot = appRoots[mode as keyof typeof appRoots] || appRoots.production;
-
 	return {
 		server: {
 			port: 3003,
@@ -42,10 +36,7 @@ export default defineConfig(({ mode }) => {
 						src: "src/loader/index.js",
 						rename: "vlibras-plugin.js",
 						dest: ".",
-						transform: (content) => {
-							if (appRoot) return content.replace("__APP_ROOT__", appRoot);
-							return content;
-						},
+						transform: async (content) => minifyCode({ mode, content }),
 					},
 				],
 			}),
