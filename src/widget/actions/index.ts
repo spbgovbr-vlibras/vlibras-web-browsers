@@ -48,8 +48,6 @@ export const translate = async (text: string): Promise<TranslateOutput> => {
 	}
 };
 
-///
-
 type SignsOutput = RequestResponse & { data?: TrieRoot };
 
 export const getSigns = async (): Promise<SignsOutput> => {
@@ -82,6 +80,49 @@ export const getSigns = async (): Promise<SignsOutput> => {
 			success: false,
 			error: ERROR_MESSAGES.SIGNS_ERROR,
 			code: "SIGNS_ERROR",
+		};
+	} finally {
+		clearTimeout(timeoutId);
+	}
+};
+
+type SendReviewInput = {
+	text: string;
+	translation: string;
+	review: string;
+	rating: "good" | "bad";
+};
+
+export const sendReview = async (input: SendReviewInput): Promise<RequestResponse> => {
+	const { controller, timeoutId } = timeout();
+
+	try {
+		const response = await fetch(config.REVIEW_URL, {
+			method: "POST",
+			headers: { "Content-Type": "application/json" },
+			body: JSON.stringify(input),
+			signal: controller.signal,
+		});
+
+		if (!response.ok) throw new Error(`Erro na API: ${response.status}`);
+
+		return { success: true };
+	} catch (err) {
+		console.error("Falha no envio do feedback: ", err);
+
+		const error = err as Error;
+		if (error.name === "AbortError") {
+			return {
+				success: false,
+				error: ERROR_MESSAGES.SEND_REVIEW_TIMEOUT_ERROR,
+				code: "SEND_REVIEW_TIMEOUT_ERROR",
+			};
+		}
+
+		return {
+			success: false,
+			error: ERROR_MESSAGES.SEND_REVIEW_ERROR,
+			code: "SEND_REVIEW_ERROR",
 		};
 	} finally {
 		clearTimeout(timeoutId);

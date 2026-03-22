@@ -2,8 +2,8 @@ export const ERROR_MESSAGES = {
 	TRANSLATION_ERROR: "Erro ao traduzir o texto.",
 	TRANSLATION_TIMEOUT_ERROR: "A tradução demorou muito e foi cancelada.",
 
-	REVIEW_ERROR: "Não foi possível enviar seu feedback.",
-	REVIEW_TIMEOUT_ERROR: "O envio do feedback demorou muito e foi cancelado.",
+	SEND_REVIEW_ERROR: "Não foi possível enviar seu feedback.",
+	SEND_REVIEW_TIMEOUT_ERROR: "O envio do feedback demorou muito e foi cancelado.",
 
 	SIGNS_ERROR: "Erro ao buscar os sinais.",
 	SIGNS_TIMEOUT_ERROR: "A busca dos sinais demorou muito e foi cancelada.",
