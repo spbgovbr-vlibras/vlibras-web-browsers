@@ -6,7 +6,7 @@ import { cn } from "@/common/lib/utils";
 const tooltipVariants = cva("border bg-popover", {
 	variants: {
 		variant: {
-			default: "",
+			default: "bg-background **:text-foreground",
 			primary: "border-primary bg-primary *:text-primary-foreground",
 			destructive: "border-destructive bg-destructive *:text-destructive-foreground",
 			info: "border-blue-500 bg-blue-500 *:text-blue-50",
