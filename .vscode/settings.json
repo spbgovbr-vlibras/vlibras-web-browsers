@@ -1,4 +1,9 @@
 {
+	"editor.formatOnSave": true,
+	"editor.unicodeHighlight.invisibleCharacters": false,
+	"editor.unicodeHighlight.ambiguousCharacters": false,
+	"typescript.tsdk": "node_modules\\typescript\\lib",
+
 	"[typescriptreact]": {
 		"editor.defaultFormatter": "biomejs.biome"
 	},
@@ -15,6 +20,5 @@
 	"editor.codeActionsOnSave": {
 		"source.fixAll.biome": "explicit",
 		"source.action.useSortedKeys.biome": "explicit"
-	},
-	"typescript.tsdk": "node_modules\\typescript\\lib"
+	}
 }
