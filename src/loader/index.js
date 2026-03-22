@@ -1,4 +1,4 @@
-const path = window.vw_path || "https://vlibras.com/dist";
+const path = window.vw_path || "https://www.vlibras.gov.br/app";
 
 const template = `
 <div id="vlb-access-wrapper">

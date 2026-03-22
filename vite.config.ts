@@ -9,9 +9,10 @@ export default defineConfig({
 	server: {
 		port: 3003,
 		hmr: true,
-		open: true
+		open: true,
 	},
 	build: {
+		outDir: "app",
 		lib: {
 			entry: "src/main.tsx",
 			name: "vlibras-plugin",
