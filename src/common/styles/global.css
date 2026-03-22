@@ -35,7 +35,7 @@
 	--popover-foreground: oklch(0.985 0 0);
 	--secondary: oklch(0.3315 0.1141 259.88);
 	--secondary-foreground: oklch(0.8471 0.0543 259.88);
-	--muted: oklch(0.2 0 0);
+	--muted: oklch(0.222 0 0);
 	--muted-foreground: oklch(0.708 0 0);
 	--accent: oklch(0.269 0 0);
 	--accent-foreground: oklch(0.985 0 0);
@@ -166,6 +166,7 @@
 	* {
 		@apply box-border border-border border-solid outline-ring/50 focus:outline-solid focus:outline-primary focus:outline-1 -outline-offset-1;
 	}
+	
 	:host {
 		@apply text-foreground border-border fill-foreground;
 	}

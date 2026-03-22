@@ -1,4 +1,4 @@
 {
-	"*/**/*.{js,jsx,ts,tsx}": ["biome check --write"],
-	"*/**/*.{json,css,md}": ["biome format --write"]
+	"*/**/*.{js,jsx,ts,tsx}": ["biome check --write --no-errors-on-unmatched"],
+	"*/**/*.{json,css,md}": ["biome format --write --no-errors-on-unmatched"]
 }
