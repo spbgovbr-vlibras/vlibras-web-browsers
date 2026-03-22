@@ -12,6 +12,7 @@
 		"dev": "vite",
 		"dev:dth": "vite --mode dth",
 		"build": "tsc -b && vite build",
+		"build:dev": "tsc -b && vite build --mode development",
 		"build:dth": "tsc -b && vite build --mode dth",
 		"preview": "vite preview",
 		"lint": "biome lint",

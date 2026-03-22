@@ -5,42 +5,55 @@ import { defineConfig } from "vite";
 import { viteStaticCopy } from "vite-plugin-static-copy";
 import pkg from "./package.json";
 
-export default defineConfig({
-	server: {
-		port: 3003,
-		hmr: true,
-		open: true,
-	},
-	build: {
-		outDir: "app",
-		lib: {
-			entry: "src/main.tsx",
-			name: "vlibras-plugin",
-			fileName: "vlibras-plugin-app",
+const appRoots = {
+	production: "https://www.vlibras.gov.br/app",
+	dth: "https://portal-dth.vlibras.lavid.ufpb.br/app/",
+};
+
+export default defineConfig(({ mode }) => {
+	const appRoot = appRoots[mode as keyof typeof appRoots] || appRoots.production;
+
+	return {
+		server: {
+			port: 3003,
+			hmr: true,
+			open: true,
 		},
-	},
-	resolve: {
-		alias: {
-			"@/public": path.resolve(__dirname, "./public"),
-			"@": path.resolve(__dirname, "./src"),
+		build: {
+			outDir: "app",
+			lib: {
+				entry: "src/main.tsx",
+				name: "vlibras-plugin",
+				fileName: "vlibras-plugin-app",
+			},
 		},
-	},
-	plugins: [
-		preact(),
-		tailwindcss(),
-		viteStaticCopy({
-			targets: [
-				{
-					src: "src/loader/index.js",
-					rename: "vlibras-plugin.js",
-					dest: ".",
-				},
-			],
-		}),
-	],
-	define: {
-		"process.env": {},
-		__APP_NAME__: JSON.stringify(pkg.name),
-		__APP_VERSION__: JSON.stringify(pkg.version),
-	},
+		resolve: {
+			alias: {
+				"@/public": path.resolve(__dirname, "./public"),
+				"@": path.resolve(__dirname, "./src"),
+			},
+		},
+		plugins: [
+			preact(),
+			tailwindcss(),
+			viteStaticCopy({
+				targets: [
+					{
+						src: "src/loader/index.js",
+						rename: "vlibras-plugin.js",
+						dest: ".",
+						transform: (content) => {
+							if (appRoot) return content.replace("__APP_ROOT__", appRoot);
+							return content;
+						},
+					},
+				],
+			}),
+		],
+		define: {
+			"process.env": {},
+			__APP_NAME__: JSON.stringify(pkg.name),
+			__APP_VERSION__: JSON.stringify(pkg.version),
+		},
+	};
 });
