@@ -3,7 +3,7 @@ import { UNITY_METHODS, UNITY_OBJECTS } from "./constants/unity";
 import type { PlayerAvatar, PlayerConfig } from "./types";
 import { usePlayerStore } from "./use-player.store";
 
-const avatars: PlayerAvatar[] = ["icaro", "guga", "hozana"];
+const avatars: PlayerAvatar[] = ["icaro", "guga", "hosana"];
 
 export const usePlayer = () => {
 	const store = usePlayerStore();

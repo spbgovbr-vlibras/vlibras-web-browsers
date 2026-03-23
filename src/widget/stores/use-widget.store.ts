@@ -2,26 +2,28 @@ import type { Dispatch, StateUpdater } from "preact/hooks";
 import { create } from "zustand";
 import { persist } from "zustand/middleware";
 import type { OnlyState } from "@/common/types";
-import { omitKeys } from "@/common/utils";
+import { pickKeys } from "@/common/utils";
 import type { WidgetPosition } from "@/widget/types";
 import { resolveValue } from "./utils";
 
 export const defaultState: OnlyState<WidgetStoreState> = {
 	position: "right",
-	isOpenWidget: false,
+	isOpen: false,
 	isExpanded: false,
 	isLoaded: false,
 	isActive: false,
+	isTranslating: false,
 };
 
 export interface WidgetStoreState {
 	position: WidgetPosition;
-	isOpenWidget: boolean;
+	isOpen: boolean;
 	isExpanded: boolean;
 	isLoaded: boolean;
 	isActive: boolean;
+	isTranslating: boolean;
 	setExpanded: Dispatch<StateUpdater<boolean>>;
-	setOpenWidget: Dispatch<StateUpdater<boolean>>;
+	setOpen: Dispatch<StateUpdater<boolean>>;
 	setLoaded: (isLoaded: boolean) => void;
 	reset: () => void;
 }
@@ -32,12 +34,12 @@ export const useWidgetStore = create<WidgetStoreState>()(
 			...defaultState,
 			setLoaded: (isLoaded: boolean) => set({ isLoaded }),
 			setExpanded: (value) => set((state) => ({ isExpanded: resolveValue(value, state.isExpanded) })),
-			setOpenWidget: (value) => set((state) => ({ isOpenWidget: resolveValue(value, state.isOpenWidget) })),
+			setOpen: (value) => set((state) => ({ isOpen: resolveValue(value, state.isOpen) })),
 			reset: () => set(defaultState),
 		}),
 		{
 			name: "@vlibras-widget",
-			partialize: (state) => omitKeys(state, "isLoaded", "position"),
+			partialize: (state) => pickKeys(state, "position", "isExpanded", "isActive", "isOpen"),
 			version: 1,
 		},
 	),

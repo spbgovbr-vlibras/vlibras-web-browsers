@@ -19,6 +19,6 @@
 		"publish": false
 	},
 	"hooks": {
-		"after:release": "node ./src/scripts/post-release.js"
+		"after:release": "node ./scripts/post-release.js"
 	}
 }

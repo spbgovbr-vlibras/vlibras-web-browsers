@@ -6,37 +6,40 @@ import { getWidgetPositionClasses } from "./app.styles";
 import { WidgetContent } from "./components/content";
 import { Draggable } from "./components/draggable";
 import { UnityLoading } from "./components/unity-loading";
+import { WidgetGrabber } from "./components/widget-grabber";
 import { WidgetProviders } from "./providers/app";
 import { useWidgetStore } from "./stores/use-widget.store";
 
 export const WidgetApp = () => {
 	const { playWelcome } = usePlayer();
 	const { progress, isLoaded } = usePlayerStore();
-	const { isOpenWidget, position } = useWidgetStore();
+	const { isOpen, position } = useWidgetStore();
 
 	useEffect(() => void (isLoaded && playWelcome()), [isLoaded]);
 
 	return (
 		<Draggable<HTMLDivElement>>
-			{({ ref, hasMoved, pos, onPointerDown, isDragging }) => {
+			{({ ref, hasMoved, pos, onPointerDown, isDragging, reset }) => {
+				useEffect(() => void (!isOpen && reset()), [isOpen]);
+
 				return (
 					<div
 						ref={ref}
-						onPointerDown={onPointerDown}
 						style={{
 							boxShadow: "0 0 10px rgba(0, 0, 0, 0.2)",
-							transform: hasMoved && isOpenWidget ? `translate3d(${pos.x}px, ${pos.y}px, 0)` : undefined,
-							cursor: isDragging ? "grabbing" : "grab",
+							transform: hasMoved && isOpen ? `translate3d(${pos.x}px, ${pos.y}px, 0)` : undefined,
 							touchAction: "none",
 						}}
 						className={cn(
 							"fixed z-2147483647 flex h-fit w-(--widget-width) flex-col overflow-hidden rounded-3xl border border-foreground/20 bg-white",
 							!isDragging && "transition-all",
-							(!hasMoved || !isOpenWidget) && getWidgetPositionClasses(position, isOpenWidget),
-							hasMoved && isOpenWidget && "top-0 left-0",
+							(!hasMoved || !isOpen) && getWidgetPositionClasses(position, isOpen),
+							hasMoved && isOpen && "top-0 left-0",
 						)}
 					>
 						{!isLoaded && <UnityLoading progress={progress} />}
+
+						<WidgetGrabber onPointerDown={onPointerDown} isDragging={isDragging} />
 
 						<WidgetContent />
 						<WidgetProviders />

@@ -1,4 +1,4 @@
-const path = window.vw_path || "https://vlibras.com/dist";
+const path = window.vw_app_root || "__APP_ROOT__";
 
 const template = `
 <div id="vlb-access-wrapper">

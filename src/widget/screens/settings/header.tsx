@@ -6,12 +6,12 @@ import { useScreensStore } from "@/widget/stores/use-screens.store";
 import { ScreenHeader, ScreenTitle } from "../components";
 
 export const SettingsHeader = () => {
-	const { closeAllScreens } = useScreensStore();
+	const { closeAll } = useScreensStore();
 	const { theme, toggleTheme } = useTheme();
 
 	return (
 		<ScreenHeader>
-			<Button onClick={closeAllScreens} className="rounded-full" variant="ghost" size="icon-sm">
+			<Button onClick={closeAll} className="rounded-full" variant="ghost" size="icon-sm">
 				<ArrowLeftIcon className="size-5" />
 			</Button>
 			<ScreenTitle>Configurações</ScreenTitle>
