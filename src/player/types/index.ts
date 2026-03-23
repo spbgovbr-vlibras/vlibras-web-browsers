@@ -1,4 +1,4 @@
-export type PlayerAvatar = "icaro" | "hozana" | "guga";
+export type PlayerAvatar = "icaro" | "hosana" | "guga";
 
 export type PlayerStatus = "idle" | "playing" | "paused" | "stopped";
 

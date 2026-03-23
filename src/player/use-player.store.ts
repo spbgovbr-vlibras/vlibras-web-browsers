@@ -17,6 +17,8 @@ export interface PlayerStoreState {
 	isLoaded: boolean;
 	isPlayingWelcome: boolean;
 	showSubtitles: boolean;
+	region?: string;
+	opacity: Number;
 	send: (object: UNITY_OBJECTS, method: UNITY_METHODS, params?: unknown) => void;
 	reset: () => void;
 }
@@ -33,6 +35,7 @@ const defaults: OnlyState<PlayerStoreState> = {
 	progress: 0,
 	isPlayingWelcome: false,
 	isLoaded: false,
+	opacity: 100,
 };
 
 export const usePlayerStore = create<PlayerStoreState>()(

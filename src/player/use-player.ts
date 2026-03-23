@@ -1,9 +1,10 @@
 import { useCallback } from "preact/hooks";
+import type { Regionalism } from "@/data/regionalism";
 import { UNITY_METHODS, UNITY_OBJECTS } from "./constants/unity";
 import type { PlayerAvatar, PlayerConfig } from "./types";
 import { usePlayerStore } from "./use-player.store";
 
-const avatars: PlayerAvatar[] = ["icaro", "guga", "hozana"];
+const avatars: PlayerAvatar[] = ["icaro", "guga", "hosana"];
 
 export const usePlayer = () => {
 	const store = usePlayerStore();
@@ -61,7 +62,7 @@ export const usePlayer = () => {
 	};
 
 	const toggleAvatar = (avatar?: PlayerAvatar) => {
-		const nextIndex = (avatars.indexOf(avatar || store.avatar) + 1) % avatars.length;
+		const nextIndex = avatar ? avatars.indexOf(avatar) : (avatars.indexOf(store.avatar) + 1) % avatars.length;
 		const nextAvatar = avatars[nextIndex];
 
 		store.send(UNITY_OBJECTS.PLAYER, UNITY_METHODS.SET_AVATAR, nextAvatar);
@@ -79,6 +80,17 @@ export const usePlayer = () => {
 		console.log(review);
 	};
 
+	const setRegion = (region: Regionalism) => {
+		const dictionaryUrl = "";
+		const baseUrl = `${dictionaryUrl}/${region}/`;
+		setConfig({ baseUrl });
+		usePlayerStore.setState({ region });
+	};
+
+	const setOpacity = (opacity: number) => {
+		usePlayerStore.setState({ opacity });
+	}
+
 	return {
 		setConfig,
 		play,
@@ -90,6 +102,8 @@ export const usePlayer = () => {
 		toggleAvatar,
 		playWelcome,
 		toggleSubtitles,
+		setRegion,
+		setOpacity,
 		...store,
 	};
 };
