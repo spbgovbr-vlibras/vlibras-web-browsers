@@ -28,6 +28,11 @@ export const PlayerEventsProvider = () => {
 					else if (isPlaying && !isPaused) usePlayerStore.setState({ status: "playing" });
 					else if (!isPlaying && !isLoading) usePlayerStore.setState({ status: "idle" });
 				}
+
+				if (event.data.event === "counter_gloss") {
+					const [count, max] = event.data.data as [number, number];
+					usePlayerStore.setState({ countGloss: { count, max } });
+				}
 			}
 		};
 
