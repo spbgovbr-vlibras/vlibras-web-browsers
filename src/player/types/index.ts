@@ -6,3 +6,8 @@ export type PlayerConfig = {
 	baseUrl: string;
 	personalizationUrl: string;
 };
+
+export type CountGloss = {
+	count: number;
+	max: number;
+};

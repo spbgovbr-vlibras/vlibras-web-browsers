@@ -3,7 +3,7 @@ import { createJSONStorage, persist } from "zustand/middleware";
 import type { OnlyState } from "@/common/types";
 import { pickKeys } from "@/common/utils";
 import type { UNITY_METHODS, UNITY_OBJECTS } from "./constants/unity";
-import type { PlayerAvatar, PlayerConfig, PlayerStatus } from "./types";
+import type { CountGloss, PlayerAvatar, PlayerConfig, PlayerStatus } from "./types";
 
 export interface PlayerStoreState {
 	config: PlayerConfig;
@@ -17,11 +17,13 @@ export interface PlayerStoreState {
 	isLoaded: boolean;
 	isPlayingWelcome: boolean;
 	showSubtitles: boolean;
+	countGloss: CountGloss;
 	send: (object: UNITY_OBJECTS, method: UNITY_METHODS, params?: unknown) => void;
 	reset: () => void;
 }
 
 const defaults: OnlyState<PlayerStoreState> = {
+	countGloss: { count: 0, max: 0 },
 	config: { baseUrl: "", personalizationUrl: "" },
 	showSubtitles: false,
 	avatar: "icaro",
