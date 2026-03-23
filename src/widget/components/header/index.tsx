@@ -1,7 +1,7 @@
 import { Button } from "@/widget/components/ui/button";
+import { Tooltip } from "@/widget/components/ui/tooltip";
 import { FullscreenIcon, XIcon } from "@/widget/icons";
 import { useWidgetStore } from "@/widget/stores/use-widget.store";
-import { Tooltip } from "../ui/tooltip";
 import { WidgetMenu } from "./menu";
 
 export const WidgetHeader = () => {

@@ -1,4 +1,4 @@
-import type { ErrorCode } from "../actions/messages";
+import type { ErrorCode } from "@/widget/actions/messages";
 
 export type WidgetPosition =
 	| "top"
