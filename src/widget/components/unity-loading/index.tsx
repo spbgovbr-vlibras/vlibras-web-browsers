@@ -37,7 +37,7 @@ export const UnityLoading = ({ progress }: Props) => {
 				</span>
 			)}
 
-			<div className="bottom-4 h-3 w-44 rounded-full bg-foreground/10">
+			<div className="bottom-4 h-2.5 w-44 rounded-full bg-foreground/10">
 				<span className="block h-full rounded-full bg-primary transition-[width]" style={{ width: `${progress}%` }} />
 			</div>
 		</div>

@@ -5,7 +5,7 @@ export const Screen = ({ children, className, ...props }: ComponentProps<"div">)
 	return (
 		<div
 			autofocus
-			className={cn("absolute inset-0 flex animate-move-right flex-col rounded-2xl bg-background", className)}
+			className={cn("absolute inset-0 z-999999 flex animate-move-right flex-col rounded-2xl bg-background", className)}
 			{...props}
 		>
 			{children}
@@ -15,7 +15,7 @@ export const Screen = ({ children, className, ...props }: ComponentProps<"div">)
 
 export const ScreenHeader = ({ children, className, ...props }: ComponentProps<"div">) => {
 	return (
-		<div className={cn("flex items-center gap-1 border-b px-4 py-3", className)} {...props}>
+		<div className={cn("flex items-center gap-1.5 border-b p-3", className)} {...props}>
 			{children}
 		</div>
 	);

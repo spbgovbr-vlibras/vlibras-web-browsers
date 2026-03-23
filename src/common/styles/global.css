@@ -27,10 +27,10 @@
 }
 
 :host(.dark) {
-	--background: lch(3.64% 0 296.81);
+	--background: lch(0 0 296.81);
 	--foreground: oklch(0.985 0 0);
-	/* --primary: oklch(56.99% 0.1959 259.98);
-	--primary-foreground: oklch(1 0 0); */
+	--primary: oklch(0.555 0.169 260.07);
+	--primary-foreground: oklch(1 0 0);
 	--popover: oklch(0.2 0 0);
 	--popover-foreground: oklch(0.985 0 0);
 	--secondary: oklch(0.3315 0.1141 259.88);
@@ -106,8 +106,8 @@
 	--player-height: 368px;
 	
 	@media (min-width: 640px) {
- 		--widget-width: 286px;
-		--player-height: 420px;
+ 		--widget-width: 280px;
+		--player-height: 410px;
 	}
 }
 

@@ -25,12 +25,12 @@ export const WidgetApp = () => {
 					<div
 						ref={ref}
 						style={{
-							boxShadow: "0 0 10px rgba(0, 0, 0, 0.2)",
+							boxShadow: "0 0 15px -5px rgba(0, 0, 0, 0.15)",
 							transform: hasMoved && isOpen ? `translate3d(${pos.x}px, ${pos.y}px, 0)` : undefined,
 							touchAction: "none",
 						}}
 						className={cn(
-							"fixed z-2147483647 flex h-fit w-(--widget-width) flex-col overflow-hidden rounded-2xl border border-foreground/20 bg-white",
+							"fixed z-2147483647 flex h-fit w-(--widget-width) flex-col overflow-hidden rounded-[20px] border border-foreground/20 bg-background bg-white",
 							!isDragging && "transition-all",
 							(!hasMoved || !isOpen) && getWidgetPositionClasses(position, isOpen),
 							hasMoved && isOpen && "top-0 left-0",

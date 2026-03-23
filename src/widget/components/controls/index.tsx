@@ -33,7 +33,6 @@ export const WidgetControls = () => {
 				)}
 			>
 				<div
-					// style={{ boxShadow: "0 0 15px -2px rgba(19, 81, 180, 0.3)" }}
 					style={{ boxShadow: "0 0 10px rgba(0, 0, 0, 0.15)" }}
 					className={cn("flex w-full items-center gap-1 border bg-background")}
 				>
