@@ -15,7 +15,7 @@ export const Screen = ({ children, className, ...props }: ComponentProps<"div">)
 
 export const ScreenHeader = ({ children, className, ...props }: ComponentProps<"div">) => {
 	return (
-		<div className={cn("flex items-center gap-1.5 border-b p-4", className)} {...props}>
+		<div className={cn("flex items-center gap-1 border-b px-4 py-3", className)} {...props}>
 			{children}
 		</div>
 	);
