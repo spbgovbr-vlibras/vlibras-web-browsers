@@ -3,26 +3,28 @@ import type { ComponentProps } from "preact/compat";
 import { cn } from "@/common/lib/utils";
 
 export const buttonVariants = cva(
-	"flex cursor-pointer items-center justify-center gap-x-2 rounded-md text-foreground",
+	"flex cursor-pointer items-center justify-center [&_svg:not([class*='size-'])]:size-5.25 gap-x-2 rounded-lg text-foreground",
 	{
 		variants: {
 			variant: {
-				default: "bg-primary text-primary-foreground outline-primary-foreground hover:brightness-110",
+				default: "bg-primary text-primary-foreground outline-primary-foreground hover:brightness-115",
 				outline: "border border-foreground/20 hover:bg-foreground/5",
 				ghost: "bg-transparent hover:bg-muted",
 				muted: "bg-muted text-foreground hover:bg-accent",
 				secondary: "bg-secondary text-secondary-foreground hover:brightness-110",
 				destructive: "bg-destructive text-destructive-foreground outline-destructive-foreground hover:brightness-125",
-				"muted-gov": "bg-primary/13 text-primary hover:bg-primary/16",
-				"ghost-gov": "bg-transparent text-primary hover:bg-primary/13 active:bg-primary/16",
+				"muted-gov": "bg-primary/15 text-primary hover:bg-primary/20",
+				"ghost-gov": "bg-primary/10 text-primary hover:bg-primary/15 active:bg-primary/20",
 			},
 			size: {
 				default: "h-9 px-3.5 py-2",
-				sm: "h-8 px-3 py-1.5 text-sm",
-				xs: "h-7 px-2.5 py-1 text-xs",
+				sm: "h-8 px-3 py-1.5 text-sm [&_svg:not([class*='size-'])]:size-5",
+				xs: "h-7 px-2.5 py-1 text-xs [&_svg:not([class*='size-'])]:size-4",
 				icon: "h-9 w-9 min-w-9",
-				"icon-sm": "h-8 w-8 min-w-8",
-				"icon-xs": "h-7 w-7 min-w-7",
+				"icon-xl": "h-12 w-12 min-w-12 [&_svg:not([class*='size-'])]:size-6.5",
+				"icon-lg": "h-10 w-10 min-w-10 [&_svg:not([class*='size-'])]:size-6",
+				"icon-sm": "h-8 w-8 min-w-8 text-sm [&_svg:not([class*='size-'])]:size-5",
+				"icon-xs": "h-7 w-7 min-w-7 [&_svg:not([class*='size-'])]:size-4",
 			},
 		},
 		defaultVariants: {

@@ -6,12 +6,13 @@ import { cn } from "@/common/lib/utils";
 const tooltipVariants = cva("border bg-popover", {
 	variants: {
 		variant: {
-			default: "bg-background **:text-foreground",
+			default: "bg-background backdrop-blur-sm **:text-foreground",
 			primary: "border-primary bg-primary *:text-primary-foreground",
 			destructive: "border-destructive bg-destructive *:text-destructive-foreground",
 			info: "border-blue-500 bg-blue-500 *:text-blue-50",
 			warning: "border-orange-500 bg-orange-500 *:text-orange-50",
 			success: "border-green-700 bg-green-700 *:text-green-50",
+			reverse: "border-foreground/10 bg-foreground *:text-background",
 		},
 	},
 });
@@ -66,20 +67,17 @@ export const Tooltip = ({
 	return (
 		<div
 			role="tooltip"
-			className="relative inline-block"
+			className={cn("relative inline-block", disabled && "pointer-events-none")}
 			onMouseEnter={() => setVisible(true)}
 			onMouseLeave={() => setVisible(false)}
 			onFocus={() => setVisible(true)}
 			onBlur={() => setVisible(false)}
 		>
-			<span aria-describedby={tooltipId} className={cn(disabled && "pointer-events-none opacity-50")}>
-				{children}
-			</span>
-
+			{children}
 			{visible && !disabled && (
 				<div
+					data-slot="tooltip-content"
 					id={tooltipId}
-					role="tooltip"
 					style={{ boxShadow: "2px 2px 15px -5px rgba(0, 0, 0, .2)", ...getStyleOffset() }}
 					className={cn(
 						tooltipVariants({ variant }),
@@ -94,7 +92,7 @@ export const Tooltip = ({
 					)}
 					{...props}
 				>
-					<div className="relative">
+					<div className="relative font-semibold">
 						{content}
 						{arrow && (
 							<div
