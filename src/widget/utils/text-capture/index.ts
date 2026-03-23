@@ -14,7 +14,7 @@ import {
 } from "./utils";
 
 type TextCaptureProps = {
-	callback?: (text: string) => void;
+	callback?: (props: { text: string; element: HTMLElement }) => void;
 	hoverClss?: string;
 	activeClass?: string;
 	isWordByWord?: boolean;
@@ -63,7 +63,7 @@ export const textCapture = ({ callback, isWordByWord, hoverClss, activeClass }: 
 		if (activeClass && !selectedText) element.classList.add(activeClass);
 
 		if (!isValidElement(element)) return;
-		if (selectedText && !isWordByWord) return callback?.(selectedText);
+		if (selectedText && !isWordByWord) return callback?.({ text: selectedText, element });
 
 		event.preventDefault();
 		event.stopPropagation();
@@ -72,10 +72,10 @@ export const textCapture = ({ callback, isWordByWord, hoverClss, activeClass }: 
 			const element = $(`.${hoverClss}`);
 			const word = element?.textContent?.trim();
 
-			if (word) callback?.(word);
+			if (word) callback?.({ text: word, element });
 		} else {
 			const textContent = getTextContent(element);
-			if (textContent?.trim()) callback?.(textContent);
+			if (textContent?.trim()) callback?.({ text: textContent, element });
 		}
 
 		const interactiveElement = element.tagName === "A" ? element : findInteractiveElement(element);

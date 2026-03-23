@@ -16,7 +16,8 @@ export const ManagerProvider = () => {
 		const cleanup = textCapture({
 			hoverClss: "vlb--hover",
 			activeClass: "vlb--active",
-			callback: async (text) => {
+			callback: async ({ text, element }) => {
+				console.log(element);
 				stop();
 				useWidgetStore.setState({ isTranslating: true });
 				const data = await translate(text);
