@@ -1,6 +1,5 @@
 import { useEffect } from "preact/hooks";
 import { cn } from "@/common/lib/utils";
-import { usePlayer } from "@/player/use-player";
 import { usePlayerStore } from "@/player/use-player.store";
 import { getWidgetPositionClasses } from "./app.styles";
 import { WidgetContent } from "./components/content";
@@ -10,11 +9,8 @@ import { WidgetProviders } from "./providers/app";
 import { useWidgetStore } from "./stores/use-widget.store";
 
 export const WidgetApp = () => {
-	const { playWelcome } = usePlayer();
 	const { progress, isLoaded } = usePlayerStore();
 	const { isOpen, position } = useWidgetStore();
-
-	useEffect(() => void (isLoaded && playWelcome()), [isLoaded]);
 
 	return (
 		<Draggable<HTMLDivElement>>

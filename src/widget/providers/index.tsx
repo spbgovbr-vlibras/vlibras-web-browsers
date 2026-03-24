@@ -2,7 +2,7 @@ import type { ComponentChildren } from "preact";
 import global from "@/common/styles/global.css?inline";
 import { TextCaptureTooltip } from "@/widget/components/text-capture-tooltip";
 import { ThemeProvider } from "@/widget/providers/theme";
-import { ManagerProvider } from "./manager";
+import { SyncProvider } from "./sync";
 
 type ProvidersProps = {
 	children: ComponentChildren;
@@ -14,7 +14,7 @@ export const Providers = ({ children, root }: ProvidersProps) => {
 		<ThemeProvider root={root}>
 			<style>{global}</style>
 			<TextCaptureTooltip />
-			<ManagerProvider />
+			<SyncProvider />
 
 			{children}
 		</ThemeProvider>

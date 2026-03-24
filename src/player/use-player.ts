@@ -57,6 +57,7 @@ export const usePlayer = () => {
 	};
 
 	const setSpeed = (speed: number) => {
+		store.send(UNITY_OBJECTS.PLAYER, UNITY_METHODS.SET_SPEED, speed);
 		usePlayerStore.setState({ speed });
 	};
 

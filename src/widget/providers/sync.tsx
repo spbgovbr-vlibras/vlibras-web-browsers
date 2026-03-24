@@ -6,8 +6,13 @@ import { useWidgetStore } from "@/widget/stores/use-widget.store";
 import css from "@/widget/styles/text-capture.css?inline";
 import { textCapture } from "@/widget/utils/text-capture";
 
-export const ManagerProvider = () => {
-	const { play, isLoaded, stop } = usePlayer();
+export const SyncProvider = () => {
+	const { play, isLoaded, stop, playWelcome, speed, setSpeed, toggleSubtitles, showSubtitles, isWelcomeFinished } =
+		usePlayer();
+
+	useEffect(() => void (isLoaded && playWelcome()), [isLoaded]);
+	useEffect(() => void (isLoaded && setSpeed(speed)), [isLoaded]);
+	useEffect(() => void (isWelcomeFinished && toggleSubtitles(showSubtitles)), [isWelcomeFinished]);
 
 	useEffect(() => {
 		if (!isLoaded) return;

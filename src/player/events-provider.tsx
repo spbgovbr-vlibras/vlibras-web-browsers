@@ -8,8 +8,13 @@ export const PlayerEventsProvider = () => {
 		const handleMessage = (event: MessageEvent<{ type: string; event: UNITY_EVENTS; data: unknown }>) => {
 			if (event.data?.type === "unity_event") {
 				if (event.data.event === UNITY_EVENTS.FINISH_WELCOME) {
-					const isFinish = event.data.data as boolean;
-					usePlayerStore.setState({ isPlayingWelcome: !isFinish });
+					const isFinished = event.data.data === "True";
+
+					usePlayerStore.setState({
+						isPlayingWelcome: !isFinished,
+						isWelcomeFinished: isFinished,
+						...(isFinished ? { countGloss: { count: 0, max: 0 } } : {}),
+					});
 				}
 
 				if (event.data.event === UNITY_EVENTS.ON_LOAD_PLAYER) {
