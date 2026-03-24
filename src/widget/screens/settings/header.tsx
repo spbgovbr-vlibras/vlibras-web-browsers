@@ -1,19 +1,14 @@
 import { useTheme } from "@/common/hooks";
 import { cn } from "@/common/lib/utils";
-import { Button, buttonVariants } from "@/widget/components/ui/button";
-import { ArrowLeftIcon, MoonIcon, SunIcon } from "@/widget/icons";
-import { useScreensStore } from "@/widget/stores/use-screens.store";
+import { buttonVariants } from "@/widget/components/ui/button";
+import { MoonIcon, SunIcon } from "@/widget/icons";
 import { ScreenHeader, ScreenTitle } from "../components";
 
 export const SettingsHeader = () => {
-	const { closeAll } = useScreensStore();
 	const { theme, toggleTheme } = useTheme();
 
 	return (
-		<ScreenHeader>
-			<Button onClick={closeAll} variant="ghost" size="icon" className="rounded-full">
-				<ArrowLeftIcon />
-			</Button>
+		<ScreenHeader close>
 			<ScreenTitle>Configurações</ScreenTitle>
 
 			<label
