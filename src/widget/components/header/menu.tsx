@@ -2,9 +2,12 @@ import { cn } from "@/common/lib/utils";
 import { Button } from "@/widget/components/ui/button";
 import { HelpIcon, InfoIcon, MenuIcon, TranslatorIcon } from "@/widget/icons";
 import { DictionaryIcon } from "@/widget/icons/dictionary";
+import { useScreensStore } from "@/widget/stores/use-screens.store";
 import { MenuOption } from "./menu-option";
 
 export const WidgetMenu = () => {
+	const { open } = useScreensStore();
+
 	return (
 		<div
 			className={cn(
@@ -17,13 +20,13 @@ export const WidgetMenu = () => {
 				tabindex={0}
 				aria-label="Menu de opções"
 				size="icon"
-				variant="ghost"
-				className="absolute top-0! not-focus-within:bg-transparent focus-within:text-primary"
+				variant="ghost-gov"
+				className="absolute top-0! focus-within:bg-primary focus-within:text-primary-foreground active:bg-primary"
 			>
 				<MenuIcon />
 			</Button>
 
-			<MenuOption label="Sobre o VLibras" icon={InfoIcon} />
+			<MenuOption onClick={() => open("about")} label="Sobre o VLibras" icon={InfoIcon} />
 			<MenuOption label="Guia Rápido" icon={HelpIcon} />
 			<MenuOption label="Tradutor" icon={TranslatorIcon} />
 			<MenuOption label="Dicionário" icon={DictionaryIcon} />

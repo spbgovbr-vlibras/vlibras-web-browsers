@@ -32,12 +32,12 @@ export const UnityLoading = ({ progress }: Props) => {
 			</div>
 
 			{isStarting && (
-				<span className="absolute bottom-9 animate-move-up font-semibold text-muted-foreground text-xs">
+				<span className="absolute bottom-8 animate-move-up font-semibold text-muted-foreground text-xs">
 					Iniciando...
 				</span>
 			)}
 
-			<div className="bottom-4 h-2.5 w-44 rounded-full bg-foreground/10">
+			<div className="bottom-4 h-2 w-44 rounded-full bg-foreground/10">
 				<span className="block h-full rounded-full bg-primary transition-[width]" style={{ width: `${progress}%` }} />
 			</div>
 		</div>
