@@ -103,7 +103,7 @@
 
 :host {
 	--widget-width: 248px;
-	--player-height: 370px;
+	--player-height: 368px;
 	
 	@media (min-width: 640px) {
  		--widget-width: 280px;
