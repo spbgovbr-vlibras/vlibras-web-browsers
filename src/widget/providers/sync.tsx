@@ -34,10 +34,10 @@ export const SyncProvider = () => {
 				if (isGloss) return play(text);
 
 				useWidgetStore.setState({ isTranslating: true, text });
-				const data = await translate(text);
+				const { data: gloss } = await translate(text);
 				useWidgetStore.setState({ isTranslating: false });
 
-				play(data.gloss);
+				play(gloss);
 			},
 		});
 		return () => cleanup?.();
