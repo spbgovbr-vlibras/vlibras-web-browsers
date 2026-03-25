@@ -10,7 +10,6 @@ export const normalizePosition = ({
 }): Position & {
 	arrow: ArrowPosition;
 } => {
-	console.log(tooltip);
 	const rect = tooltip?.getBoundingClientRect() || { width: 0, height: 0 };
 
 	let x = _x;

@@ -37,7 +37,6 @@ export const SyncProvider = () => {
 				const data = await translate(text);
 				useWidgetStore.setState({ isTranslating: false });
 
-				console.log("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@", text);
 				play(data.gloss);
 			},
 		});
