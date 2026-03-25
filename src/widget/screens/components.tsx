@@ -2,6 +2,7 @@ import type { ComponentProps } from "preact/compat";
 import { cn } from "@/common/lib/utils";
 import { Button, type ButtonProps } from "@/widget/components/ui/button";
 import { ArrowLeftIcon } from "@/widget/icons";
+import { useDraggable } from "../components/draggable";
 import { useScreensStore } from "../stores/use-screens.store";
 
 export const Screen = ({ children, className, ...props }: ComponentProps<"div">) => {
@@ -17,8 +18,15 @@ export const Screen = ({ children, className, ...props }: ComponentProps<"div">)
 };
 
 export const ScreenHeader = ({ children, className, ...props }: ComponentProps<"div"> & { close?: boolean }) => {
+	const { onPointerDown, isDragging } = useDraggable();
+
 	return (
-		<div className={cn("flex items-center gap-3 border-b p-4 py-3", className)} {...props}>
+		<div
+			className={cn("flex items-center gap-3 border-b p-4 py-3", className)}
+			style={{ cursor: isDragging ? "grabbing" : "grab" }}
+			{...{ onPointerDown }}
+			{...props}
+		>
 			{props.close && <ScreenClose />}
 			{children}
 		</div>
