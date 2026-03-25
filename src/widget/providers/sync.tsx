@@ -1,7 +1,7 @@
 import { useEffect } from "preact/hooks";
+import { translate } from "@/core/actions";
 import { createStyle } from "@/core/dom";
 import { usePlayer } from "@/player/use-player";
-import { translate } from "@/widget/actions";
 import { useWidgetStore } from "@/widget/stores/use-widget.store";
 import css from "@/widget/styles/text-capture.css?inline";
 import { textCapture } from "@/widget/utils/text-capture";

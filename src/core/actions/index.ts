@@ -1,6 +1,6 @@
-import { config } from "@/common/config";
 import type { TrieRoot } from "@/common/lib/trie";
-import type { RequestResponse } from "@/widget/types";
+import { config } from "@/core/config";
+import type { RequestResponse } from "@/core/types";
 import { ERROR_MESSAGES } from "./messages";
 
 const timeout = () => {
