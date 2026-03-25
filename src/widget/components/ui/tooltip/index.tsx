@@ -45,7 +45,7 @@ export const Tooltip = ({
 	...props
 }: TooltipProps) => {
 	const [visible, setVisible] = useState(false);
-	const tooltipId = "vwp-tooltip";
+	const tooltipId = "vlibras-tooltip";
 
 	if (!content) return children;
 

@@ -1,6 +1,6 @@
 import { create } from "zustand";
 
-const THEME_KEY = "@vwp-theme";
+const THEME_KEY = "@vlibras-theme";
 
 type Theme = "light" | "dark";
 
