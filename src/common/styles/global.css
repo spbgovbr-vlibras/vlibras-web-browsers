@@ -107,7 +107,7 @@
 	
 	@media (min-width: 640px) {
  		--widget-width: 280px;
-		--player-height: 420px;
+		--player-height: 400px;
 	}
 }
 
