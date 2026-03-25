@@ -1,14 +1,15 @@
 import { $ } from "@/common/utils/dom";
 
 const $root = Array.from([document.body, ...document.body.children]);
-const $guide = $(".vlb-guide-container");
+const $guide = $(".vlibras-guide-container");
 
 export const getTextContent = (element: HTMLElement) => {
 	if (hasTag(element, ["IMG"])) return (element as HTMLImageElement).alt;
 	if (isSubmitInput(element)) return (element as HTMLInputElement).value;
-	if (hasTag(element, ["SELECT"])) {
-		return $(`[value="${(element as HTMLSelectElement).value}"]`, element)?.innerText;
-	}
+	if (element.dataset.vlibrasGloss) return element.dataset.vlibrasGloss;
+	if (element.dataset.vlibrasText) return element.dataset.vlibrasText;
+	if (hasTag(element, ["SELECT"])) return $(`[value="${(element as HTMLSelectElement).value}"]`, element)?.innerText;
+
 	return element.innerText.trim() || "";
 };
 
@@ -26,7 +27,7 @@ export const findInteractiveElement = (el: HTMLElement) => {
 export const isValidElement = (element: HTMLElement) => {
 	if ($guide?.contains(element)) return false;
 
-	return element.matches(".vlb-links")
+	return element.matches(".vlibras-links")
 		? false
 		: hasTextContent(element) ||
 				findInteractiveElement(element) ||

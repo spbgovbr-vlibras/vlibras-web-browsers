@@ -13,8 +13,14 @@ import {
 	toggleChecked,
 } from "./utils";
 
+type CallbackProps = {
+	text: string;
+	element: HTMLElement;
+	isGloss?: boolean;
+};
+
 type TextCaptureProps = {
-	callback?: (props: { text: string; element: HTMLElement }) => void;
+	callback?: (props: CallbackProps) => void;
 	hoverClss?: string;
 	activeClass?: string;
 	isWordByWord?: boolean;
@@ -74,8 +80,9 @@ export const textCapture = ({ callback, isWordByWord, hoverClss, activeClass }: 
 
 			if (word) callback?.({ text: word, element });
 		} else {
-			const textContent = getTextContent(element);
-			if (textContent?.trim()) callback?.({ text: textContent, element });
+			const isGloss = Boolean(element.dataset.vlibrasGloss?.trim());
+			const textContent = getTextContent(element)?.trim();
+			if (textContent) callback?.({ text: textContent, element, isGloss });
 		}
 
 		const interactiveElement = element.tagName === "A" ? element : findInteractiveElement(element);
