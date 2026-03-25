@@ -11,7 +11,7 @@ export { MenuIcon } from "./menu";
 export { MoonIcon } from "./moon";
 export { PauseIcon } from "./pause";
 export { PlayIcon } from "./play";
-export { ReplayIcon } from "./replay";
+export { RepeatIcon } from "./repeat";
 export { SettingsIcon } from "./settings";
 export { SubtitleOffIcon } from "./subtitle-off";
 export { SunIcon } from "./sun";
