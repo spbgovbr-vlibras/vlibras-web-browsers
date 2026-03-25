@@ -1,7 +1,7 @@
 import { Fragment } from "preact";
-import { AboutScreen } from "../screens/about";
-import { SettingsScreen } from "../screens/settings";
-import { useScreensStore } from "../stores/use-screens.store";
+import { AboutScreen } from "@/widget/screens/about";
+import { SettingsScreen } from "@/widget/screens/settings";
+import { useScreensStore } from "@/widget/stores/use-screens.store";
 
 export const ScreensProvider = () => {
 	const { screen } = useScreensStore();

@@ -8,6 +8,7 @@ import { resolveValue } from "./utils";
 
 export const defaultState: OnlyState<WidgetStoreState> = {
 	position: "right",
+	text: undefined,
 	isOpen: false,
 	isExpanded: false,
 	isLoaded: false,
@@ -24,6 +25,7 @@ export interface WidgetStoreState {
 	isTranslating: boolean;
 	setExpanded: Dispatch<StateUpdater<boolean>>;
 	setOpen: Dispatch<StateUpdater<boolean>>;
+	text?: string;
 	setLoaded: (isLoaded: boolean) => void;
 	reset: () => void;
 }

@@ -11,11 +11,11 @@ export interface PlayerStoreState {
 	status: PlayerStatus;
 	avatar: PlayerAvatar;
 	gloss?: string;
-	text?: string;
 	speed: number;
 	progress: number;
 	isLoaded: boolean;
 	isPlayingWelcome: boolean;
+	isWelcomeFinished: boolean;
 	showSubtitles: boolean;
 	countGloss: CountGloss;
 	send: (object: UNITY_OBJECTS, method: UNITY_METHODS, params?: unknown) => void;
@@ -25,15 +25,15 @@ export interface PlayerStoreState {
 const defaults: OnlyState<PlayerStoreState> = {
 	countGloss: { count: 0, max: 0 },
 	config: { baseUrl: "", personalizationUrl: "" },
-	showSubtitles: false,
 	avatar: "icaro",
 	status: "idle",
-	gloss: undefined,
-	text: undefined,
-	instance: undefined,
 	speed: 1,
 	progress: 0,
+	gloss: undefined,
+	instance: undefined,
+	showSubtitles: false,
 	isPlayingWelcome: false,
+	isWelcomeFinished: false,
 	isLoaded: false,
 };
 

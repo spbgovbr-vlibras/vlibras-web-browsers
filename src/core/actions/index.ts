@@ -1,6 +1,6 @@
-import { config } from "@/common/config";
 import type { TrieRoot } from "@/common/lib/trie";
-import type { RequestResponse } from "@/widget/types";
+import { config } from "@/core/config";
+import type { RequestResponse } from "@/core/types";
 import { ERROR_MESSAGES } from "./messages";
 
 const timeout = () => {
@@ -9,9 +9,7 @@ const timeout = () => {
 	return { controller, timeoutId };
 };
 
-type TranslateOutput = RequestResponse & { gloss?: string };
-
-export const translate = async (text: string): Promise<TranslateOutput> => {
+export const translate = async (text: string): Promise<RequestResponse<string>> => {
 	const { controller, timeoutId } = timeout();
 
 	try {
@@ -24,8 +22,8 @@ export const translate = async (text: string): Promise<TranslateOutput> => {
 
 		if (!response.ok) throw new Error(`Erro na API: ${response.status}`);
 
-		const gloss = (await response.text()) as string;
-		return { gloss, success: true };
+		const data = await response.text();
+		return { data, success: true };
 	} catch (err) {
 		console.error("Falha na tradução: ", err);
 
@@ -48,9 +46,7 @@ export const translate = async (text: string): Promise<TranslateOutput> => {
 	}
 };
 
-type SignsOutput = RequestResponse & { data?: TrieRoot };
-
-export const getSigns = async (): Promise<SignsOutput> => {
+export const getSigns = async (): Promise<RequestResponse<TrieRoot>> => {
 	const { controller, timeoutId } = timeout();
 
 	try {
@@ -93,7 +89,7 @@ type SendReviewInput = {
 	rating: "good" | "bad";
 };
 
-export const sendReview = async (input: SendReviewInput): Promise<RequestResponse> => {
+export const sendReview = async (input: SendReviewInput): Promise<RequestResponse<void>> => {
 	const { controller, timeoutId } = timeout();
 
 	try {

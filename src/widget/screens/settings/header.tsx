@@ -1,26 +1,28 @@
 import { useTheme } from "@/common/hooks";
 import { cn } from "@/common/lib/utils";
-import { Button, buttonVariants } from "@/widget/components/ui/button";
-import { ArrowLeftIcon, MoonIcon, SunIcon } from "@/widget/icons";
-import { useScreensStore } from "@/widget/stores/use-screens.store";
+import { buttonVariants } from "@/widget/components/ui/button";
+import { MoonIcon, SunIcon } from "@/widget/icons";
 import { ScreenHeader, ScreenTitle } from "../components";
 
 export const SettingsHeader = () => {
-	const { closeAll } = useScreensStore();
 	const { theme, toggleTheme } = useTheme();
 
 	return (
-		<ScreenHeader>
-			<Button onClick={closeAll} variant="ghost" size="icon-sm">
-				<ArrowLeftIcon className="size-5" />
-			</Button>
+		<ScreenHeader close>
 			<ScreenTitle>Configurações</ScreenTitle>
 
-			<label className={cn("swap swap-rotate ml-auto", buttonVariants({ variant: "ghost", size: "icon-sm" }))}>
-				<input type="checkbox" onChange={toggleTheme} className="sr-only" checked={theme === "light"} />
+			<label
+				className={cn(buttonVariants({ variant: "ghost", size: "icon" }), "swap swap-rotate ml-auto rounded-full")}
+			>
+				<input
+					type="checkbox"
+					onChange={toggleTheme}
+					className="absolute inset-0 rounded-full"
+					checked={theme === "light"}
+				/>
 
-				<MoonIcon className={cn("swap-off absolute size-5")} />
-				<SunIcon className={cn("swap-on absolute size-5")} />
+				<MoonIcon className={cn("swap-off absolute")} title="Modo escuro" />
+				<SunIcon className={cn("swap-on absolute")} title="Modo claro" />
 			</label>
 		</ScreenHeader>
 	);

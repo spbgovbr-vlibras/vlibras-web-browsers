@@ -1,11 +1,14 @@
 import type { ComponentProps } from "preact/compat";
 import { cn } from "@/common/lib/utils";
+import { Button, type ButtonProps } from "@/widget/components/ui/button";
+import { ArrowLeftIcon } from "@/widget/icons";
+import { useScreensStore } from "../stores/use-screens.store";
 
 export const Screen = ({ children, className, ...props }: ComponentProps<"div">) => {
 	return (
 		<div
 			autofocus
-			className={cn("absolute inset-0 flex animate-move-right flex-col rounded-2xl bg-background", className)}
+			className={cn("absolute inset-0 z-999999 flex animate-move-right flex-col rounded-2xl bg-background", className)}
 			{...props}
 		>
 			{children}
@@ -13,11 +16,29 @@ export const Screen = ({ children, className, ...props }: ComponentProps<"div">)
 	);
 };
 
-export const ScreenHeader = ({ children, className, ...props }: ComponentProps<"div">) => {
+export const ScreenHeader = ({ children, className, ...props }: ComponentProps<"div"> & { close?: boolean }) => {
 	return (
-		<div className={cn("flex items-center gap-1 border-b px-4 py-3", className)} {...props}>
+		<div className={cn("flex items-center gap-3 border-b p-4 py-3", className)} {...props}>
+			{props.close && <ScreenClose />}
 			{children}
 		</div>
+	);
+};
+
+export const ScreenClose = ({ className, ...props }: ButtonProps) => {
+	const { closeAll } = useScreensStore();
+
+	return (
+		<Button
+			onClick={closeAll}
+			variant="outline"
+			size="icon"
+			// className={cn("-ml-4 w-16 justify-end rounded-r-full pr-2", className)}
+			className={cn("rounded-full", className)}
+			{...props}
+		>
+			<ArrowLeftIcon />
+		</Button>
 	);
 };
 
@@ -31,7 +52,7 @@ export const ScreenTitle = ({ children, className, ...props }: ComponentProps<"h
 
 export const ScreenContent = ({ children, className, ...props }: ComponentProps<"div">) => {
 	return (
-		<div className={cn("h-full overflow-y-auto p-4", className)} {...props}>
+		<div className={cn("flex h-full flex-col gap-4 overflow-y-auto p-4", className)} {...props}>
 			{children}
 		</div>
 	);

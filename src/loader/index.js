@@ -1,26 +1,26 @@
 const path = window.vw_app_root || "__APP_ROOT__";
 
 const template = `
-<div id="vlb-access-wrapper">
-	<img id="vlb-access-popup" src="${path}/assets/images/vlb-popup.webp" />
-	<button type="button" aria-label="Recursos assistivos com VLibras Widget+" id="vlb-access-button">
-      <img src="${path}/assets/images/vlb-access.svg" />
+<div id="vlibras-access">
+	<img id="vlibras-access-popup" src="${path}/assets/images/vlibras-popup.webp" />
+	<button type="button" aria-label="Recursos assistivos com VLibras Widget+" id="vlibras-access-button">
+      <img src="${path}/assets/images/vlibras-access.svg" />
     </button>
 </div>
 <style>
-#vlb-access-wrapper {
+#vlibras-access {
 	height: 40px;
 	width: 40px;
 }
 
-#vlb-access-button,
-#vlb-access-popup {
+#vlibras-access-button,
+#vlibras-access-popup {
 	border-radius: 8px;
 	overflow: hidden;
 	height: 40px;
 }
 
-#vlb-access-wrapper {
+#vlibras-access {
 	display: flex;
 	align-items: center;
 	position: fixed;
@@ -35,7 +35,7 @@ const template = `
 	}
 }
 
-#vlb-access-button {
+#vlibras-access-button {
 	right: 0;
 	z-index: 1;
 	position: absolute;
@@ -53,13 +53,13 @@ const template = `
 
 const wrapper = document.createElement("div");
 const shadow = wrapper.attachShadow({ mode: "open" });
-wrapper.id = "vlb-app-wrapper";
+wrapper.id = "vlibras-app-wrapper";
 
 shadow.innerHTML = template;
 document.body.appendChild(wrapper);
 
 let widget;
-const initBtn = shadow.querySelector("#vlb-access-button");
+const initBtn = shadow.querySelector("#vlibras-access-button");
 
 const open = () => {
   if (widget) return (widget.dataset.active = true);
@@ -68,7 +68,7 @@ const open = () => {
   script.src = `${path}/vlibras-plugin-app.umd.cjs`;
   script.async = true;
   script.onload = () => {
-    widget = document.getElementById("vlb-app-root");
+    widget = document.getElementById("vlibras-app-root");
     widget.dataset.active = true;
   };
 
