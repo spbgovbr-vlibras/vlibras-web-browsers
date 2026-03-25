@@ -9,7 +9,7 @@ export const Screen = ({ children, className, ...props }: ComponentProps<"div">)
 	return (
 		<div
 			autofocus
-			className={cn("absolute inset-0 z-999999 flex animate-move-right flex-col rounded-2xl bg-background", className)}
+			className={cn("absolute inset-0 z-999999 flex animate-move-right flex-col rounded-xl bg-background", className)}
 			{...props}
 		>
 			{children}

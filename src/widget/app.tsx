@@ -26,7 +26,7 @@ export const WidgetApp = () => {
 							touchAction: "none",
 						}}
 						className={cn(
-							"fixed z-2147483647 flex h-fit w-(--widget-width) flex-col overflow-hidden rounded-[20px] border border-foreground/20 bg-background bg-white",
+							"fixed z-2147483647 flex h-fit w-(--widget-width) flex-col overflow-hidden rounded-xl border border-foreground/10 bg-background",
 							!isDragging && "transition-all",
 							(!hasMoved || !isOpen) && getWidgetPositionClasses(position, isOpen),
 							hasMoved && isOpen && "top-0 left-0",
