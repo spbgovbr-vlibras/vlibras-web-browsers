@@ -12,29 +12,31 @@ export const WidgetHeader = () => {
 	};
 
 	return (
-		<div className="absolute inset-0 bottom-auto flex items-center justify-between gap-1 p-2 [&_button]:rounded-full">
+		<div className="bottom-auto flex items-center justify-between gap-1 bg-primary px-2 py-1.5">
+			<span className="absolute left-1/2 -translate-x-1/2 font-semibold text-primary-foreground text-sm leading-0 sm:text-base">
+				VLibras
+			</span>
+
 			<WidgetMenu />
 
-			<div className="ml-auto">
-				<Tooltip
-					className="whitespace-nowrap text-xs"
-					offset={2}
-					content="Tela cheia"
-					placement="bottom"
-					align="end"
-					arrow={{ position: "top-right" }}
-				>
-					<Button aria-label="Tela cheia" size="icon" variant="outline">
-						<FullscreenIcon />
-					</Button>
-				</Tooltip>
-			</div>
+			<Tooltip
+				className="whitespace-nowrap text-xs"
+				offset={2}
+				content="Tela cheia"
+				placement="bottom"
+				align="end"
+				arrow={{ position: "top-right" }}
+			>
+				<Button aria-label="Tela cheia" size="icon" variant="default">
+					<FullscreenIcon />
+				</Button>
+			</Tooltip>
 
 			<Button
 				onClick={onClose}
 				aria-label="Fechar"
 				size="icon"
-				variant="ghost"
+				variant="default"
 				className="hover:bg-destructive hover:text-destructive-foreground"
 			>
 				<XIcon />

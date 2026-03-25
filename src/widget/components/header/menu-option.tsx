@@ -13,10 +13,19 @@ export const MenuOption = ({ label, onClick, icon }: Props) => {
 	const Icon = icon;
 
 	return (
-		<Tooltip className="text-xs" content={label} align="start" placement="right">
-			<Button onClick={onClick} role="button" aria-label={label} size="icon" variant="ghost-gov" className="">
-				<Icon className="size-5.5" />
-			</Button>
-		</Tooltip>
+		<li className="w-auto">
+			<Tooltip offset={42} className="whitespace-nowrap text-xs" content={label} align="start" placement="right">
+				<Button
+					onClick={onClick}
+					role="button"
+					aria-label={label}
+					size="icon"
+					variant="outline-gov"
+					className="rounded-full border-border"
+				>
+					<Icon className="size-5.5" />
+				</Button>
+			</Tooltip>
+		</li>
 	);
 };

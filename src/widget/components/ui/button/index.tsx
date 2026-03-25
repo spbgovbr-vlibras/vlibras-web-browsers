@@ -13,6 +13,7 @@ export const buttonVariants = cva(
 				muted: "bg-muted text-foreground hover:bg-accent",
 				secondary: "bg-secondary text-secondary-foreground hover:brightness-110",
 				destructive: "bg-destructive text-destructive-foreground outline-destructive-foreground hover:brightness-125",
+				"outline-gov": "border border-primary hover:bg-primary/15 text-primary active:bg-primary/20",
 				"muted-gov": "bg-primary/15 text-primary hover:bg-primary/20",
 				"ghost-gov": "bg-primary/10 text-primary hover:bg-primary/15 active:bg-primary/20",
 			},

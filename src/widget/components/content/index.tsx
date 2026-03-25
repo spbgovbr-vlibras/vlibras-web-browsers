@@ -11,10 +11,15 @@ export const WidgetContent = ({ className, ...props }: Omit<ComponentProps<"div"
 	const { screen } = useScreensStore();
 
 	return (
-		<div {...props} className={cn("flex flex-col", className, screen !== "main" && "*:pointer-events-none!")}>
+		<div
+			{...props}
+			style={{ cursor: isDragging ? "grabbing" : "grab" }}
+			{...{ onPointerDown }}
+			className={cn("flex flex-col", className, screen !== "main" && "*:pointer-events-none!")}
+		>
 			<WidgetHeader />
 
-			<div style={{ cursor: isDragging ? "grabbing" : "grab" }} {...{ onPointerDown }} className="-z0 -mb-4 sm:-mb-8">
+			<div className="-mb-8 sm:-mb-12">
 				<Player className="pointer-events-none h-(--player-height) w-full" />
 			</div>
 

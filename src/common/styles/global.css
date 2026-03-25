@@ -102,11 +102,11 @@
 }
 
 :host {
-	--widget-width: 248px;
-	--player-height: 368px;
+	--widget-width: 260px;
+	--player-height: 348px;
 	
 	@media (min-width: 640px) {
- 		--widget-width: 280px;
+ 		--widget-width: 296px;
 		--player-height: 400px;
 	}
 }

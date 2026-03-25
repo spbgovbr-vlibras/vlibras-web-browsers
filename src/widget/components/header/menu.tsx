@@ -1,4 +1,3 @@
-import { cn } from "@/common/lib/utils";
 import { Button } from "@/widget/components/ui/button";
 import { HelpIcon, InfoIcon, MenuIcon, TranslatorIcon } from "@/widget/icons";
 import { DictionaryIcon } from "@/widget/icons/dictionary";
@@ -9,27 +8,17 @@ export const WidgetMenu = () => {
 	const { open } = useScreensStore();
 
 	return (
-		<div
-			className={cn(
-				"fab fab-open abosolute! inset-auto top-2 left-2 gap-1! pt-10",
-				"**:data-[slot=tooltip-content]:ml-10!",
-			)}
-		>
-			<Button
-				role="button"
-				tabindex={0}
-				aria-label="Menu de opções"
-				size="icon"
-				variant="ghost-gov"
-				className="absolute top-0! focus-within:bg-primary focus-within:text-primary-foreground active:bg-primary"
-			>
+		<div className="dropdown dropdown-bottom mr-auto">
+			<Button role="button" tabindex={0} aria-label="Menu de opções" size="icon" variant="default">
 				<MenuIcon />
 			</Button>
 
-			<MenuOption onClick={() => open("about")} label="Sobre o VLibras" icon={InfoIcon} />
-			<MenuOption label="Guia Rápido" icon={HelpIcon} />
-			<MenuOption label="Tradutor" icon={TranslatorIcon} />
-			<MenuOption label="Dicionário" icon={DictionaryIcon} />
+			<ul className="dropdown-content mt-4 space-y-2">
+				<MenuOption label="Dicionário" icon={DictionaryIcon} />
+				<MenuOption label="Tradutor" icon={TranslatorIcon} />
+				<MenuOption label="Guia Rápido" icon={HelpIcon} />
+				<MenuOption onClick={() => open("about")} label="Sobre o VLibras" icon={InfoIcon} />
+			</ul>
 		</div>
 	);
 };
