@@ -1,4 +1,4 @@
-import { $ } from "@/common/utils/dom";
+import { $, $$ } from "@/common/utils/dom";
 
 const $root = Array.from([document.body, ...document.body.children]);
 const $guide = $(".vlibras-guide-container");
@@ -27,13 +27,16 @@ export const findInteractiveElement = (el: HTMLElement) => {
 export const isValidElement = (element: HTMLElement) => {
 	if ($guide?.contains(element)) return false;
 
-	return element.matches(".vlibras-links")
-		? false
-		: hasTextContent(element) ||
-				findInteractiveElement(element) ||
-				isSubmitInput(element) ||
-				isValidImage(element) ||
-				isSelect(element);
+	const isLink = element.matches(".vlibras-links");
+	if (isLink) return false;
+
+	return (
+		hasTextContent(element) ||
+		findInteractiveElement(element) ||
+		isSubmitInput(element) ||
+		isValidImage(element) ||
+		isSelect(element)
+	);
 };
 
 export const hasTag = (el: HTMLElement, tags: string[] | string) => {
@@ -113,7 +116,7 @@ export const getWordAtPoint = (x: number, y: number): WordAtPointResult | null =
 };
 
 export const removeClass = (clss: string) => {
-	document.querySelectorAll(`span.${clss}`).forEach((span) => {
+	$$(`span.${clss}`).forEach((span) => {
 		const parent = span.parentNode;
 		if (!parent) return;
 		const textNode = document.createTextNode(span.textContent || "");
@@ -123,7 +126,5 @@ export const removeClass = (clss: string) => {
 };
 
 export const removeAllClasses = (clss: string) => {
-	document.querySelectorAll(`.${clss}`).forEach((el) => el.classList.remove(clss));
+	$$(`.${clss}`).forEach((el) => el.classList.remove(clss));
 };
-
-export const markWord = () => {};
