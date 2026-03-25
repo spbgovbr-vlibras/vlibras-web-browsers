@@ -1,7 +1,7 @@
 import type { HTMLTagNames } from "./types";
 
-const ROOT_ID = "vlb-app-root";
-const ROOT_OVERLAY_ID = "vlb-root-overlay";
+const ROOT_ID = "vlibras-app-root";
+const ROOT_OVERLAY_ID = "vlibras-root-overlay";
 
 const memoizedRoots: Record<string, HTMLElement> = {};
 const memoizedStyles: Record<string, HTMLStyleElement> = {};
@@ -70,7 +70,7 @@ export const isValidElement = (element: Element, ignore?: [keyof HTMLElementTagN
 	const tagName = element.tagName.toLowerCase() as keyof HTMLElementTagNameMap;
 
 	const hasIgnoredTag = ignoreElements.includes(tagName);
-	const hasIgnoreClass = element.classList.contains("vlb-ignore");
+	const hasIgnoreClass = element.classList.contains("vlibras-ignore");
 	const isInsideWidget = element.closest(`#${ROOT_ID}`);
 
 	return element.id !== ROOT_ID && !hasIgnoredTag && !hasIgnoreClass && !isInsideWidget;

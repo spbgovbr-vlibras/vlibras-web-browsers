@@ -7,6 +7,7 @@ import css from "@/widget/styles/text-capture.css?inline";
 import { textCapture } from "@/widget/utils/text-capture";
 
 export const SyncProvider = () => {
+	const { isTranslating } = useWidgetStore();
 	const { play, isLoaded, stop, playWelcome, speed, setSpeed, toggleSubtitles, showSubtitles, isWelcomeFinished } =
 		usePlayer();
 
@@ -15,19 +16,28 @@ export const SyncProvider = () => {
 	useEffect(() => void (isWelcomeFinished && toggleSubtitles(showSubtitles)), [isWelcomeFinished]);
 
 	useEffect(() => {
+		const root = document.documentElement;
+		if (isTranslating) root.dataset.vlibrasStatus = "translating";
+		else delete root.dataset.vlibrasStatus;
+	}, [isTranslating]);
+
+	useEffect(() => {
 		if (!isLoaded) return;
 
 		createStyle(css, "TEXT_CAPTURE");
 		const cleanup = textCapture({
-			hoverClss: "vlb--hover",
-			activeClass: "vlb--active",
-			callback: async ({ text, element }) => {
-				console.log(element);
+			hoverClss: "vlibras--hover",
+			activeClass: "vlibras--active",
+			callback: async ({ text, isGloss }) => {
 				stop();
-				useWidgetStore.setState({ isTranslating: true });
+
+				if (isGloss) return play(text);
+
+				useWidgetStore.setState({ isTranslating: true, text });
 				const data = await translate(text);
 				useWidgetStore.setState({ isTranslating: false });
 
+				console.log("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@", text);
 				play(data.gloss);
 			},
 		});
