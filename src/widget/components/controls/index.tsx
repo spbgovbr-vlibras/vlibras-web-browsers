@@ -19,7 +19,7 @@ import { useWidgetStore } from "@/widget/stores/use-widget.store";
 
 export const WidgetControls = () => {
 	const { open } = useScreensStore();
-	const { isOpen } = useWidgetStore();
+	const { isOpen, isTranslating } = useWidgetStore();
 	const { play, pause, status, repeat, isPlayingWelcome, gloss, countGloss, showSubtitles, toggleSubtitles } =
 		usePlayer();
 
@@ -39,11 +39,20 @@ export const WidgetControls = () => {
 			>
 				<div
 					style={{ boxShadow: "0 0 10px rgba(0, 0, 0, 0.15)" }}
-					className={cn("mx-auto flex items-center gap-1 border bg-background")}
+					className={cn("relative mx-auto flex items-center justify-center gap-1 border bg-background")}
 				>
-					{status !== "playing" && !gloss && (
+					{status === "idle" && !gloss && (
 						<div className={cn(buttonVariants({ size: "icon", variant: "ghost-gov" }), "w-16 rounded-full")}>
 							<WaitingIcon className="size-5 opacity-50" />
+						</div>
+					)}
+
+					{isTranslating && (
+						<div className="absolute -top-8 grid animate-move-up place-content-center rounded-full border bg-background p-0.5 pr-2">
+							<span className="flex items-center gap-1 font-semibold text-xs">
+								<span className="loading loading-spinner loading-xs" />
+								Traduzindo...
+							</span>
 						</div>
 					)}
 
@@ -103,7 +112,7 @@ export const WidgetControls = () => {
 						</Button>
 					</Tooltip>
 
-					<Button disabled={isPlayingWelcome} onClick={() => open("settings")} variant="ghost-gov" size="icon">
+					<Button onClick={() => open("settings")} variant="ghost-gov" size="icon">
 						<SettingsIcon />
 					</Button>
 				</div>
