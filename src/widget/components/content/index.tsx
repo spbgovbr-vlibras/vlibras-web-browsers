@@ -13,12 +13,13 @@ export const WidgetContent = ({ className, ...props }: Omit<ComponentProps<"div"
 	return (
 		<div
 			{...props}
+			{...{ onPointerDown }}
 			className={cn("flex flex-col", className, screen !== "main" && "*:pointer-events-none!")}
 			style={{ cursor: isDragging ? "grabbing" : "grab" }}
 		>
 			<WidgetHeader />
 
-			<div className="-mb-4 sm:-mb-8" {...{ onPointerDown }}>
+			<div className="-mb-4 sm:-mb-8">
 				<Player className="pointer-events-none h-(--player-height) w-full" />
 			</div>
 

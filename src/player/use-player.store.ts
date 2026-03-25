@@ -11,7 +11,6 @@ export interface PlayerStoreState {
 	status: PlayerStatus;
 	avatar: PlayerAvatar;
 	gloss?: string;
-	text?: string;
 	speed: number;
 	progress: number;
 	isLoaded: boolean;
@@ -31,7 +30,6 @@ const defaults: OnlyState<PlayerStoreState> = {
 	speed: 1,
 	progress: 0,
 	gloss: undefined,
-	text: undefined,
 	instance: undefined,
 	showSubtitles: false,
 	isPlayingWelcome: false,
