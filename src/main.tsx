@@ -15,7 +15,7 @@ function App() {
 	const { setOpen, isLoaded, setLoaded } = useWidgetStore();
 	const { path } = useConfig();
 
-	useEffect(() => void posthogg.trackLoad(), [config.mode]);
+	useEffect(() => void (config.mode === "production" && posthogg.trackLoad()), [config.mode]);
 
 	useEffect(() => {
 		if (!path) return;
