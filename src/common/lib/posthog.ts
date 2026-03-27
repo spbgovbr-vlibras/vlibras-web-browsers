@@ -1,7 +1,7 @@
 import posthog from "posthog-js";
 import { config } from "@/core/config";
 
-const SAMPLING_RATE = 0.1;
+const SAMPLING_RATE = 0.07;
 const IS_ENABLED = import.meta.env.VITE_PUBLIC_POSTHOG_ENABLED === "true";
 
 if (typeof window !== "undefined") {
@@ -16,8 +16,8 @@ if (typeof window !== "undefined") {
 
 export const posthogg = {
 	_getContext: () => ({
-		host: window.location.hostname,
-		origin_url: window.location.href,
+		host: location.hostname,
+		origin: `${location.origin}${location.pathname}`,
 	}),
 
 	trackLoad: () => {
