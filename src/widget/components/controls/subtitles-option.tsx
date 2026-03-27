@@ -1,3 +1,4 @@
+import { posthogg } from "@/common/lib/posthog";
 import { usePlayer } from "@/player/use-player";
 import { Button } from "@/widget/components/ui/button";
 import { Tooltip } from "@/widget/components/ui/tooltip";
@@ -6,6 +7,11 @@ import { SubtitleIcon } from "@/widget/icons/subtitle";
 
 export const SubtitlesOptions = () => {
 	const { showSubtitles, toggleSubtitles, isPlayingWelcome } = usePlayer();
+
+	const handleToggleSubtitles = () => {
+		toggleSubtitles();
+		posthogg.trackEvent("subtitles_toggled", { status: showSubtitles ? "disabled" : "enabled" });
+	};
 
 	return (
 		<Tooltip
@@ -17,7 +23,7 @@ export const SubtitlesOptions = () => {
 			arrow={{ position: "bottom-right" }}
 			disabled={isPlayingWelcome}
 		>
-			<Button disabled={isPlayingWelcome} onClick={() => toggleSubtitles()} variant="ghost-gov" size="icon">
+			<Button disabled={isPlayingWelcome} onClick={handleToggleSubtitles} variant="ghost-gov" size="icon">
 				{showSubtitles ? <SubtitleIcon /> : <SubtitleOffIcon />}
 			</Button>
 		</Tooltip>

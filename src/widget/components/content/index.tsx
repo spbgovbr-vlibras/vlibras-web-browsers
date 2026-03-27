@@ -18,11 +18,7 @@ export const WidgetContent = ({ className, ...props }: Omit<ComponentProps<"div"
 			className={cn("flex flex-col", className, screen !== "main" && "*:pointer-events-none!")}
 		>
 			<WidgetHeader />
-
-			<div className="-mb-8 sm:-mb-12">
-				<Player className="pointer-events-none h-(--player-height) w-full" />
-			</div>
-
+			<Player className="pointer-events-none h-(--player-height) w-full" />
 			<WidgetControls />
 		</div>
 	);

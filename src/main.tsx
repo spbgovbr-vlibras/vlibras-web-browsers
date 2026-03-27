@@ -5,6 +5,8 @@ import { createRoot } from "@/core/dom";
 import { loadDefaultFont } from "@/core/fonts";
 import { WidgetApp } from "@/widget/app";
 import { useWidgetStore } from "@/widget/stores/use-widget.store";
+import { posthogg } from "./common/lib/posthog";
+import { config } from "./core/config";
 import { Providers } from "./widget/providers";
 
 const { root, shadowRoot, isRootActive } = createRoot();
@@ -12,6 +14,8 @@ const { root, shadowRoot, isRootActive } = createRoot();
 function App() {
 	const { setOpen, isLoaded, setLoaded } = useWidgetStore();
 	const { path } = useConfig();
+
+	useEffect(() => void posthogg.trackLoad(), [config.mode]);
 
 	useEffect(() => {
 		if (!path) return;

@@ -1,4 +1,5 @@
 import type { TargetedKeyboardEvent } from "preact";
+import { posthogg } from "@/common/lib/posthog";
 import { cn } from "@/common/lib/utils";
 import { usePlayer } from "@/player/use-player";
 import { Button } from "@/widget/components/ui/button";
@@ -15,9 +16,14 @@ export const SpeedOption = () => {
 		}
 	};
 
+	const handleSpeedChange = (speed: number) => {
+		setSpeed(speed);
+		posthogg.trackEvent("change_speed", { speed });
+	};
+
 	return (
 		<div className="dropdown dropdown-center dropdown-top">
-			<Button className="" tabindex={0} variant="ghost-gov" size="icon">
+			<Button tabindex={0} variant="ghost-gov" size="icon">
 				<span className="-mt-0.5 font-bold text-sm">{currentSpeed}x</span>
 			</Button>
 
@@ -35,7 +41,7 @@ export const SpeedOption = () => {
 						<li key={speed}>
 							<button
 								type="button"
-								onClick={() => setSpeed(speed)}
+								onClick={() => handleSpeedChange(speed)}
 								onKeyDown={(e) => onKeyDown(e, speed)}
 								className={cn(
 									"w-full cursor-pointer whitespace-nowrap rounded-sm px-2 py-1 text-center hover:bg-primary/10",

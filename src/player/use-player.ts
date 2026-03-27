@@ -51,7 +51,7 @@ export const usePlayer = () => {
 	};
 
 	const toggleAvatar = (avatar?: PlayerAvatar) => {
-		const nextIndex = (avatars.indexOf(avatar || store.avatar) + 1) % avatars.length;
+		const nextIndex = (avatars.indexOf(avatar || store.avatar) + (avatar ? 0 : 1)) % avatars.length;
 		const nextAvatar = avatars[nextIndex];
 
 		store.send(UNITY_OBJECTS.PLAYER, UNITY_METHODS.SET_AVATAR, nextAvatar);

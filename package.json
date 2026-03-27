@@ -11,6 +11,7 @@
 	"scripts": {
 		"dev": "vite",
 		"dev:dth": "vite --mode dth",
+		"dev:prod": "vite --mode production",
 		"build": "tsc -b && vite build",
 		"build:dev": "tsc -b && vite build --mode development",
 		"build:dth": "tsc -b && vite build --mode dth",
@@ -25,6 +26,7 @@
 		"class-variance-authority": "^0.7.1",
 		"clsx": "^2.1.1",
 		"daisyui": "^5.5.18",
+		"posthog-js": "^1.363.6",
 		"preact": "11.0.0-beta.1",
 		"tailwind-merge": "^3.4.0",
 		"tailwindcss": "^4.1.18",
