@@ -3,6 +3,7 @@ import { config } from "@/core/config";
 
 const SAMPLING_RATE = 0.07;
 const IS_ENABLED = import.meta.env.VITE_PUBLIC_POSTHOG_ENABLED === "true";
+const IS_DEBUG = import.meta.env.VITE_PUBLIC_POSTHOG_DEBUG === "true" && config.mode !== "production";
 
 if (typeof window !== "undefined") {
 	posthog.init(import.meta.env.VITE_PUBLIC_POSTHOG_PROJECT_TOKEN, {
@@ -10,7 +11,7 @@ if (typeof window !== "undefined") {
 		autocapture: false,
 		capture_pageview: false,
 		persistence: "memory",
-		debug: config.mode !== "production",
+		debug: config.mode !== "production" && IS_DEBUG,
 	});
 }
 
