@@ -2,6 +2,7 @@ import posthog from "posthog-js";
 import { config } from "@/core/config";
 
 const SAMPLING_RATE = 0.1;
+const IS_ENABLED = import.meta.env.VITE_PUBLIC_POSTHOG_ENABLED === "true";
 
 if (typeof window !== "undefined") {
 	posthog.init(import.meta.env.VITE_PUBLIC_POSTHOG_PROJECT_TOKEN, {
@@ -20,6 +21,8 @@ export const posthogg = {
 	}),
 
 	trackLoad: () => {
+		if (!IS_ENABLED) return;
+
 		if (Math.random() < SAMPLING_RATE) {
 			posthog.capture("widget_initialized", {
 				...posthogg._getContext(),
@@ -29,6 +32,8 @@ export const posthogg = {
 	},
 
 	trackEvent: (name: string, properties?: Record<string, unknown>) => {
+		if (!IS_ENABLED) return;
+
 		posthog.capture(name, {
 			...posthogg._getContext(),
 			...properties,
