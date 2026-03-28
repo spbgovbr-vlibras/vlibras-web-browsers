@@ -31,7 +31,7 @@ export const DialogContent = ({
 }: ComponentProps<"div"> & {
 	showOverlay?: boolean;
 }) => {
-	const { isExpanded } = useWidgetStore();
+	const isExpanded = useWidgetStore((s) => s.isExpanded);
 	const contentRef = useRef<HTMLDivElement>(null);
 
 	if (props.ref) useImperativeHandle(props.ref, () => contentRef.current as HTMLDivElement, []);

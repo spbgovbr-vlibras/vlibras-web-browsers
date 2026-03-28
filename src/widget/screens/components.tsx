@@ -34,7 +34,7 @@ export const ScreenHeader = ({ children, className, ...props }: ComponentProps<"
 };
 
 export const ScreenClose = ({ className, ...props }: ButtonProps) => {
-	const { closeAll } = useScreensStore();
+	const closeAll = useScreensStore((s) => s.closeAll);
 
 	return (
 		<Button

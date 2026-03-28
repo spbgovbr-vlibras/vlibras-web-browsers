@@ -1,14 +1,14 @@
 import { useMemo } from "preact/hooks";
 import { cn } from "@/common/lib/utils";
-import { usePlayer } from "@/player/use-player";
+import { usePlayerStore } from "@/player/use-player.store";
 
 export const ProgressBar = () => {
-	const { countGloss } = usePlayer();
+	const { max, count } = usePlayerStore((s) => s.countGloss);
 
 	const progress = useMemo(() => {
-		if (countGloss.max === 0) return 0;
-		return (countGloss.count / Math.max(countGloss.max, countGloss.count)) * 100;
-	}, [countGloss]);
+		if (max === 0) return 0;
+		return (count / Math.max(max, count)) * 100;
+	}, [max]);
 
 	return (
 		<div className="absolute -top-1.75 left-0 h-1.5 w-full">

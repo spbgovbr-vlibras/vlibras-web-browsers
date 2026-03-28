@@ -1,4 +1,5 @@
-import { useCallback } from "preact/hooks";
+import { useShallow } from "zustand/shallow";
+import { omitKeys } from "@/common/utils";
 import { UNITY_METHODS, UNITY_OBJECTS } from "./constants/unity";
 import type { PlayerAvatar, PlayerConfig } from "./types";
 import { usePlayerStore } from "./use-player.store";
@@ -6,62 +7,68 @@ import { usePlayerStore } from "./use-player.store";
 const avatars: PlayerAvatar[] = ["icaro", "guga", "hosana"];
 
 export const usePlayer = () => {
-	const store = usePlayerStore();
+	const send = usePlayerStore((state) => state.send);
+	const store = usePlayerStore(useShallow((state) => omitKeys(state, "countGloss")));
 
 	const setConfig = (config: Partial<PlayerConfig>) => {
 		if (!config.baseUrl && !config.personalizationUrl) return;
 
-		if (config.baseUrl) store.send(UNITY_OBJECTS.PLAYER, UNITY_METHODS.SET_BASE_URL, config.baseUrl);
+		if (config.baseUrl) send(UNITY_OBJECTS.PLAYER, UNITY_METHODS.SET_BASE_URL, config.baseUrl);
 		if (config.personalizationUrl)
-			store.send(UNITY_OBJECTS.CUSTOMIZATION, UNITY_METHODS.SET_PERSONALIZATION, config.personalizationUrl);
+			send(UNITY_OBJECTS.CUSTOMIZATION, UNITY_METHODS.SET_PERSONALIZATION, config.personalizationUrl);
 
-		usePlayerStore.setState({ config: { ...store.config, ...config } });
+		const _config = usePlayerStore.getState().config;
+		usePlayerStore.setState({ config: { ..._config, ...config } });
 	};
 
 	const playWelcome = () => {
-		store.send(UNITY_OBJECTS.PLAYER, UNITY_METHODS.PLAY_WELCOME);
+		send(UNITY_OBJECTS.PLAYER, UNITY_METHODS.PLAY_WELCOME);
+		send(UNITY_OBJECTS.PLAYER, UNITY_METHODS.SET_SUBTITLES_STATE, 0);
 		usePlayerStore.setState({ isPlayingWelcome: true });
-		store.send(UNITY_OBJECTS.PLAYER, UNITY_METHODS.SET_SUBTITLES_STATE, 0);
 	};
 
 	const play = (gloss?: string) => {
 		if (gloss) {
-			store.send(UNITY_OBJECTS.PLAYER, UNITY_METHODS.PLAY, gloss);
+			send(UNITY_OBJECTS.PLAYER, UNITY_METHODS.PLAY, gloss);
 			usePlayerStore.setState({ gloss });
-		} else store.send(UNITY_OBJECTS.PLAYER, UNITY_METHODS.SET_PAUSE_STATE, 0);
+		} else send(UNITY_OBJECTS.PLAYER, UNITY_METHODS.SET_PAUSE_STATE, 0);
 
-		if (!store.isWelcomeFinished) usePlayerStore.setState({ isWelcomeFinished: true, isPlayingWelcome: false });
+		const _isWelcomeFinished = usePlayerStore.getState().isWelcomeFinished;
+		if (!_isWelcomeFinished) usePlayerStore.setState({ isWelcomeFinished: true, isPlayingWelcome: false });
 	};
 
-	const repeat = useCallback(() => {
-		if (store.gloss) play(store.gloss);
-	}, [store.gloss]);
+	const repeat = () => {
+		const gloss = usePlayerStore.getState().gloss;
+		if (gloss) play(gloss);
+	};
 
 	const stop = () => {
-		store.send(UNITY_OBJECTS.PLAYER, UNITY_METHODS.STOP);
+		send(UNITY_OBJECTS.PLAYER, UNITY_METHODS.STOP);
 	};
 
 	const pause = () => {
-		store.send(UNITY_OBJECTS.PLAYER, UNITY_METHODS.SET_PAUSE_STATE, 1);
+		send(UNITY_OBJECTS.PLAYER, UNITY_METHODS.SET_PAUSE_STATE, 1);
 	};
 
 	const setSpeed = (speed: number) => {
-		store.send(UNITY_OBJECTS.PLAYER, UNITY_METHODS.SET_SPEED, speed);
+		send(UNITY_OBJECTS.PLAYER, UNITY_METHODS.SET_SPEED, speed);
 		usePlayerStore.setState({ speed });
 	};
 
 	const toggleAvatar = (avatar?: PlayerAvatar) => {
-		const nextIndex = (avatars.indexOf(avatar || store.avatar) + 1) % avatars.length;
+		const _avatar = usePlayerStore.getState().avatar;
+		const nextIndex = (avatars.indexOf(avatar || _avatar) + (avatar ? 0 : 1)) % avatars.length;
 		const nextAvatar = avatars[nextIndex];
 
-		store.send(UNITY_OBJECTS.PLAYER, UNITY_METHODS.SET_AVATAR, nextAvatar);
+		send(UNITY_OBJECTS.PLAYER, UNITY_METHODS.SET_AVATAR, nextAvatar);
 		usePlayerStore.setState({ avatar: nextAvatar });
 	};
 
 	const toggleSubtitles = (show?: boolean) => {
-		const showSubtitles = show ?? !store.showSubtitles;
+		const _showSubtitles = usePlayerStore.getState().showSubtitles;
+		const showSubtitles = show ?? !_showSubtitles;
 
-		store.send(UNITY_OBJECTS.PLAYER, UNITY_METHODS.SET_SUBTITLES_STATE, Number(showSubtitles));
+		send(UNITY_OBJECTS.PLAYER, UNITY_METHODS.SET_SUBTITLES_STATE, Number(showSubtitles));
 		usePlayerStore.setState({ showSubtitles });
 	};
 

@@ -1,6 +1,8 @@
 import { useEffect } from "preact/hooks";
+import { useShallow } from "zustand/shallow";
 import { cn } from "@/common/lib/utils";
-import { usePlayerStore } from "@/player/use-player.store";
+import { pickKeys } from "@/common/utils";
+import { usePlayer } from "@/player/use-player";
 import { getWidgetPositionClasses } from "./app.styles";
 import { WidgetContent } from "./components/content";
 import { Draggable } from "./components/draggable";
@@ -9,8 +11,8 @@ import { WidgetProviders } from "./providers/app";
 import { useWidgetStore } from "./stores/use-widget.store";
 
 export const WidgetApp = () => {
-	const { progress, isLoaded } = usePlayerStore();
-	const { isOpen, position } = useWidgetStore();
+	const { isOpen, position } = useWidgetStore(useShallow((s) => pickKeys(s, "isOpen", "position")));
+	const { progress, isLoaded } = usePlayer();
 
 	return (
 		<Draggable<HTMLDivElement>>

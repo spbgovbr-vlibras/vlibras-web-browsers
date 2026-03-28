@@ -12,11 +12,8 @@ export class Trie {
 
 	constructor(jsonData: string | TrieRoot) {
 		try {
-			if (typeof jsonData === "string") {
-				this.root = JSON.parse(jsonData).root;
-			} else {
-				this.root = jsonData.root;
-			}
+			if (typeof jsonData === "string") this.root = JSON.parse(jsonData).root;
+			else this.root = jsonData.root;
 		} catch (error) {
 			this.root = { children: {}, end: false };
 			console.error("Falha ao processar a Prefix Tree:", error);
@@ -38,9 +35,7 @@ export class Trie {
 		}
 
 		const recursiveSearch = (node: TrieNode, currentWord: string) => {
-			if (node.end) {
-				onMatch(currentWord);
-			}
+			if (node.end) onMatch(currentWord);
 
 			for (const char in node.children) {
 				recursiveSearch(node.children[char], currentWord + char);

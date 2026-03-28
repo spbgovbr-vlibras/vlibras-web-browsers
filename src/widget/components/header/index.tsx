@@ -5,7 +5,7 @@ import { useWidgetStore } from "@/widget/stores/use-widget.store";
 import { WidgetMenu } from "./menu";
 
 export const WidgetHeader = () => {
-	const { setOpen } = useWidgetStore();
+	const setOpen = useWidgetStore((s) => s.setOpen);
 
 	const onClose = () => {
 		setOpen(false);

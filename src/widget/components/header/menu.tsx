@@ -5,7 +5,7 @@ import { useScreensStore } from "@/widget/stores/use-screens.store";
 import { MenuOption } from "./menu-option";
 
 export const WidgetMenu = () => {
-	const { open } = useScreensStore();
+	const open = useScreensStore((s) => s.open);
 
 	return (
 		<div className="dropdown dropdown-bottom mr-auto">

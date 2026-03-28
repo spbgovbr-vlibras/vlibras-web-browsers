@@ -4,7 +4,7 @@ import { SettingsScreen } from "@/widget/screens/settings";
 import { useScreensStore } from "@/widget/stores/use-screens.store";
 
 export const ScreensProvider = () => {
-	const { screen } = useScreensStore();
+	const screen = useScreensStore((s) => s.screen);
 
 	return (
 		<Fragment>

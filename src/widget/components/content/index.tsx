@@ -7,8 +7,8 @@ import { WidgetHeader } from "@/widget/components/header";
 import { useScreensStore } from "@/widget/stores/use-screens.store";
 
 export const WidgetContent = ({ className, ...props }: Omit<ComponentProps<"div">, "children">) => {
+	const screen = useScreensStore((s) => s.screen);
 	const { onPointerDown, isDragging } = useDraggable();
-	const { screen } = useScreensStore();
 
 	return (
 		<div

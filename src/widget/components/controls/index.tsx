@@ -1,4 +1,6 @@
+import { useShallow } from "zustand/shallow";
 import { cn } from "@/common/lib/utils";
+import { pickKeys } from "@/common/utils";
 import { Button } from "@/widget/components/ui/button";
 import { SettingsIcon } from "@/widget/icons";
 import { useScreensStore } from "@/widget/stores/use-screens.store";
@@ -11,8 +13,8 @@ import { SubtitlesOptions } from "./subtitles-option";
 import { TranslatingBadge } from "./translating-badge";
 
 export const WidgetControls = () => {
-	const { open } = useScreensStore();
-	const { isOpen, isTranslating } = useWidgetStore();
+	const open = useScreensStore((s) => s.open);
+	const { isOpen, isTranslating } = useWidgetStore(useShallow((s) => pickKeys(s, "isOpen", "isTranslating")));
 
 	return (
 		<div

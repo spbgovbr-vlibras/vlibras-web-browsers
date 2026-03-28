@@ -7,7 +7,7 @@ import css from "@/widget/styles/text-capture.css?inline";
 import { textCapture } from "@/widget/utils/text-capture";
 
 export const SyncProvider = () => {
-	const { isTranslating } = useWidgetStore();
+	const isTranslating = useWidgetStore((s) => s.isTranslating);
 	const { play, isLoaded, stop, playWelcome, speed, setSpeed, toggleSubtitles, showSubtitles, isWelcomeFinished } =
 		usePlayer();
 
