@@ -19,7 +19,7 @@ export const WidgetContent = ({ className, ...props }: Omit<ComponentProps<"div"
 		>
 			<WidgetHeader />
 
-			<div className="-mb-8 sm:-mb-12">
+			<div className="-mb-12">
 				<Player className="pointer-events-none h-(--player-height) w-full" />
 			</div>
 
