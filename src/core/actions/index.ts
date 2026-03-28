@@ -82,14 +82,14 @@ export const getSigns = async (): Promise<RequestResponse<TrieRoot>> => {
 	}
 };
 
-type SendReviewInput = {
+export type SendFeedbackProps = {
 	text: string;
 	translation: string;
 	review: string;
 	rating: "good" | "bad";
 };
 
-export const sendReview = async (input: SendReviewInput): Promise<RequestResponse<void>> => {
+export const sendFeedback = async (input: SendFeedbackProps): Promise<RequestResponse<void>> => {
 	const { controller, timeoutId } = timeout();
 
 	try {
