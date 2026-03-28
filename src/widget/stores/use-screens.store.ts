@@ -1,6 +1,6 @@
 import { create } from "zustand";
 
-type Screen = "main" | "settings" | "about";
+type Screen = "main" | "settings" | "about" | "dictionary";
 
 interface ScreensStoreState {
 	screen: Screen;

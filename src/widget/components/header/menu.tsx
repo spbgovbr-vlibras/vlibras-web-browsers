@@ -14,7 +14,7 @@ export const WidgetMenu = () => {
 			</Button>
 
 			<ul className="dropdown-content mt-4 space-y-2">
-				<MenuOption label="Dicionário" icon={DictionaryIcon} />
+				<MenuOption onClick={() => open("dictionary")} label="Dicionário" icon={DictionaryIcon} />
 				<MenuOption label="Tradutor" icon={TranslatorIcon} />
 				<MenuOption label="Guia Rápido" icon={HelpIcon} />
 				<MenuOption onClick={() => open("about")} label="Sobre o VLibras" icon={InfoIcon} />

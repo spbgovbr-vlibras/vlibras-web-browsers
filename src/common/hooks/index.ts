@@ -6,3 +6,4 @@ export { useMousePosition } from "./use-mouse-position";
 export { useTheme } from "./use-theme";
 export { useTouchDevice } from "./use-touch-device";
 export { useWindowSize } from "./use-window-size";
+export { useDebouncedCallback } from "./use-debounced-callback";

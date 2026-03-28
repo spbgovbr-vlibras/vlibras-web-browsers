@@ -44,4 +44,10 @@ export class Trie {
 
 		recursiveSearch(currentNode, keyWord);
 	}
+
+	public searchSigns(prefix = ""): string[] {
+		const formattedSigns: string[] = [];
+		this.loadSigns(prefix, (word) => formattedSigns.push(word));
+		return formattedSigns;
+	}
 }
