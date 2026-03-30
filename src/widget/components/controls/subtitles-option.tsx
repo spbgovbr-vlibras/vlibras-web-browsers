@@ -1,4 +1,5 @@
 import { useMobile } from "@/common/hooks";
+import { posthogg } from "@/common/lib/posthog";
 import { usePlayer } from "@/player/use-player";
 import { Button } from "@/widget/components/ui/button";
 import { Tooltip } from "@/widget/components/ui/tooltip";
@@ -8,6 +9,11 @@ import { SubtitleIcon } from "@/widget/icons/subtitle";
 export const SubtitlesOptions = () => {
 	const isMobile = useMobile();
 	const { showSubtitles, toggleSubtitles, isPlayingWelcome } = usePlayer();
+
+	const handleToggleSubtitles = () => {
+		toggleSubtitles();
+		posthogg.trackEvent("subtitles_toggled", { status: showSubtitles ? "disabled" : "enabled" });
+	};
 
 	return (
 		<Tooltip
@@ -21,7 +27,7 @@ export const SubtitlesOptions = () => {
 		>
 			<Button
 				disabled={isPlayingWelcome}
-				onClick={() => toggleSubtitles()}
+				onClick={handleToggleSubtitles}
 				variant="ghost-gov"
 				size={isMobile ? "icon-sm" : "icon"}
 			>

@@ -27,9 +27,7 @@ export const WidgetContent = ({ className, ...props }: Omit<ComponentProps<"div"
 		>
 			<WidgetHeader />
 
-			<div className="-mb-12">
-				<Player className="pointer-events-none h-(--player-height) w-full" />
-			</div>
+			<Player className="pointer-events-none h-(--player-height) w-full" />
 
 			<WidgetControls />
 		</div>

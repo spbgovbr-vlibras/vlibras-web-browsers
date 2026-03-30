@@ -1,3 +1,5 @@
+import type { Environment } from "../types";
+
 const ENV = import.meta.env.MODE || "development";
 
 const REQUEST_TIMEOUT = 10000;
@@ -34,6 +36,7 @@ const envConfigs = {
 const currentConfig = envConfigs[ENV as keyof typeof envConfigs] || envConfigs.development;
 
 export const config = {
+	mode: ENV as Environment,
 	REQUEST_TIMEOUT,
 	...currentConfig,
 };

@@ -1,5 +1,6 @@
 import type { TargetedKeyboardEvent } from "preact";
 import { useMobile } from "@/common/hooks";
+import { posthogg } from "@/common/lib/posthog";
 import { cn } from "@/common/lib/utils";
 import { usePlayer } from "@/player/use-player";
 import { Button } from "@/widget/components/ui/button";
@@ -10,16 +11,17 @@ export const SpeedOption = () => {
 	const isMobile = useMobile();
 	const { speed: currentSpeed, setSpeed } = usePlayer();
 
-	const onSpeedChange = (speed: number) => {
-		setSpeed(speed);
-		(document.activeElement as HTMLElement)?.blur();
-	};
-
 	const onKeyDown = (event: TargetedKeyboardEvent<HTMLButtonElement>, speed: number) => {
 		if (event.key === "Enter" || event.key === " ") {
 			event.preventDefault();
-			onSpeedChange(speed);
+			handleSpeedChange(speed);
 		}
+	};
+
+	const handleSpeedChange = (speed: number) => {
+		setSpeed(speed);
+		(document.activeElement as HTMLElement)?.blur();
+		posthogg.trackEvent("change_speed", { speed });
 	};
 
 	return (
@@ -42,7 +44,7 @@ export const SpeedOption = () => {
 						<li key={speed}>
 							<button
 								type="button"
-								onClick={() => onSpeedChange(speed)}
+								onClick={() => handleSpeedChange(speed)}
 								onKeyDown={(e) => onKeyDown(e, speed)}
 								className={cn(
 									"w-full cursor-pointer whitespace-nowrap rounded-sm px-2 py-1 text-center text-xs hover:bg-primary/10 sm:text-sm",

@@ -6,3 +6,5 @@ export type RequestResponse<TData> = {
 	error?: string;
 	code?: ErrorCode;
 };
+
+export type Environment = "production" | "development" | "dth";
