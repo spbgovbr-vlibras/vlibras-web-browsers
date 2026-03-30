@@ -44,7 +44,7 @@ export const createRoot = () => {
 		memoizedRoots[ROOT_ID] = root;
 	}
 
-	const root = memoizedRoots[ROOT_ID];
+	const root = memoizedRoots[ROOT_ID] as HTMLDivElement;
 	const shadowRoot = root.shadowRoot || root.attachShadow({ mode: "open" });
 	const isRootActive = () => root.getAttribute("data-active") === "true";
 
