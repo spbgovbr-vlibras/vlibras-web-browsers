@@ -1,4 +1,5 @@
 import type { ElementType } from "preact/compat";
+import { useMobile } from "@/common/hooks";
 import { Button } from "@/widget/components/ui/button";
 import { Tooltip } from "@/widget/components/ui/tooltip";
 import type { CustomSVGProps } from "@/widget/icons/types";
@@ -10,6 +11,7 @@ type Props = {
 };
 
 export const MenuOption = ({ label, onClick, icon }: Props) => {
+	const isMobile = useMobile();
 	const Icon = icon;
 
 	return (
@@ -19,7 +21,7 @@ export const MenuOption = ({ label, onClick, icon }: Props) => {
 					onClick={onClick}
 					role="button"
 					aria-label={label}
-					size="icon"
+					size={isMobile ? "icon-sm" : "icon"}
 					variant="outline-gov"
 					className="rounded-full border-border"
 				>

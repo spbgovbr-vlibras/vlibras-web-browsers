@@ -1,3 +1,4 @@
+import { useMobile } from "@/common/hooks";
 import { Button } from "@/widget/components/ui/button";
 import { Tooltip } from "@/widget/components/ui/tooltip";
 import { FullscreenIcon, XIcon } from "@/widget/icons";
@@ -6,6 +7,7 @@ import { WidgetMenu } from "./menu";
 
 export const WidgetHeader = () => {
 	const setOpen = useWidgetStore((s) => s.setOpen);
+	const isMobile = useMobile();
 
 	const onClose = () => {
 		setOpen(false);
@@ -27,7 +29,7 @@ export const WidgetHeader = () => {
 				align="end"
 				arrow={{ position: "top-right" }}
 			>
-				<Button aria-label="Tela cheia" size="icon" variant="default">
+				<Button aria-label="Tela cheia" size={isMobile ? "icon-sm" : "icon"} variant="default">
 					<FullscreenIcon />
 				</Button>
 			</Tooltip>
@@ -35,7 +37,7 @@ export const WidgetHeader = () => {
 			<Button
 				onClick={onClose}
 				aria-label="Fechar"
-				size="icon"
+				size={isMobile ? "icon-sm" : "icon"}
 				variant="default"
 				className="hover:bg-destructive hover:text-destructive-foreground"
 			>

@@ -1,3 +1,4 @@
+import { useMobile } from "@/common/hooks";
 import type { PlayerStatus } from "@/player/types";
 import { usePlayer } from "@/player/use-player";
 import { Button } from "@/widget/components/ui/button";
@@ -15,6 +16,7 @@ const statusMap: Record<PlayerStatus, StatusDetail> = {
 };
 
 export const MainAction = () => {
+	const isMobile = useMobile();
 	const { play, repeat, pause, gloss, status: _status } = usePlayer();
 
 	const onClick = () => {
@@ -35,7 +37,13 @@ export const MainAction = () => {
 			align="start"
 			arrow={{ position: "bottom-left" }}
 		>
-			<Button data-slot="main-action" disabled={!gloss} onClick={onClick} variant="ghost-gov" size="icon">
+			<Button
+				data-slot="main-action"
+				disabled={!gloss}
+				onClick={onClick}
+				variant="ghost-gov"
+				size={isMobile ? "icon-sm" : "icon"}
+			>
 				<status.icon />
 			</Button>
 		</Tooltip>

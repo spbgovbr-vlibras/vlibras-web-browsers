@@ -1,4 +1,5 @@
 import { useShallow } from "zustand/shallow";
+import { useMobile } from "@/common/hooks";
 import { cn } from "@/common/lib/utils";
 import { pickKeys } from "@/common/utils";
 import { Button } from "@/widget/components/ui/button";
@@ -14,6 +15,8 @@ import { TranslatingBadge } from "./translating-badge";
 
 export const WidgetControls = () => {
 	const open = useScreensStore((s) => s.open);
+	const isMobile = useMobile();
+
 	const { isOpen, isTranslating } = useWidgetStore(useShallow((s) => pickKeys(s, "isOpen", "isTranslating")));
 
 	return (
@@ -33,7 +36,7 @@ export const WidgetControls = () => {
 			<EmotionsOption />
 			<SubtitlesOptions />
 
-			<Button onClick={() => open("settings")} variant="ghost-gov" size="icon">
+			<Button onClick={() => open("settings")} variant="ghost-gov" size={isMobile ? "icon-sm" : "icon"}>
 				<SettingsIcon />
 			</Button>
 		</div>

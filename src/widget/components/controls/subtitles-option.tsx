@@ -1,3 +1,4 @@
+import { useMobile } from "@/common/hooks";
 import { usePlayer } from "@/player/use-player";
 import { Button } from "@/widget/components/ui/button";
 import { Tooltip } from "@/widget/components/ui/tooltip";
@@ -5,6 +6,7 @@ import { SubtitleOffIcon } from "@/widget/icons";
 import { SubtitleIcon } from "@/widget/icons/subtitle";
 
 export const SubtitlesOptions = () => {
+	const isMobile = useMobile();
 	const { showSubtitles, toggleSubtitles, isPlayingWelcome } = usePlayer();
 
 	return (
@@ -17,7 +19,12 @@ export const SubtitlesOptions = () => {
 			arrow={{ position: "bottom-right" }}
 			disabled={isPlayingWelcome}
 		>
-			<Button disabled={isPlayingWelcome} onClick={() => toggleSubtitles()} variant="ghost-gov" size="icon">
+			<Button
+				disabled={isPlayingWelcome}
+				onClick={() => toggleSubtitles()}
+				variant="ghost-gov"
+				size={isMobile ? "icon-sm" : "icon"}
+			>
 				{showSubtitles ? <SubtitleIcon /> : <SubtitleOffIcon />}
 			</Button>
 		</Tooltip>

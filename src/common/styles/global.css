@@ -106,7 +106,7 @@
 	--player-height: 320px;
 	
 	@media (min-width: 640px) {
- 		--widget-width: 296px;
+ 		--widget-width: 310px;
 		--player-height: 400px;
 	}
 }

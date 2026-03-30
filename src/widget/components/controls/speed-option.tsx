@@ -1,4 +1,5 @@
 import type { TargetedKeyboardEvent } from "preact";
+import { useMobile } from "@/common/hooks";
 import { cn } from "@/common/lib/utils";
 import { usePlayer } from "@/player/use-player";
 import { Button } from "@/widget/components/ui/button";
@@ -6,18 +7,24 @@ import { Button } from "@/widget/components/ui/button";
 const speeds = [2.5, 2, 1.5, 1];
 
 export const SpeedOption = () => {
+	const isMobile = useMobile();
 	const { speed: currentSpeed, setSpeed } = usePlayer();
+
+	const onSpeedChange = (speed: number) => {
+		setSpeed(speed);
+		(document.activeElement as HTMLElement)?.blur();
+	};
 
 	const onKeyDown = (event: TargetedKeyboardEvent<HTMLButtonElement>, speed: number) => {
 		if (event.key === "Enter" || event.key === " ") {
 			event.preventDefault();
-			setSpeed(speed);
+			onSpeedChange(speed);
 		}
 	};
 
 	return (
 		<div className="dropdown dropdown-center dropdown-top">
-			<Button className="" tabindex={0} variant="ghost-gov" size="icon">
+			<Button className="" tabindex={0} variant="ghost-gov" size={isMobile ? "icon-sm" : "icon"}>
 				<span className="-mt-0.5 font-bold text-sm">{currentSpeed}x</span>
 			</Button>
 
@@ -35,7 +42,7 @@ export const SpeedOption = () => {
 						<li key={speed}>
 							<button
 								type="button"
-								onClick={() => setSpeed(speed)}
+								onClick={() => onSpeedChange(speed)}
 								onKeyDown={(e) => onKeyDown(e, speed)}
 								className={cn(
 									"w-full cursor-pointer whitespace-nowrap rounded-sm px-2 py-1 text-center hover:bg-primary/10",

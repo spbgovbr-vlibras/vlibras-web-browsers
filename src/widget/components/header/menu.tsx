@@ -1,3 +1,4 @@
+import { useMobile } from "@/common/hooks";
 import { Button } from "@/widget/components/ui/button";
 import { HelpIcon, InfoIcon, MenuIcon, TranslatorIcon } from "@/widget/icons";
 import { DictionaryIcon } from "@/widget/icons/dictionary";
@@ -6,10 +7,17 @@ import { MenuOption } from "./menu-option";
 
 export const WidgetMenu = () => {
 	const open = useScreensStore((s) => s.open);
+	const isMobile = useMobile();
 
 	return (
 		<div className="dropdown dropdown-bottom mr-auto">
-			<Button role="button" tabindex={0} aria-label="Menu de opções" size="icon" variant="default">
+			<Button
+				role="button"
+				tabindex={0}
+				aria-label="Menu de opções"
+				size={isMobile ? "icon-sm" : "icon"}
+				variant="default"
+			>
 				<MenuIcon />
 			</Button>
 
