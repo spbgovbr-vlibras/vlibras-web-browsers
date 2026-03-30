@@ -45,7 +45,7 @@ export const SpeedOption = () => {
 								onClick={() => onSpeedChange(speed)}
 								onKeyDown={(e) => onKeyDown(e, speed)}
 								className={cn(
-									"w-full cursor-pointer whitespace-nowrap rounded-sm px-2 py-1 text-center hover:bg-primary/10",
+									"w-full cursor-pointer whitespace-nowrap rounded-sm px-2 py-1 text-center text-xs hover:bg-primary/10 sm:text-sm",
 									isActive &&
 										"pointer-events-none bg-primary! text-primary-foreground! outline-1 outline-primary outline-solid",
 								)}

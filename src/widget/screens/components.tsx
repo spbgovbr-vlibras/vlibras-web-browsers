@@ -1,4 +1,5 @@
 import type { ComponentProps } from "preact/compat";
+import { useMobile } from "@/common/hooks";
 import { cn } from "@/common/lib/utils";
 import { Button, type ButtonProps } from "@/widget/components/ui/button";
 import { ArrowLeftIcon } from "@/widget/icons";
@@ -35,13 +36,13 @@ export const ScreenHeader = ({ children, className, ...props }: ComponentProps<"
 
 export const ScreenClose = ({ className, ...props }: ButtonProps) => {
 	const closeAll = useScreensStore((s) => s.closeAll);
+	const isMobile = useMobile();
 
 	return (
 		<Button
 			onClick={closeAll}
 			variant="outline"
-			size="icon"
-			// className={cn("-ml-4 w-16 justify-end rounded-r-full pr-2", className)}
+			size={isMobile ? "icon-sm" : "icon"}
 			className={cn("rounded-full", className)}
 			{...props}
 		>
@@ -52,7 +53,7 @@ export const ScreenClose = ({ className, ...props }: ButtonProps) => {
 
 export const ScreenTitle = ({ children, className, ...props }: ComponentProps<"h3">) => {
 	return (
-		<h3 className={cn("font-semibold", className)} {...props}>
+		<h3 className={cn("font-semibold text-sm sm:text-base", className)} {...props}>
 			{children}
 		</h3>
 	);

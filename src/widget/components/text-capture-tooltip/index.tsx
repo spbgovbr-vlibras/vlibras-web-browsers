@@ -40,8 +40,6 @@ export const TextCaptureTooltip = () => {
 		}
 	}, [event]);
 
-	if (!isActive) return null;
-
 	return (
 		<Button
 			ref={tooltipRef}
@@ -53,6 +51,7 @@ export const TextCaptureTooltip = () => {
 			}}
 			className={cn(
 				"group absolute z-2147483647 h-9 -translate-x-6 -translate-y-full animate-scale rounded-lg px-3 text-primary-foreground",
+				!isActive && "hidden",
 			)}
 		>
 			{render || (
