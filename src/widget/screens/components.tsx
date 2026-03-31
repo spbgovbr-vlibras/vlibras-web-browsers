@@ -19,12 +19,11 @@ export const Screen = ({ children, className, ...props }: ComponentProps<"div">)
 };
 
 export const ScreenHeader = ({ children, className, ...props }: ComponentProps<"div"> & { close?: boolean }) => {
-	const { onPointerDown, isDragging } = useDraggable();
+	const { onPointerDown } = useDraggable();
 
 	return (
 		<div
-			className={cn("flex items-center gap-3 border-b p-4 py-3", className)}
-			style={{ cursor: isDragging ? "grabbing" : "grab" }}
+			className={cn("flex items-center gap-3 border-b p-4 py-3 hover:cursor-move", className)}
 			{...{ onPointerDown }}
 			{...props}
 		>

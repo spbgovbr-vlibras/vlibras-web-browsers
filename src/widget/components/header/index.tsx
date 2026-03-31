@@ -1,11 +1,15 @@
 import { useMobile } from "@/common/hooks";
+import { cn } from "@/common/lib/utils";
 import { Button } from "@/widget/components/ui/button";
 import { Tooltip } from "@/widget/components/ui/tooltip";
 import { FullscreenIcon, XIcon } from "@/widget/icons";
 import { useWidgetStore } from "@/widget/stores/use-widget.store";
+import { useDraggable } from "../draggable";
 import { WidgetMenu } from "./menu";
 
 export const WidgetHeader = () => {
+	const { onPointerDown } = useDraggable();
+
 	const setOpen = useWidgetStore((s) => s.setOpen);
 	const isMobile = useMobile();
 
@@ -14,7 +18,10 @@ export const WidgetHeader = () => {
 	};
 
 	return (
-		<div className="bottom-auto flex items-center justify-between gap-1 bg-primary px-2 py-1.5">
+		<div
+			{...{ onPointerDown }}
+			className={cn("bottom-auto flex items-center justify-between gap-1 bg-primary px-2 py-1.5 hover:cursor-move")}
+		>
 			<span className="absolute left-1/2 -translate-x-1/2 font-semibold text-primary-foreground text-sm leading-0 sm:text-base">
 				VLibras
 			</span>
