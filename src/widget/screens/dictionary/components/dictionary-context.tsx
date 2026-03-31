@@ -1,20 +1,14 @@
-import { createContext } from "preact";
-import { useContext } from "preact/hooks";
+import type { ComponentChildren } from "preact";
+import { zusContext } from "@/common/lib/zus-context";
 import { useDictionary } from "../hooks/use-dictionary";
 
 type DictionaryContextType = ReturnType<typeof useDictionary>;
 
-const DictionaryContext = createContext<DictionaryContextType | null>(null);
+const { Provider, useCtx: useDictionaryCtx } = zusContext<DictionaryContextType>();
 
-export const DictionaryProvider = ({ children }: { children: preact.ComponentChildren }) => {
+const DictionaryProvider = ({ children }: { children: ComponentChildren }) => {
 	const value = useDictionary();
-	return <DictionaryContext.Provider value={value}>{children}</DictionaryContext.Provider>;
+	return <Provider data={value}>{children}</Provider>;
 };
 
-export const useDictionaryContext = () => {
-	const context = useContext(DictionaryContext);
-	if (!context) {
-		throw new Error("useDictionaryContext must be used within a DictionaryProvider");
-	}
-	return context;
-};
+export { DictionaryProvider, useDictionaryCtx };

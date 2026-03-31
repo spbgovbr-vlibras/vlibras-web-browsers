@@ -1,9 +1,10 @@
 import { create } from "zustand";
 
-type Screen = "main" | "settings" | "about" | "dictionary";
+export type Screen = "main" | "settings" | "about" | "dictionary";
 
 interface ScreensStoreState {
 	screen: Screen;
+	callbackScreen?: Screen;
 	open: (_screen: Screen) => void;
 	closeAll: () => void;
 }
@@ -11,5 +12,5 @@ interface ScreensStoreState {
 export const useScreensStore = create<ScreensStoreState>()((set) => ({
 	screen: "main",
 	open: (screen) => set({ screen }),
-	closeAll: () => set({ screen: "main" }),
+	closeAll: () => set({ screen: "main", callbackScreen: undefined }),
 }));

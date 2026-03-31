@@ -1,56 +1,65 @@
+import { posthogg } from "@/common/lib/posthog";
 import { usePlayer } from "@/player/use-player";
-import { useDictionaryContext } from "./dictionary-context";
+import { useScreensStore } from "@/widget/stores/use-screens.store";
+import { useDictionaryHistoryStore } from "../stores/use-dictionary-history.store";
+import { useDictionaryCtx } from "./dictionary-context";
 import { DictionaryError } from "./dictionary-error";
+import { DictionaryFilter } from "./dictionary-filter";
 import { DictionaryLoading } from "./dictionary-loading";
 import { DictionarySearch } from "./dictionary-search";
 
 export const DictionaryList = () => {
-	const {
-		isLoading,
-		isMaxRetries,
-		filteredSigns,
-		data,
-		retry,
-		visibleSigns,
-		visibleCount,
-		loaderRef,
-		listRef,
-		search,
-	} = useDictionaryContext();
 	const { play } = usePlayer();
 
-	if (isLoading) return <DictionaryLoading />;
-	if (!data) return <DictionaryError onRetry={retry} isMaxRetries={isMaxRetries} />;
+	const ctx = useDictionaryCtx();
+	const signs = useDictionaryHistoryStore((s) => s.signs);
 
-	if (!filteredSigns.length) {
-		return (
-			<p className="break-all px-4 font-semibold text-muted-foreground text-sm">
-				Sem resultados para <q className="text-foreground">{search}</q>
-			</p>
-		);
-	}
+	const handlePlay = (sign: string) => {
+		play(sign);
+
+		const newSigns = [sign, ...signs.filter((s) => s !== sign)];
+
+		useDictionaryHistoryStore.setState({ signs: newSigns });
+		useScreensStore.setState({ screen: "main", callbackScreen: "dictionary" });
+		posthogg.trackEvent("dictionary_play", { sign });
+	};
+
+	if (ctx.isLoading) return <DictionaryLoading />;
+	if (!ctx.data) return <DictionaryError onRetry={ctx.retry} isMaxRetries={ctx.isMaxRetries} />;
+
+	const isEmpty = !ctx.filteredSigns.length && !!ctx.search;
 
 	return (
-		<div>
+		<div className="flex flex-col gap-2 overflow-hidden">
 			<DictionarySearch />
 
-			<div ref={listRef} className="h-full overflow-auto">
-				<ul className="flex h-full w-max min-w-full flex-col font-semibold text-sm">
-					{visibleSigns.map((sign) => (
-						<li>
-							<button
-								type="button"
-								onClick={() => play(sign)}
-								className="w-full cursor-pointer whitespace-nowrap px-4 py-1.25 text-left hover:bg-muted focus:bg-primary focus:text-primary-foreground"
-							>
-								{sign}
-							</button>
-						</li>
-					))}
+			<DictionaryFilter />
 
-					{filteredSigns.length > visibleCount && <div ref={loaderRef} className="py-2" />}
-				</ul>
-			</div>
+			{isEmpty && (
+				<p className="break-all px-4 font-semibold text-muted-foreground text-xs sm:text-sm">
+					Sem resultados para <q className="text-foreground">{ctx.search}</q>
+				</p>
+			)}
+
+			{!!ctx.filteredSigns.length && (
+				<div ref={ctx.listRef} className="h-full overflow-auto">
+					<ul className="flex h-full w-max min-w-full flex-col text-sm">
+						{ctx.visibleSigns.map((sign) => (
+							<li key={sign}>
+								<button
+									type="button"
+									onClick={() => handlePlay(sign)}
+									className="w-full cursor-pointer whitespace-nowrap px-4 py-1.25 text-left text-xs hover:bg-muted focus:bg-primary focus:text-primary-foreground sm:text-sm"
+								>
+									{sign}
+								</button>
+							</li>
+						))}
+
+						{ctx.filteredSigns.length > ctx.visibleCount && <div ref={ctx.loaderRef} className="py-2" />}
+					</ul>
+				</div>
+			)}
 		</div>
 	);
 };

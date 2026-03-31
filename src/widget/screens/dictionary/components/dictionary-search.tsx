@@ -1,9 +1,9 @@
 import { Button } from "@/widget/components/ui/button";
 import { XIcon } from "@/widget/icons";
-import { useDictionaryContext } from "./dictionary-context";
+import { useDictionaryCtx } from "./dictionary-context";
 
 export const DictionarySearch = () => {
-	const { search, searchRef, handleSearchChange, handleClearSearch } = useDictionaryContext();
+	const { search, searchRef, handleSearchChange, handleClearSearch } = useDictionaryCtx();
 
 	return (
 		<div className="relative flex items-center p-4 pb-0">

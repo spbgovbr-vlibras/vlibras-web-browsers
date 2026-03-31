@@ -1,10 +1,9 @@
-import { useEffect, useMemo, useRef, useState } from "preact/hooks";
-import { create } from "zustand";
-import { createJSONStorage, persist } from "zustand/middleware";
+import { useCallback, useEffect, useMemo, useRef, useState } from "preact/hooks";
 import { useDebouncedCallback } from "@/common/hooks";
 import { Trie } from "@/common/lib/trie";
-import { pickKeys } from "@/common/utils";
 import { useDictionarySigns } from "@/core/actions/hooks";
+import { useDictionaryStore } from "../stores/use-dictionary.store";
+import { useDictionaryHistoryStore } from "../stores/use-dictionary-history.store";
 
 type DictionaryState = {
 	filteredSigns: string[];
@@ -12,30 +11,19 @@ type DictionaryState = {
 	visibleCount: number;
 };
 
-const ITEMS_PER_PAGE = 50;
+export type DictionaryFilter = "recents" | "all";
 
-const useDictionaryStore = create<{ isMaxRetries: boolean; retriesCount: number }>()(
-	persist((_) => ({ isMaxRetries: false, retriesCount: 0 }), {
-		name: "@vlibras/dictionary",
-		version: 1,
-		storage: createJSONStorage(() => sessionStorage),
-		partialize: (state) => pickKeys(state, "isMaxRetries"),
-		onRehydrateStorage: () => (state) => {
-			if (state) {
-				state.retriesCount = 0;
-				state.isMaxRetries = false;
-			}
-		},
-	}),
-);
+const ITEMS_PER_PAGE = 50;
 
 export const useDictionary = () => {
 	const loaderRef = useRef<HTMLDivElement>(null);
 	const searchRef = useRef<HTMLInputElement>(null);
 	const listRef = useRef<HTMLDivElement>(null);
-
-	const { data, isLoading, refetch } = useDictionarySigns();
 	const store = useDictionaryStore();
+
+	const [filter, setFilter] = useState<DictionaryFilter>("all");
+	const { data, isLoading, refetch } = useDictionarySigns();
+	const { signs } = useDictionaryHistoryStore();
 
 	const retry = async () => {
 		await refetch();
@@ -57,19 +45,22 @@ export const useDictionary = () => {
 		visibleCount: ITEMS_PER_PAGE,
 	});
 
-	const onSearchChange = (term: string) => {
-		const searchTerm = term.toUpperCase().trim();
-		const filtered = allSigns.filter((sign) => sign.toUpperCase().includes(searchTerm));
+	const onSearchChange = useCallback(
+		(term: string) => {
+			const searchTerm = term.toUpperCase().trim();
+			const filtered = (filter === "all" ? allSigns : signs).filter((sign) => sign.toUpperCase().includes(searchTerm));
 
-		setState((p) => ({
-			...p,
-			search: term,
-			filteredSigns: filtered,
-			visibleCount: ITEMS_PER_PAGE,
-		}));
+			setState((p) => ({
+				...p,
+				search: term,
+				filteredSigns: filtered,
+				visibleCount: ITEMS_PER_PAGE,
+			}));
 
-		if (listRef.current) listRef.current.scrollTo({ top: 0, behavior: "smooth" });
-	};
+			if (listRef.current) listRef.current.scrollTo({ top: 0, behavior: "smooth" });
+		},
+		[filter],
+	);
 
 	const handleSearchChange = useDebouncedCallback(onSearchChange, 500);
 
@@ -80,6 +71,17 @@ export const useDictionary = () => {
 		searchRef.current.value = "";
 		searchRef.current.focus();
 	};
+
+	const handleHistoryClear = () => {
+		useDictionaryHistoryStore.setState({ signs: [] });
+
+		if (filter === "recents") {
+			setFilter("all");
+			setState((p) => ({ ...p, filteredSigns: [] }));
+		}
+	};
+
+	useEffect(() => onSearchChange(search), [filter]);
 
 	useEffect(() => {
 		if (allSigns.length > 0) setState((p) => ({ ...p, filteredSigns: allSigns }));
@@ -100,6 +102,7 @@ export const useDictionary = () => {
 	}, [filteredSigns.length, visibleCount]);
 
 	const visibleSigns = filteredSigns.slice(0, visibleCount);
+	const count = { all: allSigns.length, recents: signs.length };
 
 	return {
 		search,
@@ -112,8 +115,12 @@ export const useDictionary = () => {
 		searchRef,
 		handleSearchChange,
 		handleClearSearch,
+		handleHistoryClear,
 		data,
 		retry,
+		filter,
+		setFilter,
+		count,
 		...store,
 	};
 };

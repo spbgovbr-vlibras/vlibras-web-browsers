@@ -17,5 +17,6 @@ export { SubtitleOffIcon } from "./subtitle-off";
 export { SunIcon } from "./sun";
 export { TouchIcon } from "./touch";
 export { TranslatorIcon } from "./translator";
+export { TrashIcon } from "./trash";
 export { WaitingIcon } from "./waiting";
 export { XIcon } from "./x";
