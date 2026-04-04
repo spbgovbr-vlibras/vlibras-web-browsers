@@ -1,4 +1,5 @@
 import { posthogg } from "@/common/lib/posthog";
+import { cn } from "@/common/lib/utils";
 import { usePlayer } from "@/player/use-player";
 import { useScreensStore } from "@/widget/stores/use-screens.store";
 import { useDictionaryHistoryStore } from "../stores/use-dictionary-history.store";
@@ -20,8 +21,10 @@ export const DictionaryList = () => {
 		const newSigns = [sign, ...signs.filter((s) => s !== sign)];
 
 		useDictionaryHistoryStore.setState({ signs: newSigns });
-		useScreensStore.setState({ screen: "main", callbackScreen: "dictionary" });
-		posthogg.trackEvent("dictionary_play", { sign });
+		useScreensStore.setState({ screen: "main" });
+		setTimeout(() => useScreensStore.setState({ callbackScreen: "dictionary" }), 300);
+
+		posthogg.trackEvent("dictionary_gloss", { sign });
 	};
 
 	if (ctx.isLoading) return <DictionaryLoading />;
@@ -30,7 +33,7 @@ export const DictionaryList = () => {
 	const isEmpty = !ctx.filteredSigns.length && !!ctx.search;
 
 	return (
-		<div className="flex flex-col gap-2 overflow-hidden">
+		<div className="flex h-full flex-col gap-2 overflow-hidden">
 			<DictionarySearch />
 
 			<DictionaryFilter />
@@ -41,25 +44,23 @@ export const DictionaryList = () => {
 				</p>
 			)}
 
-			{!!ctx.filteredSigns.length && (
-				<div ref={ctx.listRef} className="h-full overflow-auto">
-					<ul className="flex h-full w-max min-w-full flex-col text-sm">
-						{ctx.visibleSigns.map((sign) => (
-							<li key={sign}>
-								<button
-									type="button"
-									onClick={() => handlePlay(sign)}
-									className="w-full cursor-pointer whitespace-nowrap px-4 py-1.25 text-left text-xs hover:bg-muted focus:bg-primary focus:text-primary-foreground sm:text-sm"
-								>
-									{sign}
-								</button>
-							</li>
-						))}
+			<div ref={ctx.listRef} className={cn("h-full overflow-auto", !ctx.filteredSigns.length && "hidden")}>
+				<ul className="flex h-full w-max min-w-full flex-col text-sm">
+					{ctx.visibleSigns.map((sign) => (
+						<li key={sign}>
+							<button
+								type="button"
+								onClick={() => handlePlay(sign)}
+								className="w-full cursor-pointer whitespace-nowrap px-4 py-1.25 text-left text-xs hover:bg-muted focus:bg-primary focus:text-primary-foreground sm:text-sm"
+							>
+								{sign}
+							</button>
+						</li>
+					))}
 
-						{ctx.filteredSigns.length > ctx.visibleCount && <div ref={ctx.loaderRef} className="py-2" />}
-					</ul>
-				</div>
-			)}
+					<div ref={ctx.loaderRef} className={cn("py-2", ctx.filteredSigns.length <= ctx.visibleCount && "hidden")} />
+				</ul>
+			</div>
 		</div>
 	);
 };

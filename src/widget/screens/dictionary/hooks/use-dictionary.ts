@@ -59,7 +59,7 @@ export const useDictionary = () => {
 
 			if (listRef.current) listRef.current.scrollTo({ top: 0, behavior: "smooth" });
 		},
-		[filter],
+		[filter, signs, allSigns],
 	);
 
 	const handleSearchChange = useDebouncedCallback(onSearchChange, 500);

@@ -16,7 +16,7 @@ const envConfigs = {
 
 	dth: {
 		TRANSLATE_URL: "https://traducao2-dth.vlibras.gov.br/translate",
-		DICTIONARY_URL: "https://dicionario2-dth.vlibras.gov.br/2018.3.1/WEBGL",
+		DICTIONARY_URL: "https://dicionario2-dth.vlibras.gov.br/2018.3.1/WEBGL/",
 		DICTIONARY_STATIC_URL: "https://dicionario2-dth.vlibras.gov.br/static/BUNDLES/2018.3.1/WEBGL",
 		SIGNS_URL: "https://dicionario2-dth.vlibras.gov.br/signs?version=2018.3.1",
 		REVIEW_URL: "https://traducao2-dth.vlibras.gov.br/dl/review",
@@ -25,7 +25,7 @@ const envConfigs = {
 
 	production: {
 		TRANSLATE_URL: "https://traducao2.vlibras.gov.br/translate",
-		DICTIONARY_URL: "https://dicionario2.vlibras.gov.br/2018.3.1/WEBGL",
+		DICTIONARY_URL: "https://dicionario2.vlibras.gov.br/2018.3.1/WEBGL/",
 		DICTIONARY_STATIC_URL: "https://dicionario2.vlibras.gov.br/static/BUNDLES/2018.3.1/WEBGL",
 		SIGNS_URL: "https://dicionario2.vlibras.gov.br/static/TREES/2018.3.1.json",
 		REVIEW_URL: "https://traducao2.vlibras.gov.br/review",

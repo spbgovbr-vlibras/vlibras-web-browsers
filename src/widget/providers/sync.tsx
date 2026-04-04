@@ -1,5 +1,6 @@
 import { useEffect } from "preact/hooks";
 import { useTranslate } from "@/core/actions/hooks";
+import { config } from "@/core/config";
 import { createStyle } from "@/core/dom";
 import { usePlayer } from "@/player/use-player";
 import { useWidgetStore } from "@/widget/stores/use-widget.store";
@@ -8,12 +9,23 @@ import { textCapture } from "@/widget/utils/text-capture";
 
 export const SyncProvider = () => {
 	const { mutateAsync: translate, isPending: isTranslating } = useTranslate();
-	const { play, isLoaded, stop, playWelcome, speed, setSpeed, toggleSubtitles, showSubtitles, isWelcomeFinished } =
-		usePlayer();
+	const {
+		play,
+		isLoaded,
+		stop,
+		setConfig,
+		playWelcome,
+		speed,
+		setSpeed,
+		toggleSubtitles,
+		showSubtitles,
+		isWelcomeFinished,
+	} = usePlayer();
 
 	useEffect(() => void (isLoaded && playWelcome()), [isLoaded]);
 	useEffect(() => void (isLoaded && setSpeed(speed)), [isLoaded]);
 	useEffect(() => void (isWelcomeFinished && toggleSubtitles(showSubtitles)), [isWelcomeFinished]);
+	useEffect(() => void (isLoaded && setConfig({ baseUrl: config.DICTIONARY_URL })), [isLoaded]);
 	useEffect(() => void useWidgetStore.setState({ isTranslating }), [isTranslating]);
 
 	useEffect(() => {

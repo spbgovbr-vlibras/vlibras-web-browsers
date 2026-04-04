@@ -27,7 +27,7 @@ export const WidgetControls = () => {
 			className={cn(
 				"relative flex animate-move-up items-center justify-between gap-1 border-t bg-background p-2 transition-[bottom] ease-in-out",
 				"[&_button]:not-hover:bg-transparent",
-				"-mt-12",
+				"-mt-13",
 				!isOpen && "-bottom-20!",
 			)}
 		>

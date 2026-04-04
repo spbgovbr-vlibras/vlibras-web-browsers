@@ -18,6 +18,8 @@ const tooltipVariants = cva("border bg-popover", {
 });
 
 type TooltipCustomProps = VariantProps<typeof tooltipVariants> & {
+	open?: boolean;
+	onOpenChange?: (open: boolean) => void;
 	content?: ComponentChildren;
 	disabled?: boolean;
 	placement?: "top" | "bottom" | "left" | "right";
@@ -42,10 +44,13 @@ export const Tooltip = ({
 	placement = "top",
 	variant = "default",
 	className,
+	open,
+	onOpenChange,
 	...props
 }: TooltipProps) => {
 	const [visible, setVisible] = useState(false);
 	const tooltipId = "vlibras-tooltip";
+	const isVisible = open ?? visible;
 
 	if (!content) return children;
 
@@ -64,17 +69,22 @@ export const Tooltip = ({
 		}
 	};
 
+	const handleOpenChange = (_open: boolean) => {
+		if (open === undefined) setVisible(_open);
+		onOpenChange?.(_open);
+	};
+
 	return (
 		<div
 			role="tooltip"
 			className={cn("relative inline-block", disabled && "pointer-events-none")}
-			onMouseEnter={() => setVisible(true)}
-			onMouseLeave={() => setVisible(false)}
-			onFocus={() => setVisible(true)}
-			onBlur={() => setVisible(false)}
+			onMouseEnter={() => handleOpenChange(true)}
+			onMouseLeave={() => handleOpenChange(false)}
+			onFocus={() => handleOpenChange(true)}
+			onBlur={() => handleOpenChange(false)}
 		>
 			{children}
-			{visible && !disabled && (
+			{isVisible && !disabled && (
 				<div
 					data-slot="tooltip-content"
 					id={tooltipId}

@@ -45,7 +45,7 @@ export const CallbackScreen = () => {
 				size="xs"
 				className="h-auto! rounded-full bg-background! font-semibold text-primary hover:bg-muted!"
 			>
-				<Icon className="" />
+				<Icon />
 				Reabrir {label}
 			</Button>
 		</div>

@@ -44,12 +44,12 @@ export const SpeedOption = () => {
 						<li key={speed}>
 							<button
 								type="button"
+								inert={isActive}
 								onClick={() => handleSpeedChange(speed)}
 								onKeyDown={(e) => onKeyDown(e, speed)}
 								className={cn(
 									"w-full cursor-pointer whitespace-nowrap rounded-sm px-2 py-1 text-center text-xs hover:bg-primary/10 sm:text-sm",
-									isActive &&
-										"pointer-events-none bg-primary! text-primary-foreground! outline-1 outline-primary outline-solid",
+									isActive && "bg-primary! text-primary-foreground! outline-1 outline-primary outline-solid",
 								)}
 							>
 								{speed}x
