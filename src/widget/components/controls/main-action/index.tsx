@@ -1,19 +1,8 @@
 import { useMobile } from "@/common/hooks";
-import type { PlayerStatus } from "@/player/types";
 import { usePlayer } from "@/player/use-player";
 import { Button } from "@/widget/components/ui/button";
 import { Tooltip } from "@/widget/components/ui/tooltip";
-import { PauseIcon, PlayIcon, RepeatIcon, WaitingIcon } from "@/widget/icons";
-import type { IconElement } from "@/widget/icons/types";
-
-type StatusDetail = { label: string; icon: IconElement };
-
-const statusMap: Record<PlayerStatus, StatusDetail> = {
-	idle: { label: "Repetir", icon: RepeatIcon },
-	paused: { label: "Reproduzir", icon: PlayIcon },
-	playing: { label: "Pausar", icon: PauseIcon },
-	stopped: { label: "Em espera", icon: WaitingIcon },
-};
+import { statusMap } from "./status-map";
 
 export const MainAction = () => {
 	const isMobile = useMobile();
