@@ -18,11 +18,13 @@ export const WidgetHeader = () => {
 	};
 
 	return (
-		<div
-			{...{ onPointerDown }}
-			className={cn("bottom-auto flex items-center justify-between gap-1 bg-primary px-2 py-1.5 hover:cursor-move")}
-		>
-			<span className="absolute left-1/2 -translate-x-1/2 font-semibold text-primary-foreground text-sm leading-0 sm:text-base">
+		<div className={cn("relative bottom-auto flex items-center justify-between gap-1 bg-primary px-2 py-1.5")}>
+			<div {...{ onPointerDown }} className="absolute inset-0 z-0 hover:cursor-move" />
+
+			<span
+				inert
+				className="absolute left-1/2 -translate-x-1/2 font-semibold text-primary-foreground text-sm leading-0 sm:text-base"
+			>
 				VLibras
 			</span>
 
@@ -36,7 +38,7 @@ export const WidgetHeader = () => {
 				align="end"
 				arrow={{ position: "top-right" }}
 			>
-				<Button aria-label="Tela cheia" size={isMobile ? "icon-sm" : "icon"} variant="default">
+				<Button className="z-1" aria-label="Tela cheia" size={isMobile ? "icon-sm" : "icon"} variant="default">
 					<FullscreenIcon />
 				</Button>
 			</Tooltip>
@@ -46,7 +48,7 @@ export const WidgetHeader = () => {
 				aria-label="Fechar"
 				size={isMobile ? "icon-sm" : "icon"}
 				variant="default"
-				className="hover:bg-destructive hover:text-destructive-foreground"
+				className="z-1 hover:bg-destructive hover:text-destructive-foreground"
 			>
 				<XIcon />
 			</Button>

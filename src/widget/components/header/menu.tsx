@@ -10,7 +10,7 @@ export const WidgetMenu = () => {
 	const isMobile = useMobile();
 
 	return (
-		<div className="dropdown dropdown-bottom mr-auto">
+		<div className="dropdown dropdown-bottom z-1 mr-auto">
 			<Button
 				role="button"
 				tabindex={0}

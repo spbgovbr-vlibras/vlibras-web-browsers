@@ -1,7 +1,6 @@
 import type { ElementType } from "preact/compat";
 import { useMobile } from "@/common/hooks";
 import { Button } from "@/widget/components/ui/button";
-import { Tooltip } from "@/widget/components/ui/tooltip";
 import type { CustomSVGProps } from "@/widget/icons/types";
 
 type Props = {
@@ -15,19 +14,26 @@ export const MenuOption = ({ label, onClick, icon }: Props) => {
 	const Icon = icon;
 
 	return (
-		<li className="w-auto">
-			<Tooltip offset={42} className="whitespace-nowrap text-xs" content={label} align="start" placement="right">
-				<Button
-					onClick={onClick}
-					role="button"
-					aria-label={label}
-					size={isMobile ? "icon-sm" : "icon"}
-					variant="outline-gov"
-					className="rounded-full border-border"
-				>
-					<Icon className="size-5.5" />
-				</Button>
-			</Tooltip>
+		<li className="flex w-auto animate-move-left items-center gap-2">
+			<Button
+				onClick={onClick}
+				role="button"
+				aria-label={label}
+				size={isMobile ? "icon-sm" : "icon"}
+				variant="outline-gov"
+				className="rounded-full border-border"
+			>
+				<Icon className="size-5.5" />
+			</Button>
+
+			<Button
+				onClick={onClick}
+				variant="outline"
+				className="whitespace-nowrap rounded-full bg-background hover:bg-muted"
+				size="xs"
+			>
+				{label}
+			</Button>
 		</li>
 	);
 };
