@@ -1,13 +1,13 @@
-import { useShallow } from "zustand/shallow";
-import { pickKeys } from "@/common/utils";
-import { usePlayer } from "@/player/use-player";
+import { usePick } from "@/common/hooks";
+import { usePlayerStore } from "@/player/use-player.store";
 import { Button } from "@/widget/components/ui/button";
 import { useScreensStore } from "@/widget/stores/use-screens.store";
 import { screensMap } from "./screens-map";
 
 export const CallbackScreen = () => {
-	const { status } = usePlayer();
-	const { callbackScreen, open } = useScreensStore(useShallow((s) => pickKeys(s, "open", "callbackScreen")));
+	const status = usePlayerStore((s) => s.status);
+	const { callbackScreen, open } = useScreensStore(usePick("callbackScreen", "open"));
+
 	const currentScreen = callbackScreen && screensMap[callbackScreen];
 
 	if (!callbackScreen || status !== "idle" || !currentScreen) return null;

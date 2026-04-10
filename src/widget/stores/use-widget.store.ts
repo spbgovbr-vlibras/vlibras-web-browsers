@@ -2,7 +2,7 @@ import type { Dispatch, StateUpdater } from "preact/hooks";
 import { create } from "zustand";
 import { persist } from "zustand/middleware";
 import type { OnlyState } from "@/common/types";
-import { pickKeys } from "@/common/utils";
+import { pick } from "@/common/utils";
 import type { WidgetPosition } from "@/widget/types";
 import { resolveValue } from "./utils";
 
@@ -43,7 +43,7 @@ export const useWidgetStore = create<WidgetStoreState>()(
 		}),
 		{
 			name: "@vlibras-widget",
-			partialize: (state) => pickKeys(state, "position", "isActive", "isOpen"),
+			partialize: (state) => pick(state, "position", "isActive", "isOpen"),
 			version: 1,
 		},
 	),

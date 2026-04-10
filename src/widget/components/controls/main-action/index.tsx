@@ -1,12 +1,14 @@
-import { useMobile } from "@/common/hooks";
+import { useMobile, usePick } from "@/common/hooks";
 import { usePlayer } from "@/player/use-player";
+import { usePlayerStore } from "@/player/use-player.store";
 import { Button } from "@/widget/components/ui/button";
 import { Tooltip } from "@/widget/components/ui/tooltip";
 import { statusMap } from "./status-map";
 
 export const MainAction = () => {
 	const isMobile = useMobile();
-	const { play, repeat, pause, gloss, status: _status } = usePlayer();
+	const { play, repeat, pause } = usePlayer();
+	const { gloss, status: _status } = usePlayerStore(usePick("gloss", "status"));
 
 	const onClick = () => {
 		if (_status === "idle") repeat();

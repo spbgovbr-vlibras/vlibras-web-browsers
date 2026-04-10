@@ -3,13 +3,15 @@ import { useMobile } from "@/common/hooks";
 import { posthogg } from "@/common/lib/posthog";
 import { cn } from "@/common/lib/utils";
 import { usePlayer } from "@/player/use-player";
+import { usePlayerStore } from "@/player/use-player.store";
 import { Button } from "@/widget/components/ui/button";
 
 const speeds = [2.5, 2, 1.5, 1];
 
 export const SpeedOption = () => {
 	const isMobile = useMobile();
-	const { speed: currentSpeed, setSpeed } = usePlayer();
+	const currentSpeed = usePlayerStore((s) => s.speed);
+	const { setSpeed } = usePlayer();
 
 	const onKeyDown = (event: TargetedKeyboardEvent<HTMLButtonElement>, speed: number) => {
 		if (event.key === "Enter" || event.key === " ") {

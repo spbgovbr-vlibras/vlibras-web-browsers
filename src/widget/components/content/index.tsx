@@ -1,14 +1,14 @@
 import type { ComponentProps } from "preact/compat";
 import { cn } from "@/common/lib/utils";
 import { Player } from "@/player";
-import { usePlayer } from "@/player/use-player";
+import { usePlayerStore } from "@/player/use-player.store";
 import { WidgetControls } from "@/widget/components/controls";
 import { WidgetHeader } from "@/widget/components/header";
 import { useScreensStore } from "@/widget/stores/use-screens.store";
 
 export const WidgetContent = ({ className, ...props }: Omit<ComponentProps<"div">, "children">) => {
 	const screen = useScreensStore((s) => s.screen);
-	const { isLoaded } = usePlayer();
+	const isLoaded = usePlayerStore((s) => s.isLoaded);
 
 	return (
 		<div

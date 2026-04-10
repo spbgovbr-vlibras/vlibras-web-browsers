@@ -1,7 +1,7 @@
 import { create } from "zustand";
 import { createJSONStorage, persist } from "zustand/middleware";
 import type { OnlyState } from "@/common/types";
-import { pickKeys } from "@/common/utils";
+import { pick } from "@/common/utils";
 import type { UNITY_METHODS, UNITY_OBJECTS } from "./constants/unity";
 import type { CountGloss, PlayerAvatar, PlayerConfig, PlayerStatus } from "./types";
 
@@ -48,7 +48,7 @@ export const usePlayerStore = create<PlayerStoreState>()(
 			name: "@vlibras/player",
 			version: 1,
 			storage: createJSONStorage(() => localStorage),
-			partialize: (state) => pickKeys(state, "speed", "showSubtitles", "avatar", "config"),
+			partialize: (state) => pick(state, "speed", "showSubtitles", "avatar", "config"),
 		},
 	),
 );

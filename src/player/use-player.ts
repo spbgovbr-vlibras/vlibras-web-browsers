@@ -1,5 +1,3 @@
-import { useShallow } from "zustand/shallow";
-import { omitKeys } from "@/common/utils";
 import { UNITY_METHODS, UNITY_OBJECTS } from "./constants/unity";
 import type { PlayerAvatar, PlayerConfig } from "./types";
 import { usePlayerStore } from "./use-player.store";
@@ -8,7 +6,6 @@ const avatars: PlayerAvatar[] = ["icaro", "guga", "hosana"];
 
 export const usePlayer = () => {
 	const send = usePlayerStore((state) => state.send);
-	const store = usePlayerStore(useShallow((state) => omitKeys(state, "countGloss")));
 
 	const setConfig = (config: Partial<PlayerConfig>) => {
 		if (!config.baseUrl && !config.personalizationUrl) return;
@@ -87,6 +84,5 @@ export const usePlayer = () => {
 		toggleAvatar,
 		playWelcome,
 		toggleSubtitles,
-		...store,
 	};
 };

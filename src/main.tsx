@@ -1,6 +1,6 @@
 import { render } from "preact";
 import { useEffect } from "preact/hooks";
-import { useConfig } from "@/common/hooks";
+import { useConfig, usePick } from "@/common/hooks";
 import { createRoot } from "@/core/dom";
 import { loadDefaultFont } from "@/core/fonts";
 import { WidgetApp } from "@/widget/app";
@@ -12,7 +12,7 @@ import { useRootStore } from "./widget/stores/use-root.store";
 const { root, shadowRoot, isRootActive } = createRoot();
 
 function App() {
-	const { setOpen, isLoaded, setLoaded } = useWidgetStore();
+	const { setOpen, isLoaded, setLoaded } = useWidgetStore(usePick("setOpen", "isLoaded", "setLoaded"));
 	const { path } = useConfig();
 
 	useEffect(() => useRootStore.setState({ root, shadowRoot }), [root, shadowRoot]);

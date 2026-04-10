@@ -1,26 +1,20 @@
 import { useEffect } from "preact/hooks";
+import { usePick } from "@/common/hooks";
 import { useTranslate } from "@/core/actions/hooks";
 import { config } from "@/core/config";
 import { createStyle } from "@/core/dom";
 import { usePlayer } from "@/player/use-player";
+import { usePlayerStore } from "@/player/use-player.store";
 import { useWidgetStore } from "@/widget/stores/use-widget.store";
 import css from "@/widget/styles/text-capture.css?inline";
 import { textCapture } from "@/widget/utils/text-capture";
 
 export const SyncProvider = () => {
 	const { mutateAsync: translate, isPending: isTranslating } = useTranslate();
-	const {
-		play,
-		isLoaded,
-		stop,
-		setConfig,
-		playWelcome,
-		speed,
-		setSpeed,
-		toggleSubtitles,
-		showSubtitles,
-		isWelcomeFinished,
-	} = usePlayer();
+	const { play, stop, setConfig, playWelcome, setSpeed, toggleSubtitles } = usePlayer();
+	const { isLoaded, speed, showSubtitles, isWelcomeFinished } = usePlayerStore(
+		usePick("isLoaded", "speed", "showSubtitles", "isWelcomeFinished"),
+	);
 
 	useEffect(() => void (isLoaded && playWelcome()), [isLoaded]);
 	useEffect(() => void (isLoaded && setSpeed(speed)), [isLoaded]);

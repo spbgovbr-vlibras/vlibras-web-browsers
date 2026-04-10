@@ -1,8 +1,6 @@
-import { useShallow } from "zustand/shallow";
-import { useMobile } from "@/common/hooks";
+import { useMobile, usePick } from "@/common/hooks";
 import { cn } from "@/common/lib/utils";
-import { pickKeys } from "@/common/utils";
-import { usePlayer } from "@/player/use-player";
+import { usePlayerStore } from "@/player/use-player.store";
 import { Button } from "@/widget/components/ui/button";
 import { SettingsIcon } from "@/widget/icons";
 import { useScreensStore } from "@/widget/stores/use-screens.store";
@@ -17,10 +15,10 @@ import { TranslatingBadge } from "./translating-badge";
 
 export const WidgetControls = () => {
 	const isMobile = useMobile();
+	const status = usePlayerStore((s) => s.status);
 
-	const { status } = usePlayer();
-	const { callbackScreen, open } = useScreensStore(useShallow((s) => pickKeys(s, "callbackScreen", "open")));
-	const { isOpen, isTranslating } = useWidgetStore(useShallow((s) => pickKeys(s, "isOpen", "isTranslating")));
+	const { callbackScreen, open } = useScreensStore(usePick("callbackScreen", "open"));
+	const { isOpen, isTranslating } = useWidgetStore(usePick("isOpen", "isTranslating"));
 
 	return (
 		<div
