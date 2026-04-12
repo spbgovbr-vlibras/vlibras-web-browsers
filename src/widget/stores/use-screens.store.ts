@@ -1,6 +1,6 @@
 import { create } from "zustand";
 
-export type Screen = "main" | "settings" | "about" | "dictionary";
+export type Screen = "main" | "settings" | "about" | "dictionary" | "regionalism";
 
 interface ScreensStoreState {
 	screen: Screen;

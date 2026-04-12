@@ -15,6 +15,7 @@ export const defaultState: OnlyState<WidgetStoreState> = {
 	isLoaded: false,
 	isActive: false,
 	isTranslating: false,
+	opacity: 1,
 };
 
 export interface WidgetStoreState {
@@ -28,6 +29,7 @@ export interface WidgetStoreState {
 	setExpanded: Dispatch<StateUpdater<boolean>>;
 	setOpen: Dispatch<StateUpdater<boolean>>;
 	text?: string;
+	opacity: Number;
 	setLoaded: (isLoaded: boolean) => void;
 	reset: () => void;
 }
@@ -43,7 +45,7 @@ export const useWidgetStore = create<WidgetStoreState>()(
 		}),
 		{
 			name: "@vlibras-widget",
-			partialize: (state) => pick(state, "position", "isActive", "isOpen"),
+			partialize: (state) => pick(state, "position", "isActive", "isOpen", "opacity"),
 			version: 1,
 		},
 	),

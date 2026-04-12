@@ -1,3 +1,6 @@
+import { config } from "@/core/config";
+import type { Emotion } from "@/data/emotionsMap";
+import type { Regionalism } from "@/data/regionalism";
 import { UNITY_METHODS, UNITY_OBJECTS } from "./constants/unity";
 import type { PlayerAvatar, PlayerConfig } from "./types";
 import { usePlayerStore } from "./use-player.store";
@@ -73,6 +76,17 @@ export const usePlayer = () => {
 		console.log(review);
 	};
 
+	const setRegion = (region: Regionalism) => {
+		const baseUrl = `${config.DICTIONARY_URL}${region.abbreviation}/`;
+		setConfig({ baseUrl });
+		usePlayerStore.setState({ region });
+	};
+
+	const setEmotion = (emotion: Emotion) => {
+		usePlayerStore.setState({ emotion });
+		send(UNITY_OBJECTS.EMOTION, emotion.action);
+	};
+
 	return {
 		setConfig,
 		play,
@@ -84,5 +98,7 @@ export const usePlayer = () => {
 		toggleAvatar,
 		playWelcome,
 		toggleSubtitles,
+		setRegion,
+		setEmotion,
 	};
 };

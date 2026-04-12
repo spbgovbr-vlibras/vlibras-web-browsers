@@ -16,6 +16,14 @@ export const UNITY_METHODS = {
 	SET_BASE_URL: "setBaseUrl",
 	SET_PERSONALIZATION: "setURL",
 	SET_SUBTITLES_STATE: "setSubtitlesState",
+	APPLY_DEFAULT_EMOTION: "ApplyDefaultEmotion",
+	APPLY_HAPPY_EMOTION: "ApplyHappyEmotion",
+	APPLY_SAD_EMOTION: "ApplySadEmotion",
+	APPLY_DOUBT_EMOTION: "ApplyDoubtEmotion",
+	APPLY_ANGRY_EMOTION: "ApplyAngryEmotion",
+	APPLY_DISGUST_EMOTION: "ApplyDisgustEmotion",
+	APPLY_FEAR_EMOTION: "ApplyFearEmotion",
+	APPLY_SURPRISE_EMOTION: "ApplySurpriseEmotion",
 } as const;
 
 export const UNITY_EVENTS = {
