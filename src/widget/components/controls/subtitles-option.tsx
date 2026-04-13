@@ -25,7 +25,6 @@ export const SubtitlesOptions = () => {
 			content={showSubtitles ? "Desativar legendas" : "Ativar legendas"}
 			placement="top"
 			arrow={{ position: "bottom-right" }}
-			disabled={isPlayingWelcome}
 		>
 			<Button
 				disabled={isPlayingWelcome}

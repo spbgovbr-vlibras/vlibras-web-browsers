@@ -41,14 +41,11 @@ export type ButtonProps = ComponentProps<"button"> & ButtonVariants;
 export const Button = ({ children, disabled, className, variant, size, ref, ...props }: ButtonProps) => {
 	return (
 		<button
+			inert={disabled}
 			tabIndex={disabled ? -1 : 0}
 			disabled={disabled}
 			ref={ref}
-			className={cn(
-				buttonVariants({ variant, size }),
-				disabled && "*:pointer-events-none! pointer-events-none opacity-50",
-				className,
-			)}
+			className={cn(buttonVariants({ variant, size }), disabled && "opacity-50", className)}
 			type={props.type || "button"}
 			{...props}
 		>

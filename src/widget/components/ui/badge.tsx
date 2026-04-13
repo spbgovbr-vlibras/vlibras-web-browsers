@@ -12,10 +12,11 @@ export type BadgeProps = ComponentProps<"span"> & BadgeCustomProps;
 export const Badge = ({ className, variant, size, disabled, children, ...props }: BadgeProps) => {
 	return (
 		<span
+			inert={!disabled}
 			className={cn(
 				"rounded-sm border-border text-foreground text-sm",
 				className,
-				disabled && "pointer-events-none opacity-50",
+				disabled && "opacity-50",
 				size === "xs" && "px-1 text-xs",
 				size === "sm" && "px-1.5 text-sm",
 				size === "md" && "px-2 text-sm",

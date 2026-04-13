@@ -20,6 +20,7 @@ export const WidgetApp = () => {
 
 				return (
 					<div
+						inert={!isOpen}
 						ref={ref}
 						style={{
 							boxShadow: "0 0 15px -5px rgba(0, 0, 0, 0.15)",

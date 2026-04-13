@@ -18,10 +18,11 @@ export const TranslatorSheet = ({ isOpen, onClose }: Props) => {
 
 	return (
 		<div
+			inert={!isOpen}
 			data-backdrop="true"
 			className={cn(
 				"fixed inset-0 z-50 transition-all duration-10",
-				isOpen ? "pointer-events-auto bg-background/30" : "pointer-events-none bg-transparent",
+				isOpen ? "pointer-events-auto bg-background/30" : "bg-transparent",
 			)}
 		>
 			<div

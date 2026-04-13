@@ -77,7 +77,7 @@ export const Tooltip = ({
 	return (
 		<div
 			role="tooltip"
-			className={cn("relative inline-block", disabled && "pointer-events-none")}
+			className="relative inline-block has-[>[role=button][aria-disabled=true]]:pointer-events-none has-[>button:disabled]:pointer-events-none"
 			onMouseEnter={() => handleOpenChange(true)}
 			onMouseLeave={() => handleOpenChange(false)}
 			onFocus={() => handleOpenChange(true)}

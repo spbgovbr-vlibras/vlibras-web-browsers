@@ -50,10 +50,8 @@ export const DialogContent = ({
 
 	return (
 		<dialog
-			className={cn(
-				"modal modal-open absolute inset-0! bg-transparent! p-0! outline-none!",
-				!showOverlay && "pointer-events-none!",
-			)}
+			inert={!showOverlay}
+			className={cn("modal modal-open absolute inset-0! bg-transparent! p-0! outline-none!")}
 		>
 			<div
 				ref={contentRef}
