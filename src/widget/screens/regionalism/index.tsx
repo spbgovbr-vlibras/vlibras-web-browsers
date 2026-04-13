@@ -35,7 +35,7 @@ export const RegionalismScreen = () => {
 							)}
 						>
 							<div className="flex items-center justify-start gap-3 font-semibold text-secondary text-sm dark:text-white">
-								<img src={regionalism.url} alt={"teste"} className="h-7 w-auto rounded-sm" />
+								<img src={regionalism.url} alt={regionalism.name} className="h-7 w-auto rounded-sm" />
 								{regionalism.name}
 							</div>
 							<input

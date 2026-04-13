@@ -14,7 +14,7 @@ export const WidgetMenu = () => {
 
 	return (
 		<>
-			<div className="dropdown dropdown-bottom z-1 mr-auto">
+			<div className="dropdown dropdown-bottom z-1">
 				<Button
 					role="button"
 					tabindex={0}

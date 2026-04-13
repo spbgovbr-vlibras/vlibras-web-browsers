@@ -42,7 +42,7 @@ export const DictionaryFilter = () => {
 			{filter === "recents" && (
 				<Button
 					onClick={handleHistoryClear}
-					className="ml-auto text-muted-foreground hover:text-destructive"
+					className="ml-auto text-muted-foreground not-focus:outline-0 outline-destructive hover:text-destructive focus:[&_svg]:text-destructive"
 					size={isMobile ? "icon-xs" : "icon-sm"}
 					variant="ghost"
 					aria-label="Limpar histórico"

@@ -14,22 +14,23 @@ export const MenuOption = ({ label, onClick, icon }: Props) => {
 	const Icon = icon;
 
 	return (
-		<li className="flex w-auto animate-move-left items-center gap-2">
+		<li className="flex w-auto animate-move-left items-center gap-2 drop-shadow-sm">
 			<Button
 				onClick={onClick}
 				role="button"
 				aria-label={label}
 				size={isMobile ? "icon-sm" : "icon"}
 				variant="outline-gov"
-				className="rounded-full border-0 bg-background drop-shadow-md hover:bg-muted"
+				className="rounded-full border-0 bg-background hover:bg-muted"
 			>
 				<Icon className="size-5.5" />
 			</Button>
 
 			<Button
+				tabindex={-1}
 				onClick={onClick}
 				variant="outline"
-				className="w-30 rounded-full border-0 bg-background drop-shadow-md hover:bg-muted"
+				className="w-30 rounded-full border-0 bg-background hover:bg-muted"
 				size="xs"
 			>
 				{label}

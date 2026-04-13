@@ -25,6 +25,7 @@ export const Player = (props: ComponentPropsWithoutRef<"iframe">) => {
 	return (
 		<Fragment>
 			<iframe
+				tabindex={-1}
 				ref={iframeRef}
 				title="vlibras-player"
 				src={iframeSrc}

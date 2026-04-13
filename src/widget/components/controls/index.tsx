@@ -1,6 +1,5 @@
 import { useMobile, usePick } from "@/common/hooks";
 import { cn } from "@/common/lib/utils";
-import { usePlayerStore } from "@/player/use-player.store";
 import { Button } from "@/widget/components/ui/button";
 import { SettingsIcon } from "@/widget/icons";
 import { useScreensStore } from "@/widget/stores/use-screens.store";
@@ -15,9 +14,8 @@ import { TranslatingBadge } from "./translating-badge";
 
 export const WidgetControls = () => {
 	const isMobile = useMobile();
-	const status = usePlayerStore((s) => s.status);
+	const open = useScreensStore((s) => s.open);
 
-	const { callbackScreen, open } = useScreensStore(usePick("callbackScreen", "open"));
 	const { isOpen, isTranslating } = useWidgetStore(usePick("isOpen", "isTranslating"));
 
 	return (
@@ -41,8 +39,6 @@ export const WidgetControls = () => {
 			<Button onClick={() => open("settings")} variant="ghost-gov" size={isMobile ? "icon-sm" : "icon"}>
 				<SettingsIcon />
 			</Button>
-
-			{status === "idle" && !!callbackScreen && <Button className="absolute left-2">Teste</Button>}
 
 			<CallbackScreen />
 		</div>

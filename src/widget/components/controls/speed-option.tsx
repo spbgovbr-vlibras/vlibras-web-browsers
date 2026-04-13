@@ -34,11 +34,7 @@ export const SpeedOption = () => {
 				</DropdownTrigger>
 			</Tooltip>
 
-			<div
-				tabIndex={-1}
-				style={{ boxShadow: "0 0 10px 0px rgba(0, 0, 0, 0.15)" }}
-				className="dropdown-content mb-4 rounded-lg border bg-background"
-			>
+			<div tabIndex={-1} className="dropdown-content mb-4 rounded-lg border bg-background drop-shadow-lg">
 				<ul
 					className={cn(
 						"space-y-1 p-1 font-semibold text-primary text-sm",

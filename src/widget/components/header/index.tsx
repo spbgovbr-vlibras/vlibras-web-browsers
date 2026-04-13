@@ -2,9 +2,10 @@ import { useMobile } from "@/common/hooks";
 import { cn } from "@/common/lib/utils";
 import { Button } from "@/widget/components/ui/button";
 import { Tooltip } from "@/widget/components/ui/tooltip";
-import { FullscreenIcon, XIcon } from "@/widget/icons";
+import { FullscreenIcon, IcaroIcon, XIcon } from "@/widget/icons";
 import { useWidgetStore } from "@/widget/stores/use-widget.store";
 import { useDraggable } from "../draggable";
+import { Spacer } from "../ui/spacer";
 import { WidgetMenu } from "./menu";
 
 export const WidgetHeader = () => {
@@ -18,17 +19,23 @@ export const WidgetHeader = () => {
 	};
 
 	return (
-		<div className={cn("relative bottom-auto flex items-center justify-between gap-1 bg-primary px-2 py-1.5")}>
+		<div className={cn("relative bottom-auto flex items-center justify-center gap-1 bg-primary px-2 py-1.5")}>
 			<div {...{ onPointerDown }} className="absolute inset-0 z-0 hover:cursor-move" />
 
-			<span
-				inert
-				className="absolute left-1/2 -translate-x-1/2 font-semibold text-primary-foreground text-sm leading-0 sm:text-base"
-			>
-				VLibras
-			</span>
-
 			<WidgetMenu />
+
+			<div className="mr-2 ml-1">
+				<span className="absolute inset-y-0 w-px bg-primary-foreground/30" />
+			</div>
+
+			<div className="flex items-center gap-1.5 font-semibold text-primary-foreground text-sm">
+				<div className="flex size-5.5 items-end justify-center rounded-full bg-primary-foreground max-sm:hidden">
+					<IcaroIcon className="size-4.5 text-primary" />
+				</div>
+				VLibras
+			</div>
+
+			<Spacer className="w-full" />
 
 			<Tooltip
 				className="whitespace-nowrap text-xs"

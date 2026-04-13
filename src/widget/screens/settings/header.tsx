@@ -11,13 +11,11 @@ export const SettingsHeader = () => {
 		<ScreenHeader close>
 			<ScreenTitle>Configurações</ScreenTitle>
 
-			<label
-				className={cn(buttonVariants({ variant: "ghost", size: "icon" }), "swap swap-rotate ml-auto rounded-full")}
-			>
+			<label className={cn(buttonVariants({ variant: "ghost", size: "icon-sm" }), "swap swap-rotate ml-auto")}>
 				<input
 					type="checkbox"
 					onChange={toggleTheme}
-					className="absolute inset-0 rounded-full"
+					className="absolute inset-0 rounded-lg"
 					checked={theme === "light"}
 				/>
 
