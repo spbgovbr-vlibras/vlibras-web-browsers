@@ -8,7 +8,7 @@ export const RegionalismHeader = () => {
 	const { theme, toggleTheme } = useTheme();
 
 	return (
-		<ScreenHeader goToSeetings>
+		<ScreenHeader close>
 			<ScreenTitle>Regionalismo</ScreenTitle>
 
 			<label
