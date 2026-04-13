@@ -17,11 +17,14 @@ export const EmotionsOption = () => {
 		posthogg.trackEvent("change_emotion", { emotion: emotion.name });
 	};
 
+	const isDefaultEmotion = currentEmotion === emotionsMap.default;
+
 	return (
 		<div className="dropdown dropdown-center dropdown-top focus-within:**:data-[slot=tooltip-content]:hidden">
 			<Tooltip className="text-xs" offset={8} content="Emoções" placement="top" arrow={{ position: "bottom" }}>
-				<DropdownTrigger className="relative" variant="ghost-gov" size={isMobile ? "icon-sm" : "icon"}>
+				<DropdownTrigger className="group relative" variant="ghost-gov" size={isMobile ? "icon-sm" : "icon"}>
 					<currentEmotion.icon />
+					{!isDefaultEmotion && <span className="absolute top-0.5 right-0.5 size-2 rounded-full bg-destructive" />}
 				</DropdownTrigger>
 			</Tooltip>
 
