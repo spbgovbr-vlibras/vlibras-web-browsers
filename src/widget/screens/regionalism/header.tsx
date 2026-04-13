@@ -1,29 +1,25 @@
-import { useTheme } from "@/common/hooks";
-import { cn } from "@/common/lib/utils";
-import { buttonVariants } from "@/widget/components/ui/button";
-import { MoonIcon, SunIcon } from "@/widget/icons";
+import { useMobile } from "@/common/hooks";
+import { Button } from "@/widget/components/ui/button";
+import { ArrowLeftIcon } from "@/widget/icons";
+import { useScreensStore } from "@/widget/stores/use-screens.store";
 import { ScreenHeader, ScreenTitle } from "../components";
 
 export const RegionalismHeader = () => {
-	const { theme, toggleTheme } = useTheme();
+	const isMobile = useMobile();
+	const open = useScreensStore((s) => s.open);
 
 	return (
-		<ScreenHeader close>
-			<ScreenTitle>Regionalismo</ScreenTitle>
-
-			<label
-				className={cn(buttonVariants({ variant: "ghost", size: "icon" }), "swap swap-rotate ml-auto rounded-full")}
+		<ScreenHeader>
+			<Button
+				onClick={() => open("settings")}
+				variant="outline"
+				size={isMobile ? "icon-sm" : "icon"}
+				className="rounded-full"
 			>
-				<input
-					type="checkbox"
-					onChange={toggleTheme}
-					className="absolute inset-0 rounded-full"
-					checked={theme === "light"}
-				/>
+				<ArrowLeftIcon />
+			</Button>
 
-				<MoonIcon className={cn("swap-off absolute")} title="Modo escuro" />
-				<SunIcon className={cn("swap-on absolute")} title="Modo claro" />
-			</label>
+			<ScreenTitle>Regionalismo</ScreenTitle>
 		</ScreenHeader>
 	);
 };

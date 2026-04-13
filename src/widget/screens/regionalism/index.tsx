@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { posthogg } from "@/common/lib/posthog";
 import { cn } from "@/common/lib/utils";
 import { type Regionalism, regionalismArray } from "@/data/regionalism";
 import { usePlayer } from "@/player/use-player";
@@ -8,10 +8,17 @@ import { Screen, ScreenContent } from "../components";
 import { RegionalismHeader } from "./header";
 
 export const RegionalismScreen = () => {
-	const { region } = usePlayerStore();
+	const currentRegion = usePlayerStore((s) => s.region);
+	const open = useScreensStore((s) => s.open);
+
 	const { setRegion } = usePlayer();
-	const { open } = useScreensStore();
-	const [selected, setSelected] = useState<Regionalism>(region || regionalismArray[0]);
+
+	const handleRegionChange = (region: Regionalism) => {
+		setRegion(region);
+		open("settings");
+		posthogg.trackEvent("region_change", { region });
+	};
+
 	return (
 		<Screen>
 			<RegionalismHeader />
@@ -21,14 +28,10 @@ export const RegionalismScreen = () => {
 						<button
 							type="button"
 							key={regionalism.abbreviation}
-							onClick={() => {
-								setSelected(regionalism);
-								setRegion(regionalism);
-								open("settings");
-							}}
+							onClick={() => handleRegionChange(regionalism)}
 							className={cn(
 								"m-0 flex w-full cursor-pointer items-center justify-between px-5 py-2 transition-all hover:bg-foreground/10",
-								selected === regionalism && "order-first",
+								currentRegion === regionalism && "order-first",
 							)}
 						>
 							<div className="flex items-center justify-start gap-3 font-semibold text-secondary text-sm dark:text-white">
@@ -38,12 +41,7 @@ export const RegionalismScreen = () => {
 							<input
 								type="radio"
 								className="radio-primary checked:radio-secondary h-5 w-5 border"
-								checked={selected === regionalism}
-								onChange={() => {
-									setSelected(regionalism);
-									setRegion(regionalism);
-									open("settings");
-								}}
+								checked={currentRegion === regionalism}
 							/>
 						</button>
 					))}
