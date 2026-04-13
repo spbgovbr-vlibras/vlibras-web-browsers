@@ -1,5 +1,5 @@
 import { config } from "@/core/config";
-import type { Emotion } from "@/data/emotionsMap";
+import type { Emotion } from "@/data/emotions-map";
 import type { Regionalism } from "@/data/regionalism";
 import { UNITY_METHODS, UNITY_OBJECTS } from "./constants/unity";
 import type { PlayerAvatar, PlayerConfig } from "./types";

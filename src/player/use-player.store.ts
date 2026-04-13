@@ -2,7 +2,7 @@ import { create } from "zustand";
 import { createJSONStorage, persist } from "zustand/middleware";
 import type { OnlyState } from "@/common/types";
 import { pick } from "@/common/utils";
-import { type Emotion, emotionsMap } from "@/data/emotionsMap";
+import { type Emotion, emotionsMap } from "@/data/emotions-map";
 import type { Regionalism } from "@/data/regionalism";
 import { regionalismArray } from "@/data/regionalism";
 import type { UNITY_METHODS, UNITY_OBJECTS } from "./constants/unity";

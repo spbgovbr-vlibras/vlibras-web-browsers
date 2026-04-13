@@ -1,7 +1,7 @@
 import { useMobile } from "@/common/hooks";
 import { posthogg } from "@/common/lib/posthog";
 import { cn } from "@/common/lib/utils";
-import { type Emotion, emotionsMap } from "@/data/emotionsMap";
+import { type Emotion, emotionsMap } from "@/data/emotions-map";
 import { usePlayer } from "@/player/use-player";
 import { usePlayerStore } from "@/player/use-player.store";
 import { DropdownTrigger } from "@/widget/components/ui/dropdown";
