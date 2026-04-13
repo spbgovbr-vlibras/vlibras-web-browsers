@@ -10,7 +10,7 @@ import { WidgetProviders } from "./providers/app";
 import { useWidgetStore } from "./stores/use-widget.store";
 
 export const WidgetApp = () => {
-	const { isOpen, position } = useWidgetStore(usePick("isOpen", "position"));
+	const { isOpen, position, opacity } = useWidgetStore(usePick("isOpen", "position", "opacity"));
 	const { progress, isLoaded } = usePlayerStore(usePick("progress", "isLoaded"));
 
 	return (
@@ -25,6 +25,7 @@ export const WidgetApp = () => {
 							boxShadow: "0 0 15px -5px rgba(0, 0, 0, 0.15)",
 							transform: hasMoved && isOpen ? `translate3d(${pos.x}px, ${pos.y}px, 0)` : undefined,
 							touchAction: "none",
+							backgroundColor: `color-mix(in oklch, var(--background) ${Number(opacity) * 100}%, transparent)`,
 						}}
 						className={cn(
 							"fixed z-2147483647 flex h-fit w-(--widget-width) flex-col overflow-hidden rounded-xl",

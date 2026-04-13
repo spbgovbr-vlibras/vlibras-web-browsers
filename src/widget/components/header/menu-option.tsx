@@ -21,7 +21,7 @@ export const MenuOption = ({ label, onClick, icon }: Props) => {
 				aria-label={label}
 				size={isMobile ? "icon-sm" : "icon"}
 				variant="outline-gov"
-				className="rounded-full border-border"
+				className="rounded-full border-0 bg-background drop-shadow-md hover:bg-muted"
 			>
 				<Icon className="size-5.5" />
 			</Button>
@@ -29,7 +29,7 @@ export const MenuOption = ({ label, onClick, icon }: Props) => {
 			<Button
 				onClick={onClick}
 				variant="outline"
-				className="whitespace-nowrap rounded-full bg-background hover:bg-muted"
+				className="w-30 rounded-full border-0 bg-background drop-shadow-md hover:bg-muted"
 				size="xs"
 			>
 				{label}

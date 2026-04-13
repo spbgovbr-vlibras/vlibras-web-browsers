@@ -2,6 +2,9 @@ import { create } from "zustand";
 import { createJSONStorage, persist } from "zustand/middleware";
 import type { OnlyState } from "@/common/types";
 import { pick } from "@/common/utils";
+import { type Emotion, emotionsMap } from "@/data/emotionsMap";
+import type { Regionalism } from "@/data/regionalism";
+import { regionalismArray } from "@/data/regionalism";
 import type { UNITY_METHODS, UNITY_OBJECTS } from "./constants/unity";
 import type { CountGloss, PlayerAvatar, PlayerConfig, PlayerStatus } from "./types";
 
@@ -18,6 +21,8 @@ export interface PlayerStoreState {
 	isWelcomeFinished: boolean;
 	showSubtitles: boolean;
 	countGloss: CountGloss;
+	region: Regionalism;
+	emotion: Emotion;
 	send: (object: UNITY_OBJECTS, method: UNITY_METHODS, params?: unknown) => void;
 	reset: () => void;
 }
@@ -35,6 +40,8 @@ const defaults: OnlyState<PlayerStoreState> = {
 	isPlayingWelcome: false,
 	isWelcomeFinished: false,
 	isLoaded: false,
+	region: regionalismArray[0],
+	emotion: emotionsMap.default,
 };
 
 export const usePlayerStore = create<PlayerStoreState>()(

@@ -1,0 +1,9 @@
+export { EmojiAngry } from "./angry";
+export { EmojiAutomatic } from "./automatic";
+export { EmojiDefault } from "./default";
+export { EmojiDisgust } from "./disgust";
+export { EmojiDoubt } from "./doubt";
+export { EmojiFear } from "./fear";
+export { EmojiHappy } from "./happy";
+export { EmojiSad } from "./sad";
+export { EmojiSurprise } from "./surprise";
