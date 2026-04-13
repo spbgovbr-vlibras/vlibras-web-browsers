@@ -1,4 +1,5 @@
 import type { ComponentProps } from "preact/compat";
+import { useMobile } from "@/common/hooks";
 import { cn } from "@/common/lib/utils";
 import { Button, type ButtonProps } from "@/widget/components/ui/button";
 import { ArrowLeftIcon } from "@/widget/icons";
@@ -22,7 +23,7 @@ export const ScreenHeader = ({ children, className, ...props }: ComponentProps<"
 
 	return (
 		<div
-			className={cn("flex items-center gap-3 border-b p-4 py-3 hover:cursor-move", className)}
+			className={cn("flex h-min items-center gap-3 border-b p-2.5 hover:cursor-move", className)}
 			{...{ onPointerDown }}
 			{...props}
 		>
@@ -34,9 +35,10 @@ export const ScreenHeader = ({ children, className, ...props }: ComponentProps<"
 
 export const ScreenClose = ({ className, ...props }: ButtonProps) => {
 	const closeAll = useScreensStore((s) => s.closeAll);
+	const isMobile = useMobile();
 
 	return (
-		<Button onClick={closeAll} variant="outline" size="icon-sm" className={cn(className)} {...props}>
+		<Button onClick={closeAll} variant="outline" size={isMobile ? "icon-sm" : "icon"} className={className} {...props}>
 			<ArrowLeftIcon />
 		</Button>
 	);

@@ -47,9 +47,10 @@ export const TextCaptureTooltip = () => {
 			style={{
 				left: position.x,
 				top: position.y,
+				boxShadow: "2px 2px 10px 4px rgba(0, 0, 0, .2)",
 			}}
 			className={cn(
-				"group absolute z-2147483647 h-9 -translate-x-6 -translate-y-full animate-scale rounded-lg px-3 text-primary-foreground drop-shadow-lg",
+				"group absolute z-2147483647 h-9 -translate-x-6 -translate-y-full animate-scale rounded-lg px-3 text-primary-foreground",
 				!isActive && "hidden",
 			)}
 		>

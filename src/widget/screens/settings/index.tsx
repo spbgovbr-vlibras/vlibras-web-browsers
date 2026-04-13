@@ -1,5 +1,7 @@
 import { logoBrasil } from "@/assets";
+import { regionalismArray } from "@/data/regionalism";
 import { usePlayerStore } from "@/player/use-player.store";
+import { Button } from "@/widget/components/ui/button";
 import { useScreensStore } from "@/widget/stores/use-screens.store";
 import { useWidgetStore } from "@/widget/stores/use-widget.store";
 import { Screen, ScreenContent } from "../components";
@@ -7,9 +9,16 @@ import { SettingsHeader } from "./header";
 import { SettingsField } from "./settingsfield";
 
 export const SettingsScreen = () => {
-	const { region } = usePlayerStore();
-	const { opacity } = useWidgetStore();
-	const { open } = useScreensStore();
+	const region = usePlayerStore((s) => s.region);
+	const opacity = useWidgetStore((s) => s.opacity);
+	const open = useScreensStore((s) => s.open);
+
+	const handleReset = () => {
+		const defaultRegion = regionalismArray[0];
+
+		usePlayerStore.setState({ region: defaultRegion });
+		useWidgetStore.setState({ opacity: 1 });
+	};
 
 	return (
 		<Screen>
@@ -51,6 +60,10 @@ export const SettingsScreen = () => {
 						</div>
 					</SettingsField>
 				</div>
+
+				<Button onClick={handleReset} variant="outline" className="mt-auto" size="sm">
+					Restaurar padrão
+				</Button>
 			</ScreenContent>
 		</Screen>
 	);

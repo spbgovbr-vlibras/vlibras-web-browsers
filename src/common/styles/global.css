@@ -102,6 +102,7 @@
 }
 
 :host {
+	
 	--widget-width: 260px;
 	--player-height: 328px;
 	
@@ -111,7 +112,13 @@
 	}
 }
 
-
+@custom-variant mobile {
+  @media (max-width: 640px) {
+    &:is(:host(:not(.vlibras--fullscreen)) *) {
+      @slot;
+    }
+  }
+}
 
 @keyframes scale {
 	0% { transform: scale(0); }

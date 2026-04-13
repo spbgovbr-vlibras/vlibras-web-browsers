@@ -30,11 +30,11 @@ export const RegionalismScreen = () => {
 							key={regionalism.abbreviation}
 							onClick={() => handleRegionChange(regionalism)}
 							className={cn(
-								"m-0 flex w-full cursor-pointer items-center justify-between px-5 py-2 transition-all hover:bg-foreground/10",
+								"m-0 flex w-full cursor-pointer items-center justify-between whitespace-nowrap px-5 py-2 transition-all hover:bg-foreground/10",
 								currentRegion === regionalism && "order-first",
 							)}
 						>
-							<div className="flex items-center justify-start gap-3 font-semibold text-secondary text-sm dark:text-white">
+							<div className="flex items-center justify-start gap-3 font-semibold mobile:text-xs text-secondary text-sm dark:text-white">
 								<img src={regionalism.url} alt={regionalism.name} className="h-7 w-auto rounded-sm" />
 								{regionalism.name}
 							</div>

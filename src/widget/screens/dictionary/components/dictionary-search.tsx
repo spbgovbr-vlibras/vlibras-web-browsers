@@ -12,7 +12,7 @@ export const DictionarySearch = () => {
 				type="text"
 				placeholder="Pesquisar (ex: AJUDAR)..."
 				onInput={(e) => handleSearchChange(e.currentTarget.value)}
-				className="h-9 w-full rounded-md border p-2 pr-8 outline-primary focus:outline-2 focus:outline-solid"
+				className="h-9 w-full rounded-md border p-2 pr-8 outline-primary placeholder:text-sm focus:outline-2 focus:outline-solid"
 			/>
 
 			{search && (

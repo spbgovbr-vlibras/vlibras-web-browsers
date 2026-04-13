@@ -1,7 +1,7 @@
 import { $, $$ } from "@/common/utils/dom";
 
 const $root = Array.from([document.body, ...document.body.children]);
-const $guide = $(".vlibras-guide-container");
+const $appRoot = $("#vlibras-app-root");
 
 export const getTextContent = (element: HTMLElement) => {
 	if (hasTag(element, ["IMG"])) return (element as HTMLImageElement).alt;
@@ -25,7 +25,7 @@ export const findInteractiveElement = (el: HTMLElement) => {
 };
 
 export const isValidElement = (element: HTMLElement) => {
-	if ($guide?.contains(element)) return false;
+	if ($appRoot?.contains(element)) return false;
 
 	const isLink = element.matches(".vlibras-links");
 	if (isLink) return false;

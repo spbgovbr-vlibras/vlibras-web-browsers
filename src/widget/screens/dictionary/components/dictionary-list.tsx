@@ -35,7 +35,6 @@ export const DictionaryList = () => {
 	return (
 		<div className="flex h-full flex-col gap-2 overflow-hidden">
 			<DictionarySearch />
-
 			<DictionaryFilter />
 
 			{isEmpty && (
