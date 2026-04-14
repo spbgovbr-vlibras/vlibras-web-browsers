@@ -1,12 +1,14 @@
 import { useMobile } from "@/common/hooks";
 import { Button } from "@/widget/components/ui/button";
 import { TrashIcon } from "@/widget/icons";
-import type { DictionaryFilter as Filter } from "../hooks/use-dictionary";
+import { CategoriesList } from "../lib/constants";
+import type { DictionaryFilter as Filter } from "../lib/types";
 import { useDictionaryHistoryStore } from "../stores/use-dictionary-history.store";
 import { useDictionaryCtx } from "./dictionary-context";
 
 const options: { label: string; value: Filter }[] = [
-	{ label: "Todos", value: "all" },
+	{ label: "Categorias", value: "categories" },
+	{ label: "A-Z", value: "all" },
 	{ label: "Recentes", value: "recents" },
 ];
 
@@ -34,7 +36,12 @@ export const DictionaryFilter = () => {
 					>
 						{option.label}
 
-						{isActive && !!filteredSigns.length && <span className="text-xs leading-0">({filteredSigns.length})</span>}
+						{/* {isActive && option.value !== "categories" && !!filteredSigns.length && (
+							<span className="text-xs leading-0">({filteredSigns.length})</span>
+						)}
+						{isActive && option.value === "categories" && !!CategoriesList.length && (
+							<span className="text-xs leading-0">({CategoriesList.length})</span>
+						)} */}
 					</Button>
 				);
 			})}
@@ -42,7 +49,7 @@ export const DictionaryFilter = () => {
 			{filter === "recents" && (
 				<Button
 					onClick={handleHistoryClear}
-					className="ml-auto text-muted-foreground not-focus:outline-0 outline-destructive hover:text-destructive focus:[&_svg]:text-destructive"
+					className="text-muted-foreground not-focus:outline-0 outline-destructive hover:text-destructive focus:[&_svg]:text-destructive"
 					size={isMobile ? "icon-xs" : "icon-sm"}
 					variant="ghost"
 					aria-label="Limpar histórico"

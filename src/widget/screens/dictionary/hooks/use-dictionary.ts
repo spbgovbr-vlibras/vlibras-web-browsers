@@ -2,6 +2,9 @@ import { useCallback, useEffect, useMemo, useRef, useState } from "preact/hooks"
 import { useDebouncedCallback } from "@/common/hooks";
 import { Trie } from "@/common/lib/trie";
 import { useDictionarySigns } from "@/core/actions/hooks";
+import { getSignsByCategory } from "../lib/categories";
+import type { CategoriesList } from "../lib/constants";
+import type { DictionaryFilter } from "../lib/types";
 import { useDictionaryStore } from "../stores/use-dictionary.store";
 import { useDictionaryHistoryStore } from "../stores/use-dictionary-history.store";
 
@@ -10,8 +13,6 @@ type DictionaryState = {
 	search: string;
 	visibleCount: number;
 };
-
-export type DictionaryFilter = "recents" | "all";
 
 const ITEMS_PER_PAGE = 50;
 
@@ -24,6 +25,7 @@ export const useDictionary = () => {
 	const [filter, setFilter] = useState<DictionaryFilter>("all");
 	const { data, isLoading, refetch } = useDictionarySigns();
 	const { signs } = useDictionaryHistoryStore();
+	const [selectedCategory, setSelectedCategory] = useState<(typeof CategoriesList)[0] | null>(null);
 
 	const retry = async () => {
 		await refetch();
@@ -45,10 +47,21 @@ export const useDictionary = () => {
 		visibleCount: ITEMS_PER_PAGE,
 	});
 
+	const filteredCategoryWords = useMemo(() => {
+		if (!selectedCategory) return [];
+		const searchTerm = search.toLowerCase().trim();
+		const allSignsSet = new Set(allSigns);
+		return getSignsByCategory(selectedCategory.name).filter(
+			(sign) => allSignsSet.has(sign) && (searchTerm === "" || sign.toLowerCase().includes(searchTerm)),
+		);
+	}, [selectedCategory, allSigns, search]);
+
 	const onSearchChange = useCallback(
 		(term: string) => {
 			const searchTerm = term.toUpperCase().trim();
-			const filtered = (filter === "all" ? allSigns : signs).filter((sign) => sign.toUpperCase().includes(searchTerm));
+			const filtered = (filter !== "recents" ? allSigns : signs).filter((sign) =>
+				sign.toUpperCase().includes(searchTerm),
+			);
 
 			setState((p) => ({
 				...p,
@@ -81,7 +94,10 @@ export const useDictionary = () => {
 		}
 	};
 
-	useEffect(() => onSearchChange(search), [filter]);
+	useEffect(() => {
+		setSelectedCategory(null);
+		onSearchChange(search);
+	}, [filter]);
 
 	useEffect(() => {
 		if (allSigns.length > 0) setState((p) => ({ ...p, filteredSigns: allSigns }));
@@ -121,6 +137,9 @@ export const useDictionary = () => {
 		filter,
 		setFilter,
 		count,
+		selectedCategory,
+		setSelectedCategory,
+		filteredCategoryWords,
 		...store,
 	};
 };
