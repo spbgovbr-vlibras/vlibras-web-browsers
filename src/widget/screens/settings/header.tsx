@@ -21,7 +21,7 @@ export const SettingsHeader = () => {
 				<input
 					type="checkbox"
 					onChange={toggleTheme}
-					className="absolute inset-0 rounded-lg"
+					className="absolute inset-0 cursor-pointer rounded-lg"
 					checked={theme === "light"}
 				/>
 

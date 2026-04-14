@@ -31,7 +31,7 @@ export const SettingsScreen = () => {
 							onClick={() => open("regionalism")}
 							className="flex w-full cursor-pointer items-center justify-between focus:outline-none"
 						>
-							<div>Regionalismo</div>
+							<span className="text-muted-foreground">Regionalismo</span>
 							<div className="flex items-center gap-3 rounded-sm p-1 hover:bg-foreground/10">
 								<img className="h-7 w-auto rounded-sm" src={region.url} alt={logoBrasil} />
 								<span>{region.abbreviation}</span>
@@ -40,9 +40,9 @@ export const SettingsScreen = () => {
 					</SettingsField>
 
 					<SettingsField label="Aparência">
-						<div className="flex flex-col">
+						<div className="flex flex-col gap-2">
 							<div className="flex justify-between">
-								<span>Opacidade</span>
+								<span className="text-muted-foreground">Opacidade</span>
 								<span>{Math.round(Number(opacity) * 100)} %</span>
 							</div>
 							<input
@@ -54,7 +54,7 @@ export const SettingsScreen = () => {
 								onChange={(e) => {
 									useWidgetStore.setState({ opacity: Number(e.currentTarget.value) / 100 });
 								}}
-								className="accent-primary focus:outline-none"
+								className="range range-xs range-primary [--range-bg:var(--muted)] [--range-thumb:var(--primary-foreground)]"
 								onPointerDown={(e) => e.stopPropagation()}
 							/>
 						</div>
