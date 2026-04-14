@@ -1,4 +1,5 @@
 import { cn } from "@/common/lib/utils";
+import { usePlayer } from "@/player/use-player";
 import { ChevronDownIcon } from "@/widget/icons/chevron-down";
 import { ChevronUpIcon } from "@/widget/icons/chevron-up";
 import { useScreensStore } from "@/widget/stores/use-screens.store";
@@ -7,15 +8,16 @@ import { useWordMeaning } from "../hooks/use-word-meaning";
 import { useDictionaryCtx } from "./dictionary-context";
 import { DictionaryWordMeaning } from "./dictionary-word-meaning";
 
-const handlePlayDefinition = (text: string) => {
-	// playFromText(text); // equivalente ao translatePtBr do mobile
-	useScreensStore.setState({ screen: "main" });
-};
-
 export const DictionaryCategoryWords = () => {
+	const { playText } = usePlayer();
 	const handlePlay = useHandlePlay();
 	const ctx = useDictionaryCtx();
 	const { expandedWord, wordMeanings, loadingMeaning, toggleWordMeaning } = useWordMeaning();
+
+	const handlePlayDefinition = (text: string) => {
+		playText(text);
+		useScreensStore.setState({ screen: "main" });
+	};
 
 	return (
 		<div ref={ctx.listRef} className="h-full overflow-auto">

@@ -1,10 +1,8 @@
 import { useRef } from "preact/hooks";
 import { cn } from "@/common/lib/utils";
-import { useTranslate } from "@/core/actions/hooks";
 import { usePlayer } from "@/player/use-player";
 import { Button } from "@/widget/components/ui/button";
 import { XIcon } from "@/widget/icons";
-import { useWidgetStore } from "@/widget/stores/use-widget.store";
 
 type Props = {
 	isOpen: boolean;
@@ -13,8 +11,7 @@ type Props = {
 
 export const TranslatorSheet = ({ isOpen, onClose }: Props) => {
 	const textareaRef = useRef<HTMLTextAreaElement>(null);
-	const { mutateAsync: translate } = useTranslate();
-	const { play } = usePlayer();
+	const { playText } = usePlayer();
 
 	return (
 		<div
@@ -78,10 +75,7 @@ export const TranslatorSheet = ({ isOpen, onClose }: Props) => {
 						onClick={async () => {
 							const text = textareaRef.current?.value;
 							if (text) {
-								useWidgetStore.setState({ isTranslating: true, text });
-								const gloss = await translate(text);
-								useWidgetStore.setState({ isTranslating: false });
-								play(gloss);
+								playText(text);
 								onClose();
 							}
 						}}

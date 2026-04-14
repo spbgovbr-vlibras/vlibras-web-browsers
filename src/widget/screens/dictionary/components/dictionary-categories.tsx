@@ -1,6 +1,6 @@
 import { useMobile } from "@/common/hooks";
 import { ChevronDownIcon } from "@/widget/icons/chevron-down";
-import { CategoriesList } from "../lib/constants";
+import { CategoriesList } from "@/widget/screens/dictionary/lib/constants";
 import { useDictionaryCtx } from "./dictionary-context";
 
 export const DictionaryCategories = () => {
