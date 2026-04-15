@@ -1,5 +1,7 @@
 @import "tailwindcss";
-@plugin "daisyui";
+@plugin "daisyui" {
+	root: ":host"
+}
 
 :host {
 	--background: oklch(1 0 0);
