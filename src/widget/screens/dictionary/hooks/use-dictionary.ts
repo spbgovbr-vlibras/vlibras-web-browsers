@@ -59,9 +59,7 @@ export const useDictionary = () => {
 	const onSearchChange = useCallback(
 		(term: string) => {
 			const searchTerm = term.toUpperCase().trim();
-			const filtered = (filter !== "recents" ? allSigns : signs).filter((sign) =>
-				sign.toUpperCase().includes(searchTerm),
-			);
+			const filtered = (filter === "all" ? allSigns : signs).filter((sign) => sign.toUpperCase().includes(searchTerm));
 
 			setState((p) => ({
 				...p,
@@ -120,6 +118,32 @@ export const useDictionary = () => {
 	const visibleSigns = filteredSigns.slice(0, visibleCount);
 	const count = { all: allSigns.length, recents: signs.length };
 
+	const [categoryVisibleCount, setCategoryVisibleCount] = useState(ITEMS_PER_PAGE);
+
+	const visibleCategoryWords = useMemo(() => {
+		return filteredCategoryWords.slice(0, categoryVisibleCount);
+	}, [filteredCategoryWords, categoryVisibleCount]);
+
+	const onCategoryScroll = useCallback(
+		(e: Event) => {
+			const el = e.currentTarget as HTMLElement;
+
+			const isBottom = el.scrollTop + el.clientHeight >= el.scrollHeight - 50;
+
+			if (!isBottom) return;
+
+			setCategoryVisibleCount((p) => {
+				if (p >= filteredCategoryWords.length) return p;
+				return p + ITEMS_PER_PAGE;
+			});
+		},
+		[filteredCategoryWords.length],
+	);
+
+	useEffect(() => {
+		setCategoryVisibleCount(ITEMS_PER_PAGE);
+	}, [selectedCategory]);
+
 	return {
 		search,
 		isLoading,
@@ -140,6 +164,8 @@ export const useDictionary = () => {
 		selectedCategory,
 		setSelectedCategory,
 		filteredCategoryWords,
+		onCategoryScroll,
+		visibleCategoryWords,
 		...store,
 	};
 };

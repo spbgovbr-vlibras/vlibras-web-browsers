@@ -20,9 +20,9 @@ export const DictionaryCategoryWords = () => {
 	};
 
 	return (
-		<div ref={ctx.listRef} className="h-full overflow-auto">
+		<div ref={ctx.listRef} onScroll={ctx.onCategoryScroll} className="h-full overflow-auto">
 			<ul className="flex h-full w-full flex-col text-sm">
-				{ctx.filteredCategoryWords.map((sign) => {
+				{ctx.visibleCategoryWords.map((sign) => {
 					const isExpanded = expandedWord === sign;
 					const isLoadingThis = loadingMeaning === sign;
 
@@ -43,13 +43,6 @@ export const DictionaryCategoryWords = () => {
 									aria-label={isExpanded ? "Fechar significado" : "Ver significado"}
 								>
 									{isExpanded ? <ChevronUpIcon /> : <ChevronDownIcon />}
-									{/* <ChevronUpIcon
-                                        className={cn(
-                                            "size-3.5 transition-transform duration-200",
-                                            isExpanded ? "" : "rotate-180",
-                                            // chevron down quando fechado, up quando aberto
-                                        )}
-                                    /> */}
 								</button>
 							</div>
 							{isExpanded && (
