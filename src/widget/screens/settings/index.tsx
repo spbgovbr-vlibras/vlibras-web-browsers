@@ -1,4 +1,5 @@
-import { useRef } from "preact/hooks";
+import { useMemo, useRef } from "preact/hooks";
+import { usePick, useTheme } from "@/common/hooks";
 import { posthogg } from "@/common/lib/posthog";
 import { regionalismArray } from "@/data/regionalism";
 import { usePlayerStore } from "@/player/use-player.store";
@@ -10,8 +11,9 @@ import { SettingsHeader } from "./header";
 import { SettingsField } from "./settingsfield";
 
 export const SettingsScreen = () => {
-	const timeoutRef = useRef<NodeJS.Timeout>(null);
+	const { theme, setTheme } = useTheme(usePick("theme", "setTheme"));
 
+	const timeoutRef = useRef<NodeJS.Timeout>(null);
 	const region = usePlayerStore((s) => s.region);
 	const opacity = useWidgetStore((s) => s.opacity);
 	const open = useScreensStore((s) => s.open);
@@ -19,6 +21,7 @@ export const SettingsScreen = () => {
 	const handleReset = () => {
 		const defaultRegion = regionalismArray[0];
 
+		setTheme("light");
 		usePlayerStore.setState({ region: defaultRegion });
 		useWidgetStore.setState({ opacity: 1 });
 	};
@@ -29,6 +32,10 @@ export const SettingsScreen = () => {
 		if (timeoutRef.current) clearTimeout(timeoutRef.current);
 		timeoutRef.current = setTimeout(() => posthogg.trackEvent("opacity_change", { opacity }), 2000);
 	};
+
+	const isDefaultSettings = useMemo(() => {
+		return region.abbreviation === "BR" && opacity === 1 && theme === "light";
+	}, [region, opacity, theme]);
 
 	return (
 		<Screen>
@@ -69,9 +76,11 @@ export const SettingsScreen = () => {
 					</SettingsField>
 				</div>
 
-				<Button onClick={handleReset} variant="outline" className="mt-auto" size="sm">
-					Restaurar padrão
-				</Button>
+				{!isDefaultSettings && (
+					<Button onClick={handleReset} variant="ghost" className="mt-auto animate-move-up mobile:text-xs text-sm">
+						Restaurar padrão
+					</Button>
+				)}
 			</ScreenContent>
 		</Screen>
 	);
