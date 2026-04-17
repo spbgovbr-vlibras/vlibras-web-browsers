@@ -21,7 +21,7 @@
   </head>
   <body>
     <canvas id="unity-canvas"></canvas>
-    <script src="./webgl.loader.js"></script>
+    <script src="./playerweb.loader.js"></script>
 
     <script>
       let unity;
@@ -33,9 +33,9 @@
       createUnityInstance(
         document.getElementById("unity-canvas"),
         {
-          dataUrl: "./webgl.data",
-          frameworkUrl: "./build.framework.js",
-          codeUrl: "./build.wasm",
+          dataUrl: "./playerweb.data",
+          frameworkUrl: "./playerweb.framework.js",
+          codeUrl: "./playerweb.wasm",
         },
         (progress) => postEvent("update_progress", progress),
       ).then((instance) => (unity = instance));
