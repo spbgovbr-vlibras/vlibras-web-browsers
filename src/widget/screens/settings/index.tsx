@@ -54,7 +54,7 @@ export const SettingsScreen = () => {
 								onChange={(e) => {
 									useWidgetStore.setState({ opacity: Number(e.currentTarget.value) / 100 });
 								}}
-								className="range range-xs range-primary [--range-bg:var(--muted)] [--range-thumb:var(--primary-foreground)]"
+								className="range range-xs text-primary [--range-bg:var(--muted)] [--range-thumb:var(--primary-foreground)]"
 								onPointerDown={(e) => e.stopPropagation()}
 							/>
 						</div>
