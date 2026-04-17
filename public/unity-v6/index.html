@@ -1,0 +1,115 @@
+<!doctype html>
+<html lang="en-us">
+  <head>
+    <meta charset="utf-8" />
+    <title>VLibras v6</title>
+    <style>
+      * {
+        box-sizing: border-box;
+      }
+      html,
+      body {
+        margin: 0;
+        width: 100%;
+        height: 100%;
+        overflow: hidden;
+      }
+      canvas {
+        width: 100%;
+        height: 100%;
+      }
+
+      /* Ativado via classe quando ?transparent=true */
+      body.transparent-mode #unity-canvas {
+        background: transparent !important;
+      }
+    </style>
+  </head>
+  <body>
+    <canvas id="unity-canvas"></canvas>
+
+    <script>
+      let unity;
+
+      const postEvent = (event, data) => {
+        window.parent.postMessage({ type: "unity_event", event, data }, "*");
+      };
+
+      // Lê ?transparent=true da URL
+      var params = new URLSearchParams(window.location.search);
+      var isTransparent = params.get("transparent") === "true";
+
+      if (isTransparent) {
+        document.body.classList.add("transparent-mode");
+      }
+
+      var canvas = document.getElementById("unity-canvas");
+      var config = {
+        dataUrl: "playerweb.data.br",
+        frameworkUrl: "playerweb.framework.js.br",
+        codeUrl: "playerweb.wasm.br",
+        companyName: "DefaultCompany",
+        productName: "VLibras v6",
+        productVersion: "0.1.0",
+      };
+
+      var script = document.createElement("script");
+      script.src = "playerweb.loader.js";
+
+      script.onload = () => {
+        // Só ativa alpha se transparent=true
+        if (isTransparent) {
+          config["webglContextAttributes"] = {
+            alpha: true,
+            premultipliedAlpha: true,
+            powerPreference: "2",
+          };
+        }
+
+        // Expõe a flag globalmente para o jslib
+        window.__unityTransparent = isTransparent;
+        window.parent.window.__unityTransparent = isTransparent;
+
+        createUnityInstance(canvas, config, (progress) =>
+          postEvent("update_progress", progress),
+        )
+          .then((instance) => (unity = instance))
+          .catch((message) => {
+            console.error(message);
+          });
+      };
+
+      window.addEventListener("message", (e) => {
+        const m = e.data;
+
+        if (!unity) return;
+        if (m.type !== "unity") return;
+
+        unity.SendMessage(m.object, m.method, m.params);
+      });
+
+      // isPlaying, isPaused,  isPlayingIntervalAnimation, isLoading, isRepeatable
+      window.onPlayingStateChange = (...data) => {
+        postEvent("on_playing_state_change", data);
+      };
+
+      window.CounterGloss = (...data) => {
+        postEvent("counter_gloss", data);
+      };
+
+      window.onLoadPlayer = () => {
+        postEvent("on_load_player");
+      };
+
+      window.GetAvatar = (data) => {
+        postEvent("get_avatar", data);
+      };
+
+      window.FinishWelcome = (data) => {
+        postEvent("finish_welcome", data);
+      };
+
+      document.body.appendChild(script);
+    </script>
+  </body>
+</html>

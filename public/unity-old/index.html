@@ -1,0 +1,95 @@
+<!doctype html>
+<html lang="pt-br">
+  <head>
+    <meta charset="utf-8" />
+    <title>Unity WebGL Player | Vlibras</title>
+    <style>
+      * {
+        box-sizing: border-box;
+      }
+      html,
+      body {
+        margin: 0;
+        width: 100%;
+        height: 100%;
+        overflow: hidden;
+      }
+      #gameContainer {
+        width: 100vw;
+        height: 100vh;
+        background-color: transparent !important;
+      }
+      canvas {
+        width: 100% !important;
+        height: 100% !important;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="gameContainer"></div>
+
+    <script src="UnityLoader.js"></script>
+
+    <script>
+      let gameInstance;
+
+      const postEvent = (event, data) => {
+        if (window.parent) {
+          window.parent.postMessage({ type: "unity_event", event, data }, "*");
+        }
+      };
+
+      gameInstance = UnityLoader.instantiate(
+        "gameContainer",
+        "playerweb.json",
+        {
+          onProgress: (instance, progress) => {
+            postEvent("update_progress", progress);
+          },
+          compatibilityCheck: (instance, accept, deny) => {
+            if (UnityLoader.SystemInfo.hasWebGL) {
+              accept();
+            } else {
+              const msg = "Seu navegador não suporta WEBGL";
+              alert(msg);
+              console.error(msg);
+              postEvent("on_error", "unsupported");
+              deny();
+            }
+          },
+        },
+      );
+
+      window.addEventListener("message", (e) => {
+        const m = e.data;
+        if (!gameInstance || m.type !== "unity") return;
+
+        gameInstance.SendMessage(m.object, m.method, m.params);
+      });
+
+      window.onPlayingStateChange = (...data) => {
+        postEvent("on_playing_state_change", data);
+      };
+
+      window.CounterGloss = (...data) => {
+        postEvent("counter_gloss", data);
+      };
+
+      window.onLoadPlayer = () => {
+        postEvent("on_load_player");
+      };
+
+      window.GetAvatar = (data) => {
+        postEvent("get_avatar", data);
+      };
+
+      window.FinishWelcome = (data) => {
+        postEvent("finish_welcome", data);
+      };
+
+      window.SetFullscreen = (mode) => {
+        gameInstance.SetFullscreen(mode);
+      };
+    </script>
+  </body>
+</html>
