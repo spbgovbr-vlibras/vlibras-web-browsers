@@ -20,12 +20,12 @@ export const UnityLoading = ({ progress }: Props) => {
 
 			<div className="-mt-4 flex flex-col items-center">
 				<div className="mb-2 overflow-hidden rounded-full border-6 border-primary/30">
-					<div className="relative flex size-18 justify-center overflow-hidden rounded-full bg-primary sm:size-20">
-						<IcaroIcon className="absolute bottom-0 size-14 text-primary-foreground sm:size-15" />
+					<div className="relative flex not-mobile:size-20 size-18 justify-center overflow-hidden rounded-full bg-primary">
+						<IcaroIcon className="absolute bottom-0 not-mobile:size-15 size-14 text-primary-foreground" />
 					</div>
 				</div>
 
-				<p className="font-bold text-base">VLibras Widget</p>
+				<p className="mobile:mb-1 font-bold mobile:text-sm text-base">VLibras Widget</p>
 				<span className="font-light text-muted-foreground text-xs">v{__APP_VERSION__}</span>
 			</div>
 
