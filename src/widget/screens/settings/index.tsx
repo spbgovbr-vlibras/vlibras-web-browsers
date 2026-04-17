@@ -1,4 +1,6 @@
+import { useRef } from "preact/hooks";
 import { logoBrasil } from "@/assets";
+import { posthogg } from "@/common/lib/posthog";
 import { regionalismArray } from "@/data/regionalism";
 import { usePlayerStore } from "@/player/use-player.store";
 import { Button } from "@/widget/components/ui/button";
@@ -9,6 +11,8 @@ import { SettingsHeader } from "./header";
 import { SettingsField } from "./settingsfield";
 
 export const SettingsScreen = () => {
+	const timeoutRef = useRef<NodeJS.Timeout>(null);
+
 	const region = usePlayerStore((s) => s.region);
 	const opacity = useWidgetStore((s) => s.opacity);
 	const open = useScreensStore((s) => s.open);
@@ -18,6 +22,13 @@ export const SettingsScreen = () => {
 
 		usePlayerStore.setState({ region: defaultRegion });
 		useWidgetStore.setState({ opacity: 1 });
+	};
+
+	const handleOpacityChange = (opacity: number) => {
+		useWidgetStore.setState({ opacity: opacity / 100 });
+
+		if (timeoutRef.current) clearTimeout(timeoutRef.current);
+		timeoutRef.current = setTimeout(() => posthogg.trackEvent("opacity_change", { opacity }), 2000);
 	};
 
 	return (
@@ -51,9 +62,7 @@ export const SettingsScreen = () => {
 								max={100}
 								step={5}
 								value={Number(opacity) * 100}
-								onChange={(e) => {
-									useWidgetStore.setState({ opacity: Number(e.currentTarget.value) / 100 });
-								}}
+								onChange={(e) => handleOpacityChange(Number(e.currentTarget.value))}
 								className="range range-xs text-primary [--range-bg:var(--muted)] [--range-thumb:var(--primary-foreground)]"
 								onPointerDown={(e) => e.stopPropagation()}
 							/>
