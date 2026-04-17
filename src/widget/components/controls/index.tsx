@@ -1,9 +1,11 @@
 import { useMobile, usePick } from "@/common/hooks";
 import { cn } from "@/common/lib/utils";
 import { Button } from "@/widget/components/ui/button";
+import { Tooltip } from "@/widget/components/ui/tooltip";
 import { SettingsIcon } from "@/widget/icons";
 import { useScreensStore } from "@/widget/stores/use-screens.store";
 import { useWidgetStore } from "@/widget/stores/use-widget.store";
+import { useDraggable } from "../draggable";
 import { CallbackScreen } from "./callback-screen";
 import { EmotionsOption } from "./emotions-option";
 import { MainAction } from "./main-action";
@@ -15,6 +17,7 @@ import { TranslatingBadge } from "./translating-badge";
 export const WidgetControls = () => {
 	const isMobile = useMobile();
 	const open = useScreensStore((s) => s.open);
+	const { onPointerDown } = useDraggable();
 
 	const { isOpen, isTranslating } = useWidgetStore(usePick("isOpen", "isTranslating"));
 
@@ -27,6 +30,8 @@ export const WidgetControls = () => {
 				!isOpen && "-bottom-20!",
 			)}
 		>
+			<div {...{ onPointerDown }} className="absolute inset-0 z-0 hover:cursor-move" />
+
 			{isTranslating && <TranslatingBadge />}
 
 			<ProgressBar />
@@ -36,9 +41,18 @@ export const WidgetControls = () => {
 			<EmotionsOption />
 			<SubtitlesOptions />
 
-			<Button onClick={() => open("settings")} variant="ghost-gov" size={isMobile ? "icon-sm" : "icon"}>
-				<SettingsIcon />
-			</Button>
+			<Tooltip
+				className="whitespace-nowrap text-xs"
+				offset={8}
+				align="end"
+				content="Configurações"
+				placement="top"
+				arrow={{ position: "bottom-right" }}
+			>
+				<Button onClick={() => open("settings")} variant="ghost-gov" size={isMobile ? "icon-sm" : "icon"}>
+					<SettingsIcon />
+				</Button>
+			</Tooltip>
 
 			<CallbackScreen />
 		</div>
