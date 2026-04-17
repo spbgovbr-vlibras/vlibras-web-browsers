@@ -39,7 +39,7 @@ export const AboutScreen = () => {
 					</div>
 				</AboutField>
 
-				<div className="relative mt-auto! flex min-h-32 flex-col overflow-hidden rounded-xl border p-4 font-semibold text-primary-foreground max-sm:-m-2">
+				<div className="relative mobile:-m-2 mt-auto! flex min-h-32 flex-col overflow-hidden rounded-xl border p-4 font-semibold text-primary-foreground">
 					<p className="text-center">Nos acompanhe nas redes sociais</p>
 					<div
 						className={cn(

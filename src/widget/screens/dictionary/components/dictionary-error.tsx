@@ -1,5 +1,5 @@
+import sadFace from "@/assets/images/emojis/sad-face.webp";
 import { useMobile } from "@/common/hooks";
-import sadFace from "@/widget/assets/images/emojis/sad-face.webp";
 import { Button } from "@/widget/components/ui/button";
 
 type Props = {

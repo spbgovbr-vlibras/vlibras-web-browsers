@@ -1,5 +1,4 @@
 import { useRef } from "preact/hooks";
-import { logoBrasil } from "@/assets";
 import { posthogg } from "@/common/lib/posthog";
 import { regionalismArray } from "@/data/regionalism";
 import { usePlayerStore } from "@/player/use-player.store";
@@ -44,7 +43,7 @@ export const SettingsScreen = () => {
 						>
 							<span className="text-muted-foreground">Regionalismo</span>
 							<div className="flex items-center gap-3 rounded-sm p-1 hover:bg-foreground/10">
-								<img className="h-7 w-auto rounded-sm" src={region.url} alt={logoBrasil} />
+								<img className="h-7 w-auto rounded-sm" src={region.flag} alt={region.name} />
 								<span>{region.abbreviation}</span>
 							</div>
 						</button>

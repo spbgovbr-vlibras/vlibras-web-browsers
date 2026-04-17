@@ -23,7 +23,7 @@ export const RegionalismScreen = () => {
 		<Screen>
 			<RegionalismHeader />
 			<ScreenContent className="p-0">
-				<div className="m-0 flex h-full w-full flex-col justify-start overflow-y-auto">
+				<div className="flex h-full w-full flex-col justify-start overflow-y-auto p-1">
 					{regionalismArray.map((regionalism: Regionalism) => {
 						const isSelected = currentRegion === regionalism;
 
@@ -34,19 +34,23 @@ export const RegionalismScreen = () => {
 								key={regionalism.abbreviation}
 								onClick={() => handleRegionChange(regionalism)}
 								className={cn(
-									"m-0 flex w-full cursor-pointer items-center justify-between whitespace-nowrap px-5 py-2 transition-all hover:bg-foreground/10",
+									"flex w-full cursor-pointer items-center justify-between whitespace-nowrap rounded-lg px-4 py-2 transition-all hover:bg-primary/10",
 									isSelected && "order-first",
 								)}
 							>
 								<div className="flex items-center justify-start gap-3 font-semibold mobile:text-xs text-secondary text-sm dark:text-white">
-									<img src={regionalism.url} alt={regionalism.name} className="h-7 w-auto rounded-sm" />
+									<img
+										src={regionalism.flag}
+										alt={regionalism.name}
+										className="h-7 mobile:h-6 w-auto rounded-md border"
+									/>
 									{regionalism.name}
 								</div>
 								<input
 									inert
 									type="radio"
-									name="radio1"
-									className="radio-primary checked:radio-secondary size-5 border"
+									name="regionalism"
+									className="radio mobile:size-4 size-5 border border-primary bg-transparent! p-0.75! text-primary"
 									checked={currentRegion === regionalism}
 								/>
 							</button>

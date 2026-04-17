@@ -1,75 +1,70 @@
-import logoAcre from "./images/Acre.png";
-import logoAlagoas from "./images/Alagoas.png";
-import logoAmapa from "./images/Amapá.png";
-import logoAmazonas from "./images/Amazonas.png";
-import logoBahia from "./images/Bahia.png";
-import logoBrasil from "./images/Brasil.png";
-import logoCeara from "./images/Ceará.png";
-import camaraIcon from "./images/camDeputados.svg";
-import logoDF from "./images/DF.png";
-import logoEspiritoSanto from "./images/EspiritoSanto.png";
-import logoGoiás from "./images/Goiás.png";
+import camaraIcon from "./images/camara-deputados.svg";
+import AC from "./images/flags/AC.webp";
+import AL from "./images/flags/AL.webp";
+import AM from "./images/flags/AM.webp";
+import AP from "./images/flags/AP.webp";
+import BA from "./images/flags/BA.webp";
+import BR from "./images/flags/BR.webp";
+import CE from "./images/flags/CE.webp";
+import DF from "./images/flags/DF.webp";
+import ES from "./images/flags/ES.webp";
+import GO from "./images/flags/GO.webp";
+import MA from "./images/flags/MA.webp";
+import MG from "./images/flags/MG.webp";
+import MS from "./images/flags/MS.webp";
+import MT from "./images/flags/MT.webp";
+import PA from "./images/flags/PA.webp";
+import PB from "./images/flags/PB.webp";
+import PE from "./images/flags/PE.webp";
+import PI from "./images/flags/PI.webp";
+import PR from "./images/flags/PR.webp";
+import RJ from "./images/flags/RJ.webp";
+import RN from "./images/flags/RN.webp";
+import RO from "./images/flags/RO.webp";
+import RR from "./images/flags/RR.webp";
+import RS from "./images/flags/RS.webp";
+import SC from "./images/flags/SC.webp";
+import SE from "./images/flags/SE.webp";
+import SP from "./images/flags/SP.webp";
+import TO from "./images/flags/TO.webp";
+
 import GugaImage from "./images/guga.png";
 import HosanaImage from "./images/hosana.png";
 import IcaroImage from "./images/icaro.png";
 import lavidIcon from "./images/lavid.svg";
-import logoMaranhao from "./images/Maranhão.png";
-import logoMatoGrosso from "./images/MatoGrosso.png";
-import logoMatoGrossoDoSul from "./images/MatoGrossoDoSul.png";
-import logoMinasGerais from "./images/MinasGerais.png";
 import mdhcIcon from "./images/ministerioDireitosHumanos.svg";
 import mgispIcon from "./images/ministerioGestao.svg";
-import logoPará from "./images/Para.png";
-import logoParaiba from "./images/Paraiba.png";
-import logoParaná from "./images/Paraná.png";
-import logoPernambuco from "./images/Pernambuco.png";
-import logoPiaui from "./images/Piaui.png";
-import logoRioDeJaneiro from "./images/Riodejaneiro.png";
-import logoRioGrandeDoNorte from "./images/RioGrandeDoNorte.png";
-import logoRioGrandeDoSul from "./images/RioGrandeDoSul.png";
-import logoRondonia from "./images/Rondonia.png";
-import logoRoraima from "./images/Roraima.png";
 import rnpIcon from "./images/rnp.svg";
-import logoSantaCatarina from "./images/SantaCatarina.png";
-import logoSãoPaulo from "./images/SaoPaulo.png";
-import logoSergipe from "./images/Sergipe.png";
-import logoTocantins from "./images/Tocantins.png";
 
-export {
-	camaraIcon,
-	GugaImage,
-	HosanaImage,
-	IcaroImage,
-	lavidIcon,
-	logoAcre,
-	logoAlagoas,
-	logoAmapa,
-	logoAmazonas,
-	logoBahia,
-	logoBrasil,
-	logoCeara,
-	logoDF,
-	logoEspiritoSanto,
-	logoGoiás,
-	logoMaranhao,
-	logoMatoGrosso,
-	logoMatoGrossoDoSul,
-	logoMinasGerais,
-	logoParaiba,
-	logoParaná,
-	logoPará,
-	logoPernambuco,
-	logoPiaui,
-	logoRioDeJaneiro,
-	logoRioGrandeDoNorte,
-	logoRioGrandeDoSul,
-	logoRondonia,
-	logoRoraima,
-	logoSantaCatarina,
-	logoSergipe,
-	logoSãoPaulo,
-	logoTocantins,
-	mdhcIcon,
-	mgispIcon,
-	rnpIcon,
+const flags = {
+	MT,
+	AC,
+	AL,
+	AM,
+	AP,
+	BA,
+	BR,
+	CE,
+	DF,
+	ES,
+	GO,
+	MA,
+	MG,
+	MS,
+	PA,
+	PB,
+	PE,
+	PI,
+	PR,
+	RJ,
+	RN,
+	RO,
+	RR,
+	RS,
+	SC,
+	SE,
+	SP,
+	TO,
 };
+
+export { flags, camaraIcon, GugaImage, HosanaImage, IcaroImage, lavidIcon, mdhcIcon, mgispIcon, rnpIcon };
