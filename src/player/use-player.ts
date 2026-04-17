@@ -72,10 +72,6 @@ export const usePlayer = () => {
 		usePlayerStore.setState({ showSubtitles });
 	};
 
-	const sendReview = async (review: unknown) => {
-		console.log(review);
-	};
-
 	const setRegion = (region: Regionalism) => {
 		const baseUrl = `${config.DICTIONARY_URL}${region.abbreviation}/`;
 		setConfig({ baseUrl });
@@ -94,7 +90,6 @@ export const usePlayer = () => {
 		pause,
 		setSpeed,
 		repeat,
-		sendReview,
 		toggleAvatar,
 		playWelcome,
 		toggleSubtitles,

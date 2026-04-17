@@ -9,7 +9,6 @@ export const UNITY_METHODS = {
 	PLAY: "playNow",
 	STOP: "stopAll",
 	REPEAT: "repeat",
-	SEND_REVIEW: "sendReview",
 	SET_SPEED: "setSlider",
 	SET_AVATAR: "Change",
 	SET_PAUSE_STATE: "setPauseState",
