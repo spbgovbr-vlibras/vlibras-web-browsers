@@ -10,7 +10,7 @@ const envConfigs = {
 		DICTIONARY_URL: "https://dicionario2-dth.vlibras.gov.br/2018.3.1/WEBGL/",
 		DICTIONARY_STATIC_URL: "https://dicionario2-dth.vlibras.gov.br/static/BUNDLES/2018.3.1/WEBGL",
 		SIGNS_URL: "https://dicionario2-dth.vlibras.gov.br/signs?version=2018.3.1",
-		REVIEW_URL: "https://review2-dev.vlibras.gov.br",
+		REVIEW_URL: "https://traducao2-dth.vlibras.gov.br/dl/review",
 		BUNDLES_URL: "https://dicionario2-dth.vlibras.gov.br/bundles",
 	},
 
