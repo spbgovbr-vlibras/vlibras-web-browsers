@@ -17,15 +17,15 @@ import { TranslatingBadge } from "./translating-badge";
 export const WidgetControls = () => {
 	const isMobile = useMobile();
 	const open = useScreensStore((s) => s.open);
-	const { onPointerDown } = useDraggable();
 
+	const { onPointerDown } = useDraggable();
 	const { isOpen, isTranslating } = useWidgetStore(usePick("isOpen", "isTranslating"));
 
 	return (
 		<div
 			className={cn(
 				"relative flex animate-move-up items-center justify-between gap-1 border-t bg-background p-2 transition-[bottom] ease-in-out",
-				"[&_button]:not-hover:bg-transparent **:[[role=button]]:not-hover:bg-transparent",
+				"[&_button]:z-1 [&_button]:not-hover:bg-transparent **:[[role=button]]:not-hover:bg-transparent",
 				"-mt-13",
 				!isOpen && "-bottom-20!",
 			)}
