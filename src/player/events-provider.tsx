@@ -1,7 +1,7 @@
 import { useEffect } from "preact/hooks";
 import { UNITY_EVENTS } from "./constants/unity";
 import { usePlayerStore } from "./use-player.store";
-import { playingStatesToBoolean } from "./utils/playing-states-to-boolean";
+import { playingStatesToBoolean } from "./utils";
 
 export const PlayerEventsProvider = () => {
 	useEffect(() => {
