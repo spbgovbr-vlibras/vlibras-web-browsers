@@ -60,13 +60,10 @@ type DialogProps = {
 	open?: boolean;
 	onOpenChange?: (open: boolean) => void;
 	children: ComponentChildren;
+	/** Deve ser definido como `true` ao aninhar um Dialog dentro de outro para evitar efeitos colaterais. */
 	nested?: boolean;
 };
 
-/**
- * Wrapper de Dialog que fornece contexto para seus filhos.
- * @param nested - Deve ser definido como `true` ao aninhar um Dialog dentro de outro para evitar efeitos colaterais.
- */
 export const Dialog = ({ nested = false, open: _open, onOpenChange: _onOpenChange, children }: DialogProps) => {
 	const [isOpen, setOpen] = useState(false);
 	const { pause, play } = usePlayer();
@@ -77,10 +74,10 @@ export const Dialog = ({ nested = false, open: _open, onOpenChange: _onOpenChang
 	useEffect(() => {
 		if (nested) return;
 		const { isPausedByUser } = useWidgetStore.getState();
-		const { gloss, isWelcomeFinished } = usePlayerStore.getState();
+		const { gloss, isWelcomeFinished, status } = usePlayerStore.getState();
 
-		if (open) pause();
-		else if ((gloss || !isWelcomeFinished) && !isPausedByUser) setTimeout(play, 300);
+		if (open && status === "playing") return pause();
+		if (!open && !isPausedByUser && (gloss || !isWelcomeFinished)) setTimeout(play, 300);
 	}, [open, nested]);
 
 	return <DialogContext.Provider value={{ open, onOpenChange, nested }}>{children}</DialogContext.Provider>;
