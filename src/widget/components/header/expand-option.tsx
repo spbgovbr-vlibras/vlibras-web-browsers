@@ -6,7 +6,7 @@ import { Tooltip } from "@/widget/components/ui/tooltip";
 import { CollapseIcon, ExpandIcon } from "@/widget/icons";
 import { useRootStore } from "@/widget/stores/use-root.store";
 import { useWidgetStore } from "@/widget/stores/use-widget.store";
-import css from "@/widget/styles/fullscreen.css?inline";
+import css from "@/widget/styles/expanded-mode.css?inline";
 
 export const ExpandOption = () => {
 	const isMobile = useMobile();
