@@ -1,7 +1,8 @@
 export { ArrowLeftIcon } from "./arrow-left";
 export { CheckedIcon } from "./checked";
+export { CollapseIcon } from "./collapse";
 export { EmotionsIcon } from "./emotions";
-export { FullscreenIcon } from "./fullscreen";
+export { ExpandIcon } from "./expand";
 export { GovBRIcon } from "./govbr";
 export { HelpIcon } from "./help";
 export { IcaroIcon } from "./icaro";

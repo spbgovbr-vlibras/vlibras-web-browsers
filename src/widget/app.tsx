@@ -12,7 +12,7 @@ import { useRootStore } from "./stores/use-root.store";
 import { useWidgetStore } from "./stores/use-widget.store";
 
 export const WidgetApp = () => {
-	const { isOpen, position } = useWidgetStore(usePick("isOpen", "position"));
+	const { isOpen, position, isExpanded } = useWidgetStore(usePick("isOpen", "position", "isExpanded"));
 
 	return (
 		<Draggable<HTMLDivElement>>
@@ -40,6 +40,12 @@ export const WidgetApp = () => {
 							!isDragging && "transition-all",
 							(!hasMoved || !isOpen) && getWidgetPositionClasses(position, isOpen),
 							hasMoved && isOpen && "top-0 left-0",
+							isExpanded &&
+								isOpen &&
+								cn(
+									"w-dvw max-w-dvw sm:h-auto sm:w-xl sm:[--player-height:800px] [&_iframe]:max-h-[calc(100dvh-54px)]",
+									"max-sm:translate-none! max-sm:transform-none! [--player-height:calc(100dvh-54px)] max-sm:inset-0 max-sm:rounded-none! max-sm:border-none!",
+								),
 						)}
 					>
 						<UnityLoading />

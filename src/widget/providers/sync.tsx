@@ -55,7 +55,7 @@ export const SyncProvider = () => {
 	useEffect(() => {
 		if (!isLoaded) return;
 
-		createStyle(css, "TEXT_CAPTURE");
+		createStyle(css, "@text-capture.style");
 		const cleanup = textCapture({
 			hoverClss: "vlibras--hover",
 			activeClass: "vlibras--active",

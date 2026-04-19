@@ -22,13 +22,16 @@ export const ScreenHeader = ({ children, className, ...props }: ComponentProps<"
 	const { onPointerDown } = useDraggable();
 
 	return (
-		<div
-			className={cn("flex h-min items-center gap-3 border-b p-2.5 hover:cursor-move", className)}
-			{...{ onPointerDown }}
-			{...props}
-		>
-			{props.close && <ScreenClose />}
-			{children}
+		<div className="relative">
+			<div className={cn("flex h-min items-center gap-3 border-b p-2 *:z-10", className)} {...props}>
+				{props.close && <ScreenClose />}
+				{children}
+			</div>
+
+			<div
+				className="absolute inset-0 z-0 not-expanded:hover:cursor-move sm:hover:cursor-move"
+				{...{ onPointerDown }}
+			/>
 		</div>
 	);
 };

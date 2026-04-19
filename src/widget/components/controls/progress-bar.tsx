@@ -8,7 +8,7 @@ export const ProgressBar = () => {
 	const progress = useMemo(() => {
 		if (max === 0) return 0;
 		return (count / Math.max(max, count)) * 100;
-	}, [max]);
+	}, [max, count]);
 
 	return (
 		<div className="absolute -top-1.75 left-0 h-1.5 w-full">

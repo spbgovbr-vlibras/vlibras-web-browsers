@@ -20,7 +20,7 @@ export const WidgetContent = ({ className, ...props }: Omit<ComponentProps<"div"
 			className={cn("flex flex-col", (!isLoaded || screen !== "main") && "opacity-0", className)}
 		>
 			<WidgetHeader />
-			<Player className="mobile:mb-1 h-(--player-height) w-full" />
+			<Player className="mb-2 h-(--player-height) w-full" />
 			<WidgetControls />
 		</div>
 	);

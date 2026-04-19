@@ -18,13 +18,16 @@ export const WidgetControls = () => {
 	return (
 		<div
 			className={cn(
-				"relative flex animate-move-up items-center justify-between gap-1 border-t bg-background p-2 transition-[bottom] ease-in-out",
+				"relative flex animate-move-up items-center justify-between gap-1 border-t bg-background px-2 py-1.5 transition-[bottom] ease-in-out",
 				"[&_button]:z-1 [&_button]:not-hover:bg-transparent **:[[role=button]]:not-hover:bg-transparent",
 				"-mt-13",
 				!isOpen && "-bottom-20!",
 			)}
 		>
-			<div {...{ onPointerDown }} className="absolute inset-0 z-0 hover:cursor-move" />
+			<div
+				{...{ onPointerDown }}
+				className="absolute inset-0 z-0 not-expanded:hover:cursor-move sm:hover:cursor-move"
+			/>
 
 			{isTranslating && <TranslatingBadge />}
 

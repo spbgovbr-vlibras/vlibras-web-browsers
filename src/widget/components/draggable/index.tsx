@@ -1,6 +1,7 @@
 import type { ComponentChildren, Ref } from "preact";
 import { createContext } from "preact";
 import { useContext, useEffect, useRef, useState } from "preact/hooks";
+import { useWidgetStore } from "@/widget/stores/use-widget.store";
 
 type Position = { x: number; y: number };
 
@@ -28,6 +29,7 @@ type Props<TElement> = {
 export function Draggable<TElement extends HTMLElement>({ children }: Props<TElement>) {
 	const ref = useRef<TElement>(null);
 	const start = useRef<Position>({ x: 0, y: 0 });
+	const isExpanded = useWidgetStore((s) => s.isExpanded);
 	const [pos, setPos] = useState<Position>({ x: 0, y: 0 });
 	const [hasMoved, setHasMoved] = useState(false);
 	const [isDragging, setIsDragging] = useState(false);
@@ -36,6 +38,30 @@ export function Draggable<TElement extends HTMLElement>({ children }: Props<TEle
 		setPos({ x: 0, y: 0 });
 		setHasMoved(false);
 	};
+
+	useEffect(() => {
+		if (!ref.current || !hasMoved || !isExpanded) return;
+
+		const validatePosition = () => {
+			if (!ref.current) return;
+
+			const rect = ref.current.getBoundingClientRect();
+			const maxX = window.innerWidth - rect.width;
+			const maxY = window.innerHeight - rect.height;
+
+			setPos((prev) => {
+				const newX = Math.max(0, Math.min(prev.x, maxX));
+				const newY = Math.max(0, Math.min(prev.y, maxY));
+
+				if (newX === prev.x && newY === prev.y) return prev;
+				return { x: newX, y: newY };
+			});
+		};
+
+		const timer = setTimeout(validatePosition, 200);
+
+		return () => clearTimeout(timer);
+	}, [isExpanded]);
 
 	useEffect(() => {
 		const handleResize = () => {
@@ -80,15 +106,20 @@ export function Draggable<TElement extends HTMLElement>({ children }: Props<TEle
 
 		window.addEventListener("pointermove", onPointerMove);
 		window.addEventListener("pointerup", onPointerUp);
+		window.addEventListener("pointercancel", onPointerUp);
 		return () => {
 			window.removeEventListener("pointermove", onPointerMove);
 			window.removeEventListener("pointerup", onPointerUp);
+			window.removeEventListener("pointercancel", onPointerUp);
 		};
 	}, [hasMoved, isDragging]);
 
 	const onPointerDown = (e: PointerEvent) => {
 		if (!ref.current) return;
+
+		(e.currentTarget as HTMLElement).setPointerCapture(e.pointerId);
 		setIsDragging(true);
+
 		const rect = ref.current.getBoundingClientRect();
 		start.current = { x: e.clientX - rect.left, y: e.clientY - rect.top };
 		if (!hasMoved) {

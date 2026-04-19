@@ -11,7 +11,6 @@ export const defaultState: OnlyState<WidgetStoreState> = {
 	text: undefined,
 	isOpen: false,
 	isExpanded: false,
-	isFullscreen: false,
 	isLoaded: false,
 	isActive: false,
 	isTranslating: false,
@@ -23,7 +22,6 @@ export interface WidgetStoreState {
 	position: WidgetPosition;
 	isOpen: boolean;
 	isExpanded: boolean;
-	isFullscreen: boolean;
 	isLoaded: boolean;
 	isActive: boolean;
 	isTranslating: boolean;

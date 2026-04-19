@@ -5,7 +5,7 @@ import { Spacer } from "@/widget/components/ui/spacer";
 import { IcaroIcon, XIcon } from "@/widget/icons";
 import { useWidgetStore } from "@/widget/stores/use-widget.store";
 import { useDraggable } from "../draggable";
-import { FullscreenOption } from "./fullscreen-option";
+import { ExpandOption } from "./expand-option";
 import { WidgetMenu } from "./menu";
 
 export const WidgetHeader = () => {
@@ -16,7 +16,10 @@ export const WidgetHeader = () => {
 
 	return (
 		<div className={cn("relative bottom-auto flex items-center justify-center gap-1 bg-primary px-2 py-1.5")}>
-			<div {...{ onPointerDown }} className="absolute inset-0 z-0 hover:cursor-move" />
+			<div
+				{...{ onPointerDown }}
+				className="absolute inset-0 z-0 not-expanded:hover:cursor-move sm:hover:cursor-move"
+			/>
 
 			<WidgetMenu />
 
@@ -33,7 +36,7 @@ export const WidgetHeader = () => {
 
 			<Spacer className="w-full" />
 
-			<FullscreenOption />
+			<ExpandOption />
 
 			<Button
 				onClick={() => setOpen(false)}

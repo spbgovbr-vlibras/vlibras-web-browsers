@@ -50,6 +50,15 @@
 
 @custom-variant dark (&:is(:host(.dark) *));
 @custom-variant light (&:is(:host(:not(.dark)) *));
+@custom-variant expanded (&:is(:host([data-expanded="true"]) *));
+
+@custom-variant mobile {
+  @media (max-width: 640px) {
+    &:is(:host(:not([data-expanded="true"])) *) {
+      @slot;
+    }
+  }
+}
 
 @theme inline {
 	--color-background: var(--background);
@@ -104,7 +113,6 @@
 }
 
 :host {
-	
 	--widget-width: 260px;
 	--player-height: 328px;
 	
@@ -114,13 +122,6 @@
 	}
 }
 
-@custom-variant mobile {
-  @media (max-width: 640px) {
-    &:is(:host(:not(.vlibras--fullscreen)) *) {
-      @slot;
-    }
-  }
-}
 
 @keyframes scale {
 	0% { transform: scale(0); }

@@ -1,6 +1,6 @@
 import type { CustomSVGProps } from "./types";
 
-export const FullscreenIcon = ({ size = 24, iconTitle, ...props }: CustomSVGProps) => {
+export const ExpandIcon = ({ size = 24, iconTitle, ...props }: CustomSVGProps) => {
 	return (
 		<svg
 			width={size}

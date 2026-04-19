@@ -26,7 +26,7 @@ export const SettingsOpacityField = () => {
 				step={5}
 				value={Number(opacity) * 100}
 				onChange={(e) => handleOpacityChange(Number(e.currentTarget.value))}
-				className="range range-xs text-primary [--range-bg:var(--muted)] [--range-thumb:var(--primary-foreground)]"
+				className="range range-xs w-full text-primary [--range-bg:var(--muted)] [--range-thumb:var(--primary-foreground)]"
 				onPointerDown={(e) => e.stopPropagation()}
 			/>
 		</div>
