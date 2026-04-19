@@ -5,15 +5,20 @@ import { config } from "@/core/config";
 import { createStyle } from "@/core/dom";
 import { usePlayer } from "@/player/use-player";
 import { usePlayerStore } from "@/player/use-player.store";
+import { useRootStore } from "@/widget/stores/use-root.store";
 import { useWidgetStore } from "@/widget/stores/use-widget.store";
 import css from "@/widget/styles/text-capture.css?inline";
 import { textCapture } from "@/widget/utils/text-capture";
+import { useScreensStore } from "../stores/use-screens.store";
 
 export const SyncProvider = () => {
+	const root = useRootStore((s) => s.root);
+	const screen = useScreensStore((s) => s.screen);
+
 	const { mutateAsync: translate, isPending: isTranslating } = useTranslate();
-	const { play, stop, setConfig, playWelcome, setSpeed, toggleSubtitles } = usePlayer();
-	const { isLoaded, speed, showSubtitles, isWelcomeFinished } = usePlayerStore(
-		usePick("isLoaded", "speed", "showSubtitles", "isWelcomeFinished"),
+	const { play, stop, pause, setConfig, playWelcome, setSpeed, toggleSubtitles } = usePlayer();
+	const { isLoaded, speed, showSubtitles, isWelcomeFinished, status } = usePlayerStore(
+		usePick("isLoaded", "speed", "showSubtitles", "isWelcomeFinished", "status"),
 	);
 
 	useEffect(() => void (isLoaded && playWelcome()), [isLoaded]);
@@ -21,6 +26,25 @@ export const SyncProvider = () => {
 	useEffect(() => void (isWelcomeFinished && toggleSubtitles(showSubtitles)), [isWelcomeFinished]);
 	useEffect(() => void (isLoaded && setConfig({ baseUrl: config.DICTIONARY_URL })), [isLoaded]);
 	useEffect(() => void useWidgetStore.setState({ isTranslating }), [isTranslating]);
+
+	useEffect(() => {
+		const { isPausedByUser } = useWidgetStore.getState();
+		if (!isPausedByUser) return;
+		if (status === "playing") useWidgetStore.setState({ isPausedByUser: false });
+	}, [status]);
+
+	useEffect(() => {
+		if (screen !== "main") pause();
+	}, [screen]);
+
+	useEffect(() => {
+		const { open } = useScreensStore.getState();
+		if (status === "playing") open("main");
+	}, [status]);
+
+	useEffect(() => {
+		if (root) root.dataset.status = status;
+	}, [status, root]);
 
 	useEffect(() => {
 		const root = document.documentElement;

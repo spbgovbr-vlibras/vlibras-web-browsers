@@ -1,16 +1,17 @@
 import { useEffect, useState } from "preact/hooks";
+import { usePick } from "@/common/hooks";
+import { usePlayerStore } from "@/player/use-player.store";
 import { GovBRIcon, IcaroIcon } from "@/widget/icons";
 
-type Props = {
-	progress: number;
-};
-
-export const UnityLoading = ({ progress }: Props) => {
+export const UnityLoading = () => {
+	const { progress, isLoaded } = usePlayerStore(usePick("progress", "isLoaded"));
 	const [isStarting, setStarting] = useState(false);
 
 	useEffect(() => {
 		if (progress === 100) setTimeout(() => setStarting(true), 1000);
 	}, [progress]);
+
+	if (isLoaded) return null;
 
 	return (
 		<div className="absolute inset-0 z-9999999 flex flex-col items-center justify-between bg-background p-4">

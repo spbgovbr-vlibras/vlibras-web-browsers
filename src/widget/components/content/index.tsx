@@ -1,4 +1,4 @@
-import { type ComponentProps, useEffect, useRef } from "preact/compat";
+import type { ComponentProps } from "preact/compat";
 import { cn } from "@/common/lib/utils";
 import { Player } from "@/player";
 import { usePlayerStore } from "@/player/use-player.store";
@@ -8,19 +8,15 @@ import { useRootStore } from "@/widget/stores/use-root.store";
 import { useScreensStore } from "@/widget/stores/use-screens.store";
 
 export const WidgetContent = ({ className, ...props }: Omit<ComponentProps<"div">, "children">) => {
-	const contentRef = useRef<HTMLDivElement>(null);
 	const screen = useScreensStore((s) => s.screen);
 	const isLoaded = usePlayerStore((s) => s.isLoaded);
-
-	useEffect(() => {
-		if (contentRef.current) useRootStore.setState({ appContent: contentRef.current });
-	}, []);
 
 	return (
 		<div
 			{...props}
-			ref={contentRef}
+			id="vlibras-app-content"
 			inert={screen !== "main"}
+			ref={(ref) => void (ref && useRootStore.setState({ appContent: ref }))}
 			className={cn("flex flex-col", (!isLoaded || screen !== "main") && "opacity-0", className)}
 		>
 			<WidgetHeader />

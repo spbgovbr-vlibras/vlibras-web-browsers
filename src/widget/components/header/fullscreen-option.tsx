@@ -15,6 +15,8 @@ export const FullscreenOption = () => {
 		const { isFullscreen } = useWidgetStore.getState();
 		const nextState = !isFullscreen;
 
+		if (!appRoot) return;
+
 		useWidgetStore.setState({ isFullscreen: nextState });
 
 		if (!nextState) return delete appRoot.dataset.fullscreen;

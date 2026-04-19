@@ -1,6 +1,6 @@
 import { config } from "@/core/config";
 import type { Emotion } from "@/data/emotions-map";
-import type { Regionalism } from "@/data/regionalism";
+import type { Region } from "@/data/regionalism";
 import { UNITY_METHODS, UNITY_OBJECTS } from "./constants/unity";
 import type { PlayerAvatar, PlayerConfig } from "./types";
 import { usePlayerStore } from "./use-player.store";
@@ -32,9 +32,6 @@ export const usePlayer = () => {
 			send(UNITY_OBJECTS.PLAYER, UNITY_METHODS.PLAY, gloss);
 			usePlayerStore.setState({ gloss });
 		} else send(UNITY_OBJECTS.PLAYER, UNITY_METHODS.SET_PAUSE_STATE, 0);
-
-		const _isWelcomeFinished = usePlayerStore.getState().isWelcomeFinished;
-		if (!_isWelcomeFinished) usePlayerStore.setState({ isWelcomeFinished: true, isPlayingWelcome: false });
 	};
 
 	const repeat = () => {
@@ -72,7 +69,7 @@ export const usePlayer = () => {
 		usePlayerStore.setState({ showSubtitles });
 	};
 
-	const setRegion = (region: Regionalism) => {
+	const setRegion = (region: Region) => {
 		const baseUrl = `${config.DICTIONARY_URL}${region.abbreviation}/`;
 		setConfig({ baseUrl });
 		usePlayerStore.setState({ region });

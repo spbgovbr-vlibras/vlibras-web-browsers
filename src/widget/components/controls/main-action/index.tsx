@@ -3,6 +3,7 @@ import { usePlayer } from "@/player/use-player";
 import { usePlayerStore } from "@/player/use-player.store";
 import { Button } from "@/widget/components/ui/button";
 import { Tooltip } from "@/widget/components/ui/tooltip";
+import { useWidgetStore } from "@/widget/stores/use-widget.store";
 import { statusMap } from "./status-map";
 
 export const MainAction = () => {
@@ -13,7 +14,10 @@ export const MainAction = () => {
 	const onClick = () => {
 		if (_status === "idle") repeat();
 		else if (_status === "paused") play();
-		else if (_status === "playing") pause();
+		else if (_status === "playing") {
+			pause();
+			useWidgetStore.setState({ isPausedByUser: true });
+		}
 	};
 
 	const status = statusMap[_status];

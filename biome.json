@@ -42,7 +42,8 @@
 			},
 			"suspicious": {
 				"noArrayIndexKey": "off",
-				"useIterableCallbackReturn": "off"
+				"useIterableCallbackReturn": "off",
+				"noAssignInExpressions": "off"
 			},
 			"complexity": {
 				"noForEach": "off",

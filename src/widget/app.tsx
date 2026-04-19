@@ -1,8 +1,7 @@
 import type { RefObject } from "preact";
-import { useEffect, useLayoutEffect, useRef } from "preact/hooks";
+import { useEffect } from "preact/hooks";
 import { usePick } from "@/common/hooks";
 import { cn } from "@/common/lib/utils";
-import { usePlayerStore } from "@/player/use-player.store";
 import { getWidgetPositionClasses } from "./app.styles";
 import { WidgetContent } from "./components/content";
 import { Draggable } from "./components/draggable";
@@ -13,31 +12,23 @@ import { useWidgetStore } from "./stores/use-widget.store";
 
 export const WidgetApp = () => {
 	const { isOpen, position, opacity } = useWidgetStore(usePick("isOpen", "position", "opacity"));
-	const { progress, isLoaded } = usePlayerStore(usePick("progress", "isLoaded"));
-	const appRef = useRef<HTMLDivElement>(null);
-
-	useLayoutEffect(() => {
-		if (appRef.current) useRootStore.setState({ appRoot: appRef.current });
-	}, []);
 
 	return (
 		<Draggable<HTMLDivElement>>
 			{({ ref: draggableRef, hasMoved, pos, isDragging, reset }) => {
 				useEffect(() => void (!isOpen && reset()), [isOpen]);
 
-				const combinedRef = (el: HTMLDivElement | null) => {
-					(appRef as RefObject<HTMLDivElement | null>).current = el;
-					if (typeof draggableRef === "function") draggableRef(el);
-					else if (draggableRef && "current" in draggableRef) {
-						(draggableRef as RefObject<HTMLDivElement | null>).current = el;
-					}
-				};
-
 				return (
 					<div
 						inert={!isOpen}
 						id="vlibras-app"
-						ref={combinedRef}
+						ref={(ref) => {
+							if (ref) useRootStore.setState({ appRoot: ref });
+							if (typeof draggableRef === "function") draggableRef(ref);
+							else if (draggableRef && "current" in draggableRef) {
+								(draggableRef as RefObject<HTMLDivElement | null>).current = ref;
+							}
+						}}
 						style={{
 							boxShadow: "0 0 15px -5px rgba(0, 0, 0, 0.15)",
 							transform: hasMoved && isOpen ? `translate3d(${pos.x}px, ${pos.y}px, 0)` : undefined,
@@ -52,7 +43,7 @@ export const WidgetApp = () => {
 							hasMoved && isOpen && "top-0 left-0",
 						)}
 					>
-						{!isLoaded && <UnityLoading progress={progress} />}
+						<UnityLoading />
 
 						<WidgetContent />
 						<WidgetProviders />

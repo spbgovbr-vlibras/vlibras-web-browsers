@@ -15,6 +15,7 @@ export const defaultState: OnlyState<WidgetStoreState> = {
 	isLoaded: false,
 	isActive: false,
 	isTranslating: false,
+	isPausedByUser: undefined,
 	opacity: 1,
 };
 
@@ -28,6 +29,7 @@ export interface WidgetStoreState {
 	isTranslating: boolean;
 	setExpanded: Dispatch<StateUpdater<boolean>>;
 	setOpen: Dispatch<StateUpdater<boolean>>;
+	isPausedByUser?: boolean;
 	text?: string;
 	opacity: Number;
 	setLoaded: (isLoaded: boolean) => void;

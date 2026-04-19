@@ -1,11 +1,11 @@
 import { flags } from "@/assets";
 
-export type Regionalism = {
+export type Region = {
 	name: string;
 	flag: string;
-	abbreviation: RegionalismAbbreviation;
+	abbreviation: RegionAbbreviation;
 };
-export type RegionalismAbbreviation =
+export type RegionAbbreviation =
 	| "BR"
 	| "AC"
 	| "AL"
@@ -35,7 +35,7 @@ export type RegionalismAbbreviation =
 	| "SE"
 	| "TO";
 
-export const regionalismArray: Regionalism[] = [
+export const regions: Region[] = [
 	{ name: "BR - Padrão Nacional", flag: flags.BR, abbreviation: "BR" },
 	{ name: "Acre", flag: flags.AC, abbreviation: "AC" },
 	{ name: "Alagoas", flag: flags.AL, abbreviation: "AL" },
