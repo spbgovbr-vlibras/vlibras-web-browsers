@@ -5,13 +5,14 @@ import { cn } from "@/common/lib/utils";
 import { getWidgetPositionClasses } from "./app.styles";
 import { WidgetContent } from "./components/content";
 import { Draggable } from "./components/draggable";
+import { AppBackground } from "./components/ui/app-background";
 import { UnityLoading } from "./components/unity-loading";
 import { WidgetProviders } from "./providers/app";
 import { useRootStore } from "./stores/use-root.store";
 import { useWidgetStore } from "./stores/use-widget.store";
 
 export const WidgetApp = () => {
-	const { isOpen, position, opacity } = useWidgetStore(usePick("isOpen", "position", "opacity"));
+	const { isOpen, position } = useWidgetStore(usePick("isOpen", "position"));
 
 	return (
 		<Draggable<HTMLDivElement>>
@@ -32,11 +33,9 @@ export const WidgetApp = () => {
 						style={{
 							boxShadow: "0 0 15px -5px rgba(0, 0, 0, 0.15)",
 							transform: hasMoved && isOpen ? `translate3d(${pos.x}px, ${pos.y}px, 0)` : undefined,
-							touchAction: "none",
-							backgroundColor: `color-mix(in oklch, var(--background) ${Number(opacity) * 100}%, transparent)`,
 						}}
 						className={cn(
-							"fixed z-2147483647 flex h-fit w-(--widget-width) flex-col overflow-hidden rounded-xl",
+							"fixed z-2147483647 flex h-fit w-(--widget-width) flex-col overflow-hidden rounded-xl bg-transparent!",
 							"border dark:border-[#eee]",
 							!isDragging && "transition-all",
 							(!hasMoved || !isOpen) && getWidgetPositionClasses(position, isOpen),
@@ -47,6 +46,8 @@ export const WidgetApp = () => {
 
 						<WidgetContent />
 						<WidgetProviders />
+
+						<AppBackground />
 					</div>
 				);
 			}}
