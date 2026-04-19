@@ -22,3 +22,5 @@ export const delay = (ms: number) => new Promise((resolve) => setTimeout(resolve
 export const sanitizeUrl = (url: string): string => {
 	return url.replace(/(?<!:)\/+/g, "/");
 };
+
+export const randomStr = () => Math.random().toString(36).slice(2, 8);
