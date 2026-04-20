@@ -12,9 +12,11 @@ export const MainAction = () => {
 	const { gloss, status: _status } = usePlayerStore(usePick("gloss", "status"));
 
 	const onClick = () => {
-		if (_status === "idle") repeat();
-		else if (_status === "paused") play();
-		else if (_status === "playing") {
+		const { status } = usePlayerStore.getState();
+
+		if (status === "idle") repeat();
+		else if (status === "paused") play();
+		else if (status === "playing") {
 			pause();
 			useWidgetStore.setState({ isPausedByUser: true });
 		}

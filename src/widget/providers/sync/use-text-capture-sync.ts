@@ -8,7 +8,7 @@ import { useWidgetStore } from "@/widget/stores/use-widget.store";
 import css from "@/widget/styles/text-capture.css?inline";
 import { textCapture } from "@/widget/utils/text-capture";
 
-export const useTextCapture = () => {
+export const useTextCaptureSync = () => {
 	const isLoaded = usePlayerStore((s) => s.isLoaded);
 
 	const { mutateAsync: translate } = useTranslate();
