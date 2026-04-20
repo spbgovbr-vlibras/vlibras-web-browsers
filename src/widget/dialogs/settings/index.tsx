@@ -40,7 +40,7 @@ export const SettingsDialog = ({ open, onOpenChange }: Props) => {
 		<Dialog open={open} onOpenChange={onOpenChange}>
 			<DialogContent>
 				<DialogHeader className="relative">
-					<DialogTitle className="ml-0">Configurações</DialogTitle>
+					<DialogTitle>Configurações</DialogTitle>
 
 					{!isDefaultSettings && (
 						<Fragment>
@@ -68,7 +68,7 @@ export const SettingsDialog = ({ open, onOpenChange }: Props) => {
 					)}
 				</DialogHeader>
 
-				<div className="space-y-4 overflow-y-auto p-4">
+				<div className="space-y-4 p-4">
 					<SettingsThemeField />
 					<SettingsRegionalismField />
 					<SettingsOpacityField />

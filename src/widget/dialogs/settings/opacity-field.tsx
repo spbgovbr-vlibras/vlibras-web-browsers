@@ -15,10 +15,11 @@ export const SettingsOpacityField = () => {
 
 	return (
 		<div>
-			<div className="flex items-center justify-between">
+			<div className="flex w-full items-center justify-between mobile:text-sm text-base">
 				<p className="mobile:text-sm text-base">Opacidade</p>
 				<span className="font-semibold">{Math.round(Number(opacity) * 100)}%</span>
 			</div>
+
 			<input
 				type="range"
 				min={0}
