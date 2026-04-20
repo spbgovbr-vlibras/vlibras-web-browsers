@@ -58,3 +58,9 @@ export const usePlayerStore = create<PlayerStoreState>()(
 		},
 	),
 );
+
+export const playerStore = {
+	get: usePlayerStore.getState,
+	set: usePlayerStore.setState,
+	subscribe: usePlayerStore.subscribe,
+};

@@ -50,3 +50,9 @@ export const useWidgetStore = create<WidgetStoreState>()(
 		},
 	),
 );
+
+export const widgetStore = {
+	get: useWidgetStore.getState,
+	set: useWidgetStore.setState,
+	subscribe: useWidgetStore.subscribe,
+};

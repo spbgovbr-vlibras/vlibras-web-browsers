@@ -7,7 +7,7 @@ import { WidgetContent } from "./components/content";
 import { Draggable } from "./components/draggable";
 import { AppBackground } from "./components/ui/app-background";
 import { WidgetProviders } from "./providers/app";
-import { useRootStore } from "./stores/use-root.store";
+import { rootStore } from "./stores/use-root.store";
 import { useWidgetStore } from "./stores/use-widget.store";
 
 export const WidgetApp = () => {
@@ -23,7 +23,7 @@ export const WidgetApp = () => {
 						inert={!isOpen}
 						id="vlibras-app"
 						ref={(ref) => {
-							if (ref) useRootStore.setState({ appRoot: ref });
+							if (ref) rootStore.set({ appRoot: ref });
 							if (typeof draggableRef === "function") draggableRef(ref);
 							else if (draggableRef && "current" in draggableRef) {
 								(draggableRef as RefObject<HTMLDivElement | null>).current = ref;

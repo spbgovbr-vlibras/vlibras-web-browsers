@@ -2,7 +2,7 @@ import { Fragment, useEffect, useRef, useState } from "preact/compat";
 import { cn } from "@/common/lib/utils";
 import { Button } from "@/widget/components/ui/button";
 import { LinkIcon, TouchIcon } from "@/widget/icons";
-import { useTooltipStore } from "@/widget/stores/use-tooltip.store";
+import { tooltipStore, useTooltipStore } from "@/widget/stores/use-tooltip.store";
 import { normalizePosition } from "./utils";
 
 export const TextCaptureTooltip = () => {
@@ -14,7 +14,7 @@ export const TextCaptureTooltip = () => {
 	useEffect(() => {
 		const handleClickOutside = (e: MouseEvent) => {
 			if (tooltipRef.current && !tooltipRef.current.contains(e.target as Node)) {
-				useTooltipStore.setState({ isActive: false });
+				tooltipStore.set({ isActive: false });
 			}
 		};
 

@@ -4,8 +4,8 @@ import { createStyle } from "@/core/dom";
 import { Button } from "@/widget/components/ui/button";
 import { Tooltip } from "@/widget/components/ui/tooltip";
 import { CollapseIcon, ExpandIcon } from "@/widget/icons";
-import { useRootStore } from "@/widget/stores/use-root.store";
-import { useWidgetStore } from "@/widget/stores/use-widget.store";
+import { rootStore } from "@/widget/stores/use-root.store";
+import { useWidgetStore, widgetStore } from "@/widget/stores/use-widget.store";
 import css from "@/widget/styles/expanded-mode.css?inline";
 
 export const ExpandOption = () => {
@@ -15,13 +15,13 @@ export const ExpandOption = () => {
 	const toggleExpand = () => {
 		createStyle(css, "@expanded-mode.style");
 
-		const { root } = useRootStore.getState();
-		const { isExpanded } = useWidgetStore.getState();
+		const { root } = rootStore.get();
+		const { isExpanded } = widgetStore.get();
 		const nextState = !isExpanded;
 
 		if (!root) return;
 
-		useWidgetStore.setState({ isExpanded: nextState });
+		widgetStore.set({ isExpanded: nextState });
 
 		if (!nextState) {
 			delete root.dataset.expanded;

@@ -13,3 +13,9 @@ export const useScreensStore = create<ScreensStoreState>()((set) => ({
 	open: (screen) => set({ screen }),
 	closeAll: () => set({ screen: "main" }),
 }));
+
+export const screenStore = {
+	get: useScreensStore.getState,
+	set: useScreensStore.setState,
+	subscribe: useScreensStore.subscribe,
+};

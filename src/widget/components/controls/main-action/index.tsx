@@ -1,9 +1,9 @@
 import { useMobile, usePick } from "@/common/hooks";
 import { usePlayer } from "@/player/use-player";
-import { usePlayerStore } from "@/player/use-player.store";
+import { playerStore, usePlayerStore } from "@/player/use-player.store";
 import { Button } from "@/widget/components/ui/button";
 import { Tooltip } from "@/widget/components/ui/tooltip";
-import { useWidgetStore } from "@/widget/stores/use-widget.store";
+import { widgetStore } from "@/widget/stores/use-widget.store";
 import { statusMap } from "./status-map";
 
 export const MainAction = () => {
@@ -12,13 +12,13 @@ export const MainAction = () => {
 	const { gloss, status: _status } = usePlayerStore(usePick("gloss", "status"));
 
 	const onClick = () => {
-		const { status } = usePlayerStore.getState();
+		const { status } = playerStore.get();
 
 		if (status === "idle") repeat();
 		else if (status === "paused") play();
 		else if (status === "playing") {
 			pause();
-			useWidgetStore.setState({ isPausedByUser: true });
+			widgetStore.set({ isPausedByUser: true });
 		}
 	};
 

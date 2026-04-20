@@ -4,8 +4,8 @@ import { cn } from "@/common/lib/utils";
 import { usePlayer } from "@/player/use-player";
 import { DictionaryIcon } from "@/widget/icons/dictionary";
 import { createCallback } from "@/widget/stores/use-callback.store";
-import { useScreensStore } from "@/widget/stores/use-screens.store";
-import { useDictionaryHistoryStore } from "../stores/use-dictionary-history.store";
+import { screenStore, useScreensStore } from "@/widget/stores/use-screens.store";
+import { dictionaryHistoryStore, useDictionaryHistoryStore } from "../stores/use-dictionary-history.store";
 import { useDictionaryCtx } from "./dictionary-context";
 import { DictionaryError } from "./dictionary-error";
 import { DictionaryFilter } from "./dictionary-filter";
@@ -24,8 +24,8 @@ export const DictionaryList = () => {
 
 		const newSigns = [sign, ...signs.filter((s) => s !== sign)];
 
-		useDictionaryHistoryStore.setState({ signs: newSigns });
-		useScreensStore.setState({ screen: "main" });
+		dictionaryHistoryStore.set({ signs: newSigns });
+		screenStore.set({ screen: "main" });
 
 		createCallback({
 			action: () => open("dictionary"),

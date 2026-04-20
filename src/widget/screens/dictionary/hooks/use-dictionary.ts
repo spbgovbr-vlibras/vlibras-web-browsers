@@ -2,8 +2,8 @@ import { useCallback, useEffect, useMemo, useRef, useState } from "preact/hooks"
 import { useDebouncedCallback } from "@/common/hooks";
 import { Trie } from "@/common/lib/trie";
 import { useDictionarySigns } from "@/core/actions/hooks";
-import { useDictionaryStore } from "../stores/use-dictionary.store";
-import { useDictionaryHistoryStore } from "../stores/use-dictionary-history.store";
+import { dictionaryStore, useDictionaryStore } from "../stores/use-dictionary.store";
+import { dictionaryHistoryStore, useDictionaryHistoryStore } from "../stores/use-dictionary-history.store";
 
 type DictionaryState = {
 	filteredSigns: string[];
@@ -29,8 +29,8 @@ export const useDictionary = () => {
 		await refetch();
 
 		const retriesCount = store.retriesCount + 1;
-		useDictionaryStore.setState({ retriesCount });
-		if (retriesCount >= 5) useDictionaryStore.setState({ isMaxRetries: true });
+		dictionaryStore.set({ retriesCount });
+		if (retriesCount >= 5) dictionaryStore.set({ isMaxRetries: true });
 	};
 
 	const allSigns = useMemo(() => {
@@ -73,7 +73,7 @@ export const useDictionary = () => {
 	};
 
 	const handleHistoryClear = () => {
-		useDictionaryHistoryStore.setState({ signs: [] });
+		dictionaryHistoryStore.set({ signs: [] });
 
 		if (filter === "recents") {
 			setFilter("all");

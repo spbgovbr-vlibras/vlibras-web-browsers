@@ -3,7 +3,7 @@ import type { Emotion } from "@/data/emotions-map";
 import type { Region } from "@/data/regionalism";
 import { UNITY_METHODS, UNITY_OBJECTS } from "./constants/unity";
 import type { PlayerAvatar, PlayerConfig } from "./types";
-import { usePlayerStore } from "./use-player.store";
+import { playerStore, usePlayerStore } from "./use-player.store";
 
 const avatars: PlayerAvatar[] = ["icaro", "guga", "hosana"];
 
@@ -17,25 +17,25 @@ export const usePlayer = () => {
 		if (config.personalizationUrl)
 			send(UNITY_OBJECTS.CUSTOMIZATION, UNITY_METHODS.SET_PERSONALIZATION, config.personalizationUrl);
 
-		const _config = usePlayerStore.getState().config;
-		usePlayerStore.setState({ config: { ..._config, ...config } });
+		const { config: _config } = playerStore.get();
+		playerStore.set({ config: { ..._config, ...config } });
 	};
 
 	const playWelcome = () => {
 		send(UNITY_OBJECTS.PLAYER, UNITY_METHODS.PLAY_WELCOME);
 		send(UNITY_OBJECTS.PLAYER, UNITY_METHODS.SET_SUBTITLES_STATE, 0);
-		usePlayerStore.setState({ isPlayingWelcome: true });
+		playerStore.set({ isPlayingWelcome: true });
 	};
 
 	const play = (gloss?: string) => {
 		if (gloss) {
 			send(UNITY_OBJECTS.PLAYER, UNITY_METHODS.PLAY, gloss);
-			usePlayerStore.setState({ gloss });
+			playerStore.set({ gloss });
 		} else send(UNITY_OBJECTS.PLAYER, UNITY_METHODS.SET_PAUSE_STATE, 0);
 	};
 
 	const repeat = () => {
-		const gloss = usePlayerStore.getState().gloss;
+		const { gloss } = playerStore.get();
 		if (gloss) play(gloss);
 	};
 
@@ -49,34 +49,34 @@ export const usePlayer = () => {
 
 	const setSpeed = (speed: number) => {
 		send(UNITY_OBJECTS.PLAYER, UNITY_METHODS.SET_SPEED, speed);
-		usePlayerStore.setState({ speed });
+		playerStore.set({ speed });
 	};
 
 	const toggleAvatar = (avatar?: PlayerAvatar) => {
-		const _avatar = usePlayerStore.getState().avatar;
+		const _avatar = playerStore.get().avatar;
 		const nextIndex = (avatars.indexOf(avatar || _avatar) + (avatar ? 0 : 1)) % avatars.length;
 		const nextAvatar = avatars[nextIndex];
 
 		send(UNITY_OBJECTS.PLAYER, UNITY_METHODS.SET_AVATAR, nextAvatar);
-		usePlayerStore.setState({ avatar: nextAvatar });
+		playerStore.set({ avatar: nextAvatar });
 	};
 
 	const toggleSubtitles = (show?: boolean) => {
-		const _showSubtitles = usePlayerStore.getState().showSubtitles;
+		const { showSubtitles: _showSubtitles } = playerStore.get();
 		const showSubtitles = show ?? !_showSubtitles;
 
 		send(UNITY_OBJECTS.PLAYER, UNITY_METHODS.SET_SUBTITLES_STATE, Number(showSubtitles));
-		usePlayerStore.setState({ showSubtitles });
+		playerStore.set({ showSubtitles });
 	};
 
 	const setRegion = (region: Region) => {
 		const baseUrl = `${config.DICTIONARY_URL}${region.abbreviation}/`;
 		setConfig({ baseUrl });
-		usePlayerStore.setState({ region });
+		playerStore.set({ region });
 	};
 
 	const setEmotion = (emotion: Emotion) => {
-		usePlayerStore.setState({ emotion });
+		playerStore.set({ emotion });
 		send(UNITY_OBJECTS.EMOTION, emotion.action);
 	};
 

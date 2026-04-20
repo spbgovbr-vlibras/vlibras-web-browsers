@@ -2,7 +2,7 @@ import { Fragment } from "preact/jsx-runtime";
 import { posthogg } from "@/common/lib/posthog";
 import { cn } from "@/common/lib/utils";
 import { type Region, regions } from "@/data/regionalism";
-import { usePlayerStore } from "@/player/use-player.store";
+import { playerStore, usePlayerStore } from "@/player/use-player.store";
 import { buttonVariants } from "@/widget/components/ui/button";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/widget/components/ui/dialog";
 import { RegionalismListItem } from "./regionalism-list-item";
@@ -11,7 +11,7 @@ export const SettingsRegionalismField = () => {
 	const currentRegion = usePlayerStore((s) => s.region);
 
 	const handleRegionChange = (region: Region) => {
-		usePlayerStore.setState({ region });
+		playerStore.set({ region });
 		posthogg.trackEvent("region_change", { region });
 	};
 

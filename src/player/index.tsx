@@ -4,7 +4,7 @@ import { useConfig } from "@/common/hooks";
 import { sanitizeUrl } from "@/common/utils";
 import type { UNITY_METHODS, UNITY_OBJECTS } from "./constants/unity";
 import { PlayerEventsProvider } from "./events-provider";
-import { usePlayerStore } from "./use-player.store";
+import { playerStore, usePlayerStore } from "./use-player.store";
 
 export const Player = (props: ComponentPropsWithoutRef<"iframe">) => {
 	const { path } = useConfig();
@@ -19,7 +19,7 @@ export const Player = (props: ComponentPropsWithoutRef<"iframe">) => {
 
 	useEffect(() => {
 		if (!iframeRef.current) return;
-		usePlayerStore.setState({ send });
+		playerStore.set({ send });
 	}, []);
 
 	return (

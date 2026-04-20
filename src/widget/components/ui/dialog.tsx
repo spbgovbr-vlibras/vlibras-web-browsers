@@ -6,10 +6,10 @@ import { cn } from "@/common/lib/utils";
 import { randomStr } from "@/common/utils";
 import { $$ } from "@/common/utils/dom";
 import { usePlayer } from "@/player/use-player";
-import { usePlayerStore } from "@/player/use-player.store";
+import { playerStore, usePlayerStore } from "@/player/use-player.store";
 import { XIcon } from "@/widget/icons";
 import { useRootStore } from "@/widget/stores/use-root.store";
-import { useWidgetStore } from "@/widget/stores/use-widget.store";
+import { widgetStore } from "@/widget/stores/use-widget.store";
 import { Button } from "./button";
 
 type DialogContextProps = {
@@ -74,8 +74,8 @@ export const Dialog = ({ nested = false, open: _open, onOpenChange: _onOpenChang
 
 	useEffect(() => {
 		if (nested) return;
-		const { isPausedByUser } = useWidgetStore.getState();
-		const { gloss, isWelcomeFinished, status } = usePlayerStore.getState();
+		const { isPausedByUser } = widgetStore.get();
+		const { gloss, isWelcomeFinished, status } = playerStore.get();
 
 		if (open && status === "playing") return pause();
 		if (!open && !isPausedByUser && (gloss || !isWelcomeFinished)) setTimeout(play, 300);

@@ -9,3 +9,9 @@ export const useDictionaryHistoryStore = create<{ signs: string[] }>()(
 		partialize: (state) => state,
 	}),
 );
+
+export const dictionaryHistoryStore = {
+	get: useDictionaryHistoryStore.getState,
+	set: useDictionaryHistoryStore.setState,
+	subscribe: useDictionaryHistoryStore.subscribe,
+};

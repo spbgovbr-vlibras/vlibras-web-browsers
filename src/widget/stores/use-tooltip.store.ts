@@ -24,3 +24,9 @@ interface TooltipStoreState {
 export const useTooltipStore = create<TooltipStoreState>()(() => ({
 	...defaultState,
 }));
+
+export const tooltipStore = {
+	get: useTooltipStore.getState,
+	set: useTooltipStore.setState,
+	subscribe: useTooltipStore.subscribe,
+};

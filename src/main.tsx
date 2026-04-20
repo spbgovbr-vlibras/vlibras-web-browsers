@@ -7,7 +7,7 @@ import { WidgetApp } from "@/widget/app";
 import { useWidgetStore } from "@/widget/stores/use-widget.store";
 import { posthogg } from "./common/lib/posthog";
 import { Providers } from "./widget/providers";
-import { useRootStore } from "./widget/stores/use-root.store";
+import { rootStore } from "./widget/stores/use-root.store";
 
 const { root, shadowRoot, isRootActive } = createRoot();
 
@@ -15,7 +15,7 @@ function App() {
 	const { setOpen, isLoaded, setLoaded } = useWidgetStore(usePick("setOpen", "isLoaded", "setLoaded"));
 	const { path } = useConfig();
 
-	useEffect(() => useRootStore.setState({ root, shadowRoot }), [root, shadowRoot]);
+	useEffect(() => rootStore.set({ root, shadowRoot }), [root, shadowRoot]);
 	useEffect(() => posthogg.trackLoad(), []);
 
 	useEffect(() => {

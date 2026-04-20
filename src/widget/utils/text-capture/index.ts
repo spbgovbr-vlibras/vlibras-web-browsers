@@ -1,6 +1,6 @@
 import { startTransition } from "preact/compat";
 import { $ } from "@/common/utils/dom";
-import { useTooltipStore } from "@/widget/stores/use-tooltip.store";
+import { tooltipStore } from "@/widget/stores/use-tooltip.store";
 import {
 	findInteractiveElement,
 	getTextContent,
@@ -63,7 +63,7 @@ export const textCapture = ({ callback, isWordByWord, hoverClss, activeClass }: 
 		const selection = window.getSelection();
 		const selectedText = selection?.toString().trim();
 
-		useTooltipStore.setState({ isActive: false });
+		tooltipStore.set({ isActive: false });
 
 		if (activeClass) removeAllClasses(activeClass);
 		if (activeClass && !selectedText) element.classList.add(activeClass);
@@ -99,13 +99,13 @@ export const textCapture = ({ callback, isWordByWord, hoverClss, activeClass }: 
 	};
 
 	const showTooltip = (element: HTMLElement, event: MouseEvent) => {
-		useTooltipStore.setState({
+		tooltipStore.set({
 			isActive: true,
 			event: event as MouseEvent,
 			type: element.tagName.toLowerCase() === "a" ? "link" : "button",
 			onClick: () => {
 				element.dispatchEvent(new MouseEvent("click", { bubbles: true }));
-				useTooltipStore.setState({ isActive: false });
+				tooltipStore.set({ isActive: false });
 			},
 		});
 	};

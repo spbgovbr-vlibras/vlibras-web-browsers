@@ -1,13 +1,13 @@
 import { useRef } from "preact/hooks";
 import { posthogg } from "@/common/lib/posthog";
-import { useWidgetStore } from "@/widget/stores/use-widget.store";
+import { useWidgetStore, widgetStore } from "@/widget/stores/use-widget.store";
 
 export const SettingsOpacityField = () => {
 	const timeoutRef = useRef<NodeJS.Timeout>(null);
 	const opacity = useWidgetStore((s) => s.opacity);
 
 	const handleOpacityChange = (opacity: number) => {
-		useWidgetStore.setState({ opacity: opacity / 100 });
+		widgetStore.set({ opacity: opacity / 100 });
 
 		if (timeoutRef.current) clearTimeout(timeoutRef.current);
 		timeoutRef.current = setTimeout(() => posthogg.trackEvent("opacity_change", { opacity }), 2000);

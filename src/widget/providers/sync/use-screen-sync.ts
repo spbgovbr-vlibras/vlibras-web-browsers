@@ -1,8 +1,8 @@
 import { useEffect } from "preact/hooks";
 import { usePlayer } from "@/player/use-player";
-import { usePlayerStore } from "@/player/use-player.store";
-import { useScreensStore } from "@/widget/stores/use-screens.store";
-import { useWidgetStore } from "@/widget/stores/use-widget.store";
+import { playerStore, usePlayerStore } from "@/player/use-player.store";
+import { screenStore, useScreensStore } from "@/widget/stores/use-screens.store";
+import { widgetStore } from "@/widget/stores/use-widget.store";
 
 export const useScreenSync = () => {
 	const { pause } = usePlayer();
@@ -11,15 +11,17 @@ export const useScreenSync = () => {
 	const status = usePlayerStore((s) => s.status);
 
 	useEffect(() => {
-		const { status } = usePlayerStore.getState();
+		const { status } = playerStore.get();
 		if (screen !== "main" && status === "playing") pause();
 	}, [screen]);
 
 	useEffect(() => {
 		const isPlaying = status === "playing";
-		const { isPausedByUser } = useWidgetStore.getState();
 
-		if (isPausedByUser && isPlaying) useWidgetStore.setState({ isPausedByUser: false });
-		if (isPlaying) useScreensStore.getState().open("main");
+		const { isPausedByUser } = widgetStore.get();
+		const { open } = screenStore.get();
+
+		if (isPausedByUser && isPlaying) widgetStore.set({ isPausedByUser: false });
+		if (isPlaying) open("main");
 	}, [status]);
 };

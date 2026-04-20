@@ -2,12 +2,12 @@ import { useMemo } from "preact/hooks";
 import { Fragment } from "preact/jsx-runtime";
 import { useMobile, useTheme } from "@/common/hooks";
 import { regions } from "@/data/regionalism";
-import { usePlayerStore } from "@/player/use-player.store";
+import { playerStore, usePlayerStore } from "@/player/use-player.store";
 import { Button } from "@/widget/components/ui/button";
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/widget/components/ui/dialog";
 import { Tooltip } from "@/widget/components/ui/tooltip";
 import { RotateLeftIcon } from "@/widget/icons";
-import { useWidgetStore } from "@/widget/stores/use-widget.store";
+import { useWidgetStore, widgetStore } from "@/widget/stores/use-widget.store";
 import { SettingsOpacityField } from "./opacity-field";
 import { SettingsRegionalismField } from "./regionalism-field";
 import { SettingsThemeField } from "./theme-field";
@@ -28,8 +28,8 @@ export const SettingsDialog = ({ open, onOpenChange }: Props) => {
 		const defaultRegion = regions[0];
 
 		setTheme("light");
-		usePlayerStore.setState({ region: defaultRegion });
-		useWidgetStore.setState({ opacity: 1 });
+		playerStore.set({ region: defaultRegion });
+		widgetStore.set({ opacity: 1 });
 	};
 
 	const isDefaultSettings = useMemo(() => {

@@ -16,3 +16,9 @@ export const useDictionaryStore = create<{ isMaxRetries: boolean; retriesCount: 
 		},
 	}),
 );
+
+export const dictionaryStore = {
+	get: useDictionaryStore.getState,
+	set: useDictionaryStore.setState,
+	subscribe: useDictionaryStore.subscribe,
+};

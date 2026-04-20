@@ -1,6 +1,6 @@
 import { useEffect } from "preact/hooks";
 import { UNITY_EVENTS } from "./constants/unity";
-import { usePlayerStore } from "./use-player.store";
+import { playerStore } from "./use-player.store";
 import { playingStatesToBoolean } from "./utils";
 
 export const PlayerEventsProvider = () => {
@@ -10,7 +10,7 @@ export const PlayerEventsProvider = () => {
 				if (event.data.event === UNITY_EVENTS.FINISH_WELCOME) {
 					const isFinished = event.data.data === "True";
 
-					usePlayerStore.setState({
+					playerStore.set({
 						isPlayingWelcome: !isFinished,
 						isWelcomeFinished: isFinished,
 						...(isFinished ? { countGloss: { count: 0, max: 0 } } : {}),
@@ -18,25 +18,25 @@ export const PlayerEventsProvider = () => {
 				}
 
 				if (event.data.event === UNITY_EVENTS.ON_LOAD_PLAYER) {
-					usePlayerStore.setState({ isLoaded: true });
+					playerStore.set({ isLoaded: true });
 				}
 
 				if (event.data.event === UNITY_EVENTS.UPDATE_PROGRESS) {
 					const progress = Number(event.data.data);
-					if (!Number.isNaN(progress)) usePlayerStore.setState({ progress: Number((progress * 100).toFixed(0)) });
+					if (!Number.isNaN(progress)) playerStore.set({ progress: Number((progress * 100).toFixed(0)) });
 				}
 
 				if (event.data.event === UNITY_EVENTS.ON_PLAYING_STATE_CHANGE) {
 					const { isPlaying, isPaused, isLoading } = playingStatesToBoolean(event.data.data as string[]);
 
-					if (isPaused) usePlayerStore.setState({ status: "paused" });
-					else if (isPlaying && !isPaused) usePlayerStore.setState({ status: "playing" });
-					else if (!isPlaying && !isLoading) usePlayerStore.setState({ status: "idle" });
+					if (isPaused) playerStore.set({ status: "paused" });
+					else if (isPlaying && !isPaused) playerStore.set({ status: "playing" });
+					else if (!isPlaying && !isLoading) playerStore.set({ status: "idle" });
 				}
 
 				if (event.data.event === UNITY_EVENTS.COUNTER_GLOSS) {
 					const [count, max] = event.data.data as [number, number];
-					usePlayerStore.setState({ countGloss: { count, max } });
+					playerStore.set({ countGloss: { count, max } });
 				}
 			}
 		};

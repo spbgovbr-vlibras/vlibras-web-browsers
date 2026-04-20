@@ -18,14 +18,15 @@ export const TranslatorDialog = ({ open, onOpenChange }: Props) => {
 	const inputRef = useRef<HTMLTextAreaElement>(null);
 
 	const { play } = usePlayer();
-	const { mutateAsync: translate, isPending } = useTranslate();
 	const [text, setText] = useState("");
-	const appContent = useRootStore((s) => s.appContent);
+	const { mutateAsync: translate, isPending } = useTranslate();
 
+	const appContent = useRootStore((s) => s.appContent);
 	const onTextChange = useDebouncedCallback(setText, 300);
 
 	const handleTranslate = async () => {
-		if (!appContent) return;
+		const text = inputRef.current?.value || "";
+		if (!appContent || !text) return;
 
 		try {
 			const gloss = await translate(text);

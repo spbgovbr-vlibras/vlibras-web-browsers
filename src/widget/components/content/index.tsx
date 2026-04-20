@@ -4,7 +4,7 @@ import { Player } from "@/player";
 import { usePlayerStore } from "@/player/use-player.store";
 import { WidgetControls } from "@/widget/components/controls";
 import { WidgetHeader } from "@/widget/components/header";
-import { useRootStore } from "@/widget/stores/use-root.store";
+import { rootStore } from "@/widget/stores/use-root.store";
 import { useScreensStore } from "@/widget/stores/use-screens.store";
 
 export const WidgetContent = ({ className, ...props }: Omit<ComponentProps<"div">, "children">) => {
@@ -16,7 +16,7 @@ export const WidgetContent = ({ className, ...props }: Omit<ComponentProps<"div"
 			{...props}
 			id="vlibras-app-content"
 			inert={screen !== "main"}
-			ref={(ref) => void (ref && useRootStore.setState({ appContent: ref }))}
+			ref={(ref) => void (ref && rootStore.set({ appContent: ref }))}
 			className={cn("flex flex-col", (!isLoaded || screen !== "main") && "opacity-0", className)}
 		>
 			<WidgetHeader />
