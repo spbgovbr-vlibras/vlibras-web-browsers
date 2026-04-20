@@ -55,9 +55,9 @@ export const TranslatorDialog = ({ open, onOpenChange }: Props) => {
 	};
 
 	const onKeyPress = (e: KeyboardEvent) => {
-		if (e.key === "Enter" && text.length >= 3) {
+		if (e.key === "Enter") {
 			e.preventDefault();
-			handleTranslate();
+			if (text.length >= 3) handleTranslate();
 		}
 	};
 

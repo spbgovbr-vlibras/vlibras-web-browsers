@@ -1,18 +1,16 @@
-import { usePick } from "@/common/hooks";
 import { cn } from "@/common/lib/utils";
+import { useDraggable } from "@/widget/components/draggable";
 import { useWidgetStore } from "@/widget/stores/use-widget.store";
-import { useDraggable } from "../draggable";
 import { EmotionsOption } from "./emotions-option";
 import { MainAction } from "./main-action";
 import { ProgressBar } from "./progress-bar";
 import { SettingsOption } from "./settings-option";
 import { SpeedOption } from "./speed-option";
 import { SubtitlesOptions } from "./subtitles-option";
-import { TranslatingBadge } from "./translating-badge";
 
 export const WidgetControls = () => {
+	const isOpen = useWidgetStore((s) => s.isOpen);
 	const { onPointerDown } = useDraggable();
-	const { isOpen, isTranslating } = useWidgetStore(usePick("isOpen", "isTranslating"));
 
 	return (
 		<div
@@ -27,8 +25,6 @@ export const WidgetControls = () => {
 				{...{ onPointerDown }}
 				className="absolute inset-0 z-0 not-expanded:hover:cursor-move sm:hover:cursor-move"
 			/>
-
-			{isTranslating && <TranslatingBadge />}
 
 			<ProgressBar />
 

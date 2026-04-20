@@ -12,7 +12,7 @@ const defaultState: OnlyState<callbackStoreState> = {
 	action: undefined,
 };
 
-export const useCallbackButtonStore = create<callbackStoreState>()((set) => ({
+export const useCallbackButtonStore = create<callbackStoreState>()(() => ({
 	...defaultState,
 }));
 

@@ -21,7 +21,7 @@ export const WidgetCallback = () => {
 			<Button
 				onClick={handleClick}
 				variant="outline"
-				className="rounded-full bg-background! text-primary hover:bg-muted!"
+				className="rounded-full bg-background! font-semibold text-primary hover:bg-muted!"
 				size={isExpanded ? "sm" : "xs"}
 			>
 				{content}
