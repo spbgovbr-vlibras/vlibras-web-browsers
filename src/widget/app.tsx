@@ -6,7 +6,6 @@ import { getWidgetPositionClasses } from "./app.styles";
 import { WidgetContent } from "./components/content";
 import { Draggable } from "./components/draggable";
 import { AppBackground } from "./components/ui/app-background";
-import { UnityLoading } from "./components/unity-loading";
 import { WidgetProviders } from "./providers/app";
 import { useRootStore } from "./stores/use-root.store";
 import { useWidgetStore } from "./stores/use-widget.store";
@@ -36,7 +35,6 @@ export const WidgetApp = () => {
 						}}
 						className={cn(
 							"fixed z-2147483647 flex h-fit w-(--widget-width) flex-col overflow-hidden rounded-xl bg-transparent!",
-							"border dark:border-[#eee]",
 							!isDragging && "transition-all",
 							(!hasMoved || !isOpen) && getWidgetPositionClasses(position, isOpen),
 							hasMoved && isOpen && "top-0 left-0",
@@ -48,8 +46,6 @@ export const WidgetApp = () => {
 								),
 						)}
 					>
-						<UnityLoading />
-
 						<WidgetContent />
 						<WidgetProviders />
 

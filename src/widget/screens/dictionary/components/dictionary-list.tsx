@@ -1,6 +1,9 @@
+import { Fragment } from "preact/jsx-runtime";
 import { posthogg } from "@/common/lib/posthog";
 import { cn } from "@/common/lib/utils";
 import { usePlayer } from "@/player/use-player";
+import { DictionaryIcon } from "@/widget/icons/dictionary";
+import { createCallback } from "@/widget/stores/use-callback.store";
 import { useScreensStore } from "@/widget/stores/use-screens.store";
 import { useDictionaryHistoryStore } from "../stores/use-dictionary-history.store";
 import { useDictionaryCtx } from "./dictionary-context";
@@ -14,6 +17,7 @@ export const DictionaryList = () => {
 
 	const ctx = useDictionaryCtx();
 	const signs = useDictionaryHistoryStore((s) => s.signs);
+	const open = useScreensStore((s) => s.open);
 
 	const handlePlay = (sign: string) => {
 		play(sign);
@@ -22,7 +26,16 @@ export const DictionaryList = () => {
 
 		useDictionaryHistoryStore.setState({ signs: newSigns });
 		useScreensStore.setState({ screen: "main" });
-		setTimeout(() => useScreensStore.setState({ callbackScreen: "dictionary" }), 300);
+
+		createCallback({
+			action: () => open("dictionary"),
+			content: (
+				<Fragment>
+					<DictionaryIcon />
+					Reabrir Dicionário
+				</Fragment>
+			),
+		});
 
 		posthogg.trackEvent("dictionary_gloss", { sign });
 	};

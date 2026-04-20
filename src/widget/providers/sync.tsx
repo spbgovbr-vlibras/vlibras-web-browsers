@@ -5,11 +5,12 @@ import { config } from "@/core/config";
 import { createStyle } from "@/core/dom";
 import { usePlayer } from "@/player/use-player";
 import { usePlayerStore } from "@/player/use-player.store";
+import { resetCallback } from "@/widget/stores/use-callback.store";
 import { useRootStore } from "@/widget/stores/use-root.store";
+import { useScreensStore } from "@/widget/stores/use-screens.store";
 import { useWidgetStore } from "@/widget/stores/use-widget.store";
 import css from "@/widget/styles/text-capture.css?inline";
 import { textCapture } from "@/widget/utils/text-capture";
-import { useScreensStore } from "../stores/use-screens.store";
 
 export const SyncProvider = () => {
 	const root = useRootStore((s) => s.root);
@@ -68,6 +69,7 @@ export const SyncProvider = () => {
 				const gloss = await translate(text);
 				useWidgetStore.setState({ isTranslating: false });
 
+				resetCallback();
 				play(gloss);
 			},
 		});

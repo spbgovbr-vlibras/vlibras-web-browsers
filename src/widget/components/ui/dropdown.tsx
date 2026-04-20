@@ -1,3 +1,5 @@
+/* biome-ignore-all lint/a11y/useSemanticElements: Referência https://daisyui.com/components/dropdown/#method-3-css-focus */
+
 import type { ComponentProps } from "preact";
 import { cn } from "@/common/lib/utils";
 import { type ButtonVariants, buttonVariants } from "./button";
@@ -5,11 +7,19 @@ import { type ButtonVariants, buttonVariants } from "./button";
 export type DropdownTriggerProps = ComponentProps<"div"> &
 	ButtonVariants & {
 		disabled?: boolean;
+		asChild?: boolean;
 	};
 
-export const DropdownTrigger = ({ variant, size, className, disabled, ...props }: DropdownTriggerProps) => {
+export const DropdownTrigger = ({ variant, asChild, size, className, disabled, ...props }: DropdownTriggerProps) => {
+	if (asChild) {
+		return (
+			<div inert={disabled} role="button" tabIndex={0} className={className}>
+				{props.children}
+			</div>
+		);
+	}
+
 	return (
-		/* biome-ignore lint/a11y/useSemanticElements: Referência https://daisyui.com/components/dropdown/#method-3-css-focus */
 		<div
 			{...props}
 			aria-disabled={disabled}

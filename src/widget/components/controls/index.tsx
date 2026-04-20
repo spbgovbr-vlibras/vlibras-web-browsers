@@ -2,7 +2,6 @@ import { usePick } from "@/common/hooks";
 import { cn } from "@/common/lib/utils";
 import { useWidgetStore } from "@/widget/stores/use-widget.store";
 import { useDraggable } from "../draggable";
-import { CallbackScreen } from "./callback-screen";
 import { EmotionsOption } from "./emotions-option";
 import { MainAction } from "./main-action";
 import { ProgressBar } from "./progress-bar";
@@ -38,8 +37,6 @@ export const WidgetControls = () => {
 			<EmotionsOption />
 			<SubtitlesOptions />
 			<SettingsOption />
-
-			<CallbackScreen />
 		</div>
 	);
 };

@@ -1,4 +1,4 @@
-html:not([data-vlibras-status="translating"]) body *:not(.vlibras-ignore, .sr-only, .sr-only *, #vlibras-app-root *) {
+html body *:not(.vlibras-ignore, .sr-only, .sr-only *, #vlibras-app-root *) {
 	.vlibras--hover {
 		text-decoration: underline !important;
 		cursor:

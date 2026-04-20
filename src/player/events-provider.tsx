@@ -30,7 +30,7 @@ export const PlayerEventsProvider = () => {
 					const { isPlaying, isPaused, isLoading } = playingStatesToBoolean(event.data.data as string[]);
 
 					if (isPaused) usePlayerStore.setState({ status: "paused" });
-					else if (isPlaying && !isPaused) usePlayerStore.setState({ status: "playing" });
+					else if (isPlaying && !isPaused && isLoading) usePlayerStore.setState({ status: "playing" });
 					else if (!isPlaying && !isLoading) usePlayerStore.setState({ status: "idle" });
 				}
 

@@ -1,6 +1,6 @@
 import { useRef } from "preact/hooks";
 
-export function useDebouncedCallback<T>(callback: (params: T) => void, delay: number) {
+export function useDebouncedCallback<T = string>(callback: (params: T) => void, delay: number) {
 	const timeout = useRef<NodeJS.Timeout>(null);
 
 	return (params: T) => {
