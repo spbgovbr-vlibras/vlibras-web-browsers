@@ -4,6 +4,7 @@ import { TranslatingBadge } from "@/widget/components/controls/translating-badge
 import { UnityLoading } from "@/widget/components/unity-loading";
 import { useWidgetStore } from "../stores/use-widget.store";
 import { ScreensProvider } from "./screens";
+import { ToasterProvider } from "./toaster";
 
 export const WidgetProviders = () => {
 	const isTranslating = useWidgetStore((s) => s.isTranslating);
@@ -13,6 +14,7 @@ export const WidgetProviders = () => {
 			<WidgetCallback />
 			<ScreensProvider />
 			<UnityLoading />
+			<ToasterProvider />
 
 			{isTranslating && <TranslatingBadge />}
 		</Fragment>

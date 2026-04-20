@@ -15,7 +15,7 @@ export const WidgetHeader = () => {
 	const setOpen = useWidgetStore((s) => s.setOpen);
 
 	return (
-		<div className={cn("relative bottom-auto flex items-center justify-center gap-1 bg-primary px-2 py-1.5")}>
+		<div className={cn("relative bottom-auto z-50 flex items-center justify-center gap-1 bg-primary px-2 py-1.5")}>
 			<div
 				{...{ onPointerDown }}
 				className="absolute inset-0 z-0 not-expanded:hover:cursor-move sm:hover:cursor-move"

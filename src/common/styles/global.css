@@ -18,6 +18,8 @@
 	--accent-foreground: oklch(0.205 0 0);
 	--destructive: oklch(0.637 0.237 25.331);
 	--destructive-foreground: oklch(0.985 0 0);
+	--success: oklch(54.834% 0.15401 147.965);
+	--success-foreground: oklch(100% 0.00011 271.152); 
 	--border: oklch(0.910 0 0);
 	--input: oklch(0.910 0 0);
 	--ring: oklch(0.708 0 0);
@@ -61,6 +63,8 @@
 }
 
 @theme inline {
+	--color-success: var(--success);
+	--color-success-foreground: var(--success-foreground);
 	--color-background: var(--background);
 	--color-foreground: var(--foreground);
 	--color-card: var(--card);
