@@ -16,6 +16,7 @@ type DialogContextProps = {
 	open: boolean;
 	onOpenChange: (open: boolean) => void;
 	nested?: boolean;
+	overlay?: boolean;
 };
 
 const DialogContext = createContext<DialogContextProps | null>(null);
@@ -35,14 +36,15 @@ const DialogWrapper = ({ children }: { children: ComponentChildren }) => {
 		if (context.open) setClosed(false);
 		else setTimeout(() => setClosed(true), 150);
 
-		if (appContent && !context.nested) {
+		if (appContent && !context.nested && context.overlay === true) {
 			appContent.inert = context.open;
 			const otherDialogs = $$(`[data-slot='dialog-wrapper']:not([id='dialog-${id}'])`, appRoot);
 			otherDialogs.forEach((dialog) => (dialog.inert = context.open));
 		}
-	}, [context?.open]);
+	}, [context?.open, context?.overlay]);
 
 	if (!context || closed) return null;
+	if (!context.overlay) return <div className="absolute inset-0 top-auto">{children}</div>;
 
 	return (
 		<div
@@ -63,9 +65,16 @@ type DialogProps = {
 	children: ComponentChildren;
 	/** Deve ser definido como `true` ao aninhar um Dialog dentro de outro para evitar efeitos colaterais. */
 	nested?: boolean;
+	overlay?: boolean;
 };
 
-export const Dialog = ({ nested = false, open: _open, onOpenChange: _onOpenChange, children }: DialogProps) => {
+export const Dialog = ({
+	nested = false,
+	overlay = true,
+	open: _open,
+	onOpenChange: _onOpenChange,
+	children,
+}: DialogProps) => {
 	const [isOpen, setOpen] = useState(false);
 	const { pause, play } = usePlayer();
 
@@ -81,7 +90,7 @@ export const Dialog = ({ nested = false, open: _open, onOpenChange: _onOpenChang
 		if (!open && !isPausedByUser && (gloss || !isWelcomeFinished)) setTimeout(play, 300);
 	}, [open, nested]);
 
-	return <DialogContext.Provider value={{ open, onOpenChange, nested }}>{children}</DialogContext.Provider>;
+	return <DialogContext.Provider value={{ open, onOpenChange, nested, overlay }}>{children}</DialogContext.Provider>;
 };
 
 export const DialogTrigger = ({ children, ...props }: ComponentProps<"button">) => {

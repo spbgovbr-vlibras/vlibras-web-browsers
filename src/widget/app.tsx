@@ -41,7 +41,7 @@ export const WidgetApp = () => {
 							isExpanded &&
 								isOpen &&
 								cn(
-									"w-dvw max-w-dvw sm:h-auto sm:w-xl sm:[--player-height:800px] [&_iframe]:max-h-[calc(100dvh-54px)]",
+									"w-dvw max-w-dvw sm:h-auto sm:w-xl sm:[--player-height:800px]",
 									"max-sm:translate-none! max-sm:transform-none! [--player-height:calc(100dvh-54px)] max-sm:inset-0 max-sm:rounded-none! max-sm:border-none!",
 								),
 						)}

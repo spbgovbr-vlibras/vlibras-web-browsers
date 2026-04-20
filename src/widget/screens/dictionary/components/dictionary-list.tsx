@@ -5,6 +5,7 @@ import { usePlayer } from "@/player/use-player";
 import { DictionaryIcon } from "@/widget/icons/dictionary";
 import { createCallback } from "@/widget/stores/use-callback.store";
 import { screenStore, useScreensStore } from "@/widget/stores/use-screens.store";
+import { widgetStore } from "@/widget/stores/use-widget.store";
 import { dictionaryHistoryStore, useDictionaryHistoryStore } from "../stores/use-dictionary-history.store";
 import { useDictionaryCtx } from "./dictionary-context";
 import { DictionaryError } from "./dictionary-error";
@@ -25,6 +26,7 @@ export const DictionaryList = () => {
 		const newSigns = [sign, ...signs.filter((s) => s !== sign)];
 
 		dictionaryHistoryStore.set({ signs: newSigns });
+		widgetStore.set({ text: undefined });
 		screenStore.set({ screen: "main" });
 
 		createCallback({
