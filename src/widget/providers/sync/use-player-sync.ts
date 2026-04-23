@@ -6,11 +6,9 @@ import { usePlayerStore } from "@/player/use-player.store";
 
 export const usePlayerSync = () => {
 	const { playWelcome, setSpeed, setConfig, toggleSubtitles } = usePlayer();
-	const { isLoaded, speed, showSubtitles, isWelcomeFinished, status } = usePlayerStore(
-		usePick("isLoaded", "status", "speed", "showSubtitles", "isWelcomeFinished"),
+	const { isLoaded, speed, showSubtitles, isWelcomeFinished } = usePlayerStore(
+		usePick("isLoaded", "speed", "showSubtitles", "isWelcomeFinished"),
 	);
-
-	console.log(status);
 
 	useEffect(() => {
 		if (!isLoaded) return;

@@ -80,4 +80,4 @@ initBtn.onclick = open;
 window.VLibrasWidget = {};
 window.VLibrasWidget = { path, initBtn, open };
 
-if (localStorage.getItem("@vlibras-wp").includes('"isActive":true')) open();
+if (localStorage.getItem("@vlibras-wp")?.includes('"isActive":true')) open();

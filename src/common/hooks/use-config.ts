@@ -1,13 +1,14 @@
 import { useEffect, useState } from "preact/hooks";
 
 export const useConfig = () => {
-	const [version, setVersion] = useState("");
-	const [path, setPath] = useState("");
+	const [config, setConfig] = useState({ path: "", version: "" });
 
 	useEffect(() => {
-		if (!version) setVersion(__APP_VERSION__);
-		if (!path) setPath(window?.VLibrasWidget?.path ?? "./");
-	}, [version, path]);
+		setConfig({
+			path: window?.VLibrasWidget?.path ?? "./",
+			version: __APP_VERSION__,
+		});
+	}, []);
 
-	return { version, path };
+	return config;
 };

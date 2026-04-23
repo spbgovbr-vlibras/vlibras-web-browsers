@@ -1,14 +1,14 @@
 import { type ComponentChildren, type ComponentProps, createContext } from "preact";
 import { createPortal } from "preact/compat";
 import { useContext, useEffect, useState } from "preact/hooks";
-import { useMobile, usePick } from "@/common/hooks";
+import { useMobile } from "@/common/hooks";
 import { cn } from "@/common/lib/utils";
 import { randomStr } from "@/common/utils";
 import { $$ } from "@/common/utils/dom";
 import { usePlayer } from "@/player/use-player";
 import { playerStore, usePlayerStore } from "@/player/use-player.store";
 import { XIcon } from "@/widget/icons";
-import { useRootStore } from "@/widget/stores/use-root.store";
+import { rootStore, useRootStore } from "@/widget/stores/use-root.store";
 import { widgetStore } from "@/widget/stores/use-widget.store";
 import { Button } from "./button";
 
@@ -26,12 +26,13 @@ const DialogWrapper = ({ children }: { children: ComponentChildren }) => {
 	const context = useContext(DialogContext);
 	const isPlaying = usePlayerStore((s) => s.status === "playing");
 
-	const { appContent, appRoot } = useRootStore(usePick("appRoot", "appContent"));
 	const [closed, setClosed] = useState(true);
 
 	useEffect(() => void (isPlaying && context?.onOpenChange(false)), [isPlaying]);
 	useEffect(() => {
-		if (!context || !appContent) return;
+		const { appRoot, appContent } = rootStore.get();
+
+		if (!context || !appContent || !appRoot) return;
 
 		if (context.open) setClosed(false);
 		else setTimeout(() => setClosed(true), 150);

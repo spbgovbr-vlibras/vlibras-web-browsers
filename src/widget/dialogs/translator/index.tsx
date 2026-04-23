@@ -7,7 +7,6 @@ import { Button } from "@/widget/components/ui/button";
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/widget/components/ui/dialog";
 import { TranslatorIcon, TrashIcon } from "@/widget/icons";
 import { createCallback } from "@/widget/stores/use-callback.store";
-import { useRootStore } from "@/widget/stores/use-root.store";
 
 type Props = {
 	open: boolean;
@@ -21,12 +20,11 @@ export const TranslatorDialog = ({ open, onOpenChange }: Props) => {
 	const [text, setText] = useState("");
 	const { mutateAsync: translate, isPending } = useTranslate();
 
-	const appContent = useRootStore((s) => s.appContent);
 	const onTextChange = useDebouncedCallback(setText, 300);
 
 	const handleTranslate = async () => {
 		const text = inputRef.current?.value || "";
-		if (!appContent || !text) return;
+		if (!text) return;
 
 		try {
 			const gloss = await translate(text);
