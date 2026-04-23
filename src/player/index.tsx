@@ -11,7 +11,7 @@ export const Player = (props: ComponentPropsWithoutRef<"iframe">) => {
 	const { isLoaded } = usePlayerStore();
 
 	const iframeRef = useRef<HTMLIFrameElement>(null);
-	const iframeSrc = sanitizeUrl(`${path}/unity/index.html`);
+	const iframeSrc = sanitizeUrl(`${path}/unity-old/index.html`);
 
 	const send = (object: UNITY_OBJECTS, method: UNITY_METHODS, params?: unknown) => {
 		iframeRef.current?.contentWindow?.postMessage({ type: "unity", object, method, params }, "*");

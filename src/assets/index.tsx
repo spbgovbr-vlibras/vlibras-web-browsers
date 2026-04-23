@@ -1,4 +1,3 @@
-import camaraIcon from "./images/camara-deputados.svg";
 import AC from "./images/flags/AC.webp";
 import AL from "./images/flags/AL.webp";
 import AM from "./images/flags/AM.webp";
@@ -28,12 +27,10 @@ import SE from "./images/flags/SE.webp";
 import SP from "./images/flags/SP.webp";
 import TO from "./images/flags/TO.webp";
 
-import GugaImage from "./images/guga.png";
-import HosanaImage from "./images/hosana.png";
-import IcaroImage from "./images/icaro.png";
+import GugaImage from "./images/guga.webp";
+import HosanaImage from "./images/hosana.webp";
+import IcaroImage from "./images/icaro.webp";
 import lavidIcon from "./images/lavid.svg";
-import mdhcIcon from "./images/ministerioDireitosHumanos.svg";
-import mgispIcon from "./images/ministerioGestao.svg";
 import rnpIcon from "./images/rnp.svg";
 
 const flags = {
@@ -67,4 +64,4 @@ const flags = {
 	TO,
 };
 
-export { flags, camaraIcon, GugaImage, HosanaImage, IcaroImage, lavidIcon, mdhcIcon, mgispIcon, rnpIcon };
+export { flags, GugaImage, HosanaImage, IcaroImage, lavidIcon, rnpIcon };

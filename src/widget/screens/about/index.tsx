@@ -1,4 +1,5 @@
-import { camaraIcon, lavidIcon, mdhcIcon, mgispIcon, rnpIcon } from "@/assets";
+import { lavidIcon, rnpIcon } from "@/assets";
+import { useConfig } from "@/common/hooks";
 import { cn } from "@/common/lib/utils";
 import { Button } from "@/widget/components/ui/button";
 import { IcaroIcon } from "@/widget/icons";
@@ -11,6 +12,8 @@ import { Screen, ScreenContent, ScreenHeader, ScreenTitle } from "../components"
 import { AboutField } from "./aboutfield";
 
 export const AboutScreen = () => {
+	const { path } = useConfig();
+
 	return (
 		<Screen>
 			<ScreenHeader close>
@@ -26,15 +29,29 @@ export const AboutScreen = () => {
 				</AboutField>
 
 				<AboutField label="Realizadores">
-					<div className="flex w-full flex-col justify-between gap-1">
-						<div className="flex w-full justify-between gap-2">
-							<img src={mdhcIcon} alt={""} className="h-auto min-w-15 max-w-27" />
-							<img src={mgispIcon} alt={""} className="h-auto min-w-15 max-w-27" />
+					<div className="flex w-full flex-col justify-between gap-2">
+						<div className="flex w-full justify-between gap-4 overflow-hidden">
+							<img
+								src={`${path}/assets/images/ministerio-publico.png`}
+								alt="Logo do Ministério da Gestão e da Inovação em Serviços Públicos"
+								className="min-w-0 flex-1 object-contain dark:invert-100"
+							/>
+
+							<img
+								src={`${path}/assets/images/ministerio-cidadania.png`}
+								alt="Logo do Ministério dos Direitos Humanos e da Cidadania"
+								className="min-w-0 flex-1 object-contain dark:invert-100"
+							/>
 						</div>
-						<div className="flex justify-between gap-1">
-							<img src={lavidIcon} alt={""} className="h-auto min-w-15 max-w-27" />
-							<img src={rnpIcon} alt={""} className="h-auto min-w-15 max-w-27" />
-							<img src={camaraIcon} alt={""} className="h-auto min-w-15 max-w-27" />
+
+						<div className="flex justify-between gap-2">
+							<img src={lavidIcon} alt="Logo LAVID" className="h-auto min-w-15 max-w-27" />
+							<img src={rnpIcon} alt="Logo RNP" className="h-auto min-w-15 max-w-27" />
+							<img
+								src={`${path}/assets/images/camara-deputados.png`}
+								alt="Logo Câmara dos Deputados"
+								className="mobile:w-22 w-30 object-contain"
+							/>
 						</div>
 					</div>
 				</AboutField>
