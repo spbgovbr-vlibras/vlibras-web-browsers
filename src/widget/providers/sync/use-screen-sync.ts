@@ -13,15 +13,16 @@ export const useScreenSync = () => {
 	useEffect(() => {
 		const { status } = playerStore.get();
 		if (screen !== "main" && status === "playing") pause();
-	}, [screen]);
+	}, [screen, pause]);
 
 	useEffect(() => {
 		const isPlaying = status === "playing";
+		if (!isPlaying) return;
 
 		const { isPausedByUser } = widgetStore.get();
-		const { open } = screenStore.get();
+		const { open, screen } = screenStore.get();
 
-		if (isPausedByUser && isPlaying) widgetStore.set({ isPausedByUser: false });
-		if (isPlaying) open("main");
+		if (isPausedByUser) widgetStore.set({ isPausedByUser: false });
+		if (screen !== "main") open("main");
 	}, [status]);
 };
