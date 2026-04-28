@@ -6,7 +6,7 @@ import { playerStore, usePlayerStore } from "@/player/use-player.store";
 import { Button } from "@/widget/components/ui/button";
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/widget/components/ui/dialog";
 import { Tooltip } from "@/widget/components/ui/tooltip";
-import { RotateLeftIcon } from "@/widget/icons";
+import { RotateLeftIcon, SettingsIcon } from "@/widget/icons";
 import { useWidgetStore, widgetStore } from "@/widget/stores/use-widget.store";
 import { SettingsOpacityField } from "./opacity-field";
 import { SettingsRegionalismField } from "./regionalism-field";
@@ -40,7 +40,7 @@ export const SettingsDialog = ({ open, onOpenChange }: Props) => {
 		<Dialog open={open} onOpenChange={onOpenChange}>
 			<DialogContent>
 				<DialogHeader className="relative">
-					<DialogTitle>Configurações</DialogTitle>
+					<DialogTitle icon={SettingsIcon}>Configurações</DialogTitle>
 
 					{!isDefaultSettings && (
 						<Fragment>

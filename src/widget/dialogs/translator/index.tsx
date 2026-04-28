@@ -5,8 +5,10 @@ import { useTranslate } from "@/core/actions/hooks";
 import { usePlayer } from "@/player/use-player";
 import { Button } from "@/widget/components/ui/button";
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/widget/components/ui/dialog";
+import { Spinner } from "@/widget/components/ui/spinner";
 import { TranslatorIcon, TrashIcon } from "@/widget/icons";
 import { createCallback } from "@/widget/stores/use-callback.store";
+import { useWidgetStore } from "@/widget/stores/use-widget.store";
 
 type Props = {
 	open: boolean;
@@ -15,6 +17,7 @@ type Props = {
 
 export const TranslatorDialog = ({ open, onOpenChange }: Props) => {
 	const inputRef = useRef<HTMLTextAreaElement>(null);
+	const isTranslating = useWidgetStore((s) => s.isTranslating);
 
 	const { play } = usePlayer();
 	const [text, setText] = useState("");
@@ -64,10 +67,7 @@ export const TranslatorDialog = ({ open, onOpenChange }: Props) => {
 		<Dialog open={open} onOpenChange={onOpenChange}>
 			<DialogContent>
 				<DialogHeader>
-					<DialogTitle className="flex items-center gap-1.5">
-						<TranslatorIcon className="size-5" />
-						Tradutor
-					</DialogTitle>
+					<DialogTitle icon={TranslatorIcon}>Tradutor</DialogTitle>
 				</DialogHeader>
 
 				<div className="space-y-2 overflow-y-auto p-4 pt-2">
@@ -101,7 +101,12 @@ export const TranslatorDialog = ({ open, onOpenChange }: Props) => {
 						/>
 					</div>
 
-					<Button onClick={handleTranslate} disabled={text.length < 3 || isPending} className="w-full text-sm">
+					<Button
+						onClick={handleTranslate}
+						disabled={text.length < 3 || isTranslating || isPending}
+						className="w-full text-sm"
+					>
+						{isPending && <Spinner className="size-4 text-primary-foreground" />}
 						{isPending ? "Traduzindo..." : "Traduzir"}
 					</Button>
 				</div>
