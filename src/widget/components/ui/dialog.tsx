@@ -8,6 +8,7 @@ import { $$ } from "@/common/utils/dom";
 import { usePlayer } from "@/player/use-player";
 import { playerStore, usePlayerStore } from "@/player/use-player.store";
 import { XIcon } from "@/widget/icons";
+import type { IconElement } from "@/widget/icons/types";
 import { rootStore, useRootStore } from "@/widget/stores/use-root.store";
 import { widgetStore } from "@/widget/stores/use-widget.store";
 import { Button } from "./button";
@@ -112,7 +113,7 @@ export const DialogHeader = ({ className, children, ...props }: ComponentProps<"
 	return (
 		<div
 			data-slot="dialog-header"
-			className={cn("flex items-center gap-2 border-b p-2.5 mobile:py-2 pl-4", className)}
+			className={cn("flex items-start gap-2 border-b p-2.5 mobile:py-2 pl-4", className)}
 			{...props}
 		>
 			{children}
@@ -129,16 +130,21 @@ export const DialogHeader = ({ className, children, ...props }: ComponentProps<"
 	);
 };
 
-export const DialogTitle = ({ children, className, ...props }: ComponentProps<"h3">) => {
+type DialogTitleProps = ComponentProps<"h3"> & {
+	icon?: IconElement;
+};
+
+export const DialogTitle = ({ children, icon: Icon, className, ...props }: DialogTitleProps) => {
 	return (
 		<h3
 			data-slot="dialog-title"
 			className={cn(
-				"break-anywhere -mt-px mr-auto gap-2 font-semibold mobile:text-sm text-base leading-normal",
+				"break-anywhere relative mt-0.75 mr-auto flex items-start gap-1.5 font-semibold mobile:text-sm text-base leading-normal",
 				className,
 			)}
 			{...props}
 		>
+			{Icon && <Icon aria-hidden="true" className="relative -bottom-1 mobile:size-4.5 size-5 shrink-0" />}
 			{children}
 		</h3>
 	);

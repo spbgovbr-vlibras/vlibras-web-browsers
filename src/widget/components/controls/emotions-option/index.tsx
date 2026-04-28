@@ -30,7 +30,7 @@ export const EmotionsOption = () => {
 
 			<div
 				tabIndex={-1}
-				className="dropdown-content mb-4 w-[calc(var(--widget-width)-1rem)] rounded-lg border bg-background p-1 drop-shadow-lg"
+				className="dropdown-content mb-4 w-[calc(var(--widget-width)-1rem)] rounded-lg border bg-background p-1 shadow-lg"
 			>
 				<div className="relative flex items-center justify-center">
 					<span className="absolute -inset-y-1 w-px bg-border" />

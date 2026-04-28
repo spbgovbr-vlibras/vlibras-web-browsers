@@ -29,12 +29,9 @@ export const WidgetApp = () => {
 								(draggableRef as RefObject<HTMLDivElement | null>).current = ref;
 							}
 						}}
-						style={{
-							boxShadow: "0 0 15px -5px rgba(0, 0, 0, 0.15)",
-							transform: hasMoved && isOpen ? `translate3d(${pos.x}px, ${pos.y}px, 0)` : undefined,
-						}}
+						style={{ transform: hasMoved && isOpen ? `translate3d(${pos.x}px, ${pos.y}px, 0)` : undefined }}
 						className={cn(
-							"fixed z-2147483647 flex h-fit w-(--widget-width) flex-col overflow-hidden rounded-xl",
+							"fixed z-2147483647 flex h-fit w-(--widget-width) flex-col overflow-hidden rounded-xl shadow-lg",
 							!isDragging && "transition-all",
 							(!hasMoved || !isOpen) && getWidgetPositionClasses(position, isOpen),
 							hasMoved && isOpen && "top-0 left-0",
