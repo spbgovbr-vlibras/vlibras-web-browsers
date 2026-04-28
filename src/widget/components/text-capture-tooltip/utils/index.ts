@@ -1,19 +1,21 @@
 export type Position = { x: number; y: number };
 type ArrowPosition = "bottom" | "top" | "left" | "right" | "bottom-left" | "bottom-right" | "top-left" | "top-right";
 
+type NormalizePrositionProps = {
+	event: MouseEvent;
+	tooltip: HTMLButtonElement;
+};
+
 export const normalizePosition = ({
-	x: _x,
-	y: _y,
+	event,
 	tooltip,
-}: Position & {
-	tooltip: HTMLButtonElement | null;
-}): Position & {
+}: NormalizePrositionProps): Position & {
 	arrow: ArrowPosition;
 } => {
 	const rect = tooltip?.getBoundingClientRect() || { width: 0, height: 0 };
 
-	let x = _x;
-	let y = _y - 36;
+	let x = event.pageX;
+	let y = event.pageY - 36;
 	let arrow: ArrowPosition = "bottom";
 
 	if (x < 34) {
@@ -26,10 +28,12 @@ export const normalizePosition = ({
 		arrow = "right";
 	}
 
-	if (y < 46) {
-		y = 54;
+	if (event.clientY < 46) {
+		y = event.pageY + rect.height * 2;
 		arrow = arrow === "right" ? "top-right" : "top-left";
-	} else arrow = arrow === "right" ? "bottom-right" : "bottom-left";
+	} else {
+		arrow = arrow === "right" ? "bottom-right" : "bottom-left";
+	}
 
 	return { x, y, arrow };
 };

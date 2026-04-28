@@ -27,9 +27,8 @@ export const TextCaptureTooltip = () => {
 	}, [isActive]);
 
 	useEffect(() => {
-		if (event) {
-			const { pageX, pageY } = event;
-			setPosition(normalizePosition({ x: pageX, y: pageY, tooltip: tooltipRef.current }));
+		if (event && tooltipRef.current) {
+			setPosition(normalizePosition({ event, tooltip: tooltipRef.current }));
 
 			const btn = tooltipRef.current;
 			if (btn) {
@@ -44,13 +43,9 @@ export const TextCaptureTooltip = () => {
 		<Button
 			ref={tooltipRef}
 			onClick={onClick}
-			style={{
-				left: position.x,
-				top: position.y,
-				boxShadow: "2px 2px 10px 4px rgba(0, 0, 0, .2)",
-			}}
+			style={{ left: position.x, top: position.y }}
 			className={cn(
-				"group absolute z-2147483647 h-9 -translate-x-6 -translate-y-full animate-scale rounded-lg px-3 text-primary-foreground",
+				"group absolute z-2147483647 h-9 -translate-x-6 -translate-y-full animate-scale rounded-lg px-3 text-primary-foreground shadow-lg",
 				!isActive && "hidden",
 			)}
 		>
@@ -69,7 +64,7 @@ export const TextCaptureTooltip = () => {
 			<span
 				className={cn(
 					"absolute -z-2 size-4 -translate-x-1/2 rotate-45 bg-primary brightness-85",
-					["bottom", "bottom-left", "bottom-right"].includes(position.arrow) ? "-bottom-5" : "top-3",
+					["bottom", "bottom-left", "bottom-right"].includes(position.arrow) ? "-bottom-1.5" : "-top-1.5",
 					["bottom-left", "top-left", "bottom", "top"].includes(position.arrow) ? "left-5" : "right-2",
 				)}
 			/>
