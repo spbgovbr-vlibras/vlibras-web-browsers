@@ -52,7 +52,7 @@ const DialogWrapper = ({ children }: { children: ComponentChildren }) => {
 			id={`dialog-${id}`}
 			data-slot="dialog-wrapper"
 			data-state={context.open ? "open" : "close"}
-			className={cn("group absolute inset-0 z-99999 flex items-end bg-black/30", context.nested && "bg-transparent!")}
+			className={cn("group absolute inset-0 z-99999 flex items-end bg-black/20", context.nested && "bg-transparent!")}
 			{...{ onClick: () => context.onOpenChange(false) }}
 		>
 			{children}
