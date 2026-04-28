@@ -1,6 +1,8 @@
 export { ArrowLeftIcon } from "./arrow-left";
 export { CheckedIcon } from "./checked";
 export { CollapseIcon } from "./collapse";
+export { CommentIcon } from "./comment";
+export { DeslikeIcon } from "./deslike";
 export { EmotionsIcon } from "./emotions";
 export { ExpandIcon } from "./expand";
 export { GovBRIcon } from "./govbr";
@@ -9,6 +11,7 @@ export { HelpIcon } from "./help";
 export { IcaroIcon } from "./icaro";
 export { InfoIcon } from "./info";
 export { LibrasIcon } from "./libras";
+export { LikeIcon } from "./like";
 export { LinkIcon } from "./link";
 export { MenuIcon } from "./menu";
 export { MoonIcon } from "./moon";
