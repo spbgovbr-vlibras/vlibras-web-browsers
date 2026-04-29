@@ -1,5 +1,6 @@
 import { useMobile } from "@/common/hooks";
 import { cn } from "@/common/lib/utils";
+import { usePlayer } from "@/player/use-player";
 import { Button } from "@/widget/components/ui/button";
 import { Spacer } from "@/widget/components/ui/spacer";
 import { IcaroIcon, XIcon } from "@/widget/icons";
@@ -10,9 +11,15 @@ import { WidgetMenu } from "./menu";
 
 export const WidgetHeader = () => {
 	const { onPointerDown } = useDraggable();
+	const { pause } = usePlayer();
 
 	const isMobile = useMobile();
 	const setOpen = useWidgetStore((s) => s.setOpen);
+
+	const handleClose = () => {
+		setOpen(false);
+		pause();
+	};
 
 	return (
 		<div className={cn("relative bottom-auto z-50 flex items-center justify-center gap-1 bg-primary px-2 py-1.5")}>
@@ -39,7 +46,7 @@ export const WidgetHeader = () => {
 			<ExpandOption />
 
 			<Button
-				onClick={() => setOpen(false)}
+				onClick={handleClose}
 				aria-label="Fechar"
 				size={isMobile ? "icon-sm" : "icon"}
 				variant="default"
