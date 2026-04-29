@@ -52,15 +52,24 @@ export const createRoot = () => {
 };
 
 export const createStyle = (css: string, id: string, callback?: () => void) => {
-	if (!memoizedStyles[id]) {
-		const style = document.createElement("style");
-		style.id = id;
-		style.innerHTML = css;
-		memoizedStyles[id] = style;
-		document.head.appendChild(style);
-	}
+	const existingStyle = memoizedStyles[id];
+	if (existingStyle) return existingStyle;
+
+	const style = document.createElement("style");
+	style.id = id;
+	style.innerHTML = css;
+	memoizedStyles[id] = style;
+	document.head.appendChild(style);
 
 	callback?.();
+};
+
+export const removeStyle = (id: string) => {
+	const style = memoizedStyles[id];
+	if (style) {
+		document.head.removeChild(style);
+		delete memoizedStyles[id];
+	}
 };
 
 export const isValidElement = (element: Element, ignore?: [keyof HTMLElementTagNameMap]) => {

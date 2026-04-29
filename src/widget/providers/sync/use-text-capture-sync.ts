@@ -1,14 +1,16 @@
 import { useEffect } from "preact/hooks";
 import { useTranslate } from "@/core/actions/hooks";
-import { createStyle } from "@/core/dom";
+import { createStyle, removeStyle } from "@/core/dom";
 import { usePlayer } from "@/player/use-player";
 import { usePlayerStore } from "@/player/use-player.store";
 import { resetCallback } from "@/widget/stores/use-callback.store";
+import { useWidgetStore } from "@/widget/stores/use-widget.store";
 import css from "@/widget/styles/text-capture.css?inline";
 import { textCapture } from "@/widget/utils/text-capture";
 
 export const useTextCaptureSync = () => {
 	const isLoaded = usePlayerStore((s) => s.isLoaded);
+	const isOpen = useWidgetStore((s) => s.isOpen);
 
 	const { mutateAsync: translate } = useTranslate();
 	const { play, stop } = usePlayer();
@@ -16,7 +18,12 @@ export const useTextCaptureSync = () => {
 	useEffect(() => {
 		if (!isLoaded) return;
 
-		createStyle(css, "@text-capture.style");
+		if (isOpen) createStyle(css, "@text-capture.style");
+		else removeStyle("@text-capture.style");
+	}, [isOpen, isLoaded]);
+
+	useEffect(() => {
+		if (!isLoaded) return;
 
 		const cleanup = textCapture({
 			hoverClss: "vlibras--hover",

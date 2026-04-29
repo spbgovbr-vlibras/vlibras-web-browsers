@@ -1,4 +1,4 @@
-html body *:not(.vlibras-ignore, .sr-only, .sr-only *, #vlibras-app-root *) {
+html body *:not(.vlibras-ignore, .sr-only, .sr-only *, #vlibras-app-root *, #vlibras-app-wrapper *) {
 	.vlibras--hover {
 		text-decoration: underline !important;
 		cursor:
@@ -15,7 +15,7 @@ html body *:not(.vlibras-ignore, .sr-only, .sr-only *, #vlibras-app-root *) {
 	}
 }
 
-html body *:not(.vlibras-ignore, .sr-only, .sr-only *, #vlibras-app-root *) {
+html body *:not(.vlibras-ignore, .sr-only, .sr-only *, #vlibras-app-root *, #vlibras-app-wrapper *) {
 	.vlibras--active {
 		text-decoration: underline !important;
 	}
