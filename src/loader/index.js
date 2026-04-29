@@ -2,7 +2,7 @@ const path = window.vw_app_root || "__APP_ROOT__";
 
 const template = `
 <div id="vlibras-access">
-	<img id="vlibras-access-popup" src="${path}/assets/images/vlibras-popup.webp" />
+	<img id="vlibras-access-popup" src="${path}/assets/images/vlibras-popup.jpg" />
 	<button type="button" aria-label="Recursos assistivos com VLibras Widget+" id="vlibras-access-button">
       <img src="${path}/assets/images/vlibras-access.svg" />
     </button>
@@ -53,7 +53,7 @@ const template = `
 
 const wrapper = document.createElement("div");
 const shadow = wrapper.attachShadow({ mode: "open" });
-wrapper.id = "vlibras-app-wrapper";
+wrapper.id = "vlibras-access-wrapper";
 
 shadow.innerHTML = template;
 document.body.appendChild(wrapper);
