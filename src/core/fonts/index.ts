@@ -1,4 +1,4 @@
-export const loadDefaultFont = async (path: string, shadowRoot: ShadowRoot) => {	
+export const loadDefaultFont = async (path: string, shadowRoot: ShadowRoot) => {
 	const fonts = [
 		new FontFace("VLibrasWidget_Font", `url(${path}/assets/fonts/rawline/rawline-500.ttf) format('truetype')`, {
 			weight: "500",
@@ -23,9 +23,13 @@ export const loadDefaultFont = async (path: string, shadowRoot: ShadowRoot) => {
 		}),
 	];
 
-	await loadFontFace(fonts, (styleSheets) => {
-		shadowRoot.adoptedStyleSheets = [...shadowRoot.adoptedStyleSheets, ...styleSheets];
-	});
+	try {
+		await loadFontFace(fonts, (styleSheets) => {
+			shadowRoot.adoptedStyleSheets = [...shadowRoot.adoptedStyleSheets, ...styleSheets];
+		});
+	} catch (error) {
+		console.error("Error loading default font:", error);
+	}
 };
 
 export const loadFontFace = async (fonts: FontFace[], callback?: (styleSheed: CSSStyleSheet[]) => void) => {
