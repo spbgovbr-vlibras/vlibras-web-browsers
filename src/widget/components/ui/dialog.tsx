@@ -41,7 +41,7 @@ const DialogWrapper = ({ children }: { children: ComponentChildren }) => {
 		if (appContent && !context.nested && context.overlay === true) {
 			appContent.inert = context.open;
 			const otherDialogs = $$(`[data-slot='dialog-wrapper']:not([id='dialog-${id}'])`, appRoot);
-			otherDialogs.forEach((dialog) => (dialog.inert = context.open));
+			otherDialogs?.forEach((dialog) => (dialog.inert = context.open));
 		}
 	}, [context?.open, context?.overlay]);
 

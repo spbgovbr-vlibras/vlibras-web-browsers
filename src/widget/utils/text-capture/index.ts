@@ -78,7 +78,7 @@ export const textCapture = ({ callback, isWordByWord, hoverClss, activeClass }: 
 			const element = $(`.${hoverClss}`);
 			const word = element?.textContent?.trim();
 
-			if (word) callback?.({ text: word, element });
+			if (word && element) callback?.({ text: word, element });
 		} else {
 			const isGloss = Boolean(element.dataset.vlibrasGloss?.trim());
 			const textContent = getTextContent(element)?.trim();

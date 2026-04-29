@@ -1,9 +1,9 @@
-export const $ = <T extends HTMLElement>(selectors: string, scope?: HTMLElement | ShadowRoot): T => {
-	return (scope || document).querySelector<T>(selectors) as T;
+export const $ = <T extends HTMLElement>(selectors: string, scope?: HTMLElement | ShadowRoot): T | null => {
+	return (scope || document).querySelector<T>(selectors) as T | null;
 };
 
-export const $$ = <T extends HTMLElement>(selectors: string, scope?: HTMLElement | ShadowRoot): T[] => {
-	return Array.from((scope || document).querySelectorAll<T>(selectors)) as T[];
+export const $$ = <T extends HTMLElement>(selectors: string, scope?: HTMLElement | ShadowRoot): T[] | null => {
+	return Array.from((scope || document).querySelectorAll<T>(selectors)) as T[] | null;
 };
 
 export function injectShadowStyles(shadow: ShadowRoot | HTMLElement, styles: string[]) {
