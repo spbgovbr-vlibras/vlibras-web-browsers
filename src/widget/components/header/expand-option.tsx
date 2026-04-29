@@ -1,4 +1,5 @@
-import { useMobile } from "@/common/hooks";
+import { useEffect } from "preact/hooks";
+import { useMobile, usePick } from "@/common/hooks";
 import { posthogg } from "@/common/lib/posthog";
 import { createStyle } from "@/core/dom";
 import { Button } from "@/widget/components/ui/button";
@@ -10,7 +11,15 @@ import css from "@/widget/styles/expanded-mode.css?inline";
 
 export const ExpandOption = () => {
 	const isMobile = useMobile();
-	const isExpanded = useWidgetStore((s) => s.isExpanded);
+	const { isOpen, isExpanded } = useWidgetStore(usePick("isOpen", "isExpanded"));
+
+	useEffect(() => {
+		const { root } = rootStore.get();
+		if (!root || isOpen) return;
+
+		delete root.dataset.expanded;
+		delete document.body.dataset.vlibrasExpanded;
+	}, [isOpen]);
 
 	const toggleExpand = () => {
 		createStyle(css, "@expanded-mode.style");
