@@ -18,7 +18,7 @@ export const WidgetHeader = () => {
 		<div className={cn("relative bottom-auto z-50 flex items-center justify-center gap-1 bg-primary px-2 py-1.5")}>
 			<div
 				{...{ onPointerDown }}
-				className="absolute inset-0 z-0 not-expanded:hover:cursor-move sm:hover:cursor-move"
+				className="absolute inset-0 z-0 touch-none not-expanded:hover:cursor-move sm:hover:cursor-move"
 			/>
 
 			<WidgetMenu />

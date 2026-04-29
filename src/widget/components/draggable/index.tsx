@@ -86,6 +86,7 @@ export function Draggable<TElement extends HTMLElement>({ children }: Props<TEle
 	useEffect(() => {
 		const onPointerMove = (e: PointerEvent) => {
 			if (!isDragging || !ref.current) return;
+			if (e.cancelable) e.preventDefault();
 
 			const x = e.clientX - start.current.x;
 			const y = e.clientY - start.current.y;
@@ -102,6 +103,7 @@ export function Draggable<TElement extends HTMLElement>({ children }: Props<TEle
 		const onPointerUp = () => {
 			setIsDragging(false);
 			document.body.style.userSelect = "";
+			document.body.style.touchAction = "";
 		};
 
 		window.addEventListener("pointermove", onPointerMove);
@@ -116,6 +118,7 @@ export function Draggable<TElement extends HTMLElement>({ children }: Props<TEle
 
 	const onPointerDown = (e: PointerEvent) => {
 		if (!ref.current) return;
+		if (e.cancelable) e.preventDefault();
 
 		(e.currentTarget as HTMLElement).setPointerCapture(e.pointerId);
 		setIsDragging(true);
@@ -127,6 +130,7 @@ export function Draggable<TElement extends HTMLElement>({ children }: Props<TEle
 			setHasMoved(true);
 		}
 		document.body.style.userSelect = "none";
+		document.body.style.touchAction = "none";
 	};
 
 	const contextValue: DraggableProps<TElement> = {
