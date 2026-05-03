@@ -27,7 +27,7 @@ export const UnityLoading = () => {
 				</div>
 
 				<p className="mobile:mb-1 font-bold mobile:text-sm text-base">VLibras Widget</p>
-				<span className="font-light text-muted-foreground text-xs">v{__APP_VERSION__}</span>
+				<span className="font-light text-muted-foreground text-xs">v{__VLIBRAS_APP_VERSION__}</span>
 			</div>
 
 			{isStarting && (

@@ -43,8 +43,8 @@ export default defineConfig(({ mode }) => {
 		],
 		define: {
 			"process.env": {},
-			__APP_NAME__: JSON.stringify(pkg.name),
-			__APP_VERSION__: JSON.stringify(pkg.version),
+			__VLIBRAS_APP_NAME__: JSON.stringify(pkg.name),
+			__VLIBRAS_APP_VERSION__: JSON.stringify(pkg.version),
 		},
 	};
 });

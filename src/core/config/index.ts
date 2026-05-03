@@ -1,4 +1,4 @@
-import type { Environment } from "../types";
+import type { Environment } from "@/core/types";
 
 const ENV = import.meta.env.MODE || "development";
 
