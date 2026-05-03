@@ -7,4 +7,4 @@ export type RequestResponse<TData> = {
 	code?: ErrorCode;
 };
 
-export type Environment = "production" | "development" | "dth";
+export type Environment = "production" | "development" | "homolog";

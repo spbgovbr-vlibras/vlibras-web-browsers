@@ -1,10 +1,9 @@
 import type { Environment } from "@/core/types";
-
-const ENV = import.meta.env.MODE || "development";
+import type { EnvConfig } from "./types";
 
 const REQUEST_TIMEOUT = 10000;
 
-const envConfigs = {
+const envConfigs: Record<Environment, EnvConfig> = {
 	development: {
 		TRANSLATE_URL: "https://traducao2-dth.vlibras.gov.br/translate",
 		DICTIONARY_URL: "https://dicionario2-dth.vlibras.gov.br/2018.3.1/WEBGL/",
@@ -14,7 +13,7 @@ const envConfigs = {
 		BUNDLES_URL: "https://dicionario2-dth.vlibras.gov.br/bundles",
 	},
 
-	dth: {
+	homolog: {
 		TRANSLATE_URL: "https://traducao2-dth.vlibras.gov.br/translate",
 		DICTIONARY_URL: "https://dicionario2-dth.vlibras.gov.br/2018.3.1/WEBGL/",
 		DICTIONARY_STATIC_URL: "https://dicionario2-dth.vlibras.gov.br/static/BUNDLES/2018.3.1/WEBGL",
@@ -33,10 +32,12 @@ const envConfigs = {
 	},
 };
 
-const currentConfig = envConfigs[ENV as keyof typeof envConfigs] || envConfigs.development;
+const MODE = (import.meta.env.MODE || "development") as Environment;
+const currentConfig = envConfigs[MODE as keyof typeof envConfigs] || envConfigs.development;
 
 export const config = {
-	mode: ENV as Environment,
-	REQUEST_TIMEOUT,
+	...import.meta.env,
 	...currentConfig,
+	REQUEST_TIMEOUT,
+	MODE,
 };

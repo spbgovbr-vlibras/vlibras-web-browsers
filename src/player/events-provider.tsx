@@ -1,11 +1,21 @@
 import { useEffect } from "preact/hooks";
 import { UNITY_EVENTS } from "./constants/unity";
 import { playerStore } from "./use-player.store";
-import { playingStatesToBoolean } from "./utils";
+import { isValidHost, playingStatesToBoolean } from "./utils";
 
-export const PlayerEventsProvider = () => {
+type Props = {
+	path: string;
+};
+
+export const PlayerEventsProvider = ({ path }: Props) => {
 	useEffect(() => {
+		if (!path) return;
+
 		const handleMessage = (event: MessageEvent<{ type: string; event: UNITY_EVENTS; data: unknown }>) => {
+			if (!isValidHost(path, event.origin)) {
+				throw new Error(`Invalid host config: ${path} (path), ${event.origin} (origin) `);
+			}
+
 			if (event.data?.type === "unity_event") {
 				if (event.data.event === UNITY_EVENTS.FINISH_WELCOME) {
 					const isFinished = event.data.data === "True";
@@ -44,7 +54,7 @@ export const PlayerEventsProvider = () => {
 		window.addEventListener("message", handleMessage);
 
 		return () => window.removeEventListener("message", handleMessage);
-	}, []);
+	}, [path]);
 
 	return null;
 };

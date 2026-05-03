@@ -22,18 +22,21 @@ export const Player = (props: ComponentPropsWithoutRef<"iframe">) => {
 		playerStore.set({ send });
 	}, []);
 
+	if (!path) return;
+
 	return (
 		<Fragment>
 			<iframe
 				tabindex={-1}
 				ref={iframeRef}
 				title="vlibras-player"
+				sandbox="allow-scripts allow-same-origin allow-pointer-lock"
 				src={iframeSrc}
 				style={{ border: "none", overflow: "hidden", opacity: isLoaded ? 1 : 0 }}
 				{...props}
 			/>
 
-			<PlayerEventsProvider />
+			<PlayerEventsProvider path={path} />
 		</Fragment>
 	);
 };
