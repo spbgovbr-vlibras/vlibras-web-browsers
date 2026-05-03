@@ -1,8 +1,9 @@
 import { transformWithEsbuild } from "vite";
 
 const appRoots = {
-	production: "https://www.vlibras.gov.br/app",
-	dth: "https://portal-dth.vlibras.lavid.ufpb.br/app/",
+	development: "http://localhost:3003",
+	homolog: "https://portal-dth.vlibras.lavid.ufpb.br/app/",
+	production: "https://vlibras.com/app/v7",
 };
 
 type MinifyCodeOptions = {

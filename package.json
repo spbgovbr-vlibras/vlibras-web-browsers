@@ -10,11 +10,11 @@
 	},
 	"scripts": {
 		"dev": "vite",
-		"dev:dth": "vite --mode dth",
+		"dev:homolog": "vite --mode homolog",
 		"dev:prod": "vite --mode production",
 		"build": "tsc -b && vite build",
 		"build:dev": "tsc -b && vite build --mode development",
-		"build:dth": "tsc -b && vite build --mode dth",
+		"build:homolog": "tsc -b && vite build --mode homolog",
 		"preview": "vite preview",
 		"lint": "biome lint",
 		"format": "biome check . --write",
