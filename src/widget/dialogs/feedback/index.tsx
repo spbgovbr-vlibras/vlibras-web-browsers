@@ -1,7 +1,12 @@
+import { useState } from "preact/hooks";
 import { usePlayerStore } from "@/player/use-player.store";
+import { Button } from "@/widget/components/ui/button";
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/widget/components/ui/dialog";
 import { CommentIcon } from "@/widget/icons";
+import { ThumbsDownIcon } from "@/widget/icons/thumbs-down";
+import { ThumbsUpIcon } from "@/widget/icons/thumbs-up";
 import { useWidgetStore } from "@/widget/stores/use-widget.store";
+import { FeedbackSuggestion } from "./feedback-suggestion";
 
 type Props = {
 	open: boolean;
@@ -12,6 +17,8 @@ export const FeedbackDialog = ({ open, onOpenChange }: Props) => {
 	const gloss = usePlayerStore((s) => s.gloss);
 	const text = useWidgetStore((s) => s.text);
 
+	const [isOpen, setIsOpen] = useState(false);
+
 	return (
 		<Dialog open={open} onOpenChange={onOpenChange}>
 			<DialogContent>
@@ -19,10 +26,29 @@ export const FeedbackDialog = ({ open, onOpenChange }: Props) => {
 					<DialogTitle icon={CommentIcon}>Feedback</DialogTitle>
 				</DialogHeader>
 
-				<div className="overflow-y-auto p-4 pt-2 text-sm">
+				{/* <div className="overflow-y-auto p-4 pt-2 text-sm">
 					<p className="mb-1 text-muted-foreground">{text}</p>
 					<span className="font-semibold">{gloss}</span>
+				</div> */}
+
+				<div className="mt-6 flex flex-col items-center justify-center">
+					<p className="font-semibold">Gostou da tradução?</p>
+					<div className="flex items-center justify-center gap-5">
+						<Button variant="ghost" size="icon-xl" className="px-7 py-10">
+							<div className="flex flex-col items-center justify-center">
+								<ThumbsUpIcon className="text-muted-foreground" />
+								<span>Sim</span>
+							</div>
+						</Button>
+						<Button variant="ghost" size="icon-xl" className="px-7 py-10" onClick={() => setIsOpen(true)}>
+							<div className="flex flex-col items-center justify-center">
+								<ThumbsDownIcon className="text-muted-foreground" />
+								<span>Não</span>
+							</div>
+						</Button>
+					</div>
 				</div>
+				{isOpen && <FeedbackSuggestion isOpen={isOpen} gloss={gloss} onClose={() => setIsOpen(false)} />}
 			</DialogContent>
 		</Dialog>
 	);
