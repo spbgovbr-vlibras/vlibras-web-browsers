@@ -192,16 +192,5 @@
 
 :host {
 	font-family: var(--font-sans) !important;
-	
-	::-webkit-scrollbar {
-		@apply h-2.5 w-2.5;
-	}
-
-	::-webkit-scrollbar-track {
-		@apply bg-transparent;
-	}
-
-	::-webkit-scrollbar-thumb {
-		@apply rounded-full border-[1px] border-solid border-transparent bg-border bg-clip-padding;
-	}
+	scrollbar-color: color-mix(in oklch, var(--foreground) 50%, transparent) transparent !important;
 }
