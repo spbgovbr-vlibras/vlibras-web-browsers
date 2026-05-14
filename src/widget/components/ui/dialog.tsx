@@ -30,20 +30,31 @@ const DialogWrapper = ({ children }: { children: ComponentChildren }) => {
 	const [closed, setClosed] = useState(true);
 
 	useEffect(() => void (isPlaying && context?.onOpenChange(false)), [isPlaying]);
+
 	useEffect(() => {
 		const { appRoot, appContent } = rootStore.get();
-
 		if (!context || !appContent || !appRoot) return;
 
-		if (context.open) setClosed(false);
-		else setTimeout(() => setClosed(true), 150);
+		if (context.open) {
+			setClosed(false);
 
-		if (appContent && !context.nested && context.overlay === true) {
-			appContent.inert = context.open;
+			if (!context.nested && context.overlay) {
+				appContent.inert = true;
+			}
+
 			const otherDialogs = $$(`[data-slot='dialog-wrapper']:not([id='dialog-${id}'])`, appRoot);
-			otherDialogs?.forEach((dialog) => (dialog.inert = context.open));
+			otherDialogs?.forEach((dialog) => (dialog.inert = true));
+
+			return () => {
+				if (!context.nested && context.overlay) {
+					appContent.inert = false;
+				}
+				otherDialogs?.forEach((dialog) => (dialog.inert = false));
+			};
 		}
-	}, [context?.open, context?.overlay]);
+		const timer = setTimeout(() => setClosed(true), 150);
+		return () => clearTimeout(timer);
+	}, [context?.open, context?.overlay, context?.nested]);
 
 	if (!context || closed) return null;
 	if (!context.overlay) return <div className="absolute inset-0 top-auto">{children}</div>;
