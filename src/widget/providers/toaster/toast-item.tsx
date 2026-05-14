@@ -5,8 +5,8 @@ import { cn } from "@/common/lib/utils";
 const toastVariants = cva("absolute inset-x-2 flex items-center justify-center transition-all duration-500", {
 	variants: {
 		position: {
-			top: "top-15 animate-move-down",
-			bottom: "bottom-15 animate-move-up",
+			top: "top-14 animate-move-down",
+			bottom: "bottom-14 animate-move-up",
 		},
 		align: {
 			start: "justify-start",
@@ -26,15 +26,18 @@ export const ToastItem = ({
 	position = "bottom",
 	align = "center",
 	variant = "default",
+	className,
 }: ToastData) => {
 	return (
 		<div
 			className={cn(
 				toastVariants({ position, align }),
 				isExiting && (position === "top" ? "-top-100!" : "-bottom-100!"),
+				className,
 			)}
 		>
 			<div
+				data-slot="toast-content"
 				className={cn(
 					"pointer-events-auto w-fit rounded-lg border bg-background px-2.5 py-1.5 text-sm transition-all duration-500 ease-in-out",
 					variant === "success" && "border-none bg-success text-success-foreground",
