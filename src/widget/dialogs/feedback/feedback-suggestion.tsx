@@ -1,7 +1,11 @@
 import { useRef } from "preact/hooks";
+import { toast } from "@/common/lib/toaster";
+import { sendFeedback } from "@/core/actions";
 import { usePlayer } from "@/player/use-player";
+import { playerStore } from "@/player/use-player.store";
 import { Button } from "@/widget/components/ui/button";
 import { ChevronDownIcon } from "@/widget/icons/chevron-down";
+import { useWidgetStore } from "@/widget/stores/use-widget.store";
 
 type Props = {
 	isOpen: boolean;
@@ -12,6 +16,8 @@ type Props = {
 export const FeedbackSuggestion = ({ isOpen, gloss, onClose }: Props) => {
 	const textareaRef = useRef<HTMLTextAreaElement>(null);
 	const { play } = usePlayer();
+	const { playText } = usePlayer();
+	const text = useWidgetStore((s) => s.text);
 
 	return (
 		<div inert={!isOpen} data-backdrop="true" className="pointer-events-auto fixed inset-0 z-50 animate-move-up">
@@ -49,7 +55,31 @@ export const FeedbackSuggestion = ({ isOpen, gloss, onClose }: Props) => {
 						{gloss}
 					</textarea>
 
-					<Button className="h-10 w-full rounded-4xl bg-primary font-medium" variant="default" onClick={async () => {}}>
+					<Button
+						className="h-10 w-full rounded-4xl bg-primary font-medium"
+						variant="default"
+						onClick={async () => {
+							if (text && gloss && textareaRef.current?.value) {
+								const result = await sendFeedback({
+									text: text,
+									translation: gloss,
+									review: textareaRef.current?.value,
+									rating: "bad",
+								});
+								if (result.success) {
+									onClose();
+									toast("Agradecemos sua contribuição!", { variant: "success" });
+									await playText("Agradecemos sua contribuição!");
+									playerStore.set({ gloss: undefined });
+								} else {
+									console.error(result.error);
+									if (result.error) {
+										toast(result.error, { variant: "destructive" });
+									}
+								}
+							}
+						}}
+					>
 						Enviar sugestão
 					</Button>
 

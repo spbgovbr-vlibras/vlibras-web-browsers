@@ -4,6 +4,7 @@ export type Screen = "main" | "about" | "dictionary";
 
 interface ScreensStoreState {
 	screen: Screen;
+	callbackScreen?: Screen;
 	open: (_screen: Screen) => void;
 	closeAll: () => void;
 }
@@ -11,7 +12,7 @@ interface ScreensStoreState {
 export const useScreensStore = create<ScreensStoreState>()((set) => ({
 	screen: "main",
 	open: (screen) => set({ screen }),
-	closeAll: () => set({ screen: "main" }),
+	closeAll: () => set({ screen: "main", callbackScreen: undefined }),
 }));
 
 export const screenStore = {

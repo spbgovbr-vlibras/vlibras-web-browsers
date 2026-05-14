@@ -1,5 +1,8 @@
 import { useState } from "preact/hooks";
-import { usePlayerStore } from "@/player/use-player.store";
+import { toast } from "@/common/lib/toaster";
+import { sendFeedback } from "@/core/actions";
+import { usePlayer } from "@/player/use-player";
+import { playerStore, usePlayerStore } from "@/player/use-player.store";
 import { Button } from "@/widget/components/ui/button";
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/widget/components/ui/dialog";
 import { CommentIcon } from "@/widget/icons";
@@ -16,6 +19,7 @@ type Props = {
 export const FeedbackDialog = ({ open, onOpenChange }: Props) => {
 	const gloss = usePlayerStore((s) => s.gloss);
 	const text = useWidgetStore((s) => s.text);
+	const { playText } = usePlayer();
 
 	const [isOpen, setIsOpen] = useState(false);
 
@@ -34,7 +38,34 @@ export const FeedbackDialog = ({ open, onOpenChange }: Props) => {
 				<div className="mt-6 flex flex-col items-center justify-center">
 					<p className="font-semibold">Gostou da tradução?</p>
 					<div className="flex items-center justify-center gap-5">
-						<Button variant="ghost" size="icon-xl" className="px-7 py-10">
+						<Button
+							variant="ghost"
+							size="icon-xl"
+							className="px-7 py-10"
+							onClick={async () => {
+								if (text && gloss) {
+									const result = await sendFeedback({
+										text: text,
+										translation: gloss,
+										review: gloss,
+										rating: "good",
+									});
+
+									if (result.success) {
+										onOpenChange(false);
+										toast("Agradecemos sua contribuição!", { variant: "success" });
+										await playText("Agradecemos sua contribuição!");
+										playerStore.set({ gloss: undefined });
+									} else {
+										onOpenChange(false);
+										if (result.error) {
+											toast(result.error, { variant: "destructive" });
+										}
+										console.error(result.error);
+									}
+								}
+							}}
+						>
 							<div className="flex flex-col items-center justify-center">
 								<ThumbsUpIcon className="text-muted-foreground" />
 								<span>Sim</span>

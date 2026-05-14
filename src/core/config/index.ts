@@ -9,7 +9,7 @@ const envConfigs: Record<Environment, EnvConfig> = {
 		DICTIONARY_URL: "https://dicionario2-dth.vlibras.gov.br/2018.3.1/WEBGL/",
 		DICTIONARY_STATIC_URL: "https://dicionario2-dth.vlibras.gov.br/static/BUNDLES/2018.3.1/WEBGL",
 		SIGNS_URL: "https://dicionario2-dth.vlibras.gov.br/signs?version=2018.3.1",
-		REVIEW_URL: "https://traducao2-dth.vlibras.gov.br/dl/review",
+		REVIEW_URL: "https://traducao2-dth.vlibras.gov.br/review",
 		BUNDLES_URL: "https://dicionario2-dth.vlibras.gov.br/bundles",
 	},
 
@@ -18,7 +18,7 @@ const envConfigs: Record<Environment, EnvConfig> = {
 		DICTIONARY_URL: "https://dicionario2-dth.vlibras.gov.br/2018.3.1/WEBGL/",
 		DICTIONARY_STATIC_URL: "https://dicionario2-dth.vlibras.gov.br/static/BUNDLES/2018.3.1/WEBGL",
 		SIGNS_URL: "https://dicionario2-dth.vlibras.gov.br/signs?version=2018.3.1",
-		REVIEW_URL: "https://traducao2-dth.vlibras.gov.br/dl/review",
+		REVIEW_URL: "https://traducao2-dth.vlibras.gov.br/review",
 		BUNDLES_URL: "https://dicionario2-dth.vlibras.gov.br/bundles",
 	},
 
