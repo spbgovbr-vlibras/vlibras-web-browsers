@@ -1,3 +1,105 @@
+import {
+	AlphabetIcon,
+	AnimalsIcon,
+	BodyIcon,
+	CountriesIcon,
+	FamilyIcon,
+	FeelingsIcon,
+	FoodsIcon,
+	HealthIcon,
+	JobsIcon,
+	LocationsIcon,
+	MachinesIcon,
+	MeasuresIcon,
+	NatureIcon,
+	NumbersIcon,
+	SportsIcon,
+	VerbsIcon,
+} from "@/widget/icons/categories-icons";
+
+export const CategoriesList = [
+	{
+		id: 5,
+		name: "Comidas e Bebidas",
+		icon: FoodsIcon,
+	},
+	{
+		id: 10,
+		name: "Animais",
+		icon: AnimalsIcon,
+	},
+	{
+		id: 6,
+		name: "Aparelho ou Máquina",
+		icon: MachinesIcon,
+	},
+	{
+		id: 9,
+		name: "Corpo",
+		icon: BodyIcon,
+	},
+	{
+		id: 14,
+		name: "Esporte ou Diversão",
+		icon: SportsIcon,
+	},
+	{
+		id: 15,
+		name: "Família",
+		icon: FamilyIcon,
+	},
+	{
+		id: 8,
+		name: "Saúde/Higiene",
+		icon: HealthIcon,
+	},
+	{
+		id: 13,
+		name: "País/Estado/Cidade",
+		icon: CountriesIcon,
+	},
+	{
+		id: 16,
+		name: "Natureza",
+		icon: NatureIcon,
+	},
+	{
+		id: 12,
+		name: "Profissão ou Trabalho",
+		icon: JobsIcon,
+	},
+	{
+		id: 7,
+		name: "Sentimentos",
+		icon: FeelingsIcon,
+	},
+	{
+		id: 3,
+		name: "Verbos",
+		icon: VerbsIcon,
+	},
+	{
+		id: 4,
+		name: "Letras",
+		icon: AlphabetIcon,
+	},
+	{
+		id: 2,
+		name: "Números",
+		icon: NumbersIcon,
+	},
+	{
+		id: 11,
+		name: "Lugares",
+		icon: LocationsIcon,
+	},
+	{
+		id: 1,
+		name: "Medidas",
+		icon: MeasuresIcon,
+	},
+];
+
 export const ALPHABET = ["#", ..."ABCDEFGHIJKLMNOPQRSTUVWXYZ".split("")];
 
 export const prefixMap: Record<string, string> = {
