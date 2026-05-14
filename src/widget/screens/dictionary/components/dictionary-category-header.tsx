@@ -1,8 +1,10 @@
 import { ChevronLeftIcon } from "@/widget/icons/chevron-left-icon";
+import { CategoriesList } from "../lib/constants";
 import { useDictionaryCtx } from "./dictionary-context";
 
 export const DictionaryCategoryHeader = () => {
 	const ctx = useDictionaryCtx();
+	const Icon = CategoriesList.find((item) => item.id === ctx.selectedCategory?.id)?.icon;
 
 	return (
 		ctx.filter === "categories" &&
@@ -14,7 +16,8 @@ export const DictionaryCategoryHeader = () => {
 					className="flex h-full w-full items-center justify-start gap-2 text-xs hover:cursor-pointer dark:text-white"
 				>
 					<ChevronLeftIcon />
-					{/* <ctx.selectedCategory.icon /> */}
+					{/* <ctx.selectedCategory.id />  */}
+					<Icon />
 					<span className="font-semibold text-sm">{ctx.selectedCategory.name}</span>
 				</button>
 			</div>
