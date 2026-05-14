@@ -2,16 +2,17 @@ import { useCallback, useEffect, useMemo, useRef, useState } from "preact/hooks"
 import { useDebouncedCallback } from "@/common/hooks";
 import { Trie } from "@/common/lib/trie";
 import { useDictionarySigns } from "@/core/actions/hooks";
-import { dictionaryStore, useDictionaryStore } from "../stores/use-dictionary.store";
-import { dictionaryHistoryStore, useDictionaryHistoryStore } from "../stores/use-dictionary-history.store";
+import { getCategories, getCategorySigns } from "../actions";
+import { groupVerbs } from "../lib/group-signs";
+import type { Category, DictionaryFilter } from "../lib/types";
+import { useDictionaryStore } from "../stores/use-dictionary.store";
+import { useDictionaryHistoryStore } from "../stores/use-dictionary-history.store";
 
 type DictionaryState = {
 	filteredSigns: string[];
 	search: string;
 	visibleCount: number;
 };
-
-export type DictionaryFilter = "recents" | "all";
 
 const ITEMS_PER_PAGE = 50;
 
@@ -21,16 +22,55 @@ export const useDictionary = () => {
 	const listRef = useRef<HTMLDivElement>(null);
 	const store = useDictionaryStore();
 
-	const [filter, setFilter] = useState<DictionaryFilter>("all");
+	const [filter, setFilter] = useState<DictionaryFilter>("categories");
 	const { data, isLoading, refetch } = useDictionarySigns();
 	const { signs } = useDictionaryHistoryStore();
+
+	const [categories, setCategories] = useState<Category[]>([]);
+	const [isLoadingCategories, setIsLoadingCategories] = useState(false);
+	const [selectedCategory, setSelectedCategory] = useState<Category | null>(null);
+	const [categorySigns, setCategorySigns] = useState<string[]>([]);
+	const [isLoadingCategorySigns, setIsLoadingCategorySigns] = useState(false);
+
+	useEffect(() => {
+		const load = async () => {
+			setIsLoadingCategories(true);
+			try {
+				const data = await getCategories();
+				setCategories(data);
+			} finally {
+				setIsLoadingCategories(false);
+			}
+		};
+
+		load();
+	}, []);
+
+	useEffect(() => {
+		const loadCategorySigns = async () => {
+			if (!selectedCategory) {
+				setCategorySigns([]);
+				return;
+			}
+			setIsLoadingCategorySigns(true);
+			try {
+				const data = await getCategorySigns(selectedCategory.name);
+				console.log(data.signs);
+				setCategorySigns(data.signs);
+			} finally {
+				setIsLoadingCategorySigns(false);
+			}
+		};
+
+		loadCategorySigns();
+	}, [selectedCategory]);
 
 	const retry = async () => {
 		await refetch();
 
 		const retriesCount = store.retriesCount + 1;
-		dictionaryStore.set({ retriesCount });
-		if (retriesCount >= 5) dictionaryStore.set({ isMaxRetries: true });
+		useDictionaryStore.setState({ retriesCount });
+		if (retriesCount >= 5) useDictionaryStore.setState({ isMaxRetries: true });
 	};
 
 	const allSigns = useMemo(() => {
@@ -44,6 +84,16 @@ export const useDictionary = () => {
 		search: "",
 		visibleCount: ITEMS_PER_PAGE,
 	});
+
+	const filteredCategoryWords = useMemo(() => {
+		if (!selectedCategory) return [];
+		const searchTerm = search.toLowerCase().trim();
+		const allSignsSet = new Set(allSigns);
+		console.log(categorySigns);
+		return categorySigns.filter(
+			(sign) => allSignsSet.has(sign) && (searchTerm === "" || sign.toLowerCase().includes(searchTerm)),
+		);
+	}, [selectedCategory, allSigns, search, categorySigns]);
 
 	const onSearchChange = useCallback(
 		(term: string) => {
@@ -61,6 +111,31 @@ export const useDictionary = () => {
 		},
 		[filter, signs, allSigns],
 	);
+	const isVerbCategory = selectedCategory?.name === "VERBOS";
+
+	const verbGroups = useMemo(
+		() => (isVerbCategory ? groupVerbs(filteredCategoryWords) : {}),
+		[filteredCategoryWords, isVerbCategory],
+	);
+
+	const verbGroupEntries = useMemo(() => Object.entries(verbGroups), [verbGroups]);
+
+	const [visibleVerbCount, setVisibleVerbCount] = useState(ITEMS_PER_PAGE);
+	useEffect(() => {
+		setCategoryVisibleCount(ITEMS_PER_PAGE);
+		setVisibleVerbCount(20);
+	}, [selectedCategory]);
+	const visibleVerbGroups = verbGroupEntries.slice(0, visibleVerbCount);
+
+	const onVerbScroll = useCallback(
+		(e: Event) => {
+			const el = e.currentTarget as HTMLElement;
+			const isBottom = el.scrollTop + el.clientHeight >= el.scrollHeight - 50;
+			if (!isBottom) return;
+			setVisibleVerbCount((p) => Math.min(p + 20, verbGroupEntries.length));
+		},
+		[verbGroupEntries.length],
+	);
 
 	const handleSearchChange = useDebouncedCallback(onSearchChange, 500);
 
@@ -73,7 +148,7 @@ export const useDictionary = () => {
 	};
 
 	const handleHistoryClear = () => {
-		dictionaryHistoryStore.set({ signs: [] });
+		useDictionaryHistoryStore.setState({ signs: [] });
 
 		if (filter === "recents") {
 			setFilter("all");
@@ -81,7 +156,10 @@ export const useDictionary = () => {
 		}
 	};
 
-	useEffect(() => onSearchChange(search), [filter]);
+	useEffect(() => {
+		setSelectedCategory(null);
+		onSearchChange(search);
+	}, [filter]);
 
 	useEffect(() => {
 		if (allSigns.length > 0) setState((p) => ({ ...p, filteredSigns: allSigns }));
@@ -104,6 +182,32 @@ export const useDictionary = () => {
 	const visibleSigns = filteredSigns.slice(0, visibleCount);
 	const count = { all: allSigns.length, recents: signs.length };
 
+	const [categoryVisibleCount, setCategoryVisibleCount] = useState(ITEMS_PER_PAGE);
+
+	const visibleCategoryWords = useMemo(() => {
+		return filteredCategoryWords.slice(0, categoryVisibleCount);
+	}, [filteredCategoryWords, categoryVisibleCount]);
+
+	const onCategoryScroll = useCallback(
+		(e: Event) => {
+			const el = e.currentTarget as HTMLElement;
+
+			const isBottom = el.scrollTop + el.clientHeight >= el.scrollHeight - 50;
+
+			if (!isBottom) return;
+
+			setCategoryVisibleCount((p) => {
+				if (p >= filteredCategoryWords.length) return p;
+				return p + ITEMS_PER_PAGE;
+			});
+		},
+		[filteredCategoryWords.length],
+	);
+
+	useEffect(() => {
+		setCategoryVisibleCount(ITEMS_PER_PAGE);
+	}, [selectedCategory]);
+
 	return {
 		search,
 		isLoading,
@@ -121,6 +225,18 @@ export const useDictionary = () => {
 		filter,
 		setFilter,
 		count,
+		selectedCategory,
+		setSelectedCategory,
+		filteredCategoryWords,
+		onCategoryScroll,
+		visibleCategoryWords,
+		isVerbCategory,
+		visibleVerbGroups,
+		verbGroupEntries,
+		onVerbScroll,
+		categories,
+		isLoadingCategories,
+		isLoadingCategorySigns,
 		...store,
 	};
 };

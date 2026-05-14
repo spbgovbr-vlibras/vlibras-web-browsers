@@ -1,6 +1,7 @@
 import { cn } from "@/common/lib/utils";
 import { useDraggable } from "@/widget/components/draggable";
 import { useWidgetStore } from "@/widget/stores/use-widget.store";
+import { CallbackScreen } from "./callback-screen";
 import { EmotionsOption } from "./emotions-option";
 import { MainAction } from "./main-action";
 import { ProgressBar } from "./progress-bar";
@@ -33,6 +34,8 @@ export const WidgetControls = () => {
 			<EmotionsOption />
 			<SubtitlesOptions />
 			<SettingsOption />
+
+			<CallbackScreen />
 		</div>
 	);
 };
