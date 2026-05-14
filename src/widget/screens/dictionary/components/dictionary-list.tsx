@@ -14,7 +14,12 @@ export const DictionaryList = () => {
 	if (ctx.isLoading) return <DictionaryLoading />;
 	if (!ctx.data) return <DictionaryError onRetry={ctx.retry} isMaxRetries={ctx.isMaxRetries} />;
 
-	const isEmpty = !ctx.filteredSigns.length && !!ctx.search;
+	const isEmpty =
+		ctx.filter === "categories"
+			? ctx.selectedCategory
+				? !ctx.filteredCategoryWords.length && !!ctx.search
+				: false
+			: !ctx.filteredSigns.length && !!ctx.search;
 
 	return (
 		<div className="flex h-full flex-col gap-2 overflow-hidden text-primary dark:text-white">

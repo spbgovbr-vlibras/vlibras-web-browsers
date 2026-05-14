@@ -30,6 +30,7 @@ export const DictionaryCategoryWords = () => {
 				{groupedWords.map((group) => {
 					const isExpanded = expandedWord === group.base;
 					const isLoadingThis = loadingMeaning === group.base;
+					const prettyBase = (group.base || "").replace(/_/g, " ");
 
 					return (
 						<li key={group.base} className="hover:bg-muted">
@@ -39,7 +40,7 @@ export const DictionaryCategoryWords = () => {
 									onClick={() => handlePlay(group.base)}
 									className="w-full cursor-pointer whitespace-normal break-all px-4 py-1.25 text-left text-xs focus:bg-primary focus:text-primary-foreground sm:text-sm"
 								>
-									{group.base}
+									{prettyBase}
 								</button>
 								<button
 									type="button"
@@ -66,17 +67,18 @@ export const DictionaryCategoryWords = () => {
 											<ul className="ml-4 border-border/40 border-l">
 												{group.variants.map((sign) => {
 													const [, suffix] = sign.split("&", 2);
+													const prettyBase = (group.base || "").replace(/_/g, " ");
+													const prettySuffix = (suffix || "").replace(/_/g, " ");
 													return (
 														<li key={sign}>
 															<button
 																type="button"
 																onClick={() => {
 																	handlePlay(sign);
-																	console.log(sign);
 																}}
 																className="flex w-full px-4 py-1 text-left text-xs hover:bg-muted focus:bg-primary focus:text-primary-foreground sm:text-sm"
 															>
-																{group.base} ({suffix})
+																{prettyBase} ({prettySuffix})
 															</button>
 														</li>
 													);

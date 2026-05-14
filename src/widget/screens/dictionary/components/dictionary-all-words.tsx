@@ -30,18 +30,21 @@ export const DictionaryAllWords = () => {
 		return (
 			<div ref={ctx.listRef} className="h-full overflow-auto">
 				<ul className="flex flex-col text-sm">
-					{ctx.visibleSigns.map((sign) => (
-						<li key={sign}>
-							<button
-								type="button"
-								onClick={() => handlePlay(sign)}
-								className="block w-full bg-background px-4 py-1.5 text-left text-xs hover:cursor-pointer hover:bg-muted sm:text-sm"
-							>
-								{sign}
-							</button>
-							<div className="mx-4 border-border/30 border-t" />
-						</li>
-					))}
+					{ctx.visibleSigns.map((sign) => {
+						const prettySign = (sign || "").replace(/_/g, " ");
+						return (
+							<li key={sign}>
+								<button
+									type="button"
+									onClick={() => handlePlay(sign)}
+									className="block w-full bg-background px-4 py-1.5 text-left text-xs hover:cursor-pointer hover:bg-muted sm:text-sm"
+								>
+									{prettySign}
+								</button>
+								<div className="mx-4 border-border/30 border-t" />
+							</li>
+						);
+					})}
 				</ul>
 			</div>
 		);
@@ -72,6 +75,7 @@ export const DictionaryAllWords = () => {
 									{items.map((sign) => {
 										const isWordExpanded = expandedWord === sign;
 										const isLoadingThis = loadingMeaning === sign;
+										const prettySign = (sign || "").replace(/_/g, " ");
 
 										return (
 											<li key={sign} className="hover:bg-muted">
@@ -81,7 +85,7 @@ export const DictionaryAllWords = () => {
 														onClick={() => handlePlay(sign)}
 														className="w-full cursor-pointer whitespace-normal break-all px-6 py-1.25 text-left text-xs focus:bg-primary focus:text-primary-foreground sm:text-sm"
 													>
-														{sign}
+														{prettySign}
 													</button>
 													<button
 														type="button"

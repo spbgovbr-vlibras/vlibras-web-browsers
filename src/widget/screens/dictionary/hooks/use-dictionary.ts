@@ -56,7 +56,8 @@ export const useDictionary = () => {
 			try {
 				const data = await getCategorySigns(selectedCategory.name);
 				console.log(data.signs);
-				setCategorySigns(data.signs);
+				const filteredSigns = data.signs.filter((sign: string) => sign !== "1S_FARTAR1S" && sign !== "2S_ESCOLHER__1S");
+				setCategorySigns(filteredSigns);
 			} finally {
 				setIsLoadingCategorySigns(false);
 			}
