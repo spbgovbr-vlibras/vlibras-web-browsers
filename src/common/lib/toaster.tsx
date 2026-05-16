@@ -1,8 +1,9 @@
+import type { ComponentChildren } from "preact";
 import { randomStr } from "@/common/utils";
 
 export type ToastData = ToastOptions & {
 	id: string;
-	message: string;
+	message: string | ComponentChildren;
 	isExiting?: boolean;
 };
 
@@ -13,6 +14,7 @@ type ToastOptions = {
 	position?: "top" | "bottom";
 	align?: "center" | "start" | "end";
 	variant?: "success" | "destructive" | "default";
+	className?: string;
 };
 
 let toasts: ToastData[] = [];
@@ -20,7 +22,7 @@ let listeners: Listener[] = [];
 
 const notify = () => listeners.forEach((l) => l([...toasts]));
 
-export const toast = (message: string, options?: ToastOptions) => {
+export const toast = (message: string | ComponentChildren, options?: ToastOptions) => {
 	const id = randomStr();
 	const duration = options?.duration || 3000;
 
