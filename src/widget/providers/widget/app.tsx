@@ -5,15 +5,15 @@ import { WidgetCallback } from "@/widget/components/controls/callback";
 import { TranslatingBadge } from "@/widget/components/controls/translating-badge";
 import { UnityLoading } from "@/widget/components/unity-loading";
 import { FeedbackTrigger } from "@/widget/dialogs/feedback/trigger";
-import { useWidgetStore } from "../stores/use-widget.store";
-import { ScreensProvider } from "./screens";
-import { ToasterProvider } from "./toaster";
+import { ScreensProvider } from "@/widget/providers/screens";
+import { ToasterProvider } from "@/widget/providers/toaster";
+import { useWidgetStore } from "@/widget/stores/use-widget.store";
 
-export const WidgetProviders = () => {
+export const WidgetAppProviders = () => {
 	const { status, gloss } = usePlayerStore(usePick("status", "gloss"));
-	const isTranslating = useWidgetStore((s) => s.isTranslating);
-	const text = useWidgetStore((s) => s.text);
 
+	const text = useWidgetStore((s) => s.text);
+	const isTranslating = useWidgetStore((s) => s.isTranslating);
 	const showFeedback = Boolean(status === "idle" && !isTranslating && gloss && text);
 
 	return (
@@ -24,7 +24,6 @@ export const WidgetProviders = () => {
 			<ToasterProvider />
 
 			{isTranslating && <TranslatingBadge />}
-
 			{showFeedback && <FeedbackTrigger />}
 		</Fragment>
 	);
