@@ -5,7 +5,7 @@ const SAMPLING_RATE = 0.07;
 const IS_ENABLED = import.meta.env.VITE_PUBLIC_POSTHOG_ENABLED === "true";
 const IS_DEBUG = import.meta.env.VITE_PUBLIC_POSTHOG_DEBUG === "true" && config.MODE !== "production";
 
-if (typeof window !== "undefined") {
+if (typeof window !== "undefined" && IS_ENABLED) {
 	posthog.init(import.meta.env.VITE_PUBLIC_POSTHOG_PROJECT_TOKEN, {
 		api_host: import.meta.env.VITE_PUBLIC_POSTHOG_HOST,
 		autocapture: false,
