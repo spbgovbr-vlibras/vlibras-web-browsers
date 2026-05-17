@@ -69,7 +69,7 @@ const open = () => {
   script.async = true;
   script.onload = () => {
     widget = document.getElementById("vlibras-app-root");
-    widget.dataset.active = true;
+    if (widget) widget.dataset.active = true;
   };
 
   document.body.appendChild(script);
