@@ -9,9 +9,11 @@ import { WidgetContent } from "./components/content";
 import { Draggable } from "./components/draggable";
 import { AppBackground } from "./components/ui/app-background";
 import { rootStore } from "./stores/use-root.store";
+import { useScreensStore } from "./stores/use-screens.store";
 import { useWidgetStore } from "./stores/use-widget.store";
 
 export const WidgetApp = () => {
+	const screen = useScreensStore((s) => s.screen);
 	const { isOpen, position, isExpanded } = useWidgetStore(usePick("isOpen", "position", "isExpanded"));
 
 	return (
@@ -42,7 +44,10 @@ export const WidgetApp = () => {
 									(draggableRef as RefObject<HTMLDivElement | null>).current = ref;
 								}
 							}}
-							className="relative z-2147483647 h-fit expanded:w-full w-(--widget-width) overflow-hidden rounded-xl shadow-lg expanded:max-sm:rounded-none!"
+							className={cn(
+								"relative z-2147483647 h-fit expanded:w-full w-(--widget-width) overflow-hidden rounded-xl shadow-lg expanded:max-sm:rounded-none!",
+								screen !== "main" && "outline-2 outline-border outline-solid",
+							)}
 						>
 							<WidgetContent />
 							<WidgetAppProviders />
