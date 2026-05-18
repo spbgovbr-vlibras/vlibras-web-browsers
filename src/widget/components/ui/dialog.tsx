@@ -29,7 +29,7 @@ const DialogWrapper = ({ children }: { children: ComponentChildren }) => {
 
 	const [closed, setClosed] = useState(true);
 
-	useEffect(() => void (isPlaying && context?.onOpenChange(false)), [isPlaying]);
+	useEffect(() => void (isPlaying && !closed && context?.onOpenChange(false)), [isPlaying]);
 
 	useEffect(() => {
 		const { appRoot, appContent } = rootStore.get();
