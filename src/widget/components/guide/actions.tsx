@@ -1,57 +1,29 @@
-import { useEffect, useMemo, useRef } from "preact/hooks";
-import { Button } from "@/widget/components/ui/button";
-import { ArrowLeftIcon, ArrowRightIcon } from "@/widget/icons";
+import { useMemo } from "preact/hooks";
+import { usePick } from "@/common/hooks";
+import { usePlayer } from "@/player/use-player";
+import { usePlayerStore } from "@/player/use-player.store";
+import { RepeatIcon, XIcon } from "@/widget/icons";
+import { Button } from "../ui/button";
 import { useGuideCtx } from ".";
-import { guideElements } from "./elements";
 
 export const GuideActions = () => {
-	const advanceButtonRef = useRef<HTMLButtonElement>(null);
-	const backButtonRef = useRef<HTMLButtonElement>(null);
+	const { onClose } = useGuideCtx();
+	const { status, gloss } = usePlayerStore(usePick("gloss", "status"));
+	const { repeat } = usePlayer();
 
-	const { index, setIndex, onClose } = useGuideCtx();
-
-	const isFirstElement = useMemo(() => index === 0, [index]);
-	const isLastElement = useMemo(() => index === guideElements.length - 1, [index]);
-
-	useEffect(() => advanceButtonRef.current?.focus(), [isFirstElement]);
-	useEffect(() => backButtonRef.current?.focus(), [isLastElement]);
+	const canRepeat = useMemo(() => gloss && status === "idle", [gloss, status]);
 
 	return (
-		<div className="flex items-center justify-between gap-2">
-			<Button
-				tabindex={2}
-				ref={backButtonRef}
-				disabled={isFirstElement}
-				variant="ghost"
-				size="sm"
-				className="text-primary-foreground outline-primary-foreground hover:bg-primary-foreground/5"
-				onClick={() => setIndex(index - 1)}
-			>
-				<ArrowLeftIcon />
-				Voltar
+		<div className="absolute top-1 right-1 flex flex-col rounded-lg">
+			<Button tabindex={1} onClick={onClose} size="icon-xs">
+				<XIcon aria-label="Fechar guia" />
 			</Button>
 
-			<div className="flex h-4 w-40 items-center justify-center gap-1 [&_span]:rounded-full [&_span]:bg-primary-foreground/30">
-				{guideElements.map((_, i) => (
-					<span
-						key={i}
-						data-active={i === index}
-						className="size-2 rounded-full data-[active=true]:bg-primary-foreground!"
-					/>
-				))}
-			</div>
-
-			<Button
-				tabindex={2}
-				ref={advanceButtonRef}
-				variant="ghost"
-				size="sm"
-				className="text-primary-foreground outline-primary-foreground hover:bg-primary-foreground/5"
-				onClick={isLastElement ? onClose : () => setIndex((i) => i + 1)}
-			>
-				{isLastElement ? "Concluir" : "Avançar"}
-				{!isLastElement && <ArrowRightIcon />}
-			</Button>
+			{canRepeat && (
+				<Button tabindex={1} onClick={repeat} size="icon-xs" className="animate-move-right">
+					<RepeatIcon aria-label="Repetir texto" />
+				</Button>
+			)}
 		</div>
 	);
 };

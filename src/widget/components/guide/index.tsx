@@ -5,13 +5,12 @@ import { zusContext } from "@/common/lib/zus-context";
 import { $, $$ } from "@/common/utils/dom";
 import { usePlayer } from "@/player/use-player";
 import { playerStore } from "@/player/use-player.store";
-import { XIcon } from "@/widget/icons";
 import { useRootStore } from "@/widget/stores/use-root.store";
 import { useWidgetStore, widgetStore } from "@/widget/stores/use-widget.store";
 import { useDraggable } from "../draggable";
-import { Button } from "../ui/button";
 import { GuideActions } from "./actions";
 import { guideElements } from "./elements";
+import { GuideFooter } from "./footer";
 import { type GuideState, guideStore, useGuideStore } from "./store";
 import { guideVariants } from "./variants";
 
@@ -80,17 +79,14 @@ export const Guide = () => {
 					!isExpanded && !isMobile && element.guideClx,
 				)}
 			>
-				<div className="mr-4">
+				<div className="pr-4">
 					<span className="break-anywhere expanded:text-base! text-primary-foreground text-sm sm:text-base">
 						{element.text}
 					</span>
 				</div>
 
 				<GuideActions />
-
-				<Button tabindex={1} onClick={onClose} size="icon-xs" className="absolute top-1 right-1">
-					<XIcon aria-label="Fechar guia" />
-				</Button>
+				<GuideFooter />
 
 				{!isExpanded && (
 					<span

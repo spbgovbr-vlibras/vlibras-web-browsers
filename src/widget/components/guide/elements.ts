@@ -37,9 +37,9 @@ export const guideElements: GuideElement[] = [
 
 	{
 		selector: "#settings-option",
-		text: "Opção para acessar as configurações do VLibras. Aqui você pode alterar o tema, regionalismo e opacidade do fundo do avatar.",
+		text: "Opção para acessar as configurações do VLibras. Aqui você pode alterar o tema, regionalismo e transparência do fundo do avatar.",
 		gloss:
-			"OPÇÃO ACESSAR CONFIGURAÇÃO [PONTO] AQUI VOCÊ PODER&POSSIBILIDADE ALTERAR TEMA&ASSUNTO ALTERAR REGIONAL ALTERAR OPACIDADE ALTERAR FUNDO&ATRÁS AVATAR",
+			"OPÇÃO ACESSAR CONFIGURAÇÃO [PONTO] AQUI VOCÊ PODER&POSSIBILIDADE ALTERAR TEMA&ASSUNTO ALTERAR REGIONAL ALTERAR TRANSPARÊNCIA&NITIDEZ ALTERAR FUNDO&ATRÁS AVATAR",
 		guideClx: "top-auto! bottom-0!",
 	},
 ];
