@@ -1,19 +1,9 @@
-import { lazy, Suspense } from "preact/compat";
 import { Fragment } from "preact/jsx-runtime";
+import { Guide } from "@/widget/components/guide";
 import { useGuideStore } from "@/widget/components/guide/store";
-
-const Guide = lazy(() => import("@/widget/components/guide").then((m) => m.Guide));
 
 export const WidgetWrapperProviders = () => {
 	const isGuideOpen = useGuideStore((s) => s.open);
 
-	return (
-		<Fragment>
-			{isGuideOpen && (
-				<Suspense fallback={null}>
-					<Guide />
-				</Suspense>
-			)}
-		</Fragment>
-	);
+	return <Fragment>{isGuideOpen && <Guide />}</Fragment>;
 };
