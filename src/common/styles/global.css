@@ -121,11 +121,10 @@
 	--player-height: 328px;
 	
 	@media (min-width: 640px) {
- 		--widget-width: 310px;
+ 		--widget-width: 320px;
 		--player-height: 400px;
 	}
 }
-
 
 @keyframes scale {
 	0% { transform: scale(0); }
@@ -152,8 +151,24 @@
 	100% { transform: translateY(0); opacity: 1; }
 }
 
-@utility bg-light {
-	background-color: #fcfcfc;
+@keyframes highlight-shadow-primary {
+	0% { box-shadow: 0 0 0 transparent; }
+	100% { box-shadow: 0 0 10px 5px var(--primary); }
+}
+
+@keyframes highlight-shadow-primary-foreground {
+	0% { box-shadow: 0 0 0px transparent; }
+	100% { box-shadow: 0 0 15px var(--primary-foreground); }
+}
+
+@utility animate-highlight-primary-foreground {
+	@apply outline-2 outline-solid outline-primary-foreground transition-transform scale-105;
+	animation: highlight-shadow-primary-foreground 0.5s alternate-reverse infinite ease-out;
+}
+
+@utility animate-highlight-primary {
+	@apply outline-2 outline-solid outline-primary/50 transition-transform scale-105;
+	animation: highlight-shadow-primary 0.5s alternate-reverse infinite ease-out;
 }
 
 @utility animate-scale {
@@ -179,7 +194,7 @@
 @utility break-anywhere {
   overflow-wrap: anywhere;
 }
-
+ 
 @layer base {
 	* {
 		@apply box-border border-border border-solid outline-ring/50 focus-visible:outline-solid focus-visible:outline-primary focus-visible:outline-2 -outline-offset-1;
@@ -193,4 +208,8 @@
 :host {
 	font-family: var(--font-sans) !important;
 	scrollbar-color: color-mix(in oklch, var(--foreground) 50%, transparent) transparent !important;
+
+	[data-highlight='true'] {
+		@apply rounded-full! z-99999!;
+	}
 }

@@ -4,12 +4,15 @@ import { cn } from "@/common/lib/utils";
 import { type Emotion, emotionsMap } from "@/data/emotions-map";
 import { usePlayer } from "@/player/use-player";
 import { usePlayerStore } from "@/player/use-player.store";
+import { useGuideSelected } from "@/widget/components/guide/store";
 import { DropdownTrigger } from "@/widget/components/ui/dropdown";
 import { Tooltip } from "@/widget/components/ui/tooltip";
 
 export const EmotionsOption = () => {
 	const isMobile = useMobile();
 	const currentEmotion = usePlayerStore((s) => s.emotion);
+	const isGuideSelected = useGuideSelected("#emotions-subtitles-options");
+
 	const { setEmotion } = usePlayer();
 
 	const handleEmotionChange = (emotion: Emotion) => {
@@ -20,9 +23,19 @@ export const EmotionsOption = () => {
 	const isDefaultEmotion = currentEmotion === emotionsMap.default;
 
 	return (
-		<div className="dropdown dropdown-center dropdown-top focus-within:**:data-[slot=tooltip-content]:hidden">
+		<div
+			className={cn(
+				"dropdown dropdown-center dropdown-top focus-within:**:data-[slot=tooltip-content]:hidden",
+				isGuideSelected && "not-expanded:dropdown-open [&_.dropdown-content]:scale-95",
+			)}
+		>
 			<Tooltip className="text-xs" offset={8} content="Emoções" placement="top" arrow={{ position: "bottom" }}>
-				<DropdownTrigger className="group relative" variant="ghost-gov" size={isMobile ? "icon-sm" : "icon"}>
+				<DropdownTrigger
+					id="emotions-option-button"
+					className="group relative"
+					variant="ghost-gov"
+					size={isMobile ? "icon-sm" : "icon"}
+				>
 					<currentEmotion.icon />
 					{!isDefaultEmotion && <span className="absolute top-0.5 right-0.5 size-2 rounded-full bg-destructive" />}
 				</DropdownTrigger>

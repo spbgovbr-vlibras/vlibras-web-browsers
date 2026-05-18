@@ -1,6 +1,7 @@
 import { cn } from "@/common/lib/utils";
 import { useDraggable } from "@/widget/components/draggable";
 import { useWidgetStore } from "@/widget/stores/use-widget.store";
+import { useGuideStore } from "../guide/store";
 import { EmotionsOption } from "./emotions-option";
 import { MainAction } from "./main-action";
 import { ProgressBar } from "./progress-bar";
@@ -10,15 +11,17 @@ import { SubtitlesOptions } from "./subtitles-option";
 
 export const WidgetControls = () => {
 	const isOpen = useWidgetStore((s) => s.isOpen);
+	const isGuideOpen = useGuideStore((s) => s.open);
+
 	const { onPointerDown } = useDraggable();
 
 	return (
 		<div
 			className={cn(
-				"relative z-50 flex animate-move-up items-center justify-between gap-1 border-t bg-background px-2 py-1.5 transition-[bottom] ease-in-out",
-				"[&_button]:z-1 [&_button]:not-hover:bg-transparent **:[[role=button]]:not-hover:bg-transparent",
-				"-mt-13",
 				!isOpen && "-bottom-20!",
+				"relative z-50 animate-move-up border-t bg-background px-2 py-1.5 transition-[bottom] ease-in-out",
+				"[&_button]:z-1 [&_button]:not-hover:bg-transparent **:[[role=button]]:not-hover:bg-transparent",
+				"-mt-13 **:data-[highlight=true]:animate-highlight-primary",
 			)}
 		>
 			<div
@@ -26,13 +29,23 @@ export const WidgetControls = () => {
 				className="absolute inset-0 z-0 touch-none not-expanded:hover:cursor-move sm:hover:cursor-move"
 			/>
 
-			<ProgressBar />
+			<div inert={isGuideOpen} className="grid w-full grid-cols-5 items-center gap-1">
+				<ProgressBar />
 
-			<MainAction />
-			<SpeedOption />
-			<EmotionsOption />
-			<SubtitlesOptions />
-			<SettingsOption />
+				<div id="main-action-speed-options" className="col-span-2 grid grid-cols-subgrid justify-items-center rounded">
+					<MainAction />
+					<SpeedOption />
+				</div>
+
+				<div id="emotions-subtitles-options" className="col-span-2 grid grid-cols-subgrid justify-items-center rounded">
+					<EmotionsOption />
+					<SubtitlesOptions />
+				</div>
+
+				<div id="settings-option" className="col-span-1 grid grid-cols-subgrid justify-items-center rounded">
+					<SettingsOption />
+				</div>
+			</div>
 		</div>
 	);
 };

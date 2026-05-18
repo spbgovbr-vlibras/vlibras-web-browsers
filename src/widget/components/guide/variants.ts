@@ -1,6 +1,6 @@
 import { cva } from "class-variance-authority";
 
-export const guideVariants = cva("absolute z-50 rounded-xl bg-primary p-4 transition-position", {
+export const guideVariants = cva("absolute flex flex-col gap-4 z-50 rounded-xl bg-primary p-4 transition-position", {
 	variants: {
 		isMobile: { true: "", false: "" },
 		isLeft: { true: "", false: "" },
@@ -10,19 +10,19 @@ export const guideVariants = cva("absolute z-50 rounded-xl bg-primary p-4 transi
 	compoundVariants: [
 		{
 			isExpanded: false,
-			class: "w-screen max-w-60",
+			class: "w-screen max-w-xs",
 		},
 		{
 			isMobile: false,
 			isExpanded: false,
 			isLeft: true,
-			class: "top-0 -right-2 translate-x-full",
+			class: "top-0 -right-3 translate-x-full",
 		},
 		{
 			isMobile: false,
 			isExpanded: false,
 			isLeft: false,
-			class: "top-0 -left-2 -translate-x-full",
+			class: "top-0 -left-3 -translate-x-full",
 		},
 		{
 			isMobile: true,
