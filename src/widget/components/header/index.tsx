@@ -49,7 +49,7 @@ export const WidgetHeader = () => {
 
 				<Spacer className="w-full" />
 
-				<div id="header-actions" className="flex items-center gap-1 [&_button]:bg-transparent">
+				<div id="header-actions" className="flex items-center gap-1 [&_button]:not-hover:bg-transparent">
 					<ExpandOption />
 
 					<Button
