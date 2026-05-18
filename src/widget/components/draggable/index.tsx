@@ -116,6 +116,13 @@ export function Draggable<TElement extends HTMLElement>({ children }: Props<TEle
 		};
 	}, [hasMoved, isDragging]);
 
+	useEffect(() => {
+		if (ref.current) {
+			const rect = ref.current.getBoundingClientRect();
+			setPos({ x: rect.left, y: rect.top });
+		}
+	}, []);
+
 	const onPointerDown = (e: PointerEvent) => {
 		if (!ref.current) return;
 		if (e.cancelable) e.preventDefault();
