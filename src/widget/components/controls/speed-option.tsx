@@ -6,6 +6,7 @@ import { usePlayer } from "@/player/use-player";
 import { usePlayerStore } from "@/player/use-player.store";
 import { DropdownTrigger } from "@/widget/components/ui/dropdown";
 import { Tooltip } from "@/widget/components/ui/tooltip";
+import { useWidgetStore } from "@/widget/stores/use-widget.store";
 import { useGuideSelected } from "../guide/store";
 
 const speeds = [2.5, 2, 1.5, 1];
@@ -13,6 +14,7 @@ const speeds = [2.5, 2, 1.5, 1];
 export const SpeedOption = () => {
 	const isMobile = useMobile();
 	const currentSpeed = usePlayerStore((s) => s.speed);
+	const isExpanded = useWidgetStore((s) => s.isExpanded);
 	const isGuideSelected = useGuideSelected("#main-action-speed-options");
 
 	const { setSpeed } = usePlayer();
@@ -33,7 +35,7 @@ export const SpeedOption = () => {
 		<div
 			className={cn(
 				"dropdown dropdown-center dropdown-top focus-within:**:data-[slot=tooltip-content]:hidden",
-				isGuideSelected && "not-expanded:dropdown-open [&_.dropdown-content]:scale-95",
+				isGuideSelected && !isExpanded && "dropdown-open [&_.dropdown-content]:scale-95",
 			)}
 		>
 			<Tooltip className="text-xs" offset={8} content="Velocidade" placement="top" arrow={{ position: "bottom" }}>

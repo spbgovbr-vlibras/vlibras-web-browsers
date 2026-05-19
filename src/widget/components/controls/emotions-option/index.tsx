@@ -7,10 +7,12 @@ import { usePlayerStore } from "@/player/use-player.store";
 import { useGuideSelected } from "@/widget/components/guide/store";
 import { DropdownTrigger } from "@/widget/components/ui/dropdown";
 import { Tooltip } from "@/widget/components/ui/tooltip";
+import { useWidgetStore } from "@/widget/stores/use-widget.store";
 
 export const EmotionsOption = () => {
 	const isMobile = useMobile();
 	const currentEmotion = usePlayerStore((s) => s.emotion);
+	const isExpanded = useWidgetStore((s) => s.isExpanded);
 	const isGuideSelected = useGuideSelected("#emotions-subtitles-options");
 
 	const { setEmotion } = usePlayer();
@@ -26,7 +28,7 @@ export const EmotionsOption = () => {
 		<div
 			className={cn(
 				"dropdown dropdown-center dropdown-top focus-within:**:data-[slot=tooltip-content]:hidden",
-				isGuideSelected && "not-expanded:dropdown-open [&_.dropdown-content]:scale-95",
+				isGuideSelected && !isExpanded && "dropdown-open [&_.dropdown-content]:scale-95",
 			)}
 		>
 			<Tooltip className="text-xs" offset={8} content="Emoções" placement="top" arrow={{ position: "bottom" }}>

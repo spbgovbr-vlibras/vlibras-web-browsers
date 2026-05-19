@@ -73,7 +73,6 @@ export const Guide = () => {
 	return (
 		<GuideProvider data={{ index, setIndex, onClose, ...store }}>
 			<div
-				autofocus
 				className={cn(
 					guideVariants({ isMobile, isLeft, isTop, isExpanded }),
 					!isExpanded && !isMobile && element.guideClx,
