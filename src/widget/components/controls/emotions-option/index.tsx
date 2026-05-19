@@ -4,16 +4,12 @@ import { cn } from "@/common/lib/utils";
 import { type Emotion, emotionsMap } from "@/data/emotions-map";
 import { usePlayer } from "@/player/use-player";
 import { usePlayerStore } from "@/player/use-player.store";
-import { useGuideSelected } from "@/widget/components/guide/store";
 import { DropdownTrigger } from "@/widget/components/ui/dropdown";
 import { Tooltip } from "@/widget/components/ui/tooltip";
-import { useWidgetStore } from "@/widget/stores/use-widget.store";
 
 export const EmotionsOption = () => {
 	const isMobile = useMobile();
 	const currentEmotion = usePlayerStore((s) => s.emotion);
-	const isExpanded = useWidgetStore((s) => s.isExpanded);
-	const isGuideSelected = useGuideSelected("#emotions-subtitles-options");
 
 	const { setEmotion } = usePlayer();
 
@@ -25,12 +21,7 @@ export const EmotionsOption = () => {
 	const isDefaultEmotion = currentEmotion === emotionsMap.default;
 
 	return (
-		<div
-			className={cn(
-				"dropdown dropdown-center dropdown-top focus-within:**:data-[slot=tooltip-content]:hidden",
-				isGuideSelected && !isExpanded && "dropdown-open [&_.dropdown-content]:scale-95",
-			)}
-		>
+		<div className="dropdown dropdown-center dropdown-top focus-within:**:data-[slot=tooltip-content]:hidden">
 			<Tooltip className="text-xs" offset={8} content="Emoções" placement="top" arrow={{ position: "bottom" }}>
 				<DropdownTrigger
 					id="emotions-option-button"

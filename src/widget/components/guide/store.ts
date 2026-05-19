@@ -20,5 +20,3 @@ export const guideStore = {
 	get: useGuideStore.getState,
 	set: useGuideStore.setState,
 };
-
-export const useGuideSelected = (selector: string) => useGuideStore((s) => s.element?.selector === selector);
