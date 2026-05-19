@@ -32,8 +32,7 @@ export default defineConfig(({ mode }) => {
 			preact(),
 			tailwindcss(),
 			visualizer({
-				open: true,
-				filename: "stats.html",
+ 				filename: "stats.html",
 				brotliSize: true,
 				gzipSize: true,
 			}),
