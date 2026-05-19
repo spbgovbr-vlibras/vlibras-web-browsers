@@ -1,6 +1,7 @@
 import path from "node:path";
 import preact from "@preact/preset-vite";
 import tailwindcss from "@tailwindcss/vite";
+import { visualizer } from "rollup-plugin-visualizer";
 import { defineConfig } from "vite";
 import { viteStaticCopy } from "vite-plugin-static-copy";
 import pkg from "./package.json";
@@ -30,8 +31,18 @@ export default defineConfig(({ mode }) => {
 		plugins: [
 			preact(),
 			tailwindcss(),
+			visualizer({
+				open: true,
+				filename: "stats.html",
+				brotliSize: true,
+				gzipSize: true,
+			}),
 			viteStaticCopy({
 				targets: [
+					{
+						src: "demo/index.html",
+						dest: ".",
+					},
 					{
 						src: "src/loader/index.js",
 						rename: "vlibras-plugin.js",
