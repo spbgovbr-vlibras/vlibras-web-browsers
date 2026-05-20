@@ -1,3 +1,4 @@
+import { useQuery } from "@tanstack/preact-query";
 import { useCallback, useEffect, useMemo, useRef, useState } from "preact/hooks";
 import { useDebouncedCallback } from "@/common/hooks";
 import { Trie } from "@/common/lib/trie";
@@ -26,45 +27,19 @@ export const useDictionary = () => {
 	const { data, isLoading, refetch } = useDictionarySigns();
 	const { signs } = useDictionaryHistoryStore();
 
-	const [categories, setCategories] = useState<Category[]>([]);
-	const [isLoadingCategories, setIsLoadingCategories] = useState(false);
 	const [selectedCategory, setSelectedCategory] = useState<Category | null>(null);
-	const [categorySigns, setCategorySigns] = useState<string[]>([]);
-	const [isLoadingCategorySigns, setIsLoadingCategorySigns] = useState(false);
 
-	useEffect(() => {
-		const load = async () => {
-			setIsLoadingCategories(true);
-			try {
-				const data = await getCategories();
-				setCategories(data);
-			} finally {
-				setIsLoadingCategories(false);
-			}
-		};
+	const { data: categories = [], isLoading: isLoadingCategories } = useQuery({
+		queryKey: ["categories"],
+		queryFn: getCategories,
+	});
 
-		load();
-	}, []);
-
-	useEffect(() => {
-		const loadCategorySigns = async () => {
-			if (!selectedCategory) {
-				setCategorySigns([]);
-				return;
-			}
-			setIsLoadingCategorySigns(true);
-			try {
-				const data = await getCategorySigns(selectedCategory.name);
-				console.log(data.signs);
-				const filteredSigns = data.signs.filter((sign: string) => sign !== "1S_FARTAR1S" && sign !== "2S_ESCOLHER__1S");
-				setCategorySigns(filteredSigns);
-			} finally {
-				setIsLoadingCategorySigns(false);
-			}
-		};
-
-		loadCategorySigns();
-	}, [selectedCategory]);
+	const { data: categorySigns = [], isLoading: isLoadingCategorySigns } = useQuery({
+		queryKey: ["categorySigns", selectedCategory?.name],
+		queryFn: () => getCategorySigns(selectedCategory!.name),
+		enabled: !!selectedCategory,
+		select: (data) => data.signs.filter((sign: string) => sign !== "1S_FARTAR1S" && sign !== "2S_ESCOLHER__1S"),
+	});
 
 	const retry = async () => {
 		await refetch();
@@ -92,7 +67,7 @@ export const useDictionary = () => {
 		const allSignsSet = new Set(allSigns);
 		console.log(categorySigns);
 		return categorySigns.filter(
-			(sign) => allSignsSet.has(sign) && (searchTerm === "" || sign.toLowerCase().includes(searchTerm)),
+			(sign: string) => allSignsSet.has(sign) && (searchTerm === "" || sign.toLowerCase().includes(searchTerm)),
 		);
 	}, [selectedCategory, allSigns, search, categorySigns]);
 

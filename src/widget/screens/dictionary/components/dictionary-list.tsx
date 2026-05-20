@@ -29,7 +29,7 @@ export const DictionaryList = () => {
 			{ctx.filter === "categories" &&
 				!ctx.selectedCategory &&
 				(ctx.isLoadingCategories ? <DictionaryLoading /> : <DictionaryCategories />)}
-			{ctx.filter === "categories" && ctx.selectedCategory && !isEmpty && <DictionaryCategoryHeader />}
+			{ctx.filter === "categories" && ctx.selectedCategory && <DictionaryCategoryHeader />}
 			{ctx.filter === "categories" &&
 				ctx.selectedCategory &&
 				!isEmpty &&
