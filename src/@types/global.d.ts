@@ -10,6 +10,9 @@ interface Window {
 		initBtn?: Element;
 		open: () => void;
 	};
+
+	plugin?: any;
+	vlibras?: any;
 }
 
 interface UnityInstance {

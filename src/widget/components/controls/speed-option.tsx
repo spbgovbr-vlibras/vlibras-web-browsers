@@ -12,6 +12,7 @@ const speeds = [2.5, 2, 1.5, 1];
 export const SpeedOption = () => {
 	const isMobile = useMobile();
 	const currentSpeed = usePlayerStore((s) => s.speed);
+
 	const { setSpeed } = usePlayer();
 
 	const onKeyDown = (event: TargetedKeyboardEvent<HTMLButtonElement>, speed: number) => {

@@ -14,7 +14,7 @@ export const UnityLoading = () => {
 	if (isLoaded) return null;
 
 	return (
-		<div className="absolute inset-0 z-9999999 flex flex-col items-center justify-between bg-background p-4">
+		<div className="absolute inset-0 z-9999999 flex flex-col items-center justify-between rounded-xl border bg-background p-4">
 			<div className="rounded-full border px-2 py-1">
 				<GovBRIcon className="h-4 w-auto" />
 			</div>

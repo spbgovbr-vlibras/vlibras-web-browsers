@@ -2,15 +2,18 @@ import type { RefObject } from "preact";
 import { useEffect } from "preact/hooks";
 import { usePick } from "@/common/hooks";
 import { cn } from "@/common/lib/utils";
-import { getWidgetPositionClasses } from "./app.styles";
+import { WidgetAppProviders } from "@/widget/providers/widget/app";
+import { WidgetWrapperProviders } from "@/widget/providers/widget/wrapper";
+import { appVariants } from "./app-variants";
 import { WidgetContent } from "./components/content";
 import { Draggable } from "./components/draggable";
 import { AppBackground } from "./components/ui/app-background";
-import { WidgetProviders } from "./providers/app";
 import { rootStore } from "./stores/use-root.store";
+import { useScreensStore } from "./stores/use-screens.store";
 import { useWidgetStore } from "./stores/use-widget.store";
 
 export const WidgetApp = () => {
+	const screen = useScreensStore((s) => s.screen);
 	const { isOpen, position, isExpanded } = useWidgetStore(usePick("isOpen", "position", "isExpanded"));
 
 	return (
@@ -20,33 +23,39 @@ export const WidgetApp = () => {
 
 				return (
 					<div
-						inert={!isOpen}
 						id="vlibras-app"
-						ref={(ref) => {
-							if (ref) rootStore.set({ appRoot: ref });
-							if (typeof draggableRef === "function") draggableRef(ref);
-							else if (draggableRef && "current" in draggableRef) {
-								(draggableRef as RefObject<HTMLDivElement | null>).current = ref;
-							}
-						}}
+						inert={!isOpen}
 						style={{ transform: hasMoved && isOpen ? `translate3d(${pos.x}px, ${pos.y}px, 0)` : undefined }}
 						className={cn(
-							"fixed z-2147483647 flex h-fit w-(--widget-width) flex-col overflow-hidden rounded-xl shadow-lg",
-							!isDragging && "transition-all",
-							(!hasMoved || !isOpen) && getWidgetPositionClasses(position, isOpen),
-							hasMoved && isOpen && "top-0 left-0",
-							isExpanded &&
-								isOpen &&
-								cn(
-									"w-dvw max-w-dvw sm:h-auto sm:w-xl sm:[--player-height:800px]",
-									"max-sm:translate-none! max-sm:transform-none! [--player-height:calc(100dvh-54px)] max-sm:inset-0 max-sm:rounded-none! max-sm:border-none!",
-								),
+							appVariants({
+								isDragging,
+								isOpen,
+								position,
+								isExpanded,
+								hasMoved,
+							}),
 						)}
 					>
-						<WidgetContent />
-						<WidgetProviders />
+						<div
+							ref={(ref) => {
+								if (ref) rootStore.set({ appRoot: ref });
+								if (typeof draggableRef === "function") draggableRef(ref);
+								else if (draggableRef && "current" in draggableRef) {
+									(draggableRef as RefObject<HTMLDivElement | null>).current = ref;
+								}
+							}}
+							className={cn(
+								"relative z-2147483647 h-fit expanded:w-full w-(--widget-width) overflow-hidden rounded-xl shadow-lg expanded:max-sm:rounded-none!",
+								screen !== "main" && "outline-2 outline-border outline-solid",
+							)}
+						>
+							<WidgetContent />
+							<WidgetAppProviders />
 
-						<AppBackground />
+							<AppBackground />
+						</div>
+
+						<WidgetWrapperProviders />
 					</div>
 				);
 			}}

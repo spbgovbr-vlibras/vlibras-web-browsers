@@ -1,13 +1,18 @@
 import { useState } from "preact/hooks";
 import { Fragment } from "preact/jsx-runtime";
+import { useGuideStore } from "@/widget/components/guide/store";
 import { Button } from "@/widget/components/ui/button";
 import { LikeIcon } from "@/widget/icons";
 import { useWidgetStore } from "@/widget/stores/use-widget.store";
 import { FeedbackDialog } from ".";
 
 export const FeedbackTrigger = () => {
-	const isExpanded = useWidgetStore((s) => s.isExpanded);
 	const [open, setOpen] = useState(false);
+
+	const isExpanded = useWidgetStore((s) => s.isExpanded);
+	const isGuideOpen = useGuideStore((s) => s.open);
+
+	if (isGuideOpen) return null;
 
 	return (
 		<Fragment>

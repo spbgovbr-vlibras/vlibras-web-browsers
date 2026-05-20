@@ -1,4 +1,6 @@
 export { ArrowLeftIcon } from "./arrow-left";
+export { ArrowRightIcon } from "./arrow-right";
+export { CheckIcon } from "./check";
 export { CheckedIcon } from "./checked";
 export { CollapseIcon } from "./collapse";
 export { CommentIcon } from "./comment";

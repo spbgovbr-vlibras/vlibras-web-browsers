@@ -39,6 +39,8 @@ export const useTextCaptureSync = () => {
 			},
 		});
 
+		if (!isOpen) cleanup?.();
+
 		return () => cleanup?.();
-	}, [isLoaded]);
+	}, [isLoaded, isOpen]);
 };

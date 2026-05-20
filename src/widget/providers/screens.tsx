@@ -1,4 +1,4 @@
-import { Fragment } from "preact";
+import { Fragment } from "preact/compat";
 import { AboutScreen } from "@/widget/screens/about";
 import { DictionaryScreen } from "@/widget/screens/dictionary";
 import { useScreensStore } from "@/widget/stores/use-screens.store";
