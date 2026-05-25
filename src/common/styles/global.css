@@ -3,7 +3,7 @@
 	root: ":host"
 }
 
-:host {
+:host, [data-theme="light"] {
 	--background: oklch(1 0 0);
 	--foreground: oklch(25% 0 0);
 	--primary: oklch(0.4602 0.169 260.07);
@@ -30,7 +30,7 @@
 	--font-size: 16px;
 }
 
-:host(.dark) {
+:host(.dark), [data-theme="dark"] {
 	--background: oklch(0.15 0 0);
 	--foreground: oklch(0.985 0 0);
 	--primary: oklch(0.555 0.169 260.07);
