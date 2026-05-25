@@ -4,6 +4,7 @@ import { Player } from "@/player";
 import { usePlayerStore } from "@/player/use-player.store";
 import { WidgetControls } from "@/widget/components/controls";
 import { WidgetHeader } from "@/widget/components/header";
+import { Utilities } from "@/widget/components/utilities";
 import { rootStore } from "@/widget/stores/use-root.store";
 import { useScreensStore } from "@/widget/stores/use-screens.store";
 
@@ -21,6 +22,7 @@ export const WidgetContent = ({ className, ...props }: Omit<ComponentProps<"div"
 		>
 			<WidgetHeader />
 			<Player className="mb-2 h-(--player-height) max-h-[calc(100dvh-52px)] w-full" />
+			<Utilities />
 			<WidgetControls />
 		</div>
 	);

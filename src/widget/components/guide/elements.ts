@@ -22,6 +22,14 @@ export const guideElements: GuideElement[] = [
 	},
 
 	{
+		selector: "#toggle-avatar-button",
+		text: "Aqui você pode alterar o avatar. Você pode escolher entre Ícaro, Hosana e Guga.",
+		gloss:
+			"AQUI VOCÊ PODER&POSSIBILIDADE TROCAR AVATAR [PONTO] VOCÊ PODER&POSSIBILIDADE ESCOLHER ENTRE [WLCM]ICARO_SINAL [WLCM]HOZANA_SINAL [WLCM]GUGA_SINAL ",
+		guideClx: "top-auto! bottom-6.5!",
+	},
+
+	{
 		selector: "#main-action-speed-options",
 		text: "Aqui você pode pausar, retomar, reiniciar ou alterar a velocidade da animação.",
 		gloss: "AQUI VOCÊ PODER&POSSIBILIDADE RETOMAR RETOMAR REINICIAR OU ALTERAR VELOCIDADE ANIMAR",

@@ -22,7 +22,7 @@ export const EmotionsOption = () => {
 
 	return (
 		<div className="dropdown dropdown-center dropdown-top focus-within:**:data-[slot=tooltip-content]:hidden">
-			<Tooltip className="text-xs" offset={8} content="Emoções" placement="top" arrow={{ position: "bottom" }}>
+			<Tooltip offset={8} content="Emoções" placement="top" arrow={{ position: "bottom" }}>
 				<DropdownTrigger
 					id="emotions-option-button"
 					className="group relative"

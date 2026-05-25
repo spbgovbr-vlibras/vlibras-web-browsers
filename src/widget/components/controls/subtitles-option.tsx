@@ -19,7 +19,7 @@ export const SubtitlesOptions = () => {
 
 	return (
 		<Tooltip
-			className="whitespace-nowrap text-xs"
+			className="whitespace-nowrap"
 			offset={8}
 			align="end"
 			content={showSubtitles ? "Desativar legendas" : "Ativar legendas"}

@@ -29,7 +29,7 @@ export const SpeedOption = () => {
 
 	return (
 		<div className="dropdown dropdown-center dropdown-top focus-within:**:data-[slot=tooltip-content]:hidden">
-			<Tooltip className="text-xs" offset={8} content="Velocidade" placement="top" arrow={{ position: "bottom" }}>
+			<Tooltip offset={8} content="Velocidade" placement="top" arrow={{ position: "bottom" }}>
 				<DropdownTrigger variant="ghost-gov" size={isMobile ? "icon-sm" : "icon"}>
 					<span inert className="-mt-0.5 font-bold text-sm">
 						{currentSpeed}x

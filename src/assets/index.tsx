@@ -28,9 +28,6 @@ import SE from "./images/flags/SE.webp";
 import SP from "./images/flags/SP.webp";
 import TO from "./images/flags/TO.webp";
 
-import GugaImage from "./images/guga.png";
-import HosanaImage from "./images/hosana.png";
-import IcaroImage from "./images/icaro.png";
 import lavidIcon from "./images/lavid.svg";
 import mdhcIcon from "./images/ministerioDireitosHumanos.svg";
 import mgispIcon from "./images/ministerioGestao.svg";
@@ -67,4 +64,4 @@ const flags = {
 	TO,
 };
 
-export { flags, camaraIcon, GugaImage, HosanaImage, IcaroImage, lavidIcon, mdhcIcon, mgispIcon, rnpIcon };
+export { flags, camaraIcon, lavidIcon, mdhcIcon, mgispIcon, rnpIcon };

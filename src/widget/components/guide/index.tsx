@@ -28,11 +28,11 @@ export const Guide = () => {
 	const store = useGuideStore();
 	const isExpanded = useWidgetStore((s) => s.isExpanded);
 	const isTranslating = useWidgetStore((s) => s.isTranslating);
-	const appContent = useRootStore((s) => s.appContent);
+	const appRoot = useRootStore((s) => s.appRoot);
 	const isMobile = useMobile();
 
-	const isLeft = useMemo(() => pos.x < (innerWidth - (appContent?.clientWidth || 0)) / 2, [pos.x, innerWidth]);
-	const isTop = useMemo(() => pos.y < (innerHeight - (appContent?.clientHeight || 0)) / 2, [pos.y, innerHeight]);
+	const isLeft = useMemo(() => pos.x < (innerWidth - (appRoot?.clientWidth || 0)) / 2, [pos.x, innerWidth]);
+	const isTop = useMemo(() => pos.y < (innerHeight - (appRoot?.clientHeight || 0)) / 2, [pos.y, innerHeight]);
 	const element = useMemo(() => guideElements[index], [index]);
 
 	const onClose = () => {
@@ -47,26 +47,26 @@ export const Guide = () => {
 	useEffect(() => void (isTranslating && onClose()), [isTranslating]);
 
 	useEffect(() => {
-		if (!appContent) return;
+		if (!appRoot) return;
 
 		removeAllHighlights();
 		play(element.gloss);
 
 		element.action?.();
 
-		const target = $(element.selector, appContent);
+		const target = $(element.selector, appRoot);
 		if (target) {
 			guideStore.set({ element });
 			target.dataset.highlight = "true";
 		}
 	}, [element]);
 
-	if (!appContent) return null;
+	if (!appRoot) return null;
 
 	const removeAllHighlights = () => {
-		if (!appContent) return;
+		if (!appRoot) return;
 
-		const targets = $$("[data-highlight=true]", appContent);
+		const targets = $$("[data-highlight=true]", appRoot);
 		targets?.forEach((target) => (target.dataset.highlight = "false"));
 	};
 

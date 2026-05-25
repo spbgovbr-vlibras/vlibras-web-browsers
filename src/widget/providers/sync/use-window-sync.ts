@@ -18,7 +18,6 @@ export const useWindowSyncProvider = () => {
 
 	const translateText = async (text: string) => {
 		const gloss = await translate(text);
-		console.log(gloss);
 		return gloss;
 	};
 

@@ -13,7 +13,7 @@ export const SettingsOption = () => {
 	return (
 		<Fragment>
 			<Tooltip
-				className="whitespace-nowrap text-xs"
+				className="whitespace-nowrap"
 				offset={8}
 				align="end"
 				content="Configurações"

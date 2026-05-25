@@ -26,7 +26,6 @@ export const MainAction = () => {
 
 	return (
 		<Tooltip
-			className="text-xs"
 			offset={8}
 			content={status.label}
 			disabled={!gloss}

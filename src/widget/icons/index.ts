@@ -22,6 +22,7 @@ export { PlayIcon } from "./play";
 export { RepeatIcon } from "./repeat";
 export { RotateLeftIcon } from "./rotate-left";
 export { SettingsIcon } from "./settings";
+export { SkipIcon } from "./skip";
 export { SubtitleOffIcon } from "./subtitle-off";
 export { SunIcon } from "./sun";
 export { TouchIcon } from "./touch";

@@ -45,7 +45,7 @@ export const SettingsDialog = ({ open, onOpenChange }: Props) => {
 					{!isDefaultSettings && (
 						<Fragment>
 							<Tooltip
-								className="-mr-1 text-xs"
+								className="-mr-1"
 								align="end"
 								placement="bottom"
 								content="Redefinir"

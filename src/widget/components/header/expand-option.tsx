@@ -48,7 +48,7 @@ export const ExpandOption = () => {
 
 	return (
 		<Tooltip
-			className="whitespace-nowrap text-xs"
+			className="whitespace-nowrap"
 			offset={2}
 			content={label}
 			placement="bottom"
