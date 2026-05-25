@@ -35,7 +35,6 @@ export const ToggleAvatarButton = () => {
 	return (
 		<div
 			inert={isGuideOpen}
-			autofocus
 			className={cn(
 				"dropdown dropdown-top dropdown-end z-1 h-9 animate-move-up focus-within:**:data-[slot=tooltip-content]:hidden",
 			)}

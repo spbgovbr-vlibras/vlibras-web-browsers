@@ -7,7 +7,7 @@ import { usePlayerStore } from "@/player/use-player.store";
 import { DropdownTrigger } from "@/widget/components/ui/dropdown";
 import { Tooltip } from "@/widget/components/ui/tooltip";
 
-const speeds = [2.5, 2, 1.5, 1];
+const speeds = [2.5, 2, 1.5, 1, 0.5];
 
 export const SpeedOption = () => {
 	const isMobile = useMobile();

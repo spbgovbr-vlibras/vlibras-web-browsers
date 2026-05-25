@@ -80,6 +80,16 @@ export const usePlayer = () => {
 		send(UNITY_OBJECTS.EMOTION, emotion.action);
 	};
 
+	const playStatic = (gloss: string) => {
+		const staticUrl = config.DICTIONARY_STATIC_URL;
+		const baseUrl = config.DICTIONARY_URL;
+		setConfig({ baseUrl: staticUrl });
+		if (gloss) {
+			send(UNITY_OBJECTS.PLAYER, UNITY_METHODS.PLAY, gloss);
+		} else send(UNITY_OBJECTS.PLAYER, UNITY_METHODS.SET_PAUSE_STATE, 0);
+		setConfig({ baseUrl });
+	};
+
 	return {
 		setConfig,
 		play,
@@ -92,5 +102,6 @@ export const usePlayer = () => {
 		toggleSubtitles,
 		setRegion,
 		setEmotion,
+		playStatic,
 	};
 };

@@ -1,4 +1,4 @@
-import camaraIcon from "./images/camara-deputados.svg";
+import camaraIcon from "./images/camara-deputados.webp";
 import AC from "./images/flags/AC.webp";
 import AL from "./images/flags/AL.webp";
 import AM from "./images/flags/AM.webp";
@@ -28,10 +28,10 @@ import SE from "./images/flags/SE.webp";
 import SP from "./images/flags/SP.webp";
 import TO from "./images/flags/TO.webp";
 
-import lavidIcon from "./images/lavid.svg";
-import mdhcIcon from "./images/ministerioDireitosHumanos.svg";
-import mgispIcon from "./images/ministerioGestao.svg";
-import rnpIcon from "./images/rnp.svg";
+import lavidIcon from "./images/lavid.webp";
+import mdhcIcon from "./images/ministerioDireitosHumanos.webp";
+import mgispIcon from "./images/ministerioGestao.webp";
+import rnpIcon from "./images/rnp.webp";
 
 const flags = {
 	MT,
