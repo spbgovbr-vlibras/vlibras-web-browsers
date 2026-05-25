@@ -1,4 +1,3 @@
-import { useRef } from "preact/hooks";
 import { appConfig } from "@/common/hooks/use-config";
 import { cn } from "@/common/lib/utils";
 import type { PlayerAvatar } from "@/player/types";
@@ -20,7 +19,6 @@ const getAvatarImage = (path: string) => {
 };
 
 export const ToggleAvatarButton = () => {
-	const dropdownRef = useRef<HTMLDivElement>(null);
 	const { toggleAvatar } = usePlayer();
 
 	const avatar = usePlayerStore((s) => s.avatar);
@@ -30,13 +28,12 @@ export const ToggleAvatarButton = () => {
 	const currentAvatarImage = getAvatarImage(currentAvatar?.path || avatars[0].path);
 
 	const handleSelectAvatar = (name: PlayerAvatar) => {
-		dropdownRef.current?.blur();
+		(document.activeElement as HTMLElement)?.blur();
 		setTimeout(() => toggleAvatar(name), 150);
 	};
 
 	return (
 		<div
-			ref={dropdownRef}
 			inert={isGuideOpen}
 			autofocus
 			className={cn(
