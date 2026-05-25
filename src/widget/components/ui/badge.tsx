@@ -1,4 +1,4 @@
-import type { ComponentProps } from "preact/compat";
+import type { ComponentProps } from "preact";
 import { cn } from "@/common/lib/utils";
 
 type BadgeCustomProps = {

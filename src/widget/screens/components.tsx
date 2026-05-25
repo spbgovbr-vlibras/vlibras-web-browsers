@@ -1,4 +1,4 @@
-import type { ComponentProps } from "preact/compat";
+import type { ComponentProps } from "preact";
 import { useMobile } from "@/common/hooks";
 import { cn } from "@/common/lib/utils";
 import { Button, type ButtonProps } from "@/widget/components/ui/button";
