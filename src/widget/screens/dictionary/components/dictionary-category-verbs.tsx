@@ -1,4 +1,5 @@
 import { cn } from "@/common/lib/utils";
+import { useTranslate } from "@/core/actions/hooks";
 import { usePlayer } from "@/player/use-player";
 import { ArrowRightIcon } from "@/widget/icons/arrow-right";
 import { ChevronDownIcon } from "@/widget/icons/chevron-down";
@@ -10,14 +11,20 @@ import { useDictionaryCtx } from "./dictionary-context";
 import { DictionaryWordMeaning } from "./dictionary-word-meaning";
 
 export const DictionaryCategoryVerbs = () => {
-	const { playText } = usePlayer();
+	const { play } = usePlayer();
+	const { mutateAsync: translate } = useTranslate();
 	const handlePlay = useHandlePlay();
 	const ctx = useDictionaryCtx();
 	const { expandedWord, wordMeanings, loadingMeaning, toggleWordMeaning } = useWordMeaning();
 
-	const handlePlayDefinition = (text: string) => {
-		playText(text);
-		useScreensStore.setState({ screen: "main" });
+	const handlePlayDefinition = async (text: string) => {
+		try {
+			const gloss = await translate(text);
+			play(gloss);
+			useScreensStore.setState({ screen: "main" });
+		} catch (error) {
+			console.error("Erro ao reproduzir definição: ", error);
+		}
 	};
 
 	return (

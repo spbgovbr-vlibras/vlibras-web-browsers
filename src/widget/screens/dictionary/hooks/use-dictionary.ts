@@ -32,13 +32,14 @@ export const useDictionary = () => {
 	const { data: categories = [], isLoading: isLoadingCategories } = useQuery({
 		queryKey: ["categories"],
 		queryFn: getCategories,
+		select: ({ data }) => data,
 	});
 
 	const { data: categorySigns = [], isLoading: isLoadingCategorySigns } = useQuery({
 		queryKey: ["categorySigns", selectedCategory?.name],
-		queryFn: () => getCategorySigns(selectedCategory!.name),
+		queryFn: () => getCategorySigns(selectedCategory?.name ?? ""),
 		enabled: !!selectedCategory,
-		select: (data) => data.signs.filter((sign: string) => sign !== "1S_FARTAR1S" && sign !== "2S_ESCOLHER__1S"),
+		select: ({ data }) => data.signs.filter((sign: string) => sign !== "1S_FARTAR1S" && sign !== "2S_ESCOLHER__1S"),
 	});
 
 	const retry = async () => {

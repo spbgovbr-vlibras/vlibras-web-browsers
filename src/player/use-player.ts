@@ -1,8 +1,6 @@
-import { useTranslate } from "@/core/actions/hooks";
 import { config } from "@/core/config";
 import type { Emotion } from "@/data/emotions-map";
 import type { Region } from "@/data/regionalism";
-import { useWidgetStore } from "@/widget/stores/use-widget.store";
 import { UNITY_METHODS, UNITY_OBJECTS } from "./constants/unity";
 import type { PlayerAvatar, PlayerConfig } from "./types";
 import { playerStore, usePlayerStore } from "./use-player.store";
@@ -11,7 +9,6 @@ const avatars: PlayerAvatar[] = ["icaro", "guga", "hosana"];
 
 export const usePlayer = () => {
 	const send = usePlayerStore((state) => state.send);
-	const { mutateAsync: translate } = useTranslate();
 
 	const setConfig = (config: Partial<PlayerConfig>) => {
 		if (!config.baseUrl && !config.personalizationUrl) return;
@@ -83,11 +80,14 @@ export const usePlayer = () => {
 		send(UNITY_OBJECTS.EMOTION, emotion.action);
 	};
 
-	const playText = async (text: string) => {
-		useWidgetStore.setState({ isTranslating: true, text });
-		const gloss = await translate(text);
-		useWidgetStore.setState({ isTranslating: false });
-		play(gloss);
+	const playStatic = (gloss: string) => {
+		const staticUrl = config.DICTIONARY_STATIC_URL;
+		const baseUrl = config.DICTIONARY_URL;
+		setConfig({ baseUrl: staticUrl });
+		if (gloss) {
+			send(UNITY_OBJECTS.PLAYER, UNITY_METHODS.PLAY, gloss);
+		} else send(UNITY_OBJECTS.PLAYER, UNITY_METHODS.SET_PAUSE_STATE, 0);
+		setConfig({ baseUrl });
 	};
 
 	return {
@@ -102,6 +102,6 @@ export const usePlayer = () => {
 		toggleSubtitles,
 		setRegion,
 		setEmotion,
-		playText,
+		playStatic,
 	};
 };

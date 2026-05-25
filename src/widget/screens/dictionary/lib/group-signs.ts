@@ -1,5 +1,5 @@
 import { conjugationOrder, prefixMap, suffixMap, verbRegex } from "./constants";
-import type { VerbConjugation, VerbGroup } from "./types";
+import type { VerbGroup } from "./types";
 
 export type SignGroup = {
 	base: string;

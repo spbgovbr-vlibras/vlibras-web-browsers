@@ -7,20 +7,20 @@ import { useDictionarySigns } from "@/core/actions/hooks";
 import { usePlayer } from "@/player/use-player";
 import { playerStore } from "@/player/use-player.store";
 import { Button } from "@/widget/components/ui/button";
-import { ChevronDownIcon } from "@/widget/icons/chevron-down";
+import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/widget/components/ui/dialog";
 import { useWidgetStore } from "@/widget/stores/use-widget.store";
 import { applySuggestion, getCaretCoordinates, getCurrentWord } from "./lib/suggestions";
 import { SuggestionPopup } from "./suggestion-popup";
 
 type Props = {
-	isOpen: boolean;
+	open: boolean;
+	onOpenChange: (open: boolean) => void;
 	gloss: string | undefined;
-	onClose: () => void;
 };
 
-export const FeedbackSuggestion = ({ isOpen, gloss, onClose }: Props) => {
+export const FeedbackSuggestion = ({ open, onOpenChange, gloss }: Props) => {
 	const textareaRef = useRef<HTMLTextAreaElement>(null);
-	const { play, playText } = usePlayer();
+	const { play, playStatic } = usePlayer();
 	const text = useWidgetStore((s) => s.text);
 	const { data } = useDictionarySigns();
 	const [suggestions, setSuggestions] = useState<string[]>([]);
@@ -65,9 +65,9 @@ export const FeedbackSuggestion = ({ isOpen, gloss, onClose }: Props) => {
 				rating: "bad",
 			});
 			if (result.success) {
-				onClose();
+				onOpenChange(false);
 				toast("Agradecemos sua contribuição!", { variant: "success" });
-				await playText("Agradecemos sua contribuição!");
+				playStatic("AGRADECER");
 				playerStore.set({ gloss: undefined });
 			} else {
 				console.error(result.error);
@@ -80,24 +80,12 @@ export const FeedbackSuggestion = ({ isOpen, gloss, onClose }: Props) => {
 		}
 	};
 
-	if (!isOpen) return null;
-
 	return (
-		<div data-backdrop="true" className="pointer-events-auto fixed inset-0 z-50 animate-move-up">
-			<div className="absolute right-0 bottom-0 left-0 flex h-4/5 flex-col rounded-t-2xl bg-background shadow-2xl">
-				<div className="flex items-center justify-between border-b px-4 py-3">
-					<span className="font-semibold text-foreground">Feedback</span>
-					<Button
-						onClick={onClose}
-						aria-label="Fechar"
-						size="icon"
-						variant="ghost"
-						className="bg-background hover:bg-muted"
-					>
-						<ChevronDownIcon />
-					</Button>
-				</div>
-
+		<Dialog open={open} onOpenChange={onOpenChange}>
+			<DialogContent>
+				<DialogHeader>
+					<DialogTitle>Feedback</DialogTitle>
+				</DialogHeader>
 				<div className="flex flex-1 flex-col gap-1 px-4 py-4">
 					<div className="flex items-center justify-between">
 						<label
@@ -152,7 +140,7 @@ export const FeedbackSuggestion = ({ isOpen, gloss, onClose }: Props) => {
 						Reproduzir
 					</Button>
 				</div>
-			</div>
-		</div>
+			</DialogContent>
+		</Dialog>
 	);
 };

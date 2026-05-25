@@ -1,5 +1,6 @@
 import { useMemo } from "preact/hooks";
 import { cn } from "@/common/lib/utils";
+import { useTranslate } from "@/core/actions/hooks";
 import { usePlayer } from "@/player/use-player";
 import { ChevronDownIcon } from "@/widget/icons/chevron-down";
 import { ChevronUpIcon } from "@/widget/icons/chevron-up";
@@ -12,14 +13,20 @@ import { useDictionaryCtx } from "./dictionary-context";
 import { DictionaryWordMeaning } from "./dictionary-word-meaning";
 
 export const DictionaryCategoryWords = () => {
-	const { playText } = usePlayer();
+	const { play } = usePlayer();
+	const { mutateAsync: translate } = useTranslate();
 	const handlePlay = useHandlePlay();
 	const ctx = useDictionaryCtx();
 	const { expandedWord, wordMeanings, loadingMeaning, toggleWordMeaning } = useWordMeaning();
 
-	const handlePlayDefinition = (text: string) => {
-		playText(text);
-		useScreensStore.setState({ screen: "main" });
+	const handlePlayDefinition = async (text: string) => {
+		try {
+			const gloss = await translate(text);
+			play(gloss);
+			useScreensStore.setState({ screen: "main" });
+		} catch (error) {
+			console.error("Erro ao reproduzir definição: ", error);
+		}
 	};
 	if (ctx.isVerbCategory) return <DictionaryCategoryVerbs />;
 

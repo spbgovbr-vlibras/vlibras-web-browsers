@@ -1,5 +1,6 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { cn } from "@/common/lib/utils";
+import { useTranslate } from "@/core/actions/hooks";
 import { usePlayer } from "@/player/use-player";
 import { ChevronDownIcon } from "@/widget/icons/chevron-down";
 import { ChevronUpIcon } from "@/widget/icons/chevron-up";
@@ -15,7 +16,8 @@ const ITEMS_PER_PAGE = 50;
 export const DictionaryAllWords = () => {
 	const ctx = useDictionaryCtx();
 	const handlePlay = useHandlePlay();
-	const { playText } = usePlayer();
+	const { play } = usePlayer();
+	const { mutateAsync: translate } = useTranslate();
 	const { expandedWord, wordMeanings, loadingMeaning, toggleWordMeaning } = useWordMeaning();
 
 	const [expandedLetter, setExpandedLetter] = useState<string | null>(null);
@@ -34,9 +36,14 @@ export const DictionaryAllWords = () => {
 		li?.scrollIntoView({ block: "start", behavior: "smooth" });
 	}, [expandedLetter]);
 
-	const handlePlayDefinition = (text: string) => {
-		playText(text);
-		useScreensStore.setState({ screen: "main" });
+	const handlePlayDefinition = async (text: string) => {
+		try {
+			const gloss = await translate(text);
+			play(gloss);
+			useScreensStore.setState({ screen: "main" });
+		} catch (error) {
+			console.error("Erro ao reproduzir definição: ", error);
+		}
 	};
 
 	const grouped = useMemo(() => {

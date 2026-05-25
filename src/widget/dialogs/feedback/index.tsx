@@ -1,4 +1,5 @@
 import { useState } from "preact/hooks";
+import { Fragment } from "preact/jsx-runtime";
 import { toast } from "@/common/lib/toaster";
 import { sendFeedback } from "@/core/actions";
 import { usePlayer } from "@/player/use-player";
@@ -19,68 +20,73 @@ type Props = {
 export const FeedbackDialog = ({ open, onOpenChange }: Props) => {
 	const gloss = usePlayerStore((s) => s.gloss);
 	const text = useWidgetStore((s) => s.text);
-	const { playText } = usePlayer();
+	const { playStatic } = usePlayer();
 
-	const [isOpen, setIsOpen] = useState(false);
+	const [isSuggestionOpen, setIsSuggestionOpen] = useState(false);
 
 	return (
-		<Dialog open={open} onOpenChange={onOpenChange}>
-			<DialogContent>
-				<DialogHeader>
-					<DialogTitle icon={CommentIcon}>Feedback</DialogTitle>
-				</DialogHeader>
+		<Fragment>
+			<Dialog open={open} onOpenChange={onOpenChange}>
+				<DialogContent>
+					<DialogHeader>
+						<DialogTitle icon={CommentIcon}>Feedback</DialogTitle>
+					</DialogHeader>
 
-				{/* <div className="overflow-y-auto p-4 pt-2 text-sm">
-					<p className="mb-1 text-muted-foreground">{text}</p>
-					<span className="font-semibold">{gloss}</span>
-				</div> */}
+					<div className="mt-6 flex flex-col items-center justify-center">
+						<p className="font-semibold">Gostou da tradução?</p>
+						<div className="flex items-center justify-center gap-5">
+							<Button
+								variant="ghost"
+								size="icon-xl"
+								className="px-7 py-10"
+								onClick={async () => {
+									if (text && gloss) {
+										const result = await sendFeedback({
+											text: text,
+											translation: gloss,
+											review: gloss,
+											rating: "good",
+										});
 
-				<div className="mt-6 flex flex-col items-center justify-center">
-					<p className="font-semibold">Gostou da tradução?</p>
-					<div className="flex items-center justify-center gap-5">
-						<Button
-							variant="ghost"
-							size="icon-xl"
-							className="px-7 py-10"
-							onClick={async () => {
-								if (text && gloss) {
-									const result = await sendFeedback({
-										text: text,
-										translation: gloss,
-										review: gloss,
-										rating: "good",
-									});
-
-									if (result.success) {
-										onOpenChange(false);
-										toast("Agradecemos sua contribuição!", { variant: "success" });
-										await playText("Agradecemos sua contribuição!");
-										playerStore.set({ gloss: undefined });
-									} else {
-										onOpenChange(false);
-										if (result.error) {
-											toast(result.error, { variant: "destructive" });
+										if (result.success) {
+											onOpenChange(false);
+											toast("Agradecemos sua contribuição!", { variant: "success" });
+											playStatic("AGRADECER");
+											playerStore.set({ gloss: undefined });
+										} else {
+											onOpenChange(false);
+											if (result.error) {
+												toast(result.error, { variant: "destructive" });
+											}
+											console.error(result.error);
 										}
-										console.error(result.error);
 									}
-								}
-							}}
-						>
-							<div className="flex flex-col items-center justify-center">
-								<ThumbsUpIcon className="text-muted-foreground" />
-								<span>Sim</span>
-							</div>
-						</Button>
-						<Button variant="ghost" size="icon-xl" className="px-7 py-10" onClick={() => setIsOpen(true)}>
-							<div className="flex flex-col items-center justify-center">
-								<ThumbsDownIcon className="text-muted-foreground" />
-								<span>Não</span>
-							</div>
-						</Button>
+								}}
+							>
+								<div className="flex flex-col items-center justify-center">
+									<ThumbsUpIcon className="text-muted-foreground" />
+									<span>Sim</span>
+								</div>
+							</Button>
+							<Button
+								variant="ghost"
+								size="icon-xl"
+								className="px-7 py-10"
+								onClick={() => {
+									onOpenChange(false);
+									setIsSuggestionOpen(true);
+								}}
+							>
+								<div className="flex flex-col items-center justify-center">
+									<ThumbsDownIcon className="text-muted-foreground" />
+									<span>Não</span>
+								</div>
+							</Button>
+						</div>
 					</div>
-				</div>
-				{isOpen && <FeedbackSuggestion isOpen={isOpen} gloss={gloss} onClose={() => setIsOpen(false)} />}
-			</DialogContent>
-		</Dialog>
+				</DialogContent>
+			</Dialog>
+			<FeedbackSuggestion open={isSuggestionOpen} onOpenChange={setIsSuggestionOpen} gloss={gloss} />
+		</Fragment>
 	);
 };
