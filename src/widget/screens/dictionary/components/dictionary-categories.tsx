@@ -1,5 +1,6 @@
 import { useMobile } from "@/common/hooks";
 import { CategoriesList } from "../lib/constants";
+import type { Category } from "../lib/types";
 import { useDictionaryCtx } from "./dictionary-context";
 
 export const DictionaryCategories = () => {
@@ -8,8 +9,8 @@ export const DictionaryCategories = () => {
 	const { search, setSelectedCategory, categories } = useDictionaryCtx();
 
 	const filtered = categories
-		.filter((cat) => cat.name.toLowerCase().includes(search.toLocaleLowerCase()))
-		.sort((a, b) => a.name.localeCompare(b.name));
+		.filter((cat: Category) => cat.name.toLowerCase().includes(search.toLocaleLowerCase()))
+		.sort((a: Category, b: Category) => a.name.localeCompare(b.name));
 
 	if (!filtered.length) return null;
 	const categoriesMap = Object.fromEntries(CategoriesList.map((category) => [category.id, category]));
@@ -17,8 +18,8 @@ export const DictionaryCategories = () => {
 	return (
 		<div ref={ctx.listRef} className="h-full overflow-auto">
 			<ul className="flex flex-col">
-				{filtered.map((category) => {
-					const Icon = categoriesMap[category.id].icon;
+				{filtered.map((category: Category) => {
+					const categoryIcon = categoriesMap[category.id].icon;
 					return (
 						<li key={category.id}>
 							<button
@@ -28,7 +29,7 @@ export const DictionaryCategories = () => {
 							>
 								<div className="flex items-center justify-start gap-2">
 									<img src={category.url} alt="" />
-									<Icon />
+									<img src={categoryIcon} alt="" className="h-6 w-6 dark:brightness-0 dark:invert" />
 									<span>{category.name.replace(/_/g, " ")}</span>
 								</div>
 							</button>

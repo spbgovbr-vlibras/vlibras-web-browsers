@@ -16,7 +16,7 @@ export const SuggestionPopup = ({ suggestions, coords, onSelect }: Props) => {
 
 	return (
 		<div
-			className="absolute z-50 flex max-h-30 flex-col gap-1 overflow-y-auto overflow-x-hidden rounded-md border bg-background p-1 shadow-md"
+			className="absolute z-50 flex max-h-30 max-w-45 flex-col gap-1 overflow-x-auto overflow-y-auto rounded-md border bg-background p-1 shadow-md"
 			style={{
 				top: `${coords.top}px`,
 				left: `${coords.left}px`,

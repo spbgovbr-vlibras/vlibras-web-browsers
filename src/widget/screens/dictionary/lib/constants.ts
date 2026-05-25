@@ -1,102 +1,100 @@
-import {
-	AlphabetIcon,
-	AnimalsIcon,
-	BodyIcon,
-	CountriesIcon,
-	FamilyIcon,
-	FeelingsIcon,
-	FoodsIcon,
-	HealthIcon,
-	JobsIcon,
-	LocationsIcon,
-	MachinesIcon,
-	MeasuresIcon,
-	NatureIcon,
-	NumbersIcon,
-	SportsIcon,
-	VerbsIcon,
-} from "@/widget/icons/categories-icons";
+import alphabetIcon from "@/widget/icons/categories-icons/AlphabetIcon.webp";
+import animalsIcon from "@/widget/icons/categories-icons/AnimalsIcon.webp";
+import bodyIcon from "@/widget/icons/categories-icons/BodyIcon.webp";
+import countriesIcon from "@/widget/icons/categories-icons/CountriesIcon.webp";
+import familyIcon from "@/widget/icons/categories-icons/FamilyIcon.webp";
+import feelingsIcon from "@/widget/icons/categories-icons/FeelingsIcon.webp";
+import foodsIcon from "@/widget/icons/categories-icons/FoodsIcon.webp";
+import healthIcon from "@/widget/icons/categories-icons/HealthIcon.webp";
+import jobsIcon from "@/widget/icons/categories-icons/JobsIcon.webp";
+import locationsIcon from "@/widget/icons/categories-icons/LocationsIcon.webp";
+import machinesIcon from "@/widget/icons/categories-icons/MachinesIcon.webp";
+import measuresIcon from "@/widget/icons/categories-icons/MeasuresIcon.webp";
+import natureIcon from "@/widget/icons/categories-icons/NatureIcon.webp";
+import numbersIcon from "@/widget/icons/categories-icons/NumbersIcon.webp";
+import sportsIcon from "@/widget/icons/categories-icons/SportsIcon.webp";
+import verbsIcon from "@/widget/icons/categories-icons/VerbsIcon.webp";
 
 export const CategoriesList = [
 	{
 		id: 5,
 		name: "Comidas e Bebidas",
-		icon: FoodsIcon,
+		icon: foodsIcon,
 	},
 	{
 		id: 10,
 		name: "Animais",
-		icon: AnimalsIcon,
+		icon: animalsIcon,
 	},
 	{
 		id: 6,
 		name: "Aparelho ou Máquina",
-		icon: MachinesIcon,
+		icon: machinesIcon,
 	},
 	{
 		id: 9,
 		name: "Corpo",
-		icon: BodyIcon,
+		icon: bodyIcon,
 	},
 	{
 		id: 14,
 		name: "Esporte ou Diversão",
-		icon: SportsIcon,
+		icon: sportsIcon,
 	},
 	{
 		id: 15,
 		name: "Família",
-		icon: FamilyIcon,
+		icon: familyIcon,
 	},
 	{
 		id: 8,
 		name: "Saúde/Higiene",
-		icon: HealthIcon,
+		icon: healthIcon,
 	},
 	{
 		id: 13,
 		name: "País/Estado/Cidade",
-		icon: CountriesIcon,
+		icon: countriesIcon,
 	},
 	{
 		id: 16,
 		name: "Natureza",
-		icon: NatureIcon,
+		icon: natureIcon,
 	},
 	{
 		id: 12,
 		name: "Profissão ou Trabalho",
-		icon: JobsIcon,
+		icon: jobsIcon,
 	},
 	{
 		id: 7,
 		name: "Sentimentos",
-		icon: FeelingsIcon,
+		icon: feelingsIcon,
 	},
 	{
 		id: 3,
 		name: "Verbos",
-		icon: VerbsIcon,
+		icon: verbsIcon,
 	},
 	{
 		id: 4,
 		name: "Letras",
-		icon: AlphabetIcon,
+		icon: alphabetIcon,
 	},
 	{
 		id: 2,
 		name: "Números",
-		icon: NumbersIcon,
+		icon: numbersIcon,
 	},
 	{
 		id: 11,
 		name: "Lugares",
-		icon: LocationsIcon,
+		icon: locationsIcon,
 	},
 	{
 		id: 1,
 		name: "Medidas",
-		icon: MeasuresIcon,
+		icon: measuresIcon,
 	},
 ];
 
