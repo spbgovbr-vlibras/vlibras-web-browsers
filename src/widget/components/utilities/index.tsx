@@ -14,7 +14,7 @@ export const Utilities = () => {
 	const isGuideOpen = useGuideStore((s) => s.open);
 
 	const { stop } = usePlayer();
-	const { status, gloss } = usePlayerStore(usePick("status", "gloss"));
+	const { status, gloss, isPlayingWelcome } = usePlayerStore(usePick("status", "gloss", "isPlayingWelcome"));
 	const { isExpanded, isTranslating, text } = useWidgetStore(usePick("isExpanded", "text", "isTranslating"));
 
 	const isPlaying = status === "playing";
@@ -34,6 +34,8 @@ export const Utilities = () => {
 
 	const showCallback = action && content && status === "idle";
 	const showFeedback = Boolean(status === "idle" && !isTranslating && gloss && text);
+	const showSkip = isPlayingWelcome ? true : (isPlaying || isPaused) && !!gloss && !isGuideOpen;
+	const showToggleAvatar = status === "idle" || isGuideOpen;
 
 	return (
 		<div className="absolute inset-x-3 bottom-15 mobile:bottom-13 flex animate-move-up items-end justify-end gap-1.5">
@@ -53,7 +55,7 @@ export const Utilities = () => {
 			</div>
 
 			<div className="ml-auto flex items-center gap-2">
-				{(isPlaying || isPaused) && !isGuideOpen && (
+				{showSkip && (
 					<Button
 						onClick={handleSkip}
 						className="animate-move-up rounded-full bg-background! font-semibold text-primary hover:bg-muted!"
@@ -65,7 +67,7 @@ export const Utilities = () => {
 					</Button>
 				)}
 
-				{(status === "idle" || isGuideOpen) && <ToggleAvatarButton />}
+				{showToggleAvatar && <ToggleAvatarButton />}
 			</div>
 		</div>
 	);
