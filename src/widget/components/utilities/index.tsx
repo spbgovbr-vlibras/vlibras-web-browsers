@@ -38,7 +38,7 @@ export const Utilities = () => {
 	const showToggleAvatar = status === "idle" || isGuideOpen;
 
 	return (
-		<div className="absolute inset-x-3 bottom-15 mobile:bottom-13 flex animate-move-up items-end justify-end gap-1.5">
+		<div className="absolute inset-x-3 mobile:inset-x-2 bottom-15 mobile:bottom-13 flex animate-move-up items-end justify-end gap-1.5">
 			<div className="mr-auto flex flex-wrap-reverse items-center gap-1.5">
 				{showCallback && (
 					<Button

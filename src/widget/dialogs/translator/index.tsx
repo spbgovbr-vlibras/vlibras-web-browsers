@@ -97,7 +97,7 @@ export const TranslatorDialog = ({ open, onOpenChange }: Props) => {
 							onChange={(e) => onTextChange(e.currentTarget.value)}
 							name="text"
 							id="translator-text"
-							className="h-32 w-full resize-none rounded-lg border bg-muted p-2"
+							className="h-32 w-full resize-none rounded-xl border bg-muted p-2"
 						/>
 					</div>
 

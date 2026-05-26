@@ -36,7 +36,7 @@ export const ToggleAvatarButton = () => {
 		<div
 			inert={isGuideOpen}
 			className={cn(
-				"dropdown dropdown-top dropdown-end z-1 h-9 animate-move-up focus-within:**:data-[slot=tooltip-content]:hidden",
+				"dropdown dropdown-top dropdown-end z-1 h-9 animate-move-up focus-within:**:data-[slot=tooltip-content]:hidden [&_button]:shadow-md",
 			)}
 		>
 			<Tooltip
@@ -65,7 +65,7 @@ export const ToggleAvatarButton = () => {
 								tabindex={-1}
 								onClick={() => handleSelectAvatar(avatar.name)}
 								variant="outline"
-								className="rounded-full bg-background capitalize hover:bg-muted!"
+								className="w-16 rounded-full bg-background capitalize hover:bg-muted!"
 								size="xs"
 							>
 								{avatar.name}
