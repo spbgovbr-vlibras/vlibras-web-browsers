@@ -3,7 +3,7 @@ import type { ComponentProps } from "preact";
 import { cn } from "@/common/lib/utils";
 
 export const buttonVariants = cva(
-	"flex cursor-pointer items-center justify-center [&_svg:not([class*='size-'])]:size-5.25 gap-x-2 rounded-lg text-foreground",
+	"flex cursor-pointer items-center justify-center [&>svg]:shrink-0 [&_svg:not([class*='size-'])]:size-5.25 gap-x-2 rounded-lg text-foreground",
 	{
 		variants: {
 			variant: {

@@ -1,11 +1,6 @@
 type Props = {
 	suggestions: string[];
-
-	coords: {
-		top: number;
-		left: number;
-	};
-
+	coords: { top: number; left: number };
 	onSelect: (suggestion: string) => void;
 };
 

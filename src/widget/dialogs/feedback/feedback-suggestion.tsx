@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useRef, useState } from "preact/hooks";
-import { useMobile } from "@/common/hooks";
+import { useDebouncedCallback, useMobile } from "@/common/hooks";
 import { toast } from "@/common/lib/toaster";
 import { Trie } from "@/common/lib/trie";
 import { sendFeedback } from "@/core/actions";
@@ -8,35 +8,34 @@ import { usePlayer } from "@/player/use-player";
 import { playerStore } from "@/player/use-player.store";
 import { Button } from "@/widget/components/ui/button";
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/widget/components/ui/dialog";
-import { useWidgetStore } from "@/widget/stores/use-widget.store";
+import { widgetStore } from "@/widget/stores/use-widget.store";
 import { applySuggestion, getCaretCoordinates, getCurrentWord } from "./lib/suggestions";
 import { SuggestionPopup } from "./suggestion-popup";
 
 type Props = {
 	open: boolean;
 	onOpenChange: (open: boolean) => void;
-	gloss: string | undefined;
 };
 
-export const FeedbackSuggestion = ({ open, onOpenChange, gloss }: Props) => {
+export const FeedbackSuggestion = ({ open, onOpenChange }: Props) => {
 	const textareaRef = useRef<HTMLTextAreaElement>(null);
+	const isMobile = useMobile();
+
 	const { play, playStatic } = usePlayer();
-	const text = useWidgetStore((s) => s.text);
 	const { data } = useDictionarySigns();
+
+	const [isSubmitting, setIsSubmitting] = useState(false);
 	const [suggestions, setSuggestions] = useState<string[]>([]);
 	const [coords, setCoords] = useState({ top: 0, left: 0 });
-	const isMobile = useMobile();
-	const [value, setValue] = useState(gloss || "");
-	const [isSubmitting, setIsSubmitting] = useState(false);
+	const [value, setValue] = useState<string>("");
 
-	useEffect(() => {
-		setValue(gloss || "");
-	}, [gloss]);
+	useEffect(() => setValue(playerStore.get().gloss || ""), []);
 
 	const trie = useMemo(() => (data ? new Trie(data) : null), [data]);
 
-	const handleInput = (e: Event) => {
-		const el = e.currentTarget as HTMLTextAreaElement;
+	const handleInput = useDebouncedCallback<Event>(() => {
+		if (!textareaRef.current) return;
+		const el = textareaRef.current;
 		const cursorPos = el.selectionStart ?? 0;
 
 		const nextValue = el.value;
@@ -51,9 +50,12 @@ export const FeedbackSuggestion = ({ open, onOpenChange, gloss }: Props) => {
 
 		setSuggestions(trie ? trie.searchSigns(word) : []);
 		setCoords(getCaretCoordinates(el, cursorPos));
-	};
+	}, 300);
 
 	const handleSubmit = async () => {
+		const { text } = widgetStore.get();
+		const { gloss } = playerStore.get();
+
 		if (!text || !gloss || !value) return;
 		setIsSubmitting(true);
 
@@ -61,7 +63,7 @@ export const FeedbackSuggestion = ({ open, onOpenChange, gloss }: Props) => {
 			const result = await sendFeedback({
 				text,
 				translation: gloss,
-				review: value,
+				review: value.toUpperCase(),
 				rating: "bad",
 			});
 			if (result.success) {
@@ -71,13 +73,21 @@ export const FeedbackSuggestion = ({ open, onOpenChange, gloss }: Props) => {
 				playerStore.set({ gloss: undefined });
 			} else {
 				console.error(result.error);
-				if (result.error) {
-					toast(result.error, { variant: "destructive" });
-				}
+				if (result.error) toast(result.error, { variant: "destructive" });
 			}
 		} finally {
 			setIsSubmitting(false);
 		}
+	};
+
+	const handleSelectSuggestion = (suggestion: string) => {
+		if (!textareaRef.current) return;
+
+		const cursor = textareaRef.current.selectionStart ?? 0;
+
+		setValue(applySuggestion(value, cursor, suggestion));
+		setSuggestions([]);
+		textareaRef.current.focus();
 	};
 
 	return (
@@ -86,12 +96,9 @@ export const FeedbackSuggestion = ({ open, onOpenChange, gloss }: Props) => {
 				<DialogHeader>
 					<DialogTitle>Feedback</DialogTitle>
 				</DialogHeader>
-				<div className="flex flex-1 flex-col gap-1 px-4 py-4">
+				<div className="flex h-full flex-col gap-2 px-4 py-4">
 					<div className="flex items-center justify-between">
-						<label
-							for="translator-input"
-							className="font-medium text-muted-foreground text-xs uppercase tracking-wider"
-						>
+						<label for="translator-input" className="font-semibold mobile:text-sm text-muted-foreground">
 							Informe a glosa correta
 						</label>
 					</div>
@@ -101,44 +108,23 @@ export const FeedbackSuggestion = ({ open, onOpenChange, gloss }: Props) => {
 							ref={textareaRef}
 							id="translator-input"
 							value={value}
-							placeholder=""
-							className="w-full rounded-sm border bg-muted/50 px-3 py-2.5 text-foreground text-sm"
+							placeholder="Digite aqui..."
+							className="h-40 mobile:h-32 w-full resize-none rounded-xl border bg-muted p-3 mobile:text-sm uppercase placeholder:normal-case"
 							rows={isMobile ? 4 : 6}
-							onInput={handleInput}
+							onChange={handleInput}
 						/>
-						<SuggestionPopup
-							suggestions={suggestions}
-							coords={coords}
-							onSelect={(suggestion) => {
-								if (!textareaRef.current) return;
-
-								const cursor = textareaRef.current.selectionStart ?? 0;
-
-								setValue(applySuggestion(value, cursor, suggestion));
-
-								setSuggestions([]);
-							}}
-						/>
+						<SuggestionPopup onSelect={handleSelectSuggestion} suggestions={suggestions} coords={coords} />
 					</div>
 
-					<Button
-						className="h-10 w-full rounded-4xl bg-primary font-medium"
-						variant="default"
-						onClick={handleSubmit}
-						disabled={isSubmitting}
-					>
-						{isSubmitting ? "Enviando..." : "Enviar sugestão"}
-					</Button>
+					<div className="space-y-2 not-mobile:[&>button]:h-10 [&>button]:w-full [&>button]:rounded-full mobile:[&>button]:text-sm">
+						<Button variant="default" onClick={handleSubmit} disabled={isSubmitting}>
+							{isSubmitting ? "Enviando..." : "Enviar sugestão"}
+						</Button>
 
-					<Button
-						className="h-10 w-full rounded-4xl border border-primary bg-background font-medium text-primary"
-						variant="ghost"
-						onClick={() => {
-							play(value);
-						}}
-					>
-						Reproduzir
-					</Button>
+						<Button variant="outline" onClick={() => play(value)}>
+							Reproduzir
+						</Button>
+					</div>
 				</div>
 			</DialogContent>
 		</Dialog>
