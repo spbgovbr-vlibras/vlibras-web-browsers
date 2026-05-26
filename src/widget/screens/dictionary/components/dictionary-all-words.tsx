@@ -2,6 +2,7 @@ import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { cn } from "@/common/lib/utils";
 import { useTranslate } from "@/core/actions/hooks";
 import { usePlayer } from "@/player/use-player";
+import { Button } from "@/widget/components/ui/button";
 import { ChevronDownIcon } from "@/widget/icons/chevron-down";
 import { ChevronUpIcon } from "@/widget/icons/chevron-up";
 import { useScreensStore } from "@/widget/stores/use-screens.store";
@@ -132,14 +133,15 @@ export const DictionaryAllWords = () => {
 					>
 						{prettySign}
 					</button>
-					<button
-						type="button"
+					<Button
+						size="icon-sm"
+						variant="ghost"
+						className="text-muted-foreground"
 						onClick={() => toggleWordMeaning(sign)}
-						className="px-2 py-1.25 hover:cursor-pointer hover:text-foreground"
 						aria-label={isWordExpanded ? "Fechar significado" : "Ver significado"}
 					>
-						{isWordExpanded ? <ChevronUpIcon /> : <ChevronDownIcon />}
-					</button>
+						{isWordExpanded ? <ChevronUpIcon className="size-4" /> : <ChevronDownIcon className="size-4" />}
+					</Button>
 				</div>
 
 				{isWordExpanded && (
@@ -182,7 +184,7 @@ export const DictionaryAllWords = () => {
 	return (
 		<div ref={ctx.listRef} className="h-full overflow-auto">
 			{expandedLetter && (
-				<div className="sticky top-0 z-9 flex h-10 w-full items-center justify-between bg-background px-4 py-2 text-left font-semibold hover:cursor-pointer" />
+				<div className="sticky top-0 z-9 flex h-9 w-full items-center justify-between bg-background px-4 py-2 text-left font-semibold hover:cursor-pointer" />
 			)}
 			<ul className="flex flex-col text-sm">
 				{grouped.map(({ letter, items }) => {
@@ -198,16 +200,14 @@ export const DictionaryAllWords = () => {
 						>
 							<button
 								type="button"
-								onClick={() => {
-									setExpandedLetter(isLetterExpanded ? null : letter);
-								}}
+								onClick={() => setExpandedLetter(isLetterExpanded ? null : letter)}
 								className={cn(
 									"sticky top-0 z-10 flex w-full items-center justify-between bg-background px-4 py-2 text-left font-semibold hover:cursor-pointer",
 									isLetterExpanded ? "bg-primary/20" : "hover:bg-muted",
 								)}
 							>
 								{letter === "#" ? "0–9" : letter}
-								{isLetterExpanded ? <ChevronUpIcon /> : <ChevronDownIcon />}
+								{isLetterExpanded ? <ChevronUpIcon className="size-4" /> : <ChevronDownIcon className="size-4" />}
 							</button>
 							{isLetterExpanded && (
 								<ul className="flex flex-col">

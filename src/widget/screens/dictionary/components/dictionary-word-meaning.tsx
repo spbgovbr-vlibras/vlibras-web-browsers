@@ -1,5 +1,6 @@
 import { useMobile } from "@/common/hooks";
 import { cn } from "@/common/lib/utils";
+import { Spinner } from "@/widget/components/ui/spinner";
 import { HandsTranslateIcon } from "@/widget/icons/hands-translate";
 import type { WordMeaning } from "../lib/types";
 import { sanitizeWikiText } from "../lib/wiktionary";
@@ -14,11 +15,16 @@ interface Props {
 export const DictionaryWordMeaning = ({ meaning, isLoading, onPlayDefinition }: Props) => {
 	const isMobile = useMobile();
 	if (isLoading) {
-		return <div className="animate-pulse px-4 py-2 text-muted-foreground text-xs">Buscando significado...</div>;
+		return (
+			<div className="flex animate-pulse items-center gap-1.5 px-6 py-2 text-muted-foreground text-xs">
+				<Spinner className="size-3" />
+				Buscando significado...
+			</div>
+		);
 	}
 
 	if (!meaning?.definitions?.length) {
-		return <div className="px-4 py-2 text-muted-foreground text-xs">Significado não encontrado.</div>;
+		return <div className="px-6 py-2 text-muted-foreground text-xs">Significado não encontrado.</div>;
 	}
 
 	return (

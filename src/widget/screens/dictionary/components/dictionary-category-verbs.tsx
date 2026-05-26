@@ -34,12 +34,10 @@ export const DictionaryCategoryVerbs = () => {
 					const isExpanded = expandedWord === verb;
 					const isLoadingThis = loadingMeaning === verb;
 
-					// fatia as conjugações — se o primeiro item é o próprio infinitivo, pula
 					const conjugations = group.conjugation.slice(verb === group.conjugation[0]?.original ? 1 : 0);
 
 					return (
 						<li key={verb}>
-							{/* Cabeçalho do verbo */}
 							<div className={cn("flex min-w-0 items-center hover:bg-muted", isExpanded && "bg-muted")}>
 								<button
 									type="button"
@@ -54,14 +52,12 @@ export const DictionaryCategoryVerbs = () => {
 									className="px-2 py-1.25 hover:cursor-pointer hover:text-foreground"
 									aria-label={isExpanded ? "Fechar" : "Expandir"}
 								>
-									{isExpanded ? <ChevronUpIcon /> : <ChevronDownIcon />}
+									{isExpanded ? <ChevronUpIcon className="size-4" /> : <ChevronDownIcon className="size-4" />}
 								</button>
 							</div>
 
-							{/* Conteúdo expandido */}
 							{isExpanded && (
 								<div className="bg-muted pb-1">
-									{/* Significado */}
 									<DictionaryWordMeaning
 										wordName={verb}
 										meaning={wordMeanings[verb]}
@@ -69,7 +65,6 @@ export const DictionaryCategoryVerbs = () => {
 										onPlayDefinition={handlePlayDefinition}
 									/>
 
-									{/* Concordância verbal */}
 									{conjugations.length > 0 && (
 										<div className="mt-1">
 											<p className="px-4 py-1 font-semibold text-muted-foreground text-xs uppercase tracking-wide">

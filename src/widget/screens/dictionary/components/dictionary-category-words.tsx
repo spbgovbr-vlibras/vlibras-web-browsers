@@ -2,6 +2,7 @@ import { useMemo } from "preact/hooks";
 import { cn } from "@/common/lib/utils";
 import { useTranslate } from "@/core/actions/hooks";
 import { usePlayer } from "@/player/use-player";
+import { Button } from "@/widget/components/ui/button";
 import { ChevronDownIcon } from "@/widget/icons/chevron-down";
 import { ChevronUpIcon } from "@/widget/icons/chevron-up";
 import { useScreensStore } from "@/widget/stores/use-screens.store";
@@ -49,14 +50,15 @@ export const DictionaryCategoryWords = () => {
 								>
 									{prettyBase}
 								</button>
-								<button
-									type="button"
+								<Button
+									size="icon-sm"
+									variant="ghost"
+									className="text-muted-foreground"
 									onClick={() => toggleWordMeaning(group.base)}
-									className="px-2 py-1.25 hover:cursor-pointer hover:text-foreground"
 									aria-label={isExpanded ? "Fechar significado" : "Ver significado"}
 								>
-									{isExpanded ? <ChevronUpIcon /> : <ChevronDownIcon />}
-								</button>
+									{isExpanded ? <ChevronUpIcon className="size-4" /> : <ChevronDownIcon className="size-4" />}
+								</Button>
 							</div>
 							{isExpanded && (
 								<>
