@@ -49,7 +49,7 @@ export const ScreenClose = ({ className, ...props }: ButtonProps) => {
 
 export const ScreenTitle = ({ children, className, ...props }: ComponentProps<"h3">) => {
 	return (
-		<h3 className={cn("font-semibold text-sm sm:text-base", className)} {...props}>
+		<h3 className={cn("pointer-events-none font-semibold text-sm sm:text-base", className)} {...props}>
 			{children}
 		</h3>
 	);

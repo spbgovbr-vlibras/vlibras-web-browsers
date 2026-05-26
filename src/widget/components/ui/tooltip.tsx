@@ -91,7 +91,7 @@ export const Tooltip = ({
 					style={getStyleOffset()}
 					className={cn(
 						tooltipVariants({ variant }),
-						"absolute z-99999 rounded-lg px-3 py-1.5 not-expanded:text-xs text-popover-foreground text-sm text-sm shadow-lg transition-opacity duration-200",
+						"absolute z-99999 rounded-lg px-3 py-1.5 expanded:text-sm text-popover-foreground text-xs shadow-lg transition-opacity duration-200",
 						placement === "bottom" && "-bottom-4 left-1/2 -translate-x-1/2 translate-y-full animate-move-down",
 						placement === "top" && "-top-4 left-1/2 -translate-x-1/2 -translate-y-full animate-move-up",
 						placement === "right" && "top-1/2 translate-x-1/2 -translate-y-1/2",
