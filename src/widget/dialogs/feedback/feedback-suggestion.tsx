@@ -66,7 +66,7 @@ export const FeedbackSuggestion = ({ open, onOpenChange, gloss }: Props) => {
 			});
 			if (result.success) {
 				onOpenChange(false);
-				toast("Agradecemos sua contribuição!", { variant: "success" });
+				toast("Agradecemos sua contribuição!", { variant: "primary", className: "font-semibold" });
 				playStatic("AGRADECER");
 				playerStore.set({ gloss: undefined });
 			} else {

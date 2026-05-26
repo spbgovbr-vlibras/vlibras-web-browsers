@@ -13,7 +13,7 @@ type ToastOptions = {
 	duration?: number;
 	position?: "top" | "bottom";
 	align?: "center" | "start" | "end";
-	variant?: "success" | "destructive" | "default";
+	variant?: "success" | "destructive" | "primary" | "default";
 	className?: string;
 };
 

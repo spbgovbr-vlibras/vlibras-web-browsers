@@ -42,6 +42,7 @@ export const ToastItem = ({
 					"pointer-events-auto w-fit rounded-lg border bg-background px-2.5 py-1.5 text-sm transition-all duration-500 ease-in-out",
 					variant === "success" && "border-none bg-success text-success-foreground",
 					variant === "destructive" && "border-none bg-destructive text-destructive-foreground",
+					variant === "primary" && "border-none bg-primary text-primary-foreground",
 				)}
 			>
 				<div>{message}</div>
