@@ -11,13 +11,14 @@ import { ToggleAvatarButton } from "./toggle-avatar-button";
 
 export const Utilities = () => {
 	const isMobile = useMobile();
+	const isGuideOpen = useGuideStore((s) => s.open);
 
 	const { stop } = usePlayer();
 	const { status, gloss } = usePlayerStore(usePick("status", "gloss"));
 	const { isExpanded, isTranslating, text } = useWidgetStore(usePick("isExpanded", "text", "isTranslating"));
 
 	const isPlaying = status === "playing";
-	const isGuideOpen = useGuideStore((s) => s.open);
+	const isPaused = status === "paused";
 
 	const { action, content } = useCallbackButtonStore(usePick("action", "content"));
 
@@ -35,7 +36,7 @@ export const Utilities = () => {
 	const showFeedback = Boolean(status === "idle" && !isTranslating && gloss && text);
 
 	return (
-		<div className="absolute inset-x-3 bottom-15 flex animate-move-up items-end justify-end gap-1.5">
+		<div className="absolute inset-x-3 bottom-15 mobile:bottom-13 flex animate-move-up items-end justify-end gap-1.5">
 			<div className="mr-auto flex flex-wrap-reverse items-center gap-1.5">
 				{showCallback && (
 					<Button
@@ -52,7 +53,7 @@ export const Utilities = () => {
 			</div>
 
 			<div className="ml-auto flex items-center gap-2">
-				{isPlaying && !isGuideOpen && (
+				{(isPlaying || isPaused) && !isGuideOpen && (
 					<Button
 						onClick={handleSkip}
 						className="animate-move-up rounded-full bg-background! font-semibold text-primary hover:bg-muted!"
@@ -63,7 +64,8 @@ export const Utilities = () => {
 						Pular
 					</Button>
 				)}
-				{(!isPlaying || isGuideOpen) && <ToggleAvatarButton />}
+
+				{(status === "idle" || isGuideOpen) && <ToggleAvatarButton />}
 			</div>
 		</div>
 	);
