@@ -39,6 +39,8 @@ export const createRoot = () => {
 		if (!root) {
 			root = document.createElement("div");
 			root.id = ROOT_ID;
+			root.style.zIndex = "2147483647";
+			root.style.position = "relative";
 			document.body.appendChild(root);
 		}
 		memoizedRoots[ROOT_ID] = root;
