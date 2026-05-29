@@ -1,11 +1,12 @@
 import { appConfig } from "@/common/hooks/use-config";
+import { posthogg } from "@/common/lib/posthog";
 import { cn } from "@/common/lib/utils";
 import type { PlayerAvatar } from "@/player/types";
 import { usePlayer } from "@/player/use-player";
 import { usePlayerStore } from "@/player/use-player.store";
+import { useGuideStore } from "@/widget/components/guide/store";
 import { Button } from "@/widget/components/ui/button";
-import { useGuideStore } from "../guide/store";
-import { Tooltip } from "../ui/tooltip";
+import { Tooltip } from "@/widget/components/ui/tooltip";
 
 const avatars: { name: PlayerAvatar; path: string }[] = [
 	{ name: "icaro", path: "/icaro.png" },
@@ -30,6 +31,8 @@ export const ToggleAvatarButton = () => {
 	const handleSelectAvatar = (name: PlayerAvatar) => {
 		(document.activeElement as HTMLElement)?.blur();
 		setTimeout(() => toggleAvatar(name), 150);
+
+		posthogg.trackEvent("avatar_selected", { avatar: name });
 	};
 
 	return (
