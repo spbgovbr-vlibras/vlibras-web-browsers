@@ -5,6 +5,7 @@ import { visualizer } from "rollup-plugin-visualizer";
 import { defineConfig } from "vite";
 import { viteStaticCopy } from "vite-plugin-static-copy";
 import pkg from "./package.json";
+import { rollupOptions } from "./vite.config.rollup-options";
 import { minifyCode } from "./vite.config.utils";
 
 export default defineConfig(({ mode }) => {
@@ -21,18 +22,20 @@ export default defineConfig(({ mode }) => {
 				name: "vlibras-plugin",
 				fileName: "vlibras-plugin-app",
 			},
+			rollupOptions: rollupOptions,
 		},
 		resolve: {
 			alias: {
 				"@/public": path.resolve(__dirname, "./public"),
 				"@": path.resolve(__dirname, "./src"),
+				...rollupOptions.output.paths,
 			},
 		},
 		plugins: [
 			preact(),
 			tailwindcss(),
 			visualizer({
- 				filename: "stats.html",
+				filename: "stats.html",
 				brotliSize: true,
 				gzipSize: true,
 			}),

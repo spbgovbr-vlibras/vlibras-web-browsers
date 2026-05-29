@@ -1,4 +1,4 @@
-import posthog from "posthog-js";
+import posthog from "@cdn/posthog-js";
 import { config } from "@/core/config";
 
 const SAMPLING_RATE = 0.07;
