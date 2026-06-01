@@ -1,13 +1,12 @@
 import { useEffect } from "preact/hooks";
 import { omit } from "@/common/utils";
 import { useTranslate } from "@/core/actions/hooks";
-import { usePlayer } from "@/player/use-player";
+import * as actions from "@/player/actions";
 import { playerStore, usePlayerStore } from "@/player/use-player.store";
 import { widgetStore } from "@/widget/stores/use-widget.store";
 
 export const useWindowSyncProvider = () => {
 	const isLoaded = usePlayerStore((s) => s.isLoaded);
-	const actions = usePlayer();
 
 	const { mutateAsync: translate } = useTranslate();
 

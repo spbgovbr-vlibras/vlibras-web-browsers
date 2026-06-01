@@ -2,7 +2,7 @@ import { useRef, useState } from "preact/hooks";
 import { Fragment } from "preact/jsx-runtime";
 import { useDebouncedCallback } from "@/common/hooks";
 import { useTranslate } from "@/core/actions/hooks";
-import { usePlayer } from "@/player/use-player";
+import { play } from "@/player/actions";
 import { Button } from "@/widget/components/ui/button";
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/widget/components/ui/dialog";
 import { Spinner } from "@/widget/components/ui/spinner";
@@ -19,7 +19,6 @@ export const TranslatorDialog = ({ open, onOpenChange }: Props) => {
 	const inputRef = useRef<HTMLTextAreaElement>(null);
 	const isTranslating = useWidgetStore((s) => s.isTranslating);
 
-	const { play } = usePlayer();
 	const [text, setText] = useState("");
 	const { mutateAsync: translate, isPending } = useTranslate();
 

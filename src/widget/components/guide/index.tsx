@@ -3,7 +3,7 @@ import { useMobile } from "@/common/hooks";
 import { cn } from "@/common/lib/utils";
 import { zusContext } from "@/common/lib/zus-context";
 import { $, $$ } from "@/common/utils/dom";
-import { usePlayer } from "@/player/use-player";
+import { play, stop } from "@/player/actions";
 import { playerStore } from "@/player/use-player.store";
 import { useRootStore } from "@/widget/stores/use-root.store";
 import { useWidgetStore, widgetStore } from "@/widget/stores/use-widget.store";
@@ -21,7 +21,6 @@ export const { Provider: GuideProvider, useCtx: useGuideCtx } = zusContext<
 export const Guide = () => {
 	const { pos } = useDraggable();
 	const { innerWidth, innerHeight } = window;
-	const { play, stop } = usePlayer();
 
 	const [index, setIndex] = useState(0);
 

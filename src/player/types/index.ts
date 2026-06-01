@@ -18,4 +18,5 @@ export type PlayerOptions = {
 	onStop?: () => void;
 	onRepeat?: () => void;
 	onLoaded?: () => void;
+	onWelcomeFinish?: () => void;
 };

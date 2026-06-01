@@ -1,8 +1,8 @@
 import { appConfig } from "@/common/hooks/use-config";
 import { posthogg } from "@/common/lib/posthog";
 import { cn } from "@/common/lib/utils";
+import { toggleAvatar } from "@/player/actions";
 import type { PlayerAvatar } from "@/player/types";
-import { usePlayer } from "@/player/use-player";
 import { usePlayerStore } from "@/player/use-player.store";
 import { useGuideStore } from "@/widget/components/guide/store";
 import { Button } from "@/widget/components/ui/button";
@@ -20,8 +20,6 @@ const getAvatarImage = (path: string) => {
 };
 
 export const ToggleAvatarButton = () => {
-	const { toggleAvatar } = usePlayer();
-
 	const avatar = usePlayerStore((s) => s.avatar);
 	const isGuideOpen = useGuideStore((s) => s.open);
 

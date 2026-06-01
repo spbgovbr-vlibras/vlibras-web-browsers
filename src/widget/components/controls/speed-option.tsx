@@ -2,7 +2,7 @@ import type { TargetedKeyboardEvent } from "preact";
 import { useMobile } from "@/common/hooks";
 import { posthogg } from "@/common/lib/posthog";
 import { cn } from "@/common/lib/utils";
-import { usePlayer } from "@/player/use-player";
+import { setSpeed } from "@/player/actions";
 import { usePlayerStore } from "@/player/use-player.store";
 import { DropdownTrigger } from "@/widget/components/ui/dropdown";
 import { Tooltip } from "@/widget/components/ui/tooltip";
@@ -12,8 +12,6 @@ const speeds = [2.5, 2, 1.5, 1, 0.5];
 export const SpeedOption = () => {
 	const isMobile = useMobile();
 	const currentSpeed = usePlayerStore((s) => s.speed);
-
-	const { setSpeed } = usePlayer();
 
 	const onKeyDown = (event: TargetedKeyboardEvent<HTMLButtonElement>, speed: number) => {
 		if (event.key === "Enter" || event.key === " ") {

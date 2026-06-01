@@ -1,15 +1,14 @@
 import { useMemo } from "preact/hooks";
 import { usePick } from "@/common/hooks";
-import { usePlayer } from "@/player/use-player";
+import { repeat } from "@/player/actions";
 import { usePlayerStore } from "@/player/use-player.store";
+import { Button } from "@/widget/components/ui/button";
 import { RepeatIcon, XIcon } from "@/widget/icons";
-import { Button } from "../ui/button";
 import { useGuideCtx } from ".";
 
 export const GuideActions = () => {
 	const { onClose } = useGuideCtx();
 	const { status, gloss } = usePlayerStore(usePick("gloss", "status"));
-	const { repeat } = usePlayer();
 
 	const canRepeat = useMemo(() => gloss && status === "idle", [gloss, status]);
 

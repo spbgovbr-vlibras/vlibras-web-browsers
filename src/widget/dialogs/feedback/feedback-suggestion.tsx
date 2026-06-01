@@ -4,7 +4,7 @@ import { toast } from "@/common/lib/toaster";
 import { Trie } from "@/common/lib/trie";
 import { sendFeedback } from "@/core/actions";
 import { useDictionarySigns } from "@/core/actions/hooks";
-import { usePlayer } from "@/player/use-player";
+import { play, playStatic } from "@/player/actions";
 import { playerStore } from "@/player/use-player.store";
 import { Button } from "@/widget/components/ui/button";
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/widget/components/ui/dialog";
@@ -21,7 +21,6 @@ export const FeedbackSuggestion = ({ open, onOpenChange }: Props) => {
 	const textareaRef = useRef<HTMLTextAreaElement>(null);
 	const isMobile = useMobile();
 
-	const { play, playStatic } = usePlayer();
 	const { data } = useDictionarySigns();
 
 	const [isSubmitting, setIsSubmitting] = useState(false);

@@ -2,7 +2,7 @@ import { useMobile } from "@/common/hooks";
 import { posthogg } from "@/common/lib/posthog";
 import { cn } from "@/common/lib/utils";
 import { type Emotion, emotionsMap } from "@/data/emotions-map";
-import { usePlayer } from "@/player/use-player";
+import { setEmotion } from "@/player/actions";
 import { usePlayerStore } from "@/player/use-player.store";
 import { DropdownTrigger } from "@/widget/components/ui/dropdown";
 import { Tooltip } from "@/widget/components/ui/tooltip";
@@ -10,8 +10,6 @@ import { Tooltip } from "@/widget/components/ui/tooltip";
 export const EmotionsOption = () => {
 	const isMobile = useMobile();
 	const currentEmotion = usePlayerStore((s) => s.emotion);
-
-	const { setEmotion } = usePlayer();
 
 	const handleEmotionChange = (emotion: Emotion) => {
 		setEmotion(emotion);

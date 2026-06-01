@@ -3,7 +3,7 @@ import { Fragment } from "preact/jsx-runtime";
 import { toast } from "@/common/lib/toaster";
 import { sendFeedback } from "@/core/actions";
 import { ERROR_MESSAGES } from "@/core/actions/messages";
-import { usePlayer } from "@/player/use-player";
+import { playStatic } from "@/player/actions";
 import { playerStore } from "@/player/use-player.store";
 import { Button } from "@/widget/components/ui/button";
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/widget/components/ui/dialog";
@@ -19,8 +19,6 @@ type Props = {
 };
 
 export const FeedbackDialog = ({ open, onOpenChange }: Props) => {
-	const { playStatic } = usePlayer();
-
 	const [isSuggestionOpen, setIsSuggestionOpen] = useState(false);
 
 	const handleSuggestionOpen = () => {

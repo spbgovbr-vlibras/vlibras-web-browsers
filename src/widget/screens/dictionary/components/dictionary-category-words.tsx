@@ -1,7 +1,7 @@
 import { useMemo } from "preact/hooks";
 import { cn } from "@/common/lib/utils";
 import { useTranslate } from "@/core/actions/hooks";
-import { usePlayer } from "@/player/use-player";
+import { play } from "@/player/actions";
 import { Button } from "@/widget/components/ui/button";
 import { ChevronDownIcon } from "@/widget/icons/chevron-down";
 import { ChevronUpIcon } from "@/widget/icons/chevron-up";
@@ -14,7 +14,6 @@ import { useDictionaryCtx } from "./dictionary-context";
 import { DictionaryWordMeaning } from "./dictionary-word-meaning";
 
 export const DictionaryCategoryWords = () => {
-	const { play } = usePlayer();
 	const { mutateAsync: translate } = useTranslate();
 	const handlePlay = useHandlePlay();
 	const ctx = useDictionaryCtx();

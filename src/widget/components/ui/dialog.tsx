@@ -5,7 +5,7 @@ import { useMobile } from "@/common/hooks";
 import { cn } from "@/common/lib/utils";
 import { randomStr } from "@/common/utils";
 import { $$ } from "@/common/utils/dom";
-import { usePlayer } from "@/player/use-player";
+import { pause, play } from "@/player/actions";
 import { playerStore, usePlayerStore } from "@/player/use-player.store";
 import { XIcon } from "@/widget/icons";
 import type { IconElement } from "@/widget/icons/types";
@@ -89,7 +89,6 @@ export const Dialog = ({
 	children,
 }: DialogProps) => {
 	const [isOpen, setOpen] = useState(false);
-	const { pause, play } = usePlayer();
 
 	const open = _open ?? isOpen;
 	const onOpenChange = _onOpenChange ?? setOpen;

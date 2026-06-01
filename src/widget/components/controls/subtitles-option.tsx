@@ -1,6 +1,6 @@
 import { useMobile, usePick } from "@/common/hooks";
 import { posthogg } from "@/common/lib/posthog";
-import { usePlayer } from "@/player/use-player";
+import { toggleSubtitles } from "@/player/actions";
 import { usePlayerStore } from "@/player/use-player.store";
 import { Button } from "@/widget/components/ui/button";
 import { Tooltip } from "@/widget/components/ui/tooltip";
@@ -9,7 +9,6 @@ import { SubtitleIcon } from "@/widget/icons/subtitle";
 
 export const SubtitlesOptions = () => {
 	const isMobile = useMobile();
-	const { toggleSubtitles } = usePlayer();
 	const { showSubtitles, isPlayingWelcome } = usePlayerStore(usePick("showSubtitles", "isPlayingWelcome"));
 
 	const handleToggleSubtitles = () => {

@@ -1,7 +1,7 @@
 import { useEffect } from "preact/hooks";
 import { useTranslate } from "@/core/actions/hooks";
 import { createStyle, removeStyle } from "@/core/dom";
-import { usePlayer } from "@/player/use-player";
+import { play, stop } from "@/player/actions";
 import { usePlayerStore } from "@/player/use-player.store";
 import { resetCallback } from "@/widget/stores/use-callback.store";
 import { useWidgetStore } from "@/widget/stores/use-widget.store";
@@ -13,7 +13,6 @@ export const useTextCaptureSync = () => {
 	const isOpen = useWidgetStore((s) => s.isOpen);
 
 	const { mutateAsync: translate } = useTranslate();
-	const { play, stop } = usePlayer();
 
 	useEffect(() => {
 		if (!isLoaded) return;

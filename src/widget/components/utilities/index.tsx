@@ -1,5 +1,5 @@
 import { useMobile, usePick } from "@/common/hooks";
-import { usePlayer } from "@/player/use-player";
+import { stop } from "@/player/actions";
 import { usePlayerStore } from "@/player/use-player.store";
 import { Button } from "@/widget/components/ui/button";
 import { SkipIcon } from "@/widget/icons";
@@ -13,7 +13,6 @@ export const Utilities = () => {
 	const isMobile = useMobile();
 	const isGuideOpen = useGuideStore((s) => s.open);
 
-	const { stop } = usePlayer();
 	const { status, gloss, isPlayingWelcome } = usePlayerStore(usePick("status", "gloss", "isPlayingWelcome"));
 	const { isExpanded, isTranslating, text } = useWidgetStore(usePick("isExpanded", "text", "isTranslating"));
 

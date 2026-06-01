@@ -17,11 +17,15 @@ export const PlayerEventsProvider = ({ path }: Props) => {
 				if (event.data.event === UNITY_EVENTS.FINISH_WELCOME) {
 					const isFinished = event.data.data === "True";
 
+					if (playerStore.get().isWelcomeFinished) return;
+
 					playerStore.set({
 						isPlayingWelcome: !isFinished,
 						isWelcomeFinished: isFinished,
 						...(isFinished ? { countGloss: { count: 0, max: 0 } } : {}),
 					});
+
+					if (isFinished) playerOptionsStore.get().onWelcomeFinish?.();
 				}
 
 				if (event.data.event === UNITY_EVENTS.ON_LOAD_PLAYER) {

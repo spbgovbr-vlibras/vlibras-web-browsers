@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { cn } from "@/common/lib/utils";
 import { useTranslate } from "@/core/actions/hooks";
-import { usePlayer } from "@/player/use-player";
+import { play } from "@/player/actions";
 import { Button } from "@/widget/components/ui/button";
 import { ChevronDownIcon } from "@/widget/icons/chevron-down";
 import { ChevronUpIcon } from "@/widget/icons/chevron-up";
@@ -17,7 +17,6 @@ const ITEMS_PER_PAGE = 50;
 export const DictionaryAllWords = () => {
 	const ctx = useDictionaryCtx();
 	const handlePlay = useHandlePlay();
-	const { play } = usePlayer();
 	const { mutateAsync: translate } = useTranslate();
 	const { expandedWord, wordMeanings, loadingMeaning, toggleWordMeaning } = useWordMeaning();
 

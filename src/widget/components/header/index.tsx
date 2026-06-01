@@ -1,6 +1,6 @@
 import { useMobile } from "@/common/hooks";
 import { cn } from "@/common/lib/utils";
-import { usePlayer } from "@/player/use-player";
+import { pause } from "@/player/actions";
 import { Button } from "@/widget/components/ui/button";
 import { Spacer } from "@/widget/components/ui/spacer";
 import { IcaroIcon, XIcon } from "@/widget/icons";
@@ -12,7 +12,6 @@ import { WidgetMenu } from "./menu";
 
 export const WidgetHeader = () => {
 	const { onPointerDown } = useDraggable();
-	const { pause } = usePlayer();
 
 	const isMobile = useMobile();
 	const setOpen = useWidgetStore((s) => s.setOpen);

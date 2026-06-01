@@ -1,13 +1,12 @@
 import { Fragment } from "preact/jsx-runtime";
 import { posthogg } from "@/common/lib/posthog";
-import { usePlayer } from "@/player/use-player";
+import { play } from "@/player/actions";
 import { DictionaryIcon } from "@/widget/icons/dictionary";
 import { createCallback } from "@/widget/stores/use-callback.store";
 import { useScreensStore } from "@/widget/stores/use-screens.store";
 import { useDictionaryHistoryStore } from "../stores/use-dictionary-history.store";
 
 export const useHandlePlay = () => {
-	const { play } = usePlayer();
 	const signs = useDictionaryHistoryStore((s) => s.signs);
 
 	return (sign: string) => {
