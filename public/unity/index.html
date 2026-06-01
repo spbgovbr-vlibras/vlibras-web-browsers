@@ -1,7 +1,8 @@
 <!doctype html>
-<html>
+<html lang="pt-br">
   <head>
     <meta charset="utf-8" />
+    <title>Unity WebGL Player | Vlibras</title>
     <style>
       * {
         box-sizing: border-box;
@@ -13,62 +14,21 @@
         height: 100%;
         overflow: hidden;
       }
+      #gameContainer {
+        width: 100vw;
+        height: 100vh;
+        background-color: transparent !important;
+      }
       canvas {
-        width: 100%;
-        height: 100%;
+        width: 100% !important;
+        height: 100% !important;
       }
     </style>
   </head>
   <body>
-    <canvas id="unity-canvas"></canvas>
-    <script src="./playerweb.loader.js"></script>
+    <div id="gameContainer"></div>
 
-    <script>
-      let unity;
-
-      const postEvent = (event, data) => {
-        window.parent.postMessage({ type: "unity_event", event, data }, "*");
-      };
-
-      createUnityInstance(
-        document.getElementById("unity-canvas"),
-        {
-          dataUrl: "./playerweb.data",
-          frameworkUrl: "./playerweb.framework.js",
-          codeUrl: "./playerweb.wasm",
-        },
-        (progress) => postEvent("update_progress", progress),
-      ).then((instance) => (unity = instance));
-
-      window.addEventListener("message", (e) => {
-        const m = e.data;
-
-        if (!unity) return;
-        if (m.type !== "unity") return;
-
-        unity.SendMessage(m.object, m.method, m.params);
-      });
-
-      // isPlaying, isPaused,  isPlayingIntervalAnimation, isLoading, isRepeatable
-      window.onPlayingStateChange = (...data) => {
-        postEvent("on_playing_state_change", data);
-      };
-
-      window.CounterGloss = (...data) => {
-        postEvent("counter_gloss", data);
-      };
-
-      window.onLoadPlayer = () => {
-        postEvent("on_load_player");
-      };
-
-      window.GetAvatar = (data) => {
-        postEvent("get_avatar", data);
-      };
-
-      window.FinishWelcome = (data) => {
-        postEvent("finish_welcome", data);
-      };
-    </script>
+    <script src="UnityLoader.js"></script>
+    <script src="index.js"></script>
   </body>
 </html>
