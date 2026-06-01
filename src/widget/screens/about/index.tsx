@@ -33,23 +33,25 @@ export const AboutScreen = () => {
 				</AboutField>
 
 				<AboutField label="Realizadores">
-					<div className="flex w-full flex-col justify-between gap-2 rounded-xl bg-white p-5">
+					<div className="flex w-full flex-col justify-between gap-2 rounded-xl bg-white p-2">
 						<div className="flex w-full items-center justify-between gap-2">
-							<img
-								src={mdhcIcon}
-								alt="logo do Ministério dos Direitos Humanos e da Cidadania"
-								className="max-h-7 w-auto"
-							/>
-							<img
-								src={mgispIcon}
-								alt={"logo do Ministério da Gestão e da Inovação em Serviços Públicos"}
-								className="max-h-7 w-auto"
-							/>
+							<div className="flex min-w-0 flex-1 justify-start">
+								<img src={mdhcIcon} alt="logo do Ministério dos Direitos Humanos e da Cidadania" />
+							</div>
+							<div className="flex min-w-0 flex-1 justify-start">
+								<img src={mgispIcon} alt={"logo do Ministério da Gestão e da Inovação em Serviços Públicos"} />
+							</div>
 						</div>
 						<div className="flex items-center justify-between gap-2">
-							<img src={lavidIcon} alt={"logo do lavid"} className="h-7" />
-							<img src={rnpIcon} alt={"logo da RNP"} className="h-7" />
-							<img src={camaraIcon} alt={"logo da Câmara dos Deputados"} className="h-7" />
+							<div className="flex min-w-0 flex-1 items-center justify-start">
+								<img src={lavidIcon} alt={"logo do lavid"} className="max-w-15" />
+							</div>
+							<div className="flex min-w-0 flex-1 items-center justify-start">
+								<img src={rnpIcon} alt={"logo da RNP"} />
+							</div>
+							<div className="flex min-w-0 flex-1 items-center justify-start">
+								<img src={camaraIcon} alt={"logo da Câmara dos Deputados"} />
+							</div>
 						</div>
 					</div>
 				</AboutField>
