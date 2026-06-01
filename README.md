@@ -37,8 +37,8 @@ Acessibilidade digital através da tradução para Língua Brasileira de Sinais 
 
 O **VLibras Web** é o ecossistema de acessibilidade digital que conecta o conteúdo da web à **Língua Brasileira de Sinais (Libras)**. Este repositório centraliza o desenvolvimento de duas frentes principais:
 
-* **VLibras Widget:** A ferramenta integrada diretamente por desenvolvedores em portais e sites web.
-* **VLibras Plugins (Extensões):** A versão adaptada para navegadores (Chrome e Firefox), permitindo que o usuário surdo ative a acessibilidade em qualquer página da internet.
+- **VLibras Widget:** A ferramenta integrada diretamente por desenvolvedores em portais e sites web.
+- **VLibras Plugins (Extensões):** A versão adaptada para navegadores (Chrome e Firefox), permitindo que o usuário surdo ative a acessibilidade em qualquer página da internet.
 
 Ambas as soluções utilizam avatares 3D regionalizados (como Ícaro, Hosana e Guga) para interpretar e sinalizar conteúdos em português, garantindo que a comunidade surda — que utiliza a Libras como primeira língua — navegue e consuma informações online com total autonomia.
 
@@ -101,6 +101,7 @@ pnpm dev
 A aplicação estará acessível em: `http://localhost:3003`.
 
 Outros modos disponíveis:
+
 - `pnpm dev:homolog` - Modo de homologação
 - `pnpm dev:prod` - Modo de produção
 
@@ -113,11 +114,13 @@ pnpm build
 ```
 
 Isso criará a pasta `/app` na raiz do projeto contendo:
+
 - `vlibras-plugin-app.umd.cjs` - Biblioteca principal do widget
 - `vlibras-plugin.js` - Script de carregamento minificado
 - `index.html` - Página de demonstração
 
 Outros comandos de build:
+
 - `pnpm build:dev` - Build em modo desenvolvimento
 - `pnpm build:homolog` - Build em modo de homologação
 
@@ -149,6 +152,9 @@ O comando atualiza automaticamente o arquivo `CHANGELOG.md`, incrementa a versã
 
 - **Anderson Coutinho** - anderson.coutinho@lavid.ufpb.br
 - **Diêgo Ferreira** - diego.raian@lavid.ufpb.br
+- **Mateus Pires** - mateuspires@lavid.ufpb.br
+- **Suanny Fabyne** - suanny@lavid.ufpb.br
+- **Thiago Filipe** - thiago.filipe@lavid.ufpb.br
 
 <h2 id="licenca">📄 Licença</h2>
 
