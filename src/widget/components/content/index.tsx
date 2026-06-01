@@ -7,6 +7,7 @@ import { WidgetHeader } from "@/widget/components/header";
 import { Utilities } from "@/widget/components/utilities";
 import { rootStore } from "@/widget/stores/use-root.store";
 import { useScreensStore } from "@/widget/stores/use-screens.store";
+import { playerOptions } from "./player-options";
 
 export const WidgetContent = ({ className, ...props }: Omit<ComponentProps<"div">, "children">) => {
 	const screen = useScreensStore((s) => s.screen);
@@ -21,7 +22,7 @@ export const WidgetContent = ({ className, ...props }: Omit<ComponentProps<"div"
 			className={cn("flex flex-col", (!isLoaded || screen !== "main") && "opacity-0", className)}
 		>
 			<WidgetHeader />
-			<Player className="mb-2 h-(--player-height) max-h-[calc(100dvh-52px)] w-full" />
+			<Player className="mb-2 h-(--player-height) max-h-[calc(100dvh-52px)] w-full" options={playerOptions} />
 			<Utilities />
 			<WidgetControls />
 		</div>

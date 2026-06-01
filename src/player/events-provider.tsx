@@ -1,7 +1,8 @@
 import { useEffect } from "preact/hooks";
 import { UNITY_EVENTS } from "./constants/unity";
+import { playerOptionsStore } from "./stores/use-player-options.store";
 import { playerStore } from "./use-player.store";
-import { isValidHost, playingStatesToBoolean } from "./utils";
+import { playingStatesToBoolean } from "./utils";
 
 type Props = {
 	path: string;
@@ -12,10 +13,6 @@ export const PlayerEventsProvider = ({ path }: Props) => {
 		if (!path) return;
 
 		const handleMessage = (event: MessageEvent<{ type: string; event: UNITY_EVENTS; data: unknown }>) => {
-			if (!isValidHost(path, event.origin)) {
-				throw new Error(`Invalid host config: ${path} (path), ${event.origin} (origin) `);
-			}
-
 			if (event.data?.type === "unity_event") {
 				if (event.data.event === UNITY_EVENTS.FINISH_WELCOME) {
 					const isFinished = event.data.data === "True";
@@ -29,6 +26,7 @@ export const PlayerEventsProvider = ({ path }: Props) => {
 
 				if (event.data.event === UNITY_EVENTS.ON_LOAD_PLAYER) {
 					playerStore.set({ isLoaded: true });
+					playerOptionsStore.get().onLoaded?.();
 				}
 
 				if (event.data.event === UNITY_EVENTS.UPDATE_PROGRESS) {

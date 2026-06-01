@@ -11,3 +11,11 @@ export type CountGloss = {
 	count: number;
 	max: number;
 };
+
+export type PlayerOptions = {
+	onPlay?: (gloss: string) => void;
+	onPause?: () => void;
+	onStop?: () => void;
+	onRepeat?: () => void;
+	onLoaded?: () => void;
+};

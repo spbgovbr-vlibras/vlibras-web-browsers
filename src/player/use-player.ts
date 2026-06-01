@@ -2,6 +2,7 @@ import { config } from "@/core/config";
 import type { Emotion } from "@/data/emotions-map";
 import type { Region } from "@/data/regionalism";
 import { UNITY_METHODS, UNITY_OBJECTS } from "./constants/unity";
+import { playerOptionsStore } from "./stores/use-player-options.store";
 import type { PlayerAvatar, PlayerConfig } from "./types";
 import { playerStore, usePlayerStore } from "./use-player.store";
 
@@ -28,23 +29,27 @@ export const usePlayer = () => {
 	};
 
 	const play = (gloss?: string) => {
-		if (gloss) {
-			send(UNITY_OBJECTS.PLAYER, UNITY_METHODS.PLAY, gloss);
-			playerStore.set({ gloss });
-		} else send(UNITY_OBJECTS.PLAYER, UNITY_METHODS.SET_PAUSE_STATE, 0);
+		if (!gloss) return send(UNITY_OBJECTS.PLAYER, UNITY_METHODS.SET_PAUSE_STATE, 0);
+
+		send(UNITY_OBJECTS.PLAYER, UNITY_METHODS.PLAY, gloss);
+		playerStore.set({ gloss });
+		playerOptionsStore.get().onPlay?.(gloss);
 	};
 
 	const repeat = () => {
 		const { gloss } = playerStore.get();
 		if (gloss) play(gloss);
+		playerOptionsStore.get().onRepeat?.();
 	};
 
 	const stop = () => {
 		send(UNITY_OBJECTS.PLAYER, UNITY_METHODS.STOP);
+		playerOptionsStore.get().onStop?.();
 	};
 
 	const pause = () => {
 		send(UNITY_OBJECTS.PLAYER, UNITY_METHODS.SET_PAUSE_STATE, 1);
+		playerOptionsStore.get().onPause?.();
 	};
 
 	const setSpeed = (speed: number) => {

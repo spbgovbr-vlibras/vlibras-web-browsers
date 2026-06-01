@@ -4,9 +4,15 @@ import { useConfig } from "@/common/hooks";
 import { sanitizeUrl } from "@/common/utils";
 import type { UNITY_METHODS, UNITY_OBJECTS } from "./constants/unity";
 import { PlayerEventsProvider } from "./events-provider";
+import { playerOptionsStore } from "./stores/use-player-options.store";
+import type { PlayerOptions } from "./types";
 import { playerStore, usePlayerStore } from "./use-player.store";
 
-export const Player = (props: ComponentPropsWithoutRef<"iframe">) => {
+type PlayerProps = ComponentPropsWithoutRef<"iframe"> & {
+	options?: PlayerOptions;
+};
+
+export const Player = (props: PlayerProps) => {
 	const { path } = useConfig();
 	const { isLoaded } = usePlayerStore();
 
@@ -21,6 +27,11 @@ export const Player = (props: ComponentPropsWithoutRef<"iframe">) => {
 		if (!iframeRef.current) return;
 		playerStore.set({ send });
 	}, []);
+
+	useEffect(() => {
+		if (!props.options) return;
+		playerOptionsStore.set({ ...props.options });
+	}, [props.options]);
 
 	if (!path) return;
 
