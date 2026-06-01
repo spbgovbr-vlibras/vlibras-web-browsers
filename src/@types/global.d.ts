@@ -2,6 +2,7 @@
 
 declare const __VLIBRAS_APP_NAME__: string;
 declare const __VLIBRAS_APP_VERSION__: string;
+declare const __IS_EXTENSION__: boolean;
 
 interface Window {
 	VLibrasWidget?: {

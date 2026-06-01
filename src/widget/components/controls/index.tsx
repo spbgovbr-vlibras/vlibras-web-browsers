@@ -26,7 +26,10 @@ export const WidgetControls = () => {
 		>
 			<div
 				{...{ onPointerDown }}
-				className="absolute inset-0 z-0 touch-none not-expanded:hover:cursor-move sm:hover:cursor-move"
+				className={cn(
+					"absolute inset-0 z-0 touch-none",
+					!__IS_EXTENSION__ && "not-expanded:hover:cursor-move sm:hover:cursor-move",
+				)}
 			/>
 
 			<div inert={isGuideOpen} className="grid w-full grid-cols-5 items-center gap-1">

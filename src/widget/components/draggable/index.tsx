@@ -64,6 +64,8 @@ export function Draggable<TElement extends HTMLElement>({ children }: Props<TEle
 	}, [isExpanded]);
 
 	useEffect(() => {
+		if (__IS_EXTENSION__) return;
+
 		const handleResize = () => {
 			if (!ref.current || !hasMoved) return;
 			setPos((prevPos) => {
@@ -84,6 +86,8 @@ export function Draggable<TElement extends HTMLElement>({ children }: Props<TEle
 	}, [hasMoved]);
 
 	useEffect(() => {
+		if (__IS_EXTENSION__) return;
+
 		const onPointerMove = (e: PointerEvent) => {
 			if (!isDragging || !ref.current) return;
 			if (e.cancelable) e.preventDefault();
@@ -124,7 +128,7 @@ export function Draggable<TElement extends HTMLElement>({ children }: Props<TEle
 	}, []);
 
 	const onPointerDown = (e: PointerEvent) => {
-		if (!ref.current) return;
+		if (!ref.current || __IS_EXTENSION__) return;
 		if (e.cancelable) e.preventDefault();
 
 		(e.currentTarget as HTMLElement).setPointerCapture(e.pointerId);

@@ -29,7 +29,10 @@ export const ScreenHeader = ({ children, className, ...props }: ComponentProps<"
 			</div>
 
 			<div
-				className="absolute inset-0 z-0 touch-none not-expanded:hover:cursor-move sm:hover:cursor-move"
+				className={cn(
+					"absolute inset-0 z-0 touch-none",
+					!__IS_EXTENSION__ && "not-expanded:hover:cursor-move sm:hover:cursor-move",
+				)}
 				{...{ onPointerDown }}
 			/>
 		</div>

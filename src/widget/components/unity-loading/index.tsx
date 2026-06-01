@@ -1,5 +1,6 @@
 import { useEffect, useState } from "preact/hooks";
 import { usePick } from "@/common/hooks";
+import { cn } from "@/common/lib/utils";
 import { usePlayerStore } from "@/player/use-player.store";
 import { GovBRIcon, IcaroIcon } from "@/widget/icons";
 
@@ -14,7 +15,12 @@ export const UnityLoading = () => {
 	if (isLoaded) return null;
 
 	return (
-		<div className="absolute inset-0 z-9999999 flex flex-col items-center justify-between rounded-xl border bg-background p-4">
+		<div
+			className={cn(
+				"absolute inset-0 z-9999999 flex flex-col items-center justify-between border bg-background p-4",
+				!__IS_EXTENSION__ && "rounded-xl",
+			)}
+		>
 			<div className="rounded-full border px-2 py-1">
 				<GovBRIcon className="h-4 w-auto" />
 			</div>

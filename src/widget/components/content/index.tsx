@@ -22,7 +22,10 @@ export const WidgetContent = ({ className, ...props }: Omit<ComponentProps<"div"
 			className={cn("flex flex-col", (!isLoaded || screen !== "main") && "opacity-0", className)}
 		>
 			<WidgetHeader />
-			<Player className="mb-2 h-(--player-height) max-h-[calc(100dvh-52px)] w-full" options={playerOptions} />
+			<Player
+				className={cn("mb-2 h-(--player-height) w-full", !__IS_EXTENSION__ && "max-h-[calc(100dvh-52px)]")}
+				options={playerOptions}
+			/>
 			<Utilities />
 			<WidgetControls />
 		</div>
