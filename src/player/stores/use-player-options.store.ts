@@ -1,7 +1,13 @@
 import { create } from "zustand";
 import type { PlayerOptions } from "../types";
 
-export const usePlayerOptionsStore = create<PlayerOptions>(() => ({}));
+interface PlayerOptionsStore extends PlayerOptions {
+	isInitialized: boolean;
+}
+
+export const usePlayerOptionsStore = create<PlayerOptionsStore>(() => ({
+	isInitialized: false,
+}));
 
 export const playerOptionsStore = {
 	get: usePlayerOptionsStore.getState,

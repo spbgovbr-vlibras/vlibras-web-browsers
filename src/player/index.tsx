@@ -29,8 +29,8 @@ export const Player = (props: PlayerProps) => {
 	}, []);
 
 	useEffect(() => {
-		if (!props.options) return;
-		playerOptionsStore.set({ ...props.options });
+		if (!props.options || playerOptionsStore.get().isInitialized) return;
+		playerOptionsStore.set({ ...props.options, isInitialized: true });
 	}, [props.options]);
 
 	if (!path) return;
