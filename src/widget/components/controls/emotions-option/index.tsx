@@ -22,12 +22,13 @@ export const EmotionsOption = () => {
 		<div className="dropdown dropdown-center dropdown-top focus-within:**:data-[slot=tooltip-content]:hidden">
 			<Tooltip offset={8} content="Emoções" placement="top" arrow={{ position: "bottom" }}>
 				<DropdownTrigger
+					aria-label="Alterar emoção"
 					id="emotions-option-button"
 					className="group relative"
 					variant="ghost-gov"
 					size={isMobile ? "icon-sm" : "icon"}
 				>
-					<currentEmotion.icon />
+					<currentEmotion.icon aria-hidden="true" />
 					{!isDefaultEmotion && <span className="absolute top-0.5 right-0.5 size-2 rounded-full bg-destructive" />}
 				</DropdownTrigger>
 			</Tooltip>
