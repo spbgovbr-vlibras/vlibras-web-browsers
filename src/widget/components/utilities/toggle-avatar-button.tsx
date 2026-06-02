@@ -7,11 +7,13 @@ import { usePlayerStore } from "@/player/use-player.store";
 import { useGuideStore } from "@/widget/components/guide/store";
 import { Button } from "@/widget/components/ui/button";
 import { Tooltip } from "@/widget/components/ui/tooltip";
+import { GugaIcon, HosanaIcon, IcaroIcon } from "@/widget/icons";
+import type { IconElement } from "@/widget/icons/types";
 
-const avatars: { name: PlayerAvatar; path: string }[] = [
-	{ name: "icaro", path: "/icaro.png" },
-	{ name: "hosana", path: "/hosana.png" },
-	{ name: "guga", path: "/guga.png" },
+const avatars: { name: PlayerAvatar; path: string; icon: IconElement }[] = [
+	{ name: "icaro", path: "/icaro.png", icon: IcaroIcon },
+	{ name: "hosana", path: "/hosana.png", icon: HosanaIcon },
+	{ name: "guga", path: "/guga.png", icon: GugaIcon },
 ];
 
 const getAvatarImage = (path: string) => {
@@ -23,8 +25,7 @@ export const ToggleAvatarButton = () => {
 	const avatar = usePlayerStore((s) => s.avatar);
 	const isGuideOpen = useGuideStore((s) => s.open);
 
-	const currentAvatar = avatars.find(({ name }) => name === avatar);
-	const currentAvatarImage = getAvatarImage(currentAvatar?.path || avatars[0].path);
+	const currentAvatar = avatars.find(({ name }) => name === avatar) || avatars[0];
 
 	const handleSelectAvatar = (name: PlayerAvatar) => {
 		(document.activeElement as HTMLElement)?.blur();
@@ -53,7 +54,7 @@ export const ToggleAvatarButton = () => {
 					size="icon"
 					className="rounded-full bg-background hover:bg-muted! data-[highlight=true]:animate-highlight-primary"
 				>
-					<img src={currentAvatarImage} alt={avatar} />
+					<currentAvatar.icon aria-hidden="true" className="size-5.5 text-primary" />
 				</Button>
 			</Tooltip>
 
