@@ -75,6 +75,7 @@ export const Guide = () => {
 				className={cn(
 					guideVariants({ isMobile, isLeft, isTop, isExpanded }),
 					!isExpanded && !isMobile && element.guideClx,
+					isExpanded && element.guideClxExpanded,
 				)}
 			>
 				<div className="pr-4">

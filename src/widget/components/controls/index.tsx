@@ -28,21 +28,26 @@ export const WidgetControls = () => {
 				{...{ onPointerDown }}
 				className="absolute inset-0 z-0 touch-none not-expanded:hover:cursor-move sm:hover:cursor-move"
 			/>
+			<ProgressBar />
 
-			<div inert={isGuideOpen} className="grid w-full grid-cols-5 items-center gap-1">
-				<ProgressBar />
-
-				<div id="main-action-speed-options" className="col-span-2 grid grid-cols-subgrid justify-items-center rounded">
+			<div
+				inert={isGuideOpen}
+				className={cn(
+					"grid w-full grid-cols-5 items-center gap-1",
+					"[&>div]:col-span-2 [&>div]:grid [&>div]:grid-cols-subgrid [&>div]:justify-items-center [&>div]:rounded",
+				)}
+			>
+				<div id="main-action-speed-options">
 					<MainAction />
 					<SpeedOption />
 				</div>
 
-				<div id="emotions-subtitles-options" className="col-span-2 grid grid-cols-subgrid justify-items-center rounded">
+				<div id="emotions-subtitles-options">
 					<EmotionsOption />
 					<SubtitlesOptions />
 				</div>
 
-				<div id="settings-option" className="col-span-1 grid grid-cols-subgrid justify-items-center rounded">
+				<div id="settings-option" className="col-span-1!">
 					<SettingsOption />
 				</div>
 			</div>
