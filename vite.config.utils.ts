@@ -4,17 +4,22 @@ const appRoots = {
 	development: "http://localhost:3003",
 	homolog: "https://portal-dth.vlibras.lavid.ufpb.br/app/",
 	production: "https://vlibras.com/app/v7",
+	extension: "https://vlibras.com/app/v7",
 };
 
+export type AppMode = keyof typeof appRoots;
+
 type MinifyCodeOptions = {
-	mode: string;
+	mode: AppMode;
 	content: string;
 };
 
 export const minifyCode = async ({ mode, content }: MinifyCodeOptions) => {
-	const isProd = mode === "production";
-	const appRoot = appRoots?.[mode as keyof typeof appRoots] || appRoots.production;
 	let code = content;
+
+	const isExtension = mode === "extension";
+	const isProd = mode === "production";
+	const appRoot = appRoots[mode];
 
 	if (appRoot) code = code.replace("__APP_ROOT__", appRoot);
 
@@ -27,7 +32,7 @@ export const minifyCode = async ({ mode, content }: MinifyCodeOptions) => {
 			.trim()}\``;
 	});
 
-	if (isProd) {
+	if (isProd || isExtension) {
 		const minified = await transformWithEsbuild(code, "index.js", {
 			minify: true,
 			minifyWhitespace: true,

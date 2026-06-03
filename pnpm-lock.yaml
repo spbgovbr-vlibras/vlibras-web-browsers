@@ -64,8 +64,8 @@ importers:
         specifier: ^16.4.0
         version: 16.4.0
       posthog-js:
-        specifier: ^1.376.4
-        version: 1.376.4
+        specifier: ^1.376.6
+        version: 1.376.6
       release-it:
         specifier: ^19.2.4
         version: 19.2.4(@types/node@25.2.3)
@@ -748,11 +748,11 @@ packages:
     resolution: {integrity: sha512-oeQJs1aa8Ghke8JIK9yuq/+KjMiaYeDZ38jx7MhkXncXlUKjqQ3wEm2X3qCKyjo+ZZofZj+WsEEiqkTtRuE2xQ==}
     engines: {node: ^20.9.0 || >=22.0.0, npm: '>=10.8.2'}
 
-  '@posthog/core@1.29.13':
-    resolution: {integrity: sha512-7Me5zaeAue/wmA364Go8ChYbsVAfNAHbtDxXopWu3D6hq9PVScUcauRgjD1njgvP8NzN91SrIllE+pri3XvJVw==}
+  '@posthog/core@1.29.15':
+    resolution: {integrity: sha512-jHdTo/hcZsZu1QJMi3GSysPzhkCwVncKB6IKocheFLypmMbGZp39ZGep9ECKNb1v6zBNdtHhcPqhfV+r+iLZNw==}
 
-  '@posthog/types@1.376.4':
-    resolution: {integrity: sha512-EoDEvA925lf6yxPpbP4wozlXgu4b9WEqxZlFBUDd4k2akP5R/RWyHpvQT8aYyfY6BtSLn8TnVwxPQOM4b90isA==}
+  '@posthog/types@1.376.6':
+    resolution: {integrity: sha512-iBiS+C/3rGr/AMtfmeofRhBeCaB0I14mzlrzBmyWQe2h1kbTBAkChzy4wkF9rWmDSJqxQ+UNh0Xs/ZOP0S09tg==}
 
   '@preact/preset-vite@2.10.3':
     resolution: {integrity: sha512-1SiS+vFItpkNdBs7q585PSAIln0wBeBdcpJYbzPs1qipsb/FssnkUioNXuRsb8ZnU8YEQHr+3v8+/mzWSnTQmg==}
@@ -2042,8 +2042,8 @@ packages:
     resolution: {integrity: sha512-3Ybi1tAuwAP9s0r1UQ2J4n5Y0G05bJkpUIO0/bI9MhwmD70S5aTWbXGBwxHrelT+XM1k6dM0pk+SwNkpTRN7Pg==}
     engines: {node: ^10 || ^12 || >=14}
 
-  posthog-js@1.376.4:
-    resolution: {integrity: sha512-SGhZWMBpd9GyV1+Klhx/vRwyy/reRRpJGYc1n1rYG9+LAML/YUEIrfl3Y2CLvuwmhKbPVY5W98Z7pAVQ88Qf1A==}
+  posthog-js@1.376.6:
+    resolution: {integrity: sha512-T40qyq6YZbLEqTOYA8YyDSCx+bxj16p8ZT48rnFTsiNilZJU4GopnXzW6Cr7YM1XIBZtd2wis8U4AW8BO15Z4A==}
 
   powershell-utils@0.1.0:
     resolution: {integrity: sha512-dM0jVuXJPsDN6DvRpea484tCUaMiXWjuCn++HGTqUWzGDjv5tZkEZldAJ/UMlqRYGFrD/etByo4/xOuC/snX2A==}
@@ -2055,8 +2055,8 @@ packages:
   preact@11.0.0-beta.1:
     resolution: {integrity: sha512-HEG7hlrCoGpESpCgvuOwt9v7nfqd3/FQCMY8OTrohIN/k6JGcVTWMUOm7+WtWkHd6uQrEYNyQUNgBG4JsDmhRQ==}
 
-  protobufjs@7.6.1:
-    resolution: {integrity: sha512-4K0myLaWL5EteuSAro91EGFgcfVgxb64Jx+7oDAY6GOkXD4M69yuSEljNcInGVCA5sOPxmZ/EqDLj2x0Q0+Ygg==}
+  protobufjs@7.6.2:
+    resolution: {integrity: sha512-N9EiLovGEQOJSPF26Ij7qUGvahfEnq0eeYZ02aigIedkmz1qZSwjnP9SBITHJuF/6MYbIW4HDN8zdYjsjqJKXQ==}
     engines: {node: '>=12.0.0'}
 
   protocols@2.0.2:
@@ -3112,7 +3112,7 @@ snapshots:
       '@opentelemetry/sdk-logs': 0.208.0(@opentelemetry/api@1.9.1)
       '@opentelemetry/sdk-metrics': 2.2.0(@opentelemetry/api@1.9.1)
       '@opentelemetry/sdk-trace-base': 2.2.0(@opentelemetry/api@1.9.1)
-      protobufjs: 7.6.1
+      protobufjs: 7.6.2
 
   '@opentelemetry/resources@2.2.0(@opentelemetry/api@1.9.1)':
     dependencies:
@@ -3150,11 +3150,11 @@ snapshots:
 
   '@phun-ky/typeof@2.0.3': {}
 
-  '@posthog/core@1.29.13':
+  '@posthog/core@1.29.15':
     dependencies:
-      '@posthog/types': 1.376.4
+      '@posthog/types': 1.376.6
 
-  '@posthog/types@1.376.4': {}
+  '@posthog/types@1.376.6': {}
 
   '@preact/preset-vite@2.10.3(@babel/core@7.29.0)(preact@11.0.0-beta.1)(rollup@4.57.1)(vite@7.3.1(@types/node@25.2.3)(jiti@2.6.1)(lightningcss@1.30.2)(yaml@2.8.2))':
     dependencies:
@@ -4332,15 +4332,15 @@ snapshots:
       picocolors: 1.1.1
       source-map-js: 1.2.1
 
-  posthog-js@1.376.4:
+  posthog-js@1.376.6:
     dependencies:
       '@opentelemetry/api': 1.9.1
       '@opentelemetry/api-logs': 0.208.0
       '@opentelemetry/exporter-logs-otlp-http': 0.208.0(@opentelemetry/api@1.9.1)
       '@opentelemetry/resources': 2.7.1(@opentelemetry/api@1.9.1)
       '@opentelemetry/sdk-logs': 0.208.0(@opentelemetry/api@1.9.1)
-      '@posthog/core': 1.29.13
-      '@posthog/types': 1.376.4
+      '@posthog/core': 1.29.15
+      '@posthog/types': 1.376.6
       core-js: 3.49.0
       dompurify: 3.4.7
       fflate: 0.4.8
@@ -4354,7 +4354,7 @@ snapshots:
 
   preact@11.0.0-beta.1: {}
 
-  protobufjs@7.6.1:
+  protobufjs@7.6.2:
     dependencies:
       '@protobufjs/aspromise': 1.1.2
       '@protobufjs/base64': 1.1.2

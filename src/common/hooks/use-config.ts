@@ -14,7 +14,7 @@ export const useConfig = () => {
 		if (state.path && state.version) return;
 
 		appConfig.setState({
-			path: window?.VLibrasWidget?.path ?? "./",
+			path: __IS_EXTENSION__ ? "app/" : (window?.VLibrasWidget?.path ?? "./"),
 			version: __VLIBRAS_APP_VERSION__,
 		});
 	}, []);

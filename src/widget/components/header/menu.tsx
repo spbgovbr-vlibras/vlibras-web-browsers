@@ -33,7 +33,7 @@ export const WidgetMenu = () => {
 				<ul className="dropdown-content mt-4 space-y-2">
 					<MenuOption onClick={() => open("dictionary")} label="Dicionário" icon={DictionaryIcon} />
 					<MenuOption onClick={() => setTranslatorOpen(true)} label="Tradutor" icon={TranslatorIcon} />
-					<MenuOption onClick={() => onGuideOpen(true)} label="Guia Rápido" icon={HelpIcon} />
+					{!__IS_EXTENSION__ && <MenuOption onClick={() => onGuideOpen(true)} label="Guia Rápido" icon={HelpIcon} />}
 					<MenuOption onClick={() => open("about")} label="Sobre o VLibras" icon={InfoIcon} />
 				</ul>
 			</div>

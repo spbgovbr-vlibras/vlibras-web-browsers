@@ -16,7 +16,7 @@ function App() {
 	const { path } = useConfig();
 
 	useEffect(() => rootStore.set({ root, shadowRoot }), [root, shadowRoot]);
-	useEffect(() => posthogg.trackLoad(), []);
+	useEffect(() => void posthogg.trackLoad(), []);
 
 	useEffect(() => {
 		if (!path) return;
@@ -30,7 +30,7 @@ function App() {
 
 		setOpen(isRootActive());
 
-		if (import.meta.env.MODE === "development") setOpen(true);
+		if (import.meta.env.MODE === "development" || __IS_EXTENSION__) setOpen(true);
 
 		const observer = new MutationObserver(() => setOpen(isRootActive()));
 		observer.observe(root as HTMLElement, {

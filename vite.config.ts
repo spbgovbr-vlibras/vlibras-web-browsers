@@ -5,8 +5,7 @@ import { visualizer } from "rollup-plugin-visualizer";
 import { defineConfig } from "vite";
 import { viteStaticCopy } from "vite-plugin-static-copy";
 import pkg from "./package.json";
-import { rollupOptions } from "./vite.config.rollup-options";
-import { minifyCode } from "./vite.config.utils";
+import { type AppMode, minifyCode } from "./vite.config.utils";
 
 export default defineConfig(({ mode }) => {
 	return {
@@ -22,13 +21,11 @@ export default defineConfig(({ mode }) => {
 				name: "vlibras-plugin",
 				fileName: "vlibras-plugin-app",
 			},
-			rollupOptions: rollupOptions,
 		},
 		resolve: {
 			alias: {
 				"@/public": path.resolve(__dirname, "./public"),
 				"@": path.resolve(__dirname, "./src"),
-				...rollupOptions.output.paths,
 			},
 		},
 		plugins: [
@@ -49,13 +46,14 @@ export default defineConfig(({ mode }) => {
 						src: "src/loader/index.js",
 						rename: "vlibras-plugin.js",
 						dest: ".",
-						transform: async (content) => minifyCode({ mode, content }),
+						transform: async (content) => minifyCode({ mode: mode as AppMode, content }),
 					},
 				],
 			}),
 		],
 		define: {
 			"process.env": {},
+			__IS_EXTENSION__: mode === "extension",
 			__VLIBRAS_APP_NAME__: JSON.stringify(pkg.name),
 			__VLIBRAS_APP_VERSION__: JSON.stringify(pkg.version),
 		},

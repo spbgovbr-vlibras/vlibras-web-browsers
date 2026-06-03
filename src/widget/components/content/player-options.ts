@@ -12,7 +12,7 @@ export const playerOptions: PlayerOptions = {
 		setConfig({ baseUrl: config.DICTIONARY_URL });
 		toggleAvatar(avatar);
 		setSpeed(speed);
-		playWelcome();
+		if (!__IS_EXTENSION__) playWelcome();
 	},
 
 	onPlay: () => {

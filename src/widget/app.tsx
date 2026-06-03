@@ -34,6 +34,7 @@ export const WidgetApp = () => {
 								isExpanded,
 								hasMoved,
 							}),
+							__IS_EXTENSION__ && "translate-none! inset-0! transition-none!",
 						)}
 					>
 						<div
@@ -47,6 +48,8 @@ export const WidgetApp = () => {
 							className={cn(
 								"relative z-2147483647 h-fit expanded:w-full w-(--widget-width) overflow-hidden rounded-xl shadow-lg expanded:max-sm:rounded-none!",
 								screen !== "main" && "outline-2 outline-border outline-solid",
+								__IS_EXTENSION__ &&
+									"h-screen w-screen shrink-0 rounded-none! [--player-height:calc(100dvh-52px)] mobile:[--player-height:calc(100dvh-44px)]",
 							)}
 						>
 							<WidgetContent />
