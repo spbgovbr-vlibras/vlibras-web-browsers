@@ -8,6 +8,7 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/widget/compo
 import { Tooltip } from "@/widget/components/ui/tooltip";
 import { RotateLeftIcon, SettingsIcon } from "@/widget/icons";
 import { useWidgetStore, widgetStore } from "@/widget/stores/use-widget.store";
+import { SettingsProvider } from "./context";
 import { SettingsOpacityField } from "./opacity-field";
 import { SettingsRegionalismField } from "./regionalism-field";
 import { SettingsThemeField } from "./theme-field";
@@ -37,43 +38,50 @@ export const SettingsDialog = ({ open, onOpenChange }: Props) => {
 	}, [region, opacity, theme]);
 
 	return (
-		<Dialog open={open} onOpenChange={onOpenChange}>
-			<DialogContent>
-				<DialogHeader className="relative">
-					<DialogTitle icon={SettingsIcon}>Configurações</DialogTitle>
+		<SettingsProvider
+			data={{
+				onOpen: () => onOpenChange(true),
+				onClose: () => onOpenChange(false),
+			}}
+		>
+			<Dialog open={open} onOpenChange={onOpenChange}>
+				<DialogContent>
+					<DialogHeader className="relative">
+						<DialogTitle icon={SettingsIcon}>Configurações</DialogTitle>
 
-					{!isDefaultSettings && (
-						<Fragment>
-							<Tooltip
-								className="-mr-1"
-								align="end"
-								placement="bottom"
-								content="Redefinir"
-								arrow={{ position: "top-right" }}
-							>
-								<Button
-									onClick={handleReset}
-									variant="ghost"
-									size={isMobile ? "icon-xs" : "icon-sm"}
-									className="animate-move-up mobile:text-xs text-sm"
+						{!isDefaultSettings && (
+							<Fragment>
+								<Tooltip
+									className="-mr-1"
+									align="end"
+									placement="bottom"
+									content="Redefinir"
+									arrow={{ position: "top-right" }}
 								>
-									<RotateLeftIcon />
-								</Button>
-							</Tooltip>
+									<Button
+										onClick={handleReset}
+										variant="ghost"
+										size={isMobile ? "icon-xs" : "icon-sm"}
+										className="animate-move-up mobile:text-xs text-sm"
+									>
+										<RotateLeftIcon />
+									</Button>
+								</Tooltip>
 
-							<div>
-								<span className="absolute inset-y-0 w-px bg-border" />
-							</div>
-						</Fragment>
-					)}
-				</DialogHeader>
+								<div>
+									<span className="absolute inset-y-0 w-px bg-border" />
+								</div>
+							</Fragment>
+						)}
+					</DialogHeader>
 
-				<div className="space-y-4 p-4">
-					<SettingsThemeField />
-					<SettingsRegionalismField />
-					<SettingsOpacityField />
-				</div>
-			</DialogContent>
-		</Dialog>
+					<div className="space-y-4 p-4">
+						<SettingsThemeField />
+						<SettingsRegionalismField />
+						<SettingsOpacityField />
+					</div>
+				</DialogContent>
+			</Dialog>
+		</SettingsProvider>
 	);
 };
