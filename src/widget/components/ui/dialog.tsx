@@ -154,7 +154,9 @@ export const DialogTitle = ({ children, icon: Icon, className, ...props }: Dialo
 			)}
 			{...props}
 		>
-			{Icon && <Icon aria-hidden="true" className="relative -bottom-1 mobile:size-4.5 size-5 shrink-0" />}
+			{Icon && (
+				<Icon aria-hidden="true" className="relative -bottom-1 mobile:-bottom-px mobile:size-4.5 size-5 shrink-0" />
+			)}
 			{children}
 		</h3>
 	);
