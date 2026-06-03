@@ -44,7 +44,9 @@ export const playWelcome = () => {
 };
 
 export const playStatic = (gloss: string) => {
-	const staticUrl = config.DICTIONARY_STATIC_URL;
+	const { region } = playerStore.get();
+
+	const staticUrl = `${config.DICTIONARY_STATIC_URL}${region.abbreviation}/`;
 	const baseUrl = config.DICTIONARY_URL;
 
 	setConfig({ baseUrl: staticUrl });
