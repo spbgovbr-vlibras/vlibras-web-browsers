@@ -29,6 +29,8 @@ Acessibilidade digital através da tradução para Língua Brasileira de Sinais 
   - [Instalação](#instalação)
   - [Rodando a aplicação](#rodando-a-aplicação)
 - [Build](#build)
+  - [Build para Lojas (Extensões)](#build-para-lojas-extensões)
+  - [Build para Produção](#build-para-produção)
 - [Versionamento](#versionamento)
 - [Licença](#licenca)
 - [Contribuidores](#contribuidores)
@@ -100,35 +102,31 @@ pnpm dev
 
 A aplicação estará acessível em: `http://localhost:3003`.
 
-Outros modos disponíveis:
-
-- `pnpm dev:homolog` - Modo de homologação
-- `pnpm dev:prod` - Modo de produção
+_Outros modos_: **`pnpm dev:homolog`** (utiliza links de **dth** - homologação) e **`pnpm dev:prod`** (utiliza links de produção).
 
 <h2 id="build">📦 Build</h2>
 
-Para gerar a versão final do projeto, execute:
+O processo de build é dividido entre a geração dos ativos do widget e a preparação dos pacotes para publicação nas lojas.
+
+### 1. Widget (Aplicação Principal)
 
 ```bash
 pnpm build
 ```
 
-Isso criará a pasta `/app` na raiz do projeto contendo:
+Este comando cria a pasta `/app` na raiz do projeto contendo:
 
 - `vlibras-plugin-app.umd.cjs` - Biblioteca principal do widget
 - `vlibras-plugin.js` - Script de carregamento minificado
 - `index.html` - Página de demonstração
 
-Outros comandos de build:
+_Outros modos_: **`pnpm build:dev`** (utiliza links de **ovh**) e **`pnpm build:homolog`** (utiliza links de **dth** - homologação).
 
-- `pnpm build:dev` - Build em modo desenvolvimento
-- `pnpm build:homolog` - Build em modo de homologação
+### 2. Build para Lojas (Extensões)
 
-Para preview da build:
-
-```bash
-pnpm preview
-```
+- **`pnpm build:extension`** - Gera e integra os pacotes para **ambas as lojas** (Chrome e Firefox).
+- **`pnpm build:chrome`** - Gera e integra o pacote para a **Chrome Web Store** (`extensions/chrome`).
+- **`pnpm build:firefox`** - Gera e integra o pacote para o **Firefox Add-ons** (`extensions/firefox`).
 
 <h2 id="versionamento">🏷️ Versionamento</h2>
 
