@@ -53,10 +53,11 @@
 @custom-variant dark (&:is(:host(.dark) *));
 @custom-variant light (&:is(:host(:not(.dark)) *));
 @custom-variant expanded (&:is(:host([data-expanded="true"]) *));
+@custom-variant extension (&:is(:host([data-extension="true"]) *));
 
 @custom-variant mobile {
   @media (max-width: 640px) {
-    &:is(:host(:not([data-expanded="true"])) *) {
+    &:is(:host(:not([data-expanded="true"]) :not([data-extension="true"])) *) {
       @slot;
     }
   }
