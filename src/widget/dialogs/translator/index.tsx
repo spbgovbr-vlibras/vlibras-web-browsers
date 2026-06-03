@@ -3,6 +3,7 @@ import { Fragment } from "preact/jsx-runtime";
 import { useDebouncedCallback } from "@/common/hooks";
 import { useTranslate } from "@/core/actions/hooks";
 import { play } from "@/player/actions";
+import { InlineTranslatorButton } from "@/widget/components/inline-translator-button";
 import { Button } from "@/widget/components/ui/button";
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/widget/components/ui/dialog";
 import { Spinner } from "@/widget/components/ui/spinner";
@@ -74,6 +75,7 @@ export const TranslatorDialog = ({ open, onOpenChange }: Props) => {
 						<div className="flex h-8 items-center justify-between">
 							<label htmlFor="translator-text" className="text-sm">
 								Insira seu texto
+								<InlineTranslatorButton gloss="INSERIR TEXTO" onFinish={() => onOpenChange(true)} />
 							</label>
 
 							{text.length > 0 && (
@@ -103,7 +105,7 @@ export const TranslatorDialog = ({ open, onOpenChange }: Props) => {
 					<Button
 						onClick={handleTranslate}
 						disabled={text.length < 3 || isTranslating || isPending}
-						className="w-full text-sm"
+						className="h-10 w-full rounded-full text-sm"
 					>
 						{isPending && <Spinner className="size-4 text-primary-foreground" />}
 						{isPending ? "Traduzindo..." : "Traduzir"}

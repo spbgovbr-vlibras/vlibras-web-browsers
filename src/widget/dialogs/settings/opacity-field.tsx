@@ -1,10 +1,13 @@
 import { useRef } from "preact/hooks";
 import { posthogg } from "@/common/lib/posthog";
+import { InlineTranslatorButton } from "@/widget/components/inline-translator-button";
 import { useWidgetStore, widgetStore } from "@/widget/stores/use-widget.store";
+import { useSettingsCtx } from "./context";
 
 export const SettingsOpacityField = () => {
 	const timeoutRef = useRef<NodeJS.Timeout>(null);
 	const opacity = useWidgetStore((s) => s.opacity);
+	const { onOpen } = useSettingsCtx();
 
 	const handleOpacityChange = (opacity: number) => {
 		widgetStore.set({ opacity: opacity / 100 });
@@ -16,7 +19,11 @@ export const SettingsOpacityField = () => {
 	return (
 		<div>
 			<div className="flex w-full items-center justify-between mobile:text-sm text-base">
-				<p className="mobile:text-sm text-base">Opacidade</p>
+				<p className="mobile:text-sm text-base">
+					Opacidade
+					<InlineTranslatorButton gloss="OPACIDADE" onFinish={onOpen} />
+				</p>
+
 				<span className="font-semibold">{Math.round(Number(opacity) * 100)}%</span>
 			</div>
 

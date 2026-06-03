@@ -3,12 +3,15 @@ import { posthogg } from "@/common/lib/posthog";
 import { cn } from "@/common/lib/utils";
 import { type Region, regions } from "@/data/regionalism";
 import { playerStore, usePlayerStore } from "@/player/use-player.store";
+import { InlineTranslatorButton } from "@/widget/components/inline-translator-button";
 import { buttonVariants } from "@/widget/components/ui/button";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/widget/components/ui/dialog";
+import { useSettingsCtx } from "./context";
 import { RegionalismListItem } from "./regionalism-list-item";
 
 export const SettingsRegionalismField = () => {
 	const currentRegion = usePlayerStore((s) => s.region);
+	const { onOpen } = useSettingsCtx();
 
 	const handleRegionChange = (region: Region) => {
 		playerStore.set({ region });
@@ -17,7 +20,10 @@ export const SettingsRegionalismField = () => {
 
 	return (
 		<div className="flex w-full items-center justify-between">
-			<p className="mobile:text-sm text-base">Regionalismo</p>
+			<p className="mobile:text-sm text-base">
+				Regionalismo
+				<InlineTranslatorButton gloss="REGIÃO" onFinish={onOpen} />
+			</p>
 
 			<Dialog nested>
 				<DialogTrigger className={cn(buttonVariants({ variant: "ghost" }), "h-auto border p-1")}>
