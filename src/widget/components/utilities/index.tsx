@@ -1,11 +1,12 @@
+import { useEffect } from "preact/hooks";
 import { useMobile, usePick } from "@/common/hooks";
 import { stop } from "@/player/actions";
 import { usePlayerStore } from "@/player/use-player.store";
+import { useGuideStore } from "@/widget/components/guide/store";
 import { Button } from "@/widget/components/ui/button";
 import { SkipIcon } from "@/widget/icons";
-import { resetCallback, useCallbackButtonStore } from "@/widget/stores/use-callback.store";
+import { callbackStore, resetCallback, useCallbackStore } from "@/widget/stores/use-callback.store";
 import { useWidgetStore, widgetStore } from "@/widget/stores/use-widget.store";
-import { useGuideStore } from "../guide/store";
 import { FeedbackTrigger } from "./feedback-trigger";
 import { ToggleAvatarButton } from "./toggle-avatar-button";
 
@@ -15,14 +16,24 @@ export const Utilities = () => {
 
 	const { status, gloss, isPlayingWelcome } = usePlayerStore(usePick("status", "gloss", "isPlayingWelcome"));
 	const { isExpanded, isTranslating, text } = useWidgetStore(usePick("isExpanded", "text", "isTranslating"));
+	const { action, content } = useCallbackStore(usePick("action", "content"));
 
 	const isPlaying = status === "playing";
 	const isPaused = status === "paused";
+	const isIdle = status === "idle";
 
-	const { action, content } = useCallbackButtonStore(usePick("action", "content"));
+	useEffect(() => {
+		if (!isIdle) return;
+		const { auto, action } = callbackStore.get();
+
+		if (auto && action) {
+			action();
+			resetCallback();
+		}
+	}, [isIdle]);
 
 	const handleClick = () => {
-		action?.();
+		callbackStore.get().action?.();
 		resetCallback();
 	};
 
