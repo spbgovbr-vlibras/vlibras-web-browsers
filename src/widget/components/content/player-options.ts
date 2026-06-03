@@ -21,7 +21,6 @@ export const playerOptions: PlayerOptions = {
 		if (screen !== "main") open("main");
 
 		widgetStore.set({ isPausedByUser: false });
-		playerStore.set({ isPlayingWelcome: false, isWelcomeFinished: true });
 	},
 
 	onWelcomeFinish: () => {

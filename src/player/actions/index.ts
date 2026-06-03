@@ -8,6 +8,10 @@ import { playerStore } from "@/player/use-player.store";
 
 const avatars: PlayerAvatar[] = ["icaro", "guga", "hosana"];
 
+const finishWelcome = () => {
+	playerStore.set({ isPlayingWelcome: false, isWelcomeFinished: true });
+};
+
 export const send = (object: UNITY_OBJECTS, method: UNITY_METHODS, params?: unknown) => {
 	playerStore.get().send(object, method, params);
 };
@@ -29,6 +33,8 @@ export const play = (gloss?: string) => {
 	send(UNITY_OBJECTS.PLAYER, UNITY_METHODS.PLAY, gloss);
 	playerStore.set({ gloss });
 	playerOptionsStore.get().onPlay?.(gloss);
+
+	if (!playerStore.get().isWelcomeFinished) finishWelcome();
 };
 
 export const playWelcome = () => {
@@ -47,6 +53,8 @@ export const playStatic = (gloss: string) => {
 	else send(UNITY_OBJECTS.PLAYER, UNITY_METHODS.SET_PAUSE_STATE, 0);
 
 	setConfig({ baseUrl });
+
+	if (!playerStore.get().isWelcomeFinished) finishWelcome();
 };
 
 export const repeat = () => {
