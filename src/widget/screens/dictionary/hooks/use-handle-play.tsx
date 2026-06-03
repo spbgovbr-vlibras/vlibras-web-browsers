@@ -3,22 +3,21 @@ import { posthogg } from "@/common/lib/posthog";
 import { play } from "@/player/actions";
 import { DictionaryIcon } from "@/widget/icons/dictionary";
 import { createCallback } from "@/widget/stores/use-callback.store";
-import { useScreensStore } from "@/widget/stores/use-screens.store";
-import { useDictionaryHistoryStore } from "../stores/use-dictionary-history.store";
+import { screenStore } from "@/widget/stores/use-screens.store";
+import { dictionaryHistoryStore } from "../stores/use-dictionary-history.store";
 
 export const useHandlePlay = () => {
-	const signs = useDictionaryHistoryStore((s) => s.signs);
-
 	return (sign: string) => {
 		play(sign);
 
+		const signs = dictionaryHistoryStore.get().signs;
 		const newSigns = [sign, ...signs.filter((s) => s !== sign)];
 
-		useDictionaryHistoryStore.setState({ signs: newSigns });
-		useScreensStore.setState({ screen: "main" });
+		dictionaryHistoryStore.set({ signs: newSigns });
+		screenStore.set({ screen: "main" });
 
 		createCallback({
-			action: () => useScreensStore.setState({ screen: "dictionary" }),
+			action: () => screenStore.set({ screen: "dictionary" }),
 			content: (
 				<Fragment>
 					<DictionaryIcon />

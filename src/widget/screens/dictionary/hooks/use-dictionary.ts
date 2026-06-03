@@ -66,7 +66,6 @@ export const useDictionary = () => {
 		if (!selectedCategory) return [];
 		const searchTerm = search.toLowerCase().trim();
 		const allSignsSet = new Set(allSigns);
-		console.log(categorySigns);
 		return categorySigns.filter(
 			(sign: string) => allSignsSet.has(sign) && (searchTerm === "" || sign.toLowerCase().includes(searchTerm)),
 		);
