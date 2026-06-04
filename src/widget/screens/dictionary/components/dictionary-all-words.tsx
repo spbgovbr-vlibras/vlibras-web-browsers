@@ -1,8 +1,8 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { cn } from "@/common/lib/utils";
-import { useTranslate } from "@/core/actions/hooks";
 import { play } from "@/player/actions";
 import { Button } from "@/widget/components/ui/button";
+import { useTranslate } from "@/widget/hooks/use-translate";
 import { ChevronDownIcon } from "@/widget/icons/chevron-down";
 import { ChevronUpIcon } from "@/widget/icons/chevron-up";
 import { useScreensStore } from "@/widget/stores/use-screens.store";

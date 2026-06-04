@@ -1,6 +1,6 @@
 import { cn } from "@/common/lib/utils";
-import { useTranslate } from "@/core/actions/hooks";
 import { play } from "@/player/actions";
+import { useTranslate } from "@/widget/hooks/use-translate";
 import { ArrowRightIcon } from "@/widget/icons/arrow-right";
 import { ChevronDownIcon } from "@/widget/icons/chevron-down";
 import { ChevronUpIcon } from "@/widget/icons/chevron-up";

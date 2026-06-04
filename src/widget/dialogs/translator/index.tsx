@@ -1,12 +1,12 @@
 import { useRef, useState } from "preact/hooks";
 import { Fragment } from "preact/jsx-runtime";
 import { useDebouncedCallback } from "@/common/hooks";
-import { useTranslate } from "@/core/actions/hooks";
 import { play } from "@/player/actions";
 import { InlineTranslatorButton } from "@/widget/components/inline-translator-button";
 import { Button } from "@/widget/components/ui/button";
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/widget/components/ui/dialog";
 import { Spinner } from "@/widget/components/ui/spinner";
+import { useTranslate } from "@/widget/hooks/use-translate";
 import { TranslatorIcon, TrashIcon } from "@/widget/icons";
 import { createCallback } from "@/widget/stores/use-callback.store";
 import { useWidgetStore } from "@/widget/stores/use-widget.store";

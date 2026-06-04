@@ -1,12 +1,18 @@
-import { type UseMutationResult, type UseQueryResult, useMutation, useQuery } from "@tanstack/preact-query";
+import {
+	type UseMutationOptions,
+	type UseMutationResult,
+	type UseQueryOptions,
+	type UseQueryResult,
+	useMutation,
+	useQuery,
+} from "@tanstack/preact-query";
 import type { TrieRoot } from "@/common/lib/trie";
-import { playerStore } from "@/player/use-player.store";
-import { widgetStore } from "@/widget/stores/use-widget.store";
 import { getSigns, type SendFeedbackProps, sendFeedback, translate } from ".";
 import { ERROR_MESSAGES } from "./messages";
 
-export const useDictionarySigns = (): UseQueryResult<TrieRoot, Error> => {
+export const useDictionarySigns = (opts?: UseQueryOptions<TrieRoot, Error>): UseQueryResult<TrieRoot, Error> => {
 	return useQuery({
+		...opts,
 		queryKey: ["dictionary_signs"],
 		queryFn: async () => {
 			const result = await getSigns();
@@ -19,8 +25,11 @@ export const useDictionarySigns = (): UseQueryResult<TrieRoot, Error> => {
 	});
 };
 
-export const useSendFeedback = (): UseMutationResult<boolean, Error, SendFeedbackProps> => {
+export const useSendFeedback = (
+	opts?: UseMutationOptions<boolean, Error, SendFeedbackProps>,
+): UseMutationResult<boolean, Error, SendFeedbackProps> => {
 	return useMutation({
+		...opts,
 		mutationFn: async (input: SendFeedbackProps) => {
 			const result = await sendFeedback(input);
 
@@ -31,22 +40,18 @@ export const useSendFeedback = (): UseMutationResult<boolean, Error, SendFeedbac
 	});
 };
 
-export const useTranslate = (): UseMutationResult<string, Error, string> => {
+export const useTranslateRequest = (
+	opts?: UseMutationOptions<string, Error, string>,
+): UseMutationResult<string, Error, string> => {
 	return useMutation({
+		...opts,
 		mutationFn: async (text: string) => {
-			try {
-				widgetStore.set({ text, isTranslating: true });
+			const result = await translate(text);
 
-				const result = await translate(text);
+			if (result.error) throw new Error(result.error);
+			if (!result.data) throw new Error(ERROR_MESSAGES.TRANSLATION_EMPTY_ERROR);
 
-				if (result.error) throw new Error(result.error);
-				if (!result.data) throw new Error(ERROR_MESSAGES.TRANSLATION_EMPTY_ERROR);
-
-				return result.data;
-			} finally {
-				playerStore.set({ gloss: undefined });
-				widgetStore.set({ isTranslating: false });
-			}
+			return result.data;
 		},
 	});
 };
