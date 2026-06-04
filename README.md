@@ -22,20 +22,20 @@ Acessibilidade digital através da tradução para Língua Brasileira de Sinais 
 
 ## 📌 Sumário
 
-- [Sobre o projeto](#sobre-o-projeto)
-- [Tecnologias](#tecnologias)
-- [Iniciando](#iniciando)
+- [📝 Sobre o projeto](#📝-sobre-o-projeto)
+- [💻 Tecnologias](#💻-tecnologias)
+- [🚀 Iniciando](#🚀-iniciando)
   - [Pré-requisitos](#pré-requisitos)
   - [Instalação](#instalação)
   - [Rodando a aplicação](#rodando-a-aplicação)
-- [Build](#build)
-  - [Build para Lojas (Extensões)](#build-para-lojas-extensões)
+- [📦 Build](#📦-build)
   - [Build para Produção](#build-para-produção)
-- [Versionamento](#versionamento)
-- [Licença](#licenca)
-- [Contribuidores](#contribuidores)
+  - [Build para Lojas (Extensões)](#build-para-lojas-extensões)
+- [🏷️ Versionamento](#🏷️-versionamento)
+- [🤝 Contribuidores](#🤝-contribuidores)
+- [📄 Licença](#📄-licença)
 
-<h2 id="sobre-o-projeto">📝 Sobre o projeto</h2>
+## 📝 Sobre o projeto
 
 O **VLibras Web** é o ecossistema de acessibilidade digital que conecta o conteúdo da web à **Língua Brasileira de Sinais (Libras)**. Este repositório centraliza o desenvolvimento de duas frentes principais:
 
@@ -44,7 +44,7 @@ O **VLibras Web** é o ecossistema de acessibilidade digital que conecta o conte
 
 Ambas as soluções utilizam avatares 3D regionalizados (como Ícaro, Hosana e Guga) para interpretar e sinalizar conteúdos em português, garantindo que a comunidade surda — que utiliza a Libras como primeira língua — navegue e consuma informações online com total autonomia.
 
-<h2 id="tecnologias">💻 Tecnologias</h2>
+## 💻 Tecnologias
 
 - **Vite** - Ferramenta moderna e rápida para construção de aplicações frontend e bibliotecas;
 - **Preact** - Biblioteca JavaScript leve e eficiente para criação de interfaces reativas (alternativa ao React);
@@ -59,7 +59,7 @@ Ambas as soluções utilizam avatares 3D regionalizados (como Ícaro, Hosana e G
 - **Commitlint** - Linter para garantir que as mensagens de commit sigam um formato convencional;
 - **release-it** - Automação do processo de versionamento, incluindo geração de tags, commits e changelogs.
 
-<h2 id="iniciando">🚀 Iniciando</h2>
+## 🚀 Iniciando
 
 ### Pré-requisitos
 
@@ -104,11 +104,11 @@ A aplicação estará acessível em: `http://localhost:3003`.
 
 _Outros modos_: **`pnpm dev:homolog`** (utiliza links de **dth** - homologação) e **`pnpm dev:prod`** (utiliza links de produção).
 
-<h2 id="build">📦 Build</h2>
+## 📦 Build
 
 O processo de build é dividido entre a geração dos ativos do widget e a preparação dos pacotes para publicação nas lojas.
 
-### 1. Widget (Aplicação Principal)
+### Build para Produção
 
 ```bash
 pnpm build
@@ -122,13 +122,13 @@ Este comando cria a pasta `/app` na raiz do projeto contendo:
 
 _Outros modos_: **`pnpm build:dev`** (utiliza links de **ovh**) e **`pnpm build:homolog`** (utiliza links de **dth** - homologação).
 
-### 2. Build para Lojas (Extensões)
+### Build para Lojas (Extensões)
 
 - **`pnpm build:extension`** - Gera e integra os pacotes para **ambas as lojas** (Chrome e Firefox).
 - **`pnpm build:chrome`** - Gera e integra o pacote para a **Chrome Web Store** (`extensions/chrome`).
 - **`pnpm build:firefox`** - Gera e integra o pacote para o **Firefox Add-ons** (`extensions/firefox`).
 
-<h2 id="versionamento">🏷️ Versionamento</h2>
+## 🏷️ Versionamento
 
 Antes de tudo, faça o _fetch_ das _tags_ de versões do projeto:
 
@@ -146,7 +146,7 @@ O comando atualiza automaticamente o arquivo `CHANGELOG.md`, incrementa a versã
 
 > Durante o processo, você será perguntado se deseja criar e publicar a tag. Aceite para finalizar o versionamento.
 
-<h2 id="contribuidores">🤝 Contribuidores</h2>
+## 🤝 Contribuidores
 
 - **Anderson Coutinho** - anderson.coutinho@lavid.ufpb.br
 - **Diêgo Ferreira** - diego.raian@lavid.ufpb.br
@@ -154,6 +154,6 @@ O comando atualiza automaticamente o arquivo `CHANGELOG.md`, incrementa a versã
 - **Suanny Fabyne** - suanny@lavid.ufpb.br
 - **Thiago Filipe** - thiago.filipe@lavid.ufpb.br
 
-<h2 id="licenca">📄 Licença</h2>
+## 📄 Licença
 
 Este projeto está licenciado sob a **GNU Lesser General Public License v3.0**. Consulte o arquivo [LICENSE](LICENSE) para mais detalhes.

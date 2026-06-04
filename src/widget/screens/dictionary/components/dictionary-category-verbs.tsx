@@ -1,7 +1,7 @@
 import { cn } from "@/common/lib/utils";
 import { MaskIcon } from "@/common/utils/mask-icon";
-import { useTranslate } from "@/core/actions/hooks";
 import { play } from "@/player/actions";
+import { useTranslate } from "@/widget/hooks/use-translate";
 import arrowRightIcon from "@/widget/icons/arrow-right.webp";
 import chevronDownIcon from "@/widget/icons/chevron-down.webp";
 import chevronUpIcon from "@/widget/icons/chevron-up.webp";

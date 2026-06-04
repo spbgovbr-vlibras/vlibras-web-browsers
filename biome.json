@@ -7,7 +7,17 @@
 	},
 	"files": {
 		"ignoreUnknown": false,
-		"includes": ["**", "!dist", "!public", "!node_modules", "!scripts", "!src/loader", "!**/styles/global.css"]
+		"includes": [
+			"**",
+			"!app",
+			"!public",
+			"!extensions",
+			"!stats.html",
+			"!node_modules",
+			"!scripts",
+			"!src/loader",
+			"!**/styles/global.css"
+		]
 	},
 	"formatter": {
 		"enabled": true,

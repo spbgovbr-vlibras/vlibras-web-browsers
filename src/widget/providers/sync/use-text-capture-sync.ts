@@ -1,8 +1,8 @@
 import { useEffect } from "preact/hooks";
-import { useTranslate } from "@/core/actions/hooks";
 import { createStyle, removeStyle } from "@/core/dom";
 import { play, stop } from "@/player/actions";
 import { usePlayerStore } from "@/player/use-player.store";
+import { useTranslate } from "@/widget/hooks/use-translate";
 import { resetCallback } from "@/widget/stores/use-callback.store";
 import { useWidgetStore } from "@/widget/stores/use-widget.store";
 import css from "@/widget/styles/text-capture.css?inline";

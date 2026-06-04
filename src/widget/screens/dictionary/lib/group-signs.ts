@@ -17,12 +17,11 @@ export function groupByBase(signs: string[]): SignGroup[] {
 			map.set(base, { base, variants: [], hasBase: false });
 		}
 
-		const group = map.get(base)!;
-		if (sign.includes("&")) {
-			group.variants.push(sign);
-		} else {
-			group.hasBase = true;
-		}
+		const group = map.get(base);
+		if (!group) continue;
+
+		if (sign.includes("&")) group.variants.push(sign);
+		else group.hasBase = true;
 	}
 
 	return Array.from(map.values());
