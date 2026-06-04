@@ -1,4 +1,5 @@
 // biome-ignore-all lint/correctness/noUnusedVariables: ...
+// biome-ignore-all lint/suspicious/noExplicitAny: ...
 
 declare const __VLIBRAS_APP_NAME__: string;
 declare const __VLIBRAS_APP_VERSION__: string;
@@ -12,8 +13,8 @@ interface Window {
 		open: () => void;
 	};
 
-	plugin?: unknown;
-	vlibras?: unknown;
+	plugin?: any;
+	vlibras?: any;
 }
 
 interface UnityInstance {
