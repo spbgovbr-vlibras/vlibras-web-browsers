@@ -12,8 +12,8 @@ interface Window {
 		open: () => void;
 	};
 
-	plugin?: any;
-	vlibras?: any;
+	plugin?: unknown;
+	vlibras?: unknown;
 }
 
 interface UnityInstance {
