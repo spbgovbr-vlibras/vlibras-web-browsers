@@ -5,10 +5,11 @@ import { useMobile } from "@/common/hooks";
 import { cn } from "@/common/lib/utils";
 import { randomStr } from "@/common/utils";
 import { $$ } from "@/common/utils/dom";
+import { MaskIcon } from "@/common/utils/mask-icon";
 import { pause, play } from "@/player/actions";
 import { playerStore, usePlayerStore } from "@/player/use-player.store";
-import { XIcon } from "@/widget/icons";
 import type { IconElement } from "@/widget/icons/types";
+import xIcon from "@/widget/icons/x.webp";
 import { rootStore, useRootStore } from "@/widget/stores/use-root.store";
 import { widgetStore } from "@/widget/stores/use-widget.store";
 import { Button } from "./button";
@@ -134,17 +135,32 @@ export const DialogHeader = ({ className, children, ...props }: ComponentProps<"
 				size={isMobile ? "icon-xs" : "icon-sm"}
 				variant="ghost"
 			>
-				<XIcon />
+				<MaskIcon src={xIcon} className="bg-black dark:bg-white" />
 			</Button>
 		</div>
 	);
 };
 
-type DialogTitleProps = ComponentProps<"h3"> & {
-	icon?: IconElement;
-};
+type DialogIconProps =
+	| { icon: IconElement; maskIconSrc?: never }
+	| { icon?: never; maskIconSrc: string }
+	| { icon?: never; maskIconSrc?: never };
 
-export const DialogTitle = ({ children, icon: Icon, className, ...props }: DialogTitleProps) => {
+type DialogTitleProps = ComponentProps<"h3"> &
+	DialogIconProps & {
+		className?: string;
+		maskIconClassName?: string;
+	};
+
+export const DialogTitle = ({
+	children,
+	icon: Icon,
+	maskIconSrc,
+	maskIconClassName,
+	className,
+	...props
+}: DialogTitleProps) => {
+	const iconClass = "relative -bottom-1 mobile:-bottom-px mobile:size-4.5 size-5 shrink-0";
 	return (
 		<h3
 			data-slot="dialog-title"
@@ -154,9 +170,8 @@ export const DialogTitle = ({ children, icon: Icon, className, ...props }: Dialo
 			)}
 			{...props}
 		>
-			{Icon && (
-				<Icon aria-hidden="true" className="relative -bottom-1 mobile:-bottom-px mobile:size-4.5 size-5 shrink-0" />
-			)}
+			{Icon && <Icon aria-hidden="true" className={iconClass} />}
+			{maskIconSrc && <MaskIcon src={maskIconSrc} className={cn(iconClass, maskIconClassName)} />}
 			{children}
 		</h3>
 	);

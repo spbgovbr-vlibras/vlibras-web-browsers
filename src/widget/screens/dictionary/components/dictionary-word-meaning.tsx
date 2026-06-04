@@ -1,7 +1,8 @@
 import { useMobile } from "@/common/hooks";
 import { cn } from "@/common/lib/utils";
+import { MaskIcon } from "@/common/utils/mask-icon";
 import { Spinner } from "@/widget/components/ui/spinner";
-import { HandsTranslateIcon } from "@/widget/icons/hands-translate";
+import librasIcon from "@/widget/icons/libras.webp";
 import type { WordMeaning } from "../lib/types";
 import { sanitizeWikiText } from "../lib/wiktionary";
 
@@ -44,7 +45,7 @@ export const DictionaryWordMeaning = ({ meaning, isLoading, onPlayDefinition }: 
 								className="shrink-0 text-primary hover:opacity-70"
 								aria-label="Traduzir definição"
 							>
-								<HandsTranslateIcon className={cn("hover:cursor-pointer", isMobile ? "size-4" : "size-5")} />
+								<MaskIcon src={librasIcon} className={cn("hover:cursor-pointer", isMobile ? "size-6" : "size-7")} />
 							</button>
 						</li>
 					);

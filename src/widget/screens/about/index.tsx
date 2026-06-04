@@ -1,11 +1,12 @@
 import { camaraIcon, lavidIcon, mdhcIcon, mgispIcon, rnpIcon } from "@/assets";
 import { cn } from "@/common/lib/utils";
-import { IcaroIcon } from "@/widget/icons";
-import { FacebookIcon } from "@/widget/icons/facebook";
-import { InstagramIcon } from "@/widget/icons/instagram";
-import { TwitterIcon } from "@/widget/icons/twitter";
-import { WorldwideIcon } from "@/widget/icons/worldwide";
-import { YoutubeIcon } from "@/widget/icons/youtube";
+import { MaskIcon } from "@/common/utils/mask-icon";
+import FacebookIcon from "@/widget/icons/facebook.webp";
+import icaroIcon from "@/widget/icons/icaro.webp";
+import InstagramIcon from "@/widget/icons/instagram.webp";
+import TwitterIcon from "@/widget/icons/twitter.webp";
+import WorldwideIcon from "@/widget/icons/worldwide.webp";
+import YoutubeIcon from "@/widget/icons/youtube.webp";
 import { Screen, ScreenContent, ScreenHeader, ScreenTitle } from "../components";
 import { AboutField } from "./aboutfield";
 
@@ -66,11 +67,14 @@ export const AboutScreen = () => {
 					>
 						{socialLinks.map(({ href, icon: Icon }) => (
 							<a key={href} href={href} target="_blank" rel="noopener noreferrer" className="rounded-full bg-white p-2">
-								<Icon className="h-5 w-5 text-primary" />
+								<MaskIcon src={Icon} className="bg-primary" />
 							</a>
 						))}
 					</div>
-					<IcaroIcon className="absolute top-4 left-0 z-1 size-32 text-primary-foreground opacity-15 dark:text-white dark:opacity-10" />
+					<MaskIcon
+						src={icaroIcon}
+						className="absolute top-4 left-0 z-1 size-32 bg-primary-foreground opacity-15 dark:bg-white dark:opacity-10"
+					/>
 					<div className="absolute inset-0 -z-10 bg-primary" />
 				</div>
 			</ScreenContent>

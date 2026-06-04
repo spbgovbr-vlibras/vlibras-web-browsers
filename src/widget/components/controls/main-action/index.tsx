@@ -1,4 +1,5 @@
 import { useMobile, usePick } from "@/common/hooks";
+import { MaskIcon } from "@/common/utils/mask-icon";
 import { pause, play, repeat } from "@/player/actions";
 import { playerStore, usePlayerStore } from "@/player/use-player.store";
 import { Button } from "@/widget/components/ui/button";
@@ -39,7 +40,7 @@ export const MainAction = () => {
 				variant="ghost-gov"
 				size={isMobile ? "icon-sm" : "icon"}
 			>
-				<status.icon />
+				<MaskIcon src={status.icon} />
 			</Button>
 		</Tooltip>
 	);

@@ -1,10 +1,11 @@
 import { useState } from "preact/hooks";
 import { Fragment } from "preact/jsx-runtime";
 import { useMobile } from "@/common/hooks";
+import { MaskIcon } from "@/common/utils/mask-icon";
 import { Button } from "@/widget/components/ui/button";
 import { Tooltip } from "@/widget/components/ui/tooltip";
 import { SettingsDialog } from "@/widget/dialogs/settings";
-import { SettingsIcon } from "@/widget/icons";
+import settingsIcon from "@/widget/icons/settings.webp";
 
 export const SettingsOption = () => {
 	const isMobile = useMobile();
@@ -21,7 +22,7 @@ export const SettingsOption = () => {
 				arrow={{ position: "bottom-right" }}
 			>
 				<Button onClick={() => setOpen(true)} variant="ghost-gov" size={isMobile ? "icon-sm" : "icon"}>
-					<SettingsIcon />
+					<MaskIcon src={settingsIcon} />
 				</Button>
 			</Tooltip>
 

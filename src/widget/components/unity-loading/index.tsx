@@ -1,8 +1,10 @@
 import { useEffect, useState } from "preact/hooks";
 import { usePick } from "@/common/hooks";
 import { cn } from "@/common/lib/utils";
+import { MaskIcon } from "@/common/utils/mask-icon";
 import { usePlayerStore } from "@/player/use-player.store";
-import { GovBRIcon, IcaroIcon } from "@/widget/icons";
+import govBRIcon from "@/widget/icons/govbr.webp";
+import icaroIcon from "@/widget/icons/icaro.webp";
 
 export const UnityLoading = () => {
 	const { progress, isLoaded } = usePlayerStore(usePick("progress", "isLoaded"));
@@ -22,13 +24,13 @@ export const UnityLoading = () => {
 			)}
 		>
 			<div className="rounded-full border px-2 py-1">
-				<GovBRIcon className="h-4 w-auto" />
+				<img src={govBRIcon} alt="logo GovBR" className="h-4 w-auto" />
 			</div>
 
 			<div className="-mt-4 flex flex-col items-center">
 				<div className="mb-2 overflow-hidden rounded-full border-6 border-primary/30">
 					<div className="relative flex not-mobile:size-20 size-18 justify-center overflow-hidden rounded-full bg-primary">
-						<IcaroIcon className="absolute bottom-0 not-mobile:size-15 size-14 text-primary-foreground" />
+						<MaskIcon src={icaroIcon} className="absolute bottom-0 not-mobile:size-15 size-14 bg-primary-foreground" />
 					</div>
 				</div>
 

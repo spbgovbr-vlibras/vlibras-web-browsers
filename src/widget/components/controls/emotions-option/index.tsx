@@ -1,6 +1,7 @@
 import { useMobile } from "@/common/hooks";
 import { posthogg } from "@/common/lib/posthog";
 import { cn } from "@/common/lib/utils";
+import { MaskIcon } from "@/common/utils/mask-icon";
 import { type Emotion, emotionsMap } from "@/data/emotions-map";
 import { setEmotion } from "@/player/actions";
 import { usePlayerStore } from "@/player/use-player.store";
@@ -28,7 +29,7 @@ export const EmotionsOption = () => {
 					variant="ghost-gov"
 					size={isMobile ? "icon-sm" : "icon"}
 				>
-					<currentEmotion.icon aria-hidden="true" />
+					<MaskIcon src={currentEmotion.icon} />
 					{!isDefaultEmotion && <span className="absolute top-0.5 right-0.5 size-2 rounded-full bg-destructive" />}
 				</DropdownTrigger>
 			</Tooltip>
@@ -56,7 +57,7 @@ export const EmotionsOption = () => {
 										)}
 									>
 										<div className="flex items-center justify-start gap-2">
-											<emotion.icon className="size-4.5 sm:size-5" />
+											<MaskIcon src={emotion.icon} className="size-4.5 sm:size-5" />
 											<span>{emotion.name}</span>
 										</div>
 									</button>

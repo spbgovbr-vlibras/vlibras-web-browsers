@@ -1,10 +1,12 @@
 import type { PlayerStatus } from "@/player/types";
-import { PauseIcon, PlayIcon, RepeatIcon, WaitingIcon } from "@/widget/icons";
-import type { IconElement } from "@/widget/icons/types";
+import pauseIcon from "@/widget/icons/pause.webp";
+import playIcon from "@/widget/icons/play.webp";
+import repeatIcon from "@/widget/icons/repeat.webp";
+import waitingIcon from "@/widget/icons/waiting.webp";
 
-export const statusMap: Record<PlayerStatus, { label: string; icon: IconElement }> = {
-	idle: { label: "Repetir", icon: RepeatIcon },
-	paused: { label: "Reproduzir", icon: PlayIcon },
-	playing: { label: "Pausar", icon: PauseIcon },
-	stopped: { label: "Em espera", icon: WaitingIcon },
+export const statusMap: Record<PlayerStatus, { label: string; icon: string }> = {
+	idle: { label: "Repetir", icon: repeatIcon },
+	paused: { label: "Reproduzir", icon: playIcon },
+	playing: { label: "Pausar", icon: pauseIcon },
+	stopped: { label: "Em espera", icon: waitingIcon },
 };

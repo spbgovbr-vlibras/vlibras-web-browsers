@@ -1,11 +1,12 @@
 import { useMobile, usePick } from "@/common/hooks";
 import { posthogg } from "@/common/lib/posthog";
+import { MaskIcon } from "@/common/utils/mask-icon";
 import { toggleSubtitles } from "@/player/actions";
 import { usePlayerStore } from "@/player/use-player.store";
 import { Button } from "@/widget/components/ui/button";
 import { Tooltip } from "@/widget/components/ui/tooltip";
-import { SubtitleOffIcon } from "@/widget/icons";
-import { SubtitleIcon } from "@/widget/icons/subtitle";
+import subtitleIcon from "@/widget/icons/subtitle.webp";
+import subtitleOffIcon from "@/widget/icons/subtitle-off.webp";
 
 export const SubtitlesOptions = () => {
 	const isMobile = useMobile();
@@ -31,7 +32,7 @@ export const SubtitlesOptions = () => {
 				variant="ghost-gov"
 				size={isMobile ? "icon-sm" : "icon"}
 			>
-				{showSubtitles ? <SubtitleIcon /> : <SubtitleOffIcon />}
+				{showSubtitles ? <MaskIcon src={subtitleIcon} /> : <MaskIcon src={subtitleOffIcon} />}
 			</Button>
 		</Tooltip>
 	);

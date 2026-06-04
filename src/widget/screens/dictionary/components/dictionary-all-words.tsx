@@ -1,10 +1,11 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { cn } from "@/common/lib/utils";
+import { MaskIcon } from "@/common/utils/mask-icon";
 import { useTranslate } from "@/core/actions/hooks";
 import { play } from "@/player/actions";
 import { Button } from "@/widget/components/ui/button";
-import { ChevronDownIcon } from "@/widget/icons/chevron-down";
-import { ChevronUpIcon } from "@/widget/icons/chevron-up";
+import chevronDownIcon from "@/widget/icons/chevron-down.webp";
+import chevronUpIcon from "@/widget/icons/chevron-up.webp";
 import { useScreensStore } from "@/widget/stores/use-screens.store";
 import { useHandlePlay } from "../hooks/use-handle-play";
 import { useWordMeaning } from "../hooks/use-word-meaning";
@@ -139,7 +140,7 @@ export const DictionaryAllWords = () => {
 						onClick={() => toggleWordMeaning(sign)}
 						aria-label={isWordExpanded ? "Fechar significado" : "Ver significado"}
 					>
-						{isWordExpanded ? <ChevronUpIcon className="size-4" /> : <ChevronDownIcon className="size-4" />}
+						{isWordExpanded ? <MaskIcon src={chevronUpIcon} /> : <MaskIcon src={chevronDownIcon} />}
 					</Button>
 				</div>
 
@@ -206,7 +207,7 @@ export const DictionaryAllWords = () => {
 								)}
 							>
 								{letter === "#" ? "0–9" : letter}
-								{isLetterExpanded ? <ChevronUpIcon className="size-4" /> : <ChevronDownIcon className="size-4" />}
+								{isLetterExpanded ? <MaskIcon src={chevronUpIcon} /> : <MaskIcon src={chevronDownIcon} />}
 							</button>
 							{isLetterExpanded && (
 								<ul className="flex flex-col">

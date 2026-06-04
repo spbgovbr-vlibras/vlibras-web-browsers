@@ -1,19 +1,21 @@
 import { appConfig } from "@/common/hooks/use-config";
 import { posthogg } from "@/common/lib/posthog";
 import { cn } from "@/common/lib/utils";
+import { MaskIcon } from "@/common/utils/mask-icon";
 import { toggleAvatar } from "@/player/actions";
 import type { PlayerAvatar } from "@/player/types";
 import { usePlayerStore } from "@/player/use-player.store";
 import { useGuideStore } from "@/widget/components/guide/store";
 import { Button } from "@/widget/components/ui/button";
 import { Tooltip } from "@/widget/components/ui/tooltip";
-import { GugaIcon, HosanaIcon, IcaroIcon } from "@/widget/icons";
-import type { IconElement } from "@/widget/icons/types";
+import gugaIcon from "@/widget/icons/guga.webp";
+import hosanaIcon from "@/widget/icons/hosana.webp";
+import icaroIcon from "@/widget/icons/icaro.webp";
 
-const avatars: { name: PlayerAvatar; path: string; icon: IconElement }[] = [
-	{ name: "icaro", path: "/icaro.png", icon: IcaroIcon },
-	{ name: "hosana", path: "/hosana.png", icon: HosanaIcon },
-	{ name: "guga", path: "/guga.png", icon: GugaIcon },
+const avatars: { name: PlayerAvatar; path: string; icon: string }[] = [
+	{ name: "icaro", path: "/icaro.png", icon: icaroIcon },
+	{ name: "hosana", path: "/hosana.png", icon: hosanaIcon },
+	{ name: "guga", path: "/guga.png", icon: gugaIcon },
 ];
 
 const getAvatarImage = (path: string) => {
@@ -54,7 +56,7 @@ export const ToggleAvatarButton = () => {
 					size="icon"
 					className="rounded-full bg-background hover:bg-muted! data-[highlight=true]:animate-highlight-primary"
 				>
-					<currentAvatar.icon aria-hidden="true" className="size-5.5 text-primary" />
+					<MaskIcon src={currentAvatar.icon} className="size-5.5 bg-primary" />
 				</Button>
 			</Tooltip>
 

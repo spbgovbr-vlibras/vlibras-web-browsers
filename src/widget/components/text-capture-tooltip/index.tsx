@@ -1,7 +1,9 @@
 import { Fragment, useEffect, useRef, useState } from "preact/compat";
 import { cn } from "@/common/lib/utils";
+import { MaskIcon } from "@/common/utils/mask-icon";
 import { Button } from "@/widget/components/ui/button";
-import { LinkIcon, TouchIcon } from "@/widget/icons";
+import linkIcon from "@/widget/icons/link.webp";
+import touchIcon from "@/widget/icons/touch.webp";
 import { tooltipStore, useTooltipStore } from "@/widget/stores/use-tooltip.store";
 import { normalizePosition } from "./utils";
 
@@ -51,8 +53,8 @@ export const TextCaptureTooltip = () => {
 		>
 			{render || (
 				<Fragment>
-					{type === "button" && <TouchIcon size={20} iconTitle="Interagir" />}
-					{type === "link" && <LinkIcon size={20} iconTitle="Acessar link" />}
+					{type === "button" && <MaskIcon src={touchIcon} className="h-5 w-5" />}
+					{type === "link" && <MaskIcon src={linkIcon} className="h-5 w-5" />}
 
 					<span className="relative bottom-0.5 whitespace-nowrap font-medium text-sm">
 						{type === "button" ? "Interagir" : "Acessar link"}

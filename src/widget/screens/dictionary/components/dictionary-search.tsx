@@ -1,5 +1,6 @@
+import { MaskIcon } from "@/common/utils/mask-icon";
 import { Button } from "@/widget/components/ui/button";
-import { XIcon } from "@/widget/icons";
+import xIcon from "@/widget/icons/x.webp";
 import { useDictionaryCtx } from "./dictionary-context";
 
 export const DictionarySearch = () => {
@@ -23,7 +24,7 @@ export const DictionarySearch = () => {
 					size="icon-xs"
 					className="absolute right-5 rounded-sm bg-transparent! text-muted-foreground outline-destructive hover:text-destructive focus:text-destructive"
 				>
-					<XIcon />
+					<MaskIcon src={xIcon} className="size-4" />
 				</Button>
 			)}
 		</div>

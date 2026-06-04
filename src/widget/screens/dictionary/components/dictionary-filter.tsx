@@ -1,7 +1,8 @@
 import { useMobile } from "@/common/hooks";
 import { cn } from "@/common/lib/utils";
+import { MaskIcon } from "@/common/utils/mask-icon";
 import { Button } from "@/widget/components/ui/button";
-import { TrashIcon } from "@/widget/icons";
+import trashIcon from "@/widget/icons/trash.webp";
 import type { DictionaryFilter as Filter } from "../lib/types";
 import { useDictionaryHistoryStore } from "../stores/use-dictionary-history.store";
 import { useDictionaryCtx } from "./dictionary-context";
@@ -54,7 +55,7 @@ export const DictionaryFilter = () => {
 					variant="ghost"
 					aria-label="Limpar histórico"
 				>
-					<TrashIcon />
+					<MaskIcon src={trashIcon} />
 				</Button>
 			)}
 		</div>

@@ -1,10 +1,12 @@
 import { useEffect } from "preact/hooks";
 import { useMobile, usePick } from "@/common/hooks";
 import { posthogg } from "@/common/lib/posthog";
+import { MaskIcon } from "@/common/utils/mask-icon";
 import { createStyle } from "@/core/dom";
 import { Button } from "@/widget/components/ui/button";
 import { Tooltip } from "@/widget/components/ui/tooltip";
-import { CollapseIcon, ExpandIcon } from "@/widget/icons";
+import collapseIcon from "@/widget/icons/collapse.webp";
+import expandIcon from "@/widget/icons/expand.webp";
 import { rootStore } from "@/widget/stores/use-root.store";
 import { useWidgetStore, widgetStore } from "@/widget/stores/use-widget.store";
 import css from "@/widget/styles/expanded-mode.css?inline";
@@ -44,7 +46,7 @@ export const ExpandOption = () => {
 	};
 
 	const label = isExpanded ? "Diminuir" : "Expandir";
-	const Icon = isExpanded ? CollapseIcon : ExpandIcon;
+	const icon = isExpanded ? collapseIcon : expandIcon;
 
 	return (
 		<Tooltip
@@ -62,7 +64,7 @@ export const ExpandOption = () => {
 				size={isMobile ? "icon-sm" : "icon"}
 				variant="default"
 			>
-				<Icon />
+				<MaskIcon src={icon} className="bg-white" />
 			</Button>
 		</Tooltip>
 	);

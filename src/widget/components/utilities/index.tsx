@@ -1,10 +1,11 @@
 import { useEffect } from "preact/hooks";
 import { useMobile, usePick } from "@/common/hooks";
+import { MaskIcon } from "@/common/utils/mask-icon";
 import { stop } from "@/player/actions";
 import { usePlayerStore } from "@/player/use-player.store";
 import { useGuideStore } from "@/widget/components/guide/store";
 import { Button } from "@/widget/components/ui/button";
-import { SkipIcon } from "@/widget/icons";
+import skipIcon from "@/widget/icons/skip.webp";
 import { callbackStore, resetCallback, useCallbackStore } from "@/widget/stores/use-callback.store";
 import { useWidgetStore, widgetStore } from "@/widget/stores/use-widget.store";
 import { FeedbackTrigger } from "./feedback-trigger";
@@ -72,7 +73,7 @@ export const Utilities = () => {
 						variant="outline"
 						size={isExpanded ? "default" : isMobile ? "xs" : "sm"}
 					>
-						<SkipIcon />
+						<MaskIcon src={skipIcon} />
 						Pular
 					</Button>
 				)}

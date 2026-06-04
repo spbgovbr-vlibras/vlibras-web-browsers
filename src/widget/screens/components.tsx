@@ -1,8 +1,9 @@
 import type { ComponentProps } from "preact";
 import { useMobile } from "@/common/hooks";
 import { cn } from "@/common/lib/utils";
+import { MaskIcon } from "@/common/utils/mask-icon";
 import { Button, type ButtonProps } from "@/widget/components/ui/button";
-import { ArrowLeftIcon } from "@/widget/icons";
+import arrowLeftIcon from "@/widget/icons/arrow-left.webp";
 import { useDraggable } from "../components/draggable";
 import { useScreensStore } from "../stores/use-screens.store";
 
@@ -45,7 +46,7 @@ export const ScreenClose = ({ className, ...props }: ButtonProps) => {
 
 	return (
 		<Button onClick={closeAll} variant="outline" size={isMobile ? "icon-sm" : "icon"} className={className} {...props}>
-			<ArrowLeftIcon />
+			<MaskIcon src={arrowLeftIcon} />
 		</Button>
 	);
 };

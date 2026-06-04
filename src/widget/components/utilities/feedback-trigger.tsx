@@ -1,10 +1,11 @@
 import { useState } from "preact/hooks";
 import { Fragment } from "preact/jsx-runtime";
 import { useMobile } from "@/common/hooks";
+import { MaskIcon } from "@/common/utils/mask-icon";
 import { useGuideStore } from "@/widget/components/guide/store";
 import { Button } from "@/widget/components/ui/button";
 import { FeedbackDialog } from "@/widget/dialogs/feedback";
-import { LikeIcon } from "@/widget/icons";
+import likeIcon from "@/widget/icons/like.webp";
 import { useWidgetStore } from "@/widget/stores/use-widget.store";
 
 export const FeedbackTrigger = () => {
@@ -24,7 +25,7 @@ export const FeedbackTrigger = () => {
 				variant="outline"
 				size={isExpanded ? "default" : isMobile ? "xs" : "sm"}
 			>
-				<LikeIcon />
+				<MaskIcon src={likeIcon} />
 				Avaliar
 			</Button>
 

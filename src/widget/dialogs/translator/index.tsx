@@ -1,13 +1,15 @@
 import { useRef, useState } from "preact/hooks";
 import { Fragment } from "preact/jsx-runtime";
 import { useDebouncedCallback } from "@/common/hooks";
+import { MaskIcon } from "@/common/utils/mask-icon";
 import { useTranslate } from "@/core/actions/hooks";
 import { play } from "@/player/actions";
 import { InlineTranslatorButton } from "@/widget/components/inline-translator-button";
 import { Button } from "@/widget/components/ui/button";
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/widget/components/ui/dialog";
 import { Spinner } from "@/widget/components/ui/spinner";
-import { TranslatorIcon, TrashIcon } from "@/widget/icons";
+import translatorIcon from "@/widget/icons/translator.webp";
+import trashIcon from "@/widget/icons/trash.webp";
 import { createCallback } from "@/widget/stores/use-callback.store";
 import { useWidgetStore } from "@/widget/stores/use-widget.store";
 
@@ -40,7 +42,7 @@ export const TranslatorDialog = ({ open, onOpenChange }: Props) => {
 				action: () => onOpenChange(true),
 				content: (
 					<Fragment>
-						<TranslatorIcon />
+						<MaskIcon src={translatorIcon} />
 						Reabrir Tradutor
 					</Fragment>
 				),
@@ -67,7 +69,7 @@ export const TranslatorDialog = ({ open, onOpenChange }: Props) => {
 		<Dialog open={open} onOpenChange={onOpenChange}>
 			<DialogContent>
 				<DialogHeader>
-					<DialogTitle icon={TranslatorIcon}>Tradutor</DialogTitle>
+					<DialogTitle maskIconSrc={translatorIcon}>Tradutor</DialogTitle>
 				</DialogHeader>
 
 				<div className="space-y-2 overflow-y-auto p-4 pt-2">
@@ -86,7 +88,7 @@ export const TranslatorDialog = ({ open, onOpenChange }: Props) => {
 									variant="ghost"
 									className="animate-move-up text-destructive"
 								>
-									<TrashIcon />
+									<MaskIcon src={trashIcon} />
 								</Button>
 							)}
 						</div>
@@ -104,7 +106,7 @@ export const TranslatorDialog = ({ open, onOpenChange }: Props) => {
 
 					<Button
 						onClick={handleTranslate}
-						disabled={text.length < 3 || isTranslating || isPending}
+						disabled={isTranslating || isPending}
 						className="h-10 w-full rounded-full text-sm"
 					>
 						{isPending && <Spinner className="size-4 text-primary-foreground" />}

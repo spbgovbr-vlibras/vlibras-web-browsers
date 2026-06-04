@@ -1,15 +1,16 @@
 import { useState } from "preact/hooks";
 import { Fragment } from "preact/jsx-runtime";
 import { toast } from "@/common/lib/toaster";
+import { MaskIcon } from "@/common/utils/mask-icon";
 import { sendFeedback } from "@/core/actions";
 import { ERROR_MESSAGES } from "@/core/actions/messages";
 import { playStatic } from "@/player/actions";
 import { playerStore } from "@/player/use-player.store";
 import { Button } from "@/widget/components/ui/button";
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/widget/components/ui/dialog";
-import { CommentIcon } from "@/widget/icons";
-import { ThumbsDownIcon } from "@/widget/icons/thumbs-down";
-import { ThumbsUpIcon } from "@/widget/icons/thumbs-up";
+import commentIcon from "@/widget/icons/comment.webp";
+import thumbsDownIcon from "@/widget/icons/thumbs-down.webp";
+import thumbsUpIcon from "@/widget/icons/thumbs-up.webp";
 import { widgetStore } from "@/widget/stores/use-widget.store";
 import { FeedbackSuggestion } from "./feedback-suggestion";
 
@@ -51,7 +52,7 @@ export const FeedbackDialog = ({ open, onOpenChange }: Props) => {
 			<Dialog open={open} onOpenChange={onOpenChange}>
 				<DialogContent>
 					<DialogHeader>
-						<DialogTitle icon={CommentIcon}>Feedback</DialogTitle>
+						<DialogTitle maskIconSrc={commentIcon}>Feedback</DialogTitle>
 					</DialogHeader>
 
 					<div className="flex flex-col items-center justify-center gap-2 p-6">
@@ -63,7 +64,7 @@ export const FeedbackDialog = ({ open, onOpenChange }: Props) => {
 								className="px-7 py-10 hover:bg-primary/5 hover:text-primary"
 								onClick={handleLike}
 							>
-								<ThumbsUpIcon />
+								<MaskIcon src={thumbsUpIcon} />
 								<span>Sim</span>
 							</Button>
 							<Button
@@ -72,7 +73,7 @@ export const FeedbackDialog = ({ open, onOpenChange }: Props) => {
 								className="px-7 py-10 hover:bg-destructive/5 hover:text-destructive"
 								onClick={handleSuggestionOpen}
 							>
-								<ThumbsDownIcon />
+								<MaskIcon src={thumbsDownIcon} />
 								<span>Não</span>
 							</Button>
 						</div>

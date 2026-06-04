@@ -1,7 +1,8 @@
 import { Fragment } from "preact/jsx-runtime";
 import { posthogg } from "@/common/lib/posthog";
+import { MaskIcon } from "@/common/utils/mask-icon";
 import { play } from "@/player/actions";
-import { DictionaryIcon } from "@/widget/icons/dictionary";
+import dictionaryIcon from "@/widget/icons/dictionary.webp";
 import { createCallback } from "@/widget/stores/use-callback.store";
 import { screenStore } from "@/widget/stores/use-screens.store";
 import { dictionaryHistoryStore } from "../stores/use-dictionary-history.store";
@@ -20,7 +21,7 @@ export const useHandlePlay = () => {
 			action: () => screenStore.set({ screen: "dictionary" }),
 			content: (
 				<Fragment>
-					<DictionaryIcon />
+					<MaskIcon src={dictionaryIcon} />
 					Reabrir Dicionário
 				</Fragment>
 			),

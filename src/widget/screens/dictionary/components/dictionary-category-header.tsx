@@ -1,4 +1,5 @@
-import { ChevronLeftIcon } from "@/widget/icons/chevron-left-icon";
+import { MaskIcon } from "@/common/utils/mask-icon";
+import chevronLeftIcon from "@/widget/icons/chevron-left-icon.webp";
 import { CategoriesList } from "../lib/constants";
 import { useDictionaryCtx } from "./dictionary-context";
 
@@ -15,7 +16,7 @@ export const DictionaryCategoryHeader = () => {
 					onClick={() => ctx.setSelectedCategory(null)}
 					className="flex h-full w-full items-center justify-start gap-2 text-xs hover:cursor-pointer dark:text-white"
 				>
-					<ChevronLeftIcon className="size-4" />
+					<MaskIcon src={chevronLeftIcon} />
 					<img src={categoryIconUrl} alt="" className="h-6 w-6 dark:brightness-0 dark:invert" />
 					<span className="font-semibold text-sm">{ctx.selectedCategory.name}</span>
 				</button>
