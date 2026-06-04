@@ -1,15 +1,13 @@
 import { Fragment } from "preact/jsx-runtime";
 import { useMobile } from "@/common/hooks";
 import { cn } from "@/common/lib/utils";
-import { MaskIcon } from "@/common/utils/mask-icon";
 import { pause } from "@/player/actions";
+import { useGuideStore } from "@/widget/components/guide/store";
 import { Button } from "@/widget/components/ui/button";
+import { Icon } from "@/widget/components/ui/icon";
 import { Spacer } from "@/widget/components/ui/spacer";
-import icaroIcon from "@/widget/icons/icaro.webp";
-import xIcon from "@/widget/icons/x.webp";
 import { useWidgetStore } from "@/widget/stores/use-widget.store";
 import { useDraggable } from "../draggable";
-import { useGuideStore } from "../guide/store";
 import { ExpandOption } from "./expand-option";
 import { WidgetMenu } from "./menu";
 
@@ -49,7 +47,7 @@ export const WidgetHeader = () => {
 
 				<div className="mr-2 flex items-center gap-1.5 font-semibold text-primary-foreground text-sm">
 					<div className="flex size-5.5 items-end justify-center rounded-full bg-primary-foreground">
-						<MaskIcon src={icaroIcon} className="bg-primary" />
+						<Icon name="icaro" className="size-4.5 text-primary" />
 					</div>
 					VLibras
 				</div>
@@ -68,7 +66,7 @@ export const WidgetHeader = () => {
 								variant="default"
 								className="z-1"
 							>
-								<MaskIcon src={xIcon} className="bg-white" />
+								<Icon name="x" />
 							</Button>
 						</div>
 					</Fragment>

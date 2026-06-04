@@ -1,21 +1,17 @@
-import type { ElementType } from "preact/compat";
 import { useMobile } from "@/common/hooks";
 import { cn } from "@/common/lib/utils";
-import { MaskIcon } from "@/common/utils/mask-icon";
 import { Button } from "@/widget/components/ui/button";
-import type { CustomSVGProps } from "@/widget/icons/types";
+import { Icon } from "@/widget/components/ui/icon";
+import type { IconName } from "@/widget/icons/types";
 
 type Props = {
 	label: string;
 	onClick?: () => void;
-	icon?: ElementType<CustomSVGProps>;
-	maskIconSrc?: string;
-	maskIconClassName?: string;
+	icon: IconName;
 };
 
-export const MenuOption = ({ label, onClick, icon, maskIconSrc, maskIconClassName }: Props) => {
+export const MenuOption = ({ label, onClick, icon: iconName }: Props) => {
 	const isMobile = useMobile();
-	const Icon = icon;
 
 	return (
 		<li
@@ -31,8 +27,7 @@ export const MenuOption = ({ label, onClick, icon, maskIconSrc, maskIconClassNam
 				size={isMobile ? "icon-sm" : "icon"}
 				variant="outline-gov"
 			>
-				{maskIconSrc && <MaskIcon src={maskIconSrc} className={maskIconClassName} />}
-				{Icon && <Icon className="mobile:size-5 size-5.5" />}
+				{iconName && <Icon name={iconName} className="mobile:size-5 size-5.5" />}
 			</Button>
 
 			<Button tabindex={-1} onClick={onClick} variant="outline" className="w-30" size="xs">
