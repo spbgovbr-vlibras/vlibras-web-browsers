@@ -1,9 +1,9 @@
 import type { PostHog } from "posthog-js";
-import { config } from "@/core/config";
 
 const SAMPLING_RATE = 0.07;
+const MODE = import.meta.env.MODE || "development";
 const IS_ENABLED = import.meta.env.VITE_PUBLIC_POSTHOG_ENABLED === "true";
-const IS_DEBUG = import.meta.env.VITE_PUBLIC_POSTHOG_DEBUG === "true" && config.MODE !== "production";
+const IS_DEBUG = import.meta.env.VITE_PUBLIC_POSTHOG_DEBUG === "true" && MODE !== "production";
 
 const posthogPromise = (async () => {
 	if (!IS_ENABLED || __IS_EXTENSION__ || typeof window === "undefined") return null;
@@ -18,7 +18,7 @@ const posthogPromise = (async () => {
 			autocapture: false,
 			capture_pageview: false,
 			persistence: "memory",
-			debug: config.MODE !== "production" && IS_DEBUG,
+			debug: MODE !== "production" && IS_DEBUG,
 		});
 
 		return posthog as PostHog;
