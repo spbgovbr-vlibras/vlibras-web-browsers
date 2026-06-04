@@ -30,7 +30,6 @@ Este documento descreve as convenções de código e o fluxo de contribuição u
 - [Tailwind e UI](#tailwind-e-ui)
 - [O que evitar](#o-que-evitar)
 - [Checklist antes do PR](#checklist-antes-do-pr)
-- [Em caso de dúvida](#em-caso-de-dúvida)
 
 ## Antes de começar
 
@@ -289,7 +288,3 @@ className={cn("rounded-full bg-background", disabled && "opacity-50")}
 - Leituras imperativas usam `xStore.get()` no momento da chamada quando isso evita rerender.
 - Imports internos usam `@/`.
 - A mensagem de commit segue Conventional Commits.
-
-## Em caso de dúvida
-
-Ao contribuir, prefira copiar o padrão do módulo mais próximo do que inventar uma nova abordagem. Em especial, para `zustand`, siga como referência primária o arquivo `src/widget/stores/use-root.store.ts` e as stores irmãs do projeto.
