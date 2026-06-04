@@ -182,12 +182,13 @@ Use `useXStore` para:
 
 Exemplo:
 
-```ts
+````ts
+// Se precisar de um único valor, use o seletor padrão do zustand
 const avatar = usePlayerStore((s) => s.avatar);
-const { isExpanded, text } = useWidgetStore(usePick("isExpanded", "text"));
-```
 
-Sempre que precisar de vários campos, prefira seletores enxutos. O projeto já usa `usePick` e `useShallow` para reduzir rerenders quando vários valores são lidos ao mesmo tempo.
+// Se precisar de múltiplos valores, use OBRIGATORIAMENTE o usePick ou useOmit
+// Eles já utilizam useShallow internamente para evitar rerenders quando outros atributos mudam
+const { isExpanded, text } = useWidgetStore(usePick("isExpanded", "text"));
 
 ### Quando usar a API imperativa
 
@@ -221,7 +222,7 @@ const handleClick = () => {
   const { action } = callbackStore.get();
   action?.();
 };
-```
+````
 
 Em vez de tornar reativo um valor que não precisa dirigir a renderização.
 
