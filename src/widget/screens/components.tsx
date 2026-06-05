@@ -1,11 +1,10 @@
 import type { ComponentProps } from "preact";
 import { useMobile } from "@/common/hooks";
 import { cn } from "@/common/lib/utils";
-import { MaskIcon } from "@/common/utils/mask-icon";
+import { useDraggable } from "@/widget/components/draggable";
 import { Button, type ButtonProps } from "@/widget/components/ui/button";
-import arrowLeftIcon from "@/widget/icons/arrow-left.webp";
-import { useDraggable } from "../components/draggable";
-import { useScreensStore } from "../stores/use-screens.store";
+import { Icon } from "@/widget/components/ui/icon";
+import { useScreensStore } from "@/widget/stores/use-screens.store";
 
 export const Screen = ({ children, className, ...props }: ComponentProps<"div">) => {
 	return (
@@ -45,8 +44,15 @@ export const ScreenClose = ({ className, ...props }: ButtonProps) => {
 	const isMobile = useMobile();
 
 	return (
-		<Button onClick={closeAll} variant="outline" size={isMobile ? "icon-sm" : "icon"} className={className} {...props}>
-			<MaskIcon src={arrowLeftIcon} />
+		<Button
+			aria-labe="Fechar"
+			onClick={closeAll}
+			variant="outline"
+			size={isMobile ? "icon-sm" : "icon"}
+			className={className}
+			{...props}
+		>
+			<Icon name="arrow-left" aria-hidden="true" />
 		</Button>
 	);
 };

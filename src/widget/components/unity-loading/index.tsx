@@ -1,10 +1,8 @@
 import { useEffect, useState } from "preact/hooks";
 import { usePick } from "@/common/hooks";
 import { cn } from "@/common/lib/utils";
-import { MaskIcon } from "@/common/utils/mask-icon";
 import { usePlayerStore } from "@/player/use-player.store";
-import govBRIcon from "@/widget/icons/govbr.webp";
-import icaroIcon from "@/widget/icons/icaro.webp";
+import { Icon } from "@/widget/components/ui/icon";
 
 export const UnityLoading = () => {
 	const { progress, isLoaded } = usePlayerStore(usePick("progress", "isLoaded"));
@@ -23,14 +21,14 @@ export const UnityLoading = () => {
 				!__IS_EXTENSION__ && "rounded-xl",
 			)}
 		>
-			<div className="rounded-full border px-2 py-1">
-				<img src={govBRIcon} alt="logo GovBR" className="h-4 w-auto" />
+			<div className="grid place-content-center rounded-full border px-2 py-1">
+				<Icon name="govbr" colored className="h-4 w-12" />
 			</div>
 
 			<div className="-mt-4 flex flex-col items-center">
 				<div className="mb-2 overflow-hidden rounded-full border-6 border-primary/30">
 					<div className="relative flex not-mobile:size-20 size-18 justify-center overflow-hidden rounded-full bg-primary">
-						<MaskIcon src={icaroIcon} className="absolute bottom-0 not-mobile:size-15 size-14 bg-primary-foreground" />
+						<Icon name="icaro" className="absolute bottom-0 not-mobile:size-15 size-14 text-primary-foreground" />
 					</div>
 				</div>
 

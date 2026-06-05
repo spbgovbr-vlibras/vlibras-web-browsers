@@ -11,16 +11,24 @@ const icons = import.meta.glob("@/widget/icons/**/*.webp", {
 type IconProps = Omit<ComponentProps<"i">, "style"> & {
 	name: IconName;
 	style?: Record<string, string>;
+	colored?: boolean;
 };
 
-export const Icon = ({ className, name, style, ...props }: IconProps) => {
+export const Icon = ({ className, name, colored = false, style, ...props }: IconProps) => {
 	const src = icons[`/src/widget/icons/${name}.webp`];
 
 	return (
 		<i
 			{...props}
-			className={cn("mask-(--icon) mask-center mask-contain mask-no-repeat shrink-0 bg-current", className)}
-			style={{ "--icon": `url(${src})`, ...style }}
+			className={cn(
+				"inline-block shrink-0 bg-center bg-contain bg-no-repeat",
+				!colored && "mask-(--icon) mask-center mask-contain mask-no-repeat bg-current",
+				className,
+			)}
+			style={{
+				[colored ? "backgroundImage" : "--icon"]: `url(${src})`,
+				...style,
+			}}
 		/>
 	);
 };

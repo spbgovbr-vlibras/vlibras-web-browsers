@@ -1,11 +1,9 @@
 import { useMemo } from "preact/hooks";
 import { cn } from "@/common/lib/utils";
-import { MaskIcon } from "@/common/utils/mask-icon";
 import { play } from "@/player/actions";
 import { Button } from "@/widget/components/ui/button";
+import { Icon } from "@/widget/components/ui/icon";
 import { useTranslate } from "@/widget/hooks/use-translate";
-import chevronDownIcon from "@/widget/icons/chevron-down.webp";
-import chevronUpIcon from "@/widget/icons/chevron-up.webp";
 import { useScreensStore } from "@/widget/stores/use-screens.store";
 import { useHandlePlay } from "../hooks/use-handle-play";
 import { useWordMeaning } from "../hooks/use-word-meaning";
@@ -57,7 +55,7 @@ export const DictionaryCategoryWords = () => {
 									onClick={() => toggleWordMeaning(group.base)}
 									aria-label={isExpanded ? "Fechar significado" : "Ver significado"}
 								>
-									{isExpanded ? <MaskIcon src={chevronUpIcon} /> : <MaskIcon src={chevronDownIcon} />}
+									<Icon name={isExpanded ? "chevron-up" : "chevron-down"} aria-hidden="true" className="size-4" />
 								</Button>
 							</div>
 							{isExpanded && (

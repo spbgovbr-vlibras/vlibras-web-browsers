@@ -46,8 +46,8 @@ export const WidgetHeader = () => {
 				)}
 
 				<div className="mr-2 flex items-center gap-1.5 font-semibold text-primary-foreground text-sm">
-					<div className="flex size-5.5 items-end justify-center rounded-full bg-primary-foreground">
-						<Icon name="icaro" className="size-4.5 text-primary" />
+					<div className="flex size-5.5 items-end justify-center rounded-full bg-primary-foreground text-primary">
+						<Icon name="icaro" className="size-4.5" />
 					</div>
 					VLibras
 				</div>

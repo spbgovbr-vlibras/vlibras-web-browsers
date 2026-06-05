@@ -1,10 +1,7 @@
 import { cn } from "@/common/lib/utils";
-import { MaskIcon } from "@/common/utils/mask-icon";
 import { play } from "@/player/actions";
+import { Icon } from "@/widget/components/ui/icon";
 import { useTranslate } from "@/widget/hooks/use-translate";
-import arrowRightIcon from "@/widget/icons/arrow-right.webp";
-import chevronDownIcon from "@/widget/icons/chevron-down.webp";
-import chevronUpIcon from "@/widget/icons/chevron-up.webp";
 import { useScreensStore } from "@/widget/stores/use-screens.store";
 import { useHandlePlay } from "../hooks/use-handle-play";
 import { useWordMeaning } from "../hooks/use-word-meaning";
@@ -52,7 +49,7 @@ export const DictionaryCategoryVerbs = () => {
 									className="px-2 py-1.25 hover:cursor-pointer hover:text-foreground"
 									aria-label={isExpanded ? "Fechar" : "Expandir"}
 								>
-									{isExpanded ? <MaskIcon src={chevronUpIcon} /> : <MaskIcon src={chevronDownIcon} />}
+									<Icon name={isExpanded ? "chevron-up" : "chevron-down"} aria-hidden="true" className="size-4" />
 								</button>
 							</div>
 
@@ -79,7 +76,7 @@ export const DictionaryCategoryVerbs = () => {
 															className="flex w-full items-center gap-2 px-4 py-1.25 text-xs hover:cursor-pointer focus:bg-primary focus:text-primary-foreground sm:text-sm"
 														>
 															<span className="w-20 shrink-0 text-right text-muted-foreground">{c.prefix}</span>
-															<MaskIcon src={arrowRightIcon} />
+															<Icon name="arrow-right" className="size-4" />
 															<span>{c.suffix}</span>
 														</button>
 													</li>

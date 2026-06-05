@@ -1,11 +1,11 @@
 import { useMobile } from "@/common/hooks";
 import { posthogg } from "@/common/lib/posthog";
 import { cn } from "@/common/lib/utils";
-import { MaskIcon } from "@/common/utils/mask-icon";
 import { type Emotion, emotionsMap } from "@/data/emotions-map";
 import { setEmotion } from "@/player/actions";
 import { usePlayerStore } from "@/player/use-player.store";
 import { DropdownTrigger } from "@/widget/components/ui/dropdown";
+import { Icon } from "@/widget/components/ui/icon";
 import { Tooltip } from "@/widget/components/ui/tooltip";
 
 export const EmotionsOption = () => {
@@ -24,12 +24,11 @@ export const EmotionsOption = () => {
 			<Tooltip offset={8} content="Emoções" placement="top" arrow={{ position: "bottom" }}>
 				<DropdownTrigger
 					aria-label="Alterar emoção"
-					id="emotions-option-button"
 					className="group relative"
 					variant="ghost-gov"
 					size={isMobile ? "icon-sm" : "icon"}
 				>
-					<MaskIcon src={currentEmotion.icon} />
+					<Icon name={currentEmotion.icon} aria-hidden="true" />
 					{!isDefaultEmotion && <span className="absolute top-0.5 right-0.5 size-2 rounded-full bg-destructive" />}
 				</DropdownTrigger>
 			</Tooltip>
@@ -57,7 +56,7 @@ export const EmotionsOption = () => {
 										)}
 									>
 										<div className="flex items-center justify-start gap-2">
-											<MaskIcon src={emotion.icon} className="size-4.5 sm:size-5" />
+											<Icon name={emotion.icon} className="size-4.5 sm:size-5" />
 											<span>{emotion.name}</span>
 										</div>
 									</button>

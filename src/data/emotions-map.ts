@@ -1,77 +1,69 @@
 import { UNITY_METHODS } from "@/player/constants/unity";
-import emojiAngry from "@/widget/icons/emotions-icons/angry.webp";
-import emojiDefault from "@/widget/icons/emotions-icons/default.webp";
-import emojiDisgust from "@/widget/icons/emotions-icons/disgust.webp";
-import emojiDoubt from "@/widget/icons/emotions-icons/doubt.webp";
-import emojiFear from "@/widget/icons/emotions-icons/fear.webp";
-import emojiHappy from "@/widget/icons/emotions-icons/happy.webp";
-import emojiSad from "@/widget/icons/emotions-icons/sad.webp";
-import emojiSurprise from "@/widget/icons/emotions-icons/surprise.webp";
+import type { IconName } from "@/widget/icons/types";
 
-export const emotionsMap = {
+export type Emotion = {
+	name: string;
+	action: UNITY_METHODS;
+	icon: IconName;
+	intensity: number;
+};
+
+export type EmotionKey = "default" | "happy" | "sad" | "doubt" | "angry" | "disgust" | "fear" | "surprise";
+
+export const emotionsMap: Record<EmotionKey, Emotion> = {
 	default: {
 		name: "Padrão",
 		action: UNITY_METHODS.APPLY_DEFAULT_EMOTION,
-		icon: emojiDefault,
+		icon: "emotions-icons/default",
 		intensity: 2,
 	},
 
 	happy: {
 		name: "Feliz",
 		action: UNITY_METHODS.APPLY_HAPPY_EMOTION,
-		icon: emojiHappy,
+		icon: "emotions-icons/happy",
 		intensity: 2,
 	},
 
 	sad: {
 		name: "Triste",
 		action: UNITY_METHODS.APPLY_SAD_EMOTION,
-		icon: emojiSad,
+		icon: "emotions-icons/sad",
 		intensity: 2,
 	},
 
 	doubt: {
 		name: "Dúvida",
 		action: UNITY_METHODS.APPLY_DOUBT_EMOTION,
-		icon: emojiDoubt,
+		icon: "emotions-icons/doubt",
 		intensity: 2,
 	},
 
 	angry: {
 		name: "Raiva",
 		action: UNITY_METHODS.APPLY_ANGRY_EMOTION,
-		icon: emojiAngry,
+		icon: "emotions-icons/angry",
 		intensity: 2,
 	},
 
 	disgust: {
 		name: "Nojo",
 		action: UNITY_METHODS.APPLY_DISGUST_EMOTION,
-		icon: emojiDisgust,
+		icon: "emotions-icons/disgust",
 		intensity: 2,
 	},
 
 	fear: {
 		name: "Medo",
 		action: UNITY_METHODS.APPLY_FEAR_EMOTION,
-		icon: emojiFear,
+		icon: "emotions-icons/fear",
 		intensity: 2,
 	},
 
 	surprise: {
 		name: "Surpresa",
 		action: UNITY_METHODS.APPLY_SURPRISE_EMOTION,
-		icon: emojiSurprise,
+		icon: "emotions-icons/surprise",
 		intensity: 2,
 	},
-
-	// automatic: {
-	// 	name: "Automático",
-	// 	action: "ApplyDoubtEmotion",
-	// 	icon: EmojiAutomatic,
-	// 	intensity: 2,
-	// },
 };
-
-export type EmotionKey = keyof typeof emotionsMap;
-export type Emotion = (typeof emotionsMap)[EmotionKey];
