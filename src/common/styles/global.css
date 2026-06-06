@@ -57,7 +57,7 @@
 
 @custom-variant mobile {
   @media (max-width: 640px) {
-    &:is(:host(:not([data-expanded="true"]) :not([data-extension="true"])) *) {
+    &:is(:host(:not([data-expanded="true"]):not([data-extension="true"])) *) {
       @slot;
     }
   }
