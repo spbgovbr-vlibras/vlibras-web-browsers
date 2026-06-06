@@ -14,56 +14,56 @@ export const emotionsMap: Record<EmotionKey, Emotion> = {
 	default: {
 		name: "Padrão",
 		action: UNITY_METHODS.APPLY_DEFAULT_EMOTION,
-		icon: "emotions-icons/default",
+		icon: "emotions/default",
 		intensity: 2,
 	},
 
 	happy: {
 		name: "Feliz",
 		action: UNITY_METHODS.APPLY_HAPPY_EMOTION,
-		icon: "emotions-icons/happy",
+		icon: "emotions/happy",
 		intensity: 2,
 	},
 
 	sad: {
 		name: "Triste",
 		action: UNITY_METHODS.APPLY_SAD_EMOTION,
-		icon: "emotions-icons/sad",
+		icon: "emotions/sad",
 		intensity: 2,
 	},
 
 	doubt: {
 		name: "Dúvida",
 		action: UNITY_METHODS.APPLY_DOUBT_EMOTION,
-		icon: "emotions-icons/doubt",
+		icon: "emotions/doubt",
 		intensity: 2,
 	},
 
 	angry: {
 		name: "Raiva",
 		action: UNITY_METHODS.APPLY_ANGRY_EMOTION,
-		icon: "emotions-icons/angry",
+		icon: "emotions/angry",
 		intensity: 2,
 	},
 
 	disgust: {
 		name: "Nojo",
 		action: UNITY_METHODS.APPLY_DISGUST_EMOTION,
-		icon: "emotions-icons/disgust",
+		icon: "emotions/disgust",
 		intensity: 2,
 	},
 
 	fear: {
 		name: "Medo",
 		action: UNITY_METHODS.APPLY_FEAR_EMOTION,
-		icon: "emotions-icons/fear",
+		icon: "emotions/fear",
 		intensity: 2,
 	},
 
 	surprise: {
 		name: "Surpresa",
 		action: UNITY_METHODS.APPLY_SURPRISE_EMOTION,
-		icon: "emotions-icons/surprise",
+		icon: "emotions/surprise",
 		intensity: 2,
 	},
 };

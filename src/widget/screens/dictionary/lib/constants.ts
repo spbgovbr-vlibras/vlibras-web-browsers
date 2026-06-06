@@ -1,19 +1,19 @@
-import alphabetIcon from "@/widget/icons/categories-icons/AlphabetIcon.webp";
-import animalsIcon from "@/widget/icons/categories-icons/AnimalsIcon.webp";
-import bodyIcon from "@/widget/icons/categories-icons/BodyIcon.webp";
-import countriesIcon from "@/widget/icons/categories-icons/CountriesIcon.webp";
-import familyIcon from "@/widget/icons/categories-icons/FamilyIcon.webp";
-import feelingsIcon from "@/widget/icons/categories-icons/FeelingsIcon.webp";
-import foodsIcon from "@/widget/icons/categories-icons/FoodsIcon.webp";
-import healthIcon from "@/widget/icons/categories-icons/HealthIcon.webp";
-import jobsIcon from "@/widget/icons/categories-icons/JobsIcon.webp";
-import locationsIcon from "@/widget/icons/categories-icons/LocationsIcon.webp";
-import machinesIcon from "@/widget/icons/categories-icons/MachinesIcon.webp";
-import measuresIcon from "@/widget/icons/categories-icons/MeasuresIcon.webp";
-import natureIcon from "@/widget/icons/categories-icons/NatureIcon.webp";
-import numbersIcon from "@/widget/icons/categories-icons/NumbersIcon.webp";
-import sportsIcon from "@/widget/icons/categories-icons/SportsIcon.webp";
-import verbsIcon from "@/widget/icons/categories-icons/VerbsIcon.webp";
+import alphabetIcon from "@/widget/icons/categories/AlphabetIcon.webp";
+import animalsIcon from "@/widget/icons/categories/AnimalsIcon.webp";
+import bodyIcon from "@/widget/icons/categories/BodyIcon.webp";
+import countriesIcon from "@/widget/icons/categories/CountriesIcon.webp";
+import familyIcon from "@/widget/icons/categories/FamilyIcon.webp";
+import feelingsIcon from "@/widget/icons/categories/FeelingsIcon.webp";
+import foodsIcon from "@/widget/icons/categories/FoodsIcon.webp";
+import healthIcon from "@/widget/icons/categories/HealthIcon.webp";
+import jobsIcon from "@/widget/icons/categories/JobsIcon.webp";
+import locationsIcon from "@/widget/icons/categories/LocationsIcon.webp";
+import machinesIcon from "@/widget/icons/categories/MachinesIcon.webp";
+import measuresIcon from "@/widget/icons/categories/MeasuresIcon.webp";
+import natureIcon from "@/widget/icons/categories/NatureIcon.webp";
+import numbersIcon from "@/widget/icons/categories/NumbersIcon.webp";
+import sportsIcon from "@/widget/icons/categories/SportsIcon.webp";
+import verbsIcon from "@/widget/icons/categories/VerbsIcon.webp";
 
 export const CategoriesList = [
 	{
