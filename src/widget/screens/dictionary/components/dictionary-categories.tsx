@@ -1,35 +1,39 @@
-import { useMobile } from "@/common/hooks";
-import { CategoriesList } from "../lib/constants";
+import { useMemo } from "preact/hooks";
+import { cn } from "@/common/lib/utils";
+import { Icon } from "@/widget/components/ui/icon";
+import type { IconName } from "@/widget/icons/types";
+import { categoryIcons } from "../lib/constants";
 import type { Category } from "../lib/types";
 import { useDictionaryCtx } from "./dictionary-context";
 
 export const DictionaryCategories = () => {
-	const isMobile = useMobile();
-	const ctx = useDictionaryCtx();
-	const { search, setSelectedCategory, categories } = useDictionaryCtx();
+	const { search, setSelectedCategory, categories, listRef } = useDictionaryCtx();
 
-	const filtered = categories
-		.filter((cat: Category) => cat.name.toLowerCase().includes(search.toLocaleLowerCase()))
-		.sort((a: Category, b: Category) => a.name.localeCompare(b.name));
+	const filtered = useMemo(() => {
+		return categories
+			.filter((cat: Category) => cat.name.toLowerCase().includes(search.toLocaleLowerCase()))
+			.sort((a: Category, b: Category) => a.name.localeCompare(b.name));
+	}, [categories, search]);
 
 	if (!filtered.length) return null;
-	const categoriesMap = Object.fromEntries(CategoriesList.map((category) => [category.id, category]));
 
 	return (
-		<div ref={ctx.listRef} className="h-full overflow-auto">
+		<div ref={listRef} className="h-full overflow-auto">
 			<ul className="flex flex-col">
 				{filtered.map((category: Category) => {
-					const categoryIcon = categoriesMap[category.id].icon;
+					const icon: IconName = categoryIcons[category.id] || "categories/undefined";
+
 					return (
 						<li key={category.id}>
 							<button
 								type="button"
 								onClick={() => setSelectedCategory(category)}
-								className={`flex w-full items-center justify-between px-4 hover:cursor-pointer hover:bg-muted ${isMobile ? "py-2 text-xs" : "py-1.5 text-sm"}`}
+								className={cn(
+									"flex w-full items-center justify-between px-4 mobile:py-2 py-0 mobile:text-xs text-sm hover:cursor-pointer hover:bg-muted",
+								)}
 							>
 								<div className="flex items-center justify-start gap-2">
-									<img src={category.url} alt="" />
-									<img src={categoryIcon} alt="" className="h-6 w-6 dark:brightness-0 dark:invert" />
+									<Icon name={icon} className="mobile:size-5 size-6 shrink-0 dark:bg-foreground" />
 									<span>{category.name.replace(/_/g, " ")}</span>
 								</div>
 							</button>

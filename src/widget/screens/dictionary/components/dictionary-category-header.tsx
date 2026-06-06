@@ -1,23 +1,29 @@
 import { Icon } from "@/widget/components/ui/icon";
-import { CategoriesList } from "../lib/constants";
+import { categoryIcons } from "../lib/constants";
 import { useDictionaryCtx } from "./dictionary-context";
 
 export const DictionaryCategoryHeader = () => {
-	const ctx = useDictionaryCtx();
-	const categoryIconUrl = CategoriesList.find((item) => item.id === ctx.selectedCategory?.id)?.icon;
+	const { selectedCategory, setSelectedCategory } = useDictionaryCtx();
+	if (!selectedCategory) return null;
+
+	const categoryIcon = categoryIcons[selectedCategory.id] || "categories/undefined";
 
 	return (
-		ctx.filter === "categories" &&
-		ctx.selectedCategory && (
-			<div className="flex w-full items-center gap-1 bg-primary/20 p-4">
+		selectedCategory && (
+			<div className="flex w-full animate-move-up items-center gap-1 bg-primary/20 mobile:px-3 px-4 mobile:py-2 py-3">
 				<button
 					type="button"
-					onClick={() => ctx.setSelectedCategory(null)}
-					className="flex h-full w-full items-center justify-start gap-2 text-xs hover:cursor-pointer dark:text-white"
+					aria-label="Voltar para a lista de categorias"
+					onClick={() => setSelectedCategory(null)}
+					className="group flex h-full w-full items-center justify-start gap-2 text-xs hover:cursor-pointer"
 				>
-					<Icon name="chevron-left" />
-					<img src={categoryIconUrl} alt="" className="h-6 w-6 dark:brightness-0 dark:invert" />
-					<span className="font-semibold text-sm">{ctx.selectedCategory.name}</span>
+					<Icon
+						aria-hidden="true"
+						name="chevron-left"
+						className="size-4 bg-muted-foreground group-hover:bg-foreground"
+					/>
+					<Icon aria-hidden="true" name={categoryIcon} className="mobile:size-5 size-6 shrink-0" />
+					<span className="font-semibold mobile:text-xs text-sm">{selectedCategory.name.replace(/_/g, " ")}</span>
 				</button>
 			</div>
 		)

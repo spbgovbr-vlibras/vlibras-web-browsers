@@ -1,102 +1,23 @@
-import alphabetIcon from "@/widget/icons/categories/AlphabetIcon.webp";
-import animalsIcon from "@/widget/icons/categories/AnimalsIcon.webp";
-import bodyIcon from "@/widget/icons/categories/BodyIcon.webp";
-import countriesIcon from "@/widget/icons/categories/CountriesIcon.webp";
-import familyIcon from "@/widget/icons/categories/FamilyIcon.webp";
-import feelingsIcon from "@/widget/icons/categories/FeelingsIcon.webp";
-import foodsIcon from "@/widget/icons/categories/FoodsIcon.webp";
-import healthIcon from "@/widget/icons/categories/HealthIcon.webp";
-import jobsIcon from "@/widget/icons/categories/JobsIcon.webp";
-import locationsIcon from "@/widget/icons/categories/LocationsIcon.webp";
-import machinesIcon from "@/widget/icons/categories/MachinesIcon.webp";
-import measuresIcon from "@/widget/icons/categories/MeasuresIcon.webp";
-import natureIcon from "@/widget/icons/categories/NatureIcon.webp";
-import numbersIcon from "@/widget/icons/categories/NumbersIcon.webp";
-import sportsIcon from "@/widget/icons/categories/SportsIcon.webp";
-import verbsIcon from "@/widget/icons/categories/VerbsIcon.webp";
+import type { IconName } from "@/widget/icons/types";
 
-export const CategoriesList = [
-	{
-		id: 5,
-		name: "Comidas e Bebidas",
-		icon: foodsIcon,
-	},
-	{
-		id: 10,
-		name: "Animais",
-		icon: animalsIcon,
-	},
-	{
-		id: 6,
-		name: "Aparelho ou Máquina",
-		icon: machinesIcon,
-	},
-	{
-		id: 9,
-		name: "Corpo",
-		icon: bodyIcon,
-	},
-	{
-		id: 14,
-		name: "Esporte ou Diversão",
-		icon: sportsIcon,
-	},
-	{
-		id: 15,
-		name: "Família",
-		icon: familyIcon,
-	},
-	{
-		id: 8,
-		name: "Saúde/Higiene",
-		icon: healthIcon,
-	},
-	{
-		id: 13,
-		name: "País/Estado/Cidade",
-		icon: countriesIcon,
-	},
-	{
-		id: 16,
-		name: "Natureza",
-		icon: natureIcon,
-	},
-	{
-		id: 12,
-		name: "Profissão ou Trabalho",
-		icon: jobsIcon,
-	},
-	{
-		id: 7,
-		name: "Sentimentos",
-		icon: feelingsIcon,
-	},
-	{
-		id: 3,
-		name: "Verbos",
-		icon: verbsIcon,
-	},
-	{
-		id: 4,
-		name: "Letras",
-		icon: alphabetIcon,
-	},
-	{
-		id: 2,
-		name: "Números",
-		icon: numbersIcon,
-	},
-	{
-		id: 11,
-		name: "Lugares",
-		icon: locationsIcon,
-	},
-	{
-		id: 1,
-		name: "Medidas",
-		icon: measuresIcon,
-	},
-];
+export const categoryIcons: Record<number, IconName> = {
+	1: "categories/measures",
+	2: "categories/numbers",
+	3: "categories/verbs",
+	4: "categories/alphabet",
+	5: "categories/foods",
+	6: "categories/machines",
+	7: "categories/feelings",
+	8: "categories/health",
+	9: "categories/body",
+	10: "categories/animals",
+	11: "categories/locations",
+	12: "categories/jobs",
+	13: "categories/countries",
+	14: "categories/sports",
+	15: "categories/family",
+	16: "categories/nature",
+};
 
 export const ALPHABET = ["#", ..."ABCDEFGHIJKLMNOPQRSTUVWXYZ".split("")];
 
