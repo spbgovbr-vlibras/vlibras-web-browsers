@@ -44,9 +44,11 @@ export const Utilities = () => {
 	};
 
 	const showCallback = action && content && status === "idle";
-	const showFeedback = Boolean(status === "idle" && !isTranslating && gloss && text);
+	const showFeedback = Boolean(status === "idle" && gloss && text);
 	const showSkip = isPlayingWelcome ? true : (isPlaying || isPaused) && !!gloss && !isGuideOpen;
 	const showToggleAvatar = status === "idle" || isGuideOpen;
+
+	if (isTranslating) return null;
 
 	return (
 		<div className="absolute expanded:inset-x-4! inset-x-3 mobile:inset-x-2 bottom-15 expanded:bottom-16! mobile:bottom-13 flex animate-move-up items-end justify-end gap-1.5">
