@@ -18,6 +18,7 @@ export const playerOptions: PlayerOptions = {
 		else {
 			const { root } = rootStore.get();
 			if (root) root.dataset.extension = "true";
+			playerStore.set({ isPlayingWelcome: false, isWelcomeFinished: true });
 		}
 	},
 

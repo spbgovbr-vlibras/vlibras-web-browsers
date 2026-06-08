@@ -14,7 +14,7 @@ export const PlayerEventsProvider = ({ path }: Props) => {
 
 		const handleMessage = (event: MessageEvent<{ type: string; event: UNITY_EVENTS; data: unknown }>) => {
 			if (event.data?.type === "unity_event") {
-				if (event.data.event === UNITY_EVENTS.FINISH_WELCOME) {
+				if (!__IS_EXTENSION__ && event.data.event === UNITY_EVENTS.FINISH_WELCOME) {
 					const isFinished = event.data.data === "True";
 
 					if (playerStore.get().isWelcomeFinished) return;
