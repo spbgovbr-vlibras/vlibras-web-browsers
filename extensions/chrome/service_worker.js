@@ -71,8 +71,6 @@ const createPopup = (text = "") => {
     {
       url: "index.html",
       type: "popup",
-      top: 10,
-      left: 10,
       width: 320,
       height: 480,
     },
