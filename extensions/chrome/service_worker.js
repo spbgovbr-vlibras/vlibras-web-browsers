@@ -12,7 +12,7 @@ const getPopup = async () => {
 	}
 };
 
-const createPopup = (text) => {
+const createPopup = (text = "") => {
 	chrome.windows.create(
 		{
 			url: "index.html",
@@ -44,6 +44,17 @@ chrome.contextMenus.onClicked.addListener(async (info) => {
 		chrome.windows.update(existingWindow.id, { focused: true });
 		chrome.runtime.sendMessage({ selectedText: info.selectionText });
 	} else createPopup(info.selectionText);
+});
+
+chrome.action.onClicked.addListener(async () => {
+	const existingWindow = await getPopup();
+
+	if (existingWindow) {
+		chrome.windows.update(existingWindow.id, { focused: true });
+		return;
+	}
+
+	createPopup();
 });
 
 chrome.runtime.onMessage.addListener((request) => {

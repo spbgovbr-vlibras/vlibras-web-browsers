@@ -9,6 +9,9 @@
 		"48": "icons/48x48.png",
 		"128": "icons/128x128.png"
 	},
+	"action": {
+		"default_title": "Abrir VLibras"
+	},
 	"permissions": ["contextMenus", "storage", "windows"],
 	"background": {
 		"service_worker": "service_worker.js"
