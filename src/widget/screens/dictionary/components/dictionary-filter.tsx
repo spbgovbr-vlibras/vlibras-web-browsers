@@ -1,8 +1,7 @@
 import { useMobile } from "@/common/hooks";
 import { cn } from "@/common/lib/utils";
-import { MaskIcon } from "@/common/utils/mask-icon";
 import { Button } from "@/widget/components/ui/button";
-import trashIcon from "@/widget/icons/trash.webp";
+import { Icon } from "@/widget/components/ui/icon";
 import type { DictionaryFilter as Filter } from "../lib/types";
 import { useDictionaryHistoryStore } from "../stores/use-dictionary-history.store";
 import { useDictionaryCtx } from "./dictionary-context";
@@ -36,13 +35,6 @@ export const DictionaryFilter = () => {
 						size={isMobile ? "xs" : "sm"}
 					>
 						{option.label}
-
-						{/* {isActive && option.value !== "categories" && !!filteredSigns.length && (
-							<span className="text-xs leading-0">({filteredSigns.length})</span>
-						)}
-						{isActive && option.value === "categories" && !!CategoriesList.length && (
-							<span className="text-xs leading-0">({CategoriesList.length})</span>
-						)} */}
 					</Button>
 				);
 			})}
@@ -55,7 +47,7 @@ export const DictionaryFilter = () => {
 					variant="ghost"
 					aria-label="Limpar histórico"
 				>
-					<MaskIcon src={trashIcon} />
+					<Icon name="trash" />
 				</Button>
 			)}
 		</div>

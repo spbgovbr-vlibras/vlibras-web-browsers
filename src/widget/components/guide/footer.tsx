@@ -1,8 +1,6 @@
 import { useEffect, useMemo, useRef } from "preact/hooks";
-import { MaskIcon } from "@/common/utils/mask-icon";
 import { Button } from "@/widget/components/ui/button";
-import arrowLeftIcon from "@/widget/icons/arrow-left.webp";
-import arrowRightIcon from "@/widget/icons/arrow-right.webp";
+import { Icon } from "@/widget/components/ui/icon";
 import { useGuideCtx } from ".";
 import { guideElements } from "./elements";
 
@@ -29,7 +27,7 @@ export const GuideFooter = () => {
 				className="text-primary-foreground outline-primary-foreground hover:bg-primary-foreground/5"
 				onClick={() => setIndex(index - 1)}
 			>
-				<MaskIcon src={arrowLeftIcon} />
+				<Icon name="arrow-left" aria-hidden="true" />
 				Voltar
 			</Button>
 
@@ -52,7 +50,7 @@ export const GuideFooter = () => {
 				onClick={isLastElement ? onClose : () => setIndex((i) => i + 1)}
 			>
 				{isLastElement ? "Concluir" : "Avançar"}
-				{!isLastElement && <MaskIcon src={arrowRightIcon} />}
+				{!isLastElement && <Icon name="arrow-right" aria-hidden="true" />}
 			</Button>
 		</div>
 	);

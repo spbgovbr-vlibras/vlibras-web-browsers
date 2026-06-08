@@ -1,8 +1,8 @@
 import { useMobile, usePick } from "@/common/hooks";
-import { MaskIcon } from "@/common/utils/mask-icon";
 import { pause, play, repeat } from "@/player/actions";
 import { playerStore, usePlayerStore } from "@/player/use-player.store";
 import { Button } from "@/widget/components/ui/button";
+import { Icon } from "@/widget/components/ui/icon";
 import { Tooltip } from "@/widget/components/ui/tooltip";
 import { widgetStore } from "@/widget/stores/use-widget.store";
 import { statusMap } from "./status-map";
@@ -34,13 +34,14 @@ export const MainAction = () => {
 			arrow={{ position: "bottom-left" }}
 		>
 			<Button
+				aria-label={status.label}
 				data-slot="main-action"
 				disabled={!gloss}
 				onClick={onClick}
 				variant="ghost-gov"
 				size={isMobile ? "icon-sm" : "icon"}
 			>
-				<MaskIcon src={status.icon} />
+				<Icon name={status.icon} />
 			</Button>
 		</Tooltip>
 	);

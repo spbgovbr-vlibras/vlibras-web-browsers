@@ -1,14 +1,12 @@
 import { useMemo } from "preact/hooks";
 import { Fragment } from "preact/jsx-runtime";
 import { useMobile, useTheme } from "@/common/hooks";
-import { MaskIcon } from "@/common/utils/mask-icon";
 import { regions } from "@/data/regionalism";
 import { playerStore, usePlayerStore } from "@/player/use-player.store";
 import { Button } from "@/widget/components/ui/button";
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/widget/components/ui/dialog";
+import { Icon } from "@/widget/components/ui/icon";
 import { Tooltip } from "@/widget/components/ui/tooltip";
-import rotateLeftIcon from "@/widget/icons/rotate-left.webp";
-import settingsIcon from "@/widget/icons/settings.webp";
 import { useWidgetStore, widgetStore } from "@/widget/stores/use-widget.store";
 import { SettingsProvider } from "./context";
 import { SettingsOpacityField } from "./opacity-field";
@@ -49,9 +47,7 @@ export const SettingsDialog = ({ open, onOpenChange }: Props) => {
 			<Dialog open={open} onOpenChange={onOpenChange}>
 				<DialogContent>
 					<DialogHeader className="relative">
-						<DialogTitle maskIconSrc={settingsIcon} maskIconClassName="bg-black dark:bg-white">
-							Configurações
-						</DialogTitle>
+						<DialogTitle icon="settings">Configurações</DialogTitle>
 
 						{!isDefaultSettings && (
 							<Fragment>
@@ -68,7 +64,7 @@ export const SettingsDialog = ({ open, onOpenChange }: Props) => {
 										size={isMobile ? "icon-xs" : "icon-sm"}
 										className="animate-move-up mobile:text-xs text-sm"
 									>
-										<MaskIcon src={rotateLeftIcon} />
+										<Icon name="rotate-left" />
 									</Button>
 								</Tooltip>
 

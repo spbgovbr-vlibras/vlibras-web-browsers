@@ -1,21 +1,16 @@
 import { camaraIcon, lavidIcon, mdhcIcon, mgispIcon, rnpIcon } from "@/assets";
 import { cn } from "@/common/lib/utils";
-import { MaskIcon } from "@/common/utils/mask-icon";
-import FacebookIcon from "@/widget/icons/facebook.webp";
-import icaroIcon from "@/widget/icons/icaro.webp";
-import InstagramIcon from "@/widget/icons/instagram.webp";
-import TwitterIcon from "@/widget/icons/twitter.webp";
-import WorldwideIcon from "@/widget/icons/worldwide.webp";
-import YoutubeIcon from "@/widget/icons/youtube.webp";
+import { Icon } from "@/widget/components/ui/icon";
+import type { IconName } from "@/widget/icons/types";
 import { Screen, ScreenContent, ScreenHeader, ScreenTitle } from "../components";
 import { AboutField } from "./aboutfield";
 
-const socialLinks = [
-	{ href: "https://www.gov.br/governodigital/pt-br/acessibilidade-e-usuario/vlibras", icon: WorldwideIcon },
-	{ href: "https://www.facebook.com/vlibras", icon: FacebookIcon },
-	{ href: "https://www.instagram.com/vlibrasoficial", icon: InstagramIcon },
-	{ href: "https://x.com/VLibrasoficial", icon: TwitterIcon },
-	{ href: "https://www.youtube.com/@vlibras-lavid3180", icon: YoutubeIcon },
+const socialLinks: { href: string; iconName: IconName }[] = [
+	{ href: "https://www.gov.br/governodigital/pt-br/acessibilidade-e-usuario/vlibras", iconName: "worldwide" },
+	{ href: "https://www.facebook.com/vlibras", iconName: "facebook" },
+	{ href: "https://www.instagram.com/vlibrasoficial", iconName: "instagram" },
+	{ href: "https://x.com/VLibrasoficial", iconName: "twitter" },
+	{ href: "https://www.youtube.com/@vlibras-lavid3180", iconName: "youtube" },
 ];
 
 export const AboutScreen = () => {
@@ -65,16 +60,19 @@ export const AboutScreen = () => {
 							"[&_button]:w-full [&_button]:rounded-full [&_button]:bg-primary-foreground [&_button]:text-primary",
 						)}
 					>
-						{socialLinks.map(({ href, icon: Icon }) => (
-							<a key={href} href={href} target="_blank" rel="noopener noreferrer" className="rounded-full bg-white p-2">
-								<MaskIcon src={Icon} className="bg-primary" />
+						{socialLinks.map(({ href, iconName }) => (
+							<a
+								key={href}
+								href={href}
+								target="_blank"
+								rel="noopener noreferrer"
+								className="grid place-content-center rounded-full bg-white p-2"
+							>
+								<Icon name={iconName} className="size-4 bg-primary" />
 							</a>
 						))}
 					</div>
-					<MaskIcon
-						src={icaroIcon}
-						className="absolute top-4 left-0 z-1 size-32 bg-primary-foreground opacity-15 dark:bg-white dark:opacity-10"
-					/>
+					<Icon name="icaro" className="absolute top-4 left-0 z-1 size-32 opacity-15 dark:text-white dark:opacity-10" />
 					<div className="absolute inset-0 -z-10 bg-primary" />
 				</div>
 			</ScreenContent>

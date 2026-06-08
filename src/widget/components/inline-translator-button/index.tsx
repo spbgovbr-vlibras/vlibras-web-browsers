@@ -1,8 +1,7 @@
 import type { ComponentProps, TargetedMouseEvent } from "preact";
 import { cn } from "@/common/lib/utils";
-import { MaskIcon } from "@/common/utils/mask-icon";
 import { playStatic } from "@/player/actions";
-import handsIcon from "@/widget/icons/hands.webp";
+import { Icon } from "@/widget/components/ui/icon";
 import { createCallback } from "@/widget/stores/use-callback.store";
 
 type Props = Omit<ComponentProps<"button">, "children"> & {
@@ -26,7 +25,7 @@ export const InlineTranslatorButton = ({ className, gloss, onFinish, onClick, ..
 			className={cn("relative -bottom-1 inline cursor-pointer rounded-sm p-0.5 hover:text-primary", className)}
 			{...props}
 		>
-			<MaskIcon src={handsIcon} className="size-4" />
+			<Icon name="hands" aria-hidden="true" className="size-4" />
 		</button>
 	);
 };
