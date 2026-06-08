@@ -32,7 +32,7 @@ export const DictionaryCategories = () => {
 									"flex w-full items-center justify-between px-4 mobile:py-2 py-0 mobile:text-xs text-sm hover:cursor-pointer hover:bg-muted",
 								)}
 							>
-								<div className="flex items-center justify-start gap-2">
+								<div className="flex items-center gap-2 py-2">
 									<Icon name={icon} className="mobile:size-5 size-6 shrink-0 dark:bg-foreground" />
 									<span>{category.name.replace(/_/g, " ")}</span>
 								</div>
