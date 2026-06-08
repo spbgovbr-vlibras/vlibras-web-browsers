@@ -1,0 +1,17 @@
+{
+	"name": "tools",
+	"version": "1.0.0",
+	"description": "",
+	"type": "module",
+	"scripts": {
+		"test": "echo \"Error: no test specified\" && exit 1"
+	},
+	"keywords": [],
+	"author": "",
+	"license": "ISC",
+	"dependencies": {
+		"execa": "^9.6.1",
+		"pngquant-bin": "^9.0.0",
+		"sharp": "^0.34.5"
+	}
+}

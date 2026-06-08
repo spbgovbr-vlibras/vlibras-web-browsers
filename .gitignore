@@ -26,3 +26,7 @@ dist-ssr
 
 stats.html
 package-lock.json
+
+# Tools package
+tools/webp
+tools/icons
