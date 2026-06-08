@@ -35,7 +35,7 @@ export const EmotionsOption = () => {
 
 			<div
 				tabIndex={-1}
-				className="dropdown-content mb-4 w-[calc(var(--widget-width)-1rem)] rounded-lg border bg-background p-1 shadow-lg"
+				className="dropdown-content mb-4 w-[calc(var(--widget-width)-1rem)] rounded-xl border bg-background p-1 shadow-lg"
 			>
 				<div className="relative flex items-center justify-center">
 					<span className="absolute -inset-y-1 w-px bg-border" />
@@ -51,13 +51,13 @@ export const EmotionsOption = () => {
 										inert={isActive}
 										onClick={() => handleEmotionChange(emotion)}
 										className={cn(
-											"w-full cursor-pointer whitespace-nowrap rounded-sm px-2 py-1.5 text-center text-xs hover:bg-primary/10 sm:text-sm",
+											"w-full cursor-pointer whitespace-nowrap rounded-md px-2 py-1.5 text-center text-sm hover:bg-primary/10",
 											isActive && "bg-primary! text-primary-foreground! outline-1 outline-primary outline-solid",
 										)}
 									>
 										<div className="flex items-center justify-start gap-2">
-											<Icon name={emotion.icon} className="size-4.5 sm:size-5" />
-											<span>{emotion.name}</span>
+											<Icon name={emotion.icon} className="size-4.5" />
+											<span className="mobile:text-xs text-sm">{emotion.name}</span>
 										</div>
 									</button>
 								</li>

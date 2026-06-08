@@ -78,7 +78,7 @@ export const SettingsDialog = ({ open, onOpenChange }: Props) => {
 					<div className="space-y-4 p-4">
 						<SettingsThemeField />
 						<SettingsRegionalismField />
-						<SettingsOpacityField />
+						{!__IS_EXTENSION__ && <SettingsOpacityField />}
 					</div>
 				</DialogContent>
 			</Dialog>

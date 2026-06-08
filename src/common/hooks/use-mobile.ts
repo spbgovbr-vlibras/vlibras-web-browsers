@@ -5,7 +5,7 @@ const useStore = create<{ isExpanded: boolean }>()(() => ({ isExpanded: false })
 
 export const useMobile = () => {
 	const isExpanded = useStore((s) => s.isExpanded);
-	return useMediaQuery("(max-width: 640px)") && !isExpanded;
+	return __IS_EXTENSION__ ? false : useMediaQuery("(max-width: 640px)") && !isExpanded;
 };
 
 export const mobileQueryStore = {

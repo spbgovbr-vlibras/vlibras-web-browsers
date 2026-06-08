@@ -35,7 +35,7 @@ export const SpeedOption = () => {
 				</DropdownTrigger>
 			</Tooltip>
 
-			<div tabIndex={-1} className="dropdown-content mb-4 rounded-lg border bg-background drop-shadow-lg">
+			<div tabIndex={-1} className="dropdown-content mb-4 rounded-xl border bg-background drop-shadow-lg">
 				<ul
 					className={cn(
 						"space-y-1 p-1 font-semibold text-primary text-sm",
@@ -53,7 +53,7 @@ export const SpeedOption = () => {
 									onClick={() => handleSpeedChange(speed)}
 									onKeyDown={(e) => onKeyDown(e, speed)}
 									className={cn(
-										"w-full cursor-pointer whitespace-nowrap rounded-sm px-2 py-1 text-center text-xs hover:bg-primary/10 sm:text-sm",
+										"w-full cursor-pointer whitespace-nowrap rounded-md px-2 py-1 text-center text-xs hover:bg-primary/10 sm:text-sm",
 										isActive && "bg-primary! text-primary-foreground! outline-1 outline-primary outline-solid",
 									)}
 								>

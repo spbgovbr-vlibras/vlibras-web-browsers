@@ -115,7 +115,7 @@ export const FeedbackSuggestion = ({ open, onOpenChange }: Props) => {
 						<SuggestionPopup onSelect={handleSelectSuggestion} suggestions={suggestions} coords={coords} />
 					</div>
 
-					<div className="space-y-2 not-mobile:[&>button]:h-10 [&>button]:w-full [&>button]:rounded-full mobile:[&>button]:text-sm">
+					<div className="space-y-2 [&>button]:h-10 [&>button]:w-full [&>button]:rounded-full mobile:[&>button]:text-sm">
 						<Button variant="default" onClick={handleSubmit} disabled={isSubmitting}>
 							{isSubmitting ? "Enviando..." : "Enviar sugestão"}
 						</Button>
