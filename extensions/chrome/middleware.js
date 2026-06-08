@@ -1,22 +1,25 @@
 let initialized = false;
+let popupPort = null;
 
 window.addEventListener("load", () => {
-	chrome.runtime.onMessage.addListener((request) => {
-		if (!request?.selectedText) return;
-		if (initialized) return translate(request.selectedText);
+  popupPort = chrome.runtime.connect({ name: "vlibras-popup" });
 
-		const interval = setInterval(() => {
-			if (!window?.plugin?.player.isLoaded) return;
+  chrome.runtime.onMessage.addListener((request) => {
+    if (!request?.selectedText) return;
+    if (initialized) return translate(request.selectedText);
 
-			translate(request.selectedText);
-			initialized = true;
-			clearInterval(interval);
-		}, 1000);
-	});
+    const interval = setInterval(() => {
+      if (!window?.plugin?.player.isLoaded) return;
 
-	chrome.runtime.sendMessage({ ready: true });
+      translate(request.selectedText);
+      initialized = true;
+      clearInterval(interval);
+    }, 1000);
+  });
+
+  chrome.runtime.sendMessage({ ready: true });
 });
 
 function translate(text) {
-	window.plugin?.translate?.(text);
+  window.plugin?.translate?.(text);
 }
