@@ -39,7 +39,7 @@ export const DictionaryCategoryVerbs = () => {
 								<button
 									type="button"
 									onClick={() => handlePlay(verb)}
-									className="flex-1 cursor-pointer whitespace-normal break-all px-4 py-1.25 text-left text-xs focus:bg-primary focus:text-primary-foreground sm:text-sm"
+									className="flex-1 cursor-pointer whitespace-normal break-all px-4 py-1.25 text-left mobile:text-xs text-sm focus:bg-primary focus:text-primary-foreground"
 								>
 									{verb}
 								</button>
@@ -73,7 +73,7 @@ export const DictionaryCategoryVerbs = () => {
 														<button
 															type="button"
 															onClick={() => handlePlay(c.original)}
-															className="flex w-full items-center gap-2 px-4 py-1.25 text-xs hover:cursor-pointer focus:bg-primary focus:text-primary-foreground sm:text-sm"
+															className="flex w-full items-center gap-2 px-4 py-1.25 mobile:text-xs text-sm hover:cursor-pointer focus:bg-primary focus:text-primary-foreground"
 														>
 															<span className="w-20 shrink-0 text-right text-muted-foreground">{c.prefix}</span>
 															<Icon name="arrow-right" className="size-4" />
@@ -97,7 +97,7 @@ export const DictionaryCategoryVerbs = () => {
 															<button
 																type="button"
 																onClick={() => handlePlay(sign)}
-																className="flex w-full items-center gap-2 px-4 py-1.25 text-xs hover:bg-muted focus:bg-primary focus:text-primary-foreground sm:text-sm"
+																className="flex w-full items-center gap-2 px-4 py-1.25 mobile:text-xs text-sm hover:bg-muted focus:bg-primary focus:text-primary-foreground"
 															>
 																{mainWord} ({suffix})
 															</button>

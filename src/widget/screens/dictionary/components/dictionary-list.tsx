@@ -38,7 +38,7 @@ export const DictionaryList = () => {
 			{ctx.filter !== "categories" && !isEmpty && <DictionaryAllWords />}
 
 			{isEmpty && (
-				<p className="break-all px-4 font-semibold text-muted-foreground text-xs sm:text-sm">
+				<p className="break-all px-4 font-semibold mobile:text-xs text-muted-foreground text-sm">
 					Sem resultados para <q className="text-foreground">{ctx.search}</q>
 				</p>
 			)}

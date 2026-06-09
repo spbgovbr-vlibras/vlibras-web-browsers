@@ -14,7 +14,7 @@ export const DictionaryError = ({ onRetry, isMaxRetries }: Props) => {
 		<div className="flex h-full flex-col items-center justify-center gap-2 px-4">
 			<img src={sadFace} alt="Emoji de rosto triste" className="size-7 sm:size-8" />
 
-			<p className="mb-3 px-4 text-center font-semibold text-sm sm:text-base">
+			<p className="mb-3 px-4 text-center font-semibold mobile:text-sm text-base">
 				Não foi possível carregar o dicionário de sinais.
 			</p>
 
@@ -24,7 +24,9 @@ export const DictionaryError = ({ onRetry, isMaxRetries }: Props) => {
 				</Button>
 			)}
 
-			{isMaxRetries && <span className="text-muted-foreground text-xs sm:text-sm">Tente novamente mais tarde.</span>}
+			{isMaxRetries && (
+				<span className="mobile:text-xs text-muted-foreground text-sm">Tente novamente mais tarde.</span>
+			)}
 		</div>
 	);
 };

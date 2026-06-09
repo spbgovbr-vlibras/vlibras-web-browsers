@@ -29,7 +29,7 @@ export const SpeedOption = () => {
 		<div className="dropdown dropdown-center dropdown-top focus-within:**:data-[slot=tooltip-content]:hidden">
 			<Tooltip offset={8} content="Velocidade" placement="top" arrow={{ position: "bottom" }}>
 				<DropdownTrigger aria-label="Alterar velocidade" variant="ghost-gov" size={isMobile ? "icon-sm" : "icon"}>
-					<span inert className="-mt-0.5 font-bold text-sm">
+					<span inert className="-mt-0.5 font-bold mobile:text-xs text-sm">
 						{currentSpeed}x
 					</span>
 				</DropdownTrigger>
@@ -53,7 +53,7 @@ export const SpeedOption = () => {
 									onClick={() => handleSpeedChange(speed)}
 									onKeyDown={(e) => onKeyDown(e, speed)}
 									className={cn(
-										"w-full cursor-pointer whitespace-nowrap rounded-md px-2 py-1 text-center text-xs hover:bg-primary/10 sm:text-sm",
+										"w-full cursor-pointer whitespace-nowrap rounded-md px-2 py-1 text-center mobile:text-xs text-sm hover:bg-primary/10",
 										isActive && "bg-primary! text-primary-foreground! outline-1 outline-primary outline-solid",
 									)}
 								>

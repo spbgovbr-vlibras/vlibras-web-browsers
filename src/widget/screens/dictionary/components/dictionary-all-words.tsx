@@ -104,7 +104,7 @@ export const DictionaryAllWords = () => {
 								<button
 									type="button"
 									onClick={() => handlePlay(sign)}
-									className="block w-full bg-background px-4 py-1.5 text-left text-xs hover:cursor-pointer hover:bg-muted sm:text-sm"
+									className="block w-full bg-background px-4 py-1.5 text-left mobile:text-xs text-sm hover:cursor-pointer hover:bg-muted"
 								>
 									{prettySign}
 								</button>
@@ -127,7 +127,7 @@ export const DictionaryAllWords = () => {
 					<button
 						type="button"
 						onClick={() => handlePlay(sign)}
-						className="w-full cursor-pointer whitespace-normal break-all px-6 py-1.25 text-left text-xs focus:bg-primary focus:text-primary-foreground sm:text-sm"
+						className="w-full cursor-pointer whitespace-normal break-all px-6 py-1.25 text-left mobile:text-xs text-sm focus:bg-primary focus:text-primary-foreground"
 					>
 						{prettySign}
 					</button>

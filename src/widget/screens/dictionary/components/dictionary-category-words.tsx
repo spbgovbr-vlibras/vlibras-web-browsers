@@ -44,7 +44,7 @@ export const DictionaryCategoryWords = () => {
 								<button
 									type="button"
 									onClick={() => handlePlay(group.base)}
-									className="w-full cursor-pointer whitespace-normal break-all px-4 py-1.25 text-left text-xs focus:bg-primary focus:text-primary-foreground sm:text-sm"
+									className="w-full cursor-pointer whitespace-normal break-all px-4 py-1.25 text-left mobile:text-xs text-sm focus:bg-primary focus:text-primary-foreground"
 								>
 									{prettyBase}
 								</button>
@@ -83,7 +83,7 @@ export const DictionaryCategoryWords = () => {
 																onClick={() => {
 																	handlePlay(sign);
 																}}
-																className="flex w-full px-4 py-1 text-left text-xs hover:bg-muted focus:bg-primary focus:text-primary-foreground sm:text-sm"
+																className="flex w-full px-4 py-1 text-left mobile:text-xs text-sm hover:bg-muted focus:bg-primary focus:text-primary-foreground"
 															>
 																{prettyBase} ({prettySuffix})
 															</button>

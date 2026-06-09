@@ -36,7 +36,7 @@ export const DictionaryWordMeaning = ({ meaning, isLoading, onPlayDefinition }: 
 					return (
 						<li key={i} className="break-word flex min-w-0 flex-1 items-center justify-between pl-4">
 							<span
-								className={cn("min-w-0 max-w-50 flex-1 text-xs sm:text-sm", isMobile ? "max-w-40" : "max-w-50")}
+								className={cn("min-w-0 max-w-50 flex-1 mobile:text-xs text-sm", isMobile ? "max-w-40" : "max-w-50")}
 							>{`${i + 1}. ${definitionText}`}</span>
 							<button
 								type="button"

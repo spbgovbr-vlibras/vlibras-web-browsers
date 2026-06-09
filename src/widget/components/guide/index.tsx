@@ -79,7 +79,7 @@ export const Guide = () => {
 				)}
 			>
 				<div className="pr-4">
-					<span className="break-anywhere expanded:text-base! text-primary-foreground text-sm sm:text-base">
+					<span className="break-anywhere expanded:text-base! mobile:text-sm text-base text-primary-foreground">
 						{element.text}
 					</span>
 				</div>
