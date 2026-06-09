@@ -12,7 +12,7 @@
 	"action": {
 		"default_title": "Abrir VLibras"
 	},
-	"permissions": ["storage", "windows", "tabs", "scripting"],
+	"permissions": ["storage", "windows", "tabs", "scripting", "contextMenus"],
 	"host_permissions": ["<all_urls>"],
 	"background": {
 		"service_worker": "service_worker.js"

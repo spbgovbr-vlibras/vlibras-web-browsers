@@ -2,12 +2,40 @@ let selectedText = "";
 let textCaptureEnabled = false;
 let popupConnections = 0;
 
+const OPEN_CONTEXT_MENU_ID = "vlibras-open-widget";
+const TRANSLATE_CONTEXT_MENU_ID = "vlibras-translate-selection";
+
 const isInjectableUrl = (url) => {
   if (!url || typeof url !== "string") return false;
   if (url.startsWith("http://")) return true;
   if (url.startsWith("https://")) return true;
   if (url.startsWith("file://")) return true;
   return false;
+};
+
+const setupContextMenu = () => {
+  try {
+    chrome.contextMenus.removeAll(() => {
+      chrome.contextMenus.create({
+        id: OPEN_CONTEXT_MENU_ID,
+        title: "Abrir VLibras Widget",
+        contexts: [
+          "page",
+          "link",
+          "image",
+          "video",
+          "audio",
+          "frame",
+          "editable",
+        ],
+      });
+      chrome.contextMenus.create({
+        id: TRANSLATE_CONTEXT_MENU_ID,
+        title: 'Traduzir "%s" para Libras',
+        contexts: ["selection"],
+      });
+    });
+  } catch {}
 };
 
 const ensureTextCaptureInTab = async (tabId) => {
@@ -79,6 +107,33 @@ const createPopup = (text = "") => {
     },
   );
 };
+
+chrome.runtime.onInstalled.addListener(() => {
+  setupContextMenu();
+});
+
+chrome.contextMenus.onClicked.addListener(async (info) => {
+  const isTranslate = info?.menuItemId === TRANSLATE_CONTEXT_MENU_ID;
+  const isOpen = info?.menuItemId === OPEN_CONTEXT_MENU_ID;
+  if (!isTranslate && !isOpen) return;
+
+  const selectionText = isTranslate ? info?.selectionText || "" : "";
+  const existingWindow = await getPopup();
+
+  if (existingWindow) {
+    chrome.windows.update(existingWindow.id, { focused: true });
+    setTextCaptureEnabled(true);
+    if (selectionText) {
+      try {
+        chrome.runtime.sendMessage({ selectedText: selectionText });
+      } catch {}
+    }
+    return;
+  }
+
+  createPopup(selectionText);
+  setTextCaptureEnabled(true);
+});
 
 chrome.action.onClicked.addListener(async () => {
   const existingWindow = await getPopup();

@@ -8,6 +8,7 @@ const __dirname = path.dirname(__filename);
 const rootDir = path.join(__dirname, "..");
 const appDir = path.join(rootDir, "app");
 const extensionsDir = path.join(rootDir, "extensions");
+const textCapturePath = path.join(__dirname, "text-capture.js");
 
 const target = process.argv[2]; // 'firefox', 'chrome', or 'both'
 
@@ -38,6 +39,7 @@ function copyDirectory(src, dest) {
 function buildExtension(extensionName) {
   const extensionDir = path.join(extensionsDir, extensionName);
   const targetAppDir = path.join(extensionDir, "app");
+  const targetTextCapturePath = path.join(extensionDir, "text-capture.js");
 
   if (fs.existsSync(targetAppDir)) {
     fs.rmSync(targetAppDir, { recursive: true, force: true });
@@ -45,6 +47,12 @@ function buildExtension(extensionName) {
 
   fs.mkdirSync(targetAppDir, { recursive: true });
   copyDirectory(appDir, targetAppDir);
+
+  if (!fs.existsSync(textCapturePath)) {
+    console.error(`Arquivo não encontrado: ${textCapturePath}`);
+    process.exit(1);
+  }
+  fs.copyFileSync(textCapturePath, targetTextCapturePath);
 }
 
 if (target === "both") {
