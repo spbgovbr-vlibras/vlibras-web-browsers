@@ -1,0 +1,106 @@
+stages:
+  - release
+
+default:
+  tags:
+    - docker
+
+release-pr-only:
+  image: node:jod-slim
+  before_script:
+    - apt-get update -y && apt-get install -y curl jq
+  stage: release
+  when: manual
+  # Configura o step para rodar apenas em branches com prefixo release/** e em MRs para a master
+  rules:
+    - if: $CI_MERGE_REQUEST_SOURCE_BRANCH_NAME =~ /^release\/.*$/ && $CI_MERGE_REQUEST_TARGET_BRANCH_NAME == "master"
+  allow_failure: false
+  script:
+    # Extrair a versão do package.json
+    - VERSION=$(node -p "require('./package.json').version")
+    - VERSION="v${VERSION}"
+    - 'echo "Versão identificada: $VERSION"'
+
+    # Verificar se a versão já foi lançada
+    - |
+      RESP=$(curl -s -w "\n%{http_code}" --header "PRIVATE-TOKEN: ${GITLAB_API_TOKEN}" "${CI_API_V4_URL}/projects/${CI_PROJECT_ID}/releases/${VERSION}")
+      RELEASE_BODY=$(echo "$RESP" | head -n -1)
+      RELEASE_CODE=$(echo "$RESP" | tail -n 1)
+      if [ "$RELEASE_CODE" -ge 400 ] && [ "$RELEASE_CODE" -ne 404 ]; then
+        echo "ERROR: Check release failed with HTTP $RELEASE_CODE"
+        echo "Response body: $RELEASE_BODY"
+        exit 1
+      fi
+      RELEASE_EXISTS=$(echo "$RELEASE_BODY" | jq -r .tag_name)
+    - 'echo "Release encontrada: ${RELEASE_EXISTS}"'
+    # Retornar erro se release já existe, se release for diferente de null
+    - if [ "$RELEASE_EXISTS" != "null" ]; then
+      echo "A release $VERSION já existe. Abortando.";
+      exit 1;
+      fi
+
+    # Verificar se Tag já existe
+    - |
+      RESP=$(curl -s -w "\n%{http_code}" --header "PRIVATE-TOKEN: ${GITLAB_API_TOKEN}" "${CI_API_V4_URL}/projects/${CI_PROJECT_ID}/repository/tags/${VERSION}")
+      TAG_BODY=$(echo "$RESP" | head -n -1)
+      TAG_CODE=$(echo "$RESP" | tail -n 1)
+      if [ "$TAG_CODE" -ge 400 ] && [ "$TAG_CODE" -ne 404 ]; then
+        echo "ERROR: Check tag failed with HTTP $TAG_CODE"
+        echo "Response body: $TAG_BODY"
+        exit 1
+      fi
+      TAG_EXISTS=$(echo "$TAG_BODY" | jq -r .name)
+    - 'echo "Tag encontrada: ${TAG_EXISTS}"'
+    # Retornar erro se tag já existe
+    - if [ "$TAG_EXISTS" != "null" ]; then
+      echo "A tag $VERSION já existe. Abortando.";
+      exit 1;
+      fi
+
+    # Obter o commit atual
+    - COMMIT_SHA=$CI_COMMIT_SHA
+    - 'echo "Commit SHA: $COMMIT_SHA"'
+
+    # Obter o ID do Merge Request via API GitLab, com base no commit atual
+    - |
+      MR_RESP=$(curl -s -w "\n%{http_code}" --header "PRIVATE-TOKEN: ${GITLAB_API_TOKEN}" "${CI_API_V4_URL}/projects/${CI_PROJECT_ID}/merge_requests?source_branch=${CI_COMMIT_REF_NAME}&target_branch=main") || { echo "ERROR: curl failed (e.g. connection/SSL error)"; exit 1; }
+      MR_BODY=$(echo "$MR_RESP" | head -n -1)
+      MR_CODE=$(echo "$MR_RESP" | tail -n 1)
+      if [ "$MR_CODE" -ge 400 ]; then
+        echo "ERROR: Get merge requests failed with HTTP $MR_CODE"
+        echo "Response body: $MR_BODY"
+        exit 1
+      fi
+      MR_ID=$(echo "$MR_BODY" | jq -r .[0].iid)
+    - 'echo "Merge Request ID encontrado: $MR_ID"'
+    # Verificar se encontrou um MR
+    - if [ -z "$MR_ID" ] || [ "$MR_ID" = "null" ]; then
+      echo "Nenhum Merge Request encontrado para o commit $COMMIT_SHA. Abortando.";
+      exit 0;
+      fi
+
+    # Obter detalhes do MR, extrair descrição e criar release (em um bloco para compartilhar variáveis)
+    - |
+      MR_RESP=$(curl -s -w "\n%{http_code}" --header "PRIVATE-TOKEN: ${GITLAB_API_TOKEN}" "${CI_API_V4_URL}/projects/${CI_PROJECT_ID}/merge_requests/${MR_ID}") || { echo "ERROR: curl failed (e.g. connection/SSL error)"; exit 1; }
+      MR_BODY=$(echo "$MR_RESP" | head -n -1)
+      MR_CODE=$(echo "$MR_RESP" | tail -n 1)
+      if [ "$MR_CODE" -ge 400 ]; then
+        echo "ERROR: Get merge request details failed with HTTP $MR_CODE"
+        echo "Response body: $MR_BODY"
+        exit 1
+      fi
+      MR_DESCRIPTION=$(echo "$MR_BODY" | jq -r '.description')
+      echo "Descrição do MR extraída."
+      ESCAPED_DESCRIPTION=$(echo "$MR_DESCRIPTION" | jq -Rsa .)
+      CREATE_RESP=$(curl -s -w "\n%{http_code}" -X POST "${CI_API_V4_URL}/projects/${CI_PROJECT_ID}/releases" \
+        --header "PRIVATE-TOKEN: ${GITLAB_API_TOKEN}" \
+        --header "Content-Type: application/json" \
+        --data "{\"name\": \"$VERSION\", \"description\":$ESCAPED_DESCRIPTION, \"tag_name\": \"$VERSION\",\"ref\": \"$CI_COMMIT_REF_NAME\"}")
+      CREATE_BODY=$(echo "$CREATE_RESP" | head -n -1)
+      CREATE_CODE=$(echo "$CREATE_RESP" | tail -n 1)
+      if [ "$CREATE_CODE" -ge 400 ]; then
+        echo "ERROR: Create release failed with HTTP $CREATE_CODE"
+        echo "Response body: $CREATE_BODY"
+        exit 1
+      fi
+      echo "Release $VERSION criada com sucesso."
