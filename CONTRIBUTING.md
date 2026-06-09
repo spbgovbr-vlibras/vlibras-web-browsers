@@ -28,6 +28,7 @@ Este documento descreve as convenções de código e o fluxo de contribuição u
   - [Hooks](#hooks)
   - [Utilitários](#utilitários)
 - [Tailwind e UI](#tailwind-e-ui)
+- [Ícones e imagens](#ícones-e-imagens)
 - [O que evitar](#o-que-evitar)
 - [Checklist antes do PR](#checklist-antes-do-pr)
 
@@ -267,6 +268,29 @@ className={cn("rounded-full bg-background", disabled && "opacity-50")}
 - Reutilize componentes da pasta `src/widget/components/ui` antes de criar novas variações locais.
 - Prefira variantes declarativas com `class-variance-authority` quando o componente tiver múltiplos estados visuais, como acontece em `button.tsx`.
 - Mantenha os nomes de props de UI semânticos, como `variant`, `size`, `placement`, `align`.
+
+## Ícones e imagens
+
+Para reduzir o tamanho final do bundle e melhorar o desempenho de carregamento da aplicação, ícones e imagens devem ser convertidos para o formato **WebP** utilizando as menores dimensões e a menor quantidade de cores possível, desde que a qualidade visual permaneça adequada.
+
+- O componente de ícones fica em `src/widget/components/ui/icon.tsx` e carrega automaticamente os arquivos `.webp` de `src/widget/icons`.
+- Para converter arquivos para uso no projeto, utilize o script `pnpm convert` a partir da pasta `tools` (implementado em `tools/converter.js`).
+- Os arquivos de origem devem ser colocados em `tools/icons/` (formatos permitidos: `svg`, `webp`, `png`, `jpg`, `jpeg`).
+
+  ```bash
+  cd tools
+  pnpm install
+  pnpm convert
+  ```
+
+- Ao rodar o script, os arquivos convertidos são gerados em `tools/webp/` com o mesmo nome, sempre com extensão `.webp`.
+- Depois de converter, mova os `.webp` para `src/widget/icons/` (preservando subpastas como `categories/` e `emotions/`).
+- Registre o ícone em `src/widget/icons/types.ts` adicionando o caminho relativo do arquivo (sem a extensão) na lista `ICON_NAMES` (por exemplo `categories/all` ou `meu-novo-icone`).
+- Para usar na UI, renderize com o componente `Icon`:
+
+  ```tsx
+  <Icon name="<novo_icon>" />
+  ```
 
 ## O que evitar
 

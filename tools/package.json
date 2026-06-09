@@ -1,0 +1,15 @@
+{
+	"name": "tools",
+	"version": "1.0.0",
+	"description": "Utilitários para o VLibras Widget",
+	"type": "module",
+	"scripts": {
+		"convert": "node ./converter.js"
+	},
+	"keywords": [],
+	"dependencies": {
+		"execa": "^9.6.1",
+		"pngquant-bin": "^9.0.0",
+		"sharp": "^0.34.5"
+	}
+}
