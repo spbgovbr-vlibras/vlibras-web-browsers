@@ -1,17 +1,9 @@
 import { camaraIcon, lavidIcon, mdhcIcon, mgispIcon, rnpIcon } from "@/assets";
 import { cn } from "@/common/lib/utils";
 import { Icon } from "@/widget/components/ui/icon";
-import type { IconName } from "@/widget/icons/types";
 import { Screen, ScreenContent, ScreenHeader, ScreenTitle } from "../components";
 import { AboutField } from "./aboutfield";
-
-const socialLinks: { href: string; iconName: IconName }[] = [
-	{ href: "https://www.gov.br/governodigital/pt-br/acessibilidade-e-usuario/vlibras", iconName: "worldwide" },
-	{ href: "https://www.facebook.com/vlibras", iconName: "facebook" },
-	{ href: "https://www.instagram.com/vlibrasoficial", iconName: "instagram" },
-	{ href: "https://x.com/VLibrasoficial", iconName: "twitter" },
-	{ href: "https://www.youtube.com/@vlibras-lavid3180", iconName: "youtube" },
-];
+import { socialLinks } from "./social-links";
 
 export const AboutScreen = () => {
 	return (
@@ -60,15 +52,15 @@ export const AboutScreen = () => {
 							"[&_button]:w-full [&_button]:rounded-full [&_button]:bg-primary-foreground [&_button]:text-primary",
 						)}
 					>
-						{socialLinks.map(({ href, iconName }) => (
+						{socialLinks.map((social) => (
 							<a
-								key={href}
-								href={href}
+								key={social.name}
+								href={social.href}
 								target="_blank"
 								rel="noopener noreferrer"
 								className="grid place-content-center rounded-full bg-white p-2"
 							>
-								<Icon name={iconName} className="size-4 bg-primary" />
+								<Icon name={social.iconName} className="size-4 bg-primary" aria-label={social.name} />
 							</a>
 						))}
 					</div>
