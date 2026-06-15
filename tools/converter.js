@@ -26,53 +26,32 @@ const DIM = "\x1b[2m";
 const GREEN = "\x1b[32m";
 const RESET = "\x1b[0m";
 
-if (!fs.existsSync(OUTPUT_DIR)) {
-	fs.mkdirSync(OUTPUT_DIR, { recursive: true });
-}
+if (!fs.existsSync(OUTPUT_DIR)) fs.mkdirSync(OUTPUT_DIR, { recursive: true });
 
-try {
-	const files = fs.readdirSync(ICONS_DIR);
+const files = fs.readdirSync(ICONS_DIR);
 
-	for (const file of files) {
-		const ext = path.extname(file).toLowerCase();
+for (const file of files) {
+	const ext = path.extname(file).toLowerCase();
+	if (!ALLOWED_EXTENSIONS.includes(ext)) continue;
 
-		if (!ALLOWED_EXTENSIONS.includes(ext)) continue;
+	const inputPath = path.join(ICONS_DIR, file);
+	const outputPath = path.join(OUTPUT_DIR, `${path.parse(file).name}.webp`);
 
-		const inputPath = path.join(ICONS_DIR, file);
-		const name = path.basename(file, ext);
-		const outputPath = path.join(OUTPUT_DIR, `${name}.webp`);
+	try {
+		const pipeline = sharp(inputPath).resize(SIZE, SIZE);
 
-		try {
-			let pipeline;
+		const binaryAlphaBuffer = await pipeline.clone().ensureAlpha().threshold(128).png().toBuffer();
 
-			if (ext === ".svg") {
-				const svgContent = fs.readFileSync(inputPath, "utf8");
-				pipeline = sharp(Buffer.from(svgContent)).resize(SIZE, SIZE).ensureAlpha();
-			} else {
-				pipeline = sharp(inputPath).resize(SIZE, SIZE).ensureAlpha();
-			}
+		const indexedPng = execSync(`"${pngquant}" ${COLORS} --nofs -`, {
+			input: binaryAlphaBuffer,
+			maxBuffer: 1024 * 1024 * 10,
+		});
 
-			const alphaMaskBuffer = await pipeline.clone().extractChannel("alpha").threshold(128).png().toBuffer();
+		await sharp(indexedPng).webp({ lossless: true }).toFile(outputPath);
 
-			const rawPngBuffer = await pipeline
-				.clone()
-				.composite([{ input: alphaMaskBuffer, blend: "dest-in" }])
-				.png()
-				.toBuffer();
-
-			const indexedPngBuffer = execSync(`"${pngquant}" ${COLORS} --nofs -`, {
-				input: rawPngBuffer,
-				maxBuffer: 1024 * 1024 * 10,
-			});
-
-			await sharp(indexedPngBuffer).webp({ lossless: true, effort: 6 }).toFile(outputPath);
-
-			const sizeBytes = fs.statSync(outputPath).size;
-			console.log(`${GREEN}✔${RESET} ${outputPath} ${DIM}(${sizeBytes} bytes)${RESET}`);
-		} catch (err) {
-			console.error(`❌ Erro ao processar ${file}:`, err.message);
-		}
+		const sizeBytes = fs.statSync(outputPath).size;
+		console.log(`${GREEN}✔${RESET} ${outputPath} ${DIM}(${sizeBytes} bytes)${RESET}`);
+	} catch (err) {
+		console.error(`❌ Erro em ${file}: ${err.message}`);
 	}
-} catch (err) {
-	console.error("❌ Erro ao ler a pasta de ícones:", err.message);
 }
