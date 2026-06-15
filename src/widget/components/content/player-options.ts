@@ -24,9 +24,13 @@ export const playerOptions: PlayerOptions = {
 
 	onPlay: () => {
 		const { screen, open } = screenStore.get();
-
 		if (screen !== "main") open("main");
+		widgetStore.set({ isPausedByUser: false });
+	},
 
+	onPlayStatic: () => {
+		const { screen, open } = screenStore.get();
+		if (screen !== "main") open("main");
 		widgetStore.set({ isPausedByUser: false });
 	},
 

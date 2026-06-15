@@ -51,8 +51,10 @@ export const playStatic = (gloss: string) => {
 
 	setConfig({ baseUrl: staticUrl });
 
-	if (gloss) send(UNITY_OBJECTS.PLAYER, UNITY_METHODS.PLAY, gloss);
-	else send(UNITY_OBJECTS.PLAYER, UNITY_METHODS.SET_PAUSE_STATE, 0);
+	if (gloss) {
+		send(UNITY_OBJECTS.PLAYER, UNITY_METHODS.PLAY, gloss);
+		playerOptionsStore.get().onPlayStatic?.(gloss);
+	} else send(UNITY_OBJECTS.PLAYER, UNITY_METHODS.SET_PAUSE_STATE, 0);
 
 	setConfig({ baseUrl });
 

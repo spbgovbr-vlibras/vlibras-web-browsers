@@ -14,6 +14,7 @@ export type CountGloss = {
 
 export type PlayerOptions = {
 	onPlay?: (gloss: string) => void;
+	onPlayStatic?: (gloss: string) => void;
 	onPause?: () => void;
 	onStop?: () => void;
 	onRepeat?: () => void;
