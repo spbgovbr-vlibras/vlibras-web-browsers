@@ -22,7 +22,10 @@ export const InlineTranslatorButton = ({ className, gloss, onFinish, onClick, ..
 			onClick={handleClick}
 			type="button"
 			aria-label="Traduzir texto"
-			className={cn("relative -bottom-1 inline cursor-pointer rounded-sm p-0.5 hover:text-primary", className)}
+			className={cn(
+				"pointer-events-auto relative -bottom-1 inline cursor-pointer rounded-sm p-0.5 hover:text-primary",
+				className,
+			)}
 			{...props}
 		>
 			<Icon name="hands" aria-hidden="true" className="size-4" />
