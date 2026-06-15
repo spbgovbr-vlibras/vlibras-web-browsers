@@ -2,7 +2,7 @@ import type { ComponentProps, TargetedMouseEvent } from "preact";
 import { cn } from "@/common/lib/utils";
 import { playStatic } from "@/player/actions";
 import { Icon } from "@/widget/components/ui/icon";
-import { createCallback } from "@/widget/stores/use-callback.store";
+import { createCallback, resetCallback } from "@/widget/stores/use-callback.store";
 
 type Props = Omit<ComponentProps<"button">, "children"> & {
 	gloss: string;
@@ -11,10 +11,11 @@ type Props = Omit<ComponentProps<"button">, "children"> & {
 
 export const InlineTranslatorButton = ({ className, gloss, onFinish, onClick, ...props }: Props) => {
 	const handleClick = (e: TargetedMouseEvent<HTMLButtonElement>) => {
-		if (onFinish) createCallback({ action: onFinish, auto: true });
-
+		resetCallback();
 		playStatic(gloss);
 		onClick?.(e);
+
+		if (onFinish) createCallback({ action: onFinish, auto: true });
 	};
 
 	return (
