@@ -1,3 +1,4 @@
+import { Fragment } from "preact/jsx-runtime";
 import { camaraIcon, lavidIcon, mdhcIcon, mgispIcon, rnpIcon } from "@/assets";
 import { cn } from "@/common/lib/utils";
 import { InlineTranslatorButton } from "@/widget/components/inline-translator-button";
@@ -21,8 +22,8 @@ export const AboutScreen = () => {
 			<ScreenContent className="flex flex-col text-sm">
 				<AboutField label="Sobre o VLibras">
 					<p>
-						A <strong>Suíte VLibra1s</strong> é um conjunto de ferramentas gratuitas de código aberto que traduz
-						conteúdo digital (texto, áudio e vídeo) em Português para Libras.
+						A <strong>Suíte VLibras</strong> é um conjunto de ferramentas gratuitas de código aberto que traduz conteúdo
+						digital (texto, áudio e vídeo) em Português para Libras.
 						<InlineTranslatorButton
 							gloss="SUÍTE VLIBRAS CONJUNTO&GRUPO FERRAMENTA GRATUITO CÓDIGO&COMPUTAÇÃO ABRIR&AFASTAR TRADUZIR CONTEÚDO&ASSUNTO DIGITAL&COMPUTADOR TEXTO ÁUDIO VÍDEO PORTUGUÊS LIBRAS [PONTO]"
 							onFinish={handleReopenScreen}
@@ -32,10 +33,10 @@ export const AboutScreen = () => {
 
 				<AboutField
 					label={
-						<p>
+						<Fragment>
 							Realizadores
 							<InlineTranslatorButton gloss="REALIZAR" onFinish={handleReopenScreen} />
-						</p>
+						</Fragment>
 					}
 				>
 					<div className="flex w-full flex-col justify-between gap-2 rounded-xl bg-white p-2">
@@ -64,7 +65,11 @@ export const AboutScreen = () => {
 				<div className="relative mobile:-m-2 mt-auto! flex min-h-32 flex-col overflow-hidden rounded-xl border p-4 font-semibold text-primary-foreground dark:bg-muted">
 					<p className="mb-4 text-center mobile:text-sm text-base leading-none">
 						Nos acompanhe nas redes sociais
-						<InlineTranslatorButton gloss="ACOMPANHAR REDE&GRUPO SOCIAL" onFinish={handleReopenScreen} />
+						<InlineTranslatorButton
+							gloss="ACOMPANHAR REDE&GRUPO SOCIAL"
+							onFinish={handleReopenScreen}
+							className="text-primary-foreground! hover:opacity-80"
+						/>
 					</p>
 					<div
 						className={cn(
