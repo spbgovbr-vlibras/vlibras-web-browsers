@@ -1,6 +1,6 @@
 import { cva, type VariantProps } from "class-variance-authority";
 
-export const appVariants = cva("fixed", {
+export const appVariants = cva("fixed z-2147483647", {
 	variants: {
 		isDragging: { true: "", false: "transition-all" },
 		isOpen: { true: "", false: "opacity-0" },
