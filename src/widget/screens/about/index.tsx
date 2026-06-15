@@ -2,7 +2,7 @@ import { camaraIcon, lavidIcon, mdhcIcon, mgispIcon, rnpIcon } from "@/assets";
 import { cn } from "@/common/lib/utils";
 import { Icon } from "@/widget/components/ui/icon";
 import { Screen, ScreenContent, ScreenHeader, ScreenTitle } from "../components";
-import { AboutField } from "./aboutfield";
+import { AboutField } from "./about-field";
 import { socialLinks } from "./social-links";
 
 export const AboutScreen = () => {
@@ -14,7 +14,7 @@ export const AboutScreen = () => {
 
 			<ScreenContent className="flex flex-col text-sm">
 				<AboutField label="Sobre o VLibras">
-					<p className="">
+					<p>
 						A <strong>Suíte VLibras</strong> é um conjunto de ferramentas gratuitas de código aberto que traduz conteúdo
 						digital (texto, áudio e vídeo) em Português para Libras.
 					</p>
