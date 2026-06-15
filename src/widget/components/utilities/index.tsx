@@ -44,7 +44,7 @@ export const Utilities = () => {
 
 	const showCallback = action && content && status === "idle";
 	const showFeedback = Boolean(status === "idle" && gloss && text);
-	const showSkip = isPlayingWelcome ? true : (isPlaying || isPaused) && !!gloss && !isGuideOpen;
+	const showSkip = isPlayingWelcome ? true : (isPlaying || isPaused) && !isGuideOpen;
 	const showToggleAvatar = status === "idle" || isGuideOpen;
 
 	if (isTranslating) return null;

@@ -161,7 +161,8 @@ export const DialogTitle = ({ children, icon: iconName, className, ...props }: D
 					className="relative -bottom-1 mobile:-bottom-px mobile:size-4.5 size-5 shrink-0"
 				/>
 			)}
-			{children}
+
+			<div>{children}</div>
 		</h3>
 	);
 };
