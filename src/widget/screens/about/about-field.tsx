@@ -1,8 +1,8 @@
 import type { ComponentChildren } from "preact";
 
 type AboutFieldProps = {
-	label: string;
-	description?: string;
+	label: string | ComponentChildren;
+	description?: string | ComponentChildren;
 	children: ComponentChildren;
 };
 

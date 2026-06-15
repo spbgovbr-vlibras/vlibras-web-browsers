@@ -1,11 +1,17 @@
 import { camaraIcon, lavidIcon, mdhcIcon, mgispIcon, rnpIcon } from "@/assets";
 import { cn } from "@/common/lib/utils";
+import { InlineTranslatorButton } from "@/widget/components/inline-translator-button";
 import { Icon } from "@/widget/components/ui/icon";
+import { screenStore } from "@/widget/stores/use-screens.store";
 import { Screen, ScreenContent, ScreenHeader, ScreenTitle } from "../components";
 import { AboutField } from "./about-field";
 import { socialLinks } from "./social-links";
 
 export const AboutScreen = () => {
+	const handleReopenScreen = () => {
+		screenStore.get().open("about");
+	};
+
 	return (
 		<Screen>
 			<ScreenHeader close>
@@ -15,12 +21,23 @@ export const AboutScreen = () => {
 			<ScreenContent className="flex flex-col text-sm">
 				<AboutField label="Sobre o VLibras">
 					<p>
-						A <strong>Suíte VLibras</strong> é um conjunto de ferramentas gratuitas de código aberto que traduz conteúdo
-						digital (texto, áudio e vídeo) em Português para Libras.
+						A <strong>Suíte VLibra1s</strong> é um conjunto de ferramentas gratuitas de código aberto que traduz
+						conteúdo digital (texto, áudio e vídeo) em Português para Libras.
+						<InlineTranslatorButton
+							gloss="SUÍTE VLIBRAS CONJUNTO&GRUPO FERRAMENTA GRATUITO CÓDIGO&COMPUTAÇÃO ABRIR&AFASTAR TRADUZIR CONTEÚDO&ASSUNTO DIGITAL&COMPUTADOR TEXTO ÁUDIO VÍDEO PORTUGUÊS LIBRAS [PONTO]"
+							onFinish={handleReopenScreen}
+						/>
 					</p>
 				</AboutField>
 
-				<AboutField label="Realizadores">
+				<AboutField
+					label={
+						<p>
+							Realizadores
+							<InlineTranslatorButton gloss="REALIZAR" onFinish={handleReopenScreen} />
+						</p>
+					}
+				>
 					<div className="flex w-full flex-col justify-between gap-2 rounded-xl bg-white p-2">
 						<div className="flex w-full items-center justify-between gap-2">
 							<div className="flex min-w-0 flex-1 justify-start">
@@ -45,7 +62,10 @@ export const AboutScreen = () => {
 				</AboutField>
 
 				<div className="relative mobile:-m-2 mt-auto! flex min-h-32 flex-col overflow-hidden rounded-xl border p-4 font-semibold text-primary-foreground dark:bg-muted">
-					<p className="text-center">Nos acompanhe nas redes sociais</p>
+					<p className="mb-4 text-center mobile:text-sm text-base leading-none">
+						Nos acompanhe nas redes sociais
+						<InlineTranslatorButton gloss="ACOMPANHAR REDE&GRUPO SOCIAL" onFinish={handleReopenScreen} />
+					</p>
 					<div
 						className={cn(
 							"z-999 mt-auto flex w-full items-center justify-between gap-2",
