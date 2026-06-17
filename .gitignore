@@ -27,6 +27,9 @@ dist-ssr
 stats.html
 package-lock.json
 
+# Extensions
+extensions/*/text-capture.js
+
 # Tools package
 tools/webp
 tools/icons
