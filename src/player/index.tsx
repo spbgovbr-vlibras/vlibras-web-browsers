@@ -20,7 +20,14 @@ export const Player = (props: PlayerProps) => {
 	const iframeSrc = sanitizeUrl(`${path}/unity/index.html`);
 
 	const send = (object: UNITY_OBJECTS, method: UNITY_METHODS, params?: unknown) => {
-		iframeRef.current?.contentWindow?.postMessage({ type: "unity", object, method, params }, "*");
+		if (!iframeRef.current) return;
+
+		const { contentWindow } = iframeRef.current;
+		const { instance } = playerStore.get();
+
+		contentWindow?.postMessage({ type: "unity", object, method, params }, "*");
+
+		if (!instance) playerStore.set({ instance: contentWindow?.getUnityInstance?.() });
 	};
 
 	useEffect(() => {

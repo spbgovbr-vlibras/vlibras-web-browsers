@@ -15,10 +15,15 @@ interface Window {
 
 	plugin?: any;
 	vlibras?: any;
+	getUnityInstance?: () => UnityInstance;
 }
 
 interface UnityInstance {
 	SendMessage<T>(objectName: string, methodName: string, params?: T): void;
+	Module: {
+		resumeMainLoop: () => void;
+		pauseMainLoop: () => void;
+	};
 }
 
 interface UnityConfig {

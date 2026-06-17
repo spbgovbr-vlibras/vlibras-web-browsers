@@ -30,6 +30,8 @@ window.addEventListener("message", (e) => {
   gameInstance.SendMessage(m.object, m.method, m.params);
 });
 
+window.getUnityInstance = () => gameInstance;
+
 window.onPlayingStateChange = (...data) => {
   postEvent("on_playing_state_change", data);
 };
