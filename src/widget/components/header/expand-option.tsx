@@ -27,20 +27,10 @@ export const ExpandOption = () => {
 
 		const { root } = rootStore.get();
 		const { isExpanded } = widgetStore.get();
-		const nextState = !isExpanded;
 
 		if (!root) return;
 
-		widgetStore.set({ isExpanded: nextState });
-
-		if (!nextState) {
-			delete root.dataset.expanded;
-			delete document.body.dataset.vlibrasExpanded;
-			return;
-		}
-
-		root.dataset.expanded = "true";
-		document.body.dataset.vlibrasExpanded = "true";
+		widgetStore.set({ isExpanded: !isExpanded });
 		posthogg.trackEvent("expanded");
 	};
 
