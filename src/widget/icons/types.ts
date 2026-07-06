@@ -8,6 +8,7 @@ const ICON_NAMES = [
 	"categories/all",
 	"categories/alphabet",
 	"categories/animals",
+	"categories/asterisk",
 	"categories/body",
 	"categories/countries",
 	"categories/family",

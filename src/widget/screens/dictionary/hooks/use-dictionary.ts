@@ -4,6 +4,7 @@ import { useDebouncedCallback } from "@/common/hooks";
 import { Trie } from "@/common/lib/trie";
 import { useDictionarySigns } from "@/core/actions/hooks";
 import { getCategories, getCategorySigns } from "../actions";
+import { groupByAlphabet } from "../lib/alphabet";
 import { groupVerbs } from "../lib/group-signs";
 import type { Category, DictionaryFilter } from "../lib/types";
 import { useDictionaryStore } from "../stores/use-dictionary.store";
@@ -28,6 +29,7 @@ export const useDictionary = () => {
 	const { signs } = useDictionaryHistoryStore();
 
 	const [selectedCategory, setSelectedCategory] = useState<Category | null>(null);
+	const [selectedLetter, setSelectedLetter] = useState<string | null>(null);
 
 	const { data: categories = [], isLoading: isLoadingCategories } = useQuery({
 		queryKey: ["categories"],
@@ -184,6 +186,40 @@ export const useDictionary = () => {
 		setCategoryVisibleCount(ITEMS_PER_PAGE);
 	}, [selectedCategory]);
 
+	const groupedSigns = useMemo(() => groupByAlphabet(allSigns), [allSigns]);
+
+	const filteredLetterWords = useMemo(() => {
+		if (!selectedLetter) return [];
+		const searchTerm = search.toLowerCase().trim();
+		const items = groupedSigns.find((group) => group.letter === selectedLetter)?.items ?? [];
+
+		return searchTerm === "" ? items : items.filter((sign) => sign.toLowerCase().includes(searchTerm));
+	}, [selectedLetter, groupedSigns, search]);
+
+	const [letterVisibleCount, setLetterVisibleCount] = useState(ITEMS_PER_PAGE);
+
+	const visibleLetterWords = useMemo(() => {
+		return filteredLetterWords.slice(0, letterVisibleCount);
+	}, [filteredLetterWords, letterVisibleCount]);
+
+	const onLetterScroll = useCallback(
+		(e: Event) => {
+			const el = e.currentTarget as HTMLElement;
+			const isBottom = el.scrollTop + el.clientHeight >= el.scrollHeight - 50;
+			if (!isBottom) return;
+
+			setLetterVisibleCount((p) => {
+				if (p >= filteredLetterWords.length) return p;
+				return p + ITEMS_PER_PAGE;
+			});
+		},
+		[filteredLetterWords.length],
+	);
+
+	useEffect(() => {
+		setLetterVisibleCount(ITEMS_PER_PAGE);
+	}, [selectedLetter]);
+
 	return {
 		search,
 		isLoading,
@@ -206,6 +242,12 @@ export const useDictionary = () => {
 		filteredCategoryWords,
 		onCategoryScroll,
 		visibleCategoryWords,
+		selectedLetter,
+		setSelectedLetter,
+		groupedSigns,
+		filteredLetterWords,
+		onLetterScroll,
+		visibleLetterWords,
 		isVerbCategory,
 		visibleVerbGroups,
 		verbGroupEntries,

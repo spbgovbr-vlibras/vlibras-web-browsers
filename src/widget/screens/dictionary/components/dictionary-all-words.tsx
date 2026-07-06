@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useMemo, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { cn } from "@/common/lib/utils";
 import { play } from "@/player/actions";
 import { Button } from "@/widget/components/ui/button";
@@ -7,7 +7,6 @@ import { useTranslate } from "@/widget/hooks/use-translate";
 import { useScreensStore } from "@/widget/stores/use-screens.store";
 import { useHandlePlay } from "../hooks/use-handle-play";
 import { useWordMeaning } from "../hooks/use-word-meaning";
-import { groupByAlphabet } from "../lib/alphabet";
 import { useDictionaryCtx } from "./dictionary-context";
 import { DictionaryWordMeaning } from "./dictionary-word-meaning";
 
@@ -19,22 +18,6 @@ export const DictionaryAllWords = () => {
 	const { mutateAsync: translate } = useTranslate();
 	const { expandedWord, wordMeanings, loadingMeaning, toggleWordMeaning } = useWordMeaning();
 
-	const [expandedLetter, setExpandedLetter] = useState<string | null>(null);
-	const letterRefs = useRef<Map<string, HTMLLIElement>>(new Map());
-
-	const [letterVisibleCount, setLetterVisibleCount] = useState(ITEMS_PER_PAGE);
-	const sentinelRef = useRef<HTMLLIElement>(null);
-
-	useEffect(() => {
-		setLetterVisibleCount(ITEMS_PER_PAGE);
-	}, [expandedLetter]);
-
-	useEffect(() => {
-		if (!expandedLetter) return;
-		const li = letterRefs.current.get(expandedLetter);
-		li?.scrollIntoView({ block: "start", behavior: "smooth" });
-	}, [expandedLetter]);
-
 	const handlePlayDefinition = async (text: string) => {
 		try {
 			const gloss = await translate(text);
@@ -45,32 +28,8 @@ export const DictionaryAllWords = () => {
 		}
 	};
 
-	const grouped = useMemo(() => {
-		return groupByAlphabet(ctx.filteredSigns);
-	}, [ctx.filteredSigns]);
-
 	const [searchVisibleCount, setSearchVisibleCount] = useState(ITEMS_PER_PAGE);
 	const searchSentinelRef = useRef<HTMLLIElement>(null);
-
-	useEffect(() => {
-		if (ctx.search || !expandedLetter) return;
-		const sentinel = sentinelRef.current;
-		if (!sentinel) return;
-
-		const group = grouped.find(({ letter }) => letter === expandedLetter);
-		if (!group) return;
-
-		const observer = new IntersectionObserver(
-			([entry]) => {
-				if (!entry.isIntersecting) return;
-				setLetterVisibleCount((prev) => Math.min(prev + ITEMS_PER_PAGE, group.items.length));
-			},
-			{ root: ctx.listRef?.current, threshold: 0.1 },
-		);
-
-		observer.observe(sentinel);
-		return () => observer.disconnect();
-	}, [ctx.search, expandedLetter, grouped, ctx.listRef]);
 
 	useEffect(() => {
 		if (!ctx.search) return;
@@ -181,44 +140,19 @@ export const DictionaryAllWords = () => {
 
 	return (
 		<div ref={ctx.listRef} className="h-full overflow-auto">
-			{expandedLetter && (
-				<div className="sticky top-0 z-9 flex h-9 w-full items-center justify-between bg-background px-4 py-2 text-left font-semibold hover:cursor-pointer" />
-			)}
 			<ul className="flex flex-col text-sm">
-				{grouped.map(({ letter, items }) => {
-					const isLetterExpanded = expandedLetter === letter;
-
+				{ctx.groupedSigns.map(({ letter, items }) => {
 					return (
-						<li
-							key={letter}
-							ref={(el) => {
-								if (el) letterRefs.current.set(letter, el);
-								else letterRefs.current.delete(letter);
-							}}
-						>
+						<li key={letter}>
 							<button
 								type="button"
-								onClick={() => setExpandedLetter(isLetterExpanded ? null : letter)}
-								className={cn(
-									"sticky top-0 z-10 flex w-full items-center justify-between bg-background px-4 py-2 text-left font-semibold hover:cursor-pointer",
-									isLetterExpanded ? "bg-primary/20" : "hover:bg-muted",
-								)}
+								onClick={() => ctx.setSelectedLetter(letter)}
+								className="flex w-full items-center justify-between px-4 py-2 text-left font-semibold mobile:text-xs text-sm hover:cursor-pointer hover:bg-muted"
 							>
-								{letter === "#" ? "0–9" : letter}
-								<Icon name={isLetterExpanded ? "chevron-up" : "chevron-down"} className="size-4" aria-hidden="true" />
+								<span>{letter === "#" ? "0–9" : letter}</span>
+								<span className="font-normal text-muted-foreground text-xs">{items.length}</span>
 							</button>
-							{isLetterExpanded && (
-								<ul className="flex flex-col">
-									{items.slice(0, letterVisibleCount).map((sign) => {
-										return renderSignItem(sign);
-									})}
-									{letterVisibleCount < items.length && (
-										<li ref={sentinelRef} className="py-2 text-center text-muted-foreground text-xs">
-											Carregando...
-										</li>
-									)}
-								</ul>
-							)}
+							<div className="mx-4 border-border/30 border-t" />
 						</li>
 					);
 				})}
