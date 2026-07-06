@@ -7,7 +7,7 @@ import type { Category } from "../lib/types";
 import { useDictionaryCtx } from "./dictionary-context";
 
 export const DictionaryCategories = () => {
-	const { search, setSelectedCategory, categories, listRef } = useDictionaryCtx();
+	const { search, setSelectedCategory, categories, listRef, setFilter } = useDictionaryCtx();
 
 	const filtered = useMemo(() => {
 		return categories
@@ -41,6 +41,21 @@ export const DictionaryCategories = () => {
 						</li>
 					);
 				})}
+				<li key="all-signs">
+					<button
+						type="button"
+						onClick={() => setFilter("all")}
+						className={cn(
+							"flex w-full items-center justify-between px-4 mobile:py-2 py-0 mobile:text-xs text-sm hover:cursor-pointer hover:bg-muted",
+						)}
+					>
+						<div className="flex items-center gap-2 py-2">
+							<Icon name={"categories/asterisk"} className="mobile:size-5 size-6 shrink-0 dark:bg-foreground" />
+							<span>TODOS</span>
+						</div>
+					</button>
+					<div className="mx-4 border-border/30 border-t" />
+				</li>
 			</ul>
 		</div>
 	);
