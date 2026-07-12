@@ -36,7 +36,6 @@ export const FeedbackDialog = ({ open, onOpenChange }: Props) => {
 			onOpenChange(false);
 			toast("Agradecemos sua contribuição!", { variant: "primary", className: "font-semibold" });
 			playStatic("AGRADECER");
-			playerStore.set({ gloss: undefined });
 		} else {
 			onOpenChange(false);
 			if (result.error) toast(ERROR_MESSAGES.SEND_REVIEW_ERROR, { variant: "destructive" });

@@ -27,6 +27,7 @@ export const FeedbackSuggestion = ({ open, onOpenChange }: Props) => {
 	const [suggestions, setSuggestions] = useState<string[]>([]);
 	const [coords, setCoords] = useState({ top: 0, left: 0 });
 	const [value, setValue] = useState<string>("");
+	const isEmpty = !value.trim();
 
 	useEffect(() => setValue(playerStore.get().gloss || ""), []);
 
@@ -69,7 +70,6 @@ export const FeedbackSuggestion = ({ open, onOpenChange }: Props) => {
 				onOpenChange(false);
 				toast("Agradecemos sua contribuição!", { variant: "primary", className: "font-semibold" });
 				playStatic("AGRADECER");
-				playerStore.set({ gloss: undefined });
 			} else {
 				console.error(result.error);
 				if (result.error) toast(result.error, { variant: "destructive" });
@@ -116,7 +116,7 @@ export const FeedbackSuggestion = ({ open, onOpenChange }: Props) => {
 					</div>
 
 					<div className="space-y-2 [&>button]:h-10 [&>button]:w-full [&>button]:rounded-full mobile:[&>button]:text-sm">
-						<Button variant="default" onClick={handleSubmit} disabled={isSubmitting}>
+						<Button variant="default" onClick={handleSubmit} disabled={isSubmitting || isEmpty}>
 							{isSubmitting ? "Enviando..." : "Enviar sugestão"}
 						</Button>
 
