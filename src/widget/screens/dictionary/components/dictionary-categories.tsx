@@ -5,9 +5,12 @@ import type { IconName } from "@/widget/icons/types";
 import { categoryIcons } from "../lib/constants";
 import type { Category } from "../lib/types";
 import { useDictionaryCtx } from "./dictionary-context";
+import { DictionaryLoading } from "./dictionary-loading";
 
 export const DictionaryCategories = () => {
-	const { search, setSelectedCategory, categories, listRef, setFilter } = useDictionaryCtx();
+	const { search, setSelectedCategory, categories, listRef, setFilter, isLoadingCategories } = useDictionaryCtx();
+
+	if (isLoadingCategories) return <DictionaryLoading />;
 
 	const filtered = useMemo(() => {
 		return categories
@@ -15,7 +18,16 @@ export const DictionaryCategories = () => {
 			.sort((a: Category, b: Category) => a.name.localeCompare(b.name));
 	}, [categories, search]);
 
-	if (!filtered.length) return null;
+	if (!categories.length) {
+		return (
+			<div className="flex h-full w-full items-start justify-center p-6">
+				Sem conexão com a internet. Não é possível estabelecer conexão com o banco de sinais.
+			</div>
+		);
+	}
+	if (!filtered.length) {
+		return <div className="flex h-10 items-center justify-center">Nenhuma categoria encontrada</div>;
+	}
 
 	return (
 		<div ref={listRef} className="h-full overflow-auto">
