@@ -1,12 +1,10 @@
 import { DictionaryAllWords } from "./dictionary-all-words";
 import { DictionaryCategories } from "./dictionary-categories";
-import { DictionaryCategoryHeader } from "./dictionary-category-header";
-import { DictionaryCategoryWords } from "./dictionary-category-words";
+import { DictionaryCategoryList } from "./dictionary-categories-list";
 import { useDictionaryCtx } from "./dictionary-context";
 import { DictionaryError } from "./dictionary-error";
 import { DictionaryFilter } from "./dictionary-filter";
-import { DictionaryLetterHeader } from "./dictionary-letter-head";
-import { DictionaryLetterWords } from "./dictionary-letter-words";
+import { DictionaryLetterList } from "./dictionary-letter-list";
 import { DictionaryLoading } from "./dictionary-loading";
 import { DictionarySearch } from "./dictionary-search";
 
@@ -14,6 +12,7 @@ export const DictionaryList = () => {
 	const ctx = useDictionaryCtx();
 
 	if (ctx.isLoading) return <DictionaryLoading />;
+
 	if (!ctx.data) return <DictionaryError onRetry={ctx.retry} isMaxRetries={ctx.isMaxRetries} />;
 
 	const isAllLetterSelected = ctx.filter === "all" && !!ctx.selectedLetter;
@@ -31,17 +30,11 @@ export const DictionaryList = () => {
 			<DictionarySearch />
 			<DictionaryFilter />
 
-			{ctx.filter === "categories" &&
-				!ctx.selectedCategory &&
-				(ctx.isLoadingCategories ? <DictionaryLoading /> : <DictionaryCategories />)}
-			{ctx.filter === "categories" && ctx.selectedCategory && <DictionaryCategoryHeader />}
-			{ctx.filter === "categories" &&
-				ctx.selectedCategory &&
-				!isEmpty &&
-				(ctx.isLoadingCategorySigns ? <DictionaryLoading /> : <DictionaryCategoryWords />)}
+			{ctx.filter === "categories" && !ctx.selectedCategory && <DictionaryCategories />}
 
-			{isAllLetterSelected && <DictionaryLetterHeader />}
-			{isAllLetterSelected && !isEmpty && <DictionaryLetterWords />}
+			{ctx.filter === "categories" && ctx.selectedCategory && <DictionaryCategoryList />}
+
+			{isAllLetterSelected && <DictionaryLetterList />}
 
 			{ctx.filter !== "categories" && !isAllLetterSelected && !isEmpty && <DictionaryAllWords />}
 
