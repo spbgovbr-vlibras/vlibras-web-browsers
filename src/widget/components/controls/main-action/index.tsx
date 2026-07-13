@@ -9,7 +9,7 @@ import { statusMap } from "./status-map";
 
 export const MainAction = () => {
 	const isMobile = useMobile();
-	const { gloss, status: _status } = usePlayerStore(usePick("gloss", "status"));
+	const { gloss, status: _status, isPlayingWelcome } = usePlayerStore(usePick("gloss", "status", "isPlayingWelcome"));
 
 	const onClick = () => {
 		const { status } = playerStore.get();
@@ -36,7 +36,7 @@ export const MainAction = () => {
 			<Button
 				aria-label={status.label}
 				data-slot="main-action"
-				disabled={!gloss}
+				disabled={!gloss && !isPlayingWelcome}
 				onClick={onClick}
 				variant="ghost-gov"
 				size={isMobile ? "icon-sm" : "icon"}

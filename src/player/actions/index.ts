@@ -38,8 +38,10 @@ export const play = (gloss?: string) => {
 };
 
 export const playWelcome = () => {
+	const { showSubtitles } = playerStore.get();
+
 	send(UNITY_OBJECTS.PLAYER, UNITY_METHODS.PLAY_WELCOME);
-	send(UNITY_OBJECTS.PLAYER, UNITY_METHODS.SET_SUBTITLES_STATE, 0);
+	send(UNITY_OBJECTS.PLAYER, UNITY_METHODS.SET_SUBTITLES_STATE, Number(showSubtitles));
 	playerStore.set({ isPlayingWelcome: true });
 };
 

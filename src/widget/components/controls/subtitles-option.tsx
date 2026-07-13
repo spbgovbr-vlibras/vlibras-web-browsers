@@ -8,7 +8,7 @@ import { Tooltip } from "@/widget/components/ui/tooltip";
 
 export const SubtitlesOptions = () => {
 	const isMobile = useMobile();
-	const { showSubtitles, isPlayingWelcome } = usePlayerStore(usePick("showSubtitles", "isPlayingWelcome"));
+	const { showSubtitles } = usePlayerStore(usePick("showSubtitles", "isPlayingWelcome"));
 
 	const handleToggleSubtitles = () => {
 		toggleSubtitles();
@@ -24,12 +24,7 @@ export const SubtitlesOptions = () => {
 			placement="top"
 			arrow={{ position: "bottom-right" }}
 		>
-			<Button
-				disabled={isPlayingWelcome}
-				onClick={handleToggleSubtitles}
-				variant="ghost-gov"
-				size={isMobile ? "icon-sm" : "icon"}
-			>
+			<Button onClick={handleToggleSubtitles} variant="ghost-gov" size={isMobile ? "icon-sm" : "icon"}>
 				<Icon name={showSubtitles ? "subtitle" : "subtitle-off"} />
 			</Button>
 		</Tooltip>
