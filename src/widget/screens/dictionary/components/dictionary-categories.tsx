@@ -62,7 +62,7 @@ export const DictionaryCategories = () => {
 						)}
 					>
 						<div className="flex items-center gap-2 py-2">
-							<Icon name={"categories/asterisk"} className="mobile:size-5 size-6 shrink-0 dark:bg-foreground" />
+							<Icon name={"categories/all"} className="mobile:size-5 size-6 shrink-0 dark:bg-foreground" />
 							<span>TODOS</span>
 						</div>
 					</button>

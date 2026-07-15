@@ -30,6 +30,7 @@ export const DictionaryCategoryWords = () => {
 	if (ctx.isVerbCategory) return <DictionaryCategoryVerbs />;
 
 	const groupedWords = useMemo(() => groupByBase(ctx.visibleCategoryWords), [ctx.visibleCategoryWords]);
+
 	return (
 		<div ref={ctx.listRef} onScroll={ctx.onCategoryScroll} className="h-full overflow-auto">
 			<ul className="flex h-full w-full flex-col text-sm">

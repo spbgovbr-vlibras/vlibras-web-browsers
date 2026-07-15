@@ -13,7 +13,7 @@ export const DictionaryList = () => {
 
 	if (ctx.isLoading) return <DictionaryLoading />;
 
-	if (!ctx.data) return <DictionaryError onRetry={ctx.retry} isMaxRetries={ctx.isMaxRetries} />;
+	if (!ctx.data && ctx.filter === "all") return <DictionaryError onRetry={ctx.retry} isMaxRetries={ctx.isMaxRetries} />;
 
 	const isAllLetterSelected = ctx.filter === "all" && !!ctx.selectedLetter;
 
