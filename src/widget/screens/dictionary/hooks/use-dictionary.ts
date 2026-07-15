@@ -67,9 +67,9 @@ export const useDictionary = () => {
 	const filteredCategoryWords = useMemo(() => {
 		if (!selectedCategory) return [];
 		const searchTerm = search.toLowerCase().trim();
-		const allSignsSet = new Set(allSigns);
+		const categorySignsSet = new Set(categorySigns);
 		return categorySigns.filter(
-			(sign: string) => allSignsSet.has(sign) && (searchTerm === "" || sign.toLowerCase().includes(searchTerm)),
+			(sign: string) => categorySignsSet.has(sign) && (searchTerm === "" || sign.toLowerCase().includes(searchTerm)),
 		);
 	}, [selectedCategory, allSigns, search, categorySigns]);
 
