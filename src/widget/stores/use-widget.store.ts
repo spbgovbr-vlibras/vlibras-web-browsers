@@ -31,6 +31,7 @@ export interface WidgetStoreState {
 	isPausedByUser?: boolean;
 	text?: string;
 	opacity: Number;
+	color?: string;
 	setLoaded: (isLoaded: boolean) => void;
 	reset: () => void;
 }

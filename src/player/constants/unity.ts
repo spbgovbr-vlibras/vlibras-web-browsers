@@ -23,6 +23,9 @@ export const UNITY_METHODS = {
 	APPLY_DISGUST_EMOTION: "ApplyDisgustEmotion",
 	APPLY_FEAR_EMOTION: "ApplyFearEmotion",
 	APPLY_SURPRISE_EMOTION: "ApplySurpriseEmotion",
+	SET_SUBTITLE_COLOR: "SetSubtitleColor",
+	SET_SUBTITLE_OUTLINE_COLOR: "SetSubtitleOutlineColor",
+	SET_SUBTITLE_SHADOW_COLOR: "SetSubtitleShadowColor",
 } as const;
 
 export const UNITY_EVENTS = {

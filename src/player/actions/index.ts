@@ -5,6 +5,7 @@ import { UNITY_METHODS, UNITY_OBJECTS } from "@/player/constants/unity";
 import { playerOptionsStore } from "@/player/stores/use-player-options.store";
 import type { PlayerAvatar, PlayerConfig } from "@/player/types";
 import { playerStore } from "@/player/use-player.store";
+import type { SubtitleColors } from "./types";
 
 const avatars: PlayerAvatar[] = ["icaro", "guga", "hosana"];
 
@@ -110,4 +111,10 @@ export const setRegion = (region: Region) => {
 export const setEmotion = (emotion: Emotion) => {
 	playerStore.set({ emotion });
 	send(UNITY_OBJECTS.EMOTION, emotion.action);
+};
+
+export const setSubtitleColor = ({ color, outline, shadow }: SubtitleColors) => {
+	send(UNITY_OBJECTS.CUSTOMIZATION, UNITY_METHODS.SET_SUBTITLE_COLOR, color);
+	send(UNITY_OBJECTS.CUSTOMIZATION, UNITY_METHODS.SET_SUBTITLE_OUTLINE_COLOR, outline || color);
+	send(UNITY_OBJECTS.CUSTOMIZATION, UNITY_METHODS.SET_SUBTITLE_SHADOW_COLOR, shadow || color);
 };

@@ -2,7 +2,7 @@ import { create } from "zustand";
 
 const THEME_KEY = "@vlibras-theme";
 
-type Theme = "light" | "dark";
+export type Theme = "light" | "dark";
 
 type ThemeStoreState = {
 	theme: Theme;
