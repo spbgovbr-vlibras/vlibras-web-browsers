@@ -9,8 +9,7 @@ const posthogPromise = (async () => {
 	if (!IS_ENABLED || __IS_EXTENSION__ || typeof window === "undefined") return null;
 
 	try {
-		const modulePath = "https://cdn.jsdelivr.net/npm/posthog-js@1.376.4/+esm";
-
+		const modulePath = "https://cdn.jsdelivr.net/npm/posthog-js@1.404.0/+esm";
 		const posthog = (await import(/* @vite-ignore */ modulePath)).default;
 
 		posthog.init(import.meta.env.VITE_PUBLIC_POSTHOG_PROJECT_TOKEN, {
