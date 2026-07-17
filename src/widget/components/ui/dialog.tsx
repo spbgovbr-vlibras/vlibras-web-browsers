@@ -186,7 +186,7 @@ export const DialogContent = ({
 			<div
 				data-slot="dialog-content"
 				className={cn(
-					"dialog-content relative flex max-h-full w-full animate-move-up flex-col rounded-lg border bg-background",
+					"dialog-content widget-radius relative flex max-h-full w-full animate-move-up flex-col border bg-background",
 					"transition-[margin] duration-500 ease-in-out group-data-[state=close]:-mb-100",
 					!showCloseButton && "**:data-[slot=dialog-close]:hidden",
 					className,

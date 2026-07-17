@@ -18,7 +18,7 @@ export const UnityLoading = () => {
 		<div
 			className={cn(
 				"absolute inset-0 z-9999999 flex flex-col items-center justify-between border bg-background p-4",
-				!__IS_EXTENSION__ && "rounded-xl",
+				!__IS_EXTENSION__ && "widget-radius",
 			)}
 		>
 			<div className="grid place-content-center rounded-full border px-2 py-1">

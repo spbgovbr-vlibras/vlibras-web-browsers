@@ -39,7 +39,7 @@ export const AboutScreen = () => {
 						</Fragment>
 					}
 				>
-					<div className="flex w-full flex-col justify-between gap-2 rounded-xl bg-white p-2">
+					<div className="flex w-full flex-col justify-between gap-2 rounded-lg bg-white p-2">
 						<div className="flex w-full items-center justify-between gap-2">
 							<div className="flex min-w-0 flex-1 justify-start">
 								<img src={mdhcIcon} alt="logo do Ministério dos Direitos Humanos e da Cidadania" />
@@ -62,7 +62,7 @@ export const AboutScreen = () => {
 					</div>
 				</AboutField>
 
-				<div className="relative mobile:-m-2 mt-auto! flex min-h-32 flex-col overflow-hidden rounded-xl border p-4 font-semibold text-primary-foreground dark:bg-muted">
+				<div className="relative mobile:-m-2 mt-auto! flex min-h-32 flex-col overflow-hidden rounded-lg border p-4 font-semibold text-primary-foreground dark:bg-muted">
 					<p className="mb-4 text-center mobile:text-sm text-base leading-none">
 						Nos acompanhe nas redes sociais
 						<InlineTranslatorButton

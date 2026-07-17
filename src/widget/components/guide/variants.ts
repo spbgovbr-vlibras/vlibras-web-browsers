@@ -1,6 +1,6 @@
 import { cva } from "class-variance-authority";
 
-export const guideVariants = cva("absolute flex flex-col gap-4 z-50 rounded-xl bg-primary p-4 transition-position", {
+export const guideVariants = cva("absolute flex flex-col gap-4 z-50 widget-radius bg-primary p-4 transition-position", {
 	variants: {
 		isMobile: { true: "", false: "" },
 		isLeft: { true: "", false: "" },

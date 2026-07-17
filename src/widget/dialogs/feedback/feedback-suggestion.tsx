@@ -108,7 +108,7 @@ export const FeedbackSuggestion = ({ open, onOpenChange }: Props) => {
 							id="translator-input"
 							value={value}
 							placeholder="Digite aqui..."
-							className="h-40 mobile:h-32 w-full resize-none rounded-xl border bg-muted p-3 mobile:text-sm uppercase placeholder:normal-case"
+							className="h-40 mobile:h-32 w-full resize-none rounded-lg border bg-muted p-3 mobile:text-sm uppercase placeholder:normal-case"
 							rows={isMobile ? 4 : 6}
 							onChange={handleInput}
 						/>

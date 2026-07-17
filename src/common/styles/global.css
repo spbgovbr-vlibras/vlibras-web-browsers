@@ -122,8 +122,8 @@
 	--player-height: 328px;
 	
 	@media (min-width: 640px) {
- 		--widget-width: 320px;
-		--player-height: 400px;
+ 		--widget-width: 300px;
+		--player-height: 380px;
 	}
 }
 
@@ -160,6 +160,10 @@
 @keyframes highlight-shadow-primary-foreground {
 	0% { box-shadow: 0 0 0px transparent; }
 	100% { box-shadow: 0 0 15px var(--primary-foreground); }
+}
+
+@utility widget-radius {
+	@apply rounded-xl;
 }
 
 @utility animate-highlight-primary-foreground {
