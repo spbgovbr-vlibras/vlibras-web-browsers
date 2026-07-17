@@ -48,10 +48,10 @@ export const useTranslateRequest = (
 		mutationFn: async (text: string) => {
 			const result = await translate(text);
 
-			if (result.error) throw new Error(result.error);
-			if (!result.data) throw new Error(ERROR_MESSAGES.TRANSLATION_EMPTY_ERROR);
+			if (result.error) console.error(result.error);
+			if (!result.data) console.error(ERROR_MESSAGES.TRANSLATION_EMPTY_ERROR);
 
-			return result.data;
+			return result.data || text;
 		},
 	});
 };
