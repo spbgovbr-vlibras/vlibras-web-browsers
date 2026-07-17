@@ -8,10 +8,13 @@ import { widgetStore } from "@/widget/stores/use-widget.store";
 
 export const playerOptions: PlayerOptions = {
 	onLoaded: () => {
+		const personalizationUrl = window.VLibrasWidget?.configUrl;
+		const defaultAvatar = window.VLibrasWidget?.avatar;
+
 		const { avatar, speed } = playerStore.get();
 
-		setConfig({ baseUrl: config.DICTIONARY_URL });
-		toggleAvatar(avatar);
+		setConfig({ baseUrl: config.DICTIONARY_URL, personalizationUrl });
+		toggleAvatar(defaultAvatar || avatar);
 		setSpeed(speed);
 
 		if (!__IS_EXTENSION__) playWelcome();
