@@ -15,7 +15,7 @@ export const SettingsRegionalismField = () => {
 
 	const handleRegionChange = (region: Region) => {
 		playerStore.set({ region });
-		posthogg.trackEvent("region_change", { region });
+		posthogg.trackEvent("change_region", { region: `${region.name} (${region.abbreviation})` });
 	};
 
 	return (
