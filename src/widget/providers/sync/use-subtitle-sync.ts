@@ -18,7 +18,6 @@ export const useSubtitleSync = () => {
 		if (!isLoaded) return;
 
 		const colors = themeSubtitleColors[theme];
-		console.log(colors);
 		setSubtitleColor(colors);
 	}, [theme, isLoaded]);
 
