@@ -1,9 +1,13 @@
+import { usePick } from "@/common/hooks";
 import { Icon } from "@/widget/components/ui/icon";
 import { categoryIcons } from "../lib/constants";
 import { useDictionaryCtx } from "./dictionary-context";
 
 export const DictionaryCategoryHeader = () => {
-	const { selectedCategory, setSelectedCategory } = useDictionaryCtx();
+	const { selectedCategory, setSelectedCategory } = useDictionaryCtx(
+		usePick("selectedCategory", "setSelectedCategory"),
+	);
+
 	if (!selectedCategory) return null;
 
 	const categoryIcon = categoryIcons[selectedCategory.id] || "categories/undefined";

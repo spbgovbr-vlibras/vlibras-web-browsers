@@ -1,9 +1,12 @@
+import { usePick } from "@/common/hooks";
 import { Button } from "@/widget/components/ui/button";
 import { Icon } from "@/widget/components/ui/icon";
 import { useDictionaryCtx } from "./dictionary-context";
 
 export const DictionarySearch = () => {
-	const { search, searchRef, handleSearchChange, handleClearSearch } = useDictionaryCtx();
+	const { search, searchRef, handleSearchChange, handleClearSearch } = useDictionaryCtx(
+		usePick("search", "searchRef", "handleSearchChange", "handleClearSearch"),
+	);
 
 	return (
 		<div className="relative flex items-center p-4 pb-0">

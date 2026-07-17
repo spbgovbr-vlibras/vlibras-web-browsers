@@ -1,3 +1,4 @@
+import { usePick } from "@/common/hooks";
 import { cn } from "@/common/lib/utils";
 import { play } from "@/player/actions";
 import { Icon } from "@/widget/components/ui/icon";
@@ -9,9 +10,10 @@ import { useDictionaryCtx } from "./dictionary-context";
 import { DictionaryWordMeaning } from "./dictionary-word-meaning";
 
 export const DictionaryCategoryVerbs = () => {
-	const { mutateAsync: translate } = useTranslate();
 	const handlePlay = useHandlePlay();
-	const ctx = useDictionaryCtx();
+	const ctx = useDictionaryCtx(usePick("visibleVerbGroups", "onVerbScroll", "listRef"));
+
+	const { mutateAsync: translate } = useTranslate();
 	const { expandedWord, wordMeanings, loadingMeaning, toggleWordMeaning } = useWordMeaning();
 
 	const handlePlayDefinition = async (text: string) => {

@@ -1,4 +1,5 @@
 import { useMemo } from "preact/hooks";
+import { usePick } from "@/common/hooks";
 import { cn } from "@/common/lib/utils";
 import { Icon } from "@/widget/components/ui/icon";
 import type { IconName } from "@/widget/icons/types";
@@ -8,7 +9,9 @@ import { useDictionaryCtx } from "./dictionary-context";
 import { DictionaryLoading } from "./dictionary-loading";
 
 export const DictionaryCategories = () => {
-	const { search, setSelectedCategory, categories, listRef, setFilter, isLoadingCategories } = useDictionaryCtx();
+	const { search, setSelectedCategory, categories, listRef, setFilter, isLoadingCategories } = useDictionaryCtx(
+		usePick("categories", "isLoadingCategories", "search", "setSelectedCategory", "listRef", "setFilter"),
+	);
 
 	if (isLoadingCategories) return <DictionaryLoading />;
 

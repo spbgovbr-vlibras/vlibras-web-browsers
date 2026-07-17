@@ -7,7 +7,7 @@ import { useSettingsCtx } from "./context";
 export const SettingsOpacityField = () => {
 	const timeoutRef = useRef<NodeJS.Timeout>(null);
 	const opacity = useWidgetStore((s) => s.opacity);
-	const { onOpen } = useSettingsCtx();
+	const onOpen = useSettingsCtx((s) => s.onOpen);
 
 	const handleOpacityChange = (opacity: number) => {
 		widgetStore.set({ opacity: opacity / 100 });

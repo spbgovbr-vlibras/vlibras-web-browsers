@@ -1,4 +1,5 @@
 import { useEffect, useMemo, useRef } from "preact/hooks";
+import { usePick } from "@/common/hooks";
 import { Button } from "@/widget/components/ui/button";
 import { Icon } from "@/widget/components/ui/icon";
 import { useGuideCtx } from ".";
@@ -8,7 +9,7 @@ export const GuideFooter = () => {
 	const advanceButtonRef = useRef<HTMLButtonElement>(null);
 	const backButtonRef = useRef<HTMLButtonElement>(null);
 
-	const { index, setIndex, onClose } = useGuideCtx();
+	const { index, setIndex, onClose } = useGuideCtx(usePick("index", "setIndex", "onClose"));
 
 	const isFirstElement = useMemo(() => index === 0, [index]);
 	const isLastElement = useMemo(() => index === guideElements.length - 1, [index]);

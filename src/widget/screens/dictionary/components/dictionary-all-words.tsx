@@ -1,4 +1,5 @@
 import { useCallback, useEffect, useRef, useState } from "react";
+import { usePick } from "@/common/hooks";
 import { cn } from "@/common/lib/utils";
 import { play } from "@/player/actions";
 import { Button } from "@/widget/components/ui/button";
@@ -13,7 +14,10 @@ import { DictionaryWordMeaning } from "./dictionary-word-meaning";
 const ITEMS_PER_PAGE = 50;
 
 export const DictionaryAllWords = () => {
-	const ctx = useDictionaryCtx();
+	const ctx = useDictionaryCtx(
+		usePick("filteredSigns", "search", "filter", "listRef", "visibleSigns", "setSelectedLetter", "groupedSigns"),
+	);
+
 	const handlePlay = useHandlePlay();
 	const { mutateAsync: translate } = useTranslate();
 	const { expandedWord, wordMeanings, loadingMeaning, toggleWordMeaning } = useWordMeaning();

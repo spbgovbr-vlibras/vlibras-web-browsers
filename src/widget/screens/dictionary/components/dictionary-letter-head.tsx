@@ -1,8 +1,9 @@
+import { usePick } from "@/common/hooks";
 import { Icon } from "@/widget/components/ui/icon";
 import { useDictionaryCtx } from "./dictionary-context";
 
 export const DictionaryLetterHeader = () => {
-	const { selectedLetter, setSelectedLetter } = useDictionaryCtx();
+	const { selectedLetter, setSelectedLetter } = useDictionaryCtx(usePick("selectedLetter", "setSelectedLetter"));
 	if (!selectedLetter) return null;
 
 	return (

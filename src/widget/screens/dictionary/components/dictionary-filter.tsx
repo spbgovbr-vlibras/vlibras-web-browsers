@@ -1,4 +1,4 @@
-import { useMobile } from "@/common/hooks";
+import { useMobile, usePick } from "@/common/hooks";
 import { cn } from "@/common/lib/utils";
 import { Button } from "@/widget/components/ui/button";
 import { Icon } from "@/widget/components/ui/icon";
@@ -13,8 +13,10 @@ const options: { label: string; value: Filter }[] = [
 ];
 
 export const DictionaryFilter = () => {
-	const { setFilter, filter, handleHistoryClear } = useDictionaryCtx();
 	const { signs } = useDictionaryHistoryStore();
+	const { setFilter, filter, handleHistoryClear } = useDictionaryCtx(
+		usePick("setFilter", "filter", "handleHistoryClear"),
+	);
 
 	const isMobile = useMobile();
 	const isEmptyRecent = !signs.length;

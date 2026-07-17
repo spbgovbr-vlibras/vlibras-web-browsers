@@ -11,7 +11,7 @@ import { RegionalismListItem } from "./regionalism-list-item";
 
 export const SettingsRegionalismField = () => {
 	const currentRegion = usePlayerStore((s) => s.region);
-	const { onOpen } = useSettingsCtx();
+	const onOpen = useSettingsCtx((s) => s.onOpen);
 
 	const handleRegionChange = (region: Region) => {
 		playerStore.set({ region });

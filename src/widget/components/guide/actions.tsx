@@ -7,13 +7,13 @@ import { Icon } from "@/widget/components/ui/icon";
 import { useGuideCtx } from ".";
 
 export const GuideActions = () => {
-	const { onClose } = useGuideCtx();
+	const onClose = useGuideCtx((s) => s.onClose);
 	const { status, gloss } = usePlayerStore(usePick("gloss", "status"));
 
 	const canRepeat = useMemo(() => gloss && status === "idle", [gloss, status]);
 
 	return (
-		<div className="absolute top-1 right-1 flex flex-col rounded-lg">
+		<div className="widget-radius absolute top-1 right-1 flex flex-col">
 			<Button tabindex={1} onClick={onClose} size="icon-xs" aria-label="Fechar guia">
 				<Icon name="x" aria-hidden="true" />
 			</Button>

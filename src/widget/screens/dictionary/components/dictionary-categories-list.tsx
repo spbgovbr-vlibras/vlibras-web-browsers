@@ -5,12 +5,12 @@ import { useDictionaryCtx } from "./dictionary-context";
 import { DictionaryLoading } from "./dictionary-loading";
 
 export const DictionaryCategoryList = () => {
-	const ctx = useDictionaryCtx();
+	const isLoadingCategorySigns = useDictionaryCtx((s) => s.isLoadingCategorySigns);
 
 	return (
 		<Fragment>
 			<DictionaryCategoryHeader />
-			{ctx.isLoadingCategorySigns ? <DictionaryLoading /> : <DictionaryCategoryWords />}
+			{isLoadingCategorySigns ? <DictionaryLoading /> : <DictionaryCategoryWords />}
 		</Fragment>
 	);
 };
