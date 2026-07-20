@@ -2,9 +2,9 @@ import { transformWithEsbuild } from "vite";
 
 const appRoots = {
 	development: "http://localhost:3003",
-	homolog: "https://portal-dth.vlibras.lavid.ufpb.br/app/",
-	production: "https://vlibras.com/app/v7",
-	extension: "https://vlibras.com/app/v7",
+	homolog: "https://vlibras-dth.gov.br/app",
+	production: "https://vlibras.gov.br/app",
+	extension: null, // Definido em use-config.ts
 };
 
 export type AppMode = keyof typeof appRoots;
