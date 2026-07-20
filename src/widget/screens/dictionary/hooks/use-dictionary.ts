@@ -34,7 +34,7 @@ export const useDictionary = () => {
 	const { data: categories = [], isLoading: isLoadingCategories } = useQuery({
 		queryKey: ["categories"],
 		queryFn: getCategories,
-		select: ({ data }) => data,
+		select: ({ data }) => data.filter((category: Category) => category.name !== "INDEFINIDO"),
 	});
 
 	const { data: categorySigns = [], isLoading: isLoadingCategorySigns } = useQuery({
