@@ -7,10 +7,10 @@ const REQUEST_TIMEOUT = 10000;
 
 const envConfigs: Record<Environment, EnvConfig> = {
 	development: {
-		TRANSLATE_URL: "https://traducao2-dth.vlibras.gov.br/translate",
+		TRANSLATE_URL: "https://traducao2.vlibras.gov.br/translate",
 		DICTIONARY_URL: "https://dicionario2-dth.vlibras.gov.br/2018.3.1/WEBGL/",
 		DICTIONARY_STATIC_URL: "https://dicionario2-dth.vlibras.gov.br/static/BUNDLES/2018.3.1/WEBGL/",
-		DICTIONARY_CATEGORIES_URL: "https://repositorio.vlibras.gov.br/api",
+		DICTIONARY_CATEGORIES_URL: "https://repositorio-dth.vlibras.gov.br/api",
 		SIGNS_URL: "https://dicionario2-dth.vlibras.gov.br/signs?version=2018.3.1",
 		REVIEW_URL: "https://traducao2-dth.vlibras.gov.br/review",
 		BUNDLES_URL: "https://dicionario2-dth.vlibras.gov.br/bundles",
@@ -20,7 +20,7 @@ const envConfigs: Record<Environment, EnvConfig> = {
 		TRANSLATE_URL: "https://traducao2-dth.vlibras.gov.br/translate",
 		DICTIONARY_URL: "https://dicionario2-dth.vlibras.gov.br/2018.3.1/WEBGL/",
 		DICTIONARY_STATIC_URL: "https://dicionario2-dth.vlibras.gov.br/static/BUNDLES/2018.3.1/WEBGL/",
-		DICTIONARY_CATEGORIES_URL: "https://repositorio.vlibras.gov.br/api",
+		DICTIONARY_CATEGORIES_URL: "https://repositorio-dth.vlibras.gov.br/api",
 		SIGNS_URL: "https://dicionario2-dth.vlibras.gov.br/signs?version=2018.3.1",
 		REVIEW_URL: "https://traducao2-dth.vlibras.gov.br/review",
 		BUNDLES_URL: "https://dicionario2-dth.vlibras.gov.br/bundles",
