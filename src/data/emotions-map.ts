@@ -8,7 +8,7 @@ export type Emotion = {
 	intensity: number;
 };
 
-export type EmotionKey = "default" | "happy" | "sad" | "doubt" | "angry" | "disgust" | "fear" | "surprise";
+export type EmotionKey = "default" | "happy" | "sad" | "angry" | "disgust" | "fear" | "surprise";
 
 export const emotionsMap: Record<EmotionKey, Emotion> = {
 	default: {
@@ -29,13 +29,6 @@ export const emotionsMap: Record<EmotionKey, Emotion> = {
 		name: "Triste",
 		action: UNITY_METHODS.APPLY_SAD_EMOTION,
 		icon: "emotions/sad",
-		intensity: 2,
-	},
-
-	doubt: {
-		name: "Dúvida",
-		action: UNITY_METHODS.APPLY_DOUBT_EMOTION,
-		icon: "emotions/doubt",
 		intensity: 2,
 	},
 

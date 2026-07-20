@@ -39,7 +39,6 @@ const ICON_NAMES = [
 	"emotions/automatic",
 	"emotions/default",
 	"emotions/disgust",
-	"emotions/doubt",
 	"emotions/fear",
 	"emotions/happy",
 	"emotions/sad",
