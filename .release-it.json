@@ -9,11 +9,13 @@
 		}
 	},
 	"git": {
-		"tag": true,
-		"tagMatch": "*",
+		"tag": false,
+		"tagName": "v${version}",
+		"tagMatch": "v*",
 		"commit": false,
 		"push": false,
-		"requireCleanWorkingDir": false
+		"requireCleanWorkingDir": false,
+		"requireUpstream": false
 	},
 	"npm": {
 		"publish": false
