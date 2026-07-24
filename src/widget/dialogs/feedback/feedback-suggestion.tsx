@@ -117,7 +117,7 @@ export const FeedbackSuggestion = ({ open, onOpenChange }: Props) => {
 							{isPending ? "Enviando..." : "Enviar sugestão"}
 						</Button>
 
-						<Button variant="outline" onClick={() => playStatic(value)}>
+						<Button disabled={isPending || isEmpty} variant="outline" onClick={() => playStatic(value)}>
 							Reproduzir
 						</Button>
 					</div>
