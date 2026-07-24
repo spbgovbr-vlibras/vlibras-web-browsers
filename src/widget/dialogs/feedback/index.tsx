@@ -1,8 +1,7 @@
 import { useState } from "preact/hooks";
 import { Fragment } from "preact/jsx-runtime";
 import { toast } from "@/common/lib/toaster";
-import { sendFeedback } from "@/core/actions";
-import { ERROR_MESSAGES } from "@/core/actions/messages";
+import { useSendFeedback } from "@/core/actions/hooks";
 import { playStatic } from "@/player/actions";
 import { playerStore } from "@/player/use-player.store";
 import { Button } from "@/widget/components/ui/button";
@@ -19,6 +18,8 @@ type Props = {
 export const FeedbackDialog = ({ open, onOpenChange }: Props) => {
 	const [isSuggestionOpen, setIsSuggestionOpen] = useState(false);
 
+	const { mutateAsync: sendFeedback, isPending } = useSendFeedback();
+
 	const handleSuggestionOpen = () => {
 		onOpenChange(false);
 		setIsSuggestionOpen(true);
@@ -30,16 +31,24 @@ export const FeedbackDialog = ({ open, onOpenChange }: Props) => {
 
 		if (!gloss || !text) return;
 
-		const result = await sendFeedback({ text: text, translation: gloss, review: gloss, rating: "good" });
+		try {
+			await sendFeedback({
+				text: text,
+				translation: gloss,
+				review: gloss,
+				rating: "good",
+			});
 
-		if (result.success) {
 			onOpenChange(false);
 			toast("Agradecemos sua contribuição!", { variant: "primary", className: "font-semibold" });
 			playStatic("AGRADECER");
-		} else {
+
+			widgetStore.set({ text: undefined });
+		} catch (err) {
+			const error = err as Error;
+			if (error.message) toast(error.message, { variant: "destructive" });
+		} finally {
 			onOpenChange(false);
-			if (result.error) toast(ERROR_MESSAGES.SEND_REVIEW_ERROR, { variant: "destructive" });
-			console.error(result.error);
 		}
 	};
 
@@ -55,6 +64,7 @@ export const FeedbackDialog = ({ open, onOpenChange }: Props) => {
 						<p className="font-semibold">Gostou da tradução?</p>
 						<div className="flex items-center justify-center gap-4 [&>button]:flex-col [&>button]:text-muted-foreground">
 							<Button
+								disabled={isPending}
 								variant="ghost"
 								size="icon-xl"
 								className="px-7 py-10 font-semibold hover:bg-primary/5 hover:text-primary"
@@ -64,6 +74,7 @@ export const FeedbackDialog = ({ open, onOpenChange }: Props) => {
 								<span>Sim</span>
 							</Button>
 							<Button
+								disabled={isPending}
 								variant="ghost"
 								size="icon-xl"
 								className="px-7 py-10 font-semibold hover:bg-destructive/5 hover:text-destructive"
