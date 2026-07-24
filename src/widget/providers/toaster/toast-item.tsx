@@ -3,12 +3,12 @@ import type { ToastData } from "@/common/lib/toaster";
 import { cn } from "@/common/lib/utils";
 
 const toastVariants = cva(
-	"absolute mobile:text-center w-auto! z-99999999 inset-x-2 overflow-hidden mx-auto flex items-center justify-center transition-all duration-500",
+	"absolute mobile:text-center w-auto! inset-x-0 overflow-hidden mx-auto flex items-center justify-center transition-all duration-500",
 	{
 		variants: {
 			position: {
-				top: "top-14 mobile:top-13 animate-move-down",
-				bottom: "bottom-15 mobile:bottom-13 animate-move-up",
+				top: "top-0 animate-move-down",
+				bottom: "bottom-0 animate-move-up",
 			},
 			align: {
 				start: "justify-start",
@@ -45,7 +45,7 @@ export const ToastItem = ({
 			<div
 				data-slot="toast-content"
 				className={cn(
-					"pointer-events-auto rounded-lg border bg-background px-2.5 py-1.5 mobile:text-xs text-sm transition-all duration-500 ease-in-out",
+					"pointer-events-auto w-full border bg-background px-2.5 py-3.5 mobile:text-xs text-sm transition-all duration-500 ease-in-out",
 					variant === "success" && "border-none bg-success text-success-foreground",
 					variant === "destructive" && "border-none bg-destructive text-destructive-foreground",
 					variant === "primary" && "border-none bg-primary text-primary-foreground",

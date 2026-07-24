@@ -15,7 +15,7 @@ export const ToasterProvider = () => {
 	if (!appRoot) return null;
 
 	return createPortal(
-		<div className="pointer-events-none absolute inset-0 z-40">
+		<div className="pointer-events-none absolute inset-0 z-2147483647">
 			{list.map((t) => (
 				<ToastItem key={t.id} {...t} />
 			))}
