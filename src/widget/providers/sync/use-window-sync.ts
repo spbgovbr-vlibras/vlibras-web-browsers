@@ -21,7 +21,7 @@ export const useWindowSyncProvider = () => {
 	};
 
 	useEffect(() => {
-		if (typeof window === "undefined" || !isLoaded) return;
+		if (!isLoaded) return;
 		window.plugin = window.plugin || {};
 
 		const globalAttributes = {

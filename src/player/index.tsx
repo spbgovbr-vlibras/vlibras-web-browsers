@@ -14,8 +14,8 @@ type PlayerProps = ComponentPropsWithoutRef<"iframe"> & {
 
 export const Player = (props: PlayerProps) => {
 	const { path } = useConfig();
-	const { isLoaded } = usePlayerStore();
 
+	const isLoaded = usePlayerStore((s) => s.isLoaded);
 	const iframeRef = useRef<HTMLIFrameElement>(null);
 	const iframeSrc = sanitizeUrl(`${path}/unity/index.html`);
 
