@@ -1,5 +1,18 @@
 # Changelog
 
+# [7.0.0-alpha.2](https://gitlab.lavid.ufpb.br/vlibras2019/vlibras-web-extensions/vlibras-web-browsers/compare/v7.0.0-alpha.1...v7.0.0-alpha.2) (2026-07-27)
+
+
+### Bug Fixes
+
+* **demo:** remove type="module" from script tag ([dd92900](https://gitlab.lavid.ufpb.br/vlibras2019/vlibras-web-extensions/vlibras-web-browsers/commit/dd92900dc1ff15fd158c13f86800d75c5edc58c2))
+* **widget:** disable playback button while sending or input empty ([44cd156](https://gitlab.lavid.ufpb.br/vlibras2019/vlibras-web-extensions/vlibras-web-browsers/commit/44cd1561f6e2c329999ca2f0c6521ed8b3217f0c))
+
+
+### Features
+
+* update unity build (24-07-26) ([e1879fd](https://gitlab.lavid.ufpb.br/vlibras2019/vlibras-web-extensions/vlibras-web-browsers/commit/e1879fd0fa8c7d6ddde76353cae26a21c8faec70))
+
 # [7.0.0-alpha.0](https://gitlab.lavid.ufpb.br/vlibras2019/vlibras-web-extensions/vlibras-web-browsers/compare/v6.0.0...v7.0.0-alpha.0) (2026-03-22)
 
 
