@@ -8,7 +8,7 @@ export type Emotion = {
 	intensity: number;
 };
 
-export type EmotionKey = "default" | "happy" | "sad" | "angry" | "disgust" | "fear" | "surprise";
+export type EmotionKey = "default" | "happy" | "sad" | "angry" | "disgust" | "fear" | "surprise" | "upset";
 
 export const emotionsMap: Record<EmotionKey, Emotion> = {
 	default: {
@@ -57,6 +57,13 @@ export const emotionsMap: Record<EmotionKey, Emotion> = {
 		name: "Surpresa",
 		action: UNITY_METHODS.APPLY_SURPRISE_EMOTION,
 		icon: "emotions/surprise",
+		intensity: 2,
+	},
+
+	upset: {
+		name: "Chateado",
+		action: UNITY_METHODS.APPLY_UPSET_EMOTION,
+		icon: "emotions/upset",
 		intensity: 2,
 	},
 };

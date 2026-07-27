@@ -15,17 +15,19 @@ export const UNITY_METHODS = {
 	SET_BASE_URL: "setBaseUrl",
 	SET_PERSONALIZATION: "setURL",
 	SET_SUBTITLES_STATE: "setSubtitlesState",
+	SET_SUBTITLE_COLOR: "SetSubtitleColor",
+	SET_SUBTITLE_OUTLINE_COLOR: "SetSubtitleOutlineColor",
+	SET_SUBTITLE_SHADOW_COLOR: "SetSubtitleShadowColor",
+
+	// Emotions
 	APPLY_DEFAULT_EMOTION: "ApplyDefaultEmotion",
 	APPLY_HAPPY_EMOTION: "ApplyHappyEmotion",
 	APPLY_SAD_EMOTION: "ApplySadEmotion",
-	// APPLY_DOUBT_EMOTION: "ApplyDoubtEmotion",
 	APPLY_ANGRY_EMOTION: "ApplyAngryEmotion",
 	APPLY_DISGUST_EMOTION: "ApplyDisgustEmotion",
 	APPLY_FEAR_EMOTION: "ApplyFearEmotion",
 	APPLY_SURPRISE_EMOTION: "ApplySurpriseEmotion",
-	SET_SUBTITLE_COLOR: "SetSubtitleColor",
-	SET_SUBTITLE_OUTLINE_COLOR: "SetSubtitleOutlineColor",
-	SET_SUBTITLE_SHADOW_COLOR: "SetSubtitleShadowColor",
+	APPLY_UPSET_EMOTION: "ApplyUpsetEmotion",
 } as const;
 
 export const UNITY_EVENTS = {

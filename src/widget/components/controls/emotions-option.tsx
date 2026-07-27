@@ -40,7 +40,11 @@ export const EmotionsOption = () => {
 				<div className="relative flex items-center justify-center">
 					<span className="absolute -inset-y-1 w-px bg-border" />
 
-					<ul className={cn("relative grid w-full grid-cols-2 gap-x-2 gap-y-1 font-semibold text-primary text-sm")}>
+					<ul
+						className={cn(
+							"relative grid w-full grid-cols-2 gap-x-2 gap-y-1 mobile:gap-y-0! font-semibold text-primary text-sm",
+						)}
+					>
 						{Object.values(emotionsMap).map((emotion) => {
 							const isActive = emotion === currentEmotion;
 
@@ -55,8 +59,8 @@ export const EmotionsOption = () => {
 											isActive && "bg-primary! text-primary-foreground! outline-1 outline-primary outline-solid",
 										)}
 									>
-										<div className="flex items-center justify-start gap-2">
-											<Icon name={emotion.icon} className="size-4.5" />
+										<div className="flex items-center justify-start gap-1.5">
+											<Icon name={emotion.icon} className="mobile:size-4.5 size-5" />
 											<span className="mobile:text-xs text-sm">{emotion.name}</span>
 										</div>
 									</button>
