@@ -1,6 +1,7 @@
-import { useRef, useState } from "preact/hooks";
+import { useEffect, useRef, useState } from "preact/hooks";
 import { Fragment } from "preact/jsx-runtime";
 import { useDebouncedCallback } from "@/common/hooks";
+import { posthogg } from "@/common/lib/posthog";
 import { play } from "@/player/actions";
 import { InlineTranslatorButton } from "@/widget/components/inline-translator-button";
 import { Button } from "@/widget/components/ui/button";
@@ -25,11 +26,15 @@ export const TranslatorDialog = ({ open, onOpenChange }: Props) => {
 
 	const onTextChange = useDebouncedCallback(setText, 300);
 
+	useEffect(() => void (open && posthogg.trackEvent("open_translator")), [open]);
+
 	const handleTranslate = async () => {
 		const text = inputRef.current?.value || "";
 		if (!text) return;
 
 		try {
+			posthogg.trackEvent("translate_text", { text });
+
 			const gloss = await translate(text);
 			if (!gloss.length) throw new Error("Empty gloss");
 
