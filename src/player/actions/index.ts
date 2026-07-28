@@ -1,5 +1,5 @@
 import { config } from "@/core/config";
-import type { Emotion } from "@/data/emotions-map";
+import { availableEmotions, type EmotionKey, emotionsMap } from "@/data/emotions-map";
 import type { Region } from "@/data/regionalism";
 import { UNITY_METHODS, UNITY_OBJECTS } from "@/player/constants/unity";
 import { playerOptionsStore } from "@/player/stores/use-player-options.store";
@@ -108,9 +108,12 @@ export const setRegion = (region: Region) => {
 	playerStore.set({ region });
 };
 
-export const setEmotion = (emotion: Emotion) => {
+export const setEmotion = (emotionKey: EmotionKey, intensity?: number) => {
+	if (!availableEmotions.includes(emotionKey)) return console.error(`Emoção "${emotionKey}" inválida!`);
+	const emotion = emotionsMap[emotionKey];
+
 	playerStore.set({ emotion });
-	send(UNITY_OBJECTS.EMOTION, emotion.action);
+	send(UNITY_OBJECTS.EMOTION, emotion.action, intensity || emotion.intensity);
 };
 
 export const setSubtitleColor = ({ color, outline, shadow }: SubtitleColors) => {

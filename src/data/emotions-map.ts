@@ -8,7 +8,9 @@ export type Emotion = {
 	intensity: number;
 };
 
-export type EmotionKey = "default" | "happy" | "sad" | "angry" | "disgust" | "fear" | "surprise" | "upset";
+export const availableEmotions = ["default", "happy", "sad", "angry", "disgust", "fear", "surprise", "upset"] as const;
+
+export type EmotionKey = (typeof availableEmotions)[number];
 
 export const emotionsMap: Record<EmotionKey, Emotion> = {
 	default: {

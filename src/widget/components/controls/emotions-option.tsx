@@ -1,7 +1,7 @@
 import { useMobile } from "@/common/hooks";
 import { posthogg } from "@/common/lib/posthog";
 import { cn } from "@/common/lib/utils";
-import { type Emotion, emotionsMap } from "@/data/emotions-map";
+import { availableEmotions, type EmotionKey, emotionsMap } from "@/data/emotions-map";
 import { setEmotion } from "@/player/actions";
 import { usePlayerStore } from "@/player/use-player.store";
 import { DropdownTrigger } from "@/widget/components/ui/dropdown";
@@ -12,8 +12,9 @@ export const EmotionsOption = () => {
 	const isMobile = useMobile();
 	const currentEmotion = usePlayerStore((s) => s.emotion);
 
-	const handleEmotionChange = (emotion: Emotion) => {
-		setEmotion(emotion);
+	const handleEmotionChange = (emotionKey: EmotionKey) => {
+		const emotion = emotionsMap[emotionKey];
+		setEmotion(emotionKey);
 		posthogg.trackEvent("change_emotion", { emotion: emotion.name });
 	};
 
@@ -45,15 +46,17 @@ export const EmotionsOption = () => {
 							"relative grid w-full grid-cols-2 gap-x-2 gap-y-1 mobile:gap-y-0! font-semibold text-primary text-sm",
 						)}
 					>
-						{Object.values(emotionsMap).map((emotion) => {
+						{availableEmotions.map((key) => {
+							const emotion = emotionsMap[key];
 							const isActive = emotion === currentEmotion;
 
 							return (
-								<li key={emotion.action}>
+								<li key={key}>
 									<button
+										aria-label={`Aplicar emoção "${emotion.name}"`}
 										type="button"
 										inert={isActive}
-										onClick={() => handleEmotionChange(emotion)}
+										onClick={() => handleEmotionChange(key)}
 										className={cn(
 											"w-full cursor-pointer whitespace-nowrap rounded-md px-2 py-1.5 text-center text-sm hover:bg-primary/10",
 											isActive && "bg-primary! text-primary-foreground! outline-1 outline-primary outline-solid",
