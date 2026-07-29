@@ -37,7 +37,7 @@ const envConfigs: Record<Environment, EnvConfig> = {
 	},
 };
 
-const MODE = (import.meta.env.MODE || "development") as Environment;
+const MODE: Environment = __IS_EXTENSION__ ? "production" : (import.meta.env.MODE as Environment) || "development";
 const currentConfig = envConfigs[MODE as keyof typeof envConfigs] || envConfigs.development;
 
 export const config = {
