@@ -1,5 +1,21 @@
 # Changelog
 
+# [7.0.0](https://gitlab.lavid.ufpb.br/vlibras2019/vlibras-web-extensions/vlibras-web-browsers/compare/v7.0.0-alpha.2...v7.0.0) (2026-07-29)
+
+
+### Bug Fixes
+
+* skip tab visibility sync when player is idle and reduce delay to 500ms ([a3a0e8c](https://gitlab.lavid.ufpb.br/vlibras2019/vlibras-web-extensions/vlibras-web-browsers/commit/a3a0e8c4d1005712f3a264459f674ee05ee09b3c))
+
+
+### Features
+
+* **emotions:** add new emotions and update icons ([fd0c7d6](https://gitlab.lavid.ufpb.br/vlibras2019/vlibras-web-extensions/vlibras-web-browsers/commit/fd0c7d64ce0d5758cccb51d28293e607dae21233))
+* **sync:** pause/play actions based on tab visibility ([1955c9f](https://gitlab.lavid.ufpb.br/vlibras2019/vlibras-web-extensions/vlibras-web-browsers/commit/1955c9f7c1d922d7f2ca931d5e6f0f6285c8c9d6))
+* **translator:** add analytics tracking for open and translate events ([74db950](https://gitlab.lavid.ufpb.br/vlibras2019/vlibras-web-extensions/vlibras-web-browsers/commit/74db9500aedb0e4a776cd6c69283a39f6158eb44))
+* update unity build (28-07-26) ([df08d3c](https://gitlab.lavid.ufpb.br/vlibras2019/vlibras-web-extensions/vlibras-web-browsers/commit/df08d3cc4d1d794d7260d848e96fcb1fee4ebf41))
+* **widget:** add configurable default position (left/right) ([92459e4](https://gitlab.lavid.ufpb.br/vlibras2019/vlibras-web-extensions/vlibras-web-browsers/commit/92459e49bf8eb51ac4d71dcbf9f463f03f12f67b))
+
 # [7.0.0-alpha.2](https://gitlab.lavid.ufpb.br/vlibras2019/vlibras-web-extensions/vlibras-web-browsers/compare/v7.0.0-alpha.1...v7.0.0-alpha.2) (2026-07-27)
 
 
