@@ -57,7 +57,7 @@ export const FeedbackDialog = ({ open, onOpenChange }: Props) => {
 		<Fragment>
 			<Dialog open={open || isPending} onOpenChange={onOpenChange}>
 				<DialogContent>
-					<DialogHeader inert={open && isPending}>
+					<DialogHeader>
 						<DialogTitle icon="comment">Feedback</DialogTitle>
 					</DialogHeader>
 
