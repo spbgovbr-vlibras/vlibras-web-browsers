@@ -9,7 +9,7 @@
 		}
 	},
 	"git": {
-		"tag": true,
+		"tag": false,
 		"tagName": "v${version}",
 		"tagMatch": "v*",
 		"commit": false,
