@@ -6,6 +6,7 @@ import {
 	getTextContent,
 	getWordAtPoint,
 	hasTag,
+	isButtonElement,
 	isSubmitInput,
 	isValidElement,
 	removeAllClasses,
@@ -89,7 +90,7 @@ export const textCapture = ({ callback, isWordByWord, hoverClss, activeClass }: 
 
 		if (interactiveElement) showTooltip(interactiveElement, event);
 		if (hasTag(element, "LABEL")) toggleChecked(element);
-		else if (hasTag(element, "BUTTON") || isSubmitInput(element)) showTooltip(element, event);
+		else if (isButtonElement(element) || isSubmitInput(element)) showTooltip(element, event);
 	};
 
 	const handleMouseOut = (event: MouseEvent) => {
