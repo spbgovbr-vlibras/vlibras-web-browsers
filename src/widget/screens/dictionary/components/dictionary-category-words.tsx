@@ -1,11 +1,13 @@
 import { useMemo } from "preact/hooks";
+import { Fragment } from "preact/jsx-runtime";
 import { usePick } from "@/common/hooks";
 import { cn } from "@/common/lib/utils";
 import { play } from "@/player/actions";
 import { Button } from "@/widget/components/ui/button";
 import { Icon } from "@/widget/components/ui/icon";
 import { useTranslate } from "@/widget/hooks/use-translate";
-import { useScreensStore } from "@/widget/stores/use-screens.store";
+import { createCallback } from "@/widget/stores/use-callback.store";
+import { screenStore } from "@/widget/stores/use-screens.store";
 import { useHandlePlay } from "../hooks/use-handle-play";
 import { useWordMeaning } from "../hooks/use-word-meaning";
 import { groupByBase } from "../lib/group-signs";
@@ -24,7 +26,16 @@ export const DictionaryCategoryWords = () => {
 		try {
 			const gloss = await translate(text);
 			play(gloss);
-			useScreensStore.setState({ screen: "main" });
+
+			createCallback({
+				action: () => screenStore.set({ screen: "dictionary" }),
+				content: (
+					<Fragment>
+						<Icon name="dictionary" />
+						Reabrir Dicionário
+					</Fragment>
+				),
+			});
 		} catch (error) {
 			console.error("Erro ao reproduzir definição: ", error);
 		}
