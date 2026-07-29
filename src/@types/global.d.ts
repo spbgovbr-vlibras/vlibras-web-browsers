@@ -10,6 +10,7 @@ interface Window {
 		path: string;
 		configUrl?: string;
 		avatar?: "icaro" | "hosana" | "guga";
+		position?: "r" | "l";
 		isOpen: boolean;
 		initBtn?: Element;
 		open: () => void;

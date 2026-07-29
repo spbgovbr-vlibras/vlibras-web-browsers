@@ -5,14 +5,17 @@ import { playerStore } from "@/player/use-player.store";
 import { rootStore } from "@/widget/stores/use-root.store";
 import { screenStore } from "@/widget/stores/use-screens.store";
 import { widgetStore } from "@/widget/stores/use-widget.store";
+import type { WidgetPosition } from "@/widget/types";
 
 export const playerOptions: PlayerOptions = {
 	onLoaded: () => {
 		const personalizationUrl = window.VLibrasWidget?.configUrl;
 		const defaultAvatar = window.VLibrasWidget?.avatar;
+		const defaultPosition: WidgetPosition = window.VLibrasWidget?.position === "l" ? "left" : "right";
 
 		const { avatar, speed } = playerStore.get();
 
+		widgetStore.set({ position: defaultPosition });
 		setConfig({ baseUrl: config.DICTIONARY_URL, personalizationUrl });
 		toggleAvatar(defaultAvatar || avatar);
 		setSpeed(speed);

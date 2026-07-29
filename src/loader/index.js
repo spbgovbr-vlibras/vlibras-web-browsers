@@ -1,14 +1,15 @@
-window.VLibrasWidget = window.VLibrasWidget || {};
-window.VLibrasWidget.path = "__APP_ROOT__";
-window.VLibrasWidget.configUrl = null;
+const vw = (window.VLibrasWidget = Object.assign(
+  { path: "__APP_ROOT__" },
+  window.VLibrasWidget,
+));
 
-window.VLibras = window.VLibras || {};
-
-window.VLibras.Widget = function (path, configUrl, avatar) {
-  if (path) window.VLibrasWidget.path = path;
-  if (configUrl) window.VLibrasWidget.configUrl = configUrl;
-  if (avatar) window.VLibrasWidget.avatar = avatar;
-
+(window.VLibras = window.VLibras || {}).Widget = function (
+  path,
+  configUrl,
+  avatar,
+  position,
+) {
+  Object.assign(vw, { path: path || vw.path, configUrl, avatar, position });
   renderWidget();
 };
 
@@ -20,44 +21,42 @@ function renderWidget() {
   isRendered = true;
 
   const currentPath = window.VLibrasWidget.path;
+  const position = window.VLibrasWidget.position === "l" ? "left" : "right";
 
   const template = `
   <div id="vlibras-access">
-      <img id="vlibras-access-popup" src="${currentPath}/assets/images/vlibras-popup.jpg" />
-      <button type="button" aria-label="Recursos assistivos com VLibras Widget+" id="vlibras-access-button">
+      <img id="vlibras-popup" src="${currentPath}/assets/images/vlibras-popup.jpg" />
+      <button type="button" aria-label="Recursos assistivos com VLibras Widget+" id="vlibras-button">
         <img src="${currentPath}/assets/images/vlibras-access.svg" />
       </button>
   </div>
   <style>
   #vlibras-access {
-      height: 40px;
+      display: flex;
+      align-items: center;
+      position: fixed;
+      z-index: 2147483639;
+      ${position}: 10px;
+      flex-direction: ${position === "left" ? "row-reverse" : "row"};
+      top: calc(50vh - 20px);
+      transition: all .5s ease;
       width: 40px;
+      height: 40px;
+
+      &:hover { 
+          width: 200px;
+      }
   }
 
-  #vlibras-access-button,
-  #vlibras-access-popup {
+  #vlibras-button,
+  #vlibras-popup {
       border-radius: 8px;
       overflow: hidden;
       height: 40px;
   }
 
-  #vlibras-access {
-      display: flex;
-      align-items: center;
-      position: fixed;
-      z-index: 2147483639;
-      right: 10px;
-      top: calc(50vh - 20px);
-      transition: all .5s ease;
-      width: 40px;
-
-      &:hover { 
-          width: 208px;
-      }
-  }
-
-  #vlibras-access-button {
-      right: 0;
+  #vlibras-button {
+      ${position}: 0;
       z-index: 1;
       position: absolute;
       width: 40px;
@@ -79,7 +78,7 @@ function renderWidget() {
   shadow.innerHTML = template;
   document.body.appendChild(wrapper);
 
-  const initBtn = shadow.querySelector("#vlibras-access-button");
+  const initBtn = shadow.querySelector("#vlibras-button");
 
   const open = () => {
     if (widget) {
