@@ -1,5 +1,5 @@
 import { config } from "@/core/config";
-import { availableEmotions, type EmotionKey, emotionsMap } from "@/data/emotions-map";
+import { availableEmotions, type EmotionKey, emotionsMap } from "@/data/emotions";
 import type { Region } from "@/data/regionalism";
 import { UNITY_METHODS, UNITY_OBJECTS } from "@/player/constants/unity";
 import { playerOptionsStore } from "@/player/stores/use-player-options.store";
