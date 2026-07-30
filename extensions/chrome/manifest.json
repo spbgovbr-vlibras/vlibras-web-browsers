@@ -1,0 +1,27 @@
+{
+	"manifest_version": 3,
+	"name": "VLibras",
+	"version": "7.0.0",
+	"description": "Um tradutor de Português para Libras",
+	"homepage_url": "https://www.gov.br/governodigital/pt-br/acessibilidade-e-usuario/vlibras",
+	"icons": {
+		"16": "icons/16x16.png",
+		"48": "icons/48x48.png",
+		"128": "icons/128x128.png"
+	},
+	"action": {
+		"default_title": "Abrir VLibras"
+	},
+	"permissions": ["storage", "windows", "tabs", "scripting", "contextMenus"],
+	"host_permissions": ["<all_urls>"],
+	"background": {
+		"service_worker": "service_worker.js"
+	},
+	"sandbox": {
+		"pages": ["app/unity/index.html"]
+	},
+	"content_security_policy": {
+		"extension_pages": "default-src 'self'; script-src 'self';  connect-src *; style-src * 'unsafe-inline' 'self' blob:; img-src 'self' data:; font-src 'self' data:;",
+		"sandbox": "sandbox allow-scripts; script-src 'self' 'wasm-unsafe-eval' 'unsafe-inline' 'unsafe-eval' blob:"
+	}
+}

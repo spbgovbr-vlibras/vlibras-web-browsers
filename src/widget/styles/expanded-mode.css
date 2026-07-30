@@ -1,0 +1,5 @@
+body[data-vlibras-expanded="true"] {
+	@media screen and (max-width: 640px) {
+		overflow: hidden !important;
+	}
+}
