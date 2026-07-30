@@ -4,6 +4,8 @@ export { useDebouncedCallback } from "./use-debounced-callback";
 export { useMediaQuery } from "./use-media-query";
 export { useMobile } from "./use-mobile";
 export { useMousePosition } from "./use-mouse-position";
+export { type UseMutationOptions, type UseMutationResult, useMutation } from "./use-mutation";
+export { type UseQueryOptions, type UseQueryResult, useQuery } from "./use-query";
 export { useOmit, usePick } from "./use-shallow";
 export { useTheme } from "./use-theme";
 export { useTouchDevice } from "./use-touch-device";

@@ -1,18 +1,16 @@
 import {
 	type UseMutationOptions,
 	type UseMutationResult,
-	type UseQueryOptions,
 	type UseQueryResult,
 	useMutation,
 	useQuery,
-} from "@tanstack/preact-query";
+} from "@/common/hooks";
 import type { TrieRoot } from "@/common/lib/trie";
 import { getSigns, type SendFeedbackProps, sendFeedback, translate } from ".";
 import { ERROR_MESSAGES } from "./messages";
 
-export const useDictionarySigns = (opts?: UseQueryOptions<TrieRoot, Error>): UseQueryResult<TrieRoot, Error> => {
+export const useDictionarySigns = (): UseQueryResult<TrieRoot> => {
 	return useQuery({
-		...opts,
 		queryKey: ["dictionary_signs"],
 		queryFn: async () => {
 			const result = await getSigns();
@@ -25,11 +23,8 @@ export const useDictionarySigns = (opts?: UseQueryOptions<TrieRoot, Error>): Use
 	});
 };
 
-export const useSendFeedback = (
-	opts?: UseMutationOptions<boolean, Error, SendFeedbackProps>,
-): UseMutationResult<boolean, Error, SendFeedbackProps> => {
+export const useSendFeedback = (): UseMutationResult<boolean, SendFeedbackProps> => {
 	return useMutation({
-		...opts,
 		mutationFn: async (input: SendFeedbackProps) => {
 			const result = await sendFeedback(input);
 
@@ -41,8 +36,8 @@ export const useSendFeedback = (
 };
 
 export const useTranslateRequest = (
-	opts?: UseMutationOptions<string, Error, string>,
-): UseMutationResult<string, Error, string> => {
+	opts?: Pick<UseMutationOptions<string, string>, "onMutate" | "onSettled">,
+): UseMutationResult<string, string> => {
 	return useMutation({
 		...opts,
 		mutationFn: async (text: string) => {
