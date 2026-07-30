@@ -50,6 +50,8 @@ export const getCategorySigns = async (category: string) => {
 			signal: controller.signal,
 		});
 
+		if (!response.ok) throw new Error(`Erro na API: ${response.status}`);
+
 		const data = await response.json();
 
 		return { data, success: true };

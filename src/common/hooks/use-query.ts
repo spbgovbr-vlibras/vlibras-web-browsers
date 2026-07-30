@@ -88,17 +88,23 @@ export const useQuery = <TData, TSelected = TData>({
 	const isFetching = enabled && Boolean(entry.promise);
 
 	let data: TSelected | undefined;
+	let selectError: Error | undefined;
 	if (entry.data === undefined) data = undefined;
 	else if (!select) data = entry.data as unknown as TSelected;
 	else if (selectedRef.current.source === entry.data) data = selectedRef.current.result;
 	else {
-		data = select(entry.data);
-		selectedRef.current = { source: entry.data, result: data };
+		try {
+			data = select(entry.data);
+			selectedRef.current = { source: entry.data, result: data };
+		} catch (err) {
+			selectError = err instanceof Error ? err : new Error(String(err));
+			console.error("Erro ao processar resposta da API (formato inesperado):", selectError);
+		}
 	}
 
 	return {
 		data: enabled ? data : undefined,
-		error: enabled ? (entry.error ?? null) : null,
+		error: enabled ? (selectError ?? entry.error ?? null) : null,
 		isLoading: enabled && entry.data === undefined && isFetching,
 		isFetching,
 		refetch: async () => {
