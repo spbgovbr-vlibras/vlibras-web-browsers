@@ -27,7 +27,13 @@ export const Player = (props: PlayerProps) => {
 
 		contentWindow?.postMessage({ type: "unity", object, method, params }, "*");
 
-		if (!instance && !__IS_EXTENSION__) playerStore.set({ instance: contentWindow?.getUnityInstance?.() });
+		if (!instance && !__IS_EXTENSION__) {
+			try {
+				playerStore.set({ instance: contentWindow?.getUnityInstance?.() });
+			} catch (error) {
+				console.error("Error setting instance:", error);
+			}
+		}
 	};
 
 	useEffect(() => {
