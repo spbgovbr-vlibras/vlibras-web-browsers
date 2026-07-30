@@ -1,4 +1,4 @@
-import type { ComponentProps } from "preact/compat";
+import type { ComponentProps } from "preact";
 
 export type CustomSVGProps = ComponentProps<"svg"> & { size?: number; iconTitle?: string };
 

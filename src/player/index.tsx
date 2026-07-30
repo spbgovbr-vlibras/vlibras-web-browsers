@@ -1,4 +1,4 @@
-import { type ComponentPropsWithoutRef, Fragment } from "preact/compat";
+import { type ComponentProps, Fragment } from "preact";
 import { useEffect, useRef } from "preact/hooks";
 import { useConfig } from "@/common/hooks";
 import { sanitizeUrl } from "@/common/utils";
@@ -8,7 +8,7 @@ import { playerOptionsStore } from "./stores/use-player-options.store";
 import type { PlayerOptions } from "./types";
 import { playerStore, usePlayerStore } from "./use-player.store";
 
-type PlayerProps = ComponentPropsWithoutRef<"iframe"> & {
+type PlayerProps = ComponentProps<"iframe"> & {
 	options?: PlayerOptions;
 };
 
