@@ -52,7 +52,6 @@ export const getSigns = async (): Promise<RequestResponse<TrieRoot>> => {
 	try {
 		const response = await fetch(config.SIGNS_URL, {
 			method: "GET",
-			headers: { "Content-Type": "application/json" },
 			signal: controller.signal,
 		});
 

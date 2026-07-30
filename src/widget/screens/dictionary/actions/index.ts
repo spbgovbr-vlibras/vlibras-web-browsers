@@ -13,7 +13,6 @@ export const getCategories = async () => {
 	try {
 		const response = await fetch(`${config.DICTIONARY_CATEGORIES_URL}/tags`, {
 			method: "GET",
-			headers: { "Content-Type": "application/json" },
 			signal: controller.signal,
 		});
 
@@ -48,7 +47,6 @@ export const getCategorySigns = async (category: string) => {
 	try {
 		const response = await fetch(`${config.DICTIONARY_CATEGORIES_URL}/tagsigns?tag=${category}`, {
 			method: "GET",
-			headers: { "Content-Type": "application/json" },
 			signal: controller.signal,
 		});
 
