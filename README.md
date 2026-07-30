@@ -7,9 +7,7 @@
     />
   </a>
 
----
-
-# 👋 VLibras Web (Widget e Plugin)
+### 👋 VLibras Web (Widget e Plugin)
 
 Acessibilidade digital através da tradução para Língua Brasileira de Sinais (Libras).
 
