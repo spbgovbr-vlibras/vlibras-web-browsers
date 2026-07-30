@@ -1,5 +1,24 @@
 # Changelog
 
+# [7.1.0](https://gitlab.lavid.ufpb.br/vlibras2019/vlibras-web-extensions/vlibras-web-browsers/compare/v7.0.0...v7.1.0) (2026-07-30)
+
+
+### Bug Fixes
+
+* **dialogs/feedback:** remove inert prop from DialogHeader ([b61c500](https://gitlab.lavid.ufpb.br/vlibras2019/vlibras-web-extensions/vlibras-web-browsers/commit/b61c500d66128b108c32acc64922c1f3e60adc25))
+* **player:** add error handling for unity instance initialization ([89b5576](https://gitlab.lavid.ufpb.br/vlibras2019/vlibras-web-extensions/vlibras-web-browsers/commit/89b557651a8cef226e9cd028bbd26600c27a9a30))
+* **progress-bar:** prevent rendering when max is 0 ([db40f4c](https://gitlab.lavid.ufpb.br/vlibras2019/vlibras-web-extensions/vlibras-web-browsers/commit/db40f4c103c1c2cca38abc313294d2cf0a9224fc))
+
+
+### Features
+
+* **core|player:** adjust environment mode detection for extension builds ([27df6a4](https://gitlab.lavid.ufpb.br/vlibras2019/vlibras-web-extensions/vlibras-web-browsers/commit/27df6a42100d5e88a01c1f351e7aba049d048815))
+* **dictionary:** add callback to reopen dictionary screen after playing definitions ([26af794](https://gitlab.lavid.ufpb.br/vlibras2019/vlibras-web-extensions/vlibras-web-browsers/commit/26af794c2dab536c19330dcfd01cc472df86e1cc))
+* exclude 'upset' emotion from options ([01b0d6c](https://gitlab.lavid.ufpb.br/vlibras2019/vlibras-web-extensions/vlibras-web-browsers/commit/01b0d6c433c163f6fcd94da4f7e6b6ce9a30ef13))
+* **feedback-dialog:** add loading spinner and pending state handling ([4ab76db](https://gitlab.lavid.ufpb.br/vlibras2019/vlibras-web-extensions/vlibras-web-browsers/commit/4ab76db0df0da0ec46bc194542f9e782acc703ec))
+* **text-capture:** improve button element detection ([3c5f649](https://gitlab.lavid.ufpb.br/vlibras2019/vlibras-web-extensions/vlibras-web-browsers/commit/3c5f649d4cace1ea36cc8c592bee46fb07a5ac23))
+* update unity build (29-07-26) ([fba8752](https://gitlab.lavid.ufpb.br/vlibras2019/vlibras-web-extensions/vlibras-web-browsers/commit/fba87524b99d1a6129d02bfbecd2cd088da66e0f))
+
 # [7.0.0](https://gitlab.lavid.ufpb.br/vlibras2019/vlibras-web-extensions/vlibras-web-browsers/compare/v7.0.0-alpha.2...v7.0.0) (2026-07-29)
 
 
