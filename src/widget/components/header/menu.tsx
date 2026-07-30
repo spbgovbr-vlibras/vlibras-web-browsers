@@ -20,7 +20,6 @@ export const WidgetMenu = () => {
 			<div className="dropdown dropdown-bottom z-1">
 				<Button
 					id="header-menu-button"
-					role="button"
 					tabindex={0}
 					aria-label="Menu de opções"
 					size={isMobile ? "icon-sm" : "icon"}

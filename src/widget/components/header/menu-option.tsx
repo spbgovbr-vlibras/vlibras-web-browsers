@@ -20,13 +20,7 @@ export const MenuOption = ({ label, onClick, icon: iconName }: Props) => {
 				"[&_button]:rounded-full [&_button]:border-border [&_button]:bg-background [&_button]:shadow-md [&_button]:hover:bg-muted",
 			)}
 		>
-			<Button
-				onClick={onClick}
-				role="button"
-				aria-label={label}
-				size={isMobile ? "icon-sm" : "icon"}
-				variant="outline-gov"
-			>
+			<Button onClick={onClick} aria-label={label} size={isMobile ? "icon-sm" : "icon"} variant="outline-gov">
 				{iconName && <Icon name={iconName} className="mobile:size-5 size-5.5" />}
 			</Button>
 
