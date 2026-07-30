@@ -33,8 +33,6 @@ export const TranslatorDialog = ({ open, onOpenChange }: Props) => {
 		if (!text) return;
 
 		try {
-			posthogg.trackEvent("translate_text", { text });
-
 			const gloss = await translate(text);
 			if (!gloss.length) throw new Error("Empty gloss");
 
