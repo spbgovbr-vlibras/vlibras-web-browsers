@@ -1,4 +1,3 @@
-import { startTransition } from "preact/compat";
 import { $ } from "@/common/utils/dom";
 import { tooltipStore } from "@/widget/stores/use-tooltip.store";
 import {
@@ -37,26 +36,24 @@ export const textCapture = ({ callback, isWordByWord, hoverClss, activeClass }: 
 	const handleMouseMove = (event: MouseEvent) => {
 		if (!isWordByWord || !hoverClss) return;
 
-		startTransition(() => {
-			const element = event.target as HTMLElement;
-			if (!isValidElement(element)) return;
+		const element = event.target as HTMLElement;
+		if (!isValidElement(element)) return;
 
-			removeClass(hoverClss);
+		removeClass(hoverClss);
 
-			const { word, node, offset } = getWordAtPoint(event.clientX, event.clientY) || {};
-			if (word && node && typeof offset === "number") {
-				const range = document.createRange();
-				range.setStart(node, offset);
-				range.setEnd(node, offset + word.length);
+		const { word, node, offset } = getWordAtPoint(event.clientX, event.clientY) || {};
+		if (word && node && typeof offset === "number") {
+			const range = document.createRange();
+			range.setStart(node, offset);
+			range.setEnd(node, offset + word.length);
 
-				const span = document.createElement("span");
-				span.className = hoverClss;
-				span.textContent = word;
+			const span = document.createElement("span");
+			span.className = hoverClss;
+			span.textContent = word;
 
-				range.deleteContents();
-				range.insertNode(span);
-			}
-		});
+			range.deleteContents();
+			range.insertNode(span);
+		}
 	};
 
 	const handleClick = (event: MouseEvent) => {
