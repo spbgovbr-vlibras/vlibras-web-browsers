@@ -3,6 +3,7 @@ import { useEffect } from "preact/hooks";
 import { useConfig, usePick } from "@/common/hooks";
 import { createRoot } from "@/core/dom";
 import { loadDefaultFont } from "@/core/fonts";
+import { applyInertPolyfill } from "@/core/inert";
 import { WidgetApp } from "@/widget/app";
 import { useWidgetStore } from "@/widget/stores/use-widget.store";
 import { posthogg } from "./common/lib/posthog";
@@ -10,6 +11,8 @@ import { Providers } from "./widget/providers";
 import { rootStore } from "./widget/stores/use-root.store";
 
 const { root, shadowRoot, isRootActive } = createRoot();
+
+applyInertPolyfill(shadowRoot);
 
 function App() {
 	const { setOpen, isLoaded, setLoaded } = useWidgetStore(usePick("setOpen", "isLoaded", "setLoaded"));
