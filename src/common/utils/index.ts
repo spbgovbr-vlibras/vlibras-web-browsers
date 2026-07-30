@@ -20,7 +20,8 @@ export const capitalize = (str: string) => {
 export const delay = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
 
 export const sanitizeUrl = (url: string): string => {
-	return url.replace(/(?<!:)\/+/g, "/");
+	const [, protocol = "", rest = url] = url.match(/^([a-z][a-z\d+.-]*:\/\/)(.*)$/i) ?? [];
+	return protocol + rest.replace(/\/+/g, "/");
 };
 
 export const randomStr = () => Math.random().toString(36).slice(2, 8);
