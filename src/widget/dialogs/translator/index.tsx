@@ -48,7 +48,9 @@ export const TranslatorDialog = ({ open, onOpenChange }: Props) => {
 					</Fragment>
 				),
 			});
-		} catch {}
+		} catch (error) {
+			console.error("Falha ao traduzir/reproduzir o texto do tradutor: ", error);
+		}
 	};
 
 	const handleClear = () => {

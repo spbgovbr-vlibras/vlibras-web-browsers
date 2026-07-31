@@ -14,19 +14,34 @@ const isValidTheme = (theme: Theme) => {
 	return ["light", "dark"].includes(theme);
 };
 
-export const useTheme = create<ThemeStoreState>((set) => ({
-	theme: (() => {
+const readStoredTheme = (): Theme => {
+	try {
 		const theme = (localStorage.getItem(THEME_KEY) as Theme) || "";
 		return isValidTheme(theme) ? theme : "light";
-	})(),
+	} catch {
+		return "light";
+	}
+};
+
+const writeStoredTheme = (theme: Theme) => {
+	try {
+		localStorage.setItem(THEME_KEY, theme);
+	} catch {
+		// localStorage pode estar indisponível (modo privado, política do navegador etc.);
+		// o tema ainda funciona no estado em memória, só não persiste entre sessões.
+	}
+};
+
+export const useTheme = create<ThemeStoreState>((set) => ({
+	theme: readStoredTheme(),
 	toggleTheme: () =>
 		set((state) => {
 			const newTheme = state.theme === "dark" ? "light" : "dark";
-			localStorage.setItem(THEME_KEY, newTheme);
+			writeStoredTheme(newTheme);
 			return { theme: newTheme, isDark: newTheme === "dark" };
 		}),
 	setTheme: (theme: Theme) => {
-		localStorage.setItem(THEME_KEY, theme);
+		writeStoredTheme(theme);
 		set({ theme });
 	},
 }));
