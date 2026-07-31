@@ -1,5 +1,6 @@
 import { useAccessWrapperSync } from "./use-access-wrapper-sync";
 import { useMobileQuerySync } from "./use-mobile-query-sync";
+import { usePlayerIdleTeardown } from "./use-player-idle-teardown";
 import { useRootSync } from "./use-root-sync";
 import { useSubtitleSync } from "./use-subtitle-sync";
 import { useTabVisibilitySync } from "./use-tab-visibility-sync";
@@ -14,6 +15,7 @@ export const SyncProvider = () => {
 	useMobileQuerySync();
 	useSubtitleSync();
 	useRootSync();
+	usePlayerIdleTeardown();
 
 	return null;
 };
