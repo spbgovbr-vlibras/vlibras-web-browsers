@@ -36,7 +36,7 @@ const defaults: OnlyState<PlayerStoreState> = {
 	progress: 0,
 	gloss: undefined,
 	instance: undefined,
-	showSubtitles: false,
+	showSubtitles: true,
 	isPlayingWelcome: true,
 	isWelcomeFinished: false,
 	isLoaded: false,
