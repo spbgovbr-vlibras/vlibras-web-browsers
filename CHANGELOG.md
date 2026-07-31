@@ -1,5 +1,42 @@
 # Changelog
 
+# [7.2.0](https://gitlab.lavid.ufpb.br/vlibras2019/vlibras-web-extensions/vlibras-web-browsers/compare/v7.1.0...v7.2.0) (2026-07-31)
+
+
+### Bug Fixes
+
+* **common/hooks:** handle selector errors in useQuery ([7e2c776](https://gitlab.lavid.ufpb.br/vlibras2019/vlibras-web-extensions/vlibras-web-browsers/commit/7e2c7762543c6f47ee7c3eaa281d4abf981f2dd2))
+* **core/dom:** handle detached elements and improve root overlay creation ([0ba739c](https://gitlab.lavid.ufpb.br/vlibras2019/vlibras-web-extensions/vlibras-web-browsers/commit/0ba739c40c1aebabbba27cbcf7b23d342b401153))
+* correct aria-label typo in 'ScreenClose' component ([3f3114e](https://gitlab.lavid.ufpb.br/vlibras2019/vlibras-web-extensions/vlibras-web-browsers/commit/3f3114eadd7ce83ba288298bcd4b28d2dec29cb1))
+* improve cleanup of timers and debounced callbacks ([f966c83](https://gitlab.lavid.ufpb.br/vlibras2019/vlibras-web-extensions/vlibras-web-browsers/commit/f966c834ab321942a4dffdb9e3e01b4cdb395a69))
+* improve resilience of theme hook, loader init, and translator error handling ([b791ae9](https://gitlab.lavid.ufpb.br/vlibras2019/vlibras-web-extensions/vlibras-web-browsers/commit/b791ae977ccd4a52b8ac160d8ffcafa4a5671923))
+* **player:** validate iframe message source ([a9193c9](https://gitlab.lavid.ufpb.br/vlibras2019/vlibras-web-extensions/vlibras-web-browsers/commit/a9193c9f1b5217bbf5da9e85c739616682f8d701))
+* update imports to use preact hooks and jsx-runtime ([b9cb4d6](https://gitlab.lavid.ufpb.br/vlibras2019/vlibras-web-extensions/vlibras-web-browsers/commit/b9cb4d678f8b268bb5ebf5079b60d3c09dd35577))
+* **utils:** replace regex lookbehind in sanitizeUrl for browser compatibility ([6cd7c0e](https://gitlab.lavid.ufpb.br/vlibras2019/vlibras-web-extensions/vlibras-web-browsers/commit/6cd7c0ea7fe98932e170530f465af3153bae24ed))
+* **widget:** increase tab visibility playback delay from 500 ms to 1000 ms ([f3accb6](https://gitlab.lavid.ufpb.br/vlibras2019/vlibras-web-extensions/vlibras-web-browsers/commit/f3accb6a18e59328afe1a70e114caaf0d0750783))
+
+
+### Features
+
+* **build:** add es module format to output and update readme ([51172e1](https://gitlab.lavid.ufpb.br/vlibras2019/vlibras-web-extensions/vlibras-web-browsers/commit/51172e1649157681ab4b6177c1af73d74b863242))
+* **consent-banner:** hide banner during playback and adjust layout spacing ([917882e](https://gitlab.lavid.ufpb.br/vlibras2019/vlibras-web-extensions/vlibras-web-browsers/commit/917882ee8546996452d7fd2d23e3e60132771d17))
+* **consent:** add user consent flow for analytics tracking ([68cbdde](https://gitlab.lavid.ufpb.br/vlibras2019/vlibras-web-extensions/vlibras-web-browsers/commit/68cbdde4fe68799d9ef92f4ca2500db6e85630ed))
+* **core/actions:** add handling for superseded translation requests ([34c9aa1](https://gitlab.lavid.ufpb.br/vlibras2019/vlibras-web-extensions/vlibras-web-browsers/commit/34c9aa1442878af00b275197ad8763e351f60236))
+* **core/inert:** implement inert polyfill and integrate into widget ([354f7fd](https://gitlab.lavid.ufpb.br/vlibras2019/vlibras-web-extensions/vlibras-web-browsers/commit/354f7fd6eef453318bec2681e6c1a5aeb65f8d95))
+* **data:** add missing states to regionalism ([b6e6184](https://gitlab.lavid.ufpb.br/vlibras2019/vlibras-web-extensions/vlibras-web-browsers/commit/b6e618492b98936a1e3465262df4284611a100ee))
+* **font:** refactor default font loading ([ac31128](https://gitlab.lavid.ufpb.br/vlibras2019/vlibras-web-extensions/vlibras-web-browsers/commit/ac31128f9708b8d6311858af55a4dd77e836ebd4))
+* **sync:** add player idle teardown and conditional rendering based on mount state ([3b76a56](https://gitlab.lavid.ufpb.br/vlibras2019/vlibras-web-extensions/vlibras-web-browsers/commit/3b76a56c9d9886d889fe6481d8b1d43cdda24ddd))
+* **sync:** refactor window synchronization logic ([2e5aeb1](https://gitlab.lavid.ufpb.br/vlibras2019/vlibras-web-extensions/vlibras-web-browsers/commit/2e5aeb191c5336817a358bcf9a90d6463e4978a0))
+* update unity build (31-07-26) ([9af5fad](https://gitlab.lavid.ufpb.br/vlibras2019/vlibras-web-extensions/vlibras-web-browsers/commit/9af5fad4694e99da6fdbe0e7c7dcd337d4ad30f7))
+* **widget:** add lazy‑loaded dialogs with fallbacks and update loader script ([7102ed0](https://gitlab.lavid.ufpb.br/vlibras2019/vlibras-web-extensions/vlibras-web-browsers/commit/7102ed01defc0acfb3cdaef249e2c3a7e1e2ad25))
+
+
+### Performance Improvements
+
+* **assets:** externalize base64 icons and images to static files ([8f09d9f](https://gitlab.lavid.ufpb.br/vlibras2019/vlibras-web-extensions/vlibras-web-browsers/commit/8f09d9f52826bbad527cc4f2526c5338347a4027))
+* **draggable:** throttle resize and pointermove handling with requestAnimationFrame ([372279c](https://gitlab.lavid.ufpb.br/vlibras2019/vlibras-web-extensions/vlibras-web-browsers/commit/372279c68e159053f0cd53f855a5d78fb38102bb))
+* migrate fonts to woff2 format ([c3ebe15](https://gitlab.lavid.ufpb.br/vlibras2019/vlibras-web-extensions/vlibras-web-browsers/commit/c3ebe1534c5917435a4808b3b7246e02e1fd46c3))
+
 # [7.1.0](https://gitlab.lavid.ufpb.br/vlibras2019/vlibras-web-extensions/vlibras-web-browsers/compare/v7.0.0...v7.1.0) (2026-07-30)
 
 
