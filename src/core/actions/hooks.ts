@@ -43,6 +43,8 @@ export const useTranslateRequest = (
 		mutationFn: async (text: string) => {
 			const result = await translate(text);
 
+			if (result.code === "TRANSLATION_SUPERSEDED_ERROR") return "";
+
 			if (result.error) console.error(result.error);
 			if (!result.data) console.error(ERROR_MESSAGES.TRANSLATION_EMPTY_ERROR);
 
