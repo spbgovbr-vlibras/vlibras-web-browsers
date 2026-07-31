@@ -40,6 +40,7 @@ export default defineConfig(({ mode }) => {
 				entry: "src/main.tsx",
 				name: "vlibras-plugin",
 				fileName: "vlibras-plugin-app",
+				formats: ["es"],
 			},
 			rollupOptions: {
 				output: {

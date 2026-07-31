@@ -114,7 +114,7 @@ pnpm build
 
 Este comando cria a pasta `/app` na raiz do projeto contendo:
 
-- `vlibras-plugin-app.umd.cjs` - Biblioteca principal do widget
+- `vlibras-plugin-app.js` - Biblioteca principal do widget (ES module, com code splitting)
 - `vlibras-plugin.js` - Script de carregamento minificado
 - `index.html` - Página de demonstração
 
