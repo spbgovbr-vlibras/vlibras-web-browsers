@@ -20,7 +20,7 @@ export const WidgetControls = () => {
 			className={cn(
 				!isOpen && "-bottom-20!",
 				"relative z-50 animate-move-up border-t bg-background px-2 py-1.5 transition-[bottom] ease-in-out",
-				"[&_button]:z-1 [&_button]:not-hover:bg-transparent **:[[role=button]]:not-hover:bg-transparent",
+				"[&_button]:z-1 [&_button]:not-hover:bg-transparent [&_button]:dark:text-secondary-foreground **:[[role=button]]:not-hover:bg-transparent **:[[role=button]]:dark:text-secondary-foreground",
 				"-mt-13 **:data-[highlight=true]:animate-highlight-primary",
 			)}
 		>

@@ -9,7 +9,9 @@ export const UnityLoading = () => {
 	const [isStarting, setStarting] = useState(false);
 
 	useEffect(() => {
-		if (progress === 100) setTimeout(() => setStarting(true), 1000);
+		if (progress !== 100) return;
+		const timer = setTimeout(() => setStarting(true), 1000);
+		return () => clearTimeout(timer);
 	}, [progress]);
 
 	if (isLoaded) return null;
@@ -28,7 +30,7 @@ export const UnityLoading = () => {
 			<div className="-mt-4 flex flex-col items-center">
 				<div className="mb-2 overflow-hidden rounded-full border-6 border-primary/30">
 					<div className="relative flex mobile:size-18 size-20 justify-center overflow-hidden rounded-full bg-primary">
-						<Icon name="icaro" className="absolute bottom-0 size-14 size-15dmobile: text-primary-foreground" />
+						<Icon name="icaro" className="absolute bottom-0 mobile:size-14 size-15 text-primary-foreground" />
 					</div>
 				</div>
 

@@ -1,9 +1,12 @@
 import type { PostHog } from "posthog-js";
+import { consentStore } from "@/widget/stores/use-consent.store";
 
 const SAMPLING_RATE = 0.07;
 const MODE = import.meta.env.MODE || "development";
 const IS_ENABLED = import.meta.env.VITE_PUBLIC_POSTHOG_ENABLED === "true";
 const IS_DEBUG = import.meta.env.VITE_PUBLIC_POSTHOG_DEBUG === "true" && MODE !== "production";
+
+export const isTrackingAvailable = IS_ENABLED && !__IS_EXTENSION__;
 
 const posthogPromise = (async () => {
 	if (!IS_ENABLED || __IS_EXTENSION__ || typeof window === "undefined") return null;
@@ -46,6 +49,8 @@ export const posthogg = {
 	},
 
 	trackEvent: async (name: string, properties?: Record<string, unknown>) => {
+		if (consentStore.get().status !== "accepted") return;
+
 		const posthog = await posthogPromise;
 		if (!IS_ENABLED || !posthog) return;
 

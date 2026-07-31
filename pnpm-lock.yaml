@@ -11,9 +11,6 @@ importers:
       '@tailwindcss/vite':
         specifier: ^4.1.18
         version: 4.1.18(vite@7.3.1(@types/node@25.2.3)(jiti@2.6.1)(lightningcss@1.30.2)(yaml@2.8.2))
-      '@tanstack/preact-query':
-        specifier: ^5.95.2
-        version: 5.95.2(preact@11.0.0-beta.1)
       class-variance-authority:
         specifier: ^0.7.1
         version: 0.7.1
@@ -1048,14 +1045,6 @@ packages:
     resolution: {integrity: sha512-jVA+/UpKL1vRLg6Hkao5jldawNmRo7mQYrZtNHMIVpLfLhDml5nMRUo/8MwoX2vNXvnaXNNMedrMfMugAVX1nA==}
     peerDependencies:
       vite: ^5.2.0 || ^6 || ^7
-
-  '@tanstack/preact-query@5.95.2':
-    resolution: {integrity: sha512-XSH1SB5QjkgN2FjwpTTEdifro73GNn3RM9g46Nq0PLew2OaHJMFlVi7tiEPS7HGnYp7Plp/0u5qNjiIYPkcymg==}
-    peerDependencies:
-      preact: ^10.0.0
-
-  '@tanstack/query-core@5.95.2':
-    resolution: {integrity: sha512-o4T8vZHZET4Bib3jZ/tCW9/7080urD4c+0/AUaYVpIqOsr7y0reBc1oX3ttNaSW5mYyvZHctiQ/UOP2PfdmFEQ==}
 
   '@tootallnate/quickjs-emscripten@0.23.0':
     resolution: {integrity: sha512-C5Mc6rdnsaJDjO3UpGW/CQTHtCKaYlScZTly4JIu97Jxo/odCiH0ITnDXSJPTOrEKk/ycSZ0AOgTmkDtkOsvIA==}
@@ -3393,13 +3382,6 @@ snapshots:
       '@tailwindcss/oxide': 4.1.18
       tailwindcss: 4.1.18
       vite: 7.3.1(@types/node@25.2.3)(jiti@2.6.1)(lightningcss@1.30.2)(yaml@2.8.2)
-
-  '@tanstack/preact-query@5.95.2(preact@11.0.0-beta.1)':
-    dependencies:
-      '@tanstack/query-core': 5.95.2
-      preact: 11.0.0-beta.1
-
-  '@tanstack/query-core@5.95.2': {}
 
   '@tootallnate/quickjs-emscripten@0.23.0': {}
 

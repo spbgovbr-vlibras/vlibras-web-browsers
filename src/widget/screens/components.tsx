@@ -48,7 +48,7 @@ export const ScreenClose = ({ className, ...props }: ButtonProps) => {
 
 	return (
 		<Button
-			aria-labe="Fechar"
+			aria-label="Fechar"
 			onClick={closeAll}
 			variant="outline"
 			size={isMobile ? "icon-sm" : "icon"}

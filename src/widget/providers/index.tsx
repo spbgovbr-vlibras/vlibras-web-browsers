@@ -1,7 +1,5 @@
-import { QueryClientProvider } from "@tanstack/preact-query";
 import type { ComponentChildren } from "preact";
 import { useEffect, useState } from "preact/hooks";
-import { queryClient } from "@/common/lib/query-client";
 import { setupWidgetStyles } from "@/common/utils/dom";
 import { TextCaptureTooltip } from "@/widget/components/text-capture-tooltip";
 import { ThemeProvider } from "@/widget/providers/theme";
@@ -20,11 +18,9 @@ export const Providers = ({ children, root }: ProvidersProps) => {
 
 	return (
 		<ThemeProvider root={root}>
-			<QueryClientProvider client={queryClient}>
-				<TextCaptureTooltip />
-				<SyncProvider />
-				{children}
-			</QueryClientProvider>
+			<TextCaptureTooltip />
+			<SyncProvider />
+			{children}
 		</ThemeProvider>
 	);
 };

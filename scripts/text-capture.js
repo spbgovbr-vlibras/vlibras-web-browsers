@@ -34,6 +34,7 @@ function loadTextCaptureScript() {
   const isValidImage = (el) => hasTag(el, "IMG") && el.alt && el.alt.trim();
   const isSelect = (el) => hasTag(el, "SELECT");
   const isSVG = (el) => hasTag(el, ["SVG", "PATH"]);
+  const isButton = (el) => hasTag(el, "BUTTON") || el.role === "button";
 
   createTooltip();
   let isActive = false;
@@ -131,7 +132,7 @@ function loadTextCaptureScript() {
 
     if (linkElement) showTooltip(linkElement, event);
     if (hasTag(element, "LABEL")) toggleChecked(element);
-    else if (hasTag(element, "BUTTON") || isSubmit) showTooltip(element, event);
+    else if (isButton(element) || isSubmit) showTooltip(element, event);
   }
 
   function clickHandler(element, event = null) {

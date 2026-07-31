@@ -1,14 +1,17 @@
+import { lazy, Suspense } from "preact/compat";
 import { useState } from "preact/hooks";
 import { Fragment } from "preact/jsx-runtime";
 import { useMobile } from "@/common/hooks";
+import { SettingsFallback } from "@/widget/components/fallbacks";
 import { Button } from "@/widget/components/ui/button";
 import { Icon } from "@/widget/components/ui/icon";
 import { Tooltip } from "@/widget/components/ui/tooltip";
-import { SettingsDialog } from "@/widget/dialogs/settings";
+
+const SettingsDialog = lazy(() => import("@/widget/dialogs/settings").then((m) => ({ default: m.SettingsDialog })));
 
 export const SettingsOption = () => {
 	const isMobile = useMobile();
-	const [open, setOpen] = useState(false);
+	const [open, setOpen] = useState<boolean>();
 
 	return (
 		<Fragment>
@@ -25,7 +28,11 @@ export const SettingsOption = () => {
 				</Button>
 			</Tooltip>
 
-			<SettingsDialog open={open} onOpenChange={setOpen} />
+			{open !== undefined && (
+				<Suspense fallback={<SettingsFallback />}>
+					<SettingsDialog open={open} onOpenChange={setOpen} />
+				</Suspense>
+			)}
 		</Fragment>
 	);
 };

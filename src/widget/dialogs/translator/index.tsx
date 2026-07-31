@@ -33,8 +33,6 @@ export const TranslatorDialog = ({ open, onOpenChange }: Props) => {
 		if (!text) return;
 
 		try {
-			posthogg.trackEvent("translate_text", { text });
-
 			const gloss = await translate(text);
 			if (!gloss.length) throw new Error("Empty gloss");
 
@@ -50,7 +48,9 @@ export const TranslatorDialog = ({ open, onOpenChange }: Props) => {
 					</Fragment>
 				),
 			});
-		} catch {}
+		} catch (error) {
+			console.error("Falha ao traduzir/reproduzir o texto do tradutor: ", error);
+		}
 	};
 
 	const handleClear = () => {
@@ -103,7 +103,7 @@ export const TranslatorDialog = ({ open, onOpenChange }: Props) => {
 							onChange={(e) => onTextChange(e.currentTarget.value)}
 							name="text"
 							id="translator-text"
-							className="h-32 w-full resize-none rounded-lg border bg-muted p-2"
+							className="h-32 w-full resize-none rounded-lg border bg-muted p-2 text-sm"
 						/>
 					</div>
 

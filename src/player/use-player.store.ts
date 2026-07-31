@@ -16,6 +16,7 @@ export interface PlayerStoreState {
 	speed: number;
 	progress: number;
 	isLoaded: boolean;
+	isMounted: boolean;
 	isPlayingWelcome: boolean;
 	isWelcomeFinished: boolean;
 	showSubtitles: boolean;
@@ -35,10 +36,11 @@ const defaults: OnlyState<PlayerStoreState> = {
 	progress: 0,
 	gloss: undefined,
 	instance: undefined,
-	showSubtitles: false,
+	showSubtitles: true,
 	isPlayingWelcome: true,
 	isWelcomeFinished: false,
 	isLoaded: false,
+	isMounted: true,
 	region: regions[0],
 	emotion: emotionsMap.default,
 };

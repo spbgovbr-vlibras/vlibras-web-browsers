@@ -7,6 +7,7 @@ import { playerStore } from "@/player/use-player.store";
 import { Button } from "@/widget/components/ui/button";
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/widget/components/ui/dialog";
 import { Icon } from "@/widget/components/ui/icon";
+import { Spinner } from "@/widget/components/ui/spinner";
 import { widgetStore } from "@/widget/stores/use-widget.store";
 import { FeedbackSuggestion } from "./feedback-suggestion";
 
@@ -41,7 +42,7 @@ export const FeedbackDialog = ({ open, onOpenChange }: Props) => {
 
 			onOpenChange(false);
 			toast("Agradecemos sua contribuição!", { variant: "primary", className: "font-semibold" });
-			playStatic("AGRADECER");
+			playStatic("OBRIGADO");
 
 			widgetStore.set({ text: undefined });
 		} catch (err) {
@@ -54,15 +55,15 @@ export const FeedbackDialog = ({ open, onOpenChange }: Props) => {
 
 	return (
 		<Fragment>
-			<Dialog open={open} onOpenChange={onOpenChange}>
+			<Dialog open={open || isPending} onOpenChange={onOpenChange}>
 				<DialogContent>
 					<DialogHeader>
 						<DialogTitle icon="comment">Feedback</DialogTitle>
 					</DialogHeader>
 
 					<div className="flex flex-col items-center justify-center gap-2 p-6">
-						<p className="font-semibold">Gostou da tradução?</p>
-						<div className="flex items-center justify-center gap-4 [&>button]:flex-col [&>button]:text-muted-foreground">
+						<p className="font-semibold mobile:text-sm text-base">Gostou da tradução?</p>
+						<div className="flex items-center justify-center gap-4 mobile:text-sm text-base [&>button]:flex-col [&>button]:text-muted-foreground">
 							<Button
 								disabled={isPending}
 								variant="ghost"
@@ -70,8 +71,8 @@ export const FeedbackDialog = ({ open, onOpenChange }: Props) => {
 								className="px-7 py-10 font-semibold hover:bg-primary/5 hover:text-primary"
 								onClick={handleLike}
 							>
-								<Icon name="thumbs-up" />
-								<span>Sim</span>
+								{isPending ? <Spinner className="text-muted-foreground" /> : <Icon name="thumbs-up" />}
+								Sim
 							</Button>
 							<Button
 								disabled={isPending}
@@ -81,7 +82,7 @@ export const FeedbackDialog = ({ open, onOpenChange }: Props) => {
 								onClick={handleSuggestionOpen}
 							>
 								<Icon name="thumbs-down" />
-								<span>Não</span>
+								Não
 							</Button>
 						</div>
 					</div>

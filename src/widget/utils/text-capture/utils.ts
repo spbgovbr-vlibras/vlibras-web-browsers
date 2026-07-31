@@ -46,9 +46,15 @@ export const hasTag = (el: HTMLElement, tags: string[] | string) => {
 export const isLinkOrButton = (el: HTMLElement) => {
 	return hasTag(el, ["A", "BUTTON"]);
 };
+
 export const isSubmitInput = (el: HTMLElement) => {
 	return hasTag(el, "INPUT") && (el as HTMLButtonElement).type === "submit";
 };
+
+export const isButtonElement = (el: HTMLElement) => {
+	return hasTag(el, "BUTTON") || el.role === "button";
+};
+
 export const isValidImage = (el: HTMLElement) => {
 	return hasTag(el, "IMG") && (el as HTMLImageElement).alt && (el as HTMLImageElement).alt.trim();
 };

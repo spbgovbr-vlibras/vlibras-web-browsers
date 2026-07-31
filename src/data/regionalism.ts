@@ -27,9 +27,9 @@ export type RegionAbbreviation =
 	| "PI"
 	| "RJ"
 	| "RN"
-	| "RS"
 	| "RO"
 	| "RR"
+	| "RS"
 	| "SC"
 	| "SP"
 	| "SE"
@@ -58,4 +58,10 @@ export const regions: Region[] = [
 	{ name: "Rio de Janeiro", flag: flags.RJ, abbreviation: "RJ" },
 	{ name: "Rio Grande do Norte", flag: flags.RN, abbreviation: "RN" },
 	{ name: "Rio Grande do Sul", flag: flags.RS, abbreviation: "RS" },
+	{ name: "Rondônia", flag: flags.RO, abbreviation: "RO" },
+	{ name: "Roraima", flag: flags.RR, abbreviation: "RR" },
+	{ name: "Santa Catarina", flag: flags.SC, abbreviation: "SC" },
+	{ name: "São Paulo", flag: flags.SP, abbreviation: "SP" },
+	{ name: "Sergipe", flag: flags.SE, abbreviation: "SE" },
+	{ name: "Tocantins", flag: flags.TO, abbreviation: "TO" },
 ];

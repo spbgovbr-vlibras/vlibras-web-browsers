@@ -1,6 +1,7 @@
 "use client";
 
-import { createContext, useContext, useLayoutEffect, useRef } from "preact/compat";
+import { createContext } from "preact";
+import { useContext, useLayoutEffect, useRef } from "preact/hooks";
 import { createStore, type StoreApi, useStore } from "zustand";
 
 type Store<T> = { data: T };

@@ -1,4 +1,5 @@
-import { Fragment, useEffect, useRef, useState } from "preact/compat";
+import { useEffect, useRef, useState } from "preact/hooks";
+import { Fragment } from "preact/jsx-runtime";
 import { cn } from "@/common/lib/utils";
 import { Button } from "@/widget/components/ui/button";
 import { Icon } from "@/widget/components/ui/icon";

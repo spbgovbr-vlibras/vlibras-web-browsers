@@ -52,9 +52,9 @@ export const ToggleAvatarButton = () => {
 					id="toggle-avatar-button"
 					variant="outline"
 					size="icon"
-					className="rounded-full bg-background hover:bg-muted! data-[highlight=true]:animate-highlight-primary"
+					className="rounded-full bg-background text-primary hover:bg-muted! data-[highlight=true]:animate-highlight-primary"
 				>
-					<Icon name={currentAvatar.icon} aria-hidden="true" className="size-5.5 text-primary" />
+					<Icon name={currentAvatar.icon} aria-hidden="true" className="size-5.5" />
 				</Button>
 			</Tooltip>
 

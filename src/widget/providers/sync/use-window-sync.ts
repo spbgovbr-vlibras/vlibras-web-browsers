@@ -24,23 +24,35 @@ export const useWindowSyncProvider = () => {
 		if (!isLoaded) return;
 		window.plugin = window.plugin || {};
 
-		const globalAttributes = {
-			...omit(playerStore.get(), "send"),
-			...omit(widgetStore.get(), "reset", "setLoaded"),
-			...omit(actions, "setConfig"),
+		const sync = () => {
+			const globalAttributes = {
+				...omit(playerStore.get(), "send"),
+				...omit(widgetStore.get(), "reset", "setLoaded"),
+				...omit(actions, "setConfig"),
+			};
+
+			window.vlibras = {
+				...globalAttributes,
+				translate: translateText,
+				translateAndPlay,
+			};
+
+			// Definições legadas
+			window.plugin.translate = translateAndPlay;
+			window.plugin.player = {
+				...globalAttributes,
+				changeAvatar: actions.toggleAvatar,
+			};
 		};
 
-		window.vlibras = {
-			...globalAttributes,
-			translate: translateText,
-			translateAndPlay,
-		};
+		sync();
 
-		// Definições legadas
-		window.plugin.translate = translateAndPlay;
-		window.plugin.player = {
-			...globalAttributes,
-			changeAvatar: actions.toggleAvatar,
+		const unsubscribePlayer = playerStore.subscribe(sync);
+		const unsubscribeWidget = widgetStore.subscribe(sync);
+
+		return () => {
+			unsubscribePlayer();
+			unsubscribeWidget();
 		};
 	}, [isLoaded]);
 };

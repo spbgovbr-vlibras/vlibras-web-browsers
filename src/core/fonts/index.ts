@@ -1,40 +1,59 @@
+const FONT_FAMILY = "VLibrasWidget_Font";
+
+const FONT_FACES = [
+	{ file: "rawline-500.woff2", weight: "500", style: "normal" },
+	{ file: "rawline-500i.woff2", weight: "500", style: "italic" },
+	{ file: "rawline-600.woff2", weight: "600", style: "normal" },
+	{ file: "rawline-600i.woff2", weight: "600", style: "italic" },
+	{ file: "rawline-700.woff2", weight: "700", style: "normal" },
+	{ file: "rawline-700i.woff2", weight: "700", style: "italic" },
+] as const;
+
+let isFontLoaded = false;
+
 export const loadDefaultFont = async (path: string, shadowRoot: ShadowRoot) => {
-	const fonts = [
-		new FontFace("VLibrasWidget_Font", `url(${path}/assets/fonts/rawline/rawline-500.ttf) format('truetype')`, {
-			weight: "500",
-		}),
-		new FontFace("VLibrasWidget_Font", `url(${path}/assets/fonts/rawline/rawline-500i.ttf) format('truetype')`, {
-			weight: "500",
-			style: "italic",
-		}),
-		new FontFace("VLibrasWidget_Font", `url(${path}/assets/fonts/rawline/rawline-600.ttf) format('truetype')`, {
-			weight: "600",
-		}),
-		new FontFace("VLibrasWidget_Font", `url(${path}/assets/fonts/rawline/rawline-600i.ttf) format('truetype')`, {
-			weight: "600",
-			style: "italic",
-		}),
-		new FontFace("VLibrasWidget_Font", `url(${path}/assets/fonts/rawline/rawline-700.ttf) format('truetype')`, {
-			weight: "700",
-		}),
-		new FontFace("VLibrasWidget_Font", `url(${path}/assets/fonts/rawline/rawline-700i.ttf) format('truetype')`, {
-			weight: "700",
-			style: "italic",
-		}),
-	];
+	if (isFontLoaded) return;
+	isFontLoaded = true;
+
+	if (typeof FontFace === "undefined") {
+		injectFontFaceStyle(path, shadowRoot);
+		return;
+	}
+
+	const fonts = FONT_FACES.map(
+		({ file, weight, style }) =>
+			new FontFace(FONT_FAMILY, `url(${path}/assets/fonts/rawline/${file}) format('woff2')`, {
+				weight,
+				style,
+			}),
+	);
 
 	try {
-		await loadFontFace(fonts, (styleSheets) => {
-			shadowRoot.adoptedStyleSheets = [...shadowRoot.adoptedStyleSheets, ...styleSheets];
-		});
+		await loadFontFace(fonts);
 	} catch (error) {
-		console.error("Error loading default font:", error);
+		console.error("Error loading default font, falling back to @font-face:", error);
+		injectFontFaceStyle(path, shadowRoot);
 	}
 };
 
-export const loadFontFace = async (fonts: FontFace[], callback?: (styleSheed: CSSStyleSheet[]) => void) => {
+export const loadFontFace = async (fonts: FontFace[]) => {
 	await Promise.all(fonts.map((font) => font.load()));
 	fonts.forEach((font) => document.fonts.add(font));
+};
 
-	if (callback) callback(document.adoptedStyleSheets);
+const injectFontFaceStyle = (path: string, shadowRoot: ShadowRoot) => {
+	const style = document.createElement("style");
+
+	style.textContent = FONT_FACES.map(
+		({ file, weight, style: fontStyle }) => `
+			@font-face {
+				font-family: "${FONT_FAMILY}";
+				src: url("${path}/assets/fonts/rawline/${file}") format("woff2");
+				font-weight: ${weight};
+				font-style: ${fontStyle};
+			}
+		`,
+	).join("\n");
+
+	shadowRoot.appendChild(style);
 };

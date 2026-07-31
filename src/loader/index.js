@@ -26,7 +26,7 @@ function renderWidget() {
   const template = `
   <div id="vlibras-access">
       <img id="vlibras-popup" src="${currentPath}/assets/images/vlibras-popup.jpg" />
-      <button type="button" aria-label="Recursos assistivos com VLibras Widget+" id="vlibras-button">
+      <button type="button" aria-label="Conteúdo acessível em Libras usando o VLibras Widget com opções dos Avatares Ícaro, Hosana ou Guga." id="vlibras-button">
         <img src="${currentPath}/assets/images/vlibras-access.svg" />
       </button>
   </div>
@@ -87,7 +87,8 @@ function renderWidget() {
     }
 
     const script = document.createElement("script");
-    script.src = `${window.VLibrasWidget.path}/vlibras-plugin-app.umd.cjs`;
+    script.type = "module";
+    script.src = `${window.VLibrasWidget.path}/vlibras-plugin-app.js`;
     script.async = true;
     script.onload = () => {
       widget = document.getElementById("vlibras-app-root");
@@ -102,9 +103,11 @@ function renderWidget() {
   window.VLibrasWidget.initBtn = initBtn;
   window.VLibrasWidget.open = open;
 
-  if (localStorage.getItem("@vlibras-wp")?.includes('"isActive":true')) {
-    open();
-  }
+  try {
+    if (localStorage.getItem("@vlibras-wp")?.includes('"isActive":true')) {
+      open();
+    }
+  } catch {}
 }
 
 if (document.readyState === "loading") {

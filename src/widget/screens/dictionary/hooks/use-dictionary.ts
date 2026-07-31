@@ -1,6 +1,5 @@
-import { useQuery } from "@tanstack/preact-query";
 import { useCallback, useEffect, useMemo, useRef, useState } from "preact/hooks";
-import { useDebouncedCallback } from "@/common/hooks";
+import { useDebouncedCallback, useQuery } from "@/common/hooks";
 import { Trie } from "@/common/lib/trie";
 import { useDictionarySigns } from "@/core/actions/hooks";
 import { getCategories, getCategorySigns } from "../actions";

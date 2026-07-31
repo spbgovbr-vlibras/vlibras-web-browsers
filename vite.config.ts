@@ -2,10 +2,29 @@ import path from "node:path";
 import preact from "@preact/preset-vite";
 import tailwindcss from "@tailwindcss/vite";
 import { visualizer } from "rollup-plugin-visualizer";
-import { defineConfig } from "vite";
+import { defineConfig, transformWithEsbuild } from "vite";
 import { viteStaticCopy } from "vite-plugin-static-copy";
 import pkg from "./package.json";
 import { type AppMode, minifyCode } from "./vite.config.utils";
+
+const forceMinifyOutput = () => ({
+	name: "force-minify-lib-output",
+	async generateBundle(_options: unknown, bundle: Record<string, { type: string; code?: string; fileName: string }>) {
+		for (const file of Object.values(bundle)) {
+			if (file.type !== "chunk" || !file.code) continue;
+
+			const result = await transformWithEsbuild(file.code, file.fileName, {
+				minify: true,
+				minifyWhitespace: true,
+				minifyIdentifiers: true,
+				minifySyntax: true,
+				loader: "js",
+			});
+
+			file.code = result.code;
+		}
+	},
+});
 
 export default defineConfig(({ mode }) => {
 	return {
@@ -16,10 +35,25 @@ export default defineConfig(({ mode }) => {
 		},
 		build: {
 			outDir: "app",
+			minify: "esbuild",
 			lib: {
 				entry: "src/main.tsx",
 				name: "vlibras-plugin",
 				fileName: "vlibras-plugin-app",
+				formats: ["es"],
+			},
+			rollupOptions: {
+				output: {
+					compact: true,
+					chunkFileNames: (chunkInfo) => {
+						if (chunkInfo.name === "index" && chunkInfo.facadeModuleId) {
+							const dir = path.basename(path.dirname(chunkInfo.facadeModuleId));
+							return `${dir}-[hash].js`;
+						}
+
+						return "[name]-[hash].js";
+					},
+				},
 			},
 		},
 		resolve: {
@@ -31,6 +65,7 @@ export default defineConfig(({ mode }) => {
 		plugins: [
 			preact(),
 			tailwindcss(),
+			forceMinifyOutput(),
 			visualizer({
 				filename: "stats.html",
 				brotliSize: true,

@@ -9,8 +9,15 @@ const timeout = () => {
 	return { controller, timeoutId };
 };
 
+let latestTranslateRequestId = 0;
+let abortActiveTranslate: (() => void) | null = null;
+
 export const translate = async (text: string): Promise<RequestResponse<string>> => {
+	abortActiveTranslate?.();
+
+	const requestId = ++latestTranslateRequestId;
 	const { controller, timeoutId } = timeout();
+	abortActiveTranslate = () => controller.abort();
 
 	try {
 		const response = await fetch(config.TRANSLATE_URL, {
@@ -23,11 +30,29 @@ export const translate = async (text: string): Promise<RequestResponse<string>> 
 		if (!response.ok) throw new Error(`Erro na API: ${response.status}`);
 
 		const data = await response.text();
+
+		if (requestId !== latestTranslateRequestId) {
+			return {
+				success: false,
+				error: ERROR_MESSAGES.TRANSLATION_SUPERSEDED_ERROR,
+				code: "TRANSLATION_SUPERSEDED_ERROR",
+			};
+		}
+
 		return { data, success: true };
 	} catch (err) {
+		const error = err as Error;
+
+		if (error.name === "AbortError" && requestId !== latestTranslateRequestId) {
+			return {
+				success: false,
+				error: ERROR_MESSAGES.TRANSLATION_SUPERSEDED_ERROR,
+				code: "TRANSLATION_SUPERSEDED_ERROR",
+			};
+		}
+
 		console.error("Falha na tradução: ", err);
 
-		const error = err as Error;
 		if (error.name === "AbortError") {
 			return {
 				success: false,
@@ -52,7 +77,6 @@ export const getSigns = async (): Promise<RequestResponse<TrieRoot>> => {
 	try {
 		const response = await fetch(config.SIGNS_URL, {
 			method: "GET",
-			headers: { "Content-Type": "application/json" },
 			signal: controller.signal,
 		});
 

@@ -1,9 +1,9 @@
 import { useEffect } from "preact/hooks";
 import { useTheme } from "@/common/hooks";
 import type { Theme } from "@/common/hooks/use-theme";
-import { setSubtitleColor } from "@/player/actions";
+import { setSubtitleColor, toggleSubtitles } from "@/player/actions";
 import type { SubtitleColors } from "@/player/actions/types";
-import { usePlayerStore } from "@/player/use-player.store";
+import { playerStore, usePlayerStore } from "@/player/use-player.store";
 
 const themeSubtitleColors: Record<Theme, SubtitleColors> = {
 	light: { color: "black", outline: "black", shadow: "black" },
@@ -20,6 +20,13 @@ export const useSubtitleSync = () => {
 		const colors = themeSubtitleColors[theme];
 		setSubtitleColor(colors);
 	}, [theme, isLoaded]);
+
+	useEffect(() => {
+		if (!isLoaded) return;
+
+		const { showSubtitles } = playerStore.get();
+		toggleSubtitles(showSubtitles);
+	}, [isLoaded]);
 
 	return null;
 };

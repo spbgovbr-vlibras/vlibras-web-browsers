@@ -1,6 +1,7 @@
 import { Fragment } from "preact/jsx-runtime";
 import { posthogg } from "@/common/lib/posthog";
 import { cn } from "@/common/lib/utils";
+import { getAssetUrl } from "@/common/utils";
 import { type Region, regions } from "@/data/regionalism";
 import { playerStore, usePlayerStore } from "@/player/use-player.store";
 import { InlineTranslatorButton } from "@/widget/components/inline-translator-button";
@@ -28,7 +29,11 @@ export const SettingsRegionalismField = () => {
 			<Dialog nested>
 				<DialogTrigger className={cn(buttonVariants({ variant: "ghost" }), "h-auto border p-1")}>
 					<span className="ml-1 font-semibold mobile:text-xs text-sm">{currentRegion.abbreviation}</span>
-					<img className="h-6 mobile:h-6 rounded-sm border" src={currentRegion.flag} alt={currentRegion.name} />
+					<img
+						className="h-6 mobile:h-6 rounded-sm border"
+						src={getAssetUrl(currentRegion.flag)}
+						alt={currentRegion.name}
+					/>
 				</DialogTrigger>
 
 				<DialogContent className="max-h-[70%]">

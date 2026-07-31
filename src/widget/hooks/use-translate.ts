@@ -1,9 +1,9 @@
-import type { UseMutationResult } from "@tanstack/preact-query";
+import type { UseMutationResult } from "@/common/hooks";
 import { useTranslateRequest } from "@/core/actions/hooks";
 import { playerStore } from "@/player/use-player.store";
 import { widgetStore } from "@/widget/stores/use-widget.store";
 
-export const useTranslate = (): UseMutationResult<string, Error, string> => {
+export const useTranslate = (): UseMutationResult<string, string> => {
 	return useTranslateRequest({
 		onMutate: (text) => {
 			widgetStore.set({ text, isTranslating: true });

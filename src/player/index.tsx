@@ -1,4 +1,4 @@
-import { type ComponentPropsWithoutRef, Fragment } from "preact/compat";
+import { type ComponentProps, Fragment } from "preact";
 import { useEffect, useRef } from "preact/hooks";
 import { useConfig } from "@/common/hooks";
 import { sanitizeUrl } from "@/common/utils";
@@ -8,7 +8,7 @@ import { playerOptionsStore } from "./stores/use-player-options.store";
 import type { PlayerOptions } from "./types";
 import { playerStore, usePlayerStore } from "./use-player.store";
 
-type PlayerProps = ComponentPropsWithoutRef<"iframe"> & {
+type PlayerProps = ComponentProps<"iframe"> & {
 	options?: PlayerOptions;
 };
 
@@ -27,7 +27,13 @@ export const Player = (props: PlayerProps) => {
 
 		contentWindow?.postMessage({ type: "unity", object, method, params }, "*");
 
-		if (!instance) playerStore.set({ instance: contentWindow?.getUnityInstance?.() });
+		if (!instance && !__IS_EXTENSION__) {
+			try {
+				playerStore.set({ instance: contentWindow?.getUnityInstance?.() });
+			} catch (error) {
+				console.error("Error setting instance:", error);
+			}
+		}
 	};
 
 	useEffect(() => {
@@ -54,7 +60,7 @@ export const Player = (props: PlayerProps) => {
 				{...props}
 			/>
 
-			<PlayerEventsProvider path={path} />
+			<PlayerEventsProvider path={path} iframeRef={iframeRef} />
 		</Fragment>
 	);
 };

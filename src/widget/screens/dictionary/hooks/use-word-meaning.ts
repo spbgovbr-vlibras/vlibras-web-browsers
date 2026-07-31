@@ -1,5 +1,5 @@
-import { useQuery } from "@tanstack/preact-query";
 import { useState } from "preact/hooks";
+import { useQuery } from "@/common/hooks";
 import type { WordMeaning } from "../lib/types";
 import { getDictionaryData } from "../lib/wiktionary";
 

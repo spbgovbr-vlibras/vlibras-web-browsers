@@ -20,7 +20,7 @@ export const playerOptions: PlayerOptions = {
 		toggleAvatar(defaultAvatar || avatar);
 		setSpeed(speed);
 
-		if (!__IS_EXTENSION__) setTimeout(playWelcome, 1000);
+		if (!__IS_EXTENSION__) playWelcome();
 		else {
 			const { root } = rootStore.get();
 			if (root) root.dataset.extension = "true";

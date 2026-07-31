@@ -2,7 +2,7 @@ import { transformWithEsbuild } from "vite";
 
 const appRoots = {
 	development: "http://localhost:3003",
-	homolog: "https://vlibras-dth.gov.br/app",
+	homolog: "https://vlibras.gov.br/app2",
 	production: "https://vlibras.gov.br/app",
 	extension: null, // Definido em use-config.ts
 };

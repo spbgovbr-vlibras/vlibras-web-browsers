@@ -67,7 +67,7 @@ export const FeedbackSuggestion = ({ open, onOpenChange }: Props) => {
 
 			onOpenChange(false);
 			toast("Agradecemos sua contribuição!", { variant: "primary", className: "font-semibold" });
-			playStatic("AGRADECER");
+			playStatic("OBRIGADO");
 
 			widgetStore.set({ text: undefined });
 		} catch (err) {

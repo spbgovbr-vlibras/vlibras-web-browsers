@@ -1,4 +1,4 @@
-import { useRef } from "preact/hooks";
+import { useEffect, useRef } from "preact/hooks";
 import { posthogg } from "@/common/lib/posthog";
 import { InlineTranslatorButton } from "@/widget/components/inline-translator-button";
 import { useWidgetStore, widgetStore } from "@/widget/stores/use-widget.store";
@@ -8,6 +8,12 @@ export const SettingsOpacityField = () => {
 	const timeoutRef = useRef<NodeJS.Timeout>(null);
 	const opacity = useWidgetStore((s) => s.opacity);
 	const onOpen = useSettingsCtx((s) => s.onOpen);
+
+	useEffect(() => {
+		return () => {
+			if (timeoutRef.current) clearTimeout(timeoutRef.current);
+		};
+	}, []);
 
 	const handleOpacityChange = (opacity: number) => {
 		widgetStore.set({ opacity: opacity / 100 });

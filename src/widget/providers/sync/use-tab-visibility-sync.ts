@@ -17,7 +17,7 @@ export const useTabVisibilitySync = () => {
 
 			const isVisible = document.visibilityState === "visible";
 
-			if (isVisible && !isPausedByUser) setTimeout(play, 500);
+			if (isVisible && !isPausedByUser) setTimeout(play, 1000);
 			else pause();
 		};
 

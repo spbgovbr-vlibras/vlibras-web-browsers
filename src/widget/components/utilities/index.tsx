@@ -14,7 +14,9 @@ export const Utilities = () => {
 	const isMobile = useMobile();
 	const isGuideOpen = useGuideStore((s) => s.open);
 
-	const { status, gloss, isPlayingWelcome } = usePlayerStore(usePick("status", "gloss", "isPlayingWelcome"));
+	const { status, gloss, ...states } = usePlayerStore(
+		usePick("status", "gloss", "isPlayingWelcome", "isWelcomeFinished"),
+	);
 	const { isExpanded, isTranslating, text } = useWidgetStore(usePick("isExpanded", "text", "isTranslating"));
 	const { action, content } = useCallbackStore(usePick("action", "content"));
 
@@ -44,13 +46,13 @@ export const Utilities = () => {
 
 	const showCallback = action && content && status === "idle";
 	const showFeedback = Boolean(status === "idle" && gloss && text);
-	const showSkip = isPlayingWelcome ? true : (isPlaying || isPaused) && !isGuideOpen;
-	const showToggleAvatar = status === "idle" || isGuideOpen;
+	const showSkip = states.isPlayingWelcome ? true : (isPlaying || isPaused) && !isGuideOpen;
+	const showToggleAvatar = states.isWelcomeFinished && (status === "idle" || isGuideOpen);
 
 	if (isTranslating) return null;
 
 	return (
-		<div className="absolute expanded:inset-x-4! inset-x-3 mobile:inset-x-2 bottom-15 expanded:bottom-16! mobile:bottom-13 flex animate-move-up items-end justify-end gap-1.5">
+		<div className="absolute expanded:inset-x-4! inset-x-3 mobile:inset-x-2 bottom-15 expanded:bottom-16! mobile:bottom-13 flex animate-move-up items-end justify-end gap-1.5 [&_button]:dark:text-secondary-foreground">
 			<div className="mr-auto flex flex-wrap-reverse items-center gap-1.5">
 				{showCallback && (
 					<Button
