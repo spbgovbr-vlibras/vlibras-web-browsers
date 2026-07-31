@@ -6,46 +6,59 @@ const ROOT_OVERLAY_ID = "vlibras-root-overlay";
 const memoizedRoots: Record<string, HTMLElement> = {};
 const memoizedStyles: Record<string, HTMLStyleElement> = {};
 
+// SPAs hospedeiras podem remover/recriar partes do <head>/<body> por fora do nosso controle;
+// sem essa checagem, reaproveitaríamos (ou tentaríamos remover) um elemento já desconectado.
+const isDetached = (el: Element) => !el.isConnected;
+
 const createRootOverlay = (): ShadowRoot => {
-	if (!memoizedRoots[ROOT_OVERLAY_ID]) {
-		const rootOverlay = document.createElement("div");
-		rootOverlay.id = ROOT_OVERLAY_ID;
+	let rootOverlay = memoizedRoots[ROOT_OVERLAY_ID];
+
+	if (!rootOverlay || isDetached(rootOverlay)) {
+		if (!rootOverlay) {
+			rootOverlay = document.createElement("div");
+			rootOverlay.id = ROOT_OVERLAY_ID;
+		}
 		document.body.appendChild(rootOverlay);
 		memoizedRoots[ROOT_OVERLAY_ID] = rootOverlay;
 	}
 
-	const rootOverlay = memoizedRoots[ROOT_OVERLAY_ID];
 	return rootOverlay.shadowRoot || rootOverlay.attachShadow({ mode: "open" });
 };
 
 export const createOverlay = (id: string, inDocument = false): HTMLElement => {
-	if (!memoizedRoots[id]) {
-		const overlay = document.createElement("div");
-		overlay.id = id;
+	let overlay = memoizedRoots[id];
+
+	if (!overlay || isDetached(overlay)) {
+		if (!overlay) {
+			overlay = document.createElement("div");
+			overlay.id = id;
+		}
 
 		if (inDocument) document.body.appendChild(overlay);
 		else createRootOverlay().appendChild(overlay);
 
 		memoizedRoots[id] = overlay;
-		return overlay;
 	}
-	return memoizedRoots[id];
+
+	return overlay;
 };
 
 export const createRoot = () => {
-	if (!memoizedRoots[ROOT_ID]) {
-		let root = document.getElementById(ROOT_ID);
+	let root = memoizedRoots[ROOT_ID] as HTMLDivElement | undefined;
 
-		if (!root) {
+	if (!root || isDetached(root)) {
+		root = (document.getElementById(ROOT_ID) as HTMLDivElement | null) ?? undefined;
+
+		if (!root || isDetached(root)) {
 			root = document.createElement("div");
 			root.id = ROOT_ID;
 			root.style.zIndex = "2147483647";
-			document.body.appendChild(root);
 		}
+
+		document.body.appendChild(root);
 		memoizedRoots[ROOT_ID] = root;
 	}
 
-	const root = memoizedRoots[ROOT_ID] as HTMLDivElement;
 	const shadowRoot = root.shadowRoot || root.attachShadow({ mode: "open" });
 	const isRootActive = () => root.getAttribute("data-active") === "true";
 
@@ -54,9 +67,9 @@ export const createRoot = () => {
 
 export const createStyle = (css: string, id: string, callback?: () => void) => {
 	const existingStyle = memoizedStyles[id];
-	if (existingStyle) return existingStyle;
+	if (existingStyle && !isDetached(existingStyle)) return existingStyle;
 
-	const style = document.createElement("style");
+	const style = existingStyle ?? document.createElement("style");
 	style.id = id;
 	style.innerHTML = css;
 	memoizedStyles[id] = style;
@@ -68,7 +81,7 @@ export const createStyle = (css: string, id: string, callback?: () => void) => {
 export const removeStyle = (id: string) => {
 	const style = memoizedStyles[id];
 	if (style) {
-		document.head.removeChild(style);
+		style.remove();
 		delete memoizedStyles[id];
 	}
 };
