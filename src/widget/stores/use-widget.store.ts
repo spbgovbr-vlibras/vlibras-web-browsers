@@ -47,7 +47,7 @@ export const useWidgetStore = create<WidgetStoreState>()(
 		}),
 		{
 			name: "@vlibras-widget",
-			partialize: (state) => pick(state, "position", "isActive", "isOpen", "opacity"),
+			partialize: (state) => pick(state, "isActive", "isOpen", "opacity"),
 			version: 1,
 		},
 	),
