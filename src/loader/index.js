@@ -87,7 +87,8 @@ function renderWidget() {
     }
 
     const script = document.createElement("script");
-    script.src = `${window.VLibrasWidget.path}/vlibras-plugin-app.umd.cjs`;
+    script.type = "module";
+    script.src = `${window.VLibrasWidget.path}/vlibras-plugin-app.js`;
     script.async = true;
     script.onload = () => {
       widget = document.getElementById("vlibras-app-root");
