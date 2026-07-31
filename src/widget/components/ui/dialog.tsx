@@ -99,7 +99,10 @@ export const Dialog = ({
 		const { gloss, isWelcomeFinished, status } = playerStore.get();
 
 		if (open && status === "playing") return pause();
-		if (!open && !isPausedByUser && (gloss || !isWelcomeFinished)) setTimeout(play, 300);
+		if (!open && !isPausedByUser && (gloss || !isWelcomeFinished)) {
+			const timer = setTimeout(play, 300);
+			return () => clearTimeout(timer);
+		}
 	}, [open, nested]);
 
 	return <DialogContext.Provider value={{ open, onOpenChange, nested, overlay }}>{children}</DialogContext.Provider>;

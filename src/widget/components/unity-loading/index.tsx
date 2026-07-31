@@ -9,7 +9,9 @@ export const UnityLoading = () => {
 	const [isStarting, setStarting] = useState(false);
 
 	useEffect(() => {
-		if (progress === 100) setTimeout(() => setStarting(true), 1000);
+		if (progress !== 100) return;
+		const timer = setTimeout(() => setStarting(true), 1000);
+		return () => clearTimeout(timer);
 	}, [progress]);
 
 	if (isLoaded) return null;
