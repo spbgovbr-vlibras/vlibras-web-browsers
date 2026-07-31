@@ -4,7 +4,7 @@ import { cn } from "@/common/lib/utils";
 import { availableEmotions, type EmotionKey, emotionsMap } from "@/data/emotions";
 import { setEmotion } from "@/player/actions";
 import { usePlayerStore } from "@/player/use-player.store";
-import { DropdownTrigger } from "@/widget/components/ui/dropdown";
+import { Button } from "@/widget/components/ui/button";
 import { Icon } from "@/widget/components/ui/icon";
 import { Tooltip } from "@/widget/components/ui/tooltip";
 
@@ -23,7 +23,7 @@ export const EmotionsOption = () => {
 	return (
 		<div className="dropdown dropdown-center dropdown-top focus-within:**:data-[slot=tooltip-content]:hidden">
 			<Tooltip offset={8} content="Emoções" placement="top" arrow={{ position: "bottom" }}>
-				<DropdownTrigger
+				<Button
 					aria-label="Alterar emoção"
 					className="group relative"
 					variant="ghost-gov"
@@ -31,7 +31,7 @@ export const EmotionsOption = () => {
 				>
 					<Icon name={currentEmotion.icon} aria-hidden="true" />
 					{!isDefaultEmotion && <span className="absolute top-0.5 right-0.5 size-2 rounded-full bg-destructive" />}
-				</DropdownTrigger>
+				</Button>
 			</Tooltip>
 
 			<div
