@@ -1,3 +1,4 @@
+import type { RefObject } from "preact";
 import { useEffect } from "preact/hooks";
 import { UNITY_EVENTS } from "./constants/unity";
 import { playerOptionsStore } from "./stores/use-player-options.store";
@@ -6,13 +7,16 @@ import { playingStatesToBoolean } from "./utils";
 
 type Props = {
 	path: string;
+	iframeRef: RefObject<HTMLIFrameElement | null>;
 };
 
-export const PlayerEventsProvider = ({ path }: Props) => {
+export const PlayerEventsProvider = ({ path, iframeRef }: Props) => {
 	useEffect(() => {
 		if (!path) return;
 
 		const handleMessage = (event: MessageEvent<{ type: string; event: UNITY_EVENTS; data: unknown }>) => {
+			if (event.source !== iframeRef.current?.contentWindow) return;
+
 			if (event.data?.type === "unity_event") {
 				if (!__IS_EXTENSION__ && event.data.event === UNITY_EVENTS.FINISH_WELCOME) {
 					const isFinished = event.data.data === "True";
@@ -56,7 +60,7 @@ export const PlayerEventsProvider = ({ path }: Props) => {
 		window.addEventListener("message", handleMessage);
 
 		return () => window.removeEventListener("message", handleMessage);
-	}, [path]);
+	}, [path, iframeRef]);
 
 	return null;
 };

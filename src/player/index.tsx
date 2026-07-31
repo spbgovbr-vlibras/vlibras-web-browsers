@@ -60,7 +60,7 @@ export const Player = (props: PlayerProps) => {
 				{...props}
 			/>
 
-			<PlayerEventsProvider path={path} />
+			<PlayerEventsProvider path={path} iframeRef={iframeRef} />
 		</Fragment>
 	);
 };
