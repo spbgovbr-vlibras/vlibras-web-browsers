@@ -66,42 +66,67 @@ export function Draggable<TElement extends HTMLElement>({ children }: Props<TEle
 	useEffect(() => {
 		if (__IS_EXTENSION__) return;
 
-		const handleResize = () => {
-			if (!ref.current || !hasMoved) return;
-			setPos((prevPos) => {
-				if (!ref.current) return prevPos;
-				const rect = ref.current.getBoundingClientRect();
+		let rafId: number | null = null;
 
+		const handleResize = () => {
+			if (!ref.current || !hasMoved || rafId !== null) return;
+
+			rafId = requestAnimationFrame(() => {
+				rafId = null;
+				if (!ref.current) return;
+
+				const rect = ref.current.getBoundingClientRect();
 				const maxX = window.innerWidth - rect.width;
 				const maxY = window.innerHeight - rect.height;
 
-				const newX = Math.max(0, Math.min(prevPos.x, maxX));
-				const newY = Math.max(0, Math.min(prevPos.y, maxY));
+				setPos((prevPos) => {
+					const newX = Math.max(0, Math.min(prevPos.x, maxX));
+					const newY = Math.max(0, Math.min(prevPos.y, maxY));
 
-				return newX !== prevPos.x || newY !== prevPos.y ? { x: newX, y: newY } : prevPos;
+					return newX !== prevPos.x || newY !== prevPos.y ? { x: newX, y: newY } : prevPos;
+				});
 			});
 		};
+
 		window.addEventListener("resize", handleResize);
-		return () => window.removeEventListener("resize", handleResize);
+		return () => {
+			window.removeEventListener("resize", handleResize);
+			if (rafId !== null) cancelAnimationFrame(rafId);
+		};
 	}, [hasMoved]);
 
 	useEffect(() => {
 		if (__IS_EXTENSION__) return;
 
+		// pointermove pode disparar dezenas de vezes por frame; sem isso, cada evento
+		// fazia sua própria leitura (getBoundingClientRect) e escrita (setPos) de layout.
+		let rafId: number | null = null;
+		const latestPointer = { x: 0, y: 0 };
+
 		const onPointerMove = (e: PointerEvent) => {
 			if (!isDragging || !ref.current) return;
 			if (e.cancelable) e.preventDefault();
 
-			const x = e.clientX - start.current.x;
-			const y = e.clientY - start.current.y;
+			latestPointer.x = e.clientX;
+			latestPointer.y = e.clientY;
 
-			const rect = ref.current.getBoundingClientRect();
+			if (rafId !== null) return;
 
-			const safeX = Math.max(0, Math.min(x, window.innerWidth - rect.width));
-			const safeY = Math.max(0, Math.min(y, window.innerHeight - rect.height));
+			rafId = requestAnimationFrame(() => {
+				rafId = null;
+				if (!ref.current) return;
 
-			setPos({ x: safeX, y: safeY });
-			if (!hasMoved) setHasMoved(true);
+				const x = latestPointer.x - start.current.x;
+				const y = latestPointer.y - start.current.y;
+
+				const rect = ref.current.getBoundingClientRect();
+
+				const safeX = Math.max(0, Math.min(x, window.innerWidth - rect.width));
+				const safeY = Math.max(0, Math.min(y, window.innerHeight - rect.height));
+
+				setPos({ x: safeX, y: safeY });
+				if (!hasMoved) setHasMoved(true);
+			});
 		};
 
 		const onPointerUp = () => {
@@ -117,6 +142,7 @@ export function Draggable<TElement extends HTMLElement>({ children }: Props<TEle
 			window.removeEventListener("pointermove", onPointerMove);
 			window.removeEventListener("pointerup", onPointerUp);
 			window.removeEventListener("pointercancel", onPointerUp);
+			if (rafId !== null) cancelAnimationFrame(rafId);
 		};
 	}, [hasMoved, isDragging]);
 
