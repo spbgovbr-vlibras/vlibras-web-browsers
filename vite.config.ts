@@ -45,6 +45,14 @@ export default defineConfig(({ mode }) => {
 			rollupOptions: {
 				output: {
 					compact: true,
+					chunkFileNames: (chunkInfo) => {
+						if (chunkInfo.name === "index" && chunkInfo.facadeModuleId) {
+							const dir = path.basename(path.dirname(chunkInfo.facadeModuleId));
+							return `${dir}-[hash].js`;
+						}
+
+						return "[name]-[hash].js";
+					},
 				},
 			},
 		},
