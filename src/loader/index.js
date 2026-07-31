@@ -26,7 +26,7 @@ function renderWidget() {
   const template = `
   <div id="vlibras-access">
       <img id="vlibras-popup" src="${currentPath}/assets/images/vlibras-popup.jpg" />
-      <button type="button" aria-label="Recursos assistivos com VLibras Widget+" id="vlibras-button">
+      <button type="button" aria-label="Conteúdo acessível em Libras usando o VLibras Widget com opções dos Avatares Ícaro, Hosana ou Guga." id="vlibras-button">
         <img src="${currentPath}/assets/images/vlibras-access.svg" />
       </button>
   </div>
