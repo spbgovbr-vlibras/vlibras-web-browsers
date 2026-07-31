@@ -1,67 +1,39 @@
-import camaraIcon from "./images/camara-deputados.webp";
-import AC from "./images/flags/AC.webp";
-import AL from "./images/flags/AL.webp";
-import AM from "./images/flags/AM.webp";
-import AP from "./images/flags/AP.webp";
-import BA from "./images/flags/BA.webp";
-import BR from "./images/flags/BR.webp";
-import CE from "./images/flags/CE.webp";
-import DF from "./images/flags/DF.webp";
-import ES from "./images/flags/ES.webp";
-import GO from "./images/flags/GO.webp";
-import MA from "./images/flags/MA.webp";
-import MG from "./images/flags/MG.webp";
-import MS from "./images/flags/MS.webp";
-import MT from "./images/flags/MT.webp";
-import PA from "./images/flags/PA.webp";
-import PB from "./images/flags/PB.webp";
-import PE from "./images/flags/PE.webp";
-import PI from "./images/flags/PI.webp";
-import PR from "./images/flags/PR.webp";
-import RJ from "./images/flags/RJ.webp";
-import RN from "./images/flags/RN.webp";
-import RO from "./images/flags/RO.webp";
-import RR from "./images/flags/RR.webp";
-import RS from "./images/flags/RS.webp";
-import SC from "./images/flags/SC.webp";
-import SE from "./images/flags/SE.webp";
-import SP from "./images/flags/SP.webp";
-import TO from "./images/flags/TO.webp";
+// Caminhos relativos resolvidos em tempo de execução via getAssetUrl() — as imagens
+// vivem em public/assets/images e são servidas como arquivo estático, não embutidas
+// como base64 no bundle (ver core/dom, use-config e o padrão já usado em toggle-avatar-button).
+export const camaraIcon = "images/camara-deputados.webp";
+export const lavidIcon = "images/lavid.webp";
+export const mdhcIcon = "images/ministerioDireitosHumanos.webp";
+export const mgispIcon = "images/ministerioGestao.webp";
+export const rnpIcon = "images/rnp.webp";
 
-import lavidIcon from "./images/lavid.webp";
-import mdhcIcon from "./images/ministerioDireitosHumanos.webp";
-import mgispIcon from "./images/ministerioGestao.webp";
-import rnpIcon from "./images/rnp.webp";
-
-const flags = {
-	MT,
-	AC,
-	AL,
-	AM,
-	AP,
-	BA,
-	BR,
-	CE,
-	DF,
-	ES,
-	GO,
-	MA,
-	MG,
-	MS,
-	PA,
-	PB,
-	PE,
-	PI,
-	PR,
-	RJ,
-	RN,
-	RO,
-	RR,
-	RS,
-	SC,
-	SE,
-	SP,
-	TO,
+export const flags = {
+	MT: "images/flags/MT.webp",
+	AC: "images/flags/AC.webp",
+	AL: "images/flags/AL.webp",
+	AM: "images/flags/AM.webp",
+	AP: "images/flags/AP.webp",
+	BA: "images/flags/BA.webp",
+	BR: "images/flags/BR.webp",
+	CE: "images/flags/CE.webp",
+	DF: "images/flags/DF.webp",
+	ES: "images/flags/ES.webp",
+	GO: "images/flags/GO.webp",
+	MA: "images/flags/MA.webp",
+	MG: "images/flags/MG.webp",
+	MS: "images/flags/MS.webp",
+	PA: "images/flags/PA.webp",
+	PB: "images/flags/PB.webp",
+	PE: "images/flags/PE.webp",
+	PI: "images/flags/PI.webp",
+	PR: "images/flags/PR.webp",
+	RJ: "images/flags/RJ.webp",
+	RN: "images/flags/RN.webp",
+	RO: "images/flags/RO.webp",
+	RR: "images/flags/RR.webp",
+	RS: "images/flags/RS.webp",
+	SC: "images/flags/SC.webp",
+	SE: "images/flags/SE.webp",
+	SP: "images/flags/SP.webp",
+	TO: "images/flags/TO.webp",
 };
-
-export { flags, camaraIcon, lavidIcon, mdhcIcon, mgispIcon, rnpIcon };

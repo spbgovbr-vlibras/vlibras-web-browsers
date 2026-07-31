@@ -1,6 +1,7 @@
 import { Fragment } from "preact/jsx-runtime";
 import { camaraIcon, lavidIcon, mdhcIcon, mgispIcon, rnpIcon } from "@/assets";
 import { cn } from "@/common/lib/utils";
+import { getAssetUrl } from "@/common/utils";
 import { InlineTranslatorButton } from "@/widget/components/inline-translator-button";
 import { Icon } from "@/widget/components/ui/icon";
 import { screenStore } from "@/widget/stores/use-screens.store";
@@ -42,21 +43,24 @@ export const AboutScreen = () => {
 					<div className="flex w-full flex-col justify-between gap-2 rounded-lg bg-white p-2">
 						<div className="flex w-full items-center justify-between gap-2">
 							<div className="flex min-w-0 flex-1 justify-start">
-								<img src={mdhcIcon} alt="logo do Ministério dos Direitos Humanos e da Cidadania" />
+								<img src={getAssetUrl(mdhcIcon)} alt="logo do Ministério dos Direitos Humanos e da Cidadania" />
 							</div>
 							<div className="flex min-w-0 flex-1 justify-start">
-								<img src={mgispIcon} alt={"logo do Ministério da Gestão e da Inovação em Serviços Públicos"} />
+								<img
+									src={getAssetUrl(mgispIcon)}
+									alt={"logo do Ministério da Gestão e da Inovação em Serviços Públicos"}
+								/>
 							</div>
 						</div>
 						<div className="flex items-center justify-between gap-2">
 							<div className="flex min-w-0 flex-1 items-center justify-start">
-								<img src={lavidIcon} alt={"logo do lavid"} className="max-w-15" />
+								<img src={getAssetUrl(lavidIcon)} alt={"logo do lavid"} className="max-w-15" />
 							</div>
 							<div className="flex min-w-0 flex-1 items-center justify-start">
-								<img src={rnpIcon} alt={"logo da RNP"} />
+								<img src={getAssetUrl(rnpIcon)} alt={"logo da RNP"} />
 							</div>
 							<div className="flex min-w-0 flex-1 items-center justify-start">
-								<img src={camaraIcon} alt={"logo da Câmara dos Deputados"} />
+								<img src={getAssetUrl(camaraIcon)} alt={"logo da Câmara dos Deputados"} />
 							</div>
 						</div>
 					</div>

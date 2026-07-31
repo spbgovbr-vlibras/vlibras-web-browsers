@@ -1,3 +1,5 @@
+import { appConfig } from "@/common/hooks/use-config";
+
 export function omit<T, K extends keyof T>(obj: T, ...keys: K[]): Omit<T, K> {
 	const result = { ...obj };
 	for (const key of keys) delete result[key];
@@ -22,6 +24,13 @@ export const delay = (ms: number) => new Promise((resolve) => setTimeout(resolve
 export const sanitizeUrl = (url: string): string => {
 	const [, protocol = "", rest = url] = url.match(/^([a-z][a-z\d+.-]*:\/\/)(.*)$/i) ?? [];
 	return protocol + rest.replace(/\/+/g, "/");
+};
+
+// Resolve um caminho relativo (ex: "icons/menu.webp") contra o path de config do widget,
+// pra servir imagens como arquivo estático em vez de embutir como base64 no bundle.
+export const getAssetUrl = (relativePath: string): string => {
+	const { path } = appConfig.getState();
+	return sanitizeUrl(`${path}/assets/${relativePath}`);
 };
 
 export const randomStr = () => Math.random().toString(36).slice(2, 8);

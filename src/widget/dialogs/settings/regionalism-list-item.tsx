@@ -1,4 +1,5 @@
 import { cn } from "@/common/lib/utils";
+import { getAssetUrl } from "@/common/utils";
 import type { Region } from "@/data/regionalism";
 
 type Props = {
@@ -20,7 +21,7 @@ export const RegionalismListItem = ({ isSelected, region, onSelect }: Props) => 
 			)}
 		>
 			<div className="flex items-center justify-start gap-2 font-semibold mobile:text-xs text-secondary text-sm dark:text-white">
-				<img src={region.flag} alt={region.name} className="h-7 mobile:h-6 w-auto rounded-sm border" />
+				<img src={getAssetUrl(region.flag)} alt={region.name} className="h-7 mobile:h-6 w-auto rounded-sm border" />
 				<span>{region.name}</span>
 			</div>
 			<input
