@@ -1,12 +1,12 @@
 const FONT_FAMILY = "VLibrasWidget_Font";
 
 const FONT_FACES = [
-	{ file: "rawline-500.ttf", weight: "500", style: "normal" },
-	{ file: "rawline-500i.ttf", weight: "500", style: "italic" },
-	{ file: "rawline-600.ttf", weight: "600", style: "normal" },
-	{ file: "rawline-600i.ttf", weight: "600", style: "italic" },
-	{ file: "rawline-700.ttf", weight: "700", style: "normal" },
-	{ file: "rawline-700i.ttf", weight: "700", style: "italic" },
+	{ file: "rawline-500.woff2", weight: "500", style: "normal" },
+	{ file: "rawline-500i.woff2", weight: "500", style: "italic" },
+	{ file: "rawline-600.woff2", weight: "600", style: "normal" },
+	{ file: "rawline-600i.woff2", weight: "600", style: "italic" },
+	{ file: "rawline-700.woff2", weight: "700", style: "normal" },
+	{ file: "rawline-700i.woff2", weight: "700", style: "italic" },
 ] as const;
 
 let isFontLoaded = false;
@@ -22,7 +22,7 @@ export const loadDefaultFont = async (path: string, shadowRoot: ShadowRoot) => {
 
 	const fonts = FONT_FACES.map(
 		({ file, weight, style }) =>
-			new FontFace(FONT_FAMILY, `url(${path}/assets/fonts/rawline/${file}) format('truetype')`, {
+			new FontFace(FONT_FAMILY, `url(${path}/assets/fonts/rawline/${file}) format('woff2')`, {
 				weight,
 				style,
 			}),
@@ -48,7 +48,7 @@ const injectFontFaceStyle = (path: string, shadowRoot: ShadowRoot) => {
 		({ file, weight, style: fontStyle }) => `
 			@font-face {
 				font-family: "${FONT_FAMILY}";
-				src: url("${path}/assets/fonts/rawline/${file}") format("truetype");
+				src: url("${path}/assets/fonts/rawline/${file}") format("woff2");
 				font-weight: ${weight};
 				font-style: ${fontStyle};
 			}

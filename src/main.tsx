@@ -24,10 +24,8 @@ function App() {
 	useEffect(() => {
 		if (!path) return;
 
-		(async () => {
-			await loadDefaultFont(path, shadowRoot);
-			setLoaded(true);
-		})();
+		loadDefaultFont(path, shadowRoot);
+		setLoaded(true);
 
 		if (!isLoaded) return;
 
