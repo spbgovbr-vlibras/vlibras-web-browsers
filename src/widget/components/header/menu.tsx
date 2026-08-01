@@ -7,6 +7,7 @@ import { useGuideStore } from "@/widget/components/guide/store";
 import { Button } from "@/widget/components/ui/button";
 import { Icon } from "@/widget/components/ui/icon";
 import { useScreensStore } from "@/widget/stores/use-screens.store";
+import { Dropdown, DropdownContent, DropdownTrigger } from "../ui/dropdown";
 import { MenuOption } from "./menu-option";
 
 const TranslatorDialog = lazy(() =>
@@ -22,24 +23,26 @@ export const WidgetMenu = () => {
 
 	return (
 		<Fragment>
-			<div className="dropdown dropdown-bottom z-1">
-				<Button
-					id="header-menu-button"
-					tabindex={0}
-					aria-label="Menu de opções"
-					size={isMobile ? "icon-sm" : "icon"}
-					variant="default"
-				>
-					<Icon name="menu" />
-				</Button>
+			<Dropdown showOverlay={false} className="dropdown-bottom">
+				<DropdownTrigger>
+					<Button
+						id="header-menu-button"
+						tabindex={0}
+						aria-label="Menu de opções"
+						size={isMobile ? "icon-sm" : "icon"}
+						variant="default"
+					>
+						<Icon name="menu" />
+					</Button>
+				</DropdownTrigger>
 
-				<ul className="dropdown-content mt-4 space-y-2 [&_button]:dark:text-secondary-foreground">
+				<DropdownContent className="mt-4 space-y-2 [&_button]:dark:text-secondary-foreground">
 					<MenuOption onClick={() => open("dictionary")} label="Dicionário" icon="dictionary" />
 					<MenuOption onClick={() => setTranslatorOpen(true)} label="Tradutor" icon="translator" />
 					{!__IS_EXTENSION__ && <MenuOption onClick={() => onGuideOpen(true)} label="Guia Rápido" icon="help" />}
 					<MenuOption onClick={() => open("about")} label="Sobre o VLibras" icon="info" />
-				</ul>
-			</div>
+				</DropdownContent>
+			</Dropdown>
 
 			{translatorOpen !== undefined && (
 				<Suspense fallback={<TranslatorFallback />}>

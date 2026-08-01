@@ -2,6 +2,7 @@ import { cn } from "@/common/lib/utils";
 import { useDraggable } from "@/widget/components/draggable";
 import { useWidgetStore } from "@/widget/stores/use-widget.store";
 import { useGuideStore } from "../guide/store";
+import { AppOverlay } from "../ui/app-overlay";
 import { EmotionsOption } from "./emotions-option";
 import { MainAction } from "./main-action";
 import { ProgressBar } from "./progress-bar";
@@ -54,6 +55,8 @@ export const WidgetControls = () => {
 					<SettingsOption />
 				</div>
 			</div>
+
+			<AppOverlay className="z-50" />
 		</div>
 	);
 };

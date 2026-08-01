@@ -53,7 +53,7 @@ export const Tooltip = ({
 
 	const isTouchDevice = useTouchDevice();
 	const tooltipId = "vlibras-tooltip";
-	const isVisible = isTouchDevice ? false : (open ?? visible);
+	const isVisible = disabled || isTouchDevice ? false : (open ?? visible);
 
 	if (!content) return children;
 

@@ -57,6 +57,7 @@ export const Guide = () => {
 		if (target) {
 			guideStore.set({ element });
 			target.dataset.highlight = "true";
+			if (element.focus) target.focus();
 		}
 	}, [element]);
 
