@@ -1,6 +1,7 @@
 import { cva, type VariantProps } from "class-variance-authority";
 import type { ComponentChildren, ComponentProps } from "preact";
 import { useState } from "preact/hooks";
+import { useTouchDevice } from "@/common/hooks";
 import { cn } from "@/common/lib/utils";
 
 const tooltipVariants = cva("border bg-popover", {
@@ -49,8 +50,10 @@ export const Tooltip = ({
 	...props
 }: TooltipProps) => {
 	const [visible, setVisible] = useState(false);
+
+	const isTouchDevice = useTouchDevice();
 	const tooltipId = "vlibras-tooltip";
-	const isVisible = open ?? visible;
+	const isVisible = isTouchDevice ? false : (open ?? visible);
 
 	if (!content) return children;
 
