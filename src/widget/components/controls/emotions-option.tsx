@@ -3,7 +3,7 @@ import { posthogg } from "@/common/lib/posthog";
 import { cn } from "@/common/lib/utils";
 import { availableEmotions, type EmotionKey, emotionsMap } from "@/data/emotions";
 import { setEmotion } from "@/player/actions";
-import { usePlayerStore } from "@/player/use-player.store";
+import { usePlayerStore } from "@/player/stores/use-player.store";
 import { Button } from "@/widget/components/ui/button";
 import { Dropdown, DropdownContent, DropdownTrigger } from "@/widget/components/ui/dropdown";
 import { Icon } from "@/widget/components/ui/icon";

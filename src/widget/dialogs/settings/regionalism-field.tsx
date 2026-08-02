@@ -3,7 +3,7 @@ import { posthogg } from "@/common/lib/posthog";
 import { cn } from "@/common/lib/utils";
 import { getAssetUrl } from "@/common/utils";
 import { type Region, regions } from "@/data/regionalism";
-import { playerStore, usePlayerStore } from "@/player/use-player.store";
+import { playerStore, usePlayerStore } from "@/player/stores/use-player.store";
 import { InlineTranslatorButton } from "@/widget/components/inline-translator-button";
 import { buttonVariants } from "@/widget/components/ui/button";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/widget/components/ui/dialog";

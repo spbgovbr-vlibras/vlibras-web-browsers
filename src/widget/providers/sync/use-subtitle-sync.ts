@@ -3,7 +3,7 @@ import { useTheme } from "@/common/hooks";
 import type { Theme } from "@/common/hooks/use-theme";
 import { setSubtitleColor, toggleSubtitles } from "@/player/actions";
 import type { SubtitleColors } from "@/player/actions/types";
-import { playerStore, usePlayerStore } from "@/player/use-player.store";
+import { playerStore, usePlayerStore } from "@/player/stores/use-player.store";
 
 const themeSubtitleColors: Record<Theme, SubtitleColors> = {
 	light: { color: "black", outline: "black", shadow: "black" },

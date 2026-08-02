@@ -3,10 +3,10 @@ import { useEffect, useRef } from "preact/hooks";
 import { useConfig } from "@/common/hooks";
 import { sanitizeUrl } from "@/common/utils";
 import type { UNITY_METHODS, UNITY_OBJECTS } from "./constants/unity";
-import { PlayerEventsProvider } from "./events-provider";
+import { PlayerEventsProvider } from "./providers/events";
+import { playerStore, usePlayerStore } from "./stores/use-player.store";
 import { playerOptionsStore } from "./stores/use-player-options.store";
 import type { PlayerOptions } from "./types";
-import { playerStore, usePlayerStore } from "./use-player.store";
 
 type PlayerProps = ComponentProps<"iframe"> & {
 	options?: PlayerOptions;

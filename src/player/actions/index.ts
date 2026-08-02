@@ -2,9 +2,9 @@ import { config } from "@/core/config";
 import { availableEmotions, type EmotionKey, emotionsMap } from "@/data/emotions";
 import type { Region } from "@/data/regionalism";
 import { UNITY_METHODS, UNITY_OBJECTS } from "@/player/constants/unity";
+import { playerStore } from "@/player/stores/use-player.store";
 import { playerOptionsStore } from "@/player/stores/use-player-options.store";
 import type { PlayerAvatar, PlayerConfig } from "@/player/types";
-import { playerStore } from "@/player/use-player.store";
 import type { SubtitleColors } from "./types";
 
 const avatars: PlayerAvatar[] = ["icaro", "guga", "hosana"];

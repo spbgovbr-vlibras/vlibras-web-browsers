@@ -2,7 +2,7 @@ import type { ComponentProps } from "preact";
 import { usePick } from "@/common/hooks";
 import { cn } from "@/common/lib/utils";
 import { Player } from "@/player";
-import { usePlayerStore } from "@/player/use-player.store";
+import { usePlayerStore } from "@/player/stores/use-player.store";
 import { ConsentBanner } from "@/widget/components/consent-banner";
 import { WidgetControls } from "@/widget/components/controls";
 import { WidgetHeader } from "@/widget/components/header";

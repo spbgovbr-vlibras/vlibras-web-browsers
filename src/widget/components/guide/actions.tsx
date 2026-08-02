@@ -1,7 +1,7 @@
 import { useMemo } from "preact/hooks";
 import { usePick } from "@/common/hooks";
 import { repeat } from "@/player/actions";
-import { usePlayerStore } from "@/player/use-player.store";
+import { usePlayerStore } from "@/player/stores/use-player.store";
 import { Button } from "@/widget/components/ui/button";
 import { Icon } from "@/widget/components/ui/icon";
 import { useGuideCtx } from ".";

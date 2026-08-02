@@ -1,7 +1,7 @@
 import { useEffect } from "preact/hooks";
 import { useMobile, usePick } from "@/common/hooks";
 import { stop } from "@/player/actions";
-import { usePlayerStore } from "@/player/use-player.store";
+import { usePlayerStore } from "@/player/stores/use-player.store";
 import { useGuideStore } from "@/widget/components/guide/store";
 import { Button } from "@/widget/components/ui/button";
 import { Icon } from "@/widget/components/ui/icon";

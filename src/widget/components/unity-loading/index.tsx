@@ -1,7 +1,7 @@
 import { useEffect, useState } from "preact/hooks";
 import { usePick } from "@/common/hooks";
 import { cn } from "@/common/lib/utils";
-import { usePlayerStore } from "@/player/use-player.store";
+import { usePlayerStore } from "@/player/stores/use-player.store";
 import { Icon } from "@/widget/components/ui/icon";
 
 export const UnityLoading = () => {

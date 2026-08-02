@@ -1,5 +1,5 @@
 import { isTrackingAvailable } from "@/common/lib/posthog";
-import { usePlayerStore } from "@/player/use-player.store";
+import { usePlayerStore } from "@/player/stores/use-player.store";
 import { useGuideStore } from "@/widget/components/guide/store";
 import { InlineTranslatorButton } from "@/widget/components/inline-translator-button";
 import { Button } from "@/widget/components/ui/button";

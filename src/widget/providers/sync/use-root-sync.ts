@@ -1,6 +1,6 @@
 import { useEffect } from "preact/hooks";
 import { usePick } from "@/common/hooks";
-import { usePlayerStore } from "@/player/use-player.store";
+import { usePlayerStore } from "@/player/stores/use-player.store";
 import { rootStore } from "@/widget/stores/use-root.store";
 import { useWidgetStore } from "@/widget/stores/use-widget.store";
 
