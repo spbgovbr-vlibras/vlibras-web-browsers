@@ -1,4 +1,4 @@
-import { transformWithEsbuild } from "vite";
+import { transformWithOxc } from "vite";
 
 const appRoots = {
 	development: "http://localhost:3003",
@@ -33,12 +33,7 @@ export const minifyCode = async ({ mode, content }: MinifyCodeOptions) => {
 	});
 
 	if (isProd || isExtension) {
-		const minified = await transformWithEsbuild(code, "index.js", {
-			minify: true,
-			minifyWhitespace: true,
-			loader: "js",
-		});
-
+		const minified = await transformWithOxc(code, "index.js", { lang: "js" });
 		code = minified.code;
 	}
 

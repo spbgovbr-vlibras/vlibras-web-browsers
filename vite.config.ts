@@ -2,29 +2,10 @@ import path from "node:path";
 import preact from "@preact/preset-vite";
 import tailwindcss from "@tailwindcss/vite";
 import { visualizer } from "rollup-plugin-visualizer";
-import { defineConfig, transformWithEsbuild } from "vite";
+import { defineConfig } from "vite";
 import { viteStaticCopy } from "vite-plugin-static-copy";
-import pkg from "./package.json";
+import pkg from "./package.json" with { type: "json" };
 import { type AppMode, minifyCode } from "./vite.config.utils";
-
-const forceMinifyOutput = () => ({
-	name: "force-minify-lib-output",
-	async generateBundle(_options: unknown, bundle: Record<string, { type: string; code?: string; fileName: string }>) {
-		for (const file of Object.values(bundle)) {
-			if (file.type !== "chunk" || !file.code) continue;
-
-			const result = await transformWithEsbuild(file.code, file.fileName, {
-				minify: true,
-				minifyWhitespace: true,
-				minifyIdentifiers: true,
-				minifySyntax: true,
-				loader: "js",
-			});
-
-			file.code = result.code;
-		}
-	},
-});
 
 export default defineConfig(({ mode }) => {
 	return {
@@ -35,7 +16,7 @@ export default defineConfig(({ mode }) => {
 		},
 		build: {
 			outDir: "app",
-			minify: "esbuild",
+			minify: "oxc",
 			lib: {
 				entry: "src/main.tsx",
 				name: "vlibras-plugin",
@@ -44,7 +25,18 @@ export default defineConfig(({ mode }) => {
 			},
 			rollupOptions: {
 				output: {
-					compact: true,
+					minify: {
+						compress: true,
+						mangle: true,
+					},
+					codeSplitting: {
+						groups: [
+							{
+								name: "vlibras-initial",
+								tags: ["$initial"],
+							},
+						],
+					},
 					chunkFileNames: (chunkInfo) => {
 						if (chunkInfo.name === "index" && chunkInfo.facadeModuleId) {
 							const dir = path.basename(path.dirname(chunkInfo.facadeModuleId));
@@ -58,14 +50,13 @@ export default defineConfig(({ mode }) => {
 		},
 		resolve: {
 			alias: {
-				"@/public": path.resolve(__dirname, "./public"),
-				"@": path.resolve(__dirname, "./src"),
+				"@/public": path.resolve(import.meta.dirname, "./public"),
+				"@": path.resolve(import.meta.dirname, "./src"),
 			},
 		},
 		plugins: [
 			preact(),
 			tailwindcss(),
-			forceMinifyOutput(),
 			visualizer({
 				filename: "stats.html",
 				brotliSize: true,
