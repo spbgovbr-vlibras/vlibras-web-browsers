@@ -8,7 +8,7 @@
 
 :host, [data-theme="light"] {
 	--background: oklch(1 0 0);
-	--foreground: oklch(25% 0 0);
+	--foreground: oklch(0.3 0 0);
 	--primary: oklch(0.4602 0.169 260.07);
 	--primary-foreground: oklch(1 0 0);
 	--popover: oklch(1 0 0);
