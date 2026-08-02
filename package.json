@@ -1,8 +1,38 @@
 {
-	"name": "vlibras-web",
+	"name": "vlibras-web-browsers",
+	"description": "Acessibilidade digital através da tradução para Língua Brasileira de Sinais (Libras).",
+	"author": {
+		"name": "Suíte VLibras",
+		"email": "vlibras@lavid.ufpb.br",
+		"url": "http://vlibras.gov.br/"
+	},
+	"homepage": "http://vlibras.gov.br/",
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/spbgovbr-vlibras/vlibras-web-browsers.git"
+	},
+	"bugs": {
+		"url": "https://github.com/spbgovbr-vlibras/vlibras-web-browsers/issues",
+		"email": "vlibras@lavid.ufpb.br"
+	},
+	"keywords": [
+		"libras",
+		"vlibras",
+		"acessibilidade",
+		"govbr",
+		"tradução",
+		"accessibility",
+		"a11y"
+	],
+	"license": "LGPL-3.0-or-later",
 	"private": true,
 	"version": "7.2.0",
 	"type": "module",
+	"engines": {
+		"node": "^20.19.0 || >=22.12.0",
+		"pnpm": ">=9.0.0"
+	},
+	"packageManager": "pnpm@9.15.0",
 	"lint-staged": {
 		"*.{js,jsx,ts,tsx}": [
 			"biome check --write"
