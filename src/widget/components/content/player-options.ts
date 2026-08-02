@@ -17,11 +17,15 @@ export const playerOptions: PlayerOptions = {
 
 		widgetStore.set({ position: defaultPosition });
 		setConfig({ baseUrl: config.DICTIONARY_URL, personalizationUrl });
-		toggleAvatar(defaultAvatar || avatar);
 		setSpeed(speed);
 
-		if (!__IS_EXTENSION__) playWelcome();
-		else {
+		if (!__IS_EXTENSION__) {
+			const timeout = setTimeout(() => {
+				toggleAvatar(defaultAvatar || avatar);
+				playWelcome();
+				clearTimeout(timeout);
+			}, 500);
+		} else {
 			const { root } = rootStore.get();
 			if (root) root.dataset.extension = "true";
 			playerStore.set({ isPlayingWelcome: false, isWelcomeFinished: true });
