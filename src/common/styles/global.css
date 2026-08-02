@@ -1,9 +1,9 @@
 @import "tailwindcss";
 @plugin "daisyui" {
 	root: ":host";
-	include: dropdown, toggle, range;
+	include: dropdown, toggle;
 	themes: false;
-	logs: false;
+ 	logs: false;
 }
 
 :host, [data-theme="light"] {
@@ -142,6 +142,24 @@
 	@apply rounded-xl;
 }
 
+@utility range-slider {
+	@apply w-full h-2 rounded-lg appearance-none cursor-pointer 
+	
+	[&::-webkit-slider-thumb]:appearance-none
+    [&::-webkit-slider-thumb]:w-4
+    [&::-webkit-slider-thumb]:h-4
+    [&::-webkit-slider-thumb]:rounded-full
+    [&::-webkit-slider-thumb]:bg-primary
+    [&::-webkit-slider-thumb]:shadow-sm
+
+    [&::-moz-range-thumb]:w-4
+    [&::-moz-range-thumb]:h-4
+    [&::-moz-range-thumb]:rounded-full
+    [&::-moz-range-thumb]:border-none
+    [&::-moz-range-thumb]:bg-primary
+    [&::-moz-range-thumb]:shadow-sm;
+}
+
 @utility animate-highlight-primary-foreground {
 	@apply outline-2 outline-solid outline-primary-foreground transition-transform scale-105;
 	animation: highlight-shadow-primary-foreground 0.5s alternate-reverse infinite ease-out;
@@ -195,3 +213,4 @@
 		@apply rounded-full! z-99999!;
 	}
 }
+
