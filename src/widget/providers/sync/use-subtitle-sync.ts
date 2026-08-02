@@ -7,7 +7,7 @@ import { playerStore, usePlayerStore } from "@/player/stores/use-player.store";
 
 const themeSubtitleColors: Record<Theme, SubtitleColors> = {
 	light: { color: "black", outline: "black", shadow: "black" },
-	dark: { color: "white", outline: "white", shadow: "white" },
+	dark: { color: "white", outline: "white", shadow: "black" },
 };
 
 export const useSubtitleSync = () => {
