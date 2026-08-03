@@ -50,9 +50,6 @@ export const EmotionsOption = () => {
 							const emotion = emotionsMap[key];
 							const isActive = emotion === currentEmotion;
 
-							// Não exibe a emoção "Chateado"
-							if (key === "upset") return null;
-
 							return (
 								<li key={key}>
 									<button
