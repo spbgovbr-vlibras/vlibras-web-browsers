@@ -67,10 +67,11 @@ export default defineConfig(({ mode }) => {
 					{
 						src: "demo/index.html",
 						dest: ".",
+						rename: { stripBase: true },
 					},
 					{
 						src: "src/loader/index.js",
-						rename: "vlibras-plugin.js",
+						rename: { stripBase: true, name: "vlibras-plugin.js" },
 						dest: ".",
 						transform: async (content) => minifyCode({ mode: mode as AppMode, content }),
 					},

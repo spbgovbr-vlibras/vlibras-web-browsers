@@ -1,4 +1,4 @@
-import { transformWithOxc } from "vite";
+import { minify } from "vite";
 
 const appRoots = {
 	development: "http://localhost:3003",
@@ -33,7 +33,7 @@ export const minifyCode = async ({ mode, content }: MinifyCodeOptions) => {
 	});
 
 	if (isProd || isExtension) {
-		const minified = await transformWithOxc(code, "index.js", { lang: "js" });
+		const minified = await minify("index.js", code, { compress: true, mangle: true });
 		code = minified.code;
 	}
 
