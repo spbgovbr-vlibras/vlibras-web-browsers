@@ -1,0 +1,14 @@
+stages:
+  - test
+
+audit:
+  stage: test
+  image: node:22-alpine
+  rules:
+    - if: '$CI_MERGE_REQUEST_TARGET_BRANCH_NAME == "master"'
+  before_script:
+    - corepack enable
+    - corepack prepare pnpm@9.15.0 --activate
+  script:
+    - pnpm install --frozen-lockfile
+    - pnpm audit --audit-level=high
