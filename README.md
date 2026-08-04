@@ -128,21 +128,28 @@ _Outros modos_: **`pnpm build:dev`** (utiliza links de **ovh**) e **`pnpm build:
 
 ## 🏷️ Versionamento
 
-Antes de tudo, faça o _fetch_ das _tags_ de versões do projeto:
-
-```bash
-git fetch --tags
-```
-
-Depois, execute:
+O processo de release deve ser iniciado a partir da branch `dev` e é automatizado via [release-it](https://github.com/release-it/release-it):
 
 ```bash
 pnpm release
 ```
 
-O comando atualiza automaticamente o arquivo `CHANGELOG.md`, incrementa a versão no `package.json` e cria uma nova tag no Git.
+O comando:
 
-> Durante o processo, você será perguntado se deseja criar e publicar a tag. Aceite para finalizar o versionamento.
+- Atualiza a `dev` local com o remoto e cria a branch `release/vX.Y.Z`;
+- Incrementa a versão no `package.json` e atualiza o `CHANGELOG.md`;
+- Atualiza o badge de versão no README;
+- Cria um commit local com essas alterações.
+
+> O processo não cria tag nem faz push automaticamente.
+
+Depois, envie a branch de release para o repositório remoto e abra um MR para a `master`:
+
+```bash
+git push -u origin release/vX.Y.Z
+```
+
+Após o MR ser aceito e mergeado na `master`, crie a tag `vX.Y.Z` e a release correspondente manualmente no GitLab (Repository > Tags), usando o `CHANGELOG.md` como referência para a descrição da release.
 
 ## 🤝 Contribuidores
 
