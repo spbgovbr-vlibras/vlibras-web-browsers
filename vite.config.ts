@@ -5,7 +5,7 @@ import { visualizer } from "rollup-plugin-visualizer";
 import { defineConfig } from "vite";
 import { viteStaticCopy } from "vite-plugin-static-copy";
 import pkg from "./package.json" with { type: "json" };
-import { type AppMode, minifyCode } from "./vite.config.utils";
+import { type AppMode, minifyCode } from "./vite.config.utils.ts";
 
 export default defineConfig(({ mode }) => {
 	return {
