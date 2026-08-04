@@ -4,7 +4,7 @@ import { cn } from "@/common/lib/utils";
 import { zusContext } from "@/common/lib/zus-context";
 import { $, $$ } from "@/common/utils/dom";
 import { play, stop } from "@/player/actions";
-import { playerStore } from "@/player/use-player.store";
+import { playerStore } from "@/player/stores/use-player.store";
 import { useRootStore } from "@/widget/stores/use-root.store";
 import { useWidgetStore, widgetStore } from "@/widget/stores/use-widget.store";
 import { useDraggable } from "../draggable";
@@ -57,6 +57,7 @@ export const Guide = () => {
 		if (target) {
 			guideStore.set({ element });
 			target.dataset.highlight = "true";
+			if (element.focus) target.focus();
 		}
 	}, [element]);
 

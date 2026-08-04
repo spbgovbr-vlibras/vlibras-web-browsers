@@ -1,5 +1,22 @@
 # Changelog
 
+# [7.3.0](https://gitlab.lavid.ufpb.br/vlibras2019/vlibras-web-extensions/vlibras-web-browsers/compare/v7.2.0...v7.3.0) (2026-08-04)
+
+### Bug Fixes
+
+* **deps:** upgrade deps to resolve pnpm audit vulnerabilities ([dba993b](https://gitlab.lavid.ufpb.br/vlibras2019/vlibras-web-extensions/vlibras-web-browsers/commit/dba993b14a2c3db6be436c24f8ed5900b208026d))
+* **sync:** correct dark theme subtitle shadow color ([9aa94d1](https://gitlab.lavid.ufpb.br/vlibras2019/vlibras-web-extensions/vlibras-web-browsers/commit/9aa94d1245c8e377e889660b9e2bec30189f7e6e))
+
+### Features
+
+* **player-options:** delay avatar toggle and welcome play ([95be209](https://gitlab.lavid.ufpb.br/vlibras2019/vlibras-web-extensions/vlibras-web-browsers/commit/95be209975ca80a7363000d11d6fd605e72b647a))
+* **player:** externalize avatar list and add validation ([a03f442](https://gitlab.lavid.ufpb.br/vlibras2019/vlibras-web-extensions/vlibras-web-browsers/commit/a03f4425883188092118bbaf8f3dc0a6f593b110))
+* **styles:** add range-slider utility and update opacity field ([84d2d0b](https://gitlab.lavid.ufpb.br/vlibras2019/vlibras-web-extensions/vlibras-web-browsers/commit/84d2d0b86e234e1e0ae1a4b2b41df8b365223a63))
+* **ui:** disable tooltip on touch devices ([1143bb1](https://gitlab.lavid.ufpb.br/vlibras2019/vlibras-web-extensions/vlibras-web-browsers/commit/1143bb16ec92bd0b23a698ec38ead0523fbe6cd1))
+* **ui:** hide app overlay when guide is open ([0b762bd](https://gitlab.lavid.ufpb.br/vlibras2019/vlibras-web-extensions/vlibras-web-browsers/commit/0b762bde2eab1dccf3794562738d1d7c692d1839))
+* **widget:** display "upset" emotion in emotions option ([1fb0cc8](https://gitlab.lavid.ufpb.br/vlibras2019/vlibras-web-extensions/vlibras-web-browsers/commit/1fb0cc828e734fe6da9fe2647964f0d74be7a912))
+* **widget:** expose app info in window sync ([22f5feb](https://gitlab.lavid.ufpb.br/vlibras2019/vlibras-web-extensions/vlibras-web-browsers/commit/22f5feb7a2ab1524a099c6d61520be395ef4968c))
+
 # [7.2.0](https://gitlab.lavid.ufpb.br/vlibras2019/vlibras-web-extensions/vlibras-web-browsers/compare/v7.1.0...v7.2.0) (2026-07-31)
 
 

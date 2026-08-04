@@ -1,7 +1,7 @@
 import { useEffect } from "preact/hooks";
 import { createStyle, removeStyle } from "@/core/dom";
 import { play, stop } from "@/player/actions";
-import { usePlayerStore } from "@/player/use-player.store";
+import { usePlayerStore } from "@/player/stores/use-player.store";
 import { useTranslate } from "@/widget/hooks/use-translate";
 import { resetCallback } from "@/widget/stores/use-callback.store";
 import { useWidgetStore } from "@/widget/stores/use-widget.store";

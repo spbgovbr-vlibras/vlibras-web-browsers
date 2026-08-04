@@ -3,7 +3,7 @@ import { Fragment } from "preact/jsx-runtime";
 import { toast } from "@/common/lib/toaster";
 import { useSendFeedback } from "@/core/actions/hooks";
 import { playStatic } from "@/player/actions";
-import { playerStore } from "@/player/use-player.store";
+import { playerStore } from "@/player/stores/use-player.store";
 import { Button } from "@/widget/components/ui/button";
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/widget/components/ui/dialog";
 import { Icon } from "@/widget/components/ui/icon";

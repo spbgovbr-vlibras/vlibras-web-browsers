@@ -1,6 +1,6 @@
 import type { UseMutationResult } from "@/common/hooks";
 import { useTranslateRequest } from "@/core/actions/hooks";
-import { playerStore } from "@/player/use-player.store";
+import { playerStore } from "@/player/stores/use-player.store";
 import { widgetStore } from "@/widget/stores/use-widget.store";
 
 export const useTranslate = (): UseMutationResult<string, string> => {

@@ -1,6 +1,6 @@
 import { useMobile, usePick } from "@/common/hooks";
 import { pause, play, repeat } from "@/player/actions";
-import { playerStore, usePlayerStore } from "@/player/use-player.store";
+import { playerStore, usePlayerStore } from "@/player/stores/use-player.store";
 import { Button } from "@/widget/components/ui/button";
 import { Icon } from "@/widget/components/ui/icon";
 import { Tooltip } from "@/widget/components/ui/tooltip";

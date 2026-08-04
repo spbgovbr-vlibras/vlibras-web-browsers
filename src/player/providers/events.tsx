@@ -1,9 +1,9 @@
 import type { RefObject } from "preact";
 import { useEffect } from "preact/hooks";
-import { UNITY_EVENTS } from "./constants/unity";
-import { playerOptionsStore } from "./stores/use-player-options.store";
-import { playerStore } from "./use-player.store";
-import { playingStatesToBoolean } from "./utils";
+import { UNITY_EVENTS } from "../constants/unity";
+import { playerStore } from "../stores/use-player.store";
+import { playerOptionsStore } from "../stores/use-player-options.store";
+import { playingStatesToBoolean } from "../utils";
 
 type Props = {
 	path: string;

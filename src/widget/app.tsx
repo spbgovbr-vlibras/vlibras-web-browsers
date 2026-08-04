@@ -8,12 +8,14 @@ import { appVariants } from "./app-variants";
 import { WidgetContent } from "./components/content";
 import { Draggable } from "./components/draggable";
 import { AppBackground } from "./components/ui/app-background";
+import { AppOverlay } from "./components/ui/app-overlay";
 import { rootStore } from "./stores/use-root.store";
 import { useScreensStore } from "./stores/use-screens.store";
 import { useWidgetStore } from "./stores/use-widget.store";
 
 export const WidgetApp = () => {
 	const screen = useScreensStore((s) => s.screen);
+
 	const { isOpen, position, isExpanded } = useWidgetStore(usePick("isOpen", "position", "isExpanded"));
 
 	return (
@@ -55,6 +57,7 @@ export const WidgetApp = () => {
 							<WidgetAppProviders />
 
 							<AppBackground />
+							<AppOverlay />
 						</div>
 
 						<WidgetWrapperProviders />

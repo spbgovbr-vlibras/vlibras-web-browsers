@@ -14,13 +14,13 @@
 		"tagMatch": "v*",
 		"commit": false,
 		"push": false,
-		"requireCleanWorkingDir": false,
 		"requireUpstream": false
 	},
 	"npm": {
 		"publish": false
 	},
 	"hooks": {
+		"before:bump": "node ./scripts/pre-release.js ${version}",
 		"after:release": "node ./scripts/post-release.js"
 	}
 }

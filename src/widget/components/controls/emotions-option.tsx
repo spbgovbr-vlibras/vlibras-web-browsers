@@ -3,8 +3,9 @@ import { posthogg } from "@/common/lib/posthog";
 import { cn } from "@/common/lib/utils";
 import { availableEmotions, type EmotionKey, emotionsMap } from "@/data/emotions";
 import { setEmotion } from "@/player/actions";
-import { usePlayerStore } from "@/player/use-player.store";
+import { usePlayerStore } from "@/player/stores/use-player.store";
 import { Button } from "@/widget/components/ui/button";
+import { Dropdown, DropdownContent, DropdownTrigger } from "@/widget/components/ui/dropdown";
 import { Icon } from "@/widget/components/ui/icon";
 import { Tooltip } from "@/widget/components/ui/tooltip";
 
@@ -21,23 +22,22 @@ export const EmotionsOption = () => {
 	const isDefaultEmotion = currentEmotion === emotionsMap.default;
 
 	return (
-		<div className="dropdown dropdown-center dropdown-top focus-within:**:data-[slot=tooltip-content]:hidden">
+		<Dropdown className="dropdown-center dropdown-top">
 			<Tooltip offset={8} content="Emoções" placement="top" arrow={{ position: "bottom" }}>
-				<Button
-					aria-label="Alterar emoção"
-					className="group relative"
-					variant="ghost-gov"
-					size={isMobile ? "icon-sm" : "icon"}
-				>
-					<Icon name={currentEmotion.icon} aria-hidden="true" />
-					{!isDefaultEmotion && <span className="absolute top-0.5 right-0.5 size-2 rounded-full bg-destructive" />}
-				</Button>
+				<DropdownTrigger openOnFocus>
+					<Button
+						aria-label="Alterar emoção"
+						className="group relative"
+						variant="ghost-gov"
+						size={isMobile ? "icon-sm" : "icon"}
+					>
+						<Icon name={currentEmotion.icon} aria-hidden="true" />
+						{!isDefaultEmotion && <span className="absolute top-0.5 right-0.5 size-2 rounded-full bg-destructive" />}
+					</Button>
+				</DropdownTrigger>
 			</Tooltip>
 
-			<div
-				tabIndex={-1}
-				className="dropdown-content widget-radius mb-4 w-[calc(var(--widget-width)-1rem)] border bg-background p-1 shadow-lg"
-			>
+			<DropdownContent className="mb-4 w-[calc(var(--widget-width)-1rem)] border bg-background p-1 shadow-lg">
 				<div className="relative flex items-center justify-center">
 					<span className="absolute -inset-y-1 w-px bg-border" />
 
@@ -49,9 +49,6 @@ export const EmotionsOption = () => {
 						{availableEmotions.map((key) => {
 							const emotion = emotionsMap[key];
 							const isActive = emotion === currentEmotion;
-
-							// Não exibe a emoção "Chateado"
-							if (key === "upset") return null;
 
 							return (
 								<li key={key}>
@@ -75,7 +72,7 @@ export const EmotionsOption = () => {
 						})}
 					</ul>
 				</div>
-			</div>
-		</div>
+			</DropdownContent>
+		</Dropdown>
 	);
 };

@@ -1,5 +1,5 @@
 import { useEffect } from "preact/hooks";
-import { playerStore } from "@/player/use-player.store";
+import { playerStore } from "@/player/stores/use-player.store";
 import { useWidgetStore } from "@/widget/stores/use-widget.store";
 
 const IDLE_TEARDOWN_MS = 5 * 60 * 1000;

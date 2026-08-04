@@ -8,6 +8,7 @@ import { Icon } from "@/widget/components/ui/icon";
 import { Spacer } from "@/widget/components/ui/spacer";
 import { useWidgetStore } from "@/widget/stores/use-widget.store";
 import { useDraggable } from "../draggable";
+import { AppOverlay } from "../ui/app-overlay";
 import { ExpandOption } from "./expand-option";
 import { WidgetMenu } from "./menu";
 
@@ -72,6 +73,8 @@ export const WidgetHeader = () => {
 					</Fragment>
 				)}
 			</div>
+
+			<AppOverlay className="z-50" />
 		</div>
 	);
 };

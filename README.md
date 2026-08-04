@@ -11,7 +11,7 @@
 
 Acessibilidade digital através da tradução para Língua Brasileira de Sinais (Libras).
 
-![Version](https://img.shields.io/badge/version-7.2.0-blue)
+![Version](https://img.shields.io/badge/version-7.3.0-blue)
 ![Platform](https://img.shields.io/badge/platform-chrome%20%7C%20firefox-lightgrey)
 ![License](https://img.shields.io/badge/license-LGPL--3.0-blue)
 ![VLibras](https://img.shields.io/badge/Suíte%20VLibras-2026-green.svg?logo=data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAA4AAAAUCAYAAAC9BQwsAAAABmJLR0QA/wD/AP+gvaeTAAAACXBIWXMAAA3XAAAN1wFCKJt4AAAAB3RJTUUH4wIHCiw3NwjjIgAAAQ9JREFUOMuNkjErhWEYhq/nOBmkDNLJaFGyyyYsZzIZKJwfcH6AhcFqtCvFDzD5CQaTFINSlJJBZHI6J5flU5/P937fube357m63+d+nqBEagNYA9pAExgABxHxktU3882hjqtd9d7/+lCPsvpDZNA+MAXsABNU6xHYQ912ON2qC2qQ/X+J4XQXEVe/jwawCzwNAZp/NCLiDVgHejXgKIkVdGpm/FKXU/BJDfytbpWBLfWzAjxVx1Kuxwno5k84Jex0IpyzdN46qfYSjq18bzMHzQHXudifgQtgBuhHxGvKbaPg0Klaan7GdqE2W39LOq8OCo6X6kgdeJ4IZKUKWq1Y+GHVjF3gveTIe8BiCvwBEZmRAXuH6mYAAAAASUVORK5CYII=)
@@ -63,7 +63,7 @@ Ambas as soluções utilizam avatares 3D regionalizados (como Ícaro, Hosana e G
 
 Certifique-se de ter instalado em sua máquina:
 
-- **[Node.js](https://nodejs.org/)** (versão `20.19+` ou `22.12+`)
+- **[Node.js](https://nodejs.org/)** (versão `22.22.1+` ou `24.0.0+`)
 - **[pnpm](https://pnpm.io/)** (gerenciador de pacotes)
 
 ### Instalação
@@ -128,21 +128,28 @@ _Outros modos_: **`pnpm build:dev`** (utiliza links de **ovh**) e **`pnpm build:
 
 ## 🏷️ Versionamento
 
-Antes de tudo, faça o _fetch_ das _tags_ de versões do projeto:
-
-```bash
-git fetch --tags
-```
-
-Depois, execute:
+O processo de release deve ser iniciado a partir da branch `dev` e é automatizado via [release-it](https://github.com/release-it/release-it):
 
 ```bash
 pnpm release
 ```
 
-O comando atualiza automaticamente o arquivo `CHANGELOG.md`, incrementa a versão no `package.json` e cria uma nova tag no Git.
+O comando:
 
-> Durante o processo, você será perguntado se deseja criar e publicar a tag. Aceite para finalizar o versionamento.
+- Atualiza a `dev` local com o remoto e cria a branch `release/vX.Y.Z`;
+- Incrementa a versão no `package.json` e atualiza o `CHANGELOG.md`;
+- Atualiza o badge de versão no README;
+- Cria um commit local com essas alterações.
+
+> O processo não cria tag nem faz push automaticamente.
+
+Depois, envie a branch de release para o repositório remoto e abra um MR para a `master`:
+
+```bash
+git push -u origin release/vX.Y.Z
+```
+
+Após o MR ser aceito e mergeado na `master`, crie a tag `vX.Y.Z` e a release correspondente manualmente no GitLab (Repository > Tags), usando o `CHANGELOG.md` como referência para a descrição da release.
 
 ## 🤝 Contribuidores
 

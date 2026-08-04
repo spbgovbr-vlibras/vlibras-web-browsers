@@ -1,11 +1,14 @@
 @import "tailwindcss";
 @plugin "daisyui" {
-	root: ":host"
+	root: ":host";
+	include: dropdown, toggle;
+	themes: false;
+ 	logs: false;
 }
 
 :host, [data-theme="light"] {
 	--background: oklch(1 0 0);
-	--foreground: oklch(25% 0 0);
+	--foreground: oklch(0.3 0 0);
 	--primary: oklch(0.4602 0.169 260.07);
 	--primary-foreground: oklch(1 0 0);
 	--popover: oklch(1 0 0);
@@ -85,33 +88,6 @@
 	--color-border: var(--border);
 	--color-input: var(--input);
 	--color-ring: var(--ring);
-	--radius-sm: calc(var(--radius) - 4px);
-	--radius-md: calc(var(--radius) - 2px);
-	--radius-lg: var(--radius);
-	--radius-xl: calc(var(--radius) + 4px);
-	--text-xs: calc(var(--font-size) * 0.75);
-	--text-sm: calc(var(--font-size) * 0.875);
-	--text-base: calc(var(--font-size) * 1);
-	--text-lg: calc(var(--font-size) * 1.125);
-	--text-xl: calc(var(--font-size) * 1.25);
-	--text-2xl: calc(var(--font-size) * 1.5);
-	--text-3xl: calc(var(--font-size) * 1.875);
-	--text-4xl: calc(var(--font-size) * 2.25);
-	--text-5xl: calc(var(--font-size) * 3);
-	--container-xs: 320px;
-	--container-sm: 384px;
-	--container-md: 448px;
-	--container-lg: 512px;
-	--container-xl: 576px;
-	--container-2xl: 672px;
-	--container-3xl: 768px;
-	--container-4xl: 896px;
-	--container-5xl: 1024px;
-	--container-6xl: 1152px;
-	--container-7xl: 1280px;
-	--container-8xl: 1408px;
-	--tw-translate-y: 0;
-	--tw-translate-x: 0;
 
 	--breakpoint-xxs: 20rem;
 	--breakpoint-xs: 30rem;
@@ -164,6 +140,24 @@
 
 @utility widget-radius {
 	@apply rounded-xl;
+}
+
+@utility range-slider {
+	@apply w-full h-2 rounded-lg appearance-none cursor-pointer 
+	
+	[&::-webkit-slider-thumb]:appearance-none
+    [&::-webkit-slider-thumb]:w-4
+    [&::-webkit-slider-thumb]:h-4
+    [&::-webkit-slider-thumb]:rounded-full
+    [&::-webkit-slider-thumb]:bg-primary
+    [&::-webkit-slider-thumb]:shadow-sm
+
+    [&::-moz-range-thumb]:w-4
+    [&::-moz-range-thumb]:h-4
+    [&::-moz-range-thumb]:rounded-full
+    [&::-moz-range-thumb]:border-none
+    [&::-moz-range-thumb]:bg-primary
+    [&::-moz-range-thumb]:shadow-sm;
 }
 
 @utility animate-highlight-primary-foreground {
@@ -219,3 +213,4 @@
 		@apply rounded-full! z-99999!;
 	}
 }
+

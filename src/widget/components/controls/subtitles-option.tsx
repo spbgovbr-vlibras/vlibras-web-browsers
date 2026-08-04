@@ -1,7 +1,7 @@
 import { useMobile, usePick } from "@/common/hooks";
 import { posthogg } from "@/common/lib/posthog";
 import { toggleSubtitles } from "@/player/actions";
-import { usePlayerStore } from "@/player/use-player.store";
+import { usePlayerStore } from "@/player/stores/use-player.store";
 import { Button } from "@/widget/components/ui/button";
 import { Icon } from "@/widget/components/ui/icon";
 import { Tooltip } from "@/widget/components/ui/tooltip";

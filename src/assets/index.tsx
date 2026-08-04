@@ -1,6 +1,3 @@
-// Caminhos relativos resolvidos em tempo de execução via getAssetUrl() — as imagens
-// vivem em public/assets/images e são servidas como arquivo estático, não embutidas
-// como base64 no bundle (ver core/dom, use-config e o padrão já usado em toggle-avatar-button).
 export const camaraIcon = "images/camara-deputados.webp";
 export const lavidIcon = "images/lavid.webp";
 export const mdhcIcon = "images/ministerioDireitosHumanos.webp";

@@ -3,7 +3,7 @@ import { create } from "zustand";
 import { persist } from "zustand/middleware";
 import type { OnlyState } from "@/common/types";
 import { pick } from "@/common/utils";
-import { playerStore } from "@/player/use-player.store";
+import { playerStore } from "@/player/stores/use-player.store";
 import type { WidgetPosition } from "@/widget/types";
 import { resolveValue } from "./utils";
 

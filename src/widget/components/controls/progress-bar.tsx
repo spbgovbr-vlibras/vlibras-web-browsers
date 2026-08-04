@@ -1,6 +1,6 @@
 import { useMemo } from "preact/hooks";
 import { cn } from "@/common/lib/utils";
-import { usePlayerStore } from "@/player/use-player.store";
+import { usePlayerStore } from "@/player/stores/use-player.store";
 
 export const ProgressBar = () => {
 	const { max, count } = usePlayerStore((s) => s.countGloss);

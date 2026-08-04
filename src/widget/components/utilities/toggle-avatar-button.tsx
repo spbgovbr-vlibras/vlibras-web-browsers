@@ -2,13 +2,14 @@ import { appConfig } from "@/common/hooks/use-config";
 import { posthogg } from "@/common/lib/posthog";
 import { cn } from "@/common/lib/utils";
 import { toggleAvatar } from "@/player/actions";
+import { usePlayerStore } from "@/player/stores/use-player.store";
 import type { PlayerAvatar } from "@/player/types";
-import { usePlayerStore } from "@/player/use-player.store";
-import { useGuideStore } from "@/widget/components/guide/store";
 import { Button } from "@/widget/components/ui/button";
 import { Icon } from "@/widget/components/ui/icon";
 import { Tooltip } from "@/widget/components/ui/tooltip";
 import type { IconName } from "@/widget/icons/types";
+import { useGuideStore } from "../guide/store";
+import { Dropdown, DropdownContent, DropdownTrigger } from "../ui/dropdown";
 
 const avatars: { name: PlayerAvatar; path: string; icon: IconName }[] = [
 	{ name: "icaro", path: "/icaro.png", icon: "icaro" },
@@ -24,6 +25,7 @@ const getAvatarImage = (path: string) => {
 export const ToggleAvatarButton = () => {
 	const avatar = usePlayerStore((s) => s.avatar);
 	const isGuideOpen = useGuideStore((s) => s.open);
+	const isGuideSelected = useGuideStore((s) => s.element?.selector === "#toggle-avatar-button");
 
 	const currentAvatar = avatars.find(({ name }) => name === avatar) || avatars[0];
 
@@ -35,11 +37,10 @@ export const ToggleAvatarButton = () => {
 	};
 
 	return (
-		<div
-			inert={isGuideOpen}
-			className={cn(
-				"dropdown dropdown-top dropdown-end z-1 h-9 animate-move-up focus-within:**:data-[slot=tooltip-content]:hidden [&_button]:shadow-md",
-			)}
+		<Dropdown
+			showOverlay={false}
+			open={isGuideOpen ? isGuideSelected : undefined}
+			className="dropdown-top dropdown-end z-1 h-9 animate-move-up [&_button]:shadow-md"
 		>
 			<Tooltip
 				className="whitespace-nowrap"
@@ -47,43 +48,51 @@ export const ToggleAvatarButton = () => {
 				placement="top"
 				align="end"
 				arrow={{ position: "bottom-right" }}
+				disabled={isGuideOpen}
 			>
-				<Button
-					id="toggle-avatar-button"
-					variant="outline"
-					size="icon"
-					className="rounded-full bg-background text-primary hover:bg-muted! data-[highlight=true]:animate-highlight-primary"
-				>
-					<Icon name={currentAvatar.icon} aria-hidden="true" className="size-5.5" />
-				</Button>
+				<DropdownTrigger openOnFocus>
+					<Button
+						id="toggle-avatar-button"
+						variant="outline"
+						size="icon"
+						className={cn(
+							"rounded-full bg-background text-primary hover:bg-muted! data-[highlight=true]:animate-highlight-primary",
+							isGuideOpen && "pointer-events-none",
+						)}
+					>
+						<Icon name={currentAvatar.icon} aria-hidden="true" className="size-5.5" />
+					</Button>
+				</DropdownTrigger>
 			</Tooltip>
 
-			<ul className="dropdown-content mb-2 space-y-2">
-				{avatars
-					.filter(({ name }) => name !== avatar)
-					.map((avatar) => (
-						<li key={avatar.name} className="flex animate-move-up items-center justify-end gap-2">
-							<Button
-								tabindex={-1}
-								onClick={() => handleSelectAvatar(avatar.name)}
-								variant="outline"
-								className="w-16 rounded-full bg-background capitalize hover:bg-muted!"
-								size="xs"
-							>
-								{avatar.name}
-							</Button>
+			<DropdownContent>
+				<ul className="mb-2 space-y-2">
+					{avatars
+						.filter(({ name }) => name !== avatar)
+						.map((avatar) => (
+							<li key={avatar.name} className="flex animate-move-up items-center justify-end gap-2">
+								<Button
+									tabindex={-1}
+									onClick={() => handleSelectAvatar(avatar.name)}
+									variant="outline"
+									className="w-16 rounded-full bg-background capitalize hover:bg-muted!"
+									size="xs"
+								>
+									{avatar.name}
+								</Button>
 
-							<Button
-								onClick={() => handleSelectAvatar(avatar.name)}
-								variant="outline"
-								className="rounded-full bg-background hover:bg-muted!"
-								size="icon"
-							>
-								<img src={getAvatarImage(avatar.path)} alt={avatar.name} />
-							</Button>
-						</li>
-					))}
-			</ul>
-		</div>
+								<Button
+									onClick={() => handleSelectAvatar(avatar.name)}
+									variant="outline"
+									className="rounded-full bg-background hover:bg-muted!"
+									size="icon"
+								>
+									<img src={getAvatarImage(avatar.path)} alt={avatar.name} />
+								</Button>
+							</li>
+						))}
+				</ul>
+			</DropdownContent>
+		</Dropdown>
 	);
 };

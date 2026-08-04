@@ -1,13 +1,12 @@
 import { config } from "@/core/config";
 import { availableEmotions, type EmotionKey, emotionsMap } from "@/data/emotions";
 import type { Region } from "@/data/regionalism";
+import { avatars } from "@/player/constants";
 import { UNITY_METHODS, UNITY_OBJECTS } from "@/player/constants/unity";
+import { playerStore } from "@/player/stores/use-player.store";
 import { playerOptionsStore } from "@/player/stores/use-player-options.store";
 import type { PlayerAvatar, PlayerConfig } from "@/player/types";
-import { playerStore } from "@/player/use-player.store";
 import type { SubtitleColors } from "./types";
-
-const avatars: PlayerAvatar[] = ["icaro", "guga", "hosana"];
 
 const finishWelcome = () => {
 	playerStore.set({ isPlayingWelcome: false, isWelcomeFinished: true });
@@ -87,6 +86,12 @@ export const setSpeed = (speed: number) => {
 
 export const toggleAvatar = (avatar?: PlayerAvatar) => {
 	const _avatar = playerStore.get().avatar;
+
+	if (avatar && !avatars.includes(avatar)) {
+		console.error(`Avatar "${avatar}" inválido!`);
+		return;
+	}
+
 	const nextIndex = (avatars.indexOf(avatar || _avatar) + (avatar ? 0 : 1)) % avatars.length;
 	const nextAvatar = avatars[nextIndex];
 

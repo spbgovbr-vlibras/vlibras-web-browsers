@@ -1,7 +1,8 @@
 import { useEffect } from "preact/hooks";
+import { APP_INFO } from "@/common/constants";
 import { omit } from "@/common/utils";
 import * as actions from "@/player/actions";
-import { playerStore, usePlayerStore } from "@/player/use-player.store";
+import { playerStore, usePlayerStore } from "@/player/stores/use-player.store";
 import { useTranslate } from "@/widget/hooks/use-translate";
 import { widgetStore } from "@/widget/stores/use-widget.store";
 
@@ -26,7 +27,8 @@ export const useWindowSyncProvider = () => {
 
 		const sync = () => {
 			const globalAttributes = {
-				...omit(playerStore.get(), "send"),
+				project: APP_INFO,
+				...omit(playerStore.get(), "send", "instance"),
 				...omit(widgetStore.get(), "reset", "setLoaded"),
 				...omit(actions, "setConfig"),
 			};

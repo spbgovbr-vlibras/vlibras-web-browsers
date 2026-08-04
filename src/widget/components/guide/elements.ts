@@ -5,6 +5,7 @@ export type GuideElement = {
 	guideClx: string;
 	guideClxExpanded?: string;
 	action?: () => void;
+	focus?: boolean;
 };
 
 export const guideElements: GuideElement[] = [
@@ -13,6 +14,7 @@ export const guideElements: GuideElement[] = [
 		text: "Clique no Menu para acessar o Tradutor, o Dicionário ou saber mais sobre o VLibras.",
 		gloss: "CLIQUE MENU ACESSAR TRADUTOR DICIONÁRIO SABER MAIS&QUANTIDADE SOBRE&ASSUNTO VLIBRAS",
 		guideClx: "top-0! bottom-auto!",
+		focus: true,
 	},
 
 	{
@@ -29,6 +31,7 @@ export const guideElements: GuideElement[] = [
 			"AQUI VOCÊ PODER&POSSIBILIDADE TROCAR AVATAR [PONTO] VOCÊ PODER&POSSIBILIDADE ESCOLHER ENTRE [WLCM]ICARO_SINAL [WLCM]HOZANA_SINAL [WLCM]GUGA_SINAL ",
 		guideClx: "top-auto! bottom-6.5!",
 		guideClxExpanded: "mr-12!",
+		focus: true,
 	},
 
 	{

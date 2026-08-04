@@ -8,6 +8,7 @@ export const SettingsOpacityField = () => {
 	const timeoutRef = useRef<NodeJS.Timeout>(null);
 	const opacity = useWidgetStore((s) => s.opacity);
 	const onOpen = useSettingsCtx((s) => s.onOpen);
+	const progress = Number(opacity) * 100;
 
 	useEffect(() => {
 		return () => {
@@ -32,16 +33,18 @@ export const SettingsOpacityField = () => {
 
 				<span className="font-semibold">{Math.round(Number(opacity) * 100)}%</span>
 			</div>
-
 			<input
 				type="range"
 				min={0}
 				max={100}
 				step={5}
-				value={Number(opacity) * 100}
+				value={progress}
 				onChange={(e) => handleOpacityChange(Number(e.currentTarget.value))}
-				className="range range-xs w-full text-primary [--range-bg:var(--muted)] [--range-thumb:var(--primary-foreground)]"
 				onPointerDown={(e) => e.stopPropagation()}
+				className="range-slider"
+				style={{
+					background: `linear-gradient(to right, var(--color-primary, #3b82f6) ${progress}%, var(--color-muted, #e2e8f0) ${progress}%)`,
+				}}
 			/>
 		</div>
 	);

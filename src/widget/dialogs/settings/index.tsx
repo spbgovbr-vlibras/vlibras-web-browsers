@@ -2,7 +2,7 @@ import { useMemo } from "preact/hooks";
 import { Fragment } from "preact/jsx-runtime";
 import { useMobile, useTheme } from "@/common/hooks";
 import { regions } from "@/data/regionalism";
-import { playerStore, usePlayerStore } from "@/player/use-player.store";
+import { playerStore, usePlayerStore } from "@/player/stores/use-player.store";
 import { Button } from "@/widget/components/ui/button";
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/widget/components/ui/dialog";
 import { Icon } from "@/widget/components/ui/icon";
