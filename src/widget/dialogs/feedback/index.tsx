@@ -1,13 +1,13 @@
-import { useState } from "preact/hooks";
+import { useEffect, useState } from "preact/hooks";
 import { Fragment } from "preact/jsx-runtime";
+import { useMobile } from "@/common/hooks";
 import { useSendFeedback } from "@/core/actions/hooks";
 import { playerStore } from "@/player/stores/use-player.store";
-import { Button } from "@/widget/components/ui/button";
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/widget/components/ui/dialog";
-import { Icon } from "@/widget/components/ui/icon";
-import { Spinner } from "@/widget/components/ui/spinner";
 import { widgetStore } from "@/widget/stores/use-widget.store";
 import { onFeedbackError, onFeedbackSuccess } from "@/widget/utils/feedback";
+import { FeedbackLikeConfirm } from "./feedback-like-confirm";
+import { FeedbackQuestion } from "./feedback-question";
 import { FeedbackSuggestion } from "./feedback-suggestion";
 
 type Props = {
@@ -16,16 +16,21 @@ type Props = {
 };
 
 export const FeedbackDialog = ({ open, onOpenChange }: Props) => {
+	const isMobile = useMobile();
+
 	const [isSuggestionOpen, setIsSuggestionOpen] = useState(false);
+	const [isLikeConfirmOpen, setLikeConfirmOpen] = useState(false);
 
 	const { mutateAsync: sendFeedback, isPending } = useSendFeedback();
+
+	useEffect(() => void (open && setLikeConfirmOpen(false)), [open]);
 
 	const handleSuggestionOpen = () => {
 		onOpenChange(false);
 		setIsSuggestionOpen(true);
 	};
 
-	const handleLike = async () => {
+	const handleConfirmLike = async () => {
 		const { gloss } = playerStore.get();
 		const { text } = widgetStore.get();
 
@@ -44,6 +49,7 @@ export const FeedbackDialog = ({ open, onOpenChange }: Props) => {
 			onFeedbackError(err as Error);
 		} finally {
 			onOpenChange(false);
+			setLikeConfirmOpen(false);
 		}
 	};
 
@@ -56,29 +62,24 @@ export const FeedbackDialog = ({ open, onOpenChange }: Props) => {
 					</DialogHeader>
 
 					<div className="flex flex-col items-center justify-center gap-2 p-6">
-						<p className="font-semibold mobile:text-sm text-base">Gostou da tradução?</p>
-						<div className="flex items-center justify-center gap-4 mobile:text-sm text-base [&>button]:flex-col [&>button]:text-muted-foreground">
-							<Button
-								disabled={isPending}
-								variant="ghost"
-								size="icon-xl"
-								className="px-7 py-10 font-semibold hover:bg-primary/5 hover:text-primary"
-								onClick={handleLike}
-							>
-								{isPending ? <Spinner className="text-muted-foreground" /> : <Icon name="thumbs-up" />}
-								Sim
-							</Button>
-							<Button
-								disabled={isPending}
-								variant="ghost"
-								size="icon-xl"
-								className="px-7 py-10 font-semibold hover:bg-destructive/5 hover:text-destructive"
-								onClick={handleSuggestionOpen}
-							>
-								<Icon name="thumbs-down" />
-								Não
-							</Button>
-						</div>
+						<p className="font-semibold mobile:text-sm text-base">
+							{isLikeConfirmOpen ? "Confirmar avaliação positiva?" : "Gostou da tradução?"}
+						</p>
+
+						{isLikeConfirmOpen ? (
+							<FeedbackLikeConfirm
+								isPending={isPending}
+								isMobile={isMobile}
+								onConfirm={handleConfirmLike}
+								onCancel={() => setLikeConfirmOpen(false)}
+							/>
+						) : (
+							<FeedbackQuestion
+								isPending={isPending}
+								onLike={() => setLikeConfirmOpen(true)}
+								onDislike={handleSuggestionOpen}
+							/>
+						)}
 					</div>
 				</DialogContent>
 			</Dialog>
