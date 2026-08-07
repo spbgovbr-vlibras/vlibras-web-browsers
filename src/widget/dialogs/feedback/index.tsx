@@ -1,14 +1,13 @@
 import { useState } from "preact/hooks";
 import { Fragment } from "preact/jsx-runtime";
-import { toast } from "@/common/lib/toaster";
 import { useSendFeedback } from "@/core/actions/hooks";
-import { playStatic } from "@/player/actions";
 import { playerStore } from "@/player/stores/use-player.store";
 import { Button } from "@/widget/components/ui/button";
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/widget/components/ui/dialog";
 import { Icon } from "@/widget/components/ui/icon";
 import { Spinner } from "@/widget/components/ui/spinner";
 import { widgetStore } from "@/widget/stores/use-widget.store";
+import { onFeedbackError, onFeedbackSuccess } from "@/widget/utils/feedback";
 import { FeedbackSuggestion } from "./feedback-suggestion";
 
 type Props = {
@@ -40,14 +39,9 @@ export const FeedbackDialog = ({ open, onOpenChange }: Props) => {
 				rating: "good",
 			});
 
-			onOpenChange(false);
-			toast("Agradecemos sua contribuição!", { variant: "primary", className: "font-semibold" });
-			playStatic("OBRIGADO");
-
-			widgetStore.set({ text: undefined });
+			onFeedbackSuccess();
 		} catch (err) {
-			const error = err as Error;
-			if (error.message) toast(error.message, { variant: "destructive" });
+			onFeedbackError(err as Error);
 		} finally {
 			onOpenChange(false);
 		}

@@ -1,6 +1,5 @@
 import { useEffect, useMemo, useRef, useState } from "preact/hooks";
 import { useDebouncedCallback, useMobile } from "@/common/hooks";
-import { toast } from "@/common/lib/toaster";
 import { Trie } from "@/common/lib/trie";
 import { useDictionarySigns, useSendFeedback } from "@/core/actions/hooks";
 import { playStatic } from "@/player/actions";
@@ -8,6 +7,7 @@ import { playerStore } from "@/player/stores/use-player.store";
 import { Button } from "@/widget/components/ui/button";
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/widget/components/ui/dialog";
 import { widgetStore } from "@/widget/stores/use-widget.store";
+import { onFeedbackError, onFeedbackSuccess } from "@/widget/utils/feedback";
 import { applySuggestion, getCaretCoordinates, getCurrentWord } from "./lib/suggestions";
 import { SuggestionPopup } from "./suggestion-popup";
 
@@ -66,13 +66,9 @@ export const FeedbackSuggestion = ({ open, onOpenChange }: Props) => {
 			});
 
 			onOpenChange(false);
-			toast("Agradecemos sua contribuição!", { variant: "primary", className: "font-semibold" });
-			playStatic("OBRIGADO");
-
-			widgetStore.set({ text: undefined });
+			onFeedbackSuccess();
 		} catch (err) {
-			const error = err as Error;
-			if (error.message) toast(error.message, { variant: "destructive" });
+			onFeedbackError(err as Error);
 		}
 	};
 
