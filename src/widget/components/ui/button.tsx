@@ -3,7 +3,7 @@ import type { ComponentProps } from "preact";
 import { cn } from "@/common/lib/utils";
 
 export const buttonVariants = cva(
-	"flex cursor-pointer items-center justify-center [&>svg]:shrink-0 [&>i:not([class*='size-'])]:size-5.25 gap-x-2 rounded-md text-foreground",
+	"flex cursor-pointer items-center justify-center [&>svg]:shrink-0 [&>i:not([class*='size-'])]:size-5.25 gap-x-2 rounded-lg text-foreground",
 	{
 		variants: {
 			variant: {
@@ -21,11 +21,11 @@ export const buttonVariants = cva(
 				default: "h-9 px-3.5 py-2",
 				sm: "h-8 gap-1.5 px-3 py-1.25 text-sm [&>i:not([class*='size-'])]:size-5",
 				xs: "h-7 gap-1 px-2.5 py-1 text-xs [&>i:not([class*='size-'])]:size-4",
-				icon: "h-9 w-9 min-w-9 [&>i:not([class*='size-'])]:size-5.25",
-				"icon-xl": "h-12 w-12 min-w-12 [&>i:not([class*='size-'])]:size-6.5",
-				"icon-lg": "h-10 w-10 min-w-10 [&>i:not([class*='size-'])]:size-6",
-				"icon-sm": "h-8 w-8 min-w-8 text-sm [&>i:not([class*='size-'])]:size-4.5",
-				"icon-xs": "h-7 w-7 min-w-7 [&>i:not([class*='size-'])]:size-4",
+				icon: "size-9 shrink-0 [&>i:not([class*='size-'])]:size-5.25",
+				"icon-xl": "size-12 shrink-0 [&>i:not([class*='size-'])]:size-6.5",
+				"icon-lg": "size-10 shrink-0 [&>i:not([class*='size-'])]:size-6",
+				"icon-sm": "size-8 shrink-0 text-sm [&>i:not([class*='size-'])]:size-4.5",
+				"icon-xs": "size-7 shrink-0 [&>i:not([class*='size-'])]:size-4",
 			},
 		},
 		defaultVariants: {
