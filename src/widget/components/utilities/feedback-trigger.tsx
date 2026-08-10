@@ -1,14 +1,16 @@
+import { lazy, Suspense } from "preact/compat";
 import { useState } from "preact/hooks";
 import { Fragment } from "preact/jsx-runtime";
 import { useMobile } from "@/common/hooks";
 import { useGuideStore } from "@/widget/components/guide/store";
 import { Button } from "@/widget/components/ui/button";
 import { Icon } from "@/widget/components/ui/icon";
-import { FeedbackDialog } from "@/widget/dialogs/feedback";
 import { useWidgetStore } from "@/widget/stores/use-widget.store";
 
+const FeedbackDialog = lazy(() => import("@/widget/dialogs/feedback").then((m) => ({ default: m.FeedbackDialog })));
+
 export const FeedbackTrigger = () => {
-	const [open, setOpen] = useState(false);
+	const [open, setOpen] = useState<boolean>();
 
 	const isMobile = useMobile();
 	const isExpanded = useWidgetStore((s) => s.isExpanded);
@@ -28,7 +30,11 @@ export const FeedbackTrigger = () => {
 				Avaliar
 			</Button>
 
-			<FeedbackDialog open={open} onOpenChange={setOpen} />
+			{open !== undefined && (
+				<Suspense fallback={null}>
+					<FeedbackDialog open={open} onOpenChange={setOpen} />
+				</Suspense>
+			)}
 		</Fragment>
 	);
 };
