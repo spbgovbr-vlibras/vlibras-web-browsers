@@ -50,7 +50,6 @@ Ambas as soluções utilizam avatares 3D regionalizados (como Ícaro, Hosana e G
 - **Tailwind CSS v4** - Framework CSS utilitário moderno para desenvolvimento ágil de interfaces;
 - **DaisyUI** - Biblioteca de componentes baseada em Tailwind CSS;
 - **Zustand** - Biblioteca leve para gerenciamento de estados da aplicação;
-- **TanStack Query** - Biblioteca para gerenciamento de dados assíncronos e cache;
 - **PostHog** - Plataforma de analytics para monitoramento de uso;
 - **Biome** - Ferramenta rápida para formatação, linting e análise de código;
 - **Husky** - Ferramenta para configurar hooks do Git e garantir verificações de qualidade antes dos commits;
