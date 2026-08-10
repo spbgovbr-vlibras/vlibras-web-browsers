@@ -86,7 +86,7 @@ export const FeedbackSuggestion = ({ open, onOpenChange }: Props) => {
 		<Dialog open={open} onOpenChange={onOpenChange}>
 			<DialogContent>
 				<DialogHeader>
-					<DialogTitle>Feedback</DialogTitle>
+					<DialogTitle icon="comment">Feedback</DialogTitle>
 				</DialogHeader>
 				<div className="flex h-full flex-col gap-2 px-4 py-4">
 					<div className="flex items-center justify-between">
