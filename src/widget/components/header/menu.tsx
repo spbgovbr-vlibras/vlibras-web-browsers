@@ -2,12 +2,12 @@ import { lazy, Suspense } from "preact/compat";
 import { useState } from "preact/hooks";
 import { Fragment } from "preact/jsx-runtime";
 import { useMobile } from "@/common/hooks";
-import { TranslatorFallback } from "@/widget/components/fallbacks/translator";
+import { DialogFallback } from "@/widget/components/dialog-fallback";
 import { useGuideStore } from "@/widget/components/guide/store";
 import { Button } from "@/widget/components/ui/button";
+import { Dropdown, DropdownContent, DropdownTrigger } from "@/widget/components/ui/dropdown";
 import { Icon } from "@/widget/components/ui/icon";
 import { useScreensStore } from "@/widget/stores/use-screens.store";
-import { Dropdown, DropdownContent, DropdownTrigger } from "../ui/dropdown";
 import { MenuOption } from "./menu-option";
 
 const TranslatorDialog = lazy(() =>
@@ -45,7 +45,7 @@ export const WidgetMenu = () => {
 			</Dropdown>
 
 			{translatorOpen !== undefined && (
-				<Suspense fallback={<TranslatorFallback />}>
+				<Suspense fallback={<DialogFallback className="h-[80%]" />}>
 					<TranslatorDialog open={translatorOpen} onOpenChange={setTranslatorOpen} />
 				</Suspense>
 			)}

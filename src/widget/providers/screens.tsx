@@ -1,6 +1,6 @@
 import { Fragment } from "preact";
 import { lazy, Suspense } from "preact/compat";
-import { AboutScreenFallback, DictionaryScreenFallback } from "@/widget/components/fallbacks";
+import { DialogFallback } from "@/widget/components/dialog-fallback";
 import { useScreensStore } from "@/widget/stores/use-screens.store";
 
 const DictionaryScreen = lazy(() =>
@@ -15,13 +15,13 @@ export const ScreensProvider = () => {
 	return (
 		<Fragment>
 			{screen === "dictionary" && (
-				<Suspense fallback={<DictionaryScreenFallback />}>
+				<Suspense fallback={<DialogFallback className="top-0" />}>
 					<DictionaryScreen />
 				</Suspense>
 			)}
 
 			{screen === "about" && (
-				<Suspense fallback={<AboutScreenFallback />}>
+				<Suspense fallback={<DialogFallback className="top-0" />}>
 					<AboutScreen />
 				</Suspense>
 			)}

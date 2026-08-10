@@ -2,7 +2,7 @@ import { lazy, Suspense } from "preact/compat";
 import { useState } from "preact/hooks";
 import { Fragment } from "preact/jsx-runtime";
 import { useMobile } from "@/common/hooks";
-import { SettingsFallback } from "@/widget/components/fallbacks";
+import { DialogFallback } from "@/widget/components/dialog-fallback";
 import { Button } from "@/widget/components/ui/button";
 import { Icon } from "@/widget/components/ui/icon";
 import { Tooltip } from "@/widget/components/ui/tooltip";
@@ -29,7 +29,7 @@ export const SettingsOption = () => {
 			</Tooltip>
 
 			{open !== undefined && (
-				<Suspense fallback={<SettingsFallback />}>
+				<Suspense fallback={<DialogFallback className="h-1/2" />}>
 					<SettingsDialog open={open} onOpenChange={setOpen} />
 				</Suspense>
 			)}
