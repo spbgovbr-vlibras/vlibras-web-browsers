@@ -102,12 +102,6 @@ function renderWidget() {
 
   window.VLibrasWidget.initBtn = initBtn;
   window.VLibrasWidget.open = open;
-
-  try {
-    if (localStorage.getItem("@vlibras-wp")?.includes('"isActive":true')) {
-      open();
-    }
-  } catch {}
 }
 
 if (document.readyState === "loading") {
