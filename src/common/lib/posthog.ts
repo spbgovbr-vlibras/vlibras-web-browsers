@@ -3,7 +3,7 @@ import { consentStore } from "@/widget/stores/use-consent.store";
 
 const SAMPLING_RATE = 0.07;
 const MODE = import.meta.env.MODE || "development";
-const IS_ENABLED = import.meta.env.VITE_PUBLIC_POSTHOG_ENABLED === "true";
+const IS_ENABLED = MODE === "production";
 const IS_DEBUG = import.meta.env.VITE_PUBLIC_POSTHOG_DEBUG === "true" && MODE !== "production";
 
 export const isTrackingAvailable = IS_ENABLED && !__IS_EXTENSION__;
