@@ -84,7 +84,8 @@
 	},
 	"pnpm": {
 		"overrides": {
-			"rollup": "^4.59.0"
+			"rollup": "4.62.4",
+			"postcss": "8.5.26"
 		},
 		"peerDependencyRules": {
 			"allowAny": [
