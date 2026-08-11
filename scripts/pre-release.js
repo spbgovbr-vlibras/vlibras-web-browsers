@@ -16,6 +16,20 @@ try {
     process.exit(1);
   }
 
+  console.log("🔒 Verificando vulnerabilidades de segurança com pnpm audit...");
+  try {
+    execSync("pnpm audit --audit-level high", { stdio: "inherit" });
+    console.log("✅ Nenhuma vulnerabilidade 'high' ou 'critical' encontrada.");
+  } catch {
+    console.error(
+      "❌ Bloqueado: Vulnerabilidades de nível HIGH ou CRITICAL foram encontradas no projeto.",
+    );
+    console.error(
+      "Execute 'pnpm audit' para mais detalhes e corrija-as antes de prosseguir com a release.",
+    );
+    process.exit(1);
+  }
+
   const newVersion =
     process.argv[2] ||
     JSON.parse(
