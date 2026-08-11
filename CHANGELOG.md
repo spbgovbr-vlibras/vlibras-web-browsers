@@ -1,5 +1,19 @@
 # Changelog
 
+# [7.4.0](https://gitlab.lavid.ufpb.br/vlibras2019/vlibras-web-extensions/vlibras-web-browsers/compare/v7.3.0...v7.4.0) (2026-08-11)
+
+### Bug Fixes
+
+* **deps:** patch security vulnerabilities ([e925a90](https://gitlab.lavid.ufpb.br/vlibras2019/vlibras-web-extensions/vlibras-web-browsers/commit/e925a90476241b10432e6a46b95b91aa161e7e07))
+
+### Features
+
+* **button:** extend size variants to xl and lg ([0fee340](https://gitlab.lavid.ufpb.br/vlibras2019/vlibras-web-extensions/vlibras-web-browsers/commit/0fee340842f0642e24e91c3d5374e72fdda5daba))
+* **dialog:** add comment icon to feedback dialog title ([4b4d473](https://gitlab.lavid.ufpb.br/vlibras2019/vlibras-web-extensions/vlibras-web-browsers/commit/4b4d4733d4e0acd2f2de4cf19994605d916757de))
+* update unity build (06-08-26) ([9402b9f](https://gitlab.lavid.ufpb.br/vlibras2019/vlibras-web-extensions/vlibras-web-browsers/commit/9402b9fa0446eea92884d4c6dd8b6aa80adb6d04))
+* update unity build (10-08-26) ([1417871](https://gitlab.lavid.ufpb.br/vlibras2019/vlibras-web-extensions/vlibras-web-browsers/commit/1417871b78c6d6eec4e81a07dc0f97af9e60f276))
+* **widget/feedback:** add confirmation step for positive feedback ([#110](https://gitlab.lavid.ufpb.br/vlibras2019/vlibras-web-extensions/vlibras-web-browsers/issues/110)) ([60500b6](https://gitlab.lavid.ufpb.br/vlibras2019/vlibras-web-extensions/vlibras-web-browsers/commit/60500b61d8313c497e5bdbac1b224f18691beb07))
+
 # [7.3.0](https://gitlab.lavid.ufpb.br/vlibras2019/vlibras-web-extensions/vlibras-web-browsers/compare/v7.2.0...v7.3.0) (2026-08-04)
 
 ### Bug Fixes
