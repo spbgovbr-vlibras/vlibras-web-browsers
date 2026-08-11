@@ -62,7 +62,7 @@ Ambas as soluções utilizam avatares 3D regionalizados (como Ícaro, Hosana e G
 
 Certifique-se de ter instalado em sua máquina:
 
-- **[Node.js](https://nodejs.org/)** (versão `22.22.1+` ou `24.0.0+`)
+- **[Node.js](https://nodejs.org/)** (versão `>=22.22.1`)
 - **[pnpm](https://pnpm.io/)** (gerenciador de pacotes)
 
 ### Instalação
