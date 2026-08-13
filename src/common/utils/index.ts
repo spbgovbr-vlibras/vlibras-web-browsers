@@ -26,8 +26,6 @@ export const sanitizeUrl = (url: string): string => {
 	return protocol + rest.replace(/\/+/g, "/");
 };
 
-// Resolve um caminho relativo (ex: "icons/menu.webp") contra o path de config do widget,
-// pra servir imagens como arquivo estático em vez de embutir como base64 no bundle.
 export const getAssetUrl = (relativePath: string): string => {
 	const { path } = appConfig.getState();
 	return sanitizeUrl(`${path}/assets/${relativePath}`);
