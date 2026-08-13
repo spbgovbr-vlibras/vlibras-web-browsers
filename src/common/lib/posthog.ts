@@ -2,9 +2,8 @@ import type { PostHog } from "posthog-js";
 import { consentStore } from "@/widget/stores/use-consent.store";
 
 const SAMPLING_RATE = 0.07;
-const MODE = import.meta.env.MODE || "development";
-const IS_ENABLED = MODE === "production";
-const IS_DEBUG = import.meta.env.VITE_PUBLIC_POSTHOG_DEBUG === "true" && MODE !== "production";
+const IS_ENABLED = import.meta.env.PROD;
+const IS_DEBUG = import.meta.env.VITE_PUBLIC_POSTHOG_DEBUG === "true" && !import.meta.env.PROD;
 
 export const isTrackingAvailable = IS_ENABLED && !__IS_EXTENSION__;
 
@@ -20,7 +19,7 @@ const posthogPromise = (async () => {
 			autocapture: false,
 			capture_pageview: false,
 			persistence: "memory",
-			debug: MODE !== "production" && IS_DEBUG,
+			debug: IS_DEBUG,
 		});
 
 		return posthog as PostHog;

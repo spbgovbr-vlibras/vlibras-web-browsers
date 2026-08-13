@@ -51,7 +51,7 @@ export const translate = async (text: string): Promise<RequestResponse<string>> 
 			};
 		}
 
-		console.error("Falha na tradução: ", err);
+		if (config.DEV) console.error("Falha na tradução: ", err);
 
 		if (error.name === "AbortError") {
 			return {
@@ -85,7 +85,7 @@ export const getSigns = async (): Promise<RequestResponse<TrieRoot>> => {
 		const data = (await response.json()) as TrieRoot;
 		return { data, success: true };
 	} catch (err) {
-		console.error("Falha na tradução: ", err);
+		if (config.DEV) console.error("Falha na tradução: ", err);
 
 		const error = err as Error;
 		if (error.name === "AbortError") {
@@ -128,7 +128,7 @@ export const sendFeedback = async (input: SendFeedbackProps): Promise<RequestRes
 
 		return { success: true };
 	} catch (err) {
-		console.error("Falha no envio do feedback: ", err);
+		if (config.DEV) console.error("Falha no envio do feedback: ", err);
 
 		const error = err as Error;
 		if (error.name === "AbortError") {
