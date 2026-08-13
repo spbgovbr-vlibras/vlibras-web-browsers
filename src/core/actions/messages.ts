@@ -1,5 +1,5 @@
 export const ERROR_MESSAGES = {
-	TRANSLATION_ERROR: "Erro ao traduzir o texto.",
+	TRANSLATION_ERROR: "Não foi possível traduzir o texto.",
 	TRANSLATION_EMPTY_ERROR: "Nenhum dado recebido do servidor.",
 	TRANSLATION_TIMEOUT_ERROR: "A tradução demorou muito e foi cancelada.",
 	TRANSLATION_SUPERSEDED_ERROR: "Tradução cancelada por uma solicitação mais recente.",
