@@ -45,10 +45,10 @@ export const playWelcome = () => {
 	playerStore.set({ isPlayingWelcome: true });
 };
 
-export const playStatic = (gloss: string) => {
+export const playStatic = (gloss: string, _staticUrl?: string) => {
 	const { region } = playerStore.get();
 
-	const staticUrl = `${config.DICTIONARY_STATIC_URL}${region.abbreviation}/`;
+	const staticUrl = _staticUrl || `${config.DICTIONARY_STATIC_URL}${region.abbreviation}/`;
 	const baseUrl = config.DICTIONARY_URL;
 
 	setConfig({ baseUrl: staticUrl });
