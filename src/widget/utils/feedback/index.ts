@@ -9,7 +9,3 @@ export const onFeedbackSuccess = () => {
 
 	widgetStore.set({ text: undefined });
 };
-
-export const onFeedbackError = (error: Error) => {
-	if (error.message) toast(error.message, { variant: "destructive" });
-};

@@ -7,7 +7,7 @@ import { playerStore } from "@/player/stores/use-player.store";
 import { Button } from "@/widget/components/ui/button";
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/widget/components/ui/dialog";
 import { widgetStore } from "@/widget/stores/use-widget.store";
-import { onFeedbackError, onFeedbackSuccess } from "@/widget/utils/feedback";
+import { onFeedbackSuccess } from "@/widget/utils/feedback";
 import { applySuggestion, getCaretCoordinates, getCurrentWord } from "./lib/suggestions";
 import { SuggestionPopup } from "./suggestion-popup";
 
@@ -51,24 +51,22 @@ export const FeedbackSuggestion = ({ open, onOpenChange }: Props) => {
 		setCoords(getCaretCoordinates(el, cursorPos));
 	}, 300);
 
-	const handleSubmit = async () => {
+	const handleSubmit = () => {
 		const { text } = widgetStore.get();
 		const { gloss } = playerStore.get();
 
 		if (!text || !gloss || !value) return;
 
 		try {
-			await sendFeedback({
+			sendFeedback({
 				text,
 				translation: gloss,
 				review: value.toUpperCase(),
 				rating: "bad",
 			});
-
+		} finally {
 			onOpenChange(false);
 			onFeedbackSuccess();
-		} catch (err) {
-			onFeedbackError(err as Error);
 		}
 	};
 

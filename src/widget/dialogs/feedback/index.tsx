@@ -5,7 +5,7 @@ import { useSendFeedback } from "@/core/actions/hooks";
 import { playerStore } from "@/player/stores/use-player.store";
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/widget/components/ui/dialog";
 import { widgetStore } from "@/widget/stores/use-widget.store";
-import { onFeedbackError, onFeedbackSuccess } from "@/widget/utils/feedback";
+import { onFeedbackSuccess } from "@/widget/utils/feedback";
 import { FeedbackLikeConfirm } from "./feedback-like-confirm";
 import { FeedbackQuestion } from "./feedback-question";
 import { FeedbackSuggestion } from "./feedback-suggestion";
@@ -30,26 +30,23 @@ export const FeedbackDialog = ({ open, onOpenChange }: Props) => {
 		setIsSuggestionOpen(true);
 	};
 
-	const handleConfirmLike = async () => {
+	const handleConfirmLike = () => {
 		const { gloss } = playerStore.get();
 		const { text } = widgetStore.get();
 
 		if (!gloss || !text) return;
 
 		try {
-			await sendFeedback({
+			sendFeedback({
 				text: text,
 				translation: gloss,
 				review: gloss,
 				rating: "good",
 			});
-
-			onFeedbackSuccess();
-		} catch (err) {
-			onFeedbackError(err as Error);
 		} finally {
 			onOpenChange(false);
 			setLikeConfirmOpen(false);
+			onFeedbackSuccess();
 		}
 	};
 
