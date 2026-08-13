@@ -14,8 +14,8 @@ export const Utilities = () => {
 	const isMobile = useMobile();
 	const isGuideOpen = useGuideStore((s) => s.open);
 
-	const { status, gloss, ...states } = usePlayerStore(
-		usePick("status", "gloss", "isPlayingWelcome", "isWelcomeFinished"),
+	const { status, isGlossTranslated, ...states } = usePlayerStore(
+		usePick("status", "isGlossTranslated", "isPlayingWelcome", "isWelcomeFinished"),
 	);
 	const { isExpanded, isTranslating, text } = useWidgetStore(usePick("isExpanded", "text", "isTranslating"));
 	const { action, content } = useCallbackStore(usePick("action", "content"));
@@ -45,7 +45,7 @@ export const Utilities = () => {
 	};
 
 	const showCallback = action && content && status === "idle";
-	const showFeedback = Boolean(status === "idle" && gloss && text);
+	const showFeedback = Boolean(status === "idle" && isGlossTranslated && text);
 	const showSkip = states.isPlayingWelcome ? true : (isPlaying || isPaused) && !isGuideOpen;
 	const showToggleAvatar = states.isWelcomeFinished && (status === "idle" || isGuideOpen);
 

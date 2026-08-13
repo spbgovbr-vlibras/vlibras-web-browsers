@@ -2,8 +2,8 @@ import { useState } from "preact/hooks";
 
 export type UseMutationOptions<TData, TVariables> = {
 	mutationFn: (variables: TVariables) => Promise<TData>;
-	onMutate?: (variables: TVariables) => void;
-	onSettled?: (data: TData | undefined, error: Error | null, variables: TVariables) => void;
+	onMutate?: (variables: NoInfer<TVariables>) => void;
+	onSettled?: (data: NoInfer<TData> | undefined, error: Error | null, variables: NoInfer<TVariables>) => void;
 };
 
 export type UseMutationResult<TData, TVariables> = {

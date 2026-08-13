@@ -36,19 +36,19 @@ export const useSendFeedback = (): UseMutationResult<boolean, SendFeedbackProps>
 };
 
 export const useTranslateRequest = (
-	opts?: Pick<UseMutationOptions<string, string>, "onMutate" | "onSettled">,
-): UseMutationResult<string, string> => {
+	opts?: Pick<UseMutationOptions<string | undefined, string>, "onMutate" | "onSettled">,
+): UseMutationResult<string | undefined, string> => {
 	return useMutation({
 		...opts,
 		mutationFn: async (text: string) => {
 			const result = await translate(text);
 
-			if (result.code === "TRANSLATION_SUPERSEDED_ERROR") return "";
+			if (result.code === "TRANSLATION_SUPERSEDED_ERROR") return undefined;
 
 			if (result.error) console.error(result.error);
 			if (!result.data) console.error(ERROR_MESSAGES.TRANSLATION_EMPTY_ERROR);
 
-			return result.data || text;
+			return result.data;
 		},
 	});
 };

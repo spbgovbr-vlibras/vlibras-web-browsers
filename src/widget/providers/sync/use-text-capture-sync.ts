@@ -34,7 +34,7 @@ export const useTextCaptureSync = () => {
 				const gloss = await translate(text);
 
 				resetCallback();
-				play(gloss);
+				play(gloss || text);
 			},
 		});
 

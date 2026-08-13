@@ -25,7 +25,7 @@ export const DictionaryCategoryWords = () => {
 	const handlePlayDefinition = async (text: string) => {
 		try {
 			const gloss = await translate(text);
-			play(gloss);
+			play(gloss || text);
 
 			createCallback({
 				action: () => screenStore.set({ screen: "dictionary" }),

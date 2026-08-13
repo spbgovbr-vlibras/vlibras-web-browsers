@@ -34,9 +34,8 @@ export const TranslatorDialog = ({ open, onOpenChange }: Props) => {
 
 		try {
 			const gloss = await translate(text);
-			if (!gloss.length) throw new Error("Empty gloss");
 
-			play(gloss);
+			play(gloss || text);
 			onOpenChange(false);
 
 			createCallback({

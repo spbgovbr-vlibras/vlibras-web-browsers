@@ -13,6 +13,7 @@ export interface PlayerStoreState {
 	status: PlayerStatus;
 	avatar: PlayerAvatar;
 	gloss?: string;
+	isGlossTranslated?: boolean;
 	speed: number;
 	progress: number;
 	isLoaded: boolean;
