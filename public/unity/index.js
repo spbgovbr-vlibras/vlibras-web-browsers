@@ -1,3 +1,14 @@
+(() => {
+  ["log", "warn", "error", "info"].forEach(function (method) {
+    const original = console[method];
+    console[method] = function () {
+      const stack = new Error().stack || "";
+      if (stack.indexOf("/unity/") !== -1) return;
+      original.apply(console, arguments);
+    };
+  });
+})();
+
 let gameInstance;
 
 const postEvent = (event, data) => {
