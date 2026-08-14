@@ -80,7 +80,7 @@ export const Dropdown = ({
 };
 
 interface DropdownTriggerProps {
-	children: VNode<Record<string, unknown>>;
+	children: VNode<ComponentProps<"button">>;
 	openOnFocus?: boolean;
 }
 
