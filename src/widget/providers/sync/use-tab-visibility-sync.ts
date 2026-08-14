@@ -13,7 +13,7 @@ export const useTabVisibilitySync = () => {
 			const { isPausedByUser } = widgetStore.get();
 			const { status } = playerStore.get();
 
-			if (status === "idle") return;
+			if (status !== "playing") return;
 
 			const isVisible = document.visibilityState === "visible";
 
