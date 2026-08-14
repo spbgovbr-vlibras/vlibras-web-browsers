@@ -16,7 +16,7 @@ export const MenuOption = ({ label, onClick, icon: iconName }: Props) => {
 	return (
 		<li
 			className={cn(
-				"flex w-auto animate-move-left items-center gap-2",
+				"flex w-auto animate-move-left items-center gap-1",
 				"[&_button]:rounded-full [&_button]:border-border [&_button]:bg-background [&_button]:shadow-md [&_button]:hover:bg-muted",
 			)}
 		>

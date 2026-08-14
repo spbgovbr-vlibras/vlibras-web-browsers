@@ -25,7 +25,7 @@ export const WidgetHeader = () => {
 	};
 
 	return (
-		<div className={cn("relative bottom-auto z-50 bg-primary px-2 py-1.5", !__IS_EXTENSION__ && "sm:rounded-t-xl")}>
+		<div className="relative bottom-auto z-50 bg-primary px-2 py-1.5">
 			<div
 				{...{ onPointerDown }}
 				className={cn(
