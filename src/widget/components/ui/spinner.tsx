@@ -7,7 +7,7 @@ type SpinnerProps = ComponentProps<"span"> & {
 
 export const Spinner = ({ className, size = 24, ...props }: SpinnerProps) => {
 	return (
-		<span className={cn("flex aspect-square items-center justify-center text-primary", className)} {...props}>
+		<span className={cn("flex shrink-0 items-center justify-center text-primary", className)} {...props}>
 			<svg
 				aria-hidden="true"
 				xmlns="http://www.w3.org/2000/svg"
