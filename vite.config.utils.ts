@@ -41,3 +41,15 @@ export const minifyCode = async ({ mode, content, version }: MinifyCodeOptions) 
 
 	return code;
 };
+
+type VersionUnityManifestOptions = {
+	content: string;
+	version: string;
+};
+
+export const versionUnityManifest = ({ content, version }: VersionUnityManifestOptions) => {
+	return content.replace(
+		/("(?:dataUrl|wasmCodeUrl|wasmFrameworkUrl)"\s*:\s*")([^"]+)(")/g,
+		(_, pre, url, post) => `${pre}${url}?v=${version}${post}`,
+	);
+};

@@ -11,25 +11,29 @@ import { defineConfig } from "vite";
 import { compression } from "vite-plugin-compression2";
 import { viteStaticCopy } from "vite-plugin-static-copy";
 import pkg from "./package.json" with { type: "json" };
-import { type AppMode, minifyCode } from "./vite.config.utils.ts";
+import { type AppMode, minifyCode, versionUnityManifest } from "./vite.config.utils.ts";
 
 const gzipAsync = promisify(gzip);
 const brotliAsync = promisify(brotliCompress);
 
-function compressStaticLoader(): Plugin {
-	const filePath = path.resolve(import.meta.dirname, "app/vlibras-plugin.js");
+function compressStaticCopyOutputs(files: string[]): Plugin {
+	const filePaths = files.map((file) => path.resolve(import.meta.dirname, file));
 
 	return {
-		name: "compress-static-loader",
+		name: "compress-static-copy-outputs",
 		apply: "build",
 		async closeBundle() {
-			if (!existsSync(filePath)) return;
+			await Promise.all(
+				filePaths.map(async (filePath) => {
+					if (!existsSync(filePath)) return;
 
-			const content = await readFile(filePath);
-			await Promise.all([
-				writeFile(`${filePath}.gz`, await gzipAsync(content)),
-				writeFile(`${filePath}.br`, await brotliAsync(content)),
-			]);
+					const content = await readFile(filePath);
+					await Promise.all([
+						writeFile(`${filePath}.gz`, await gzipAsync(content)),
+						writeFile(`${filePath}.br`, await brotliAsync(content)),
+					]);
+				}),
+			);
 		},
 	};
 }
@@ -102,6 +106,18 @@ export default defineConfig(({ mode }) => {
 						dest: ".",
 						transform: async (content) => minifyCode({ mode: mode as AppMode, content, version: pkg.version }),
 					},
+					{
+						src: "src/player/unity/index.js",
+						rename: { stripBase: true },
+						dest: "unity",
+						transform: async (content) => minifyCode({ mode: mode as AppMode, content, version: pkg.version }),
+					},
+					{
+						src: "src/player/unity/playerweb.json",
+						rename: { stripBase: true },
+						dest: "unity",
+						transform: async (content) => versionUnityManifest({ content, version: pkg.version }),
+					},
 				],
 			}),
 			compression({
@@ -109,7 +125,7 @@ export default defineConfig(({ mode }) => {
 				include: /\.(js|css|html|svg)$/,
 				threshold: 1024,
 			}),
-			compressStaticLoader(),
+			compressStaticCopyOutputs(["app/vlibras-plugin.js", "app/unity/index.js"]),
 		],
 		define: {
 			"process.env": {},
