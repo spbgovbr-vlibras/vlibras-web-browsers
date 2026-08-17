@@ -12,9 +12,9 @@ import { useGuideStore } from "../guide/store";
 import { Dropdown, DropdownContent, DropdownTrigger } from "../ui/dropdown";
 
 const avatars: { name: PlayerAvatar; path: string; icon: IconName }[] = [
-	{ name: "icaro", path: "/icaro.png", icon: "icaro" },
-	{ name: "hosana", path: "/hosana.png", icon: "hosana" },
-	{ name: "guga", path: "/guga.png", icon: "guga" },
+	{ name: "icaro", path: "/icaro.webp", icon: "icaro" },
+	{ name: "hosana", path: "/hosana.webp", icon: "hosana" },
+	{ name: "guga", path: "/guga.webp", icon: "guga" },
 ];
 
 const getAvatarImage = (path: string) => {
