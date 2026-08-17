@@ -88,7 +88,7 @@ function renderWidget() {
 
     const script = document.createElement("script");
     script.type = "module";
-    script.src = `${window.VLibrasWidget.path}/vlibras-plugin-app.js`;
+    script.src = `${window.VLibrasWidget.path}/vlibras-plugin-app.js?v=__APP_VERSION__`;
     script.async = true;
     script.onload = () => {
       widget = document.getElementById("vlibras-app-root");

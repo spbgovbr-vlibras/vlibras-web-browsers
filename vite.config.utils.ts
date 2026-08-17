@@ -12,9 +12,10 @@ export type AppMode = keyof typeof appRoots;
 type MinifyCodeOptions = {
 	mode: AppMode;
 	content: string;
+	version: string;
 };
 
-export const minifyCode = async ({ mode, content }: MinifyCodeOptions) => {
+export const minifyCode = async ({ mode, content, version }: MinifyCodeOptions) => {
 	let code = content;
 
 	const isExtension = mode === "extension";
@@ -22,6 +23,7 @@ export const minifyCode = async ({ mode, content }: MinifyCodeOptions) => {
 	const appRoot = appRoots[mode];
 
 	if (appRoot) code = code.replace("__APP_ROOT__", appRoot);
+	code = code.replace("__APP_VERSION__", version);
 
 	code = code.replace(/`([\s\S]*?)`/g, (_, p1) => {
 		return `\`${p1

@@ -79,6 +79,9 @@ importers:
       vite:
         specifier: ^8.2.0
         version: 8.2.1(@types/node@25.2.3)(esbuild@0.27.3)(jiti@2.7.0)(yaml@2.9.0)
+      vite-plugin-compression2:
+        specifier: ^2.5.3
+        version: 2.5.3
       vite-plugin-static-copy:
         specifier: ^4.1.1
         version: 4.1.1(vite@8.2.1(@types/node@25.2.3)(esbuild@0.27.3)(jiti@2.7.0)(yaml@2.9.0))
@@ -1998,6 +2001,9 @@ packages:
     resolution: {integrity: sha512-uxc/zpqFg6x7C8vOE7lh6Lbda8eEL9zmVm/PLeTPBRhh1xCgdWaQ+J1CUieGpIfm2HdtsUpRv+HshiasBMcc6A==}
     engines: {node: '>=6'}
 
+  tar-mini@0.2.0:
+    resolution: {integrity: sha512-+qfUHz700DWnRutdUsxRRVZ38G1Qr27OetwaMYTdg8hcPxf46U0S1Zf76dQMWRBmusOt2ZCK5kbIaiLkoGO7WQ==}
+
   tinyexec@1.0.4:
     resolution: {integrity: sha512-u9r3uZC0bdpGOXtlxUIdwf9pkmvhqJdrVCH9fapQtgy/OeTTMZ1nqH7agtvEfmGui6e1XxjcdrlxvxJvc3sMqw==}
     engines: {node: '>=18'}
@@ -2051,6 +2057,9 @@ packages:
 
   util-deprecate@1.0.2:
     resolution: {integrity: sha512-EPD5q1uXyFxJpCrLnCc1nHnq3gOa6DZBocAIiI2TaSCA7VCJ1UJDMagCzIkXNsUYfD1daK//LTEQ8xiIbrHtcw==}
+
+  vite-plugin-compression2@2.5.3:
+    resolution: {integrity: sha512-ItPgqQWkcnBbVw7is9OKwiZ8v6+ju9rYROl5Lp6QfQDEx/d55AwJQb/KLpsQqsU9HoigYBsZ8tK6I02UwJNvEw==}
 
   vite-plugin-static-copy@4.1.1:
     resolution: {integrity: sha512-GrlA8YklrAfSyxJ4M3fdQLOo9oNkp56IM9FYgX/WtEgeIFkPwhu4wzpufBCIuNKCa6Fn77FkRdYxkHqV0FwjAw==}
@@ -3968,6 +3977,8 @@ snapshots:
 
   tapable@2.3.3: {}
 
+  tar-mini@0.2.0: {}
+
   tinyexec@1.0.4: {}
 
   tinyexec@1.3.0: {}
@@ -4004,6 +4015,13 @@ snapshots:
   url-join@5.0.0: {}
 
   util-deprecate@1.0.2: {}
+
+  vite-plugin-compression2@2.5.3:
+    dependencies:
+      '@rollup/pluginutils': 5.3.0
+      tar-mini: 0.2.0
+    transitivePeerDependencies:
+      - rollup
 
   vite-plugin-static-copy@4.1.1(vite@8.2.1(@types/node@25.2.3)(esbuild@0.27.3)(jiti@2.7.0)(yaml@2.9.0)):
     dependencies:
