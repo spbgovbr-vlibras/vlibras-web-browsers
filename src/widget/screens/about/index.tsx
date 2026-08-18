@@ -1,5 +1,6 @@
 import { Fragment } from "preact/jsx-runtime";
 import { camaraIcon, lavidIcon, mdhcIcon, mgispIcon, rnpIcon } from "@/assets";
+import { useConfig } from "@/common/hooks";
 import { cn } from "@/common/lib/utils";
 import { getAssetUrl } from "@/common/utils";
 import { InlineTranslatorButton } from "@/widget/components/inline-translator-button";
@@ -10,6 +11,8 @@ import { AboutField } from "./about-field";
 import { socialLinks } from "./social-links";
 
 export const AboutScreen = () => {
+	const { version } = useConfig();
+
 	const handleReopenScreen = () => {
 		screenStore.get().open("about");
 	};
@@ -96,6 +99,10 @@ export const AboutScreen = () => {
 					<Icon name="icaro" className="absolute top-4 left-0 z-1 size-32 opacity-15 dark:text-white dark:opacity-10" />
 					<div className="absolute inset-0 -z-10 bg-primary" />
 				</div>
+
+				<span className="mx-auto -mt-2 -mb-1 font-semibold text-[0.7rem] text-muted-foreground">
+					VLibras Widget v{version}
+				</span>
 			</ScreenContent>
 		</Screen>
 	);
