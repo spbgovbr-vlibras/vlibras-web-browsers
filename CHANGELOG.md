@@ -1,5 +1,19 @@
 # Changelog
 
+# [7.5.0](https://gitlab.lavid.ufpb.br/vlibras2019/vlibras-web-extensions/vlibras-web-browsers/compare/v7.4.0...v7.5.0) (2026-08-19)
+
+### Bug Fixes
+
+* **sync:** adjust tab visibility condition to check for playing status ([f47368b](https://gitlab.lavid.ufpb.br/vlibras2019/vlibras-web-extensions/vlibras-web-browsers/commit/f47368bfe35b417b9f7a3ef7274f24372ef2d05a))
+
+### Features
+
+* **perf:** add gzip/brotli compression and versioned loader ([ab4371f](https://gitlab.lavid.ufpb.br/vlibras2019/vlibras-web-extensions/vlibras-web-browsers/commit/ab4371fb1317ea3a2380fff801c6e7db4ff1262c))
+* **player/widget:** add 'OBRIGADO' bundle and allow custom static url for 'playStatic' ([fdd2b0a](https://gitlab.lavid.ufpb.br/vlibras2019/vlibras-web-extensions/vlibras-web-browsers/commit/fdd2b0a576ddb4cc11f07c7251f23489523babd5))
+* update unity build (19-08-26) ([6c19463](https://gitlab.lavid.ufpb.br/vlibras2019/vlibras-web-extensions/vlibras-web-browsers/commit/6c1946363689d61ca810093a3f3dc105f8e3c184))
+* **widget:** add gloss translation flag and improve translation handling ([464bde3](https://gitlab.lavid.ufpb.br/vlibras2019/vlibras-web-extensions/vlibras-web-browsers/commit/464bde3bb253b35d6adc0a0f31039ec050824d5c))
+* **widget:** display vlibras widget version in about screen ([634ec49](https://gitlab.lavid.ufpb.br/vlibras2019/vlibras-web-extensions/vlibras-web-browsers/commit/634ec49eaa58ec872a9939570800a0a3f226cc87))
+
 # [7.4.0](https://gitlab.lavid.ufpb.br/vlibras2019/vlibras-web-extensions/vlibras-web-browsers/compare/v7.3.0...v7.4.0) (2026-08-11)
 
 ### Bug Fixes
