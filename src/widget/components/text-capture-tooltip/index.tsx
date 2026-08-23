@@ -46,7 +46,7 @@ export const TextCaptureTooltip = () => {
 			onClick={onClick}
 			style={{ left: position.x, top: position.y }}
 			className={cn(
-				"group absolute z-2147483647 h-9 -translate-x-6 -translate-y-full animate-scale rounded-lg px-3 text-primary-foreground shadow-lg",
+				"group absolute z-2147483647 h-9 -translate-x-6 -translate-y-full animate-scale rounded-xl px-3 text-primary-foreground shadow-lg",
 				!isActive && "hidden",
 			)}
 		>
@@ -59,10 +59,10 @@ export const TextCaptureTooltip = () => {
 				</Fragment>
 			)}
 
-			<span className="absolute inset-0 -z-1 rounded-lg bg-primary group-hover:brightness-85" />
+			<span className="absolute inset-0 -z-1 rounded-xl bg-primary group-hover:brightness-85" />
 			<span
 				className={cn(
-					"absolute -z-2 size-4 -translate-x-1/2 rotate-45 bg-primary brightness-85",
+					"absolute -z-2 size-4 -translate-x-1/2 rotate-45 rounded-sm bg-primary brightness-85",
 					["bottom", "bottom-left", "bottom-right"].includes(position.arrow) ? "-bottom-1.5" : "-top-1.5",
 					["bottom-left", "top-left", "bottom", "top"].includes(position.arrow) ? "left-5" : "right-2",
 				)}
