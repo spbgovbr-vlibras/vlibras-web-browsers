@@ -1,14 +1,35 @@
 stages:
   - test
+  - deploy
 
 audit:
   stage: test
   image: node:22-alpine
   rules:
     - if: '$CI_MERGE_REQUEST_TARGET_BRANCH_NAME == "master"'
+    - if: '$CI_COMMIT_BRANCH == "pages"'
   before_script:
     - corepack enable
     - corepack prepare pnpm@9.15.0 --activate
   script:
     - pnpm install --frozen-lockfile
     - pnpm audit --audit-level=high
+
+pages:
+  stage: deploy
+  image: node:22-alpine
+  rules:
+    - if: '$CI_COMMIT_BRANCH == "pages"'
+  before_script:
+    - corepack enable
+    - corepack prepare pnpm@9.15.0 --activate
+  script:
+    - pnpm install --frozen-lockfile
+    - pnpm build
+    - rm -rf public
+    - mkdir -p public
+    - mv app public/
+    - echo '<meta http-equiv="refresh" content="0; url=./app/">' > public/index.html
+  artifacts:
+    paths:
+      - public
