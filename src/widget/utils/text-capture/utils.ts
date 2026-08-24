@@ -8,7 +8,11 @@ export const getTextContent = (element: HTMLElement) => {
 	if (isSubmitInput(element)) return (element as HTMLInputElement).value;
 	if (element.dataset.vlibrasGloss) return element.dataset.vlibrasGloss;
 	if (element.dataset.vlibrasText) return element.dataset.vlibrasText;
-	if (hasTag(element, ["SELECT"])) return $(`[value="${(element as HTMLSelectElement).value}"]`, element)?.innerText;
+
+	if (hasTag(element, ["SELECT"])) {
+		const select = element as HTMLSelectElement;
+		return select.selectedOptions[0]?.innerText || "";
+	}
 
 	return element.innerText.trim() || "";
 };

@@ -112,7 +112,7 @@ function loadTextCaptureScript() {
         if (hasTag(element, "IMG")) return element.alt;
         else if (isSubmit) return element.value;
         else if (hasTag(element, "SELECT"))
-          return $(`[value="${element.value}"]`, element)?.innerText;
+          return element.selectedOptions?.[0]?.innerText || ""; // Fix seguro e direto
         else if (element.innerText)
           return element.innerText.replace(/\s+/g, " ");
         else return element.textContent;
