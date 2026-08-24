@@ -5,11 +5,26 @@ const vw = (window.VLibrasWidget = Object.assign(
 
 (window.VLibras = window.VLibras || {}).Widget = function (
   path,
-  configUrl,
+  personalization,
   avatar,
   position,
 ) {
-  Object.assign(vw, { path: path || vw.path, configUrl, avatar, position });
+  if (typeof path === "object") {
+    Object.assign(vw, {
+      path: path.rootPath || vw.path,
+      avatar: path.avatar,
+      position: path.position,
+      personalization: path.personalization,
+    });
+  } else {
+    Object.assign(vw, {
+      path: path || vw.path,
+      personalization,
+      avatar,
+      position,
+    });
+  }
+
   renderWidget();
 };
 
@@ -20,8 +35,8 @@ function renderWidget() {
   if (isRendered) return;
   isRendered = true;
 
-  const currentPath = window.VLibrasWidget.path;
-  const position = window.VLibrasWidget.position === "l" ? "left" : "right";
+  const currentPath = vw.path;
+  const position = vw.position?.toLowerCase() === "l" ? "left" : "right";
 
   const template = `
   <div id="vlibras-access">
@@ -88,7 +103,7 @@ function renderWidget() {
 
     const script = document.createElement("script");
     script.type = "module";
-    script.src = `${window.VLibrasWidget.path}/vlibras-plugin-app.js?v=__APP_VERSION__`;
+    script.src = `${vw.path}/vlibras-plugin-app.js?v=__APP_VERSION__`;
     script.async = true;
     script.onload = () => {
       widget = document.getElementById("vlibras-app-root");

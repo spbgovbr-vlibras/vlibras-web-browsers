@@ -9,9 +9,9 @@ import type { WidgetPosition } from "@/widget/types";
 
 export const playerOptions: PlayerOptions = {
 	onLoaded: () => {
-		const personalizationUrl = window.VLibrasWidget?.configUrl;
+		const personalizationUrl = window.VLibrasWidget?.personalization;
 		const defaultAvatar = window.VLibrasWidget?.avatar;
-		const defaultPosition: WidgetPosition = window.VLibrasWidget?.position === "l" ? "left" : "right";
+		const defaultPosition: WidgetPosition = window.VLibrasWidget?.position?.toLowerCase() === "l" ? "left" : "right";
 
 		const { avatar, speed } = playerStore.get();
 

@@ -8,7 +8,7 @@ declare const __IS_EXTENSION__: boolean;
 interface Window {
 	VLibrasWidget?: {
 		path: string;
-		configUrl?: string;
+		personalization?: string;
 		avatar?: "icaro" | "hosana" | "guga";
 		position?: "r" | "l";
 		isOpen: boolean;
