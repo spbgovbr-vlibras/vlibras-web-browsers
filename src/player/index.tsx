@@ -25,11 +25,14 @@ export const Player = (props: PlayerProps) => {
 		const { contentWindow } = iframeRef.current;
 		const { instance } = playerStore.get();
 
-		contentWindow?.postMessage({ type: "unity", object, method, params }, "*");
+		if (!contentWindow) return;
+
+		contentWindow.postMessage({ type: "unity", object, method, params }, "*");
 
 		if (!instance && !__IS_EXTENSION__) {
 			try {
-				playerStore.set({ instance: contentWindow?.getUnityInstance?.() });
+				const _instance = contentWindow.postMessage({ type: "get_unity_instance" }, "*") as UnityInstance | undefined;
+				if (_instance) playerStore.set({ instance: _instance });
 			} catch (error) {
 				console.error("Error setting instance:", error);
 			}
