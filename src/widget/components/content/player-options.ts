@@ -2,6 +2,7 @@ import { config } from "@/core/config";
 import { playWelcome, setConfig, setSpeed, toggleAvatar, toggleSubtitles } from "@/player/actions";
 import { playerStore } from "@/player/stores/use-player.store";
 import type { PlayerOptions } from "@/player/types";
+import { getRandomAvatar } from "@/player/utils";
 import { rootStore } from "@/widget/stores/use-root.store";
 import { screenStore } from "@/widget/stores/use-screens.store";
 import { widgetStore } from "@/widget/stores/use-widget.store";
@@ -9,8 +10,10 @@ import type { WidgetPosition } from "@/widget/types";
 
 export const playerOptions: PlayerOptions = {
 	onLoaded: () => {
+		let defaultAvatar = window.VLibrasWidget?.avatar;
+		if ((defaultAvatar as string) === "random") defaultAvatar = getRandomAvatar();
+
 		const personalizationUrl = window.VLibrasWidget?.personalization;
-		const defaultAvatar = window.VLibrasWidget?.avatar;
 		const defaultPosition: WidgetPosition = window.VLibrasWidget?.position?.toLowerCase() === "l" ? "left" : "right";
 
 		const { avatar, speed } = playerStore.get();
