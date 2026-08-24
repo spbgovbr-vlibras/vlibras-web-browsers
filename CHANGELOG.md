@@ -1,5 +1,16 @@
 # Changelog
 
+# [7.7.0](https://gitlab.lavid.ufpb.br/vlibras2019/vlibras-web-extensions/vlibras-web-browsers/compare/v7.6.0...v7.7.0) (2026-08-24)
+
+### Bug Fixes
+
+* **core:** restore pristine 'String' prototype methods ([6182cf9](https://gitlab.lavid.ufpb.br/vlibras2019/vlibras-web-extensions/vlibras-web-browsers/commit/6182cf9c8a70818b02c7731c7bcf6a353ad14e3e))
+* **styles:** correct css variable name for font-size ([ed945db](https://gitlab.lavid.ufpb.br/vlibras2019/vlibras-web-extensions/vlibras-web-browsers/commit/ed945db35c9ef86049b93e1e9053c9a2db7c2bca))
+
+### Features
+
+* add random avatar selection support ([10f6496](https://gitlab.lavid.ufpb.br/vlibras2019/vlibras-web-extensions/vlibras-web-browsers/commit/10f6496a50acb1916f519731c2d6f84478404a96))
+
 # [7.6.0](https://gitlab.lavid.ufpb.br/vlibras2019/vlibras-web-extensions/vlibras-web-browsers/compare/v7.5.0...v7.6.0) (2026-08-24)
 
 ### Bug Fixes
