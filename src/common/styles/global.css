@@ -205,6 +205,7 @@
 }
 
 :host {
+	font-size: var(---font-size) !important;
 	font-family: var(--font-sans) !important;
 	color: var(--foreground);
 	scrollbar-color: color-mix(in oklch, var(--foreground) 50%, transparent) transparent !important;
