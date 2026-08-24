@@ -9,14 +9,16 @@ import { WidgetContent } from "./components/content";
 import { Draggable } from "./components/draggable";
 import { AppBackground } from "./components/ui/app-background";
 import { AppOverlay } from "./components/ui/app-overlay";
+import { useWidgetPosition } from "./hooks/use-widget-position";
 import { rootStore } from "./stores/use-root.store";
 import { useScreensStore } from "./stores/use-screens.store";
 import { useWidgetStore } from "./stores/use-widget.store";
 
 export const WidgetApp = () => {
 	const screen = useScreensStore((s) => s.screen);
+	const position = useWidgetPosition();
 
-	const { isOpen, position, isExpanded } = useWidgetStore(usePick("isOpen", "position", "isExpanded"));
+	const { isOpen, isExpanded } = useWidgetStore(usePick("isOpen", "isExpanded"));
 
 	return (
 		<Draggable<HTMLDivElement>>
