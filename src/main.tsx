@@ -4,11 +4,14 @@ import { useConfig, usePick } from "@/common/hooks";
 import { createRoot } from "@/core/dom";
 import { loadDefaultFont } from "@/core/fonts";
 import { applyInertPolyfill } from "@/core/inert";
+import { restorePristineStringMethods } from "@/core/pristine-globals";
 import { WidgetApp } from "@/widget/app";
 import { useWidgetStore } from "@/widget/stores/use-widget.store";
 import { posthogg } from "./common/lib/posthog";
 import { Providers } from "./widget/providers";
 import { rootStore } from "./widget/stores/use-root.store";
+
+restorePristineStringMethods();
 
 const { root, shadowRoot, isRootActive } = createRoot();
 
