@@ -1,5 +1,15 @@
 # Changelog
 
+# [7.6.0](https://gitlab.lavid.ufpb.br/vlibras2019/vlibras-web-extensions/vlibras-web-browsers/compare/v7.5.0...v7.6.0) (2026-08-24)
+
+### Bug Fixes
+
+* **text-capture:** safely retrieve selected option text ([609c26f](https://gitlab.lavid.ufpb.br/vlibras2019/vlibras-web-extensions/vlibras-web-browsers/commit/609c26f1d0a2d8821f6b4d07765177512cc01366))
+
+### Features
+
+* **widget:** enhance progress bar with smooth animated progress ([d793429](https://gitlab.lavid.ufpb.br/vlibras2019/vlibras-web-extensions/vlibras-web-browsers/commit/d793429fc6491e53d40827a56dc5f205b4a2bdf0))
+
 # [7.5.0](https://gitlab.lavid.ufpb.br/vlibras2019/vlibras-web-extensions/vlibras-web-browsers/compare/v7.4.0...v7.5.0) (2026-08-19)
 
 ### Bug Fixes
