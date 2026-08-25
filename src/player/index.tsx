@@ -13,11 +13,11 @@ type PlayerProps = ComponentProps<"iframe"> & {
 };
 
 export const Player = (props: PlayerProps) => {
-	const { path } = useConfig();
+	const { path, version } = useConfig();
 
 	const isLoaded = usePlayerStore((s) => s.isLoaded);
 	const iframeRef = useRef<HTMLIFrameElement>(null);
-	const iframeSrc = sanitizeUrl(`${path}/unity/index.html`);
+	const iframeSrc = sanitizeUrl(`${path}/unity/index.html?v=${version}`);
 
 	const send = (object: UNITY_OBJECTS, method: UNITY_METHODS, params?: unknown) => {
 		if (!iframeRef.current) return;
