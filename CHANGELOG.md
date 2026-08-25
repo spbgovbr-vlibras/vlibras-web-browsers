@@ -1,5 +1,15 @@
 # Changelog
 
+# [7.8.0](https://gitlab.lavid.ufpb.br/vlibras2019/vlibras-web-extensions/vlibras-web-browsers/compare/v7.7.0...v7.8.0) (2026-08-25)
+
+### Bug Fixes
+
+* **unity-loader:** disable unity cache ([498bb27](https://gitlab.lavid.ufpb.br/vlibras2019/vlibras-web-extensions/vlibras-web-browsers/commit/498bb27f56fc9bc3a34f1a56b611ade8f61d7b13))
+
+### Features
+
+* **posthog:** disable posthog tracking on local development hosts ([211b9c8](https://gitlab.lavid.ufpb.br/vlibras2019/vlibras-web-extensions/vlibras-web-browsers/commit/211b9c890239f4c4826b5d654b7aa0cab500f20b))
+
 # [7.7.0](https://gitlab.lavid.ufpb.br/vlibras2019/vlibras-web-extensions/vlibras-web-browsers/compare/v7.6.0...v7.7.0) (2026-08-24)
 
 ### Bug Fixes
