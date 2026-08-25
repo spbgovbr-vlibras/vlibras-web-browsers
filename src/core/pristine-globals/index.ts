@@ -33,25 +33,30 @@ let isRestored = false;
  * Some host pages replace String.prototype methods (eg. startsWith/endsWith) with broken
  * regex-based polyfills that throw on inputs like "[" (unterminated character class).
  * Since the widget script runs in the page's own realm, this restores clean
- * implementations from a throwaway iframe when that corruption is detected.
+ * implementations from a throwaway iframe when corruption is detected, and locks them
+ * as non-writable/non-configurable so the host page can't re-patch them again later
+ * (eg. from a plugin that re-applies its patch on every init, after our own check ran).
  */
 export const restorePristineStringMethods = () => {
 	if (isRestored) return;
 	isRestored = true;
 
-	if (!isStringPrototypeCorrupted()) return;
+	const corrupted = isStringPrototypeCorrupted();
+	const pristine = corrupted ? getPristineStringPrototype() : null;
 
-	const pristine = getPristineStringPrototype();
-	if (!pristine) return;
+	// Corrupted now and no clean implementation available: nothing safe to lock in.
+	if (corrupted && !pristine) return;
 
 	for (const method of RESTORABLE_METHODS) {
 		try {
-			if (typeof pristine[method] !== "function") continue;
+			const implementation = pristine ? pristine[method] : String.prototype[method];
+			if (typeof implementation !== "function") continue;
 
 			Object.defineProperty(String.prototype, method, {
-				value: pristine[method],
-				writable: true,
-				configurable: true,
+				value: implementation,
+				writable: false,
+				configurable: false,
+				enumerable: false,
 			});
 		} catch {}
 	}
