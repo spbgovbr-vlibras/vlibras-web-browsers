@@ -8,13 +8,18 @@ export const $$ = <T extends HTMLElement>(selectors: string, scope?: HTMLElement
 	return Array.from((scope || document).querySelectorAll<T>(selectors)) as T[] | null;
 };
 
+const REM_TO_PX = 16;
+const remToPx = (css: string) => {
+	return css.replace(/(-?(?:\d+\.?\d*|\.\d+))rem\b/g, (_, value) => `${Number.parseFloat(value) * REM_TO_PX}px`);
+};
+
 export function setupWidgetStyles(shadow: ShadowRoot | HTMLElement, onLoad?: () => void) {
 	if (shadow.querySelector("style[data-widget-styles]")) {
 		if (onLoad) requestAnimationFrame(() => onLoad());
 		return;
 	}
 
-	const css = global.replace(/:root/g, ":host");
+	const css = remToPx(global.replace(/:root/g, ":host"));
 
 	const propertyRules: string[] = [];
 	const shadowCss = css.replace(/@property\s+[^{]+\{[^}]*\}/g, (match) => {

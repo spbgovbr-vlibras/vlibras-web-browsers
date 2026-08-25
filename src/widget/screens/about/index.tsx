@@ -100,7 +100,7 @@ export const AboutScreen = () => {
 					<div className="absolute inset-0 -z-10 bg-primary" />
 				</div>
 
-				<span className="mx-auto -mt-2 -mb-1 font-semibold text-[0.7rem] text-muted-foreground">
+				<span className="mx-auto -mt-2 -mb-1 font-semibold text-[0.7em] text-muted-foreground">
 					VLibras Widget v{version}
 				</span>
 			</ScreenContent>
