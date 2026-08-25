@@ -1,8 +1,23 @@
 import type { PostHog } from "posthog-js";
 import { consentStore } from "@/widget/stores/use-consent.store";
 
+const isDevelopmentHost = () => {
+	if (typeof window === "undefined") return false;
+
+	const hostname = location.hostname;
+	return (
+		hostname === "localhost" ||
+		hostname === "127.0.0.1" ||
+		hostname === "[::1]" ||
+		hostname.endsWith(".local") ||
+		hostname.endsWith(".localhost") ||
+		hostname.startsWith("192.168.") ||
+		hostname.startsWith("10.")
+	);
+};
+
 const SAMPLING_RATE = 0.07;
-const IS_ENABLED = import.meta.env.PROD;
+const IS_ENABLED = import.meta.env.PROD && !isDevelopmentHost();
 const IS_DEBUG = import.meta.env.VITE_PUBLIC_POSTHOG_DEBUG === "true" && !import.meta.env.PROD;
 
 export const isTrackingAvailable = IS_ENABLED && !__IS_EXTENSION__;
