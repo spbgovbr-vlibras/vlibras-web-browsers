@@ -1,5 +1,12 @@
 # Changelog
 
+## [7.8.1](https://gitlab.lavid.ufpb.br/vlibras2019/vlibras-web-extensions/vlibras-web-browsers/compare/v7.8.0...v7.8.1) (2026-08-25)
+
+### Bug Fixes
+
+* **core:** lock restored string prototype methods and improve corruption handling ([277716a](https://gitlab.lavid.ufpb.br/vlibras2019/vlibras-web-extensions/vlibras-web-browsers/commit/277716a8b4d17a3e542ae55b308e4912d46f2b19))
+* **styles:** neutralize host page font-size effect on rem-based CSS ([a12d2be](https://gitlab.lavid.ufpb.br/vlibras2019/vlibras-web-extensions/vlibras-web-browsers/commit/a12d2be52008b6407f5fc832b9a1b01b58926c03))
+
 # [7.8.0](https://gitlab.lavid.ufpb.br/vlibras2019/vlibras-web-extensions/vlibras-web-browsers/compare/v7.7.0...v7.8.0) (2026-08-25)
 
 ### Bug Fixes
