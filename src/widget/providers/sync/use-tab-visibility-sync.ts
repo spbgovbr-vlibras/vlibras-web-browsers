@@ -13,10 +13,9 @@ export const useTabVisibilitySync = () => {
 			const { isPausedByUser } = widgetStore.get();
 			const { status } = playerStore.get();
 
-			if (status !== "playing") return;
-
 			const isVisible = document.visibilityState === "visible";
 
+			if (!isVisible && status !== "playing") return;
 			if (isVisible && !isPausedByUser) setTimeout(play, 1000);
 			else pause();
 		};
