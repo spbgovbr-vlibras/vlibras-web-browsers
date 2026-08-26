@@ -114,9 +114,8 @@ function renderWidget() {
   };
 
   initBtn.onclick = open;
-
-  window.VLibrasWidget.initBtn = initBtn;
-  window.VLibrasWidget.open = open;
+  vw.initBtn = initBtn;
+  vw.open = open;
 }
 
 if (document.readyState === "loading") {
