@@ -1,44 +1,45 @@
-const vw = (window.VLibrasWidget = Object.assign(
-  { path: "__APP_ROOT__" },
-  window.VLibrasWidget,
-));
+(() => {
+  const vw = (window.VLibrasWidget = Object.assign(
+    { path: "__APP_ROOT__" },
+    window.VLibrasWidget,
+  ));
 
-(window.VLibras = window.VLibras || {}).Widget = function (
-  path,
-  personalization,
-  avatar,
-  position,
-) {
-  if (typeof path === "object") {
-    Object.assign(vw, {
-      path: path.rootPath || vw.path,
-      avatar: path.avatar,
-      position: path.position,
-      personalization: path.personalization,
-    });
-  } else {
-    Object.assign(vw, {
-      path: path || vw.path,
-      personalization,
-      avatar,
-      position,
-    });
-  }
+  (window.VLibras = window.VLibras || {}).Widget = function (
+    path,
+    personalization,
+    avatar,
+    position,
+  ) {
+    if (typeof path === "object") {
+      Object.assign(vw, {
+        path: path.rootPath || vw.path,
+        avatar: path.avatar,
+        position: path.position,
+        personalization: path.personalization,
+      });
+    } else {
+      Object.assign(vw, {
+        path: path || vw.path,
+        personalization,
+        avatar,
+        position,
+      });
+    }
 
-  renderWidget();
-};
+    renderWidget();
+  };
 
-let isRendered = false;
-let widget;
+  let isRendered = false;
+  let widget;
 
-function renderWidget() {
-  if (isRendered) return;
-  isRendered = true;
+  function renderWidget() {
+    if (isRendered) return;
+    isRendered = true;
 
-  const currentPath = vw.path;
-  const position = vw.position?.toLowerCase() === "l" ? "left" : "right";
+    const currentPath = vw.path;
+    const position = vw.position?.toLowerCase() === "l" ? "left" : "right";
 
-  const template = `
+    const template = `
   <div id="vlibras-access">
       <img id="vlibras-popup" src="${currentPath}/assets/images/vlibras-popup.webp" />
       <button type="button" aria-label="Conteúdo acessível em Libras usando o VLibras Widget com opções dos Avatares Ícaro, Hosana ou Guga." id="vlibras-button">
@@ -86,40 +87,39 @@ function renderWidget() {
   }
   </style>`;
 
-  const wrapper = document.createElement("div");
-  const shadow = wrapper.attachShadow({ mode: "open" });
-  wrapper.id = "vlibras-access-wrapper";
+    const wrapper = document.createElement("div");
+    const shadow = wrapper.attachShadow({ mode: "open" });
+    wrapper.id = "vlibras-access-wrapper";
 
-  shadow.innerHTML = template;
-  document.body.appendChild(wrapper);
+    shadow.innerHTML = template;
+    document.body.appendChild(wrapper);
 
-  const initBtn = shadow.querySelector("#vlibras-button");
+    const initBtn = shadow.querySelector("#vlibras-button");
 
-  const open = () => {
-    if (widget) {
-      widget.dataset.active = "true";
-      return;
-    }
+    const open = () => {
+      if (widget) {
+        widget.dataset.active = "true";
+        return;
+      }
 
-    const script = document.createElement("script");
-    script.type = "module";
-    script.src = `${vw.path}/vlibras-plugin-app.js?v=__APP_VERSION__`;
-    script.async = true;
-    script.onload = () => {
-      widget = document.getElementById("vlibras-app-root");
-      if (widget) widget.dataset.active = "true";
+      const script = document.createElement("script");
+      script.type = "module";
+      script.src = `${vw.path}/vlibras-plugin-app.js?v=__APP_VERSION__`;
+      script.async = true;
+      script.onload = () => {
+        widget = document.getElementById("vlibras-app-root");
+        if (widget) widget.dataset.active = "true";
+      };
+
+      document.body.appendChild(script);
     };
 
-    document.body.appendChild(script);
-  };
+    initBtn.onclick = open;
+    vw.initBtn = initBtn;
+    vw.open = open;
+  }
 
-  initBtn.onclick = open;
-  vw.initBtn = initBtn;
-  vw.open = open;
-}
-
-if (document.readyState === "loading") {
-  document.addEventListener("DOMContentLoaded", () => renderWidget());
-} else {
-  setTimeout(() => renderWidget(), 50);
-}
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", () => renderWidget());
+  } else setTimeout(() => renderWidget(), 50);
+})();
