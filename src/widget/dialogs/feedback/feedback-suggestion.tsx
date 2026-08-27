@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useRef, useState } from "preact/hooks";
+import { useCallback, useEffect, useMemo, useRef, useState } from "preact/hooks";
 import { useDebouncedCallback, useMobile } from "@/common/hooks";
 import { Trie } from "@/common/lib/trie";
 import { useDictionarySigns, useSendFeedback } from "@/core/actions/hooks";
@@ -6,9 +6,11 @@ import { playStatic } from "@/player/actions";
 import { playerStore } from "@/player/stores/use-player.store";
 import { Button } from "@/widget/components/ui/button";
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/widget/components/ui/dialog";
+import { createCallback } from "@/widget/stores/use-callback.store";
 import { widgetStore } from "@/widget/stores/use-widget.store";
 import { onFeedbackSuccess } from "@/widget/utils/feedback";
 import { applySuggestion, getCaretCoordinates, getCurrentWord } from "./lib/suggestions";
+import { feedbackSuggestionStore } from "./stores/use-feedback-suggestion.store";
 import { SuggestionPopup } from "./suggestion-popup";
 
 type Props = {
@@ -26,11 +28,15 @@ export const FeedbackSuggestion = ({ open, onOpenChange }: Props) => {
 	const [suggestions, setSuggestions] = useState<string[]>([]);
 	const [coords, setCoords] = useState({ top: 0, left: 0 });
 	const [value, setValue] = useState<string>("");
-	const isEmpty = !value.trim();
 
-	useEffect(() => setValue(playerStore.get().gloss || ""), []);
+	useEffect(() => {
+		const { draftValue } = feedbackSuggestionStore.get();
+		setValue(draftValue ?? playerStore.get().gloss ?? "");
+		feedbackSuggestionStore.set({ reopen: false, draftValue: undefined });
+	}, []);
 
 	const trie = useMemo(() => (data ? new Trie(data) : null), [data]);
+	const isEmpty = !value.trim();
 
 	const handleInput = useDebouncedCallback<Event>(() => {
 		if (!textareaRef.current) return;
@@ -80,6 +86,16 @@ export const FeedbackSuggestion = ({ open, onOpenChange }: Props) => {
 		textareaRef.current.focus();
 	};
 
+	const handlePlay = useCallback(() => {
+		if (!value) return;
+
+		playStatic(value);
+		createCallback({
+			action: () => feedbackSuggestionStore.set({ reopen: true, draftValue: value }),
+			auto: true,
+		});
+	}, [value]);
+
 	return (
 		<Dialog open={open} onOpenChange={onOpenChange}>
 			<DialogContent>
@@ -111,7 +127,7 @@ export const FeedbackSuggestion = ({ open, onOpenChange }: Props) => {
 							{isPending ? "Enviando..." : "Enviar sugestão"}
 						</Button>
 
-						<Button disabled={isPending || isEmpty} variant="outline" onClick={() => playStatic(value)}>
+						<Button disabled={isPending || isEmpty} variant="outline" onClick={handlePlay}>
 							Reproduzir
 						</Button>
 					</div>
