@@ -24,7 +24,9 @@ export interface PlayerStoreState {
 	countGloss: CountGloss;
 	region: Region;
 	emotion: Emotion;
+	isBroken: boolean;
 	send: (object: UNITY_OBJECTS, method: UNITY_METHODS, params?: unknown) => void;
+	retryLoad: () => void;
 	reset: () => void;
 }
 
@@ -37,6 +39,7 @@ const defaults: OnlyState<PlayerStoreState> = {
 	progress: 0,
 	gloss: undefined,
 	instance: undefined,
+	isBroken: false,
 	showSubtitles: true,
 	isPlayingWelcome: true,
 	isWelcomeFinished: false,
@@ -51,6 +54,7 @@ export const usePlayerStore = create<PlayerStoreState>()(
 		(set) => ({
 			...defaults,
 			send: () => {},
+			retryLoad: () => {},
 			reset: () => set((state) => ({ ...defaults, avatar: state.avatar })),
 		}),
 		{

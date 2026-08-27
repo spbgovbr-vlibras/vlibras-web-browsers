@@ -1,8 +1,8 @@
 import { type ComponentProps, Fragment } from "preact";
 import { useEffect, useRef } from "preact/hooks";
 import { useConfig } from "@/common/hooks";
-import { sanitizeUrl } from "@/common/utils";
 import type { UNITY_METHODS, UNITY_OBJECTS } from "./constants/unity";
+import { usePlayerIframeSrc } from "./hooks/use-player-iframe-src";
 import { PlayerEventsProvider } from "./providers/events";
 import { playerStore, usePlayerStore } from "./stores/use-player.store";
 import { playerOptionsStore } from "./stores/use-player-options.store";
@@ -17,7 +17,7 @@ export const Player = (props: PlayerProps) => {
 
 	const isLoaded = usePlayerStore((s) => s.isLoaded);
 	const iframeRef = useRef<HTMLIFrameElement>(null);
-	const iframeSrc = sanitizeUrl(`${path}/unity/index.html?v=${version}`);
+	const iframeSrc = usePlayerIframeSrc(path, version);
 
 	const send = (object: UNITY_OBJECTS, method: UNITY_METHODS, params?: unknown) => {
 		if (!iframeRef.current) return;

@@ -1,11 +1,13 @@
 import { useEffect, useState } from "preact/hooks";
 import { usePick } from "@/common/hooks";
 import { cn } from "@/common/lib/utils";
-import { usePlayerStore } from "@/player/stores/use-player.store";
+import { playerStore, usePlayerStore } from "@/player/stores/use-player.store";
+import { Button } from "@/widget/components/ui/button";
 import { Icon } from "@/widget/components/ui/icon";
+import { Spinner } from "@/widget/components/ui/spinner";
 
 export const UnityLoading = () => {
-	const { progress, isLoaded } = usePlayerStore(usePick("progress", "isLoaded"));
+	const { progress, isLoaded, isBroken } = usePlayerStore(usePick("progress", "isLoaded", "isBroken"));
 	const [isStarting, setStarting] = useState(false);
 
 	useEffect(() => {
@@ -15,6 +17,8 @@ export const UnityLoading = () => {
 	}, [progress]);
 
 	if (isLoaded) return null;
+
+	const handleRetryLoad = () => playerStore.get().retryLoad();
 
 	return (
 		<div
@@ -35,7 +39,7 @@ export const UnityLoading = () => {
 				</div>
 
 				<p className="mobile:mb-1 font-bold mobile:text-sm text-base">VLibras Widget</p>
-				<span className="font-light text-muted-foreground text-xs">v{__VLIBRAS_APP_VERSION__}</span>
+				<span className="text-muted-foreground text-xs">v{__VLIBRAS_APP_VERSION__}</span>
 			</div>
 
 			{isStarting && (
@@ -44,7 +48,18 @@ export const UnityLoading = () => {
 				</span>
 			)}
 
-			<div className="bottom-4 h-2 w-44 rounded-full bg-foreground/10">
+			{progress === 0 && !isBroken && <Spinner className="absolute bottom-8" size={16} />}
+
+			{isBroken && (
+				<div className="absolute inset-x-6 top-auto bottom-4 flex animate-move-up flex-col items-center gap-2">
+					<p className="font-semibold text-muted-foreground text-xs">Não foi possível carregar o player.</p>
+					<Button size="xs" variant="default" className="rounded-full" onClick={handleRetryLoad}>
+						Tentar novamente
+					</Button>
+				</div>
+			)}
+
+			<div className={cn("bottom-4 h-2 w-44 rounded-full bg-foreground/10", isBroken && "invisible bg-destructive")}>
 				<span className="block h-full rounded-full bg-primary transition-[width]" style={{ width: `${progress}%` }} />
 			</div>
 		</div>
