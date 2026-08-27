@@ -27,17 +27,18 @@ const posthogPromise = (async () => {
 
 	try {
 		const modulePath = "https://cdn.jsdelivr.net/npm/posthog-js@1.404.0/+esm";
-		const posthog = (await import(/* @vite-ignore */ modulePath)).default;
+		const posthog: PostHog = (await import(/* @vite-ignore */ modulePath)).default;
 
 		posthog.init(import.meta.env.VITE_PUBLIC_POSTHOG_PROJECT_TOKEN, {
 			api_host: import.meta.env.VITE_PUBLIC_POSTHOG_HOST,
 			autocapture: false,
 			capture_pageview: false,
+			capture_performance: false,
 			persistence: "memory",
 			debug: IS_DEBUG,
 		});
 
-		return posthog as PostHog;
+		return posthog;
 	} catch (e) {
 		console.error("Erro ao carregar PostHog:", e);
 		return null;
