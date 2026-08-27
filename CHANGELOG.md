@@ -1,5 +1,25 @@
 # Changelog
 
+# [7.9.0](https://gitlab.lavid.ufpb.br/vlibras2019/vlibras-web-extensions/vlibras-web-browsers/compare/v7.8.1...v7.9.0) (2026-08-27)
+
+### Bug Fixes
+
+* adjust tab visibility sync logic ([50a378c](https://gitlab.lavid.ufpb.br/vlibras2019/vlibras-web-extensions/vlibras-web-browsers/commit/50a378cc770086b29a6822ca9ff99297aa187e5a))
+* **feedback:** persist suggestion reopen state across widget unmount ([f325244](https://gitlab.lavid.ufpb.br/vlibras2019/vlibras-web-extensions/vlibras-web-browsers/commit/f325244c594e58f2dfa53cd89b50f28f1495d1c0))
+* **loader:** add safe localstorage access with try/catch ([81b1ff6](https://gitlab.lavid.ufpb.br/vlibras2019/vlibras-web-extensions/vlibras-web-browsers/commit/81b1ff61ab02d934b5ad0bc7b0d72a5df49e8236))
+* **progress-bar:** hide progress bar when count is zero ([74ed5a2](https://gitlab.lavid.ufpb.br/vlibras2019/vlibras-web-extensions/vlibras-web-browsers/commit/74ed5a28fcaa48aa17316612b73ee8bb1f1bdacb))
+* **ui/dialog:** prevent title overflow and ensure text truncation ([fa5ffdb](https://gitlab.lavid.ufpb.br/vlibras2019/vlibras-web-extensions/vlibras-web-browsers/commit/fa5ffdb77b2f479d1cf53a2b4dd2835d9e5e7df1))
+
+### Features
+
+* **loader:** auto-open widget based on persisted state ([4271814](https://gitlab.lavid.ufpb.br/vlibras2019/vlibras-web-extensions/vlibras-web-browsers/commit/4271814b73631c5ca9cc94996b013b4b531f9dff))
+* **player:** include version in player iframe url ([58cb288](https://gitlab.lavid.ufpb.br/vlibras2019/vlibras-web-extensions/vlibras-web-browsers/commit/58cb28898b373ee633802df558ee063fd0d0c78c))
+* **player:** retry player iframe load on 503/stuck load ([13a2ca1](https://gitlab.lavid.ufpb.br/vlibras2019/vlibras-web-extensions/vlibras-web-browsers/commit/13a2ca1b0df410ce48ac18a9899878798e1cc12c))
+
+### Reverts
+
+* "feat(widget): enhance progress bar with smooth animated progress" ([4383476](https://gitlab.lavid.ufpb.br/vlibras2019/vlibras-web-extensions/vlibras-web-browsers/commit/43834768d210976f6821706fa951d5fbefd4b59c))
+
 ## [7.8.1](https://gitlab.lavid.ufpb.br/vlibras2019/vlibras-web-extensions/vlibras-web-browsers/compare/v7.8.0...v7.8.1) (2026-08-25)
 
 ### Bug Fixes
