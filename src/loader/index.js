@@ -118,7 +118,11 @@
     vw.initBtn = initBtn;
     vw.open = open;
 
-    if (localStorage["@vlibras-widget"]?.includes('"isOpen":true')) open();
+    try {
+      if (localStorage["@vlibras-widget"]?.includes('"isOpen":true')) open();
+    } catch {
+      // Ignore
+    }
   }
 
   if (document.readyState === "loading") {
