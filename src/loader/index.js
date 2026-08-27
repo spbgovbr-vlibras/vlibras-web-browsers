@@ -117,6 +117,8 @@
     initBtn.onclick = open;
     vw.initBtn = initBtn;
     vw.open = open;
+
+    if (localStorage["@vlibras-widget"]?.includes('"isOpen":true')) open();
   }
 
   if (document.readyState === "loading") {
