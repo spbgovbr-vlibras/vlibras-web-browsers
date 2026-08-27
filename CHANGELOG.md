@@ -1,5 +1,11 @@
 # Changelog
 
+## [7.9.1](https://gitlab.lavid.ufpb.br/vlibras2019/vlibras-web-extensions/vlibras-web-browsers/compare/v7.9.0...v7.9.1) (2026-08-27)
+
+### Performance Improvements
+
+* **posthog:** disable performance capture and tighten typings ([0a17b33](https://gitlab.lavid.ufpb.br/vlibras2019/vlibras-web-extensions/vlibras-web-browsers/commit/0a17b336dd62ede0f2d681950359a2e122979f3b))
+
 # [7.9.0](https://gitlab.lavid.ufpb.br/vlibras2019/vlibras-web-extensions/vlibras-web-browsers/compare/v7.8.1...v7.9.0) (2026-08-27)
 
 ### Bug Fixes
