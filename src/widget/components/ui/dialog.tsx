@@ -152,7 +152,7 @@ export const DialogTitle = ({ children, icon: iconName, className, ...props }: D
 		<h3
 			data-slot="dialog-title"
 			className={cn(
-				"relative mt-0.75 mr-auto flex items-center gap-1.5 truncate break-all font-semibold mobile:text-sm text-base leading-normal",
+				"relative mt-0.75 mr-auto flex items-center gap-1.5 overflow-hidden font-semibold mobile:text-sm text-base leading-normal",
 				className,
 			)}
 			{...props}
@@ -161,7 +161,7 @@ export const DialogTitle = ({ children, icon: iconName, className, ...props }: D
 				<Icon name={iconName} aria-hidden="true" className="relative -bottom-px mobile:size-4.5 size-5 shrink-0" />
 			)}
 
-			<div>{children}</div>
+			<div className="truncate break-all">{children}</div>
 		</h3>
 	);
 };
