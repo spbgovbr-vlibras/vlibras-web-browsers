@@ -26,7 +26,7 @@
 	],
 	"license": "LGPL-3.0-or-later",
 	"private": true,
-	"version": "7.9.1",
+	"version": "7.10.0",
 	"type": "module",
 	"engines": {
 		"node": ">=22.22.1",

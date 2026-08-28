@@ -1,5 +1,15 @@
 # Changelog
 
+# [7.10.0](https://gitlab.lavid.ufpb.br/vlibras2019/vlibras-web-extensions/vlibras-web-browsers/compare/v7.9.1...v7.10.0) (2026-08-28)
+
+### Bug Fixes
+
+* **loader:** add null check for path argument ([4295b99](https://gitlab.lavid.ufpb.br/vlibras2019/vlibras-web-extensions/vlibras-web-browsers/commit/4295b99f3652e72446eb8bdce230b874035868a6))
+
+### Features
+
+* update unity build (28-08-26) ([9d093f2](https://gitlab.lavid.ufpb.br/vlibras2019/vlibras-web-extensions/vlibras-web-browsers/commit/9d093f259ac732d755a19e80cd03c8233c70435d))
+
 ## [7.9.1](https://gitlab.lavid.ufpb.br/vlibras2019/vlibras-web-extensions/vlibras-web-browsers/compare/v7.9.0...v7.9.1) (2026-08-27)
 
 ### Performance Improvements
