@@ -10,7 +10,7 @@
     avatar,
     position,
   ) {
-    if (typeof path === "object") {
+    if (path && typeof path === "object") {
       Object.assign(vw, {
         path: path.rootPath || vw.path,
         avatar: path.avatar,
