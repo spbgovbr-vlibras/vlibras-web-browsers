@@ -13,9 +13,13 @@ const newVersion = packageJson.version;
 let readmeContent = fs.readFileSync(readmeFilePath, "utf8");
 
 const versionRegexReadme =
-  /!\[Version\]\(https:\/\/img\.shields\.io\/badge\/version-[^)]+-blue\)/;
-const newVersionBadge = `![Version](https://img.shields.io/badge/version-${newVersion.replace(/-/g, "_")}-blue)`;
+  /<img src="https:\/\/img\.shields\.io\/badge\/Versão-[^"]+-blue" alt="Versão" \/>/;
+const newVersionBadge = `<img src="https://img.shields.io/badge/Versão-${newVersion.replace(/-/g, "_")}-blue" alt="Versão" />`;
 readmeContent = readmeContent.replace(versionRegexReadme, newVersionBadge);
+
+const currentYear = new Date().getFullYear();
+const yearRegexReadme = /(Suíte%20VLibras-)[^-]+(-green\.svg)/;
+readmeContent = readmeContent.replace(yearRegexReadme, `$1${currentYear}$2`);
 
 fs.writeFileSync(readmeFilePath, readmeContent, "utf8");
 execSync("git add package.json README.md CHANGELOG.md", { stdio: "inherit" });
