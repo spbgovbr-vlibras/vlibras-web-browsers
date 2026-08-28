@@ -5,7 +5,7 @@
 	"wasmCodeUrl": "playerweb.wasm.code.unityweb",
 	"wasmFrameworkUrl": "playerweb.wasm.framework.unityweb",
 	"TOTAL_MEMORY": 268435456,
-	"graphicsAPI": ["WebGL 2.0"],
+	"graphicsAPI": ["WebGL 1.0"],
 	"webglContextAttributes": { "preserveDrawingBuffer": false },
 	"splashScreenStyle": "Light",
 	"backgroundColor": "#FFFFFF",
