@@ -61,10 +61,7 @@ export const usePlayerIframeSrc = (path: string, version: string) => {
 		if (!src || isLoaded || retryCount >= MAX_LOAD_RETRIES) return;
 
 		const timeoutMs = getBackoff(retryCount, STUCK_LOAD_BASE_MS, STUCK_LOAD_MAX_MS);
-		const timeoutId = setTimeout(() => {
-			console.error(`Player travado ao carregar (tentativa ${retryCount + 1}/${MAX_LOAD_RETRIES}), recarregando...`);
-			setRetryCount((count) => count + 1);
-		}, timeoutMs);
+		const timeoutId = setTimeout(() => setRetryCount((count) => count + 1), timeoutMs);
 
 		return () => clearTimeout(timeoutId);
 	}, [src, isLoaded, retryCount]);
