@@ -39,7 +39,7 @@ function loadTextCaptureScript() {
   createTooltip();
   let isActive = false;
 
-  function hasLinkAncestor(el) {
+  function findInteractiveElement(el) {
     while (el) {
       if ($root.includes(el)) break;
       if (isLinkOrButton(el) || (el.onclick && !isSVG(el))) return el;
@@ -54,7 +54,7 @@ function loadTextCaptureScript() {
     return element.matches(".vw-links")
       ? false
       : hasTextContent(element) ||
-          hasLinkAncestor(element) ||
+          findInteractiveElement(element) ||
           isSubmitInput(element) ||
           isValidImage(element) ||
           isSelect(element);
@@ -112,7 +112,7 @@ function loadTextCaptureScript() {
         if (hasTag(element, "IMG")) return element.alt;
         else if (isSubmit) return element.value;
         else if (hasTag(element, "SELECT"))
-          return element.selectedOptions?.[0]?.innerText || ""; // Fix seguro e direto
+          return element.selectedOptions?.[0]?.innerText || "";
         else if (element.innerText)
           return element.innerText.replace(/\s+/g, " ");
         else return element.textContent;
@@ -127,10 +127,12 @@ function loadTextCaptureScript() {
       } catch {}
     }
 
-    const linkElement =
-      element.tagName === "A" ? element : hasLinkAncestor(element);
+    const isLinkElement = element.tagName === "A" && !!element.href;
+    const interactiveElement = isLinkElement
+      ? element
+      : findInteractiveElement(element);
 
-    if (linkElement) showTooltip(linkElement, event);
+    if (interactiveElement) showTooltip(interactiveElement, event);
     if (hasTag(element, "LABEL")) toggleChecked(element);
     else if (isButton(element) || isSubmit) showTooltip(element, event);
   }
@@ -138,7 +140,7 @@ function loadTextCaptureScript() {
   function clickHandler(element, event = null) {
     if (event) event.stopPropagation();
     document.removeEventListener("click", translateContent, true);
-    element.click();
+    element.dispatchEvent(new MouseEvent("click", { bubbles: true }));
     document.addEventListener("click", translateContent, true);
   }
 
@@ -164,8 +166,9 @@ function loadTextCaptureScript() {
     if (!linkElement) return;
     removeTooltips();
     const tooltip = $(".vw-links");
-    tooltip.innerText =
-      linkElement.tagName === "A" ? "Acessar link" : "Interagir";
+    const isLink = linkElement.tagName === "A" && !!linkElement.href;
+
+    tooltip.innerText = isLink ? "Acessar link" : "Interagir";
 
     const { clientX, clientY } = event;
     const yView = clientY > innerHeight - 100;

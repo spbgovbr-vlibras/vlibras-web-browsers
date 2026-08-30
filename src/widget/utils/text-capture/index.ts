@@ -83,7 +83,8 @@ export const textCapture = ({ callback, isWordByWord, hoverClss, activeClass }: 
 			if (textContent) callback?.({ text: textContent, element, isGloss });
 		}
 
-		const interactiveElement = element.tagName === "A" ? element : findInteractiveElement(element);
+		const isLinkElement = element.tagName === "A" && !!(element as HTMLAnchorElement).href;
+		const interactiveElement = isLinkElement ? element : findInteractiveElement(element);
 
 		if (interactiveElement) showTooltip(interactiveElement, event);
 		if (hasTag(element, "LABEL")) toggleChecked(element);
@@ -97,10 +98,12 @@ export const textCapture = ({ callback, isWordByWord, hoverClss, activeClass }: 
 	};
 
 	const showTooltip = (element: HTMLElement, event: MouseEvent) => {
+		const isLink = element.tagName === "A" && !!(element as HTMLAnchorElement).href;
+
 		tooltipStore.set({
 			isActive: true,
 			event: event as MouseEvent,
-			type: element.tagName.toLowerCase() === "a" ? "link" : "button",
+			type: isLink ? "link" : "button",
 			onClick: () => {
 				element.dispatchEvent(new MouseEvent("click", { bubbles: true }));
 				tooltipStore.set({ isActive: false });
