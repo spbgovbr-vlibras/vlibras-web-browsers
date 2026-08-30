@@ -1,21 +1,22 @@
 import { useEffect } from "preact/hooks";
 import { APP_INFO } from "@/common/constants";
 import { omit } from "@/common/utils";
-import { translate } from "@/core/actions";
 import * as actions from "@/player/actions";
 import { playerStore, usePlayerStore } from "@/player/stores/use-player.store";
+import { useTranslate } from "@/widget/hooks/use-translate";
 import { widgetStore } from "@/widget/stores/use-widget.store";
 
 export const useWindowSyncProvider = () => {
 	const isLoaded = usePlayerStore((s) => s.isLoaded);
+	const { mutateAsync: translate } = useTranslate(false);
 
 	const translateAndPlay = async (text: string) => {
-		const { data: gloss } = await translate(text);
+		const gloss = await translate(text);
 		actions.play(gloss || text);
 	};
 
 	const translateText = async (text: string) => {
-		const { data: gloss } = await translate(text);
+		const gloss = await translate(text);
 		return gloss;
 	};
 
