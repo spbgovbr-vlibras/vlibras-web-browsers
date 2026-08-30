@@ -8,6 +8,7 @@ import { Button } from "@/widget/components/ui/button";
 import { Icon } from "@/widget/components/ui/icon";
 import { Tooltip } from "@/widget/components/ui/tooltip";
 import type { IconName } from "@/widget/icons/types";
+import { useWidgetStore } from "@/widget/stores/use-widget.store";
 import { useGuideStore } from "../guide/store";
 import { Dropdown, DropdownContent, DropdownTrigger } from "../ui/dropdown";
 
@@ -26,6 +27,7 @@ export const ToggleAvatarButton = () => {
 	const avatar = usePlayerStore((s) => s.avatar);
 	const isGuideOpen = useGuideStore((s) => s.open);
 	const isGuideSelected = useGuideStore((s) => s.element?.selector === "#toggle-avatar-button");
+	const isExpanded = useWidgetStore((s) => s.isExpanded);
 
 	const currentAvatar = avatars.find(({ name }) => name === avatar) || avatars[0];
 
@@ -71,15 +73,17 @@ export const ToggleAvatarButton = () => {
 						.filter(({ name }) => name !== avatar)
 						.map((avatar) => (
 							<li key={avatar.name} className="flex animate-move-up items-center justify-end gap-2">
-								<Button
-									tabindex={-1}
-									onClick={() => handleSelectAvatar(avatar.name)}
-									variant="outline"
-									className="w-16 rounded-full bg-background capitalize hover:bg-muted!"
-									size="xs"
-								>
-									{avatar.name}
-								</Button>
+								{!(isGuideSelected && isExpanded) && (
+									<Button
+										tabindex={-1}
+										onClick={() => handleSelectAvatar(avatar.name)}
+										variant="outline"
+										className="w-16 rounded-full bg-background capitalize hover:bg-muted!"
+										size="xs"
+									>
+										{avatar.name}
+									</Button>
+								)}
 
 								<Button
 									onClick={() => handleSelectAvatar(avatar.name)}
