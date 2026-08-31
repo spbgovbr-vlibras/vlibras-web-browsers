@@ -1,5 +1,20 @@
 # Changelog
 
+# [7.11.0](https://gitlab.lavid.ufpb.br/vlibras2019/vlibras-web-extensions/vlibras-web-browsers/compare/v7.10.0...v7.11.0) (2026-08-31)
+
+### Bug Fixes
+
+* **header:** only track expand event when expanding ([6cfc197](https://gitlab.lavid.ufpb.br/vlibras2019/vlibras-web-extensions/vlibras-web-browsers/commit/6cfc1971a36d4483d8e9defc243593f6bd0a911c))
+* **pristine-globals:** use native 'String.prototype' methods via call to avoid corrupted prototypes ([0d97b0b](https://gitlab.lavid.ufpb.br/vlibras2019/vlibras-web-extensions/vlibras-web-browsers/commit/0d97b0b66e5d20033f7e20f89ce74b00e92c93f7))
+* **toggle-avatar-button:** conditionally hide avatar name button when guide is selected ([d68646a](https://gitlab.lavid.ufpb.br/vlibras2019/vlibras-web-extensions/vlibras-web-browsers/commit/d68646ae81e73014cb1f02943bd1d1b2d19ca970))
+
+### Features
+
+* **core/actions:** support json translation responses ([1f9dafc](https://gitlab.lavid.ufpb.br/vlibras2019/vlibras-web-extensions/vlibras-web-browsers/commit/1f9dafc590e905b395055c9a64da2b5802eaa510))
+* **player, widget:** guard speed action and improve speed control ui ([d7b4c1b](https://gitlab.lavid.ufpb.br/vlibras2019/vlibras-web-extensions/vlibras-web-browsers/commit/d7b4c1b409326612e3dd1e8dad6c008b297edb9e))
+* **widget:** display translated text in feedback suggestion dialog ([2de2298](https://gitlab.lavid.ufpb.br/vlibras2019/vlibras-web-extensions/vlibras-web-browsers/commit/2de2298d17a55f670644582bfde2265c6acff660))
+* **widget:** enhance translation validation and update typescript target ([8730837](https://gitlab.lavid.ufpb.br/vlibras2019/vlibras-web-extensions/vlibras-web-browsers/commit/873083788699b1b73ab384fc3d12ff202de0fcce))
+
 # [7.10.0](https://gitlab.lavid.ufpb.br/vlibras2019/vlibras-web-extensions/vlibras-web-browsers/compare/v7.9.1...v7.10.0) (2026-08-28)
 
 ### Bug Fixes
