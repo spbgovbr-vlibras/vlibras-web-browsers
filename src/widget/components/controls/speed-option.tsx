@@ -30,10 +30,16 @@ export const SpeedOption = () => {
 		<Dropdown className="dropdown-center dropdown-top">
 			<Tooltip offset={8} content="Velocidade" placement="top" arrow={{ position: "bottom" }}>
 				<DropdownTrigger openOnFocus>
-					<Button aria-label="Alterar velocidade" variant="ghost-gov" size={isMobile ? "icon-sm" : "icon"}>
-						<span inert className="-mt-0.5 font-bold mobile:text-xs text-sm">
-							{currentSpeed}x
-						</span>
+					<Button
+						aria-label="Alterar velocidade"
+						className="min-w-9 mobile:min-w-8 max-w-16 mobile:max-w-14 px-2"
+						variant="ghost-gov"
+						size={isMobile ? "sm" : "default"}
+					>
+						<div inert className="-mt-0.5 inline-flex truncate font-bold mobile:text-xs text-sm">
+							<span className="truncate">{currentSpeed}</span>
+							<span>x</span>
+						</div>
 					</Button>
 				</DropdownTrigger>
 			</Tooltip>

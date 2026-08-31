@@ -80,6 +80,8 @@ export const pause = () => {
 };
 
 export const setSpeed = (speed: number) => {
+	if (typeof speed !== "number") return;
+
 	send(UNITY_OBJECTS.PLAYER, UNITY_METHODS.SET_SPEED, speed);
 	playerStore.set({ speed });
 };
