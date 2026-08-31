@@ -14,7 +14,7 @@ export const Icon = ({ className, name, colored = false, style, ...props }: Icon
 
 	return (
 		<i
-			{...props}
+			aria-hidden="true"
 			className={cn(
 				"inline-block shrink-0 bg-center bg-contain bg-no-repeat",
 				!colored && "mask-(--icon) mask-center mask-contain mask-no-repeat bg-current",
@@ -24,6 +24,7 @@ export const Icon = ({ className, name, colored = false, style, ...props }: Icon
 				[colored ? "backgroundImage" : "--icon"]: `url(${src})`,
 				...style,
 			}}
+			{...props}
 		/>
 	);
 };

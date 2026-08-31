@@ -55,7 +55,7 @@ export const ExpandOption = () => {
 				size={isMobile ? "icon-sm" : "icon"}
 				variant="default"
 			>
-				<Icon name={iconName} aria-hidden="true" />
+				<Icon name={iconName} />
 			</Button>
 		</Tooltip>
 	);

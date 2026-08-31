@@ -31,7 +31,7 @@ export const EmotionsOption = () => {
 						variant="ghost-gov"
 						size={isMobile ? "icon-sm" : "icon"}
 					>
-						<Icon name={currentEmotion.icon} aria-hidden="true" />
+						<Icon name={currentEmotion.icon} />
 						{!isDefaultEmotion && <span className="absolute top-0.5 right-0.5 size-2 rounded-full bg-destructive" />}
 					</Button>
 				</DropdownTrigger>

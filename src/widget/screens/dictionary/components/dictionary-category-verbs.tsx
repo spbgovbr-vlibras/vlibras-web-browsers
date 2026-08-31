@@ -62,7 +62,7 @@ export const DictionaryCategoryVerbs = () => {
 									className="px-2 py-1.25 hover:cursor-pointer hover:text-foreground"
 									aria-label={isExpanded ? "Fechar" : "Expandir"}
 								>
-									<Icon name={isExpanded ? "chevron-up" : "chevron-down"} aria-hidden="true" className="size-4" />
+									<Icon name={isExpanded ? "chevron-up" : "chevron-down"} className="size-4" />
 								</button>
 							</div>
 

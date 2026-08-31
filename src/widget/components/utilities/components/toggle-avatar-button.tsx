@@ -54,6 +54,7 @@ export const ToggleAvatarButton = () => {
 			>
 				<DropdownTrigger openOnFocus>
 					<Button
+						aria-label="Alterar avatar"
 						id="toggle-avatar-button"
 						variant="outline"
 						size="icon"
@@ -62,7 +63,7 @@ export const ToggleAvatarButton = () => {
 							isGuideOpen && "pointer-events-none",
 						)}
 					>
-						<Icon name={currentAvatar.icon} aria-hidden="true" className="size-5.5" />
+						<Icon name={currentAvatar.icon} className="size-5.5" />
 					</Button>
 				</DropdownTrigger>
 			</Tooltip>

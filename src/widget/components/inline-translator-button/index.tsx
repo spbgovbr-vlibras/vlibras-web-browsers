@@ -29,7 +29,7 @@ export const InlineTranslatorButton = ({ className, gloss, onFinish, onClick, ..
 			)}
 			{...props}
 		>
-			<Icon name="hands" aria-hidden="true" className="size-4" />
+			<Icon name="hands" className="size-4" />
 		</button>
 	);
 };

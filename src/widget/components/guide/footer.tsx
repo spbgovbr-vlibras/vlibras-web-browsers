@@ -28,7 +28,7 @@ export const GuideFooter = () => {
 				className="text-primary-foreground outline-primary-foreground hover:bg-primary-foreground/5"
 				onClick={() => setIndex(index - 1)}
 			>
-				<Icon name="arrow-left" aria-hidden="true" />
+				<Icon name="arrow-left" />
 				Voltar
 			</Button>
 
@@ -51,7 +51,7 @@ export const GuideFooter = () => {
 				onClick={isLastElement ? onClose : () => setIndex((i) => i + 1)}
 			>
 				{isLastElement ? "Concluir" : "Avançar"}
-				{!isLastElement && <Icon name="arrow-right" aria-hidden="true" />}
+				{!isLastElement && <Icon name="arrow-right" />}
 			</Button>
 		</div>
 	);

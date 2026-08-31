@@ -21,12 +21,9 @@ export const DictionaryCategoryHeader = () => {
 					onClick={() => setSelectedCategory(null)}
 					className="group flex h-full w-full items-center justify-start gap-2 text-xs hover:cursor-pointer"
 				>
-					<Icon
-						aria-hidden="true"
-						name="chevron-left"
-						className="size-4 bg-muted-foreground group-hover:bg-foreground"
-					/>
-					<Icon aria-hidden="true" name={categoryIcon} className="mobile:size-5 size-6 shrink-0" />
+					<Icon name="chevron-left" className="size-4 bg-muted-foreground group-hover:bg-foreground" />
+					<Icon name={categoryIcon} className="mobile:size-5 size-6 shrink-0" />
+
 					<span className="font-semibold mobile:text-xs text-sm">{selectedCategory.name.replace(/_/g, " ")}</span>
 				</button>
 			</div>

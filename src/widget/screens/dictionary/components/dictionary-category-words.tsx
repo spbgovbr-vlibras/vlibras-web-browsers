@@ -69,7 +69,7 @@ export const DictionaryCategoryWords = () => {
 									onClick={() => toggleWordMeaning(group.base)}
 									aria-label={isExpanded ? "Fechar significado" : "Ver significado"}
 								>
-									<Icon name={isExpanded ? "chevron-up" : "chevron-down"} aria-hidden="true" className="size-4" />
+									<Icon name={isExpanded ? "chevron-up" : "chevron-down"} className="size-4" />
 								</Button>
 							</div>
 							{isExpanded && (

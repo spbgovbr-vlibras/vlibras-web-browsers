@@ -55,7 +55,7 @@ export const ScreenClose = ({ className, ...props }: ButtonProps) => {
 			className={className}
 			{...props}
 		>
-			<Icon name="arrow-left" aria-hidden="true" />
+			<Icon name="arrow-left" />
 		</Button>
 	);
 };

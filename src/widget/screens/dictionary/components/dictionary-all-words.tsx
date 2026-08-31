@@ -111,7 +111,7 @@ export const DictionaryAllWords = () => {
 						onClick={() => toggleWordMeaning(sign)}
 						aria-label={isWordExpanded ? "Fechar significado" : "Ver significado"}
 					>
-						<Icon name={isWordExpanded ? "chevron-up" : "chevron-down"} className="size-4" aria-hidden="true" />
+						<Icon name={isWordExpanded ? "chevron-up" : "chevron-down"} className="size-4" />
 					</Button>
 				</div>
 
