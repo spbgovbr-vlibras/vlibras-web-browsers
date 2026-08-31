@@ -109,13 +109,13 @@ function loadTextCaptureScript() {
 
     const getTextContent = () => {
       try {
+        if (element.dataset.vlibrasGloss) return element.dataset.vlibrasGloss;
         if (hasTag(element, "IMG")) return element.alt;
-        else if (isSubmit) return element.value;
-        else if (hasTag(element, "SELECT"))
+        if (isSubmit) return element.value;
+        if (hasTag(element, "SELECT"))
           return element.selectedOptions?.[0]?.innerText || "";
-        else if (element.innerText)
-          return element.innerText.replace(/\s+/g, " ");
-        else return element.textContent;
+        if (element.innerText) return element.innerText.replace(/\s+/g, " ");
+        return element.textContent;
       } catch {}
     };
 

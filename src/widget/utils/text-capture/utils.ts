@@ -4,10 +4,9 @@ const $root = Array.from([document.body, ...document.body.children]);
 const $appRoot = $("#vlibras-app-root");
 
 export const getTextContent = (element: HTMLElement) => {
+	if (element.dataset.vlibrasGloss) return element.dataset.vlibrasGloss;
 	if (hasTag(element, ["IMG"])) return (element as HTMLImageElement).alt;
 	if (isSubmitInput(element)) return (element as HTMLInputElement).value;
-	if (element.dataset.vlibrasGloss) return element.dataset.vlibrasGloss;
-	if (element.dataset.vlibrasText) return element.dataset.vlibrasText;
 
 	if (hasTag(element, ["SELECT"])) {
 		const select = element as HTMLSelectElement;
