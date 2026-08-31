@@ -46,7 +46,7 @@ export const SettingsDialog = ({ open, onOpenChange }: Props) => {
 		>
 			<Dialog open={open} onOpenChange={onOpenChange}>
 				<DialogContent>
-					<DialogHeader className="relative">
+					<DialogHeader className="relative" closeProps={{ "aria-label": "Fechar configurações" }}>
 						<DialogTitle icon="settings">Configurações</DialogTitle>
 
 						{!isDefaultSettings && (

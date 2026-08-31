@@ -10,7 +10,7 @@ import { playerStore, usePlayerStore } from "@/player/stores/use-player.store";
 import type { IconName } from "@/widget/icons/types";
 import { rootStore, useRootStore } from "@/widget/stores/use-root.store";
 import { widgetStore } from "@/widget/stores/use-widget.store";
-import { Button } from "./button";
+import { Button, type ButtonProps } from "./button";
 import { Icon } from "./icon";
 
 type DialogContextProps = {
@@ -119,7 +119,16 @@ export const DialogTrigger = ({ children, ...props }: ComponentProps<"button">) 
 	);
 };
 
-export const DialogHeader = ({ className, children, ...props }: ComponentProps<"div">) => {
+export const DialogHeader = ({
+	className,
+	children,
+	closeProps,
+	showCloseButton = true,
+	...props
+}: ComponentProps<"div"> & {
+	closeProps?: ButtonProps;
+	showCloseButton?: boolean;
+}) => {
 	const context = useContext(DialogContext);
 	const isMobile = useMobile();
 
@@ -131,14 +140,18 @@ export const DialogHeader = ({ className, children, ...props }: ComponentProps<"
 		>
 			{children}
 
-			<Button
-				data-slot="dialog-close"
-				onClick={() => context?.onOpenChange(false)}
-				size={isMobile ? "icon-xs" : "icon-sm"}
-				variant="ghost"
-			>
-				<Icon name="x" />
-			</Button>
+			{showCloseButton && (
+				<Button
+					aria-label="Fechar diálogo"
+					data-slot="dialog-close"
+					onClick={() => context?.onOpenChange(false)}
+					size={isMobile ? "icon-xs" : "icon-sm"}
+					variant="ghost"
+					{...closeProps}
+				>
+					<Icon name="x" />
+				</Button>
+			)}
 		</div>
 	);
 };
@@ -157,9 +170,7 @@ export const DialogTitle = ({ children, icon: iconName, className, ...props }: D
 			)}
 			{...props}
 		>
-			{iconName && (
-				<Icon name={iconName} aria-hidden="true" className="relative -bottom-px mobile:size-4.5 size-5 shrink-0" />
-			)}
+			{iconName && <Icon name={iconName} className="relative -bottom-px mobile:size-4.5 size-5 shrink-0" />}
 
 			<div className="truncate break-all">{children}</div>
 		</h3>
@@ -169,11 +180,9 @@ export const DialogTitle = ({ children, icon: iconName, className, ...props }: D
 export const DialogContent = ({
 	children,
 	className,
-	showCloseButton = true,
 	...props
 }: Omit<ComponentProps<"div">, "children"> & {
 	children?: ComponentChildren | ((props: DialogContextProps) => ComponentChildren);
-	showCloseButton?: boolean;
 }) => {
 	const context = useContext(DialogContext);
 	const appRoot = useRootStore((s) => s.appRoot);
@@ -184,10 +193,11 @@ export const DialogContent = ({
 		<DialogWrapper>
 			<div
 				data-slot="dialog-content"
+				role="dialog"
+				aria-modal="true"
 				className={cn(
 					"dialog-content widget-radius relative flex max-h-full w-full animate-move-up flex-col border bg-background",
 					"transition-[margin] duration-500 ease-in-out group-data-[state=close]:-mb-100",
-					!showCloseButton && "**:data-[slot=dialog-close]:hidden",
 					className,
 				)}
 				style={{ boxShadow: "0 -5px 10px -5px rgba(0, 0, 0, 0.15)" }}

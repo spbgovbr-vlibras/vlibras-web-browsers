@@ -40,7 +40,7 @@ export const SettingsRegionalismField = () => {
 					{({ onOpenChange }) => {
 						return (
 							<Fragment>
-								<DialogHeader>
+								<DialogHeader closeProps={{ "aria-label": "Fechar regionalismo" }}>
 									<DialogTitle>Regionalismo</DialogTitle>
 								</DialogHeader>
 								<div className="flex flex-col overflow-y-auto p-1">

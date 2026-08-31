@@ -60,7 +60,7 @@ export const FeedbackDialog = ({ open, onOpenChange }: Props) => {
 		<Fragment>
 			<Dialog open={open || isPending} onOpenChange={onOpenChange}>
 				<DialogContent>
-					<DialogHeader>
+					<DialogHeader closeProps={{ "aria-label": "Fechar feedback" }}>
 						<DialogTitle icon="comment">Feedback</DialogTitle>
 					</DialogHeader>
 

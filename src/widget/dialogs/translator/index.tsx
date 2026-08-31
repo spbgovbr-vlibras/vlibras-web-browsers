@@ -72,7 +72,7 @@ export const TranslatorDialog = ({ open, onOpenChange }: Props) => {
 	return (
 		<Dialog open={open} onOpenChange={onOpenChange}>
 			<DialogContent>
-				<DialogHeader>
+				<DialogHeader closeProps={{ "aria-label": "Fechar tradutor" }}>
 					<DialogTitle icon="translator">Tradutor</DialogTitle>
 				</DialogHeader>
 

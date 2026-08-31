@@ -100,7 +100,7 @@ export const FeedbackSuggestion = ({ open, onOpenChange }: Props) => {
 	return (
 		<Dialog open={open} onOpenChange={onOpenChange}>
 			<DialogContent>
-				<DialogHeader>
+				<DialogHeader closeProps={{ "aria-label": "Fechar sugestão de glosa" }}>
 					<DialogTitle icon="comment">Feedback</DialogTitle>
 				</DialogHeader>
 				<div className="flex h-full flex-col gap-2 overflow-y-auto px-4 py-4">
