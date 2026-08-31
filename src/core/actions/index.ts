@@ -29,7 +29,12 @@ export const translate = async (text: string): Promise<RequestResponse<string>> 
 
 		if (!response.ok) throw new Error(`Erro na API: ${response.status}`);
 
-		const data = await response.text();
+		let data = await response.text();
+
+		try {
+			const translation = JSON.parse(data);
+			if (translation.traducao) data = translation.traducao;
+		} catch {}
 
 		if (requestId !== latestTranslateRequestId) {
 			return {
