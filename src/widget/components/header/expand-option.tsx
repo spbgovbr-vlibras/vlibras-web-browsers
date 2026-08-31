@@ -30,8 +30,9 @@ export const ExpandOption = () => {
 
 		if (!root) return;
 
-		widgetStore.set({ isExpanded: !isExpanded });
-		posthogg.trackEvent("expanded");
+		const newExpanded = !isExpanded;
+		widgetStore.set({ isExpanded: newExpanded });
+		if (newExpanded) posthogg.trackEvent("expanded");
 	};
 
 	const label = isExpanded ? "Diminuir" : "Expandir";
