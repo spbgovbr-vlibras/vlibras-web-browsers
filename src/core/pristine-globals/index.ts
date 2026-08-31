@@ -4,7 +4,11 @@ type RestorableMethod = (typeof RESTORABLE_METHODS)[number];
 
 const isStringPrototypeCorrupted = () => {
 	try {
-		return !"[".startsWith("[") || !"]".endsWith("]") || !"[]".includes("[");
+		return (
+			!String.prototype.startsWith.call("[", "[") ||
+			!String.prototype.endsWith.call("]", "]") ||
+			!String.prototype.includes.call("[]", "[")
+		);
 	} catch {
 		return true;
 	}
