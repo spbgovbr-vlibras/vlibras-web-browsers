@@ -11,6 +11,7 @@ import { Spinner } from "@/widget/components/ui/spinner";
 import { useTranslate } from "@/widget/hooks/use-translate";
 import { createCallback } from "@/widget/stores/use-callback.store";
 import { useWidgetStore } from "@/widget/stores/use-widget.store";
+import { isValidTranslationText } from "@/widget/utils";
 
 type Props = {
 	open: boolean;
@@ -25,6 +26,7 @@ export const TranslatorDialog = ({ open, onOpenChange }: Props) => {
 	const { mutateAsync: translate, isPending } = useTranslate();
 
 	const onTextChange = useDebouncedCallback(setText, 300);
+	const isValidText = isValidTranslationText(text);
 
 	useEffect(() => void (open && posthogg.trackEvent("open_translator")), [open]);
 
@@ -108,7 +110,7 @@ export const TranslatorDialog = ({ open, onOpenChange }: Props) => {
 
 					<Button
 						onClick={handleTranslate}
-						disabled={text.length < 3 || isTranslating || isPending}
+						disabled={text.length < 3 || isTranslating || isPending || !isValidText}
 						className="h-10 w-full rounded-full text-sm"
 					>
 						{isPending && <Spinner className="size-4 text-primary-foreground" />}
