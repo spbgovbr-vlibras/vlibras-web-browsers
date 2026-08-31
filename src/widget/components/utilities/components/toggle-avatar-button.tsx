@@ -4,13 +4,13 @@ import { cn } from "@/common/lib/utils";
 import { toggleAvatar } from "@/player/actions";
 import { usePlayerStore } from "@/player/stores/use-player.store";
 import type { PlayerAvatar } from "@/player/types";
+import { useGuideStore } from "@/widget/components/guide/store";
 import { Button } from "@/widget/components/ui/button";
+import { Dropdown, DropdownContent, DropdownTrigger } from "@/widget/components/ui/dropdown";
 import { Icon } from "@/widget/components/ui/icon";
 import { Tooltip } from "@/widget/components/ui/tooltip";
 import type { IconName } from "@/widget/icons/types";
 import { useWidgetStore } from "@/widget/stores/use-widget.store";
-import { useGuideStore } from "../guide/store";
-import { Dropdown, DropdownContent, DropdownTrigger } from "../ui/dropdown";
 
 const avatars: { name: PlayerAvatar; path: string; icon: IconName }[] = [
 	{ name: "icaro", path: "/icaro.webp", icon: "icaro" },

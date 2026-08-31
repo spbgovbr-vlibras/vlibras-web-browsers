@@ -7,8 +7,8 @@ import { Button } from "@/widget/components/ui/button";
 import { Icon } from "@/widget/components/ui/icon";
 import { callbackStore, resetCallback, useCallbackStore } from "@/widget/stores/use-callback.store";
 import { useWidgetStore, widgetStore } from "@/widget/stores/use-widget.store";
-import { FeedbackTrigger } from "./feedback-trigger";
-import { ToggleAvatarButton } from "./toggle-avatar-button";
+import { FeedbackTrigger } from "./components/feedback-trigger";
+import { ToggleAvatarButton } from "./components/toggle-avatar-button";
 
 export const Utilities = () => {
 	const isMobile = useMobile();
