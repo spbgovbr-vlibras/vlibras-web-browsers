@@ -8,6 +8,7 @@ import { Tooltip } from "@/widget/components/ui/tooltip";
 import type { IconName } from "@/widget/icons/types";
 import { rootStore } from "@/widget/stores/use-root.store";
 import { useWidgetStore, widgetStore } from "@/widget/stores/use-widget.store";
+
 import css from "@/widget/styles/expanded-mode.css?inline";
 
 export const ExpandOption = () => {

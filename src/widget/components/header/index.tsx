@@ -2,15 +2,15 @@ import { Fragment } from "preact/jsx-runtime";
 import { useMobile } from "@/common/hooks";
 import { cn } from "@/common/lib/utils";
 import { pause } from "@/player/actions";
+import { useDraggable } from "@/widget/components/draggable";
 import { useGuideStore } from "@/widget/components/guide/store";
+import { AppOverlay } from "@/widget/components/ui/app-overlay";
 import { Button } from "@/widget/components/ui/button";
 import { Icon } from "@/widget/components/ui/icon";
 import { Spacer } from "@/widget/components/ui/spacer";
 import { useWidgetStore } from "@/widget/stores/use-widget.store";
-import { useDraggable } from "../draggable";
-import { AppOverlay } from "../ui/app-overlay";
-import { ExpandOption } from "./expand-option";
-import { WidgetMenu } from "./menu";
+import { ExpandOption } from "./components/expand-option";
+import { WidgetMenu } from "./components/menu";
 
 export const WidgetHeader = () => {
 	const { onPointerDown } = useDraggable();
