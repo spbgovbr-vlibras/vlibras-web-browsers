@@ -7,7 +7,7 @@ import { playerStore } from "@/player/stores/use-player.store";
 import { Button } from "@/widget/components/ui/button";
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/widget/components/ui/dialog";
 import { createCallback } from "@/widget/stores/use-callback.store";
-import { widgetStore } from "@/widget/stores/use-widget.store";
+import { useWidgetStore, widgetStore } from "@/widget/stores/use-widget.store";
 import { onFeedbackSuccess } from "@/widget/utils/feedback";
 import { applySuggestion, getCaretCoordinates, getCurrentWord } from "./lib/suggestions";
 import { feedbackSuggestionStore } from "./stores/use-feedback-suggestion.store";
@@ -21,6 +21,7 @@ type Props = {
 export const FeedbackSuggestion = ({ open, onOpenChange }: Props) => {
 	const textareaRef = useRef<HTMLTextAreaElement>(null);
 	const isMobile = useMobile();
+	const text = useWidgetStore((s) => s.text);
 
 	const { data } = useDictionarySigns();
 	const { mutateAsync: sendFeedback, isPending } = useSendFeedback();
@@ -102,9 +103,17 @@ export const FeedbackSuggestion = ({ open, onOpenChange }: Props) => {
 				<DialogHeader>
 					<DialogTitle icon="comment">Feedback</DialogTitle>
 				</DialogHeader>
-				<div className="flex h-full flex-col gap-2 px-4 py-4">
+				<div className="flex h-full flex-col gap-2 overflow-y-auto px-4 py-4">
+					{!!text && (
+						<div>
+							<p title={text} className="break-anywhere line-clamp-3 text-muted-foreground text-xs">
+								<strong>Texto traduzido:</strong> {text}
+							</p>
+						</div>
+					)}
+
 					<div className="flex items-center justify-between">
-						<label for="translator-input" className="font-semibold mobile:text-sm text-muted-foreground">
+						<label for="translator-input" className="font-semibold text-sm">
 							Informe a glosa correta
 						</label>
 					</div>
@@ -115,7 +124,7 @@ export const FeedbackSuggestion = ({ open, onOpenChange }: Props) => {
 							id="translator-input"
 							value={value}
 							placeholder="Digite aqui..."
-							className="h-40 mobile:h-32 w-full resize-none rounded-lg border bg-muted p-3 mobile:text-sm uppercase placeholder:normal-case"
+							className="h-40 mobile:h-32 w-full resize-none rounded-lg border bg-muted p-3 text-sm uppercase placeholder:normal-case"
 							rows={isMobile ? 4 : 6}
 							onChange={handleInput}
 						/>
