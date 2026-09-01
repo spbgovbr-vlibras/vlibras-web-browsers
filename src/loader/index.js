@@ -89,12 +89,14 @@
 
     const wrapper = document.createElement("div");
     const shadow = wrapper.attachShadow({ mode: "open" });
+
     wrapper.id = "vlibras-access-wrapper";
 
     shadow.innerHTML = template;
     document.body.appendChild(wrapper);
 
     const initBtn = shadow.querySelector("#vlibras-button");
+    const access = shadow.querySelector("#vlibras-access");
 
     const open = () => {
       if (widget) {
@@ -116,6 +118,7 @@
 
     initBtn.onclick = open;
     vw.initBtn = initBtn;
+    vw.access = access;
     vw.open = open;
 
     try {
