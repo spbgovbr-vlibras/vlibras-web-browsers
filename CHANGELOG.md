@@ -1,5 +1,18 @@
 # Changelog
 
+# [7.12.0](https://gitlab.lavid.ufpb.br/vlibras2019/vlibras-web-extensions/vlibras-web-browsers/compare/v7.11.0...v7.12.0) (2026-09-03)
+
+### Bug Fixes
+
+* **deps:** patch security vulnerabilities ([26bc03a](https://gitlab.lavid.ufpb.br/vlibras2019/vlibras-web-extensions/vlibras-web-browsers/commit/26bc03a3305e24c3284995c2e4e6dc7b3e46621b))
+
+### Features
+
+* add focus-visible accessibility styles for vlibras-button ([ff0895f](https://gitlab.lavid.ufpb.br/vlibras2019/vlibras-web-extensions/vlibras-web-browsers/commit/ff0895f8e5833cdab90f196ed58d81e108d95270))
+* **loader:** expose access widget instance via `access` property ([5d4a126](https://gitlab.lavid.ufpb.br/vlibras2019/vlibras-web-extensions/vlibras-web-browsers/commit/5d4a12669c935013ef1d815ad8ac779e1b9cea82))
+* **widget:** improve dialog accessibility and close button customization ([f04ed6d](https://gitlab.lavid.ufpb.br/vlibras2019/vlibras-web-extensions/vlibras-web-browsers/commit/f04ed6dbaeacbf760d0a15ae5730770ee8dc5e63))
+* **widget:** improve header menu and avatar button layout ([655af33](https://gitlab.lavid.ufpb.br/vlibras2019/vlibras-web-extensions/vlibras-web-browsers/commit/655af33aba2aa39af3b102714a0f6badbfec5cfd))
+
 # [7.11.0](https://gitlab.lavid.ufpb.br/vlibras2019/vlibras-web-extensions/vlibras-web-browsers/compare/v7.10.0...v7.11.0) (2026-08-31)
 
 ### Bug Fixes
