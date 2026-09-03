@@ -8,7 +8,7 @@
   <p>Acessibilidade digital através da tradução para Língua Brasileira de Sinais (Libras).</p>
 
   <p>
-    <a href="https://github.com/spbgovbr-vlibras/vlibras-web-browsers/tags"><img src="https://img.shields.io/badge/Versão-7.12.0-blue" alt="Versão" /></a>
+    <a href="https://github.com/spbgovbr-vlibras/vlibras-web-browsers/tags"><img src="https://img.shields.io/badge/Versão-7.12.1-blue" alt="Versão" /></a>
     <a href="LICENSE"><img src="https://img.shields.io/badge/Licença-LGPL--3.0-blue" alt="Licença" /></a>
     <a href="https://www.vlibras.gov.br/"><img src="https://img.shields.io/badge/Suíte%20VLibras-2026-green.svg?logo=data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAA4AAAAUCAYAAAC9BQwsAAAABmJLR0QA/wD/AP+gvaeTAAAACXBIWXMAAA3XAAAN1wFCKJt4AAAAB3RJTUUH4wIHCiw3NwjjIgAAAQ9JREFUOMuNkjErhWEYhq/nOBmkDNLJaFGyyyYsZzIZKJwfcH6AhcFqtCvFDzD5CQaTFINSlJJBZHI6J5flU5/P937fube357m63+d+nqBEagNYA9pAExgABxHxktU3882hjqtd9d7/+lCPsvpDZNA+MAXsABNU6xHYQ912ON2qC2qQ/X+J4XQXEVe/jwawCzwNAZp/NCLiDVgHejXgKIkVdGpm/FKXU/BJDfytbpWBLfWzAjxVx1Kuxwno5k84Jex0IpyzdN46qfYSjq18bzMHzQHXudifgQtgBuhHxGvKbaPg0Klaan7GdqE2W39LOq8OCo6X6kgdeJ4IZKUKWq1Y+GHVjF3gveTIe8BiCvwBEZmRAXuH6mYAAAAASUVORK5CYII=" alt="Suíte VLibras" /></a>
   </p>

@@ -1,7 +1,7 @@
 {
 	"manifest_version": 3,
 	"name": "VLibras",
-	"version": "7.12.0",
+	"version": "7.12.1",
 	"description": "Um tradutor de Português para Libras",
 	"homepage_url": "https://www.gov.br/governodigital/pt-br/acessibilidade-e-usuario/vlibras",
 	"icons": {

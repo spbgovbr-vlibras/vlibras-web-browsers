@@ -1,5 +1,11 @@
 # Changelog
 
+## [7.12.1](https://gitlab.lavid.ufpb.br/vlibras2019/vlibras-web-extensions/vlibras-web-browsers/compare/v7.12.0...v7.12.1) (2026-09-03)
+
+### Bug Fixes
+
+* **a11y:** add alt text to widget popup and button images ([2e864dc](https://gitlab.lavid.ufpb.br/vlibras2019/vlibras-web-extensions/vlibras-web-browsers/commit/2e864dc56c5243ec4b885a34d30ccb4708a172c9))
+
 # [7.12.0](https://gitlab.lavid.ufpb.br/vlibras2019/vlibras-web-extensions/vlibras-web-browsers/compare/v7.11.0...v7.12.0) (2026-09-03)
 
 ### Bug Fixes
