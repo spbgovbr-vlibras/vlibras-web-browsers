@@ -10,21 +10,17 @@
     avatar,
     position,
   ) {
-    if (path && typeof path === "object") {
-      Object.assign(vw, {
-        path: path.rootPath || vw.path,
-        avatar: path.avatar,
-        position: path.position,
-        personalization: path.personalization,
-      });
-    } else {
-      Object.assign(vw, {
-        path: path || vw.path,
-        personalization,
-        avatar,
-        position,
-      });
-    }
+    const cfg =
+      path && typeof path === "object"
+        ? path
+        : { rootPath: path, personalization, avatar, position };
+
+    Object.assign(vw, {
+      path: cfg.rootPath || vw.path,
+      personalization: cfg.personalization,
+      avatar: cfg.avatar,
+      position: cfg.position,
+    });
 
     renderWidget();
   };
@@ -77,11 +73,10 @@
         z-index: 1;
         position: absolute;
         width: 40px;
-        height: 40px;
         border: none;
         padding: 0;
         cursor: pointer;
-        outline: var(--vlibras-btn-outline, 2px solid #fff);
+        outline: var(--vlibras-btn-outline);
 
         &:focus-visible {
           outline: var(--vlibras-btn-focus-visible-outline, 2px solid #fff);
