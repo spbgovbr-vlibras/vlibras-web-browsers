@@ -73,13 +73,13 @@ export const ToggleAvatarButton = () => {
 					{avatars
 						.filter(({ name }) => name !== avatar)
 						.map((avatar) => (
-							<li key={avatar.name} className="flex animate-move-up items-center justify-end gap-2">
+							<li key={avatar.name} className="flex animate-move-up items-center justify-end gap-1">
 								{!(isGuideSelected && isExpanded) && (
 									<Button
 										tabindex={-1}
 										onClick={() => handleSelectAvatar(avatar.name)}
 										variant="outline"
-										className="w-16 rounded-full bg-background capitalize hover:bg-muted!"
+										className="w-fit whitespace-nowrap rounded-full bg-background font-semibold capitalize hover:bg-muted!"
 										size="xs"
 									>
 										{avatar.name}

@@ -37,8 +37,8 @@ export const WidgetMenu = () => {
 				</DropdownTrigger>
 
 				<DropdownContent className="mt-4 space-y-1 [&_button]:dark:text-secondary-foreground">
-					<MenuOption onClick={() => open("dictionary")} label="Dicionário" icon="dictionary" />
 					<MenuOption onClick={() => setTranslatorOpen(true)} label="Tradutor" icon="translator" />
+					<MenuOption onClick={() => open("dictionary")} label="Dicionário" icon="dictionary" />
 					{!__IS_EXTENSION__ && <MenuOption onClick={() => onGuideOpen(true)} label="Guia Rápido" icon="help" />}
 					<MenuOption onClick={() => open("about")} label="Sobre o VLibras" icon="info" />
 				</DropdownContent>

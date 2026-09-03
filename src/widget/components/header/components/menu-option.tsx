@@ -24,7 +24,13 @@ export const MenuOption = ({ label, onClick, icon: iconName }: Props) => {
 				{iconName && <Icon name={iconName} className="mobile:size-5 size-5.5" />}
 			</Button>
 
-			<Button tabindex={-1} onClick={onClick} variant="outline" className="w-30" size="xs">
+			<Button
+				tabindex={-1}
+				onClick={onClick}
+				variant="outline"
+				className="w-fit whitespace-nowrap font-semibold"
+				size="xs"
+			>
 				{label}
 			</Button>
 		</li>
