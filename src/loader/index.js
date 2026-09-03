@@ -47,50 +47,51 @@
       </button>
   </div>
   <style>
-  #vlibras-access {
-      display: flex;
-      align-items: center;
-      position: fixed;
-      z-index: 2147483639;
-      ${position}: 10px;
-      flex-direction: ${position === "left" ? "row-reverse" : "row"};
-      top: calc(50vh - 20px);
-      transition: all .5s ease;
-      width: 40px;
-      height: 40px;
+    #vlibras-access {
+        display: flex;
+        align-items: center;
+        position: fixed;
+        z-index: 2147483639;
+        ${position}: 10px;
+        flex-direction: ${position === "left" ? "row-reverse" : "row"};
+        top: calc(50vh - 20px);
+        transition: all .5s ease;
+        width: 40px;
+        height: 40px;
 
-      &:hover,
-      &:has(#vlibras-button:focus-visible) { 
-          width: 200px;
-      }
-  }
+        &:hover,
+        &:has(#vlibras-button:focus-visible) { 
+            width: 200px;
+        }
+    }
 
-  #vlibras-button,
-  #vlibras-popup {
-      border-radius: 8px;
-      overflow: hidden;
-      height: 40px;
-  }
+    #vlibras-button,
+    #vlibras-popup {
+        border-radius: 8px;
+        overflow: hidden;
+        height: 40px;
+    }
 
-  #vlibras-button {
-      ${position}: 0;
-      z-index: 1;
-      position: absolute;
-      width: 40px;
-      height: 40px;
-      border: none;
-      padding: 0;
-      cursor: pointer;
+    #vlibras-button {
+        ${position}: 0;
+        z-index: 1;
+        position: absolute;
+        width: 40px;
+        height: 40px;
+        border: none;
+        padding: 0;
+        cursor: pointer;
+        outline: var(--vlibras-btn-outline, 2px solid #fff);
 
-      &:focus-visible {
-        outline: 2px solid #fff;
-        box-shadow: 0 0 10px 4px #1351b4;
-      }
+        &:focus-visible {
+          outline: var(--vlibras-btn-focus-visible-outline, 2px solid #fff);
+          box-shadow: var(--vlibras-btn-focus-visible-shadow, 0 0 10px 4px #1351b4);
+        }
 
-      &:hover { 
-          filter: brightness(1.1);
-      }
-  }
+        &:hover { 
+            filter: var(--vlibras-btn-hover-filter, brightness(1.1));
+        }
+    }
   </style>`;
 
     const wrapper = document.createElement("div");
