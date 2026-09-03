@@ -59,7 +59,8 @@
       width: 40px;
       height: 40px;
 
-      &:hover { 
+      &:hover,
+      &:has(#vlibras-button:focus-visible) { 
           width: 200px;
       }
   }
@@ -80,6 +81,11 @@
       border: none;
       padding: 0;
       cursor: pointer;
+
+      &:focus-visible {
+        outline: 2px solid #fff;
+        box-shadow: 0 0 10px 4px #1351b4;
+      }
 
       &:hover { 
           filter: brightness(1.1);
