@@ -20,6 +20,7 @@
       personalization: cfg.personalization,
       avatar: cfg.avatar,
       position: cfg.position,
+      showButton: cfg.showButton !== false,
     });
 
     renderWidget();
@@ -89,22 +90,8 @@
     }
   </style>`;
 
-    const wrapper = document.createElement("div");
-    const shadow = wrapper.attachShadow({ mode: "open" });
-
-    wrapper.id = "vlibras-access-wrapper";
-
-    shadow.innerHTML = template;
-    document.body.appendChild(wrapper);
-
-    const initBtn = shadow.querySelector("#vlibras-button");
-    const access = shadow.querySelector("#vlibras-access");
-
     const open = () => {
-      if (widget) {
-        widget.dataset.active = "true";
-        return;
-      }
+      if (widget) return (widget.dataset.active = true);
 
       const script = document.createElement("script");
       script.type = "module";
@@ -112,16 +99,37 @@
       script.async = true;
       script.onload = () => {
         widget = document.getElementById("vlibras-app-root");
-        if (widget) widget.dataset.active = "true";
+        if (widget) widget.dataset.active = true;
       };
 
       document.body.appendChild(script);
     };
 
-    initBtn.onclick = open;
-    vw.initBtn = initBtn;
-    vw.access = access;
+    const toggle = (_open) => {
+      const shouldOpen = _open ?? widget?.dataset.active !== "true";
+      if (shouldOpen) open();
+      else if (widget) widget.dataset.active = false;
+    };
+
+    if (vw.showButton) {
+      const wrapper = document.createElement("div");
+      const shadow = wrapper.attachShadow({ mode: "open" });
+
+      wrapper.id = "vlibras-access-wrapper";
+
+      shadow.innerHTML = template;
+      document.body.appendChild(wrapper);
+
+      const initBtn = shadow.querySelector("#vlibras-button");
+      const access = shadow.querySelector("#vlibras-access");
+
+      initBtn.onclick = open;
+      vw.initBtn = initBtn;
+      vw.access = access;
+    }
+
     vw.open = open;
+    vw.toggle = toggle;
 
     try {
       if (localStorage["@vlibras-widget"]?.includes('"isOpen":true')) open();
