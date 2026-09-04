@@ -26,6 +26,8 @@ type TextCaptureProps = {
 	isWordByWord?: boolean;
 };
 
+const SYNTHETIC_CLICK_FLAG = "__vlibrasSyntheticClick";
+
 export const textCapture = ({ callback, isWordByWord, hoverClss, activeClass }: TextCaptureProps) => {
 	const handleMouseOver = (event: MouseEvent) => {
 		if (!hoverClss) return;
@@ -57,6 +59,8 @@ export const textCapture = ({ callback, isWordByWord, hoverClss, activeClass }: 
 	};
 
 	const handleClick = (event: MouseEvent) => {
+		if ((event as unknown as Record<string, unknown>)[SYNTHETIC_CLICK_FLAG]) return;
+
 		const element = event.target as HTMLElement;
 		const selection = window.getSelection();
 		const selectedText = selection?.toString().trim();
@@ -105,7 +109,9 @@ export const textCapture = ({ callback, isWordByWord, hoverClss, activeClass }: 
 			event: event as MouseEvent,
 			type: isLink ? "link" : "button",
 			onClick: () => {
-				element.dispatchEvent(new MouseEvent("click", { bubbles: true }));
+				const syntheticClick = new MouseEvent("click", { bubbles: true, cancelable: true });
+				Object.defineProperty(syntheticClick, SYNTHETIC_CLICK_FLAG, { value: true });
+				element.dispatchEvent(syntheticClick);
 				tooltipStore.set({ isActive: false });
 			},
 		});

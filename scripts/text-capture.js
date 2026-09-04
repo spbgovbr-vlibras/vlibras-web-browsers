@@ -19,6 +19,7 @@ const HIGHLIGHT_STYLE_KEY = "vlibrasTextCaptureTextDecoration";
 const HIGHLIGHT_OFFSET_KEY = "vlibrasTextCaptureTextUnderlineOffset";
 const HIGHLIGHT_THICKNESS_KEY = "vlibrasTextCaptureTextDecorationThickness";
 const HIGHLIGHT_CURSOR_KEY = "vlibrasTextCaptureCursor";
+const SYNTHETIC_CLICK_FLAG = "__vlibrasSyntheticClick";
 
 function loadTextCaptureScript() {
   if (!document.body) return;
@@ -96,6 +97,8 @@ function loadTextCaptureScript() {
   }
 
   function translateContent(event) {
+    if (event[SYNTHETIC_CLICK_FLAG]) return;
+
     removeTooltips();
     const element = event.target;
     if (!isElement(element)) return;
@@ -139,9 +142,9 @@ function loadTextCaptureScript() {
 
   function clickHandler(element, event = null) {
     if (event) event.stopPropagation();
-    document.removeEventListener("click", translateContent, true);
-    element.dispatchEvent(new MouseEvent("click", { bubbles: true }));
-    document.addEventListener("click", translateContent, true);
+    const syntheticClick = new MouseEvent("click", { bubbles: true, cancelable: true });
+    Object.defineProperty(syntheticClick, SYNTHETIC_CLICK_FLAG, { value: true });
+    element.dispatchEvent(syntheticClick);
   }
 
   function removeHighlight(event) {
