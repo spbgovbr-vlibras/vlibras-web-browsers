@@ -1,5 +1,11 @@
 # Changelog
 
+## [7.12.2](https://gitlab.lavid.ufpb.br/vlibras2019/vlibras-web-extensions/vlibras-web-browsers/compare/v7.12.1...v7.12.2) (2026-09-04)
+
+### Bug Fixes
+
+* **text-capture:** ignore synthetic clicks in content script tooltip handler ([c37b7e5](https://gitlab.lavid.ufpb.br/vlibras2019/vlibras-web-extensions/vlibras-web-browsers/commit/c37b7e5279c1c7ce57d02540044e57bc01b9be93))
+
 ## [7.12.1](https://gitlab.lavid.ufpb.br/vlibras2019/vlibras-web-extensions/vlibras-web-browsers/compare/v7.12.0...v7.12.1) (2026-09-03)
 
 ### Bug Fixes
