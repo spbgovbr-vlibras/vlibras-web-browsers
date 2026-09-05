@@ -51,6 +51,10 @@ O repositório usa `husky`, `lint-staged`, `commitlint` e `biome`. Isso signific
 
 Tipos de commit aceitos: `build`, `chore`, `ci`, `docs`, `feat`, `fix`, `perf`, `refactor`, `revert`, `style`, `test`, `raw`.
 
+Mensagens de commit devem ser escritas em **inglês**, mesmo que o restante da documentação do projeto esteja em português.
+
+Letras maiúsculas só são permitidas quando a palavra estiver entre parênteses (escopo, ex: `fix(CI): ...`) ou entre crases (trecho de código, ex: `` `String.prototype` ``). Fora isso, o restante da mensagem deve ficar em minúsculas, mesmo para nomes próprios (ex: `typescript`, `preact`).
+
 ## Stack e princípios
 
 - Use `Preact` com `TypeScript`.
