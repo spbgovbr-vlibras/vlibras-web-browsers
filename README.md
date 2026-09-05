@@ -11,6 +11,7 @@
     <a href="https://github.com/spbgovbr-vlibras/vlibras-web-browsers/tags"><img src="https://img.shields.io/badge/Versão-7.12.2-blue" alt="Versão" /></a>
     <a href="LICENSE"><img src="https://img.shields.io/badge/Licença-LGPL--3.0-blue" alt="Licença" /></a>
     <a href="https://www.vlibras.gov.br/"><img src="https://img.shields.io/badge/Suíte%20VLibras-2026-green.svg?logo=data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAA4AAAAUCAYAAAC9BQwsAAAABmJLR0QA/wD/AP+gvaeTAAAACXBIWXMAAA3XAAAN1wFCKJt4AAAAB3RJTUUH4wIHCiw3NwjjIgAAAQ9JREFUOMuNkjErhWEYhq/nOBmkDNLJaFGyyyYsZzIZKJwfcH6AhcFqtCvFDzD5CQaTFINSlJJBZHI6J5flU5/P937fube357m63+d+nqBEagNYA9pAExgABxHxktU3882hjqtd9d7/+lCPsvpDZNA+MAXsABNU6xHYQ912ON2qC2qQ/X+J4XQXEVe/jwawCzwNAZp/NCLiDVgHejXgKIkVdGpm/FKXU/BJDfytbpWBLfWzAjxVx1Kuxwno5k84Jex0IpyzdN46qfYSjq18bzMHzQHXudifgQtgBuhHxGvKbaPg0Klaan7GdqE2W39LOq8OCo6X6kgdeJ4IZKUKWq1Y+GHVjF3gveTIe8BiCvwBEZmRAXuH6mYAAAAASUVORK5CYII=" alt="Suíte VLibras" /></a>
+    <a href="https://github.com/spbgovbr-vlibras/vlibras-web-browsers/actions"><img src="https://img.shields.io/badge/Testes-Passing-brightgreen" alt="Testes" /></a>
   </p>
 
   <p>
@@ -50,7 +51,9 @@ Saiba mais sobre a Suíte VLibras no <a href="https://vlibras.gov.br/">site ofic
 - **Biome** - Ferramenta rápida para formatação, linting e análise de código;
 - **Husky** - Ferramenta para configurar hooks do Git e garantir verificações de qualidade antes dos commits;
 - **Commitlint** - Linter para garantir que as mensagens de commit sigam um formato convencional;
-- **release-it** - Automação do processo de versionamento, incluindo geração de tags, commits e changelogs.
+- **release-it** - Automação do processo de versionamento, incluindo geração de tags, commits e changelogs;
+- **Vitest** - Framework de testes rápido e integrado com Vite;
+- **@testing-library/preact** - Biblioteca de testes para componentes Preact.
 
 ## Iniciando
 
@@ -119,6 +122,20 @@ _Outros modos_: **`pnpm build:dev`** (utiliza links de **ovh**) e **`pnpm build:
 - **`pnpm build:extension`** - Gera e integra os pacotes para **ambas as lojas** (Chrome e Firefox).
 - **`pnpm build:chrome`** - Gera e integra o pacote para a **Chrome Web Store** (`extensions/chrome`).
 - **`pnpm build:firefox`** - Gera e integra o pacote para o **Firefox Add-ons** (`extensions/firefox`).
+
+## Testes
+
+O projeto utiliza **Vitest** com **@testing-library/preact** para testes unitários e de hooks.
+
+### Executando os testes
+
+```bash
+pnpm test              # Roda todos os testes uma vez
+pnpm test:watch        # Roda em modo watch
+pnpm test:coverage     # Roda com cobertura de código
+```
+
+Os testes estão localizados em `src/**/*.test.ts` e utilizam o ambiente **jsdom** para simular o DOM. O setup dos testes está em `src/test/setup.ts`.
 
 ## Versionamento
 
