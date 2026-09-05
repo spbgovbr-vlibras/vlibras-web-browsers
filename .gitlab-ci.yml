@@ -1,8 +1,10 @@
 stages:
+  - audit
   - test
+  - lint
 
 audit:
-  stage: test
+  stage: audit
   image: node:22-alpine
   rules:
     - if: '$CI_MERGE_REQUEST_TARGET_BRANCH_NAME == "master"'
@@ -12,3 +14,29 @@ audit:
   script:
     - pnpm install --frozen-lockfile
     - pnpm audit --audit-level=high
+
+test:
+  stage: test
+  image: node:22-alpine
+  rules:
+    - if: '$CI_PIPELINE_SOURCE == "merge_request_event"'
+    - if: '$CI_COMMIT_BRANCH == "master"'
+  before_script:
+    - corepack enable
+    - corepack prepare pnpm@9.15.0 --activate
+  script:
+    - pnpm install --frozen-lockfile
+    - pnpm test
+
+lint:
+  stage: lint
+  image: node:22-alpine
+  rules:
+    - if: '$CI_PIPELINE_SOURCE == "merge_request_event"'
+    - if: '$CI_COMMIT_BRANCH == "master"'
+  before_script:
+    - corepack enable
+    - corepack prepare pnpm@9.15.0 --activate
+  script:
+    - pnpm install --frozen-lockfile
+    - pnpm check
