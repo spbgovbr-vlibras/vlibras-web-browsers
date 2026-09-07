@@ -1,7 +1,8 @@
 import type { RefObject } from "preact";
-import { useEffect } from "preact/hooks";
+import { useEffect, useRef } from "preact/hooks";
 import { usePick } from "@/common/hooks";
 import { cn } from "@/common/lib/utils";
+import { pause } from "@/player/actions";
 import { WidgetAppProviders } from "@/widget/providers/widget/app";
 import { WidgetWrapperProviders } from "@/widget/providers/widget/wrapper";
 import { appVariants } from "./app-variants";
@@ -13,22 +14,45 @@ import { useWidgetPosition } from "./hooks/use-widget-position";
 import { rootStore } from "./stores/use-root.store";
 import { useScreensStore } from "./stores/use-screens.store";
 import { useWidgetStore } from "./stores/use-widget.store";
+import { focusAccessButton, trapTabFocus } from "./utils/focus";
 
 export const WidgetApp = () => {
 	const screen = useScreensStore((s) => s.screen);
 	const position = useWidgetPosition();
 
 	const { isOpen, isExpanded } = useWidgetStore(usePick("isOpen", "isExpanded"));
+	const setOpen = useWidgetStore((s) => s.setOpen);
 
 	return (
-		<Draggable<HTMLDivElement>>
+		<Draggable<HTMLElement>>
 			{({ ref: draggableRef, hasMoved, pos, isDragging, reset }) => {
+				const panelRef = useRef<HTMLElement | null>(null);
+				const prevOpenRef = useRef(isOpen);
+
 				useEffect(() => void (!isOpen && reset()), [isOpen]);
+
+				useEffect(() => {
+					const wasOpen = prevOpenRef.current;
+					prevOpenRef.current = isOpen;
+
+					if (isOpen && !wasOpen) {
+						requestAnimationFrame(() => panelRef.current?.focus({ preventScroll: true }));
+					} else if (!isOpen && wasOpen) {
+						focusAccessButton();
+					}
+				}, [isOpen]);
 
 				return (
 					<div
 						id="vlibras-app"
 						inert={!isOpen}
+						{...{
+							onKeyDown: (e: KeyboardEvent) => {
+								if (e.key !== "Escape") return;
+								setOpen(false);
+								pause();
+							},
+						}}
 						style={{ transform: hasMoved && isOpen ? `translate3d(${pos.x}px, ${pos.y}px, 0)` : undefined }}
 						className={cn(
 							appVariants({
@@ -41,12 +65,18 @@ export const WidgetApp = () => {
 							__IS_EXTENSION__ && "translate-none! inset-0! transition-none!",
 						)}
 					>
-						<div
+						<section
+							id="vlibras-app-panel"
+							tabIndex={-1}
+							aria-label="Painel VLibras"
+							onKeyDown={(e) => trapTabFocus(panelRef.current, e)}
 							ref={(ref) => {
-								if (ref) rootStore.set({ appRoot: ref });
-								if (typeof draggableRef === "function") draggableRef(ref);
+								panelRef.current = ref;
+								if (ref) rootStore.set({ appRoot: ref as unknown as HTMLDivElement });
+								if (typeof draggableRef === "function")
+									(draggableRef as unknown as (ref: HTMLElement | null) => void)(ref);
 								else if (draggableRef && "current" in draggableRef) {
-									(draggableRef as RefObject<HTMLDivElement | null>).current = ref;
+									(draggableRef as RefObject<HTMLElement | null>).current = ref;
 								}
 							}}
 							className={cn(
@@ -60,7 +90,7 @@ export const WidgetApp = () => {
 
 							<AppBackground />
 							<AppOverlay />
-						</div>
+						</section>
 
 						<WidgetWrapperProviders />
 					</div>

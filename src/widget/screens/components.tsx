@@ -1,15 +1,53 @@
 import type { ComponentProps } from "preact";
+import { useEffect, useRef } from "preact/hooks";
 import { useMobile } from "@/common/hooks";
 import { cn } from "@/common/lib/utils";
 import { useDraggable } from "@/widget/components/draggable";
 import { Button, type ButtonProps } from "@/widget/components/ui/button";
 import { Icon } from "@/widget/components/ui/icon";
+import { rootStore } from "@/widget/stores/use-root.store";
 import { useScreensStore } from "@/widget/stores/use-screens.store";
+import { trapTabFocus } from "@/widget/utils/focus";
 
 export const Screen = ({ children, className, ...props }: ComponentProps<"div">) => {
+	const ref = useRef<HTMLDivElement | null>(null);
+	const triggerRef = useRef<HTMLElement | null>(null);
+	const closeAll = useScreensStore((s) => s.closeAll);
+
+	useEffect(() => {
+		const { shadowRoot } = rootStore.get();
+		const active = (shadowRoot?.activeElement ?? document.activeElement) as HTMLElement | null;
+		if (active && active !== document.body) triggerRef.current = active;
+
+		const frame = requestAnimationFrame(() => ref.current?.focus({ preventScroll: true }));
+
+		return () => {
+			cancelAnimationFrame(frame);
+			const trigger = triggerRef.current;
+			triggerRef.current = null;
+
+			if (trigger?.isConnected) {
+				trigger.focus({ preventScroll: true });
+				return;
+			}
+
+			rootStore.get().appRoot?.querySelector<HTMLElement>("#header-menu-button")?.focus({ preventScroll: true });
+		};
+	}, []);
+
 	return (
+		// biome-ignore lint/a11y/noStaticElementInteractions: container focável (tabindex -1) só repassa Escape para voltar à tela principal
 		<div
-			autofocus
+			ref={ref}
+			tabIndex={-1}
+			onKeyDown={(e) => {
+				if (e.key === "Escape") {
+					e.stopPropagation();
+					closeAll();
+					return;
+				}
+				trapTabFocus(ref.current, e);
+			}}
 			className={cn(
 				"widget-radius absolute inset-0 z-999999 flex animate-move-right flex-col bg-background",
 				className,

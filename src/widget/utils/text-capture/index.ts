@@ -108,6 +108,7 @@ export const textCapture = ({ callback, isWordByWord, hoverClss, activeClass }: 
 			isActive: true,
 			event: event as MouseEvent,
 			type: isLink ? "link" : "button",
+			element,
 			onClick: () => {
 				const syntheticClick = new MouseEvent("click", { bubbles: true, cancelable: true });
 				Object.defineProperty(syntheticClick, SYNTHETIC_CLICK_FLAG, { value: true });

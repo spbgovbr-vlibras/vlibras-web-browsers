@@ -9,7 +9,7 @@ import { normalizePosition } from "./utils";
 export const TextCaptureTooltip = () => {
 	const tooltipRef = useRef<HTMLButtonElement>(null);
 
-	const { type, event, onClick, isActive, render } = useTooltipStore();
+	const { type, event, onClick, isActive, render, element } = useTooltipStore();
 	const [position, setPosition] = useState({ x: 0, y: 0, arrow: "bottom" });
 
 	useEffect(() => {
@@ -19,13 +19,24 @@ export const TextCaptureTooltip = () => {
 			}
 		};
 
-		if (isActive) document.addEventListener("click", handleClickOutside);
-		else document.removeEventListener("click", handleClickOutside);
+		const handleEscape = (e: KeyboardEvent) => {
+			if (e.key !== "Escape") return;
+			e.stopPropagation();
+			tooltipStore.set({ isActive: false });
+			if (element?.isConnected) element.focus({ preventScroll: true });
+		};
+
+		if (isActive) {
+			document.addEventListener("click", handleClickOutside);
+			document.addEventListener("keydown", handleEscape);
+			requestAnimationFrame(() => tooltipRef.current?.focus({ preventScroll: true }));
+		} else document.removeEventListener("click", handleClickOutside);
 
 		return () => {
 			document.removeEventListener("click", handleClickOutside);
+			document.removeEventListener("keydown", handleEscape);
 		};
-	}, [isActive]);
+	}, [isActive, element]);
 
 	useEffect(() => {
 		if (event && tooltipRef.current) {

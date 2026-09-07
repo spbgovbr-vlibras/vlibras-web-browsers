@@ -1,6 +1,6 @@
 import { type ComponentChildren, type ComponentProps, createContext } from "preact";
 import { createPortal } from "preact/compat";
-import { useContext, useEffect, useState } from "preact/hooks";
+import { useContext, useEffect, useRef, useState } from "preact/hooks";
 import { useMobile } from "@/common/hooks";
 import { cn } from "@/common/lib/utils";
 import { randomStr } from "@/common/utils";
@@ -10,6 +10,7 @@ import { playerStore, usePlayerStore } from "@/player/stores/use-player.store";
 import type { IconName } from "@/widget/icons/types";
 import { rootStore, useRootStore } from "@/widget/stores/use-root.store";
 import { widgetStore } from "@/widget/stores/use-widget.store";
+import { trapTabFocus } from "@/widget/utils/focus";
 import { Button, type ButtonProps } from "./button";
 import { Icon } from "./icon";
 
@@ -23,11 +24,13 @@ type DialogContextProps = {
 const DialogContext = createContext<DialogContextProps | null>(null);
 
 const DialogWrapper = ({ children }: { children: ComponentChildren }) => {
-	const id = randomStr();
+	const [id] = useState(randomStr);
 	const context = useContext(DialogContext);
 	const isPlaying = usePlayerStore((s) => s.status === "playing");
 
 	const [closed, setClosed] = useState(true);
+	const wrapperRef = useRef<HTMLDivElement | null>(null);
+	const triggerRef = useRef<HTMLElement | null>(null);
 
 	useEffect(() => void (isPlaying && !closed && context?.onOpenChange(false)), [isPlaying]);
 
@@ -56,16 +59,55 @@ const DialogWrapper = ({ children }: { children: ComponentChildren }) => {
 		return () => clearTimeout(timer);
 	}, [context?.open, context?.overlay, context?.nested]);
 
+	useEffect(() => {
+		if (!context?.open) return;
+
+		const { shadowRoot } = rootStore.get();
+		const active = (shadowRoot?.activeElement ?? document.activeElement) as HTMLElement | null;
+		if (active && active !== document.body) triggerRef.current = active;
+	}, [context?.open]);
+
+	useEffect(() => {
+		if (!context?.open || closed) return;
+
+		const frame = requestAnimationFrame(() => {
+			const content = wrapperRef.current?.querySelector<HTMLElement>('[data-slot="dialog-content"]');
+			content?.focus({ preventScroll: true });
+		});
+		return () => cancelAnimationFrame(frame);
+	}, [context?.open, closed]);
+
+	useEffect(() => {
+		if (context?.open) return;
+
+		const trigger = triggerRef.current;
+		if (trigger?.isConnected) {
+			requestAnimationFrame(() => trigger.focus({ preventScroll: true }));
+		}
+		triggerRef.current = null;
+	}, [context?.open]);
+
 	if (!context || closed) return null;
 	if (!context.overlay) return <div className="absolute inset-0 top-auto">{children}</div>;
 
 	return (
 		<div
+			ref={wrapperRef}
 			id={`dialog-${id}`}
 			data-slot="dialog-wrapper"
 			data-state={context.open ? "open" : "close"}
 			className={cn("group absolute inset-0 z-99999 flex items-end bg-black/20", context.nested && "bg-transparent!")}
-			{...{ onClick: () => context.onOpenChange(false) }}
+			{...{
+				onClick: () => context.onOpenChange(false),
+				onKeyDown: (e: KeyboardEvent) => {
+					if (e.key === "Escape") {
+						e.stopPropagation();
+						context.onOpenChange(false);
+						return;
+					}
+					trapTabFocus(wrapperRef.current?.querySelector<HTMLElement>('[data-slot="dialog-content"]'), e);
+				},
+			}}
 		>
 			{children}
 		</div>
@@ -195,6 +237,7 @@ export const DialogContent = ({
 				data-slot="dialog-content"
 				role="dialog"
 				aria-modal="true"
+				tabIndex={-1}
 				className={cn(
 					"dialog-content widget-radius relative flex max-h-full w-full animate-move-up flex-col border bg-background",
 					"transition-[margin] duration-500 ease-in-out group-data-[state=close]:-mb-100",
