@@ -6,7 +6,7 @@ describe("useDebouncedCallback", () => {
 	beforeEach(() => vi.useFakeTimers());
 	afterEach(() => vi.useRealTimers());
 
-	it("deve invocar o callback após o delay", () => {
+	it("should invoke the callback after the delay", () => {
 		const callback = vi.fn();
 		const { result } = renderHook(() => useDebouncedCallback(callback, 300));
 
@@ -23,7 +23,7 @@ describe("useDebouncedCallback", () => {
 		expect(callback).toHaveBeenCalledWith("test");
 	});
 
-	it("deve cancelar o callback anterior quando chamado novamente", () => {
+	it("should cancel the previous callback when called again", () => {
 		const callback = vi.fn();
 		const { result } = renderHook(() => useDebouncedCallback(callback, 300));
 
@@ -40,7 +40,7 @@ describe("useDebouncedCallback", () => {
 		expect(callback).toHaveBeenCalledWith("second");
 	});
 
-	it("deve limpar o timeout ao desmontar", () => {
+	it("should clear the timeout on unmount", () => {
 		const callback = vi.fn();
 		const { result, unmount } = renderHook(() => useDebouncedCallback(callback, 300));
 

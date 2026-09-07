@@ -14,7 +14,7 @@ describe("useMediaQuery", () => {
 		vi.useRealTimers();
 	});
 
-	it("deve retornar o valor inicial correspondente à media query", () => {
+	it("should return the initial value matching the media query", () => {
 		const mockMatchMedia = window.matchMedia as ReturnType<typeof vi.fn>;
 		mockMatchMedia.mockReturnValue({
 			matches: true,
@@ -28,7 +28,7 @@ describe("useMediaQuery", () => {
 		expect(mockMatchMedia).toHaveBeenCalledWith("(max-width: 640px)");
 	});
 
-	it("deve retornar false quando a media query não corresponde", () => {
+	it("should return false when the media query does not match", () => {
 		const mockMatchMedia = window.matchMedia as ReturnType<typeof vi.fn>;
 		mockMatchMedia.mockReturnValue({
 			matches: false,

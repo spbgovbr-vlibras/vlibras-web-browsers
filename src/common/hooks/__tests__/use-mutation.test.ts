@@ -6,7 +6,7 @@ describe("useMutation", () => {
 	beforeEach(() => vi.useFakeTimers());
 	afterEach(() => vi.useRealTimers());
 
-	it("deve executar a mutationFn quando mutateAsync é chamado", async () => {
+	it("should execute mutationFn when mutateAsync is called", async () => {
 		const mutationFn = vi.fn().mockResolvedValue({ data: "result" });
 		const { result } = renderHook(() => useMutation({ mutationFn }));
 
@@ -26,7 +26,7 @@ describe("useMutation", () => {
 		expect(returnedError).toBeNull();
 	});
 
-	it("deve retornar error quando a mutation falha", async () => {
+	it("should return an error when the mutation fails", async () => {
 		const mutationFn = vi.fn().mockRejectedValue(new Error("falha"));
 		const { result } = renderHook(() => useMutation({ mutationFn }));
 
@@ -40,11 +40,11 @@ describe("useMutation", () => {
 		});
 
 		expect(thrownError).toBeInstanceOf(Error);
-		expect(thrownError?.message).toBe("falha");
+		expect((thrownError as Error | null)?.message).toBe("falha");
 		expect(result.current.error).toBeInstanceOf(Error);
 	});
 
-	it("deve chamar onMutate antes da execução", async () => {
+	it("should call onMutate before execution", async () => {
 		const onMutate = vi.fn();
 		const mutationFn = vi.fn().mockResolvedValue({ data: "result" });
 		const { result } = renderHook(() => useMutation({ mutationFn, onMutate }));
@@ -56,7 +56,7 @@ describe("useMutation", () => {
 		expect(onMutate).toHaveBeenCalledWith("input");
 	});
 
-	it("deve chamar onSettled após a execução", async () => {
+	it("should call onSettled after execution", async () => {
 		const onSettled = vi.fn();
 		const mutationFn = vi.fn().mockResolvedValue({ data: "result" });
 		const { result } = renderHook(() => useMutation({ mutationFn, onSettled }));
@@ -68,7 +68,7 @@ describe("useMutation", () => {
 		expect(onSettled).toHaveBeenCalledWith({ data: "result" }, null, "input");
 	});
 
-	it("deve ter isPending como true durante a execução", async () => {
+	it("should have isPending as true during execution", async () => {
 		let resolvePromise: ((value: unknown) => void) | undefined;
 		const mutationFn = vi.fn(
 			() =>
@@ -76,7 +76,7 @@ describe("useMutation", () => {
 					resolvePromise = resolve;
 				}),
 		);
-		const { result } = renderHook(() => useMutation({ mutationFn }));
+		const { result } = renderHook(() => useMutation<unknown, string>({ mutationFn }));
 
 		await act(async () => {
 			result.current.mutateAsync("input");
