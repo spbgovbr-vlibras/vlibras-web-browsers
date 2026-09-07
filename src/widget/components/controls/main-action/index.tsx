@@ -16,10 +16,9 @@ export const MainAction = () => {
 
 		if (status === "idle") repeat();
 		else if (status === "paused") play();
-		else if (status === "playing") {
-			pause();
-			widgetStore.set({ isPausedByUser: true });
-		}
+		else if (status === "playing") pause();
+
+		widgetStore.set({ isPausedByUser: status === "playing" });
 	};
 
 	const status = statusMap[_status];
