@@ -1,6 +1,6 @@
 # Guide for AI agents
 
-This file guides AI agents (Claude Code, Codex, Cursor, etc.) on how to work in this repository. For code conventions, see [CONTRIBUTING.md](./CONTRIBUTING.md) (in Portuguese).
+This file guides AI agents (Claude Code, Codex, Cursor, etc.) on how to work in this repository. For code conventions, see [CONTRIBUTING.md](./CONTRIBUTING.md) (in Portuguese) or [CONTRIBUTING.en.md](./CONTRIBUTING.en.md) (English translation).
 
 ## Hosting: GitLab (self-hosted), not GitHub
 
@@ -65,7 +65,7 @@ glab api "projects/vlibras2019%2Fvlibras-web-extensions%2Fvlibras-web-browsers/m
 
 ## Code conventions
 
-Full conventions live in [CONTRIBUTING.md](./CONTRIBUTING.md) (in Portuguese). The most important rule to respect — including before suggesting where to create or move a file — is the **dependency direction between domains**:
+Full conventions live in [CONTRIBUTING.md](./CONTRIBUTING.md) (in Portuguese), with an English translation at [CONTRIBUTING.en.md](./CONTRIBUTING.en.md). The most important rule to respect — including before suggesting where to create or move a file — is the **dependency direction between domains**:
 
 - `widget` may depend on `player`, `core`, and shared modules (`common`).
 - `player` may depend on `core` and `common`.
