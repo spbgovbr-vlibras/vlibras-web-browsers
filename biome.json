@@ -15,6 +15,9 @@
 			"!stats.html",
 			"!node_modules",
 			"!scripts",
+			"!coverage",
+			"!test-results",
+			"!playwright-report",
 			"!src/loader",
 			"!**/styles/global.css"
 		]

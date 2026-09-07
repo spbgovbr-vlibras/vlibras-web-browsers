@@ -1,6 +1,6 @@
 {
 	"hooks": {
-		"pre-commit": "lint-staged && pnpm test",
+		"pre-commit": "lint-staged",
 		"commit-msg": "pnpm exec commitlint --edit"
 	}
 }

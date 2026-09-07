@@ -26,6 +26,9 @@ dist-ssr
 
 stats.html
 package-lock.json
+coverage
+test-results
+playwright-report
 
 # Extensions
 extensions/*/text-capture.js
