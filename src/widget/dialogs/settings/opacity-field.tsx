@@ -1,4 +1,4 @@
-import { useEffect, useRef } from "preact/hooks";
+import { useEffect, useId, useRef } from "preact/hooks";
 import { posthogg } from "@/common/lib/posthog";
 import { InlineTranslatorButton } from "@/widget/components/inline-translator-button";
 import { useWidgetStore, widgetStore } from "@/widget/stores/use-widget.store";
@@ -8,7 +8,9 @@ export const SettingsOpacityField = () => {
 	const timeoutRef = useRef<NodeJS.Timeout>(null);
 	const opacity = useWidgetStore((s) => s.opacity);
 	const onOpen = useSettingsCtx((s) => s.onOpen);
+	const labelId = useId();
 	const progress = Number(opacity) * 100;
+	const rounded = Math.round(Number(opacity) * 100);
 
 	useEffect(() => {
 		return () => {
@@ -26,15 +28,20 @@ export const SettingsOpacityField = () => {
 	return (
 		<div>
 			<div className="flex w-full items-center justify-between mobile:text-sm text-base">
-				<p className="mobile:text-sm text-base">
-					Opacidade
+				<span className="mobile:text-sm text-base">
+					<span id={labelId}>Opacidade</span>
 					<InlineTranslatorButton gloss="OPACIDADE" onFinish={onOpen} />
-				</p>
+				</span>
 
-				<span className="font-semibold">{Math.round(Number(opacity) * 100)}%</span>
+				<span className="font-semibold" aria-hidden="true">
+					{rounded}%
+				</span>
 			</div>
 			<input
 				type="range"
+				id={`${labelId}-input`}
+				aria-labelledby={labelId}
+				aria-valuetext={`${rounded}%`}
 				min={0}
 				max={100}
 				step={5}
