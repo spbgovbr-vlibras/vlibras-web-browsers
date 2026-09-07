@@ -57,7 +57,8 @@
 		"test": "vitest run",
 		"test:watch": "vitest",
 		"test:coverage": "vitest run --coverage",
-		"test:e2e": "playwright test"
+		"test:e2e": "playwright test",
+		"badge:coverage": "node scripts/update-coverage-badge.js"
 	},
 	"dependencies": {
 		"@tailwindcss/vite": "^4.3.3",
