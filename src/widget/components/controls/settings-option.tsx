@@ -23,7 +23,13 @@ export const SettingsOption = () => {
 				placement="top"
 				arrow={{ position: "bottom-right" }}
 			>
-				<Button onClick={() => setOpen(true)} variant="ghost-gov" size={isMobile ? "icon-sm" : "icon"}>
+				<Button
+					aria-expanded={!!open}
+					aria-haspopup="dialog"
+					onClick={() => setOpen(true)}
+					variant="ghost-gov"
+					size={isMobile ? "icon-sm" : "icon"}
+				>
 					<Icon name="settings" />
 				</Button>
 			</Tooltip>

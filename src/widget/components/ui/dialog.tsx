@@ -1,6 +1,6 @@
 import { type ComponentChildren, type ComponentProps, createContext } from "preact";
 import { createPortal } from "preact/compat";
-import { useContext, useEffect, useRef, useState } from "preact/hooks";
+import { useContext, useEffect, useId, useRef, useState } from "preact/hooks";
 import { useMobile } from "@/common/hooks";
 import { cn } from "@/common/lib/utils";
 import { randomStr } from "@/common/utils";
@@ -19,6 +19,7 @@ type DialogContextProps = {
 	onOpenChange: (open: boolean) => void;
 	nested?: boolean;
 	overlay?: boolean;
+	titleId: string;
 };
 
 const DialogContext = createContext<DialogContextProps | null>(null);
@@ -131,6 +132,7 @@ export const Dialog = ({
 	children,
 }: DialogProps) => {
 	const [isOpen, setOpen] = useState(false);
+	const titleId = useId();
 
 	const open = _open ?? isOpen;
 	const onOpenChange = _onOpenChange ?? setOpen;
@@ -147,7 +149,9 @@ export const Dialog = ({
 		}
 	}, [open, nested]);
 
-	return <DialogContext.Provider value={{ open, onOpenChange, nested, overlay }}>{children}</DialogContext.Provider>;
+	return (
+		<DialogContext.Provider value={{ open, onOpenChange, nested, overlay, titleId }}>{children}</DialogContext.Provider>
+	);
 };
 
 export const DialogTrigger = ({ children, ...props }: ComponentProps<"button">) => {
@@ -155,7 +159,13 @@ export const DialogTrigger = ({ children, ...props }: ComponentProps<"button">) 
 	if (!context) throw new Error("DialogTrigger deve estar dentro de <Dialog />");
 
 	return (
-		<button type="button" onClick={() => context.onOpenChange(true)} {...props}>
+		<button
+			type="button"
+			aria-expanded={context.open}
+			aria-haspopup="dialog"
+			onClick={() => context.onOpenChange(true)}
+			{...props}
+		>
 			{children}
 		</button>
 	);
@@ -203,8 +213,11 @@ type DialogTitleProps = ComponentProps<"h3"> & {
 };
 
 export const DialogTitle = ({ children, icon: iconName, className, ...props }: DialogTitleProps) => {
+	const context = useContext(DialogContext);
+
 	return (
 		<h3
+			id={context?.titleId}
 			data-slot="dialog-title"
 			className={cn(
 				"relative mt-0.75 mr-auto flex items-center gap-1.5 overflow-hidden font-semibold mobile:text-sm text-base leading-normal",
@@ -237,6 +250,7 @@ export const DialogContent = ({
 				data-slot="dialog-content"
 				role="dialog"
 				aria-modal="true"
+				aria-labelledby={context.titleId}
 				tabIndex={-1}
 				className={cn(
 					"dialog-content widget-radius relative flex max-h-full w-full animate-move-up flex-col border bg-background",

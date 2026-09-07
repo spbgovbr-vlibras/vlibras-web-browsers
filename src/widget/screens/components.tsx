@@ -1,5 +1,5 @@
-import type { ComponentProps } from "preact";
-import { useEffect, useRef } from "preact/hooks";
+import { type ComponentProps, createContext } from "preact";
+import { useContext, useEffect, useId, useRef } from "preact/hooks";
 import { useMobile } from "@/common/hooks";
 import { cn } from "@/common/lib/utils";
 import { useDraggable } from "@/widget/components/draggable";
@@ -9,9 +9,12 @@ import { rootStore } from "@/widget/stores/use-root.store";
 import { useScreensStore } from "@/widget/stores/use-screens.store";
 import { trapTabFocus } from "@/widget/utils/focus";
 
+const ScreenContext = createContext<string>("");
+
 export const Screen = ({ children, className, ...props }: ComponentProps<"div">) => {
 	const ref = useRef<HTMLDivElement | null>(null);
 	const triggerRef = useRef<HTMLElement | null>(null);
+	const titleId = useId();
 	const closeAll = useScreensStore((s) => s.closeAll);
 
 	useEffect(() => {
@@ -36,26 +39,30 @@ export const Screen = ({ children, className, ...props }: ComponentProps<"div">)
 	}, []);
 
 	return (
-		// biome-ignore lint/a11y/noStaticElementInteractions: container focável (tabindex -1) só repassa Escape para voltar à tela principal
-		<div
-			ref={ref}
-			tabIndex={-1}
-			onKeyDown={(e) => {
-				if (e.key === "Escape") {
-					e.stopPropagation();
-					closeAll();
-					return;
-				}
-				trapTabFocus(ref.current, e);
-			}}
-			className={cn(
-				"widget-radius absolute inset-0 z-999999 flex animate-move-right flex-col bg-background",
-				className,
-			)}
-			{...props}
-		>
-			{children}
-		</div>
+		<ScreenContext.Provider value={titleId}>
+			<div
+				ref={ref}
+				tabIndex={-1}
+				role="dialog"
+				aria-modal="true"
+				aria-labelledby={titleId}
+				onKeyDown={(e) => {
+					if (e.key === "Escape") {
+						e.stopPropagation();
+						closeAll();
+						return;
+					}
+					trapTabFocus(ref.current, e);
+				}}
+				className={cn(
+					"widget-radius absolute inset-0 z-999999 flex animate-move-right flex-col bg-background",
+					className,
+				)}
+				{...props}
+			>
+				{children}
+			</div>
+		</ScreenContext.Provider>
 	);
 };
 
@@ -98,11 +105,13 @@ export const ScreenClose = ({ className, ...props }: ButtonProps) => {
 	);
 };
 
-export const ScreenTitle = ({ children, className, ...props }: ComponentProps<"h3">) => {
+export const ScreenTitle = ({ children, className, ...props }: ComponentProps<"h2">) => {
+	const titleId = useContext(ScreenContext);
+
 	return (
-		<h3 className={cn("pointer-events-none font-semibold mobile:text-sm text-base", className)} {...props}>
+		<h2 id={titleId} className={cn("pointer-events-none font-semibold mobile:text-sm text-base", className)} {...props}>
 			{children}
-		</h3>
+		</h2>
 	);
 };
 

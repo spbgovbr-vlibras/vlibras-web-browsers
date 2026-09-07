@@ -25,6 +25,8 @@ export const FeedbackTrigger = () => {
 	return (
 		<Fragment>
 			<Button
+				aria-expanded={!!open}
+				aria-haspopup="dialog"
 				onClick={() => setOpen(true)}
 				className="animate-move-up rounded-full bg-background! font-semibold text-primary hover:bg-muted!"
 				variant="outline"

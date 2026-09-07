@@ -85,7 +85,7 @@ interface DropdownTriggerProps {
 }
 
 export const DropdownTrigger = ({ children, openOnFocus = false }: DropdownTriggerProps) => {
-	const { setOpen, triggerRef } = useDropdownContext();
+	const { open, setOpen, triggerRef } = useDropdownContext();
 
 	const wasFocusedRef = useRef(false);
 
@@ -93,6 +93,8 @@ export const DropdownTrigger = ({ children, openOnFocus = false }: DropdownTrigg
 
 	return cloneElement(children, {
 		ref: triggerRef,
+		"aria-expanded": open,
+		"aria-haspopup": "menu",
 		onMouseDown: (event: MouseEvent) => {
 			(children.props.onMouseDown as ((event: MouseEvent) => void) | undefined)?.(event);
 
