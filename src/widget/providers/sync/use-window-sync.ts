@@ -4,6 +4,7 @@ import { omit } from "@/common/utils";
 import * as actions from "@/player/actions";
 import { playerStore, usePlayerStore } from "@/player/stores/use-player.store";
 import { useTranslate } from "@/widget/hooks/use-translate";
+import { screenStore } from "@/widget/stores/use-screens.store";
 import { widgetStore } from "@/widget/stores/use-widget.store";
 
 export const useWindowSyncProvider = () => {
@@ -30,6 +31,7 @@ export const useWindowSyncProvider = () => {
 				...omit(playerStore.get(), "send", "instance"),
 				...omit(widgetStore.get(), "reset", "setLoaded"),
 				...omit(actions, "setConfig"),
+				...screenStore.get(),
 			};
 
 			window.vlibras = {
