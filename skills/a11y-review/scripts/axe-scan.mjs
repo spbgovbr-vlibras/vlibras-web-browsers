@@ -36,7 +36,14 @@ import { createRequire } from "node:module";
 const require = createRequire(import.meta.url);
 
 function parseArgs(argv) {
-	const args = { url: null, selector: null, wait: 500, viewport: "1280x800", tags: "wcag2a,wcag2aa,wcag21a,wcag21aa,wcag22aa", out: null };
+	const args = {
+		url: null,
+		selector: null,
+		wait: 500,
+		viewport: "1280x800",
+		tags: "wcag2a,wcag2aa,wcag21a,wcag21aa,wcag22aa",
+		out: null,
+	};
 	const rest = [...argv];
 	args.url = rest.shift();
 	while (rest.length) {
@@ -95,7 +102,9 @@ function severityRank(impact) {
 async function main() {
 	const args = parseArgs(process.argv.slice(2));
 	if (!args.url) {
-		console.error("Usage: node axe-scan.mjs <url> [--selector css] [--wait ms] [--viewport WxH] [--tags a,b,c] [--out file.json]");
+		console.error(
+			"Usage: node axe-scan.mjs <url> [--selector css] [--wait ms] [--viewport WxH] [--tags a,b,c] [--out file.json]",
+		);
 		process.exit(1);
 	}
 
@@ -129,7 +138,9 @@ async function main() {
 
 		console.log(`Scanned: ${args.url}${args.selector ? ` (selector: ${args.selector})` : ""}`);
 		console.log(`Rule tags: ${args.tags}`);
-		console.log(`Violations: ${violations.length} | Needs review: ${incomplete.length} | Passes: ${results.passes.length}\n`);
+		console.log(
+			`Violations: ${violations.length} | Needs review: ${incomplete.length} | Passes: ${results.passes.length}\n`,
+		);
 
 		for (const v of violations) {
 			console.log(`[${(v.impact || "unknown").toUpperCase()}] ${v.id} — ${v.help}`);
@@ -137,9 +148,7 @@ async function main() {
 			for (const node of v.nodes) {
 				console.log(`  - ${node.target.join(" ")}`);
 				if (node.failureSummary) {
-					console.log(
-						`    ${node.failureSummary.split("\n").join("\n    ")}`,
-					);
+					console.log(`    ${node.failureSummary.split("\n").join("\n    ")}`);
 				}
 			}
 			console.log("");
