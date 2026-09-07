@@ -34,7 +34,7 @@ function App() {
 
 		setOpen(isRootActive());
 
-		if (import.meta.env.MODE === "development" || __IS_EXTENSION__) setOpen(true);
+		if (import.meta.env.DEV || __IS_EXTENSION__) setOpen(true);
 
 		const observer = new MutationObserver(() => setOpen(isRootActive()));
 		observer.observe(root as HTMLElement, {
