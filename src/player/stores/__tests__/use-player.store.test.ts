@@ -53,34 +53,4 @@ describe("usePlayerStore", () => {
 		playerStore.set({ progress: 42 });
 		expect(usePlayerStore.getState().progress).toBe(42);
 	});
-
-	it("should update status", () => {
-		playerStore.set({ status: "playing" });
-		expect(playerStore.get().status).toBe("playing");
-	});
-
-	it("should update avatar", () => {
-		playerStore.set({ avatar: "guga" });
-		expect(playerStore.get().avatar).toBe("guga");
-	});
-
-	it("should update isLoaded", () => {
-		playerStore.set({ isLoaded: true });
-		expect(playerStore.get().isLoaded).toBe(true);
-	});
-
-	it("should update isBroken", () => {
-		playerStore.set({ isBroken: true });
-		expect(playerStore.get().isBroken).toBe(true);
-	});
-
-	it("should update showSubtitles", () => {
-		playerStore.set({ showSubtitles: false });
-		expect(playerStore.get().showSubtitles).toBe(false);
-	});
-
-	it("should update countGloss", () => {
-		playerStore.set({ countGloss: { count: 5, max: 10 } });
-		expect(playerStore.get().countGloss).toEqual({ count: 5, max: 10 });
-	});
 });

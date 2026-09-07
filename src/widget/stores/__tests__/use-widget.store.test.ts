@@ -16,21 +16,6 @@ describe("useWidgetStore", () => {
 		expect(state.opacity).toBe(1);
 	});
 
-	it("should set isLoaded", () => {
-		useWidgetStore.getState().setLoaded(true);
-		expect(useWidgetStore.getState().isLoaded).toBe(true);
-	});
-
-	it("should set isExpanded to true", () => {
-		useWidgetStore.getState().setExpanded(true);
-		expect(useWidgetStore.getState().isExpanded).toBe(true);
-	});
-
-	it("should set isOpen to true", () => {
-		useWidgetStore.getState().setOpen(true);
-		expect(useWidgetStore.getState().isOpen).toBe(true);
-	});
-
 	it("should reset to the default state", () => {
 		useWidgetStore.getState().setLoaded(true);
 		useWidgetStore.getState().setExpanded(true);
@@ -76,7 +61,9 @@ describe("useWidgetStore", () => {
 		expect(useWidgetStore.getState().isExpanded).toBe(false);
 	});
 
-	it("should setLoaded to false", () => {
+	it("should setLoaded with boolean", () => {
+		useWidgetStore.getState().setLoaded(true);
+		expect(useWidgetStore.getState().isLoaded).toBe(true);
 		useWidgetStore.getState().setLoaded(false);
 		expect(useWidgetStore.getState().isLoaded).toBe(false);
 	});

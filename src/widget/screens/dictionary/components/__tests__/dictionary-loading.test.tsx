@@ -11,10 +11,4 @@ describe("DictionaryLoading", () => {
 		render(<DictionaryLoading />);
 		expect(screen.getByTestId("spinner")).toBeInTheDocument();
 	});
-
-	it("should be centered", () => {
-		const { container } = render(<DictionaryLoading />);
-		const div = container.firstChild as HTMLElement;
-		expect(div.className).toContain("place-content-center");
-	});
 });

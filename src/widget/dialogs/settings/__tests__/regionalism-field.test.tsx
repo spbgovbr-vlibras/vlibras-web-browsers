@@ -1,7 +1,7 @@
 import { render, screen } from "@testing-library/preact";
 import type { ComponentChildren, ComponentProps } from "preact";
 import { describe, expect, it, vi } from "vitest";
-import { playerStore, usePlayerStore } from "@/player/stores/use-player.store";
+import { usePlayerStore } from "@/player/stores/use-player.store";
 import { SettingsProvider } from "../context";
 import { SettingsRegionalismField } from "../regionalism-field";
 
@@ -54,19 +54,5 @@ describe("SettingsRegionalismField", () => {
 			</SettingsProvider>,
 		);
 		expect(screen.getByText("BR")).toBeInTheDocument();
-	});
-
-	it("should call playerStore.set when region changes", () => {
-		const playerSet = vi.fn();
-		const originalSet = playerStore.set;
-		playerStore.set = playerSet;
-
-		render(
-			<SettingsProvider data={{ onOpen: () => {}, onClose: () => {} }}>
-				<SettingsRegionalismField />
-			</SettingsProvider>,
-		);
-
-		playerStore.set = originalSet;
 	});
 });
