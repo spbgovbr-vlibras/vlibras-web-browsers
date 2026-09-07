@@ -1,4 +1,4 @@
-import { renderHook } from "@testing-library/preact";
+import { act, renderHook } from "@testing-library/preact";
 import { describe, expect, it } from "vitest";
 import { create } from "zustand";
 import { useOmit, usePick } from "@/common/hooks/use-shallow";
@@ -14,12 +14,13 @@ describe("usePick", () => {
 		expect(result.current).toEqual({ a: 1, c: 3 });
 	});
 
-	it("should keep the selection stable between renders", () => {
-		const { result, rerender } = renderHook(() => useSample(usePick<Sample, "a">("a")));
+	it("should keep the selection stable when an unrelated field changes", () => {
+		const { result } = renderHook(() => useSample(usePick<Sample, "a">("a")));
 		const first = result.current;
 
-		rerender();
-		useSample.setState({ b: 99 });
+		act(() => {
+			useSample.setState({ b: 99 });
+		});
 
 		expect(result.current).toBe(first);
 		expect(result.current).toEqual({ a: 1 });

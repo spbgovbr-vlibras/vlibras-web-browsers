@@ -1,6 +1,5 @@
 import { render, screen } from "@testing-library/preact";
-import "@testing-library/jest-dom/vitest";
-import { beforeEach, describe, expect, it, vi } from "vitest";
+import { describe, expect, it, vi } from "vitest";
 import { Screen, ScreenClose, ScreenTitle } from "@/widget/screens/components";
 import { screenStore } from "@/widget/stores/use-screens.store";
 
@@ -54,5 +53,25 @@ describe("ScreenClose (navigation between screens)", () => {
 
 		const button = container.querySelector("button") as HTMLElement;
 		expect(button.className).toContain("size-8");
+	});
+
+	it("should render expanded button when not mobile", () => {
+		mockMatchMedia(false);
+		const { container } = render(<ScreenClose />);
+
+		const button = container.querySelector("button") as HTMLElement;
+		expect(button.className).toContain("size-9");
+	});
+});
+
+describe("Screen with custom className", () => {
+	it("should apply custom className", () => {
+		const { container } = render(
+			<Screen className="custom-class">
+				<span>content</span>
+			</Screen>,
+		);
+
+		expect(container.firstChild).toHaveClass("custom-class");
 	});
 });

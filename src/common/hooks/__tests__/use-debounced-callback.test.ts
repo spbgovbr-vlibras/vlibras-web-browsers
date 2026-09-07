@@ -56,4 +56,37 @@ describe("useDebouncedCallback", () => {
 
 		expect(callback).not.toHaveBeenCalled();
 	});
+
+	it("should not throw when called with delay 0", () => {
+		const callback = vi.fn();
+		const { result } = renderHook(() => useDebouncedCallback(callback, 0));
+
+		act(() => {
+			result.current("test");
+		});
+
+		act(() => {
+			vi.advanceTimersByTime(0);
+		});
+
+		expect(callback).toHaveBeenCalledWith("test");
+	});
+
+	it("should support multiple rapid calls", () => {
+		const callback = vi.fn();
+		const { result } = renderHook(() => useDebouncedCallback(callback, 100));
+
+		act(() => {
+			result.current("a");
+			result.current("b");
+			result.current("c");
+		});
+
+		act(() => {
+			vi.advanceTimersByTime(100);
+		});
+
+		expect(callback).toHaveBeenCalledTimes(1);
+		expect(callback).toHaveBeenCalledWith("c");
+	});
 });

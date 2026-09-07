@@ -1,5 +1,4 @@
-import { act } from "@testing-library/preact";
-import { beforeEach, describe, expect, it } from "vitest";
+import { describe, expect, it } from "vitest";
 import { useScreensStore } from "@/widget/stores/use-screens.store";
 
 describe("useScreensStore", () => {
@@ -13,10 +12,7 @@ describe("useScreensStore", () => {
 	});
 
 	it("should open a specific screen", () => {
-		act(() => {
-			useScreensStore.getState().open("dictionary");
-		});
-
+		useScreensStore.getState().open("dictionary");
 		expect(useScreensStore.getState().screen).toBe("dictionary");
 	});
 
@@ -24,10 +20,7 @@ describe("useScreensStore", () => {
 		useScreensStore.getState().open("about");
 		expect(useScreensStore.getState().screen).toBe("about");
 
-		act(() => {
-			useScreensStore.getState().closeAll();
-		});
-
+		useScreensStore.getState().closeAll();
 		expect(useScreensStore.getState().screen).toBe("main");
 	});
 });

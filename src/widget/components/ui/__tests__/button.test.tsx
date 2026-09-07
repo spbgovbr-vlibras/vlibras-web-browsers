@@ -1,5 +1,4 @@
 import { fireEvent, render, screen } from "@testing-library/preact";
-import "@testing-library/jest-dom/vitest";
 import { describe, expect, it, vi } from "vitest";
 import { Button, buttonVariants } from "@/widget/components/ui/button";
 

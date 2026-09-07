@@ -42,13 +42,18 @@ describe("useQuery", () => {
 		expect(result.current.data).toBeUndefined();
 	});
 
-	it("should return new data when the key is different", async () => {
-		const queryFn = vi.fn().mockResolvedValue({ data: "v2" });
-		const { result } = renderHook(() => useQuery({ queryKey: ["test-unique-e-v2"], queryFn }));
+	it("should refetch when the query key changes", async () => {
+		const queryFn = vi.fn().mockResolvedValueOnce({ data: "first" }).mockResolvedValueOnce({ data: "second" });
 
-		await waitFor(() => expect(result.current.data).toEqual({ data: "v2" }));
+		const { result, rerender } = renderHook(({ key }) => useQuery({ queryKey: [key], queryFn }), {
+			initialProps: { key: "test-key-change-1" },
+		});
 
-		expect(result.current.isLoading).toBe(false);
-		expect(queryFn).toHaveBeenCalled();
+		await waitFor(() => expect(result.current.data).toEqual({ data: "first" }));
+
+		rerender({ key: "test-key-change-2" });
+
+		await waitFor(() => expect(result.current.data).toEqual({ data: "second" }));
+		expect(queryFn).toHaveBeenCalledTimes(2);
 	});
 });

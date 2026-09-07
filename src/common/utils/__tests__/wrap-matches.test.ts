@@ -8,7 +8,7 @@ describe("wrapMatches", () => {
 	it("should return an array of VNodes when there are no matches", () => {
 		const result = wrapMatches("hello world", []);
 		expect(result).toHaveLength(1);
-		expect(typeof result[0]).toBe("object");
+		expect(result[0].props.children).toBe("hello world");
 	});
 
 	it("should wrap the matching text with the render function", () => {
@@ -21,7 +21,17 @@ describe("wrapMatches", () => {
 	it("should escape regex special characters", () => {
 		const renderFn = makeRenderFn();
 		const result = wrapMatches("test (1+2)", [{ part: "(1+2)", render: renderFn }]);
-		expect(result.length).toBeGreaterThan(0);
+		// If escaping were removed, "(1+2)" would be parsed as a regex group/quantifier instead of
+		// literal text, the split would never match, and renderFn would never be called.
+		expect(renderFn).toHaveBeenCalledWith("(1+2)", expect.any(Number));
+		expect(result.length).toBe(3);
+	});
+
+	it("should render only the first occurrence when once is true", () => {
+		const renderFn = makeRenderFn();
+		const result = wrapMatches("test test", [{ part: "test", render: renderFn }], { once: true });
+		expect(renderFn).toHaveBeenCalledTimes(1);
+		expect(result.length).toBe(5);
 	});
 
 	it("should split the text into parts based on the matches", () => {

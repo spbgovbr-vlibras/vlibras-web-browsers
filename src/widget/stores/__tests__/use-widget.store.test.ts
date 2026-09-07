@@ -45,8 +45,39 @@ describe("useWidgetStore", () => {
 	});
 
 	it("should persist only isOpen and opacity", () => {
-		const state = useWidgetStore.getState();
-		const persisted = { isOpen: state.isOpen, opacity: state.opacity };
-		expect(persisted).toEqual({ isOpen: false, opacity: 1 });
+		useWidgetStore.getState().setOpen(true);
+		useWidgetStore.getState().setExpanded(true);
+
+		const raw = localStorage.getItem("@vlibras-widget");
+		expect(raw).not.toBeNull();
+
+		const persisted = JSON.parse(raw as string).state;
+		expect(persisted).toEqual({ isOpen: true, opacity: 1 });
+		expect(persisted).not.toHaveProperty("isExpanded");
+	});
+
+	it("should setOpen with boolean", () => {
+		useWidgetStore.getState().setOpen(true);
+		expect(useWidgetStore.getState().isOpen).toBe(true);
+		useWidgetStore.getState().setOpen(false);
+		expect(useWidgetStore.getState().isOpen).toBe(false);
+	});
+
+	it("should setOpen with function", () => {
+		useWidgetStore.getState().setOpen(true);
+		useWidgetStore.getState().setOpen((prev) => !prev);
+		expect(useWidgetStore.getState().isOpen).toBe(false);
+	});
+
+	it("should setExpanded with boolean", () => {
+		useWidgetStore.getState().setExpanded(true);
+		expect(useWidgetStore.getState().isExpanded).toBe(true);
+		useWidgetStore.getState().setExpanded(false);
+		expect(useWidgetStore.getState().isExpanded).toBe(false);
+	});
+
+	it("should setLoaded to false", () => {
+		useWidgetStore.getState().setLoaded(false);
+		expect(useWidgetStore.getState().isLoaded).toBe(false);
 	});
 });

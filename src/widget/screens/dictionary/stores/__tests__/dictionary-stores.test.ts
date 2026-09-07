@@ -22,6 +22,26 @@ describe("useDictionaryStore", () => {
 		expect(dictionaryStore.get().retriesCount).toBe(3);
 		expect(dictionaryStore.get().isMaxRetries).toBe(true);
 	});
+
+	it("should only persist isMaxRetries, not retriesCount", () => {
+		dictionaryStore.set({ retriesCount: 3, isMaxRetries: true });
+
+		const raw = sessionStorage.getItem("@vlibras/dictionary");
+		expect(raw).not.toBeNull();
+
+		const persisted = JSON.parse(raw as string).state;
+		expect(persisted).toEqual({ isMaxRetries: true });
+		expect(persisted).not.toHaveProperty("retriesCount");
+	});
+
+	it("should reset retriesCount and isMaxRetries on rehydrate", async () => {
+		dictionaryStore.set({ retriesCount: 5, isMaxRetries: true });
+
+		await useDictionaryStore.persist.rehydrate();
+
+		expect(dictionaryStore.get().retriesCount).toBe(0);
+		expect(dictionaryStore.get().isMaxRetries).toBe(false);
+	});
 });
 
 describe("useDictionaryHistoryStore", () => {

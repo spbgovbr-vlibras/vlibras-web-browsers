@@ -1,4 +1,4 @@
-import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
+import { describe, expect, it, vi } from "vitest";
 import { callbackStore, createCallback, resetCallback, useCallbackStore } from "@/widget/stores/use-callback.store";
 
 describe("useCallbackStore", () => {

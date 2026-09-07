@@ -30,13 +30,23 @@ describe("Trie", () => {
 		expect(trie.searchSigns("XYZ")).toEqual([]);
 	});
 
-	it("should call the callback for each matched word", () => {
-		const trie = new Trie(buildRoot(["CASA", "CASADO"]));
+	it("should call the callback for each matched word in order", () => {
+		const trie = new Trie(buildRoot(["CASA", "CASADO", "CASO"]));
 		const onMatch = vi.fn();
 		trie.loadSigns("CAS", onMatch);
+		expect(onMatch).toHaveBeenCalledTimes(3);
+		expect(onMatch).toHaveBeenNthCalledWith(1, "CASA");
+		expect(onMatch).toHaveBeenNthCalledWith(2, "CASADO");
+		expect(onMatch).toHaveBeenNthCalledWith(3, "CASO");
+	});
+
+	it("should call the callback in depth-first order", () => {
+		const trie = new Trie(buildRoot(["ABC", "ABD", "XYZ"]));
+		const onMatch = vi.fn();
+		trie.loadSigns("AB", onMatch);
 		expect(onMatch).toHaveBeenCalledTimes(2);
-		expect(onMatch).toHaveBeenCalledWith("CASA");
-		expect(onMatch).toHaveBeenCalledWith("CASADO");
+		expect(onMatch).toHaveBeenNthCalledWith(1, "ABC");
+		expect(onMatch).toHaveBeenNthCalledWith(2, "ABD");
 	});
 
 	it("should return all words for an empty prefix", () => {
