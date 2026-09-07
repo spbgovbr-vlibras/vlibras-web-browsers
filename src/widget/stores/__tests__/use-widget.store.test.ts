@@ -6,7 +6,7 @@ describe("useWidgetStore", () => {
 		useWidgetStore.setState(defaultState);
 	});
 
-	it("deve ter o estado padrão correto", () => {
+	it("should have the correct default state", () => {
 		const state = useWidgetStore.getState();
 		expect(state.position).toBe("right");
 		expect(state.isOpen).toBe(false);
@@ -16,22 +16,22 @@ describe("useWidgetStore", () => {
 		expect(state.opacity).toBe(1);
 	});
 
-	it("deve definir isLoaded", () => {
+	it("should set isLoaded", () => {
 		useWidgetStore.getState().setLoaded(true);
 		expect(useWidgetStore.getState().isLoaded).toBe(true);
 	});
 
-	it("deve definir isExpanded como true", () => {
+	it("should set isExpanded to true", () => {
 		useWidgetStore.getState().setExpanded(true);
 		expect(useWidgetStore.getState().isExpanded).toBe(true);
 	});
 
-	it("deve definir isOpen como true", () => {
+	it("should set isOpen to true", () => {
 		useWidgetStore.getState().setOpen(true);
 		expect(useWidgetStore.getState().isOpen).toBe(true);
 	});
 
-	it("deve resetar para o estado padrão", () => {
+	it("should reset to the default state", () => {
 		useWidgetStore.getState().setLoaded(true);
 		useWidgetStore.getState().setExpanded(true);
 		useWidgetStore.getState().setOpen(true);
@@ -44,7 +44,7 @@ describe("useWidgetStore", () => {
 		expect(state.isOpen).toBe(false);
 	});
 
-	it("deve persistir apenas isOpen e opacity", () => {
+	it("should persist only isOpen and opacity", () => {
 		const state = useWidgetStore.getState();
 		const persisted = { isOpen: state.isOpen, opacity: state.opacity };
 		expect(persisted).toEqual({ isOpen: false, opacity: 1 });

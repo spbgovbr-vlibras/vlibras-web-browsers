@@ -2,60 +2,60 @@ import { describe, expect, it } from "vitest";
 import { capitalize, delay, omit, pick, randomStr, sanitizeUrl } from "@/common/utils";
 
 describe("omit", () => {
-	it("deve remover as chaves especificadas do objeto", () => {
+	it("should remove the specified keys from the object", () => {
 		const obj = { a: 1, b: 2, c: 3 };
 		expect(omit(obj, "a", "c")).toEqual({ b: 2 });
 	});
 
-	it("deve retornar uma cópia sem modificar o original", () => {
+	it("should return a copy without modifying the original", () => {
 		const obj = { a: 1, b: 2 };
 		omit(obj, "a");
 		expect(obj).toEqual({ a: 1, b: 2 });
 	});
 
-	it("deve retornar o objeto vazio quando todas as chaves são removidas", () => {
+	it("should return an empty object when all keys are removed", () => {
 		const obj = { a: 1 };
 		expect(omit(obj, "a")).toEqual({});
 	});
 
-	it("deve retornar o objeto original quando nenhuma chave é especificada", () => {
+	it("should return the original object when no key is specified", () => {
 		const obj = { a: 1, b: 2 };
 		expect(omit(obj)).toEqual({ a: 1, b: 2 });
 	});
 });
 
 describe("pick", () => {
-	it("deve selecionar apenas as chaves especificadas do objeto", () => {
+	it("should select only the specified keys", () => {
 		const obj = { a: 1, b: 2, c: 3 };
 		expect(pick(obj, "a", "c")).toEqual({ a: 1, c: 3 });
 	});
 
-	it("deve retornar um objeto vazio quando nenhuma chave é especificada", () => {
+	it("should return an empty object when no key is specified", () => {
 		const obj = { a: 1 };
 		expect(pick(obj)).toEqual({});
 	});
 });
 
 describe("capitalize", () => {
-	it("deve capitalizar a primeira letra de cada palavra", () => {
+	it("should capitalize the first letter of each word", () => {
 		expect(capitalize("hello world")).toBe("Hello World");
 	});
 
-	it("deve funcionar com uma única palavra", () => {
+	it("should work with a single word", () => {
 		expect(capitalize("hello")).toBe("Hello");
 	});
 
-	it("deve lidar com strings vazias", () => {
+	it("should handle empty strings", () => {
 		expect(capitalize("")).toBe("");
 	});
 
-	it("deve capitalizar palavras já capitalizadas sem quebrar", () => {
+	it("should capitalize already-capitalized words without breaking them", () => {
 		expect(capitalize("Hello World")).toBe("Hello World");
 	});
 });
 
 describe("delay", () => {
-	it("deve resolver após o tempo especificado", async () => {
+	it("should resolve after the specified time", async () => {
 		const start = Date.now();
 		await delay(50);
 		const elapsed = Date.now() - start;
@@ -64,26 +64,26 @@ describe("delay", () => {
 });
 
 describe("sanitizeUrl", () => {
-	it("deve normalizar URLs com protocolo removendo barras duplicadas", () => {
+	it("should normalize URLs by removing duplicate slashes", () => {
 		expect(sanitizeUrl("https://example.com/path//to//file")).toBe("https://example.com/path/to/file");
 	});
 
-	it("deve retornar a mesma string quando não há protocolo", () => {
+	it("should return the same string when there is no protocol", () => {
 		expect(sanitizeUrl("example.com")).toBe("example.com");
 	});
 
-	it("deve retornar string vazia para entrada vazia", () => {
+	it("should return an empty string for empty input", () => {
 		expect(sanitizeUrl("")).toBe("");
 	});
 });
 
 describe("randomStr", () => {
-	it("deve gerar uma string com pelo menos 6 caracteres", () => {
+	it("should generate a string with at least 6 characters", () => {
 		const result = randomStr();
 		expect(result.length).toBeGreaterThanOrEqual(6);
 	});
 
-	it("deve gerar strings diferentes em chamadas distintas", () => {
+	it("should generate different strings on distinct calls", () => {
 		const results = new Set([randomStr(), randomStr(), randomStr()]);
 		expect(results.size).toBeGreaterThan(1);
 	});

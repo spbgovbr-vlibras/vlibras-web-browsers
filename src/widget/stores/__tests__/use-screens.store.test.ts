@@ -7,12 +7,12 @@ describe("useScreensStore", () => {
 		useScreensStore.setState({ screen: "main" });
 	});
 
-	it("deve ter screen inicial como 'main'", () => {
+	it("should start with screen 'main'", () => {
 		const state = useScreensStore.getState();
 		expect(state.screen).toBe("main");
 	});
 
-	it("deve abrir uma tela específica", () => {
+	it("should open a specific screen", () => {
 		act(() => {
 			useScreensStore.getState().open("dictionary");
 		});
@@ -20,7 +20,7 @@ describe("useScreensStore", () => {
 		expect(useScreensStore.getState().screen).toBe("dictionary");
 	});
 
-	it("deve fechar todas as telas voltando para 'main'", () => {
+	it("should close all screens back to 'main'", () => {
 		useScreensStore.getState().open("about");
 		expect(useScreensStore.getState().screen).toBe("about");
 
