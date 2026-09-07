@@ -15,22 +15,21 @@ export default defineConfig({
 		setupFiles: ["./src/test/setup.ts"],
 		server: {
 			deps: {
-				// zustand importa o react real; inline aplica o alias react -> preact/compat.
-				// (não incluir "preact" aqui: duplicaria a instância e quebraria os hooks)
 				inline: ["zustand"],
 			},
 		},
 		include: ["src/**/*.test.{ts,tsx}", "src/**/*.spec.{ts,tsx}"],
+		pool: "vmThreads",
 		coverage: {
 			provider: "v8",
 			all: true,
 			include: ["src/**/*.{ts,tsx}"],
 			reporter: ["text", "lcov", "html"],
 			thresholds: {
-				statements: 21,
-				branches: 13,
-				functions: 20,
-				lines: 22,
+				statements: 30,
+				branches: 18,
+				functions: 25,
+				lines: 32,
 			},
 			exclude: [
 				"**/node_modules/**",
