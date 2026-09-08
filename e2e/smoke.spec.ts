@@ -2,7 +2,7 @@ import { expect, test } from "@playwright/test";
 
 const onMenuOptionClick = async (page: import("@playwright/test").Page, optionName: string) => {
 	await page.getByRole("button", { name: "Menu de opções" }).click();
-	await page.getByRole("button", { name: optionName }).first().click();
+	await page.getByRole("menuitem", { name: optionName }).first().click();
 };
 
 test("demo page loads with the widget", async ({ page }) => {
