@@ -77,7 +77,7 @@ export const ToggleAvatarButton = () => {
 								{!(isGuideSelected && isExpanded) && (
 									<span
 										aria-hidden="true"
-										className="flex h-7 w-fit items-center justify-center whitespace-nowrap rounded-full border border-foreground/20 bg-background px-2.5 py-1 font-semibold text-xs capitalize"
+										className="flex h-7 w-fit items-center justify-center whitespace-nowrap rounded-full border border-foreground/20 bg-background px-2.5 py-1 text-xs capitalize"
 									>
 										{avatar.name}
 									</span>

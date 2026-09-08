@@ -33,7 +33,7 @@ export const MenuOption = ({ label, onClick, icon: iconName }: Props) => {
 
 			<span
 				aria-hidden="true"
-				className="flex h-7 w-fit items-center justify-center whitespace-nowrap rounded-full border border-border bg-background px-2.5 py-1 font-semibold text-xs shadow-md"
+				className="flex h-7 w-fit items-center justify-center whitespace-nowrap rounded-full border border-border bg-background px-2.5 py-1 text-xs shadow-md"
 			>
 				{label}
 			</span>

@@ -198,9 +198,17 @@
 	* {
 		@apply box-border border-border border-solid outline-ring/50 focus-visible:outline-solid focus-visible:outline-primary focus-visible:outline-2 -outline-offset-1;
 	}
-	
+
 	:host {
 		@apply text-foreground border-border fill-foreground;
+	}
+}
+
+@media (prefers-reduced-motion: reduce) {
+	:host,
+	* {
+		animation: none !important;
+		transition: none !important;
 	}
 }
 

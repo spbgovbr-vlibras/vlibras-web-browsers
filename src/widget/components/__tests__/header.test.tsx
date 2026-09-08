@@ -72,14 +72,14 @@ describe("WidgetHeader", () => {
 	it("should render expand and close buttons", () => {
 		render(<WidgetHeader />);
 		expect(screen.getByLabelText("Expand")).toBeInTheDocument();
-		expect(screen.getByLabelText("Fechar")).toBeInTheDocument();
+		expect(screen.getByLabelText("Fechar VLibras")).toBeInTheDocument();
 	});
 
 	it("should call setOpen(false) when close is clicked", () => {
 		const setOpen = vi.fn();
 		useWidgetStore.setState({ setOpen, isExpanded: false });
 		render(<WidgetHeader />);
-		fireEvent.click(screen.getByLabelText("Fechar"));
+		fireEvent.click(screen.getByLabelText("Fechar VLibras"));
 		expect(setOpen).toHaveBeenCalledWith(false);
 	});
 });

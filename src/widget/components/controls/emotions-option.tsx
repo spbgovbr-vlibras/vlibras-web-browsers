@@ -27,13 +27,15 @@ export const EmotionsOption = () => {
 			<Tooltip offset={8} content="Emoções" placement="top" arrow={{ position: "bottom" }}>
 				<DropdownTrigger openOnFocus>
 					<Button
-						aria-label="Alterar emoção"
+						aria-label={isDefaultEmotion ? "Alterar emoção" : "Alterar emoção (emoção não padrão selecionada)"}
 						className="group relative"
 						variant="ghost-gov"
 						size={isMobile ? "icon-sm" : "icon"}
 					>
 						<Icon name={currentEmotion.icon} />
-						{!isDefaultEmotion && <span className="absolute top-0.5 right-0.5 size-2 rounded-full bg-destructive" />}
+						{!isDefaultEmotion && (
+							<span aria-hidden="true" className="absolute top-0.5 right-0.5 size-2 rounded-full bg-destructive" />
+						)}
 					</Button>
 				</DropdownTrigger>
 			</Tooltip>
@@ -65,7 +67,7 @@ export const EmotionsOption = () => {
 												"pointer-events-none bg-primary! text-primary-foreground! outline-1 outline-primary outline-solid",
 										)}
 									>
-										<div className="flex items-center justify-start gap-1.5">
+										<div className="flex items-center justify-start gap-1.5 *:leading-none">
 											<Icon name={emotion.icon} className="mobile:size-4.5 size-5" />
 											<span className="mobile:text-xs text-sm">{emotion.name}</span>
 										</div>

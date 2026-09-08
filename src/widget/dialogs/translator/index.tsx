@@ -62,11 +62,11 @@ export const TranslatorDialog = ({ open, onOpenChange }: Props) => {
 		setText("");
 	};
 
-	const onKeyPress = (e: KeyboardEvent) => {
-		if (e.key === "Enter") {
-			e.preventDefault();
-			if (text.length >= 3) handleTranslate();
-		}
+	const onKeyDown = (e: KeyboardEvent) => {
+		if (e.key !== "Enter" || !(e.ctrlKey || e.metaKey)) return;
+
+		e.preventDefault();
+		if (text.length >= 3) handleTranslate();
 	};
 
 	return (
@@ -100,12 +100,17 @@ export const TranslatorDialog = ({ open, onOpenChange }: Props) => {
 						<textarea
 							defaultValue={text}
 							ref={inputRef}
-							onKeyPress={onKeyPress}
+							onKeyDown={onKeyDown}
 							onChange={(e) => onTextChange(e.currentTarget.value)}
 							name="text"
 							id="translator-text"
+							aria-describedby="translator-text-hint"
 							className="h-32 w-full resize-none rounded-lg border bg-muted p-2 text-sm"
 						/>
+
+						<p id="translator-text-hint" className="text-muted-foreground text-xs">
+							Pressione Ctrl+Enter (ou Cmd+Enter no Mac) para traduzir. Enter insere uma nova linha.
+						</p>
 					</div>
 
 					<Button

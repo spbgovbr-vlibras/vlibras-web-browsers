@@ -53,7 +53,7 @@ export const WidgetHeader = () => {
 
 							<Button
 								onClick={handleClose}
-								aria-label="Fechar"
+								aria-label="Fechar VLibras"
 								size={isMobile ? "icon-sm" : "icon"}
 								variant="default"
 								className="z-1"
