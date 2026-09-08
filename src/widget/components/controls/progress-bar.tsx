@@ -16,7 +16,11 @@ export const ProgressBar = () => {
 		<div className="absolute -top-1.75 left-0 h-1.5 w-full">
 			<div
 				role="progressbar"
+				aria-label="Progresso da tradução"
+				aria-valuemin={0}
+				aria-valuemax={100}
 				aria-valuenow={progress}
+				aria-valuetext={`${Math.round(progress)}%`}
 				className={cn("h-full bg-primary transition-[width]", progress < 100 && "rounded-r-full")}
 				style={{ width: `${progress}%` }}
 			/>

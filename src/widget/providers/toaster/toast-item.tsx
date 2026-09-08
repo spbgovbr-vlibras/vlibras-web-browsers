@@ -32,6 +32,7 @@ export const ToastItem = ({
 	className,
 }: ToastData) => {
 	const isTheme = variant === "light" || variant === "dark";
+	const isError = variant === "destructive";
 
 	return (
 		<div
@@ -44,6 +45,7 @@ export const ToastItem = ({
 		>
 			<div
 				data-slot="toast-content"
+				role={isError ? "alert" : "status"}
 				className={cn(
 					"pointer-events-auto w-full border bg-background px-2.5 py-3.5 mobile:text-xs text-sm transition-all duration-500 ease-in-out",
 					variant === "success" && "border-none bg-success text-success-foreground",

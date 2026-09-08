@@ -43,23 +43,33 @@ export const UnityLoading = () => {
 			</div>
 
 			{isStarting && (
-				<span className="absolute bottom-8 animate-move-up font-semibold text-muted-foreground text-xs">
+				<output className="absolute bottom-8 animate-move-up font-semibold text-muted-foreground text-xs">
 					Iniciando...
-				</span>
+				</output>
 			)}
 
 			{progress === 0 && !isBroken && <Spinner className="absolute bottom-8" size={16} />}
 
 			{isBroken && (
 				<div className="absolute inset-x-6 top-auto bottom-4 flex animate-move-up flex-col items-center gap-2">
-					<p className="font-semibold text-muted-foreground text-xs">Não foi possível carregar o player.</p>
+					<p role="alert" className="font-semibold text-muted-foreground text-xs">
+						Não foi possível carregar o player.
+					</p>
 					<Button size="xs" variant="default" className="rounded-full" onClick={handleRetryLoad}>
 						Tentar novamente
 					</Button>
 				</div>
 			)}
 
-			<div className={cn("bottom-4 h-2 w-44 rounded-full bg-foreground/10", isBroken && "invisible bg-destructive")}>
+			<div
+				role="progressbar"
+				aria-label="Carregamento do player"
+				aria-valuemin={0}
+				aria-valuemax={100}
+				aria-valuenow={progress}
+				aria-valuetext={`${progress}%`}
+				className={cn("bottom-4 h-2 w-44 rounded-full bg-foreground/10", isBroken && "invisible bg-destructive")}
+			>
 				<span className="block h-full rounded-full bg-primary transition-[width]" style={{ width: `${progress}%` }} />
 			</div>
 		</div>
