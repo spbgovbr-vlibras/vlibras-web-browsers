@@ -1,5 +1,5 @@
 import { cn } from "@/common/lib/utils";
-import { useDraggable } from "@/widget/components/draggable";
+import { DragHandle } from "@/widget/components/draggable";
 import { useWidgetStore } from "@/widget/stores/use-widget.store";
 import { useGuideStore } from "../guide/store";
 import { AppOverlay } from "../ui/app-overlay";
@@ -14,8 +14,6 @@ export const WidgetControls = () => {
 	const isOpen = useWidgetStore((s) => s.isOpen);
 	const isGuideOpen = useGuideStore((s) => s.open);
 
-	const { onPointerDown } = useDraggable();
-
 	return (
 		<div
 			className={cn(
@@ -25,13 +23,7 @@ export const WidgetControls = () => {
 				"-mt-13 **:data-[highlight=true]:animate-highlight-primary",
 			)}
 		>
-			<div
-				{...{ onPointerDown }}
-				className={cn(
-					"absolute inset-0 z-0 touch-none",
-					!__IS_EXTENSION__ && "not-expanded:hover:cursor-move sm:hover:cursor-move",
-				)}
-			/>
+			<DragHandle />
 			<ProgressBar />
 
 			<div

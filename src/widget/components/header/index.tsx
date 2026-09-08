@@ -1,8 +1,7 @@
 import { Fragment } from "preact/jsx-runtime";
 import { useMobile } from "@/common/hooks";
-import { cn } from "@/common/lib/utils";
 import { pause } from "@/player/actions";
-import { useDraggable } from "@/widget/components/draggable";
+import { DragHandle } from "@/widget/components/draggable";
 import { useGuideStore } from "@/widget/components/guide/store";
 import { AppOverlay } from "@/widget/components/ui/app-overlay";
 import { Button } from "@/widget/components/ui/button";
@@ -13,8 +12,6 @@ import { ExpandOption } from "./components/expand-option";
 import { WidgetMenu } from "./components/menu";
 
 export const WidgetHeader = () => {
-	const { onPointerDown } = useDraggable();
-
 	const isMobile = useMobile();
 	const setOpen = useWidgetStore((s) => s.setOpen);
 	const isGuideOpen = useGuideStore((s) => s.open);
@@ -26,13 +23,7 @@ export const WidgetHeader = () => {
 
 	return (
 		<div className="relative bottom-auto z-50 bg-primary px-2 py-1.5">
-			<div
-				{...{ onPointerDown }}
-				className={cn(
-					"absolute inset-0 z-0 touch-none",
-					!__IS_EXTENSION__ && "not-expanded:hover:cursor-move sm:hover:cursor-move",
-				)}
-			/>
+			<DragHandle />
 
 			<div
 				inert={isGuideOpen}

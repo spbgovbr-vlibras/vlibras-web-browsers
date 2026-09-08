@@ -4,7 +4,8 @@ import { WidgetControls } from "@/widget/components/controls";
 import { useWidgetStore } from "@/widget/stores/use-widget.store";
 
 vi.mock("@/widget/components/draggable", () => ({
-	useDraggable: () => ({ onPointerDown: vi.fn() }),
+	useDraggable: () => ({ onPointerDown: vi.fn(), onKeyDown: vi.fn() }),
+	DragHandle: () => <button type="button" />,
 }));
 
 vi.mock("@/widget/components/controls/main-action", () => ({

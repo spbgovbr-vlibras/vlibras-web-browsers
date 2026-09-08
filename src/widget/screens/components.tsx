@@ -2,7 +2,7 @@ import { type ComponentProps, createContext } from "preact";
 import { useContext, useEffect, useId, useRef } from "preact/hooks";
 import { useMobile } from "@/common/hooks";
 import { cn } from "@/common/lib/utils";
-import { useDraggable } from "@/widget/components/draggable";
+import { DragHandle } from "@/widget/components/draggable";
 import { Button, type ButtonProps } from "@/widget/components/ui/button";
 import { Icon } from "@/widget/components/ui/icon";
 import { rootStore } from "@/widget/stores/use-root.store";
@@ -67,8 +67,6 @@ export const Screen = ({ children, className, ...props }: ComponentProps<"div">)
 };
 
 export const ScreenHeader = ({ children, className, ...props }: ComponentProps<"div"> & { close?: boolean }) => {
-	const { onPointerDown } = useDraggable();
-
 	return (
 		<div className="relative">
 			<div className={cn("flex h-min items-center gap-3 border-b p-2 *:z-10", className)} {...props}>
@@ -76,13 +74,7 @@ export const ScreenHeader = ({ children, className, ...props }: ComponentProps<"
 				{children}
 			</div>
 
-			<div
-				className={cn(
-					"absolute inset-0 z-0 touch-none",
-					!__IS_EXTENSION__ && "not-expanded:hover:cursor-move sm:hover:cursor-move",
-				)}
-				{...{ onPointerDown }}
-			/>
+			<DragHandle />
 		</div>
 	);
 };

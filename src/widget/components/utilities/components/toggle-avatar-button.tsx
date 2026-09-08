@@ -10,6 +10,7 @@ import { Dropdown, DropdownContent, DropdownTrigger } from "@/widget/components/
 import { Icon } from "@/widget/components/ui/icon";
 import { Tooltip } from "@/widget/components/ui/tooltip";
 import type { IconName } from "@/widget/icons/types";
+import { overlayStore } from "@/widget/stores/use-overlay.store";
 import { useWidgetStore } from "@/widget/stores/use-widget.store";
 
 const avatars: { name: PlayerAvatar; path: string; icon: IconName }[] = [
@@ -32,9 +33,8 @@ export const ToggleAvatarButton = () => {
 	const currentAvatar = avatars.find(({ name }) => name === avatar) || avatars[0];
 
 	const handleSelectAvatar = (name: PlayerAvatar) => {
-		(document.activeElement as HTMLElement)?.blur();
-		setTimeout(() => toggleAvatar(name), 150);
-
+		toggleAvatar(name);
+		overlayStore.close();
 		posthogg.trackEvent("avatar_selected", { avatar: name });
 	};
 
@@ -75,25 +75,23 @@ export const ToggleAvatarButton = () => {
 						.map((avatar) => (
 							<li key={avatar.name} role="presentation" className="flex animate-move-up items-center justify-end gap-1">
 								{!(isGuideSelected && isExpanded) && (
-									<Button
-										tabindex={-1}
-										onClick={() => handleSelectAvatar(avatar.name)}
-										variant="outline"
-										className="w-fit whitespace-nowrap rounded-full bg-background font-semibold capitalize hover:bg-muted!"
-										size="xs"
+									<span
+										aria-hidden="true"
+										className="flex h-7 w-fit items-center justify-center whitespace-nowrap rounded-full border border-foreground/20 bg-background px-2.5 py-1 font-semibold text-xs capitalize"
 									>
 										{avatar.name}
-									</Button>
+									</span>
 								)}
 
 								<Button
 									role="menuitem"
+									aria-label={`Alterar avatar para ${avatar.name}`}
 									onClick={() => handleSelectAvatar(avatar.name)}
 									variant="outline"
 									className="rounded-full bg-background hover:bg-muted!"
 									size="icon"
 								>
-									<img src={getAvatarImage(avatar.path)} alt={avatar.name} />
+									<img src={getAvatarImage(avatar.path)} alt="" />
 								</Button>
 							</li>
 						))}

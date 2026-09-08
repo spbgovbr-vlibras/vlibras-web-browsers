@@ -43,7 +43,8 @@ vi.mock("@/widget/components/ui/spacer", () => ({
 }));
 
 vi.mock("@/widget/components/draggable", () => ({
-	useDraggable: () => ({ onPointerDown: vi.fn() }),
+	useDraggable: () => ({ onPointerDown: vi.fn(), onKeyDown: vi.fn() }),
+	DragHandle: () => <button type="button" />,
 }));
 
 vi.mock("@/common/hooks", () => ({

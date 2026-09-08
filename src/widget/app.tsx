@@ -7,7 +7,7 @@ import { WidgetAppProviders } from "@/widget/providers/widget/app";
 import { WidgetWrapperProviders } from "@/widget/providers/widget/wrapper";
 import { appVariants } from "./app-variants";
 import { WidgetContent } from "./components/content";
-import { Draggable } from "./components/draggable";
+import { Draggable, DragHint } from "./components/draggable";
 import { AppBackground } from "./components/ui/app-background";
 import { AppOverlay } from "./components/ui/app-overlay";
 import { useWidgetPosition } from "./hooks/use-widget-position";
@@ -55,6 +55,7 @@ export const WidgetApp = () => {
 						}}
 						style={{ transform: hasMoved && isOpen ? `translate3d(${pos.x}px, ${pos.y}px, 0)` : undefined }}
 						className={cn(
+							"group/widget",
 							appVariants({
 								isDragging,
 								isOpen,
@@ -81,6 +82,7 @@ export const WidgetApp = () => {
 							}}
 							className={cn(
 								"widget-radius relative z-2147483647 h-fit expanded:w-full w-(--widget-width) overflow-hidden shadow-lg expanded:max-sm:rounded-none!",
+								"group-has-[[data-slot=drag-handle]:focus-visible]/widget:outline-4 group-has-[[data-slot=drag-handle]:focus-visible]/widget:outline-primary",
 								screen !== "main" && "outline-2 outline-border outline-solid",
 								__IS_EXTENSION__ && "h-screen w-screen shrink-0 rounded-none! [--player-height:calc(100dvh-52px)]",
 							)}
@@ -92,6 +94,7 @@ export const WidgetApp = () => {
 							<AppOverlay />
 						</section>
 
+						<DragHint />
 						<WidgetWrapperProviders />
 					</div>
 				);

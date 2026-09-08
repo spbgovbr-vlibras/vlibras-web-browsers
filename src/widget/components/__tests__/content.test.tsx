@@ -30,7 +30,8 @@ vi.mock("@/widget/components/content/player-options", () => ({
 }));
 
 vi.mock("@/widget/components/draggable", () => ({
-	useDraggable: () => ({ onPointerDown: vi.fn() }),
+	useDraggable: () => ({ onPointerDown: vi.fn(), onKeyDown: vi.fn() }),
+	DragHandle: () => <button type="button" />,
 }));
 
 describe("WidgetContent", () => {

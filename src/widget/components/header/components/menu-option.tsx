@@ -31,15 +31,12 @@ export const MenuOption = ({ label, onClick, icon: iconName }: Props) => {
 				{iconName && <Icon name={iconName} className="mobile:size-5 size-5.5" />}
 			</Button>
 
-			<Button
-				tabindex={-1}
-				onClick={onClick}
-				variant="outline"
-				className="w-fit whitespace-nowrap font-semibold"
-				size="xs"
+			<span
+				aria-hidden="true"
+				className="flex h-7 w-fit items-center justify-center whitespace-nowrap rounded-full border border-border bg-background px-2.5 py-1 font-semibold text-xs shadow-md"
 			>
 				{label}
-			</Button>
+			</span>
 		</li>
 	);
 };
