@@ -45,6 +45,9 @@ export default defineConfig(({ mode }) => {
 			hmr: true,
 			open: true,
 		},
+		optimizeDeps: {
+			entries: ["index.html"],
+		},
 		build: {
 			outDir: "app",
 			minify: "oxc",
