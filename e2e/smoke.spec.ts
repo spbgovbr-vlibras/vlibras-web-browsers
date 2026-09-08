@@ -17,7 +17,7 @@ test("widget opens and closes", async ({ page }) => {
 
 	await expect(page.getByRole("heading", { name: "VLibras Widget" })).toBeVisible();
 
-	const toggleButton = page.locator('[aria-label="Fechar"]').first();
+	const toggleButton = page.locator('[aria-label="Fechar VLibras"]').first();
 	await expect(toggleButton).toBeVisible();
 	await toggleButton.click();
 
