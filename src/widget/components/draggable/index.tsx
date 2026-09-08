@@ -236,7 +236,7 @@ export const DragHandle = ({ className }: { className?: string }) => {
 			onPointerDown={onPointerDown}
 			onKeyDown={onKeyDown}
 			className={cn(
-				"absolute inset-0 z-0 touch-none outline-none!",
+				"absolute inset-0 -z-1! touch-none outline-none!",
 				!__IS_EXTENSION__ && "not-expanded:hover:cursor-move sm:hover:cursor-move",
 				className,
 			)}

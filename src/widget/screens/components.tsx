@@ -69,7 +69,13 @@ export const Screen = ({ children, className, ...props }: ComponentProps<"div">)
 export const ScreenHeader = ({ children, className, ...props }: ComponentProps<"div"> & { close?: boolean }) => {
 	return (
 		<div className="relative">
-			<div className={cn("flex h-min items-center gap-3 border-b p-2 *:z-10", className)} {...props}>
+			<div
+				className={cn(
+					"pointer-events-none flex h-min items-center gap-3 border-b p-2 *:z-10 [&_button]:pointer-events-auto",
+					className,
+				)}
+				{...props}
+			>
 				{props.close && <ScreenClose />}
 				{children}
 			</div>

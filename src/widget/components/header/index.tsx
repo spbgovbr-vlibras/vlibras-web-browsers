@@ -27,7 +27,7 @@ export const WidgetHeader = () => {
 
 			<div
 				inert={isGuideOpen}
-				className="flex w-full items-center justify-between gap-1 **:data-[highlight=true]:animate-highlight-primary-foreground"
+				className="pointer-events-none flex w-full items-center justify-between gap-1 **:data-[highlight=true]:animate-highlight-primary-foreground [&_button]:pointer-events-auto"
 			>
 				<WidgetMenu />
 

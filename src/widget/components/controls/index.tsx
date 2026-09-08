@@ -29,7 +29,7 @@ export const WidgetControls = () => {
 			<div
 				inert={isGuideOpen}
 				className={cn(
-					"grid w-full grid-cols-5 items-center gap-1",
+					"pointer-events-none grid w-full grid-cols-5 items-center gap-1 [&_button]:pointer-events-auto",
 					"[&>div]:col-span-2 [&>div]:grid [&>div]:grid-cols-subgrid [&>div]:justify-items-center [&>div]:rounded",
 				)}
 			>
