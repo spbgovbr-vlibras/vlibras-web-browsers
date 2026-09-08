@@ -16,7 +16,7 @@ audit:
     - pnpm install --frozen-lockfile
     - pnpm audit --audit-level=high
 
-test:
+unit-tests:
   stage: test
   image: node:22-alpine
   rules:
@@ -35,6 +35,25 @@ test:
     paths:
       - coverage/lcov.info
       - coverage/index.html
+
+e2e:
+  stage: test
+  image: mcr.microsoft.com/playwright:v1.63.0-jammy
+  rules:
+    - if: '$CI_PIPELINE_SOURCE == "merge_request_event"'
+    - if: '$CI_COMMIT_BRANCH == "master"'
+  before_script:
+    - corepack enable
+    - corepack prepare pnpm@9.15.0 --activate
+  script:
+    - pnpm install --frozen-lockfile
+    - pnpm test:e2e
+  artifacts:
+    when: always
+    expire_in: 1 week
+    paths:
+      - playwright-report/
+      - test-results/
 
 lint:
   stage: lint
