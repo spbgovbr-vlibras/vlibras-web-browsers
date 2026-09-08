@@ -22,6 +22,8 @@ export const SpeedOption = () => {
 	};
 
 	const handleSpeedChange = (speed: number) => {
+		if (speed === currentSpeed) return;
+
 		setSpeed(speed);
 		posthogg.trackEvent("change_speed", { speed });
 	};
@@ -55,15 +57,18 @@ export const SpeedOption = () => {
 						const isActive = speed === currentSpeed;
 
 						return (
-							<li key={speed}>
+							<li key={speed} role="presentation">
 								<button
+									role="menuitemradio"
+									aria-checked={isActive}
+									aria-label={`Aplicar velocidade ${speed}x`}
 									type="button"
-									inert={isActive}
 									onClick={() => handleSpeedChange(speed)}
 									onKeyDown={(e) => onKeyDown(e, speed)}
 									className={cn(
 										"w-full cursor-pointer whitespace-nowrap rounded-md px-2 py-1 text-center mobile:text-xs text-sm hover:bg-primary/10",
-										isActive && "bg-primary! text-primary-foreground! outline-1 outline-primary outline-solid",
+										isActive &&
+											"pointer-events-none bg-primary! text-primary-foreground! outline-1 outline-primary outline-solid",
 									)}
 								>
 									{speed}x

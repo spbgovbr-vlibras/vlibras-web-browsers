@@ -10,6 +10,14 @@ import {
 import { useContext, useId, useRef } from "preact/hooks";
 import { cn } from "@/common/lib/utils";
 import { overlayStore, useOverlayStore } from "@/widget/stores/use-overlay.store";
+import { rootStore } from "@/widget/stores/use-root.store";
+
+const MENU_ITEM_SELECTOR = '[role^="menuitem"]';
+
+const getMenuItems = (container: HTMLElement) =>
+	Array.from(container.querySelectorAll<HTMLElement>(MENU_ITEM_SELECTOR)).filter(
+		(el) => el.closest("[inert]") === null,
+	);
 
 interface DropdownContextValue {
 	open: boolean;
@@ -56,14 +64,36 @@ export const Dropdown = ({
 	};
 
 	const onKeyDown = (event: TargetedKeyboardEvent<HTMLDivElement>) => {
-		if (open && event.key === "Escape") {
+		if (!open) return;
+
+		if (event.key === "Escape") {
 			event.stopPropagation();
 			overlayStore.close();
+			return;
 		}
+
+		if (event.key !== "ArrowDown" && event.key !== "ArrowUp" && event.key !== "Home" && event.key !== "End") return;
+
+		const items = getMenuItems(event.currentTarget);
+		if (!items.length) return;
+
+		event.preventDefault();
+
+		const { shadowRoot } = rootStore.get();
+		const active = (shadowRoot?.activeElement ?? document.activeElement) as HTMLElement | null;
+		const currentIndex = active ? items.indexOf(active) : -1;
+
+		let nextIndex = currentIndex;
+		if (event.key === "ArrowDown") nextIndex = currentIndex < items.length - 1 ? currentIndex + 1 : 0;
+		else if (event.key === "ArrowUp") nextIndex = currentIndex > 0 ? currentIndex - 1 : items.length - 1;
+		else if (event.key === "Home") nextIndex = 0;
+		else if (event.key === "End") nextIndex = items.length - 1;
+
+		items[nextIndex]?.focus();
 	};
 
 	return (
-		// biome-ignore lint/a11y/noStaticElementInteractions: só repassa blur/Escape dos filhos focáveis, que já têm a própria semântica
+		// biome-ignore lint/a11y/noStaticElementInteractions: só repassa blur/Escape/navegação por setas dos filhos focáveis, que já têm a própria semântica
 		<div
 			onBlurCapture={onBlurCapture}
 			onKeyDown={onKeyDown}
@@ -82,9 +112,14 @@ export const Dropdown = ({
 interface DropdownTriggerProps {
 	children: VNode<ComponentProps<"button">>;
 	openOnFocus?: boolean;
+	"aria-describedby"?: string;
 }
 
-export const DropdownTrigger = ({ children, openOnFocus = false }: DropdownTriggerProps) => {
+export const DropdownTrigger = ({
+	children,
+	openOnFocus = false,
+	"aria-describedby": describedBy,
+}: DropdownTriggerProps) => {
 	const { open, setOpen, triggerRef } = useDropdownContext();
 
 	const wasFocusedRef = useRef(false);
@@ -95,6 +130,7 @@ export const DropdownTrigger = ({ children, openOnFocus = false }: DropdownTrigg
 		ref: triggerRef,
 		"aria-expanded": open,
 		"aria-haspopup": "menu",
+		"aria-describedby": describedBy,
 		onMouseDown: (event: MouseEvent) => {
 			(children.props.onMouseDown as ((event: MouseEvent) => void) | undefined)?.(event);
 
@@ -116,5 +152,5 @@ export const DropdownTrigger = ({ children, openOnFocus = false }: DropdownTrigg
 export const DropdownContent = ({ className, ...props }: ComponentProps<"div">) => {
 	useDropdownContext();
 
-	return <div tabIndex={-1} className={cn("dropdown-content widget-radius", className)} {...props} />;
+	return <div tabIndex={-1} role="menu" className={cn("dropdown-content widget-radius", className)} {...props} />;
 };

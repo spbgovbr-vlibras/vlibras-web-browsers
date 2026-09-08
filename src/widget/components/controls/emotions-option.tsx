@@ -12,14 +12,15 @@ import { Tooltip } from "@/widget/components/ui/tooltip";
 export const EmotionsOption = () => {
 	const isMobile = useMobile();
 	const currentEmotion = usePlayerStore((s) => s.emotion);
+	const isDefaultEmotion = currentEmotion === emotionsMap.default;
 
 	const handleEmotionChange = (emotionKey: EmotionKey) => {
 		const emotion = emotionsMap[emotionKey];
+		if (emotion === currentEmotion) return;
+
 		setEmotion(emotionKey);
 		posthogg.trackEvent("change_emotion", { emotion: emotion.name });
 	};
-
-	const isDefaultEmotion = currentEmotion === emotionsMap.default;
 
 	return (
 		<Dropdown className="dropdown-center dropdown-top">
@@ -51,15 +52,17 @@ export const EmotionsOption = () => {
 							const isActive = emotion === currentEmotion;
 
 							return (
-								<li key={key}>
+								<li key={key} role="presentation">
 									<button
+										role="menuitemradio"
+										aria-checked={isActive}
 										aria-label={`Aplicar emoção "${emotion.name}"`}
 										type="button"
-										inert={isActive}
 										onClick={() => handleEmotionChange(key)}
 										className={cn(
 											"w-full cursor-pointer whitespace-nowrap rounded-md px-2 py-1.5 text-center text-sm hover:bg-primary/10",
-											isActive && "bg-primary! text-primary-foreground! outline-1 outline-primary outline-solid",
+											isActive &&
+												"pointer-events-none bg-primary! text-primary-foreground! outline-1 outline-primary outline-solid",
 										)}
 									>
 										<div className="flex items-center justify-start gap-1.5">

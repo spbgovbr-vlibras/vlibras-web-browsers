@@ -73,7 +73,7 @@ export const ToggleAvatarButton = () => {
 					{avatars
 						.filter(({ name }) => name !== avatar)
 						.map((avatar) => (
-							<li key={avatar.name} className="flex animate-move-up items-center justify-end gap-1">
+							<li key={avatar.name} role="presentation" className="flex animate-move-up items-center justify-end gap-1">
 								{!(isGuideSelected && isExpanded) && (
 									<Button
 										tabindex={-1}
@@ -87,6 +87,7 @@ export const ToggleAvatarButton = () => {
 								)}
 
 								<Button
+									role="menuitem"
 									onClick={() => handleSelectAvatar(avatar.name)}
 									variant="outline"
 									className="rounded-full bg-background hover:bg-muted!"

@@ -1,6 +1,6 @@
 import { cva, type VariantProps } from "class-variance-authority";
-import type { ComponentChildren, ComponentProps } from "preact";
-import { useState } from "preact/hooks";
+import { type ComponentChildren, type ComponentProps, cloneElement, isValidElement } from "preact";
+import { useId, useState } from "preact/hooks";
 import { useTouchDevice } from "@/common/hooks";
 import { cn } from "@/common/lib/utils";
 
@@ -52,7 +52,7 @@ export const Tooltip = ({
 	const [visible, setVisible] = useState(false);
 
 	const isTouchDevice = useTouchDevice();
-	const tooltipId = "vlibras-tooltip";
+	const tooltipId = useId();
 	const isVisible = disabled || isTouchDevice ? false : (open ?? visible);
 
 	if (!content) return children;
@@ -77,19 +77,29 @@ export const Tooltip = ({
 		onOpenChange?.(_open);
 	};
 
+	const trigger = isValidElement(children)
+		? cloneElement(children, { "aria-describedby": isVisible && !disabled ? tooltipId : undefined })
+		: children;
+
 	return (
+		// biome-ignore lint/a11y/noStaticElementInteractions: só relaciona hover/focus/Escape do trigger e conteúdo focáveis, que já têm a própria semântica
 		<div
-			role="tooltip"
 			className="relative inline-block has-[>[role=button][aria-disabled=true]]:pointer-events-none has-[>button:disabled]:pointer-events-none"
 			onMouseEnter={() => handleOpenChange(true)}
 			onMouseLeave={() => handleOpenChange(false)}
 			onFocus={() => handleOpenChange(true)}
 			onBlur={() => handleOpenChange(false)}
+			onKeyDown={(e) => {
+				if (e.key !== "Escape" || !isVisible) return;
+				e.stopPropagation();
+				handleOpenChange(false);
+			}}
 		>
-			{children}
+			{trigger}
 			{isVisible && !disabled && (
 				<div
 					data-slot="tooltip-content"
+					role="tooltip"
 					id={tooltipId}
 					style={getStyleOffset()}
 					className={cn(
