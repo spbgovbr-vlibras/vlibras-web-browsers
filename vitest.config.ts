@@ -22,7 +22,6 @@ export default defineConfig({
 		pool: "vmThreads",
 		coverage: {
 			provider: "v8",
-			all: true,
 			include: ["src/**/*.{ts,tsx}"],
 			reporter: ["text", "lcov", "html", "json-summary"],
 			thresholds: {
