@@ -20,6 +20,7 @@
       personalization: cfg.personalization,
       avatar: cfg.avatar,
       position: cfg.position,
+      showButton: cfg.showButton !== false,
     });
 
     renderWidget();
@@ -89,22 +90,28 @@
     }
   </style>`;
 
-    const wrapper = document.createElement("div");
-    const shadow = wrapper.attachShadow({ mode: "open" });
+    if (vw.showButton) {
+      const wrapper = document.createElement("div");
+      const shadow = wrapper.attachShadow({ mode: "open" });
 
-    wrapper.id = "vlibras-access-wrapper";
+      wrapper.id = "vlibras-access-wrapper";
 
-    shadow.innerHTML = template;
-    document.body.appendChild(wrapper);
+      shadow.innerHTML = template;
+      document.body.appendChild(wrapper);
 
-    const initBtn = shadow.querySelector("#vlibras-button");
-    const access = shadow.querySelector("#vlibras-access");
+      const initBtn = shadow.querySelector("#vlibras-button");
+      const access = shadow.querySelector("#vlibras-access");
 
-    const open = () => {
-      if (widget) {
-        widget.dataset.active = "true";
-        return;
-      }
+      initBtn.onclick = open;
+      vw.initBtn = initBtn;
+      vw.access = access;
+    }
+
+    vw.open = open;
+    vw.toggle = toggle;
+
+    function open() {
+      if (widget) return (widget.dataset.active = true);
 
       const script = document.createElement("script");
       script.type = "module";
@@ -116,15 +123,16 @@
       };
 
       document.body.appendChild(script);
-    };
+    }
 
-    initBtn.onclick = open;
-    vw.initBtn = initBtn;
-    vw.access = access;
-    vw.open = open;
+    function toggle(_open) {
+      const shouldOpen = _open ?? widget?.dataset.active !== "true";
+      if (shouldOpen) open();
+      else if (widget) widget.dataset.active = false;
+    }
   }
 
   if (document.readyState === "loading") {
-    document.addEventListener("DOMContentLoaded", () => renderWidget());
-  } else setTimeout(() => renderWidget(), 50);
+    document.addEventListener("DOMContentLoaded", renderWidget);
+  } else setTimeout(renderWidget, 50);
 })();
