@@ -5,7 +5,7 @@ import { appConfig, useConfig } from "@/common/hooks/use-config";
 describe("useConfig", () => {
 	beforeEach(() => {
 		appConfig.setState({ path: "", version: "" });
-		delete (window as unknown as Record<string, unknown>).VLibrasWidget;
+		delete window.VLibrasWidget;
 	});
 
 	it("should fill the default path and version on mount", () => {
@@ -17,7 +17,7 @@ describe("useConfig", () => {
 	});
 
 	it("should use the host widget path when available", () => {
-		(window as unknown as Record<string, unknown>).VLibrasWidget = { path: "https://cdn/" };
+		window.VLibrasWidget = { path: "https://cdn/", isOpen: true, open: () => void 0 };
 
 		const { result } = renderHook(() => useConfig());
 

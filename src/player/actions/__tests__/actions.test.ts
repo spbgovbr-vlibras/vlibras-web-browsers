@@ -1,15 +1,12 @@
 import { beforeEach, describe, expect, it, vi } from "vitest";
-import type { EmotionKey } from "@/data/emotions";
 import { emotionsMap } from "@/data/emotions";
 import { regions } from "@/data/regionalism";
 import * as actions from "@/player/actions";
-import type { SubtitleColors } from "@/player/actions/types";
 import { avatars } from "@/player/constants";
 import { UNITY_METHODS, UNITY_OBJECTS } from "@/player/constants/unity";
-import type { PlayerStoreState } from "@/player/stores/use-player.store";
 import { playerStore, usePlayerStore } from "@/player/stores/use-player.store";
 import { usePlayerOptionsStore } from "@/player/stores/use-player-options.store";
-import type { PlayerAvatar, PlayerStatus } from "@/player/types";
+import type { PlayerAvatar } from "@/player/types";
 
 describe("player/actions", () => {
 	const mockSend = vi.fn();
@@ -18,7 +15,7 @@ describe("player/actions", () => {
 		vi.clearAllMocks();
 		usePlayerStore.setState({
 			config: { baseUrl: "https://original.com/", personalizationUrl: "" },
-			avatar: "icaro" as PlayerAvatar,
+			avatar: "icaro",
 			gloss: undefined,
 			isWelcomeFinished: true,
 			isPlayingWelcome: false,
@@ -26,14 +23,12 @@ describe("player/actions", () => {
 			speed: 1,
 			region: regions[0],
 			emotion: emotionsMap.default,
-			status: "idle" as PlayerStatus,
+			status: "idle",
 			progress: 0,
 			countGloss: { count: 0, max: 0 },
 			send: mockSend,
-		} as Partial<PlayerStoreState>);
-		usePlayerOptionsStore.setState({ isInitialized: false } as Partial<
-			ReturnType<typeof usePlayerOptionsStore.getState>
-		>);
+		});
+		usePlayerOptionsStore.setState({ isInitialized: false });
 	});
 
 	describe("send", () => {
@@ -74,8 +69,8 @@ describe("player/actions", () => {
 
 		it("should send PLAY and set gloss and call onPlay", () => {
 			const onPlay = vi.fn();
-			usePlayerOptionsStore.setState({ onPlay } as Partial<ReturnType<typeof usePlayerOptionsStore.getState>>);
-			usePlayerStore.setState({ isWelcomeFinished: false, isPlayingWelcome: true } as Partial<PlayerStoreState>);
+			usePlayerOptionsStore.setState({ onPlay });
+			usePlayerStore.setState({ isWelcomeFinished: false, isPlayingWelcome: true });
 
 			actions.play("OLA");
 
@@ -87,7 +82,7 @@ describe("player/actions", () => {
 		});
 
 		it("should not finish welcome if already finished", () => {
-			usePlayerStore.setState({ isWelcomeFinished: true } as Partial<PlayerStoreState>);
+			usePlayerStore.setState({ isWelcomeFinished: true });
 			actions.play("OLA");
 			expect(playerStore.get().isWelcomeFinished).toBe(true);
 		});
@@ -102,7 +97,7 @@ describe("player/actions", () => {
 		});
 
 		it("should send subtitles 0 when showSubtitles false", () => {
-			usePlayerStore.setState({ showSubtitles: false } as Partial<PlayerStoreState>);
+			usePlayerStore.setState({ showSubtitles: false });
 			actions.playWelcome();
 			expect(mockSend).toHaveBeenCalledWith(UNITY_OBJECTS.PLAYER, UNITY_METHODS.SET_SUBTITLES_STATE, 0);
 		});
@@ -111,7 +106,7 @@ describe("player/actions", () => {
 	describe("playStatic", () => {
 		it("should temporarily set static baseUrl, play, and restore", () => {
 			const onPlayStatic = vi.fn();
-			usePlayerOptionsStore.setState({ onPlayStatic } as Partial<ReturnType<typeof usePlayerOptionsStore.getState>>);
+			usePlayerOptionsStore.setState({ onPlayStatic });
 
 			actions.playStatic("OBRIGADO");
 
@@ -145,8 +140,8 @@ describe("player/actions", () => {
 	describe("repeat / stop / pause", () => {
 		it("repeat should replay gloss and call onRepeat", () => {
 			const onRepeat = vi.fn();
-			usePlayerOptionsStore.setState({ onRepeat } as Partial<ReturnType<typeof usePlayerOptionsStore.getState>>);
-			usePlayerStore.setState({ gloss: "OLA" } as Partial<PlayerStoreState>);
+			usePlayerOptionsStore.setState({ onRepeat });
+			usePlayerStore.setState({ gloss: "OLA" });
 			actions.repeat();
 			expect(mockSend).toHaveBeenCalledWith(UNITY_OBJECTS.PLAYER, UNITY_METHODS.PLAY, "OLA");
 			expect(onRepeat).toHaveBeenCalled();
@@ -154,8 +149,8 @@ describe("player/actions", () => {
 
 		it("repeat without gloss should only call onRepeat", () => {
 			const onRepeat = vi.fn();
-			usePlayerOptionsStore.setState({ onRepeat } as Partial<ReturnType<typeof usePlayerOptionsStore.getState>>);
-			usePlayerStore.setState({ gloss: undefined } as Partial<PlayerStoreState>);
+			usePlayerOptionsStore.setState({ onRepeat });
+			usePlayerStore.setState({ gloss: undefined });
 			actions.repeat();
 			expect(mockSend).not.toHaveBeenCalledWith(UNITY_OBJECTS.PLAYER, UNITY_METHODS.PLAY, expect.anything());
 			expect(onRepeat).toHaveBeenCalled();
@@ -163,7 +158,7 @@ describe("player/actions", () => {
 
 		it("stop should send STOP and call onStop", () => {
 			const onStop = vi.fn();
-			usePlayerOptionsStore.setState({ onStop } as Partial<ReturnType<typeof usePlayerOptionsStore.getState>>);
+			usePlayerOptionsStore.setState({ onStop });
 			actions.stop();
 			expect(mockSend).toHaveBeenCalledWith(UNITY_OBJECTS.PLAYER, UNITY_METHODS.STOP, undefined);
 			expect(onStop).toHaveBeenCalled();
@@ -171,7 +166,7 @@ describe("player/actions", () => {
 
 		it("pause should send SET_PAUSE_STATE 1 and call onPause", () => {
 			const onPause = vi.fn();
-			usePlayerOptionsStore.setState({ onPause } as Partial<ReturnType<typeof usePlayerOptionsStore.getState>>);
+			usePlayerOptionsStore.setState({ onPause });
 			actions.pause();
 			expect(mockSend).toHaveBeenCalledWith(UNITY_OBJECTS.PLAYER, UNITY_METHODS.SET_PAUSE_STATE, 1);
 			expect(onPause).toHaveBeenCalled();
@@ -195,7 +190,7 @@ describe("player/actions", () => {
 	describe("toggleAvatar", () => {
 		it("should error and not change avatar for invalid avatar", () => {
 			const consoleSpy = vi.spyOn(console, "error").mockImplementation(() => {});
-			actions.toggleAvatar("invalido" as unknown as PlayerAvatar);
+			actions.toggleAvatar("invalido" as PlayerAvatar);
 			expect(consoleSpy).toHaveBeenCalledWith(expect.stringContaining("inválido"));
 			expect(playerStore.get().avatar).toBe("icaro");
 			consoleSpy.mockRestore();
@@ -208,7 +203,7 @@ describe("player/actions", () => {
 		});
 
 		it("should set specific avatar when valid", () => {
-			actions.toggleAvatar("hosana" as PlayerAvatar);
+			actions.toggleAvatar("hosana");
 			expect(playerStore.get().avatar).toBe("hosana");
 			expect(mockSend).toHaveBeenCalledWith(UNITY_OBJECTS.PLAYER, UNITY_METHODS.SET_AVATAR, "hosana");
 		});
@@ -249,13 +244,13 @@ describe("player/actions", () => {
 		});
 
 		it("should set valid emotion and send emotion bridge", () => {
-			actions.setEmotion("happy" as unknown as EmotionKey, 0.8);
+			actions.setEmotion("happy", 0.8);
 			expect(playerStore.get().emotion).toBeDefined();
 			expect(mockSend).toHaveBeenCalledWith(UNITY_OBJECTS.EMOTION, expect.any(String), 0.8);
 		});
 
 		it("should send subtitle colors with defaults", () => {
-			actions.setSubtitleColor({ color: "#fff", outline: undefined, shadow: undefined } as unknown as SubtitleColors);
+			actions.setSubtitleColor({ color: "#fff", outline: undefined, shadow: undefined });
 			expect(mockSend).toHaveBeenCalledWith(UNITY_OBJECTS.CUSTOMIZATION, UNITY_METHODS.SET_SUBTITLE_COLOR, "#fff");
 			expect(mockSend).toHaveBeenCalledWith(
 				UNITY_OBJECTS.CUSTOMIZATION,
@@ -270,7 +265,7 @@ describe("player/actions", () => {
 		});
 
 		it("should send explicit outline/shadow colors", () => {
-			actions.setSubtitleColor({ color: "#fff", outline: "#000", shadow: "#333" } as SubtitleColors);
+			actions.setSubtitleColor({ color: "#fff", outline: "#000", shadow: "#333" });
 			expect(mockSend).toHaveBeenCalledWith(
 				UNITY_OBJECTS.CUSTOMIZATION,
 				UNITY_METHODS.SET_SUBTITLE_OUTLINE_COLOR,

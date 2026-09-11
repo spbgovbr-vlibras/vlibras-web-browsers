@@ -13,13 +13,13 @@ import {
 	toggleChecked,
 } from "./utils";
 
-type CallbackProps = {
+export type CallbackProps = {
 	text: string;
 	element: HTMLElement;
 	isGloss?: boolean;
 };
 
-type TextCaptureProps = {
+export type TextCaptureProps = {
 	callback?: (props: CallbackProps) => void;
 	hoverClss?: string;
 	activeClass?: string;

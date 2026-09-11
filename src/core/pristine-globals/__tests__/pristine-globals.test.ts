@@ -27,9 +27,9 @@ describe("pristine-globals", () => {
 	});
 
 	it("should not throw when iframe creation fails", async () => {
-		vi.spyOn(document, "createElement").mockImplementation((() => {
+		vi.spyOn(document, "createElement").mockImplementation(() => {
 			throw new Error("createElement failed");
-		}) as unknown as typeof document.createElement);
+		});
 		const { restorePristineStringMethods } = await import("@/core/pristine-globals");
 		expect(() => restorePristineStringMethods()).not.toThrow();
 		vi.restoreAllMocks();

@@ -39,7 +39,7 @@ describe("core/fonts", () => {
 		const loadMock = vi.fn().mockResolvedValue(undefined);
 		const addMock = vi.fn();
 		function MockFontFace(_family: string, _src: string, _desc: FontFaceDescriptors) {
-			return { load: loadMock } as unknown as FontFace;
+			return { load: loadMock };
 		}
 		(globalThis as GlobalWithFontFace).FontFace = MockFontFace as unknown as typeof FontFace;
 
@@ -59,7 +59,7 @@ describe("core/fonts", () => {
 		const consoleSpy = vi.spyOn(console, "error").mockImplementation(() => {});
 		const loadMock = vi.fn().mockRejectedValue(new Error("fail"));
 		function MockFontFace(_family: string, _src: string, _desc: FontFaceDescriptors) {
-			return { load: loadMock } as unknown as FontFace;
+			return { load: loadMock };
 		}
 		(globalThis as GlobalWithFontFace).FontFace = MockFontFace as unknown as typeof FontFace;
 

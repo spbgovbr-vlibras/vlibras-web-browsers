@@ -1,5 +1,4 @@
 import { beforeEach, describe, expect, it, vi } from "vitest";
-import type { RootStoreState } from "@/widget/stores/use-root.store";
 import { rootStore } from "@/widget/stores/use-root.store";
 import {
 	focusAccessButton,
@@ -12,16 +11,13 @@ import {
 describe("focus utils", () => {
 	beforeEach(() => {
 		document.body.innerHTML = "";
-		rootStore.set({ shadowRoot: undefined } as unknown as Partial<RootStoreState>);
+		rootStore.set({ shadowRoot: undefined });
 	});
 
 	describe("trapTabFocus", () => {
 		it("should ignore non-Tab keys", () => {
 			const container = document.createElement("div");
-			const e = new KeyboardEvent("keydown", { key: "Enter" }) as unknown as KeyboardEvent & {
-				stopPropagation: () => void;
-				preventDefault: () => void;
-			};
+			const e = new KeyboardEvent("keydown", { key: "Enter" });
 			e.stopPropagation = vi.fn();
 			e.preventDefault = vi.fn();
 			trapTabFocus(container, e);
@@ -31,10 +27,7 @@ describe("focus utils", () => {
 		it("should preventDefault when no focusable elements", () => {
 			const container = document.createElement("div");
 			document.body.appendChild(container);
-			const e = new KeyboardEvent("keydown", { key: "Tab" }) as unknown as KeyboardEvent & {
-				stopPropagation: () => void;
-				preventDefault: () => void;
-			};
+			const e = new KeyboardEvent("keydown", { key: "Tab" });
 			e.stopPropagation = vi.fn();
 			e.preventDefault = vi.fn();
 			trapTabFocus(container, e);
@@ -57,12 +50,9 @@ describe("focus utils", () => {
 			btn2.focus();
 			// need shadowRoot activeElement mock
 			const shadow = { activeElement: btn2 } as unknown as ShadowRoot;
-			rootStore.set({ shadowRoot: shadow } as unknown as Partial<RootStoreState>);
+			rootStore.set({ shadowRoot: shadow });
 
-			const e = new KeyboardEvent("keydown", { key: "Tab" }) as unknown as KeyboardEvent & {
-				stopPropagation: () => void;
-				preventDefault: () => void;
-			};
+			const e = new KeyboardEvent("keydown", { key: "Tab" });
 			e.stopPropagation = vi.fn();
 			e.preventDefault = vi.fn();
 			const focusSpy = vi.spyOn(btn1, "focus");
@@ -82,12 +72,9 @@ describe("focus utils", () => {
 			vi.spyOn(btn2, "getClientRects").mockReturnValue([{} as unknown as DOMRect] as unknown as DOMRectList);
 			btn1.focus();
 			const shadow = { activeElement: btn1 } as unknown as ShadowRoot;
-			rootStore.set({ shadowRoot: shadow } as unknown as Partial<RootStoreState>);
+			rootStore.set({ shadowRoot: shadow });
 
-			const e = new KeyboardEvent("keydown", { key: "Tab", shiftKey: true }) as unknown as KeyboardEvent & {
-				stopPropagation: () => void;
-				preventDefault: () => void;
-			};
+			const e = new KeyboardEvent("keydown", { key: "Tab", shiftKey: true });
 			e.stopPropagation = vi.fn();
 			e.preventDefault = vi.fn();
 			const focusSpy = vi.spyOn(btn2, "focus");
@@ -109,11 +96,8 @@ describe("focus utils", () => {
 			btn2.focus();
 			rootStore.set({
 				shadowRoot: { activeElement: btn2 } as unknown as ShadowRoot,
-			} as unknown as Partial<RootStoreState>);
-			const e = new KeyboardEvent("keydown", { key: "Tab" }) as unknown as KeyboardEvent & {
-				stopPropagation: () => void;
-				preventDefault: () => void;
-			};
+			});
+			const e = new KeyboardEvent("keydown", { key: "Tab" });
 			e.stopPropagation = vi.fn();
 			e.preventDefault = vi.fn();
 			trapTabFocus(container, e);
