@@ -15,7 +15,7 @@ vi.mock("@/core/actions/hooks", () => ({
 	useTranslateRequest: vi.fn((opts: UseMutationOptions<string | undefined, string>) => ({
 		mutateAsync: vi.fn((text: string) => {
 			opts.onMutate?.(text);
-			opts.onSettled?.("GLOSS", undefined, text, undefined);
+			opts.onSettled?.("GLOSS", null, text);
 			return Promise.resolve("GLOSS" as string | undefined);
 		}),
 		isPending: false,
@@ -33,7 +33,7 @@ describe("useWidgetPosition", () => {
 	});
 
 	it("should return left when window.VLibrasWidget.position is L and not loaded", () => {
-		(window as VLibrasWindow).VLibrasWidget = { position: "L" };
+		(window as VLibrasWindow).VLibrasWidget = { position: "l", isOpen: true, open: vi.fn(), path: "" };
 		const { result } = renderHook(() => useWidgetPosition());
 		expect(result.current).toBe("left");
 	});

@@ -17,7 +17,7 @@ vi.mock("@/common/hooks", async () => {
 });
 
 vi.mock("@/widget/components/ui/dialog", () => ({
-	Dialog: ({ children }: { open: boolean; children: ComponentChildren }) =>
+	Dialog: ({ children, open }: { open: boolean; children: ComponentChildren }) =>
 		open ? <div role="dialog">{children}</div> : null,
 	DialogContent: ({ children }: { children: ComponentChildren }) => <div>{children}</div>,
 	DialogHeader: ({ children }: { children: ComponentChildren }) => <div>{children}</div>,

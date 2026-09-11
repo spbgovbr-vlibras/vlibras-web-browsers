@@ -39,7 +39,6 @@ describe("setupWidgetStyles", () => {
 
 		// second call should not duplicate but call onLoad via rAF
 		const onLoad = vi.fn();
-		// @ts-expect-error rAF
 		globalThis.requestAnimationFrame = (cb: FrameRequestCallback) => {
 			cb(0);
 			return 0;
