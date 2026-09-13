@@ -1,4 +1,5 @@
-import { useCallback, useEffect, useMemo, useRef, useState } from "preact/hooks";
+import type { TargetedKeyboardEvent } from "preact";
+import { useCallback, useEffect, useId, useMemo, useRef, useState } from "preact/hooks";
 import { useDebouncedCallback, useMobile } from "@/common/hooks";
 import { Trie } from "@/common/lib/trie";
 import { useDictionarySigns, useSendFeedback } from "@/core/actions/hooks";
@@ -29,6 +30,10 @@ export const FeedbackSuggestion = ({ open, onOpenChange }: Props) => {
 	const [suggestions, setSuggestions] = useState<string[]>([]);
 	const [coords, setCoords] = useState({ top: 0, left: 0 });
 	const [value, setValue] = useState<string>("");
+	const [activeIndex, setActiveIndex] = useState(-1);
+
+	const listboxId = useId();
+	const hasSuggestions = suggestions.length > 0;
 
 	useEffect(() => {
 		const { draftValue } = feedbackSuggestionStore.get();
@@ -38,6 +43,8 @@ export const FeedbackSuggestion = ({ open, onOpenChange }: Props) => {
 
 	const trie = useMemo(() => (data ? new Trie(data) : null), [data]);
 	const isEmpty = !value.trim();
+
+	useEffect(() => void setActiveIndex(-1), [suggestions]);
 
 	const handleInput = useDebouncedCallback<Event>(() => {
 		if (!textareaRef.current) return;
@@ -87,6 +94,24 @@ export const FeedbackSuggestion = ({ open, onOpenChange }: Props) => {
 		textareaRef.current.focus();
 	};
 
+	const handleSuggestionsKeyDown = (e: TargetedKeyboardEvent<HTMLTextAreaElement>) => {
+		if (!hasSuggestions) return;
+
+		if (e.key === "ArrowDown") {
+			e.preventDefault();
+			setActiveIndex((index) => Math.min(index + 1, suggestions.length - 1));
+		} else if (e.key === "ArrowUp") {
+			e.preventDefault();
+			setActiveIndex((index) => Math.max(index - 1, 0));
+		} else if (e.key === "Enter" && activeIndex >= 0) {
+			e.preventDefault();
+			handleSelectSuggestion(suggestions[activeIndex]);
+		} else if (e.key === "Escape") {
+			e.stopPropagation();
+			setSuggestions([]);
+		}
+	};
+
 	const handlePlay = useCallback(() => {
 		if (!value) return;
 
@@ -124,11 +149,24 @@ export const FeedbackSuggestion = ({ open, onOpenChange }: Props) => {
 							id="translator-input"
 							value={value}
 							placeholder="Digite aqui..."
+							// @ts-expect-error preact tipa `role` de textarea como "textbox", mas o padrão APG Combobox exige role="combobox" no próprio campo
+							role="combobox"
+							aria-autocomplete="list"
+							aria-expanded={hasSuggestions}
+							aria-controls={hasSuggestions ? listboxId : undefined}
+							aria-activedescendant={activeIndex >= 0 ? `${listboxId}-${activeIndex}` : undefined}
 							className="h-40 mobile:h-32 w-full resize-none rounded-lg border bg-muted p-3 text-sm uppercase placeholder:normal-case"
 							rows={isMobile ? 4 : 6}
 							onChange={handleInput}
+							onKeyDown={handleSuggestionsKeyDown}
 						/>
-						<SuggestionPopup onSelect={handleSelectSuggestion} suggestions={suggestions} coords={coords} />
+						<SuggestionPopup
+							id={listboxId}
+							activeIndex={activeIndex}
+							onSelect={handleSelectSuggestion}
+							suggestions={suggestions}
+							coords={coords}
+						/>
 					</div>
 
 					<div className="space-y-2 [&>button]:h-10 [&>button]:w-full [&>button]:rounded-full mobile:[&>button]:text-sm">

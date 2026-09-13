@@ -171,6 +171,57 @@ describe("FeedbackSuggestion", () => {
 		expect(screen.queryByText("TESTAR")).not.toBeInTheDocument();
 	});
 
+	it("should expose combobox attributes while suggestions are open", async () => {
+		render(<FeedbackSuggestion open={true} onOpenChange={() => {}} />);
+
+		fireEvent.input(getTextarea(), { target: { value: "TE" } });
+		act(() => {
+			vi.advanceTimersByTime(300);
+		});
+		await waitFor(() => expect(screen.getByText("TESTAR")).toBeInTheDocument());
+
+		const textarea = getTextarea();
+		expect(textarea.getAttribute("aria-expanded")).toBe("true");
+		expect(textarea.getAttribute("aria-controls")).toBe(screen.getByRole("listbox").id);
+	});
+
+	it("should apply the active suggestion with ArrowDown + Enter", async () => {
+		render(<FeedbackSuggestion open={true} onOpenChange={() => {}} />);
+
+		fireEvent.input(getTextarea(), { target: { value: "TE" } });
+		act(() => {
+			vi.advanceTimersByTime(300);
+		});
+		await waitFor(() => expect(screen.getByText("TESTAR")).toBeInTheDocument());
+
+		fireEvent.keyDown(getTextarea(), { key: "ArrowDown" });
+
+		const activeId = getTextarea().getAttribute("aria-activedescendant");
+		expect(activeId).toBe(`${screen.getByRole("listbox").id}-0`);
+		const activeText = document.getElementById(activeId as string)?.textContent;
+
+		fireEvent.keyDown(getTextarea(), { key: "Enter" });
+
+		expect(getTextarea().value).toBe(`${activeText} `);
+		expect(screen.queryByRole("listbox")).not.toBeInTheDocument();
+	});
+
+	it("should dismiss suggestions with Escape without closing the dialog", async () => {
+		const onOpenChange = vi.fn();
+		render(<FeedbackSuggestion open={true} onOpenChange={onOpenChange} />);
+
+		fireEvent.input(getTextarea(), { target: { value: "TE" } });
+		act(() => {
+			vi.advanceTimersByTime(300);
+		});
+		await waitFor(() => expect(screen.getByText("TESTAR")).toBeInTheDocument());
+
+		fireEvent.keyDown(getTextarea(), { key: "Escape" });
+
+		expect(screen.queryByText("TESTAR")).not.toBeInTheDocument();
+		expect(onOpenChange).not.toHaveBeenCalled();
+	});
+
 	it("should disable the submit button while the textarea is empty", () => {
 		render(<FeedbackSuggestion open={true} onOpenChange={() => {}} />);
 

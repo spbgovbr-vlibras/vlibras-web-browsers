@@ -4,14 +4,28 @@ import { SuggestionPopup } from "../suggestion-popup";
 
 describe("SuggestionPopup", () => {
 	it("should render nothing when there are no suggestions", () => {
-		const { container } = render(<SuggestionPopup suggestions={[]} coords={{ top: 0, left: 0 }} onSelect={() => {}} />);
+		const { container } = render(
+			<SuggestionPopup
+				id="gloss-suggestions"
+				activeIndex={-1}
+				suggestions={[]}
+				coords={{ top: 0, left: 0 }}
+				onSelect={() => {}}
+			/>,
+		);
 
 		expect(container.firstChild).toBeNull();
 	});
 
 	it("should render one button per suggestion", () => {
 		render(
-			<SuggestionPopup suggestions={["CASA", "CASADO", "CARRO"]} coords={{ top: 0, left: 0 }} onSelect={() => {}} />,
+			<SuggestionPopup
+				id="gloss-suggestions"
+				activeIndex={-1}
+				suggestions={["CASA", "CASADO", "CARRO"]}
+				coords={{ top: 0, left: 0 }}
+				onSelect={() => {}}
+			/>,
 		);
 
 		expect(screen.getByText("CASA")).toBeInTheDocument();
@@ -19,10 +33,36 @@ describe("SuggestionPopup", () => {
 		expect(screen.getByText("CARRO")).toBeInTheDocument();
 	});
 
+	it("should expose listbox semantics with the active option selected", () => {
+		render(
+			<SuggestionPopup
+				id="gloss-suggestions"
+				activeIndex={1}
+				suggestions={["CASA", "CASADO", "CARRO"]}
+				coords={{ top: 0, left: 0 }}
+				onSelect={() => {}}
+			/>,
+		);
+
+		expect(screen.getByRole("listbox", { name: "Sugestões de glosa" })).toBeInTheDocument();
+
+		const options = screen.getAllByRole("option");
+		expect(options).toHaveLength(3);
+		expect(options[0]).toHaveAttribute("aria-selected", "false");
+		expect(options[1]).toHaveAttribute("aria-selected", "true");
+		expect(options[1].id).toBe("gloss-suggestions-1");
+	});
+
 	it("should call onSelect with the exact suggestion that was clicked", () => {
 		const onSelect = vi.fn();
 		render(
-			<SuggestionPopup suggestions={["CASA", "CASADO", "CARRO"]} coords={{ top: 0, left: 0 }} onSelect={onSelect} />,
+			<SuggestionPopup
+				id="gloss-suggestions"
+				activeIndex={-1}
+				suggestions={["CASA", "CASADO", "CARRO"]}
+				coords={{ top: 0, left: 0 }}
+				onSelect={onSelect}
+			/>,
 		);
 
 		fireEvent.click(screen.getByText("CASADO"));
@@ -32,7 +72,15 @@ describe("SuggestionPopup", () => {
 	});
 
 	it("should position the popup using the given coordinates", () => {
-		render(<SuggestionPopup suggestions={["CASA"]} coords={{ top: 42, left: 17 }} onSelect={() => {}} />);
+		render(
+			<SuggestionPopup
+				id="gloss-suggestions"
+				activeIndex={-1}
+				suggestions={["CASA"]}
+				coords={{ top: 42, left: 17 }}
+				onSelect={() => {}}
+			/>,
+		);
 
 		const popup = screen.getByText("CASA").parentElement;
 
