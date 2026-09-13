@@ -10,8 +10,12 @@ export const DictionarySearch = () => {
 
 	return (
 		<div className="relative flex items-center p-4 pb-0">
+			<label for="dictionary-search" className="sr-only">
+				Pesquisar sinal no dicionário
+			</label>
 			<input
 				ref={searchRef}
+				id="dictionary-search"
 				type="text"
 				placeholder="Pesquisar (ex: AJUDAR)..."
 				onInput={(e) => handleSearchChange(e.currentTarget.value)}

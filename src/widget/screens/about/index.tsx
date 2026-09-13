@@ -90,9 +90,10 @@ export const AboutScreen = () => {
 								href={social.href}
 								target="_blank"
 								rel="noopener noreferrer"
+								aria-label={social.name}
 								className="grid place-content-center rounded-full bg-white p-2"
 							>
-								<Icon name={social.iconName} className="size-4 bg-primary" aria-label={social.name} />
+								<Icon name={social.iconName} className="size-4 bg-primary" />
 							</a>
 						))}
 					</div>
