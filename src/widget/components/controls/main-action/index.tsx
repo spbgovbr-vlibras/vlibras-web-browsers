@@ -31,6 +31,7 @@ export const MainAction = () => {
 			placement="top"
 			align="start"
 			arrow={{ position: "bottom-left" }}
+			visualOnly
 		>
 			<Button
 				aria-label={status.label}

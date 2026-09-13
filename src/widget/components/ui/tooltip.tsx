@@ -23,6 +23,13 @@ type TooltipCustomProps = VariantProps<typeof tooltipVariants> & {
 	onOpenChange?: (open: boolean) => void;
 	content?: ComponentChildren;
 	disabled?: boolean;
+	/**
+	 * Quando `true`, o tooltip continua visível para usuários videntes, mas não
+	 * é exposto à tecnologia assistiva (sem `aria-describedby` no gatilho e com
+	 * `aria-hidden` no conteúdo). Use quando o `aria-label` do gatilho já é
+	 * idêntico ao `content`, para evitar anúncio duplicado nome + descrição.
+	 */
+	visualOnly?: boolean;
 	placement?: "top" | "bottom" | "left" | "right";
 	align?: "start" | "center" | "end";
 	offset?: number;
@@ -47,6 +54,7 @@ export const Tooltip = ({
 	className,
 	open,
 	onOpenChange,
+	visualOnly = false,
 	...props
 }: TooltipProps) => {
 	const [visible, setVisible] = useState(false);
@@ -78,7 +86,7 @@ export const Tooltip = ({
 	};
 
 	const trigger = isValidElement(children)
-		? cloneElement(children, { "aria-describedby": isVisible && !disabled ? tooltipId : undefined })
+		? cloneElement(children, { "aria-describedby": isVisible && !disabled && !visualOnly ? tooltipId : undefined })
 		: children;
 
 	return (
@@ -101,6 +109,7 @@ export const Tooltip = ({
 					data-slot="tooltip-content"
 					role="tooltip"
 					id={tooltipId}
+					aria-hidden={visualOnly || undefined}
 					style={getStyleOffset()}
 					className={cn(
 						tooltipVariants({ variant }),

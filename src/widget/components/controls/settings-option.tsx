@@ -22,8 +22,10 @@ export const SettingsOption = () => {
 				content="Configurações"
 				placement="top"
 				arrow={{ position: "bottom-right" }}
+				visualOnly
 			>
 				<Button
+					aria-label="Configurações"
 					aria-expanded={!!open}
 					aria-haspopup="dialog"
 					onClick={() => setOpen(true)}

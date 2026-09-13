@@ -47,6 +47,7 @@ export const ExpandOption = () => {
 			placement="bottom"
 			align="end"
 			arrow={{ position: "top-right" }}
+			visualOnly
 		>
 			<Button
 				onClick={toggleExpand}

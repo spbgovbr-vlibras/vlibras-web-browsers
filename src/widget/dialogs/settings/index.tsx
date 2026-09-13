@@ -57,9 +57,11 @@ export const SettingsDialog = ({ open, onOpenChange }: Props) => {
 									placement="bottom"
 									content="Redefinir"
 									arrow={{ position: "top-right" }}
+									visualOnly
 								>
 									<Button
 										onClick={handleReset}
+										aria-label="Redefinir configurações"
 										variant="ghost"
 										size={isMobile ? "icon-xs" : "icon-sm"}
 										className="animate-move-up mobile:text-xs text-sm"

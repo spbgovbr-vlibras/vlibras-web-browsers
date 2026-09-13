@@ -51,6 +51,7 @@ export const ToggleAvatarButton = () => {
 				align="end"
 				arrow={{ position: "bottom-right" }}
 				disabled={isGuideOpen}
+				visualOnly
 			>
 				<DropdownTrigger openOnFocus>
 					<Button

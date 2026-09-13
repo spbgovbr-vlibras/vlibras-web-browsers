@@ -15,16 +15,25 @@ export const SubtitlesOptions = () => {
 		posthogg.trackEvent("subtitles_toggled", { status: showSubtitles ? "disabled" : "enabled" });
 	};
 
+	const label = showSubtitles ? "Desativar legendas" : "Ativar legendas";
+
 	return (
 		<Tooltip
 			className="whitespace-nowrap"
 			offset={8}
 			align="end"
-			content={showSubtitles ? "Desativar legendas" : "Ativar legendas"}
+			content={label}
 			placement="top"
 			arrow={{ position: "bottom-right" }}
+			visualOnly
 		>
-			<Button onClick={handleToggleSubtitles} variant="ghost-gov" size={isMobile ? "icon-sm" : "icon"}>
+			<Button
+				onClick={handleToggleSubtitles}
+				aria-label={label}
+				aria-pressed={showSubtitles}
+				variant="ghost-gov"
+				size={isMobile ? "icon-sm" : "icon"}
+			>
 				<Icon name={showSubtitles ? "subtitle" : "subtitle-off"} />
 			</Button>
 		</Tooltip>

@@ -30,7 +30,7 @@ export const SpeedOption = () => {
 
 	return (
 		<Dropdown className="dropdown-center dropdown-top">
-			<Tooltip offset={8} content="Velocidade" placement="top" arrow={{ position: "bottom" }}>
+			<Tooltip offset={8} content="Velocidade" placement="top" arrow={{ position: "bottom" }} visualOnly>
 				<DropdownTrigger openOnFocus>
 					<Button
 						aria-label="Alterar velocidade"
