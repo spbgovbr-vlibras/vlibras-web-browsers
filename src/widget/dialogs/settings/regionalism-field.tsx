@@ -43,12 +43,17 @@ export const SettingsRegionalismField = () => {
 								<DialogHeader closeProps={{ "aria-label": "Fechar regionalismo" }}>
 									<DialogTitle>Regionalismo</DialogTitle>
 								</DialogHeader>
-								<div className="flex flex-col overflow-y-auto p-1">
+								<div
+									role="radiogroup"
+									aria-label="Opções de regionalismo"
+									className="flex flex-col overflow-y-auto p-1"
+								>
 									{regions.map((region) => {
 										const isSelected = region === currentRegion;
 
 										return (
 											<RegionalismListItem
+												key={region.abbreviation}
 												onSelect={() => {
 													handleRegionChange(region);
 													onOpenChange(false);

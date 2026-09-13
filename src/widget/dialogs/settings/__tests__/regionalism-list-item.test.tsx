@@ -14,7 +14,7 @@ describe("RegionalismListItem", () => {
 		const onSelect = vi.fn();
 		const region: Region = { abbreviation: "BR", name: "Brazil", flag: "br.png" };
 		render(<RegionalismListItem region={region} isSelected={false} onSelect={onSelect} />);
-		fireEvent.click(screen.getByRole("button"));
+		fireEvent.click(screen.getByRole("radio", { name: "Brazil" }));
 		expect(onSelect).toHaveBeenCalledOnce();
 	});
 
@@ -23,5 +23,6 @@ describe("RegionalismListItem", () => {
 		const { container } = render(<RegionalismListItem region={region} isSelected={true} onSelect={() => {}} />);
 		const radio = container.querySelector('input[type="radio"]') as HTMLInputElement;
 		expect(radio.checked).toBe(true);
+		expect(radio.name).toBe("region");
 	});
 });
