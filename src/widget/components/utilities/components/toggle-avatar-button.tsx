@@ -70,11 +70,16 @@ export const ToggleAvatarButton = () => {
 			</Tooltip>
 
 			<DropdownContent>
-				<ul className="mb-2 space-y-2">
+				{/* biome-ignore lint/a11y/useSemanticElements: grupo de menuitem segue o padrão APG de menu com grupos; fieldset implicaria semântica de formulário */}
+				<div role="group" aria-label="Opções de avatar" className="mb-2 space-y-2">
 					{avatars
 						.filter(({ name }) => name !== avatar)
 						.map((avatar) => (
-							<li key={avatar.name} role="presentation" className="flex animate-move-up items-center justify-end gap-1">
+							<div
+								key={avatar.name}
+								role="presentation"
+								className="flex animate-move-up items-center justify-end gap-1"
+							>
 								{!(isGuideSelected && isExpanded) && (
 									<span
 										aria-hidden="true"
@@ -94,9 +99,9 @@ export const ToggleAvatarButton = () => {
 								>
 									<img src={getAvatarImage(avatar.path)} alt="" />
 								</Button>
-							</li>
+							</div>
 						))}
-				</ul>
+				</div>
 			</DropdownContent>
 		</Dropdown>
 	);

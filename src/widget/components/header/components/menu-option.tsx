@@ -14,7 +14,7 @@ export const MenuOption = ({ label, onClick, icon: iconName }: Props) => {
 	const isMobile = useMobile();
 
 	return (
-		<li
+		<div
 			role="presentation"
 			className={cn(
 				"flex w-auto animate-move-left items-center gap-1",
@@ -37,6 +37,6 @@ export const MenuOption = ({ label, onClick, icon: iconName }: Props) => {
 			>
 				{label}
 			</span>
-		</li>
+		</div>
 	);
 };

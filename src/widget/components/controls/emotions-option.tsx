@@ -44,7 +44,10 @@ export const EmotionsOption = () => {
 				<div className="relative flex items-center justify-center">
 					<span className="absolute -inset-y-1 w-px bg-border" />
 
-					<ul
+					{/* biome-ignore lint/a11y/useSemanticElements: grupo de menuitemradio segue o padrão APG de menu com grupos; fieldset implicaria semântica de formulário */}
+					<div
+						role="group"
+						aria-label="Opções de emoção"
 						className={cn(
 							"relative grid w-full grid-cols-2 gap-x-2 gap-y-1 mobile:gap-y-0! font-semibold text-primary text-sm",
 						)}
@@ -54,7 +57,7 @@ export const EmotionsOption = () => {
 							const isActive = emotion === currentEmotion;
 
 							return (
-								<li key={key} role="presentation">
+								<div key={key} role="presentation">
 									<button
 										role="menuitemradio"
 										aria-checked={isActive}
@@ -72,10 +75,10 @@ export const EmotionsOption = () => {
 											<span className="mobile:text-xs text-sm">{emotion.name}</span>
 										</div>
 									</button>
-								</li>
+								</div>
 							);
 						})}
-					</ul>
+					</div>
 				</div>
 			</DropdownContent>
 		</Dropdown>

@@ -47,7 +47,10 @@ export const SpeedOption = () => {
 			</Tooltip>
 
 			<DropdownContent className="mb-4 border bg-background drop-shadow-lg">
-				<ul
+				{/* biome-ignore lint/a11y/useSemanticElements: grupo de menuitemradio segue o padrão APG de menu com grupos; fieldset implicaria semântica de formulário */}
+				<div
+					role="group"
+					aria-label="Opções de velocidade"
 					className={cn(
 						"space-y-1 p-1 font-semibold text-primary text-sm",
 						"focus-within:pointer-events-auto focus-within:visible",
@@ -57,26 +60,25 @@ export const SpeedOption = () => {
 						const isActive = speed === currentSpeed;
 
 						return (
-							<li key={speed} role="presentation">
-								<button
-									role="menuitemradio"
-									aria-checked={isActive}
-									aria-label={`Aplicar velocidade ${speed}x`}
-									type="button"
-									onClick={() => handleSpeedChange(speed)}
-									onKeyDown={(e) => onKeyDown(e, speed)}
-									className={cn(
-										"w-full cursor-pointer whitespace-nowrap rounded-md px-2 py-1 text-center mobile:text-xs text-sm hover:bg-primary/10",
-										isActive &&
-											"pointer-events-none bg-primary! text-primary-foreground! outline-1 outline-primary outline-solid",
-									)}
-								>
-									{speed}x
-								</button>
-							</li>
+							<button
+								key={speed}
+								role="menuitemradio"
+								aria-checked={isActive}
+								aria-label={`Aplicar velocidade ${speed}x`}
+								type="button"
+								onClick={() => handleSpeedChange(speed)}
+								onKeyDown={(e) => onKeyDown(e, speed)}
+								className={cn(
+									"w-full cursor-pointer whitespace-nowrap rounded-md px-2 py-1 text-center mobile:text-xs text-sm hover:bg-primary/10",
+									isActive &&
+										"pointer-events-none bg-primary! text-primary-foreground! outline-1 outline-primary outline-solid",
+								)}
+							>
+								{speed}x
+							</button>
 						);
 					})}
-				</ul>
+				</div>
 			</DropdownContent>
 		</Dropdown>
 	);
