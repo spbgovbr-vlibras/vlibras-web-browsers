@@ -25,12 +25,13 @@ vi.mock("@/widget/components/ui/button", () => ({
 		children,
 		onClick,
 		className,
+		...rest
 	}: {
 		children: ComponentChildren;
 		onClick?: () => void;
 		className?: string;
 	}) => (
-		<button type="button" onClick={onClick} className={className}>
+		<button type="button" onClick={onClick} className={className} {...rest}>
 			{children}
 		</button>
 	),
@@ -78,6 +79,21 @@ describe("DictionaryFilter", () => {
 		render(<DictionaryFilter />);
 		fireEvent.click(screen.getByText("Categorias"));
 		expect(setFilter).toHaveBeenCalledWith("categories");
+	});
+
+	it("should expose the active filter with aria-pressed and keep it focusable", () => {
+		mockUseDictionaryCtx.mockReturnValue({
+			filter: "all",
+			setFilter: vi.fn(),
+			handleHistoryClear: vi.fn(),
+		});
+
+		render(<DictionaryFilter />);
+
+		const active = screen.getByRole("button", { name: "A-Z" });
+		expect(active).toHaveAttribute("aria-pressed", "true");
+		expect(active).not.toHaveAttribute("inert");
+		expect(screen.getByRole("button", { name: "Categorias" })).toHaveAttribute("aria-pressed", "false");
 	});
 
 	it("should not render recents button when history is empty", () => {

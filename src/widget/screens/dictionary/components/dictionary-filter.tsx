@@ -29,7 +29,7 @@ export const DictionaryFilter = () => {
 
 				return (
 					<Button
-						inert={isActive}
+						aria-pressed={isActive}
 						variant={isActive ? "default" : "outline"}
 						onClick={() => setFilter(option.value)}
 						key={option.value}
