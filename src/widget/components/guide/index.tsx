@@ -1,11 +1,11 @@
-import { type Dispatch, type StateUpdater, useEffect, useMemo, useState } from "preact/hooks";
+import { type Dispatch, type StateUpdater, useEffect, useId, useMemo, useRef, useState } from "preact/hooks";
 import { useMobile } from "@/common/hooks";
 import { cn } from "@/common/lib/utils";
 import { zusContext } from "@/common/lib/zus-context";
 import { $, $$ } from "@/common/utils/dom";
 import { play, stop } from "@/player/actions";
 import { playerStore } from "@/player/stores/use-player.store";
-import { useRootStore } from "@/widget/stores/use-root.store";
+import { rootStore, useRootStore } from "@/widget/stores/use-root.store";
 import { useWidgetStore, widgetStore } from "@/widget/stores/use-widget.store";
 import { useDraggable } from "../draggable";
 import { GuideActions } from "./actions";
@@ -30,6 +30,9 @@ export const Guide = () => {
 	const appRoot = useRootStore((s) => s.appRoot);
 	const isMobile = useMobile();
 
+	const textId = useId();
+	const triggerRef = useRef<HTMLElement | null>(null);
+
 	const isLeft = useMemo(() => pos.x < (innerWidth - (appRoot?.clientWidth || 0)) / 2, [pos.x, innerWidth]);
 	const isTop = useMemo(() => pos.y < (innerHeight - (appRoot?.clientHeight || 0)) / 2, [pos.y, innerHeight]);
 	const element = useMemo(() => guideElements[index], [index]);
@@ -43,7 +46,39 @@ export const Guide = () => {
 		stop();
 	};
 
+	const onCloseRef = useRef(onClose);
+	onCloseRef.current = onClose;
+
 	useEffect(() => void (isTranslating && onClose()), [isTranslating]);
+
+	useEffect(() => {
+		const { shadowRoot } = rootStore.get();
+		const active = (shadowRoot?.activeElement ?? document.activeElement) as HTMLElement | null;
+		if (active && active !== document.body) triggerRef.current = active;
+
+		return () => {
+			const trigger = triggerRef.current;
+			triggerRef.current = null;
+
+			if (trigger?.isConnected) {
+				trigger.focus({ preventScroll: true });
+				return;
+			}
+
+			rootStore.get().appRoot?.querySelector<HTMLElement>("#header-menu-button")?.focus({ preventScroll: true });
+		};
+	}, []);
+
+	useEffect(() => {
+		const handleKeyDown = (e: KeyboardEvent) => {
+			if (e.key !== "Escape") return;
+			e.stopPropagation();
+			onCloseRef.current();
+		};
+
+		document.addEventListener("keydown", handleKeyDown);
+		return () => document.removeEventListener("keydown", handleKeyDown);
+	}, []);
 
 	useEffect(() => {
 		if (!appRoot) return;
@@ -73,6 +108,14 @@ export const Guide = () => {
 	return (
 		<GuideProvider data={{ index, setIndex, onClose, ...store }}>
 			<div
+				role="dialog"
+				aria-label="Guia rápido do VLibras"
+				aria-describedby={textId}
+				onKeyDown={(e) => {
+					if (e.key !== "Escape") return;
+					e.stopPropagation();
+					onClose();
+				}}
 				className={cn(
 					guideVariants({ isMobile, isLeft, isTop, isExpanded }),
 					!isExpanded && !isMobile && element.guideClx,
@@ -80,7 +123,12 @@ export const Guide = () => {
 				)}
 			>
 				<div className="pr-4">
-					<span className="break-anywhere expanded:text-base! mobile:text-sm text-base text-primary-foreground">
+					{/* biome-ignore lint/a11y/useSemanticElements: texto do passo é anúncio de live region, não resultado de cálculo; output implicaria semântica de formulário */}
+					<span
+						id={textId}
+						role="status"
+						className="break-anywhere expanded:text-base! mobile:text-sm text-base text-primary-foreground"
+					>
 						{element.text}
 					</span>
 				</div>

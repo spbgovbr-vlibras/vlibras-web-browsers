@@ -20,7 +20,6 @@ export const GuideFooter = () => {
 	return (
 		<div className="flex items-center justify-between gap-2">
 			<Button
-				tabindex={2}
 				ref={backButtonRef}
 				disabled={isFirstElement}
 				variant="ghost"
@@ -43,7 +42,6 @@ export const GuideFooter = () => {
 			</div>
 
 			<Button
-				tabindex={2}
 				ref={advanceButtonRef}
 				variant="ghost"
 				size="sm"

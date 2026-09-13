@@ -14,12 +14,12 @@ export const GuideActions = () => {
 
 	return (
 		<div className="widget-radius absolute top-1 right-1 flex flex-col">
-			<Button tabindex={1} onClick={onClose} size="icon-xs" aria-label="Fechar guia">
+			<Button onClick={onClose} size="icon-xs" aria-label="Fechar guia">
 				<Icon name="x" />
 			</Button>
 
 			{canRepeat && (
-				<Button tabindex={1} aria-label="Repetir texto" onClick={repeat} size="icon-xs" className="animate-move-right">
+				<Button aria-label="Repetir texto" onClick={repeat} size="icon-xs" className="animate-move-right">
 					<Icon name="repeat" />
 				</Button>
 			)}
