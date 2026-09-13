@@ -55,7 +55,10 @@ export const ConsentBanner = () => {
 		>
 			<p>
 				Podemos coletar dados anônimos de uso para melhorar o <strong>VLibras</strong>?
-				<InlineTranslatorButton gloss="COLETAR DADO&INFORMAÇÃO ANÔNIMO USAR MELHORAR VLIBRAS [INTERROGAÇÃO]" />
+				<InlineTranslatorButton
+					gloss="COLETAR DADO&INFORMAÇÃO ANÔNIMO USAR MELHORAR VLIBRAS [INTERROGAÇÃO]"
+					label="Consentimento de coleta de dados"
+				/>
 			</p>
 
 			<div className="flex justify-end gap-2">

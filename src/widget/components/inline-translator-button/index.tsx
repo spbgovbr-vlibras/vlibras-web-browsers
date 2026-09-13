@@ -7,9 +7,11 @@ import { createCallback, resetCallback } from "@/widget/stores/use-callback.stor
 type Props = Omit<ComponentProps<"button">, "children"> & {
 	gloss: string;
 	onFinish?: () => void;
+	/** Contexto anunciado no nome acessível ("Traduzir: <label>"). Sem ele, usa o genérico "Traduzir texto". */
+	label?: string;
 };
 
-export const InlineTranslatorButton = ({ className, gloss, onFinish, onClick, ...props }: Props) => {
+export const InlineTranslatorButton = ({ className, gloss, onFinish, onClick, label, ...props }: Props) => {
 	const handleClick = (e: TargetedMouseEvent<HTMLButtonElement>) => {
 		resetCallback();
 		playStatic(gloss);
@@ -22,7 +24,7 @@ export const InlineTranslatorButton = ({ className, gloss, onFinish, onClick, ..
 		<button
 			onClick={handleClick}
 			type="button"
-			aria-label="Traduzir texto"
+			aria-label={label ? `Traduzir: ${label}` : "Traduzir texto"}
 			className={cn(
 				"pointer-events-auto relative -bottom-1 inline cursor-pointer rounded-sm p-0.5 hover:text-primary",
 				className,

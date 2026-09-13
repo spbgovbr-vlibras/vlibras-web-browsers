@@ -81,7 +81,11 @@ export const TranslatorDialog = ({ open, onOpenChange }: Props) => {
 						<div className="flex h-8 items-center justify-between">
 							<label htmlFor="translator-text" className="font-semibold text-sm">
 								Insira seu texto
-								<InlineTranslatorButton gloss="INSERIR TEXTO" onFinish={() => onOpenChange(true)} />
+								<InlineTranslatorButton
+									gloss="INSERIR TEXTO"
+									label="Insira seu texto"
+									onFinish={() => onOpenChange(true)}
+								/>
 							</label>
 
 							{text.length > 0 && (

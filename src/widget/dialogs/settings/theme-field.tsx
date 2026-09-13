@@ -21,7 +21,7 @@ export const SettingsThemeField = () => {
 		<div className="flex w-full items-center justify-between">
 			<span className="mobile:text-sm text-base">
 				<span id={labelId}>Tema escuro</span>
-				<InlineTranslatorButton gloss="TEMA ESCURO" onFinish={onOpen} />
+				<InlineTranslatorButton gloss="TEMA ESCURO" label="Tema escuro" onFinish={onOpen} />
 			</span>
 
 			<input

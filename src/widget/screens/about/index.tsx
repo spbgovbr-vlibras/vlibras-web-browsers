@@ -30,6 +30,7 @@ export const AboutScreen = () => {
 						digital (texto, áudio e vídeo) em Português para Libras.
 						<InlineTranslatorButton
 							gloss="SUÍTE VLIBRAS CONJUNTO&GRUPO FERRAMENTA GRATUITO CÓDIGO&COMPUTAÇÃO ABRIR&AFASTAR TRADUZIR CONTEÚDO&ASSUNTO DIGITAL&COMPUTADOR TEXTO ÁUDIO VÍDEO PORTUGUÊS LIBRAS [PONTO]"
+							label="Sobre a Suíte VLibras"
 							onFinish={handleReopenScreen}
 						/>
 					</p>
@@ -39,7 +40,7 @@ export const AboutScreen = () => {
 					label={
 						<Fragment>
 							Realizadores
-							<InlineTranslatorButton gloss="REALIZAR" onFinish={handleReopenScreen} />
+							<InlineTranslatorButton gloss="REALIZAR" label="Realizadores" onFinish={handleReopenScreen} />
 						</Fragment>
 					}
 				>
@@ -74,6 +75,7 @@ export const AboutScreen = () => {
 						Nos acompanhe nas redes sociais
 						<InlineTranslatorButton
 							gloss="ACOMPANHAR REDE&GRUPO SOCIAL"
+							label="Redes sociais"
 							onFinish={handleReopenScreen}
 							className="text-primary-foreground! hover:opacity-80"
 						/>

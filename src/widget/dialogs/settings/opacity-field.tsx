@@ -30,7 +30,7 @@ export const SettingsOpacityField = () => {
 			<div className="flex w-full items-center justify-between mobile:text-sm text-base">
 				<span className="mobile:text-sm text-base">
 					<span id={labelId}>Opacidade</span>
-					<InlineTranslatorButton gloss="OPACIDADE" onFinish={onOpen} />
+					<InlineTranslatorButton gloss="OPACIDADE" label="Opacidade" onFinish={onOpen} />
 				</span>
 
 				<span className="font-semibold" aria-hidden="true">

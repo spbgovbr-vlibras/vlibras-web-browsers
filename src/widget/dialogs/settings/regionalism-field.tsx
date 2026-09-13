@@ -23,7 +23,7 @@ export const SettingsRegionalismField = () => {
 		<div className="flex w-full items-center justify-between">
 			<p className="mobile:text-sm text-base">
 				Regionalismo
-				<InlineTranslatorButton gloss="REGIÃO" onFinish={onOpen} />
+				<InlineTranslatorButton gloss="REGIÃO" label="Regionalismo" onFinish={onOpen} />
 			</p>
 
 			<Dialog nested>
