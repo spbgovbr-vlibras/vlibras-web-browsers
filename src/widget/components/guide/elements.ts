@@ -31,7 +31,6 @@ export const guideElements: GuideElement[] = [
 			"AQUI VOCÊ PODER&POSSIBILIDADE TROCAR AVATAR [PONTO] VOCÊ PODER&POSSIBILIDADE ESCOLHER ENTRE [WLCM]ICARO_SINAL [WLCM]HOZANA_SINAL [WLCM]GUGA_SINAL ",
 		guideClx: "top-auto! bottom-6.5!",
 		guideClxExpanded: "mr-12!",
-		focus: true,
 	},
 
 	{

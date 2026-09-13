@@ -32,6 +32,7 @@ export const Guide = () => {
 
 	const textId = useId();
 	const triggerRef = useRef<HTMLElement | null>(null);
+	const panelRef = useRef<HTMLDivElement | null>(null);
 
 	const isLeft = useMemo(() => pos.x < (innerWidth - (appRoot?.clientWidth || 0)) / 2, [pos.x, innerWidth]);
 	const isTop = useMemo(() => pos.y < (innerHeight - (appRoot?.clientHeight || 0)) / 2, [pos.y, innerHeight]);
@@ -81,6 +82,11 @@ export const Guide = () => {
 	}, []);
 
 	useEffect(() => {
+		const frame = requestAnimationFrame(() => panelRef.current?.focus({ preventScroll: true }));
+		return () => cancelAnimationFrame(frame);
+	}, []);
+
+	useEffect(() => {
 		if (!appRoot) return;
 
 		removeAllHighlights();
@@ -108,6 +114,8 @@ export const Guide = () => {
 	return (
 		<GuideProvider data={{ index, setIndex, onClose, ...store }}>
 			<div
+				ref={panelRef}
+				tabIndex={-1}
 				role="dialog"
 				aria-label="Guia rápido do VLibras"
 				aria-describedby={textId}
