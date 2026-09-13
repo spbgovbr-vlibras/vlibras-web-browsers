@@ -12,6 +12,7 @@ describe("createRoot", () => {
 
 		expect(root.id).toBe("vlibras-app-root");
 		expect(root.style.zIndex).toBe("2147483647");
+		expect(root.lang).toBe("pt-BR");
 		expect(shadowRoot).toBeInstanceOf(ShadowRoot);
 		expect(document.body.contains(root)).toBe(true);
 		expect(isRootActive()).toBe(false);

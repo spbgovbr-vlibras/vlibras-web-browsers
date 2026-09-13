@@ -22,6 +22,8 @@ const createRootOverlay = (): ShadowRoot => {
 		memoizedRoots[ROOT_OVERLAY_ID] = rootOverlay;
 	}
 
+	rootOverlay.lang = "pt-BR";
+
 	return rootOverlay.shadowRoot || rootOverlay.attachShadow({ mode: "open" });
 };
 
@@ -58,6 +60,8 @@ export const createRoot = () => {
 		document.body.appendChild(root);
 		memoizedRoots[ROOT_ID] = root;
 	}
+
+	root.lang = "pt-BR";
 
 	const shadowRoot = root.shadowRoot || root.attachShadow({ mode: "open" });
 	const isRootActive = () => root.getAttribute("data-active") === "true";
