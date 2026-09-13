@@ -33,7 +33,7 @@ export const SpeedOption = () => {
 			<Tooltip offset={8} content="Velocidade" placement="top" arrow={{ position: "bottom" }} visualOnly>
 				<DropdownTrigger openOnFocus>
 					<Button
-						aria-label="Alterar velocidade"
+						aria-label={`Alterar velocidade, atual ${currentSpeed}x`}
 						className="min-w-9 mobile:min-w-8 max-w-16 mobile:max-w-14 px-2"
 						variant="ghost-gov"
 						size={isMobile ? "sm" : "default"}
