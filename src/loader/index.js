@@ -38,7 +38,7 @@
 
     const template = `
   <div id="vlibras-access">
-      <img id="vlibras-popup" src="${currentPath}/assets/images/vlibras-popup.webp" alt="Acessível com VLibras" />
+      <img id="vlibras-popup" src="${currentPath}/assets/images/vlibras-popup.webp" alt="" aria-hidden="true" />
       <button type="button" aria-label="Conteúdo acessível em Libras usando o VLibras Widget com opções dos Avatares Ícaro, Hosana ou Guga." aria-expanded="false" id="vlibras-button">
         <img src="${currentPath}/assets/images/vlibras-access.svg" alt="" aria-hidden="true" />
       </button>
@@ -86,6 +86,12 @@
 
         &:hover { 
             filter: var(--vlibras-btn-hover-filter, brightness(1.1));
+        }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+        #vlibras-access {
+            transition: none;
         }
     }
   </style>`;
