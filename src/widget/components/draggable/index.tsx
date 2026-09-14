@@ -225,19 +225,26 @@ export function Draggable<TElement extends HTMLElement>({ children }: Props<TEle
 	);
 }
 
-export const DragHandle = ({ className }: { className?: string }) => {
+type DragHandleProps = {
+	className?: string;
+	focusable?: boolean;
+};
+
+export const DragHandle = ({ className, focusable = true }: DragHandleProps) => {
 	const { onPointerDown, onKeyDown } = useDraggable();
+
+	if (__IS_EXTENSION__) return null;
 
 	return (
 		<button
 			type="button"
 			data-slot="drag-handle"
 			aria-label="Mover janela VLibras. Use as setas para mover; Enter ou 0 para redefinir a posição."
+			tabIndex={focusable ? undefined : -1}
 			onPointerDown={onPointerDown}
 			onKeyDown={onKeyDown}
 			className={cn(
-				"absolute inset-0 -z-1! touch-none outline-none!",
-				!__IS_EXTENSION__ && "not-expanded:hover:cursor-move sm:hover:cursor-move",
+				"absolute inset-0 -z-1! touch-none outline-none! not-expanded:hover:cursor-move sm:hover:cursor-move",
 				className,
 			)}
 		/>

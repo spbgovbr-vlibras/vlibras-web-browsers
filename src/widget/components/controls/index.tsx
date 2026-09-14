@@ -23,7 +23,7 @@ export const WidgetControls = () => {
 				"-mt-13 **:data-[highlight=true]:animate-highlight-primary",
 			)}
 		>
-			<DragHandle />
+			<DragHandle focusable={false} />
 			<ProgressBar />
 
 			<div
