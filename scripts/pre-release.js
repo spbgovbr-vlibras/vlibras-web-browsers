@@ -6,16 +6,11 @@ function run(command) {
   return execSync(command, { encoding: "utf8" }).trim();
 }
 
-try {
-  const currentBranch = run("git rev-parse --abbrev-ref HEAD");
-  if (currentBranch !== "dev") {
-    console.error(
-      "❌ Erro: O processo de release deve ser iniciado a partir da branch 'dev'.",
-    );
-    console.error(`Branch atual: ${currentBranch}`);
-    process.exit(1);
-  }
+function remoteBranchExists(branch) {
+  return run(`git ls-remote --heads origin ${branch}`).length > 0;
+}
 
+function runAudit() {
   console.log("🔒 Verificando vulnerabilidades de segurança com pnpm audit...");
   try {
     execSync("pnpm audit --audit-level high", { stdio: "inherit" });
@@ -29,6 +24,10 @@ try {
     );
     process.exit(1);
   }
+}
+
+try {
+  const currentBranch = run("git rev-parse --abbrev-ref HEAD");
 
   const newVersion =
     process.argv[2] ||
@@ -37,23 +36,65 @@ try {
     ).version;
   const targetBranch = `release/v${newVersion}`;
 
-  console.log(`🚀 Iniciando pre-release para a versão v${newVersion}...`);
+  if (currentBranch === targetBranch) {
+    runAudit();
+    console.log(
+      `ℹ️  Já em '${targetBranch}'; reaproveitando a branch (fluxo de 'pnpm release:sync').`,
+    );
+  } else if (currentBranch === "dev") {
+    runAudit();
 
-  console.log("📥 Buscando atualizações e tags remotas...");
-  execSync("git fetch --tags --all", { stdio: "inherit" });
+    console.log(`🚀 Iniciando pre-release para a versão v${newVersion}...`);
 
-  console.log("🔄 Atualizando a branch 'dev' local com o remoto...");
-  execSync("git pull --ff-only origin dev", { stdio: "inherit" });
+    console.log("📥 Buscando atualizações e tags remotas...");
+    execSync("git fetch --tags --all", { stdio: "inherit" });
 
-  const localBranches = run("git branch --list")
-    .split("\n")
-    .map((b) => b.trim().replace(/^\* /, ""));
-  const branchExists = localBranches.includes(targetBranch);
+    console.log("🔄 Atualizando a branch 'dev' local com o remoto...");
+    execSync("git pull --ff-only origin dev", { stdio: "inherit" });
 
-  if (branchExists) {
-    execSync(`git branch -D ${targetBranch}`, { stdio: "inherit" });
+    const localBranches = run("git branch --list")
+      .split("\n")
+      .map((b) => b.trim().replace(/^\* /, ""));
+    const existsLocally = localBranches.includes(targetBranch);
+    const existsRemotely = remoteBranchExists(targetBranch);
+
+    if (existsRemotely) {
+      console.error(
+        `❌ Erro: a branch '${targetBranch}' já foi publicada no remoto (provavelmente já existe um MR aberto para ela).`,
+      );
+      console.error(
+        `Para incorporar novos commits da 'dev' nela, faça checkout de '${targetBranch}' e rode 'pnpm release:sync'.`,
+      );
+      process.exit(1);
+    }
+
+    if (existsLocally) {
+      execSync(`git branch -D ${targetBranch}`, { stdio: "inherit" });
+    }
+    execSync(`git checkout -b ${targetBranch}`, { stdio: "inherit" });
+  } else if (/^release\/v/.test(currentBranch)) {
+    console.error(
+      `❌ Erro: os commits novos mudam a versão a ser lançada de '${currentBranch}' para '${targetBranch}'.`,
+    );
+    console.error(
+      "Isso costuma acontecer quando um commit 'feat' (ou breaking change) entrou onde antes só havia 'fix'.",
+    );
+    console.error(
+      "Esse caso não é resolvido automaticamente — a branch/MR precisa ser recriada com o novo número de versão:",
+    );
+    console.error(`  git branch -m ${currentBranch} ${targetBranch}`);
+    console.error(`  git push -u origin ${targetBranch}`);
+    console.error(
+      `Depois feche manualmente o MR antigo de '${currentBranch}'.`,
+    );
+    process.exit(1);
+  } else {
+    console.error(
+      "❌ Erro: o processo de release deve ser iniciado a partir da branch 'dev', ou de uma 'release/vX.Y.Z' existente (via 'pnpm release:sync').",
+    );
+    console.error(`Branch atual: ${currentBranch}`);
+    process.exit(1);
   }
-  execSync(`git checkout -b ${targetBranch}`, { stdio: "inherit" });
 } catch (error) {
   console.error(
     "❌ Ocorreu um erro durante a execução do pre-release:",

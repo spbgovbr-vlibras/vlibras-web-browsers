@@ -54,6 +54,7 @@
 		"format": "biome check . --write",
 		"check": "biome check .",
 		"release": "release-it",
+		"release:sync": "node ./scripts/sync-release.js",
 		"test": "vitest run",
 		"test:watch": "vitest",
 		"test:coverage": "vitest run --coverage",
