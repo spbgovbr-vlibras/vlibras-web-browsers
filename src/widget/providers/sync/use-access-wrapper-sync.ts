@@ -18,6 +18,7 @@ export const useAccessWrapperSync = () => {
 
 	useEffect(() => {
 		if (!wrapperRef.current) return;
+
 		wrapperRef.current.style.display = isOpen ? "none" : "flex";
 	}, [isOpen]);
 

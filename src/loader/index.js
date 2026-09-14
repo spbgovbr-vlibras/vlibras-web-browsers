@@ -23,13 +23,37 @@
       showButton: cfg.showButton !== false,
     });
 
-    renderWidget();
+    render();
   };
 
   let isRendered = false;
   let widget;
 
-  function renderWidget() {
+  function open() {
+    if (widget) return (widget.dataset.active = true);
+
+    const script = document.createElement("script");
+    script.type = "module";
+    script.src = `${vw.path}/vlibras-plugin-app.js?v=__APP_VERSION__`;
+    script.async = true;
+    script.onload = () => {
+      widget = document.getElementById("vlibras-app-root");
+      if (widget) widget.dataset.active = "true";
+    };
+
+    document.body.appendChild(script);
+  }
+
+  function toggle(_open) {
+    const shouldOpen = _open ?? widget?.dataset.active !== "true";
+    if (shouldOpen) open();
+    else if (widget) widget.dataset.active = false;
+  }
+
+  vw.open = open;
+  vw.toggle = toggle;
+
+  function render() {
     if (isRendered) return;
     isRendered = true;
 
@@ -112,33 +136,9 @@
       vw.initBtn = initBtn;
       vw.access = access;
     }
-
-    vw.open = open;
-    vw.toggle = toggle;
-
-    function open() {
-      if (widget) return (widget.dataset.active = true);
-
-      const script = document.createElement("script");
-      script.type = "module";
-      script.src = `${vw.path}/vlibras-plugin-app.js?v=__APP_VERSION__`;
-      script.async = true;
-      script.onload = () => {
-        widget = document.getElementById("vlibras-app-root");
-        if (widget) widget.dataset.active = "true";
-      };
-
-      document.body.appendChild(script);
-    }
-
-    function toggle(_open) {
-      const shouldOpen = _open ?? widget?.dataset.active !== "true";
-      if (shouldOpen) open();
-      else if (widget) widget.dataset.active = false;
-    }
   }
 
   if (document.readyState === "loading") {
-    document.addEventListener("DOMContentLoaded", renderWidget);
-  } else setTimeout(renderWidget, 50);
+    document.addEventListener("DOMContentLoaded", render);
+  } else setTimeout(render, 50);
 })();

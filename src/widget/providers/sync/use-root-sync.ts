@@ -15,6 +15,11 @@ export const useRootSync = () => {
 
 	useEffect(() => {
 		const { root } = rootStore.get();
+		if (root) root.dataset.active = String(isOpen);
+	}, [isOpen]);
+
+	useEffect(() => {
+		const { root } = rootStore.get();
 		if (!root || !isOpen) return;
 
 		if (isExpanded) {
