@@ -111,18 +111,11 @@ export const Dropdown = ({
 
 interface DropdownTriggerProps {
 	children: VNode<ComponentProps<"button">>;
-	openOnFocus?: boolean;
 	"aria-describedby"?: string;
 }
 
-export const DropdownTrigger = ({
-	children,
-	openOnFocus = false,
-	"aria-describedby": describedBy,
-}: DropdownTriggerProps) => {
+export const DropdownTrigger = ({ children, "aria-describedby": describedBy }: DropdownTriggerProps) => {
 	const { open, setOpen, triggerRef } = useDropdownContext();
-
-	const wasFocusedRef = useRef(false);
 
 	if (!isValidElement(children)) return children;
 
@@ -131,20 +124,9 @@ export const DropdownTrigger = ({
 		"aria-expanded": open,
 		"aria-haspopup": "menu",
 		"aria-describedby": describedBy,
-		onMouseDown: (event: MouseEvent) => {
-			(children.props.onMouseDown as ((event: MouseEvent) => void) | undefined)?.(event);
-
-			const root = triggerRef.current?.getRootNode() as Document | ShadowRoot | undefined;
-			wasFocusedRef.current = !!root && root.activeElement === triggerRef.current;
-		},
 		onClick: (event: MouseEvent) => {
 			(children.props.onClick as ((event: MouseEvent) => void) | undefined)?.(event);
-			if (openOnFocus && !wasFocusedRef.current) return;
 			setOpen((prev) => !prev);
-		},
-		onFocus: (event: TargetedFocusEvent<HTMLElement>) => {
-			(children.props.onFocus as ((event: TargetedFocusEvent<HTMLElement>) => void) | undefined)?.(event);
-			if (openOnFocus) setOpen(true);
 		},
 	});
 };

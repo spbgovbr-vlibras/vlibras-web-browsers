@@ -53,7 +53,7 @@ export const ToggleAvatarButton = () => {
 				disabled={isGuideOpen}
 				visualOnly
 			>
-				<DropdownTrigger openOnFocus>
+				<DropdownTrigger>
 					<Button
 						aria-label="Alterar avatar"
 						id="toggle-avatar-button"

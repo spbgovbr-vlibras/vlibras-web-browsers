@@ -25,7 +25,7 @@ export const EmotionsOption = () => {
 	return (
 		<Dropdown className="dropdown-center dropdown-top">
 			<Tooltip offset={8} content="Emoções" placement="top" arrow={{ position: "bottom" }} visualOnly>
-				<DropdownTrigger openOnFocus>
+				<DropdownTrigger>
 					<Button
 						aria-label={isDefaultEmotion ? "Alterar emoção" : "Alterar emoção (emoção não padrão selecionada)"}
 						className="group relative"
