@@ -8,7 +8,7 @@ export const SettingsOpacityField = () => {
 	const timeoutRef = useRef<NodeJS.Timeout>(null);
 	const opacity = useWidgetStore((s) => s.opacity);
 	const onOpen = useSettingsCtx((s) => s.onOpen);
-	const labelId = useId();
+	const inputId = useId();
 	const progress = Number(opacity) * 100;
 	const rounded = Math.round(Number(opacity) * 100);
 
@@ -27,20 +27,22 @@ export const SettingsOpacityField = () => {
 
 	return (
 		<div>
-			<div className="flex w-full items-center justify-between mobile:text-sm text-base">
+			<label
+				htmlFor={inputId}
+				className="flex w-full cursor-pointer items-center justify-between py-1 mobile:text-sm text-base"
+			>
 				<span className="mobile:text-sm text-base">
-					<span id={labelId}>Opacidade</span>
+					Opacidade
 					<InlineTranslatorButton gloss="OPACIDADE" label="Opacidade" onFinish={onOpen} />
 				</span>
 
 				<span className="font-semibold" aria-hidden="true">
 					{rounded}%
 				</span>
-			</div>
+			</label>
 			<input
 				type="range"
-				id={`${labelId}-input`}
-				aria-labelledby={labelId}
+				id={inputId}
 				aria-valuetext={`${rounded}%`}
 				min={0}
 				max={100}

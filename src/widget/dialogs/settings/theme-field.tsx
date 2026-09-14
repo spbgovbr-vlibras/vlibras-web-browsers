@@ -7,7 +7,7 @@ import { useSettingsCtx } from "./context";
 export const SettingsThemeField = () => {
 	const theme = useTheme((s) => s.theme);
 	const onOpen = useSettingsCtx((s) => s.onOpen);
-	const labelId = useId();
+	const inputId = useId();
 
 	const handleToggleTheme = () => {
 		const { theme, toggleTheme } = useTheme.getState();
@@ -18,20 +18,19 @@ export const SettingsThemeField = () => {
 	};
 
 	return (
-		<div className="flex w-full items-center justify-between">
+		<label htmlFor={inputId} className="flex w-full cursor-pointer items-center justify-between py-1">
 			<span className="mobile:text-sm text-base">
-				<span id={labelId}>Tema escuro</span>
+				Tema escuro
 				<InlineTranslatorButton gloss="TEMA ESCURO" label="Tema escuro" onFinish={onOpen} />
 			</span>
 
 			<input
 				type="checkbox"
-				id={`${labelId}-input`}
-				aria-labelledby={labelId}
+				id={inputId}
 				onChange={handleToggleTheme}
 				checked={theme === "dark"}
 				className="toggle toggle-sm rounded-full bg-accent text-primary before:size-4 before:rounded-full not-checked:before:bg-background checked:bg-primary checked:text-primary-foreground"
 			/>
-		</div>
+		</label>
 	);
 };

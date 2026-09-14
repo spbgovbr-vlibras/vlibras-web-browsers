@@ -33,6 +33,15 @@ describe("SettingsOpacityField", () => {
 		expect(screen.getByText("50%")).toBeInTheDocument();
 	});
 
+	it("should associate the slider with its label", () => {
+		render(
+			<SettingsProvider data={{ onOpen: () => {}, onClose: () => {} }}>
+				<SettingsOpacityField />
+			</SettingsProvider>,
+		);
+		expect(screen.getByRole("slider", { name: /Opacidade/i })).toBeInTheDocument();
+	});
+
 	it("should call widgetStore.set when slider changes", () => {
 		const widgetSet = vi.fn();
 		const originalSet = widgetStore.set;

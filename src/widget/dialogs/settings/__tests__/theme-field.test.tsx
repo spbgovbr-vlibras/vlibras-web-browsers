@@ -1,4 +1,4 @@
-import { render, screen } from "@testing-library/preact";
+import { fireEvent, render, screen } from "@testing-library/preact";
 import type { ComponentProps } from "preact";
 import { describe, expect, it } from "vitest";
 import { useTheme } from "@/common/hooks/use-theme";
@@ -47,5 +47,18 @@ describe("SettingsThemeField", () => {
 		const checkbox = screen.getByRole("checkbox") as HTMLInputElement;
 		expect(checkbox).toBeInTheDocument();
 		expect(checkbox.checked).toBe(false);
+	});
+
+	it("should associate the checkbox with its label so clicking the text toggles it", () => {
+		render(
+			<SettingsProvider data={{ onOpen: () => {}, onClose: () => {} }}>
+				<SettingsThemeField />
+			</SettingsProvider>,
+		);
+		const checkbox = screen.getByRole("checkbox", { name: /Tema escuro/i }) as HTMLInputElement;
+
+		fireEvent.click(screen.getByText(/Tema escuro/i));
+
+		expect(checkbox.checked).toBe(true);
 	});
 });
