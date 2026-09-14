@@ -31,6 +31,8 @@ This document describes the code conventions and contribution workflow used in t
 - [Icons and images](#icons-and-images)
 - [What to avoid](#what-to-avoid)
 - [Checklist before opening a PR](#checklist-before-opening-a-pr)
+- [Release process](#release-process)
+  - [Forgotten adjustments on the release branch](#forgotten-adjustments-on-the-release-branch)
 
 ## Before you start
 
@@ -317,3 +319,49 @@ To reduce the final bundle size and improve the application's loading performanc
 - Imperative reads use `xStore.get()` at call time when it avoids a rerender.
 - Internal imports use `@/`.
 - The commit message follows Conventional Commits.
+
+## Release process
+
+The release process must be started from the `dev` branch and is automated via [release-it](https://github.com/release-it/release-it):
+
+```bash
+pnpm release
+```
+
+The command:
+
+- Updates the local `dev` with the remote and creates the `release/vX.Y.Z` branch;
+- Bumps the version in `package.json` and updates `CHANGELOG.md`;
+- Updates the version badge in the README;
+- Creates a local commit with these changes.
+
+> The process doesn't create a tag or push automatically.
+
+Then, push the release branch to the remote repository and open an MR to `master`:
+
+```bash
+git push -u origin release/vX.Y.Z
+```
+
+### Forgotten adjustments on the release branch
+
+If, with the release MR already open, you notice that some adjustment is missing: **don't delete the branch or the MR**. Make the adjustment normally from `dev`, push it to the remote, and then sync the release branch with it:
+
+```bash
+git checkout dev
+# commit the adjustment, following the conventional commits pattern
+git push origin dev
+
+git checkout release/vX.Y.Z
+pnpm release:sync
+```
+
+`release:sync` discards the old `chore: release vX.Y.Z` commit, brings in the new commits from `dev`, and regenerates the release commit from scratch (same version, `CHANGELOG.md` and badge updated with the new commits), pushing to the same MR. Only in the rare cases where the new commit changes the bump type (e.g. a `feat` was added where there was only a `fix`, so the version is no longer the same) does the command stop and ask you to rename the branch and open a new MR — this is intentional, since that scenario requires a branch with the new version number.
+
+After the MR is accepted and merged into `master`, manually create the `vX.Y.Z` tag and the corresponding release on GitLab (Repository > Tags), using `CHANGELOG.md` as a reference for the release description. Then, backmerge `master` into `dev`, so `dev` doesn't fall behind what was released:
+
+```bash
+git checkout dev
+git merge master
+git push origin dev
+```

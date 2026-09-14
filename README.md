@@ -140,49 +140,17 @@ Os testes estão localizados em `src/**/*.test.ts` e utilizam o ambiente **jsdom
 
 ## Versionamento
 
-O processo de release deve ser iniciado a partir da branch `dev` e é automatizado via [release-it](https://github.com/release-it/release-it):
+O processo de release é automatizado via [release-it](https://github.com/release-it/release-it) e deve ser iniciado a partir da branch `dev`:
 
 ```bash
 pnpm release
 ```
 
-O comando:
+O comando cria a branch `release/vX.Y.Z`, incrementa a versão no `package.json`, atualiza o `CHANGELOG.md` e o badge de versão do README, e cria um commit local com essas alterações (sem criar tag nem dar push).
 
-- Atualiza a `dev` local com o remoto e cria a branch `release/vX.Y.Z`;
-- Incrementa a versão no `package.json` e atualiza o `CHANGELOG.md`;
-- Atualiza o badge de versão no README;
-- Cria um commit local com essas alterações.
+Se, com o MR de release já aberto, faltar algum ajuste, ele deve ser feito a partir da `dev` e sincronizado com `pnpm release:sync`, em vez de apagar a branch ou o MR.
 
-> O processo não cria tag nem faz push automaticamente.
-
-Depois, envie a branch de release para o repositório remoto e abra um MR para a `master`:
-
-```bash
-git push -u origin release/vX.Y.Z
-```
-
-### Ajustes esquecidos na branch de release
-
-Se, com o MR de release já aberto, você perceber que faltou algum ajuste: **não apague a branch nem o MR**. Faça o ajuste normalmente a partir da `dev`, suba para o remoto, e então sincronize a branch de release com ele:
-
-```bash
-git checkout dev
-# commit do ajuste, seguindo o padrão de commits convencionais
-git push origin dev
-
-git checkout release/vX.Y.Z
-pnpm release:sync
-```
-
-O `release:sync` descarta o commit `chore: release vX.Y.Z` antigo, traz os commits novos da `dev` e regera o commit de release do zero (mesma versão, `CHANGELOG.md` e badge atualizados com os novos commits), dando push no mesmo MR. Só nos casos raros em que o novo commit muda o tipo do bump (ex.: entrou um `feat` onde só havia `fix`, e a versão deixa de ser a mesma) é que o comando para e pede para renomear a branch e abrir um novo MR — isso é intencional, pois esse cenário exige uma branch com o novo número de versão.
-
-Após o MR ser aceito e mergeado na `master`, crie a tag `vX.Y.Z` e a release correspondente manualmente no GitLab (Repository > Tags), usando o `CHANGELOG.md` como referência para a descrição da release. Em seguida, faça o backmerge de `master` para `dev`, para que a `dev` não fique desatualizada em relação ao que foi lançado:
-
-```bash
-git checkout dev
-git merge master
-git push origin dev
-```
+Veja o processo completo (push da branch, abertura de MR, criação de tag e backmerge para `dev`) em [CONTRIBUTING.md](CONTRIBUTING.md#processo-de-release).
 
 ## Contribuidores
 
