@@ -161,7 +161,28 @@ Depois, envie a branch de release para o repositório remoto e abra um MR para a
 git push -u origin release/vX.Y.Z
 ```
 
-Após o MR ser aceito e mergeado na `master`, crie a tag `vX.Y.Z` e a release correspondente manualmente no GitLab (Repository > Tags), usando o `CHANGELOG.md` como referência para a descrição da release.
+### Ajustes esquecidos na branch de release
+
+Se, com o MR de release já aberto, você perceber que faltou algum ajuste: **não apague a branch nem o MR**. Faça o ajuste normalmente a partir da `dev`, suba para o remoto, e então sincronize a branch de release com ele:
+
+```bash
+git checkout dev
+# commit do ajuste, seguindo o padrão de commits convencionais
+git push origin dev
+
+git checkout release/vX.Y.Z
+pnpm release:sync
+```
+
+O `release:sync` descarta o commit `chore: release vX.Y.Z` antigo, traz os commits novos da `dev` e regera o commit de release do zero (mesma versão, `CHANGELOG.md` e badge atualizados com os novos commits), dando push no mesmo MR. Só nos casos raros em que o novo commit muda o tipo do bump (ex.: entrou um `feat` onde só havia `fix`, e a versão deixa de ser a mesma) é que o comando para e pede para renomear a branch e abrir um novo MR — isso é intencional, pois esse cenário exige uma branch com o novo número de versão.
+
+Após o MR ser aceito e mergeado na `master`, crie a tag `vX.Y.Z` e a release correspondente manualmente no GitLab (Repository > Tags), usando o `CHANGELOG.md` como referência para a descrição da release. Em seguida, faça o backmerge de `master` para `dev`, para que a `dev` não fique desatualizada em relação ao que foi lançado:
+
+```bash
+git checkout dev
+git merge master
+git push origin dev
+```
 
 ## Contribuidores
 
