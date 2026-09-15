@@ -173,22 +173,35 @@ function loadTextCaptureScript() {
 
     tooltip.innerText = isLink ? "Acessar link" : "Interagir";
 
-    const { clientX, clientY } = event;
-    const yView = clientY > innerHeight - 100;
-    const xView = clientX > innerWidth - 120;
-    const iWidth = innerWidth - clientX - 20;
-
-    toggleClass(tooltip, "vw-yView", yView);
-    toggleClass(tooltip, "vw-xView", xView);
-
-    tooltip.style.top = clientY + (yView ? -68 : 48) + "px";
-    tooltip.style.right = xView
-      ? (iWidth < 20 ? 20 : iWidth - 20) + "px"
-      : "auto";
-    tooltip.style.left = !xView
-      ? (clientX < 20 ? 20 : clientX - 20) + "px"
-      : "auto";
+    // Mede o tamanho real com o tooltip visível, porém invisível,
+    // para que os limiares acompanhem fonte/zoom/conteúdo.
+    tooltip.style.visibility = "hidden";
     tooltip.style.display = "block";
+    const { width, height } = tooltip.getBoundingClientRect();
+    tooltip.style.visibility = "";
+
+    const GAP = 12;
+    const MARGIN = 8;
+    const CLICK_OFFSET_X = 20;
+
+    const fitsAbove = event.clientY - GAP - height >= MARGIN;
+    const fitsBelow = event.clientY + GAP + height <= innerHeight - MARGIN;
+    const placeAbove = fitsAbove || !fitsBelow;
+
+    const maxLeft = innerWidth - width - MARGIN;
+    const left = Math.min(
+      Math.max(event.clientX - CLICK_OFFSET_X, MARGIN),
+      Math.max(maxLeft, MARGIN)
+    );
+    const clampedRight = event.clientX - CLICK_OFFSET_X > maxLeft;
+
+    toggleClass(tooltip, "vw-yView", placeAbove);
+    toggleClass(tooltip, "vw-xView", clampedRight);
+
+    tooltip.style.top =
+      (placeAbove ? event.clientY - GAP - height : event.clientY + GAP) + "px";
+    tooltip.style.left = left + "px";
+    tooltip.style.right = "auto";
 
     tooltip.onclick = (e) => clickHandler(linkElement, e);
     document.addEventListener("click", removeTooltips);

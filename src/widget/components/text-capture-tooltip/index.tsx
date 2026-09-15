@@ -4,13 +4,20 @@ import { cn } from "@/common/lib/utils";
 import { Button } from "@/widget/components/ui/button";
 import { Icon } from "@/widget/components/ui/icon";
 import { tooltipStore, useTooltipStore } from "@/widget/stores/use-tooltip.store";
-import { normalizePosition } from "./utils";
+import { type ArrowPosition, normalizePosition, type TooltipPlacement } from "./utils";
 
 export const TextCaptureTooltip = () => {
 	const tooltipRef = useRef<HTMLButtonElement>(null);
 
 	const { type, event, onClick, isActive, render, element } = useTooltipStore();
-	const [position, setPosition] = useState({ x: 0, y: 0, arrow: "bottom" });
+	const [position, setPosition] = useState<{ x: number; y: number; arrow: ArrowPosition; placement: TooltipPlacement }>(
+		{
+			x: 0,
+			y: 0,
+			arrow: "bottom-left",
+			placement: "above",
+		},
+	);
 
 	useEffect(() => {
 		const handleClickOutside = (e: MouseEvent) => {
@@ -39,7 +46,7 @@ export const TextCaptureTooltip = () => {
 	}, [isActive, element]);
 
 	useEffect(() => {
-		if (event && tooltipRef.current) {
+		if (event && isActive && tooltipRef.current) {
 			setPosition(normalizePosition({ event, tooltip: tooltipRef.current }));
 
 			const btn = tooltipRef.current;
@@ -49,7 +56,7 @@ export const TextCaptureTooltip = () => {
 				btn.classList.add("animate-scale");
 			}
 		}
-	}, [event]);
+	}, [event, isActive, type, render]);
 
 	return (
 		<Button
@@ -57,7 +64,7 @@ export const TextCaptureTooltip = () => {
 			onClick={onClick}
 			style={{ left: position.x, top: position.y }}
 			className={cn(
-				"group absolute z-2147483647 h-9 -translate-x-6 -translate-y-full animate-scale rounded-xl px-3 text-primary-foreground shadow-lg",
+				"group absolute z-2147483647 h-9 animate-scale rounded-xl px-3 text-primary-foreground shadow-lg",
 				!isActive && "hidden",
 			)}
 		>
@@ -74,8 +81,8 @@ export const TextCaptureTooltip = () => {
 			<span
 				className={cn(
 					"absolute -z-2 size-4 -translate-x-1/2 rotate-45 rounded-sm bg-primary brightness-85",
-					["bottom", "bottom-left", "bottom-right"].includes(position.arrow) ? "-bottom-1.5" : "-top-1.5",
-					["bottom-left", "top-left", "bottom", "top"].includes(position.arrow) ? "left-5" : "right-2",
+					position.placement === "above" ? "-bottom-1.5" : "-top-1.5",
+					position.arrow.endsWith("right") ? "right-2" : "left-5",
 				)}
 			/>
 		</Button>
