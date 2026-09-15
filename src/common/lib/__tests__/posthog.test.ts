@@ -1,5 +1,5 @@
 import { beforeEach, describe, expect, it, vi } from "vitest";
-import { consentStore } from "@/widget/stores/use-consent.store";
+import { consentStore } from "@/common/stores/use-consent.store";
 
 describe("posthog - sampling & consent gating (non-PROD)", () => {
 	beforeEach(() => {

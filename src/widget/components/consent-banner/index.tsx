@@ -1,11 +1,11 @@
 import { useEffect, useId, useRef } from "preact/hooks";
 import { isTrackingAvailable } from "@/common/lib/posthog";
+import { consentStore, useConsentStore } from "@/common/stores/use-consent.store";
 import { usePlayerStore } from "@/player/stores/use-player.store";
 import { useGuideStore } from "@/widget/components/guide/store";
 import { InlineTranslatorButton } from "@/widget/components/inline-translator-button";
 import { Button } from "@/widget/components/ui/button";
 import { Separator } from "@/widget/components/ui/separator";
-import { consentStore, useConsentStore } from "@/widget/stores/use-consent.store";
 import { focusWidgetPanel, trapTabFocus } from "@/widget/utils/focus";
 
 export const ConsentBanner = () => {

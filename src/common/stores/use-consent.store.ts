@@ -23,4 +23,5 @@ export const useConsentStore = create<ConsentStoreState>()(
 export const consentStore = {
 	get: useConsentStore.getState,
 	set: useConsentStore.setState,
+	subscribe: useConsentStore.subscribe,
 };

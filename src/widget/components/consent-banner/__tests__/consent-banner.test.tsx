@@ -1,6 +1,6 @@
 import { fireEvent, render, screen } from "@testing-library/preact";
 import { beforeEach, describe, expect, it, vi } from "vitest";
-import { useConsentStore } from "@/widget/stores/use-consent.store";
+import { useConsentStore } from "@/common/stores/use-consent.store";
 import { ConsentBanner } from "..";
 
 vi.mock("@/common/lib/posthog", () => ({

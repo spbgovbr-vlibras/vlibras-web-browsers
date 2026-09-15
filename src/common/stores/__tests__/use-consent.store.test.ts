@@ -1,5 +1,5 @@
 import { beforeEach, describe, expect, it } from "vitest";
-import { consentStore, useConsentStore } from "@/widget/stores/use-consent.store";
+import { consentStore, useConsentStore } from "@/common/stores/use-consent.store";
 
 describe("useConsentStore", () => {
 	beforeEach(() => {

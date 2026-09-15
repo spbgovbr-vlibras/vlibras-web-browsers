@@ -1,5 +1,5 @@
 import type { PostHog } from "posthog-js";
-import { consentStore } from "@/widget/stores/use-consent.store";
+import { consentStore } from "@/common/stores/use-consent.store";
 
 const isDevelopmentHost = () => {
 	if (typeof window === "undefined") return false;
