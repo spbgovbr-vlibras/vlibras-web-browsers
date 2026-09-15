@@ -1,6 +1,6 @@
 import { fireEvent, render, screen } from "@testing-library/preact";
 import { describe, expect, it } from "vitest";
-import type { Region } from "@/data/regionalism";
+import type { Region } from "@/common/data/regionalism";
 import { RegionalismListItem } from "../regionalism-list-item";
 
 describe("RegionalismListItem", () => {

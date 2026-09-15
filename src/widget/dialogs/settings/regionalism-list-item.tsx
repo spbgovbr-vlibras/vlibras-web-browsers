@@ -1,7 +1,7 @@
 import { useId } from "preact/hooks";
+import type { Region } from "@/common/data/regionalism";
 import { cn } from "@/common/lib/utils";
 import { getAssetUrl } from "@/common/utils";
-import type { Region } from "@/data/regionalism";
 
 type Props = {
 	isSelected?: boolean;
