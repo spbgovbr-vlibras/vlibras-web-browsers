@@ -291,7 +291,7 @@ To reduce the final bundle size and improve the application's loading performanc
 
 - When the script runs, the converted files are generated in `tools/webp/` with the same name, always with a `.webp` extension.
 - After converting, move the `.webp` files to `src/widget/icons/` (preserving subfolders such as `categories/` and `emotions/`).
-- Register the icon in `src/widget/icons/types.ts` by adding the file's relative path (without the extension) to the `ICON_NAMES` list (e.g. `categories/all` or `my-new-icon`).
+- Register the icon in `src/common/icons/types.ts` by adding the file's relative path (without the extension) to the `ICON_NAMES` list (e.g. `categories/all` or `my-new-icon`).
 - To use it in the UI, render it with the `Icon` component:
 
   ```tsx

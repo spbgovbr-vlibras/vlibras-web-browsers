@@ -291,7 +291,7 @@ Para reduzir o tamanho final do bundle e melhorar o desempenho de carregamento d
 
 - Ao rodar o script, os arquivos convertidos são gerados em `tools/webp/` com o mesmo nome, sempre com extensão `.webp`.
 - Depois de converter, mova os `.webp` para `src/widget/icons/` (preservando subpastas como `categories/` e `emotions/`).
-- Registre o ícone em `src/widget/icons/types.ts` adicionando o caminho relativo do arquivo (sem a extensão) na lista `ICON_NAMES` (por exemplo `categories/all` ou `meu-novo-icone`).
+- Registre o ícone em `src/common/icons/types.ts` adicionando o caminho relativo do arquivo (sem a extensão) na lista `ICON_NAMES` (por exemplo `categories/all` ou `meu-novo-icone`).
 - Para usar na UI, renderize com o componente `Icon`:
 
   ```tsx
