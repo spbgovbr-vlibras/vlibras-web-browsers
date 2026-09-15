@@ -1,9 +1,9 @@
 import { beforeEach, describe, expect, it, vi } from "vitest";
-import { emotionsMap } from "@/data/emotions";
-import { regions } from "@/data/regionalism";
+import { regions } from "@/common/data/regionalism";
 import * as actions from "@/player/actions";
 import { avatars } from "@/player/constants";
 import { UNITY_METHODS, UNITY_OBJECTS } from "@/player/constants/unity";
+import { emotionsMap } from "@/player/data/emotions";
 import { playerStore, usePlayerStore } from "@/player/stores/use-player.store";
 import { usePlayerOptionsStore } from "@/player/stores/use-player-options.store";
 import type { PlayerAvatar } from "@/player/types";

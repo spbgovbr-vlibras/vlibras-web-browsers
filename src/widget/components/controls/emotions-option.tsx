@@ -1,8 +1,8 @@
 import { useMobile } from "@/common/hooks";
 import { posthogg } from "@/common/lib/posthog";
 import { cn } from "@/common/lib/utils";
-import { availableEmotions, type EmotionKey, emotionsMap } from "@/data/emotions";
 import { setEmotion } from "@/player/actions";
+import { availableEmotions, type EmotionKey, emotionsMap } from "@/player/data/emotions";
 import { usePlayerStore } from "@/player/stores/use-player.store";
 import { Button } from "@/widget/components/ui/button";
 import { Dropdown, DropdownContent, DropdownTrigger } from "@/widget/components/ui/dropdown";

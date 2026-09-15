@@ -1,5 +1,5 @@
-import { UNITY_METHODS } from "@/player/constants/unity";
-import type { IconName } from "@/widget/icons/types";
+import type { IconName } from "@/common/icons/types";
+import { UNITY_METHODS } from "../constants/unity";
 
 export type Emotion = {
 	name: string;
