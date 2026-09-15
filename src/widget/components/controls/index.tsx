@@ -1,8 +1,8 @@
 import { cn } from "@/common/lib/utils";
+import { AppOverlay } from "@/widget/components/app-overlay";
 import { DragHandle } from "@/widget/components/draggable";
+import { useGuideStore } from "@/widget/components/guide/store";
 import { useWidgetStore } from "@/widget/stores/use-widget.store";
-import { useGuideStore } from "../guide/store";
-import { AppOverlay } from "../ui/app-overlay";
 import { EmotionsOption } from "./emotions-option";
 import { MainAction } from "./main-action";
 import { ProgressBar } from "./progress-bar";

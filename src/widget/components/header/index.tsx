@@ -1,9 +1,9 @@
 import { Fragment } from "preact/jsx-runtime";
 import { useMobile } from "@/common/hooks";
 import { pause } from "@/player/actions";
+import { AppOverlay } from "@/widget/components/app-overlay";
 import { DragHandle } from "@/widget/components/draggable";
 import { useGuideStore } from "@/widget/components/guide/store";
-import { AppOverlay } from "@/widget/components/ui/app-overlay";
 import { Button } from "@/widget/components/ui/button";
 import { Icon } from "@/widget/components/ui/icon";
 import { Spacer } from "@/widget/components/ui/spacer";

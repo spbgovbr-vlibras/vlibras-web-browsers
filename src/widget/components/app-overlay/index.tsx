@@ -1,7 +1,7 @@
 import type { ComponentProps } from "preact";
 import { cn } from "@/common/lib/utils";
+import { useGuideStore } from "@/widget/components/guide/store";
 import { overlayStore, useOverlayStore } from "@/widget/stores/use-overlay.store";
-import { useGuideStore } from "../guide/store";
 
 export const AppOverlay = ({ className, ...props }: ComponentProps<"div">) => {
 	const isOpen = useOverlayStore((s) => s.openId !== null);
