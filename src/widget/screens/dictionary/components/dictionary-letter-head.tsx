@@ -14,7 +14,7 @@ export const DictionaryLetterHeader = () => {
 				onClick={() => setSelectedLetter(null)}
 				className="group flex h-full w-full items-center justify-start gap-2 text-xs hover:cursor-pointer"
 			>
-				<Icon name="chevron-left" className="size-4 bg-muted-foreground group-hover:bg-foreground" />
+				<Icon name="chevron-left" className="size-4 text-muted-foreground group-hover:text-foreground" />
 				<span className="font-semibold mobile:text-xs text-sm">{selectedLetter === "#" ? "0–9" : selectedLetter}</span>
 			</button>
 		</div>

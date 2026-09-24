@@ -95,7 +95,7 @@ export const AboutScreen = () => {
 								aria-label={social.name}
 								className="grid place-content-center rounded-full bg-white p-2"
 							>
-								<Icon name={social.iconName} className="size-4 bg-primary" />
+								<Icon name={social.iconName} className="size-4 text-primary" />
 							</a>
 						))}
 					</div>

@@ -48,7 +48,7 @@ export const DictionaryCategories = () => {
 								)}
 							>
 								<div className="flex items-center gap-2 py-2">
-									<Icon name={icon} className="mobile:size-5 size-6 shrink-0 dark:bg-foreground" />
+									<Icon name={icon} className="mobile:size-5 size-6 shrink-0 dark:text-foreground" />
 									<span>{category.name.replace(/_/g, " ")}</span>
 								</div>
 							</button>
@@ -65,7 +65,7 @@ export const DictionaryCategories = () => {
 						)}
 					>
 						<div className="flex items-center gap-2 py-2">
-							<Icon name={"categories/all"} className="mobile:size-5 size-6 shrink-0 dark:bg-foreground" />
+							<Icon name="categories/all" className="mobile:size-5 size-6 shrink-0 dark:text-foreground" />
 							<span>TODOS</span>
 						</div>
 					</button>

@@ -3,3 +3,7 @@ type NonFunctionKeys<T> = {
 }[keyof T];
 
 export type OnlyState<T> = Pick<T, NonFunctionKeys<T>>;
+
+export type StrictOmit<T, K extends keyof T> = {
+	[P in keyof T as P extends K ? never : P]: T[P];
+};
