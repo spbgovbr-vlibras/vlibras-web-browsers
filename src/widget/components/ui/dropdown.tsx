@@ -7,7 +7,7 @@ import {
 	type TargetedKeyboardEvent,
 	type VNode,
 } from "preact";
-import { useContext, useId, useRef } from "preact/hooks";
+import { useContext, useEffect, useId, useRef } from "preact/hooks";
 import { cn } from "@/common/lib/utils";
 import { overlayStore, useOverlayStore } from "@/widget/stores/use-overlay.store";
 import { rootStore } from "@/widget/stores/use-root.store";
@@ -48,6 +48,31 @@ export const Dropdown = ({
 	const internalOpen = useOverlayStore((s) => s.openId === id);
 	const open = _open ?? internalOpen;
 	const triggerRef = useRef<HTMLElement>(null);
+	const containerRef = useRef<HTMLDivElement>(null);
+
+	const applyRovingTabindex = (active?: HTMLElement | null) => {
+		const container = containerRef.current;
+		if (!container) return;
+
+		const items = getMenuItems(container);
+		if (items.length === 0) return;
+
+		const focused = active && items.includes(active) ? active : null;
+		const checked = items.find((el) => el.getAttribute("aria-checked") === "true") ?? items[0];
+		const tabbable = focused ?? checked;
+
+		for (const el of items) el.tabIndex = el === tabbable ? 0 : -1;
+	};
+
+	// No deps: re-syncs on every render, but reads the active element first so an
+	// unrelated re-render mid arrow-key navigation doesn't snap the tab stop back.
+	useEffect(() => {
+		if (!open) return;
+
+		const { shadowRoot } = rootStore.get();
+		const active = (shadowRoot?.activeElement ?? document.activeElement) as HTMLElement | null;
+		applyRovingTabindex(active);
+	});
 
 	const setOpen = (next: boolean | ((prev: boolean) => boolean)) => {
 		const shouldOpen = typeof next === "function" ? next(overlayStore.get().openId === id) : next;
@@ -61,6 +86,11 @@ export const Dropdown = ({
 
 		const next = event.relatedTarget as Node | null;
 		if (!next || !event.currentTarget.contains(next)) overlayStore.set({ openId: null, onClose: undefined });
+	};
+
+	const onFocusCapture = (event: TargetedFocusEvent<HTMLDivElement>) => {
+		const target = event.target as HTMLElement | null;
+		if (target?.matches?.(MENU_ITEM_SELECTOR)) applyRovingTabindex(target);
 	};
 
 	const onKeyDown = (event: TargetedKeyboardEvent<HTMLDivElement>) => {
@@ -95,7 +125,9 @@ export const Dropdown = ({
 	return (
 		// biome-ignore lint/a11y/noStaticElementInteractions: só repassa blur/Escape/navegação por setas dos filhos focáveis, que já têm a própria semântica
 		<div
+			ref={containerRef}
 			onBlurCapture={onBlurCapture}
+			onFocusCapture={onFocusCapture}
 			onKeyDown={onKeyDown}
 			className={cn(
 				"dropdown focus-within:**:data-[slot=tooltip-content]:hidden",
