@@ -58,7 +58,7 @@ covers failure modes specific to overlays that a generic page audit misses.
 If you can reach a running instance in a browser, run the bundled scanner:
 
 ```bash
-node skills/a11y-review/scripts/axe-scan.mjs <url> [--selector "#widget-root"] [--wait 1500] [--out axe-results.json]
+node .claude/skills/a11y-review/scripts/axe-scan.mjs <url> [--selector "#widget-root"] [--wait 1500] [--out axe-results.json]
 ```
 
 It uses axe-core via Playwright and prints violations grouped by severity
@@ -108,7 +108,7 @@ Prioritize checks that automated tools cannot do:
 Use [references/report-template.md](references/report-template.md) as the
 structure, and save the finished report as a Markdown file under this
 skill's own `reports/` folder:
-`skills/a11y-review/reports/<target-slug>-<yyyy-mm-dd>.md` (e.g.
+`.claude/skills/a11y-review/reports/<target-slug>-<yyyy-mm-dd>.md` (e.g.
 `reports/widget-checkout-modal-2026-09-07.md`). Create the `reports/`
 folder if it doesn't exist yet. Using a slug for the target plus the review
 date keeps re-reviews of the same target as separate, comparable files
