@@ -14,7 +14,7 @@ export const DialogFallback = ({ className }: Props) => {
 	if (!root) return null;
 
 	return createPortal(
-		<div
+		<output
 			style={{ boxShadow: "0 -5px 10px -5px rgba(0, 0, 0, 0.15)" }}
 			className={cn("widget-radius absolute inset-0 top-auto z-100 flex min-h-40 flex-col bg-background", className)}
 		>
@@ -26,7 +26,7 @@ export const DialogFallback = ({ className }: Props) => {
 			<div className="grid flex-1 place-content-center">
 				<Spinner />
 			</div>
-		</div>,
+		</output>,
 		root,
 	);
 };
