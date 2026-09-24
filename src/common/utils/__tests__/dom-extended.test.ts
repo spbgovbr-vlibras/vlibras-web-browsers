@@ -18,6 +18,7 @@ describe("dom utils $ / $$", () => {
 
 describe("setupWidgetStyles", () => {
 	let shadow: ShadowRoot;
+	const originalRaf = globalThis.requestAnimationFrame;
 
 	beforeEach(() => {
 		document.head.innerHTML = "";
@@ -28,6 +29,7 @@ describe("setupWidgetStyles", () => {
 
 	afterEach(() => {
 		vi.useRealTimers();
+		globalThis.requestAnimationFrame = originalRaf;
 		document.head.innerHTML = "";
 	});
 
@@ -63,5 +65,31 @@ describe("setupWidgetStyles", () => {
 		const secondPropCount = document.head.querySelectorAll("style[data-widget-properties]").length;
 		// either 0 or 1, but not increasing
 		expect(secondPropCount).toBe(firstPropCount);
+	});
+
+	it("should not duplicate the widget style tag when called again without onLoad", () => {
+		setupWidgetStyles(shadow);
+		setupWidgetStyles(shadow);
+		expect(shadow.querySelectorAll("style[data-widget-styles]")).toHaveLength(1);
+	});
+
+	it("should call onLoad via timeout fallback when rAF never fires (hidden tab)", () => {
+		const onLoad = vi.fn();
+		globalThis.requestAnimationFrame = () => 1;
+		setupWidgetStyles(shadow, onLoad);
+		expect(onLoad).not.toHaveBeenCalled();
+		vi.advanceTimersByTime(50);
+		expect(onLoad).toHaveBeenCalledTimes(1);
+	});
+
+	it("should call onLoad exactly once when rAF fires before the fallback", () => {
+		const onLoad = vi.fn();
+		globalThis.requestAnimationFrame = (cb: FrameRequestCallback) => {
+			cb(0);
+			return 0;
+		};
+		setupWidgetStyles(shadow, onLoad);
+		vi.advanceTimersByTime(1000);
+		expect(onLoad).toHaveBeenCalledTimes(1);
 	});
 });

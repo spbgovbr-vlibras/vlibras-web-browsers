@@ -13,9 +13,26 @@ const remToPx = (css: string) => {
 	return css.replace(/(-?(?:\d+\.?\d*|\.\d+))rem\b/g, (_, value) => `${Number.parseFloat(value) * REM_TO_PX}px`);
 };
 
+const READY_FALLBACK_TIMEOUT_MS = 50;
+
+// requestAnimationFrame nunca dispara em abas ocultas/prerenderizadas; sem o fallback via
+// setTimeout, a inicialização do widget travaria indefinidamente nesses casos.
+function scheduleFrame(onLoad: () => void) {
+	let settled = false;
+	const run = () => {
+		if (settled) return;
+		settled = true;
+		clearTimeout(fallbackId);
+		onLoad();
+	};
+
+	const fallbackId = setTimeout(run, READY_FALLBACK_TIMEOUT_MS);
+	requestAnimationFrame(run);
+}
+
 export function setupWidgetStyles(shadow: ShadowRoot | HTMLElement, onLoad?: () => void) {
 	if (shadow.querySelector("style[data-widget-styles]")) {
-		if (onLoad) requestAnimationFrame(() => onLoad());
+		if (onLoad) scheduleFrame(onLoad);
 		return;
 	}
 
@@ -40,7 +57,7 @@ export function setupWidgetStyles(shadow: ShadowRoot | HTMLElement, onLoad?: () 
 	style.setAttribute("data-widget-styles", "true");
 	style.textContent = shadowCss;
 
-	if (onLoad) requestAnimationFrame(() => onLoad());
+	if (onLoad) scheduleFrame(onLoad);
 
 	if (shadow.firstChild) shadow.insertBefore(style, shadow.firstChild);
 	else shadow.appendChild(style);
