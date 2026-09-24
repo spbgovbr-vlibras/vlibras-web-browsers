@@ -1,5 +1,5 @@
 import { create } from "zustand";
-import { createJSONStorage, persist } from "zustand/middleware";
+import { persist } from "zustand/middleware";
 import { type Region, regions } from "@/common/data/regionalism";
 import type { OnlyState } from "@/common/types";
 import { pick } from "@/common/utils";
@@ -60,7 +60,6 @@ export const usePlayerStore = create<PlayerStoreState>()(
 		{
 			name: "@vlibras/player",
 			version: 1,
-			storage: createJSONStorage(() => localStorage),
 			partialize: (state) => pick(state, "speed", "showSubtitles", "avatar", "config"),
 		},
 	),
