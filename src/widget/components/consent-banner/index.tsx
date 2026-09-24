@@ -1,21 +1,16 @@
 import { useEffect, useId, useRef } from "preact/hooks";
-import { isTrackingAvailable } from "@/common/lib/posthog";
-import { consentStore, useConsentStore } from "@/common/stores/use-consent.store";
-import { usePlayerStore } from "@/player/stores/use-player.store";
-import { useGuideStore } from "@/widget/components/guide/store";
+import { consentStore } from "@/common/stores/use-consent.store";
 import { InlineTranslatorButton } from "@/widget/components/inline-translator-button";
 import { Button } from "@/widget/components/ui/button";
 import { Separator } from "@/widget/components/ui/separator";
 import { focusWidgetPanel, trapTabFocus } from "@/widget/utils/focus";
+import { useConsentBannerVisible } from "./use-visible";
 
 export const ConsentBanner = () => {
-	const status = useConsentStore((s) => s.status);
-	const isGuideOpen = useGuideStore((s) => s.open);
-	const isPlaying = usePlayerStore((s) => s.status === "playing" && !!s.gloss);
 	const bannerRef = useRef<HTMLDivElement | null>(null);
 	const hintId = useId();
 
-	const isVisible = isTrackingAvailable && status === "pending" && !isGuideOpen && !isPlaying;
+	const isVisible = useConsentBannerVisible();
 
 	useEffect(() => {
 		if (!isVisible) return;
@@ -44,6 +39,7 @@ export const ConsentBanner = () => {
 			ref={bannerRef}
 			tabIndex={-1}
 			role="dialog"
+			aria-modal="true"
 			aria-label="Consentimento de coleta de dados"
 			aria-describedby={hintId}
 			onKeyDown={(e) => {

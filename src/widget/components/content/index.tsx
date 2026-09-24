@@ -4,6 +4,7 @@ import { cn } from "@/common/lib/utils";
 import { Player } from "@/player";
 import { usePlayerStore } from "@/player/stores/use-player.store";
 import { ConsentBanner } from "@/widget/components/consent-banner";
+import { useConsentBannerVisible } from "@/widget/components/consent-banner/use-visible";
 import { WidgetControls } from "@/widget/components/controls";
 import { WidgetHeader } from "@/widget/components/header";
 import { Utilities } from "@/widget/components/utilities";
@@ -13,6 +14,7 @@ import { playerOptions } from "./player-options";
 
 export const WidgetContent = ({ className, ...props }: Omit<ComponentProps<"div">, "children">) => {
 	const screen = useScreensStore((s) => s.screen);
+	const isConsentBannerVisible = useConsentBannerVisible();
 	const { isLoaded, isMounted } = usePlayerStore(usePick("isLoaded", "isMounted"));
 
 	return (
@@ -23,16 +25,19 @@ export const WidgetContent = ({ className, ...props }: Omit<ComponentProps<"div"
 			ref={(ref) => void (ref && rootStore.set({ appContent: ref }))}
 			className={cn("flex flex-col", (!isLoaded || screen !== "main") && "opacity-0", className)}
 		>
-			<WidgetHeader />
+			<div className="contents" inert={isConsentBannerVisible}>
+				<WidgetHeader />
+				{isMounted && (
+					<Player
+						className={cn("mb-2 h-(--player-height) w-full", !__IS_EXTENSION__ && "max-h-[calc(100dvh-52px)]")}
+						options={playerOptions}
+					/>
+				)}
+				<Utilities />
+				<WidgetControls />
+			</div>
+
 			<ConsentBanner />
-			{isMounted && (
-				<Player
-					className={cn("mb-2 h-(--player-height) w-full", !__IS_EXTENSION__ && "max-h-[calc(100dvh-52px)]")}
-					options={playerOptions}
-				/>
-			)}
-			<Utilities />
-			<WidgetControls />
 		</div>
 	);
 };

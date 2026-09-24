@@ -21,6 +21,12 @@ vi.mock("@/widget/components/consent-banner", () => ({
 	ConsentBanner: () => <div>Consent</div>,
 }));
 
+const { useConsentBannerVisible } = vi.hoisted(() => ({
+	useConsentBannerVisible: vi.fn(() => false),
+}));
+
+vi.mock("@/widget/components/consent-banner/use-visible", () => ({ useConsentBannerVisible }));
+
 vi.mock("@/player", () => ({
 	Player: () => <div>Player</div>,
 }));
@@ -39,6 +45,7 @@ describe("WidgetContent", () => {
 		useScreensStore.setState({ screen: "main" });
 		usePlayerStore.setState({ isLoaded: true, isMounted: true });
 		rootStore.set({});
+		useConsentBannerVisible.mockReturnValue(false);
 	});
 
 	it("should render all main sections", () => {
@@ -66,5 +73,17 @@ describe("WidgetContent", () => {
 		usePlayerStore.setState({ isMounted: false });
 		render(<WidgetContent />);
 		expect(screen.queryByText("Player")).not.toBeInTheDocument();
+	});
+
+	it("should make header/player/utilities/controls inert while the consent banner is visible", () => {
+		useConsentBannerVisible.mockReturnValue(true);
+		const { container } = render(<WidgetContent />);
+
+		const wrapper = screen.getByText("Header").closest(".contents");
+		expect(wrapper).toHaveAttribute("inert");
+
+		const consent = screen.getByText("Consent");
+		expect(consent.closest(".contents")).not.toBe(wrapper);
+		expect(container.querySelector("#vlibras-app-content")).not.toHaveAttribute("inert");
 	});
 });
