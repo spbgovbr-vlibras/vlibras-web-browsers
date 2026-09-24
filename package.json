@@ -59,6 +59,8 @@
 		"test:watch": "vitest",
 		"test:coverage": "vitest run --coverage",
 		"test:e2e": "playwright test",
+		"pw:webkit": "playwright open --browser=webkit",
+		"pw:chrome": "playwright open --browser=chromium",
 		"badge:coverage": "node scripts/update-coverage-badge.js"
 	},
 	"dependencies": {
