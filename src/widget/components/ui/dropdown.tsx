@@ -38,6 +38,7 @@ export const Dropdown = ({
 	children,
 	showOverlay = true,
 	open: _open,
+	onOpenChange: _onOpenChange,
 	...props
 }: ComponentProps<"div"> & {
 	showOverlay?: boolean;
@@ -46,9 +47,11 @@ export const Dropdown = ({
 }) => {
 	const id = useId();
 	const internalOpen = useOverlayStore((s) => s.openId === id);
-	const open = _open ?? internalOpen;
+	const ownerId = useOverlayStore((s) => s.openId);
 	const triggerRef = useRef<HTMLElement>(null);
 	const containerRef = useRef<HTMLDivElement>(null);
+	const isControlled = _open !== undefined;
+	const open = _open ?? internalOpen;
 
 	const applyRovingTabindex = (active?: HTMLElement | null) => {
 		const container = containerRef.current;
@@ -64,8 +67,6 @@ export const Dropdown = ({
 		for (const el of items) el.tabIndex = el === tabbable ? 0 : -1;
 	};
 
-	// No deps: re-syncs on every render, but reads the active element first so an
-	// unrelated re-render mid arrow-key navigation doesn't snap the tab stop back.
 	useEffect(() => {
 		if (!open) return;
 
@@ -75,17 +76,29 @@ export const Dropdown = ({
 	});
 
 	const setOpen = (next: boolean | ((prev: boolean) => boolean)) => {
-		const shouldOpen = typeof next === "function" ? next(overlayStore.get().openId === id) : next;
+		const shouldOpen = typeof next === "function" ? next(open) : next;
+		if (shouldOpen === open) return;
 
 		if (shouldOpen) overlayStore.set({ openId: id, showOverlay, onClose: () => triggerRef.current?.focus() });
-		else overlayStore.close();
+		else if (overlayStore.get().openId === id || overlayStore.get().openId === null) overlayStore.close();
+		_onOpenChange?.(shouldOpen);
 	};
+
+	useEffect(() => {
+		if (!isControlled) return;
+		if (_open && ownerId !== id) _onOpenChange?.(false);
+	}, [isControlled, _open, ownerId, id, _onOpenChange]);
+
+	useEffect(() => {
+		if (!isControlled) return;
+		if (!_open && overlayStore.get().openId === id) overlayStore.close();
+	}, [isControlled, _open, id]);
 
 	const onBlurCapture = (event: TargetedFocusEvent<HTMLDivElement>) => {
 		if (!open) return;
 
 		const next = event.relatedTarget as Node | null;
-		if (!next || !event.currentTarget.contains(next)) overlayStore.set({ openId: null, onClose: undefined });
+		if (!next || !event.currentTarget.contains(next)) setOpen(false);
 	};
 
 	const onFocusCapture = (event: TargetedFocusEvent<HTMLDivElement>) => {
@@ -98,7 +111,7 @@ export const Dropdown = ({
 
 		if (event.key === "Escape") {
 			event.stopPropagation();
-			overlayStore.close();
+			setOpen(false);
 			return;
 		}
 
