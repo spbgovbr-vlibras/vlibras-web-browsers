@@ -16,7 +16,7 @@ type Props = {
 	onOpenChange: (open: boolean) => void;
 };
 
-const FeedbackSuggestion = lazy(() => import("./feedback-suggestion").then((m) => ({ default: m.FeedbackSuggestion })));
+const FeedbackSuggestion = lazy(() => import("./feedback-suggestion").then((m) => m.FeedbackSuggestion));
 
 export const FeedbackDialog = ({ open, onOpenChange }: Props) => {
 	const isMobile = useMobile();

@@ -10,9 +10,7 @@ import { Icon } from "@/widget/components/ui/icon";
 import { useScreensStore } from "@/widget/stores/use-screens.store";
 import { MenuOption } from "./menu-option";
 
-const TranslatorDialog = lazy(() =>
-	import("@/widget/dialogs/translator").then((m) => ({ default: m.TranslatorDialog })),
-);
+const TranslatorDialog = lazy(() => import("@/widget/dialogs/translator").then((m) => m.TranslatorDialog));
 
 export const WidgetMenu = () => {
 	const isMobile = useMobile();

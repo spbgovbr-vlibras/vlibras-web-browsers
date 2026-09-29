@@ -8,7 +8,7 @@ import { Icon } from "@/widget/components/ui/icon";
 import { useFeedbackSuggestionStore } from "@/widget/dialogs/feedback/stores/use-feedback-suggestion.store";
 import { useWidgetStore } from "@/widget/stores/use-widget.store";
 
-const FeedbackDialog = lazy(() => import("@/widget/dialogs/feedback").then((m) => ({ default: m.FeedbackDialog })));
+const FeedbackDialog = lazy(() => import("@/widget/dialogs/feedback").then((m) => m.FeedbackDialog));
 
 export const FeedbackTrigger = () => {
 	const [open, setOpen] = useState<boolean>();

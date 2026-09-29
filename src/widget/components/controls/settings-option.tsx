@@ -7,7 +7,7 @@ import { Button } from "@/widget/components/ui/button";
 import { Icon } from "@/widget/components/ui/icon";
 import { Tooltip } from "@/widget/components/ui/tooltip";
 
-const SettingsDialog = lazy(() => import("@/widget/dialogs/settings").then((m) => ({ default: m.SettingsDialog })));
+const SettingsDialog = lazy(() => import("@/widget/dialogs/settings").then((m) => m.SettingsDialog));
 
 export const SettingsOption = () => {
 	const isMobile = useMobile();
