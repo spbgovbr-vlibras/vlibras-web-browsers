@@ -1,6 +1,7 @@
 import { useEffect } from "preact/hooks";
 import { useMobile, usePick } from "@/common/hooks";
 import { posthogg } from "@/common/lib/posthog";
+import { POSTHOG_EVENT } from "@/common/lib/posthog/types";
 import { createStyle } from "@/core/dom";
 import { Button } from "@/widget/components/ui/button";
 import { Icon } from "@/widget/components/ui/icon";
@@ -8,7 +9,6 @@ import { Tooltip } from "@/widget/components/ui/tooltip";
 import type { IconName } from "@/widget/icons/types";
 import { rootStore } from "@/widget/stores/use-root.store";
 import { useWidgetStore, widgetStore } from "@/widget/stores/use-widget.store";
-
 import css from "@/widget/styles/expanded-mode.css?inline";
 
 export const ExpandOption = () => {
@@ -33,7 +33,7 @@ export const ExpandOption = () => {
 
 		const newExpanded = !isExpanded;
 		widgetStore.set({ isExpanded: newExpanded });
-		if (newExpanded) posthogg.trackEvent("expanded");
+		if (newExpanded) posthogg.trackEvent(POSTHOG_EVENT.EXPANDED);
 	};
 
 	const label = isExpanded ? "Diminuir" : "Expandir";

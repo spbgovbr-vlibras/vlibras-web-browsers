@@ -1,5 +1,6 @@
 import { useEffect, useId, useRef } from "preact/hooks";
 import { posthogg } from "@/common/lib/posthog";
+import { POSTHOG_EVENT } from "@/common/lib/posthog/types";
 import { InlineTranslatorButton } from "@/widget/components/inline-translator-button";
 import { useWidgetStore, widgetStore } from "@/widget/stores/use-widget.store";
 import { useSettingsCtx } from "./context";
@@ -22,7 +23,7 @@ export const SettingsOpacityField = () => {
 		widgetStore.set({ opacity: opacity / 100 });
 
 		if (timeoutRef.current) clearTimeout(timeoutRef.current);
-		timeoutRef.current = setTimeout(() => posthogg.trackEvent("opacity_change", { opacity }), 2000);
+		timeoutRef.current = setTimeout(() => posthogg.trackEvent(POSTHOG_EVENT.OPACITY_CHANGE, { opacity }), 2000);
 	};
 
 	return (

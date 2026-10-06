@@ -1,6 +1,7 @@
 import { Fragment } from "preact/jsx-runtime";
 import { type Region, regions } from "@/common/data/regionalism";
 import { posthogg } from "@/common/lib/posthog";
+import { POSTHOG_EVENT } from "@/common/lib/posthog/types";
 import { cn } from "@/common/lib/utils";
 import { getAssetUrl } from "@/common/utils";
 import { playerStore, usePlayerStore } from "@/player/stores/use-player.store";
@@ -16,7 +17,7 @@ export const SettingsRegionalismField = () => {
 
 	const handleRegionChange = (region: Region) => {
 		playerStore.set({ region });
-		posthogg.trackEvent("change_region", { region: `${region.name} (${region.abbreviation})` });
+		posthogg.trackEvent(POSTHOG_EVENT.CHANGE_REGION, { region: `${region.name} (${region.abbreviation})` });
 	};
 
 	return (

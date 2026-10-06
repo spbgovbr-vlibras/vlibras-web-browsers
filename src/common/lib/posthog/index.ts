@@ -1,4 +1,6 @@
 import type { PostHog } from "posthog-js";
+import { getSamplingRate, LOAD_SAMPLING_RATE } from "@/common/lib/posthog/sampling";
+import type { POSTHOG_EVENT, POSTHOG_EVENT_PROPERTIES } from "@/common/lib/posthog/types";
 import { consentStore } from "@/common/stores/use-consent.store";
 
 const isDevelopmentHost = () => {
@@ -16,9 +18,16 @@ const isDevelopmentHost = () => {
 	);
 };
 
-const SAMPLING_RATE = 0.07;
 const IS_ENABLED = import.meta.env.PROD && !isDevelopmentHost();
 const IS_DEBUG = import.meta.env.VITE_PUBLIC_POSTHOG_DEBUG === "true" && !import.meta.env.PROD;
+
+const sessionSample = Math.random();
+
+const isSampled = (rate: number) => {
+	if (rate >= 1) return true;
+	if (!(rate > 0)) return false;
+	return sessionSample < rate;
+};
 
 export const isTrackingAvailable = IS_ENABLED && !__IS_EXTENSION__;
 
@@ -55,23 +64,27 @@ export const posthogg = {
 		const posthog = await posthogPromise;
 		if (!IS_ENABLED || !posthog) return;
 
-		if (Math.random() < SAMPLING_RATE) {
-			posthog.capture("widget_initialized", {
-				...posthogg._getContext(),
-				sampling_rate: SAMPLING_RATE,
-			});
-		}
+		if (!isSampled(LOAD_SAMPLING_RATE)) return;
+
+		posthog.capture("widget_initialized", {
+			...posthogg._getContext(),
+			sampling_rate: LOAD_SAMPLING_RATE,
+		});
 	},
 
-	trackEvent: async (name: string, properties?: Record<string, unknown>) => {
+	trackEvent: async <E extends POSTHOG_EVENT>(event: E, properties?: POSTHOG_EVENT_PROPERTIES[E]) => {
 		if (consentStore.get().status !== "accepted") return;
+
+		const samplingRate = getSamplingRate(event);
+		if (!isSampled(samplingRate)) return;
 
 		const posthog = await posthogPromise;
 		if (!IS_ENABLED || !posthog) return;
 
-		posthog.capture(name, {
+		posthog.capture(event, {
 			...posthogg._getContext(),
-			...properties,
+			...(properties as Record<string, unknown> | undefined),
+			sampling_rate: samplingRate,
 		});
 	},
 };

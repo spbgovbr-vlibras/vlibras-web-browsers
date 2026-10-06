@@ -1,5 +1,6 @@
 import { Fragment } from "preact/jsx-runtime";
 import { posthogg } from "@/common/lib/posthog";
+import { POSTHOG_EVENT } from "@/common/lib/posthog/types";
 import { play } from "@/player/actions";
 import { Icon } from "@/widget/components/ui/icon";
 import { createCallback } from "@/widget/stores/use-callback.store";
@@ -26,6 +27,6 @@ export const useHandlePlay = () => {
 			),
 		});
 
-		posthogg.trackEvent("dictionary_gloss", { sign });
+		posthogg.trackEvent(POSTHOG_EVENT.DICTIONARY_GLOSS, { sign });
 	};
 };

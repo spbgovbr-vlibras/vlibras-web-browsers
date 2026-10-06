@@ -1,5 +1,6 @@
 import { useMobile, usePick } from "@/common/hooks";
 import { posthogg } from "@/common/lib/posthog";
+import { POSTHOG_EVENT } from "@/common/lib/posthog/types";
 import { toggleSubtitles } from "@/player/actions";
 import { usePlayerStore } from "@/player/stores/use-player.store";
 import { Button } from "@/widget/components/ui/button";
@@ -12,7 +13,7 @@ export const SubtitlesOptions = () => {
 
 	const handleToggleSubtitles = () => {
 		toggleSubtitles();
-		posthogg.trackEvent("subtitles_toggled", { status: showSubtitles ? "disabled" : "enabled" });
+		posthogg.trackEvent(POSTHOG_EVENT.SUBTITLES_TOGGLED, { status: showSubtitles ? "disabled" : "enabled" });
 	};
 
 	const label = showSubtitles ? "Desativar legendas" : "Ativar legendas";

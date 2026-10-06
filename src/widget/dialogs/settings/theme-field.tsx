@@ -1,6 +1,7 @@
 import { useId } from "preact/hooks";
 import { useTheme } from "@/common/hooks";
 import { posthogg } from "@/common/lib/posthog";
+import { POSTHOG_EVENT } from "@/common/lib/posthog/types";
 import { InlineTranslatorButton } from "@/widget/components/inline-translator-button";
 import { useSettingsCtx } from "./context";
 
@@ -14,7 +15,7 @@ export const SettingsThemeField = () => {
 		const newTheme = theme === "dark" ? "Claro" : "Escuro";
 
 		toggleTheme();
-		posthogg.trackEvent("theme", { theme: newTheme });
+		posthogg.trackEvent(POSTHOG_EVENT.THEME, { theme: newTheme });
 	};
 
 	return (

@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from "preact/hooks";
 import { Fragment } from "preact/jsx-runtime";
 import { useDebouncedCallback } from "@/common/hooks";
 import { posthogg } from "@/common/lib/posthog";
+import { POSTHOG_EVENT } from "@/common/lib/posthog/types";
 import { play } from "@/player/actions";
 import { InlineTranslatorButton } from "@/widget/components/inline-translator-button";
 import { Button } from "@/widget/components/ui/button";
@@ -28,7 +29,7 @@ export const TranslatorDialog = ({ open, onOpenChange }: Props) => {
 	const onTextChange = useDebouncedCallback(setText, 300);
 	const isValidText = isValidTranslationText(text);
 
-	useEffect(() => void (open && posthogg.trackEvent("open_translator")), [open]);
+	useEffect(() => void (open && posthogg.trackEvent(POSTHOG_EVENT.OPEN_TRANSLATOR)), [open]);
 
 	const handleTranslate = async () => {
 		const text = inputRef.current?.value || "";

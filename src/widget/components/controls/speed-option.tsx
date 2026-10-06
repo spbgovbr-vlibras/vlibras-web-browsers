@@ -1,6 +1,7 @@
 import type { TargetedKeyboardEvent } from "preact";
 import { useMobile } from "@/common/hooks";
 import { posthogg } from "@/common/lib/posthog";
+import { POSTHOG_EVENT } from "@/common/lib/posthog/types";
 import { cn } from "@/common/lib/utils";
 import { setSpeed } from "@/player/actions";
 import { usePlayerStore } from "@/player/stores/use-player.store";
@@ -25,7 +26,7 @@ export const SpeedOption = () => {
 		if (speed === currentSpeed) return;
 
 		setSpeed(speed);
-		posthogg.trackEvent("change_speed", { speed });
+		posthogg.trackEvent(POSTHOG_EVENT.CHANGE_SPEED, { speed });
 	};
 
 	return (

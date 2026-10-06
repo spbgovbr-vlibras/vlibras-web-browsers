@@ -1,5 +1,6 @@
 import { useMobile } from "@/common/hooks";
 import { posthogg } from "@/common/lib/posthog";
+import { POSTHOG_EVENT } from "@/common/lib/posthog/types";
 import { cn } from "@/common/lib/utils";
 import { setEmotion } from "@/player/actions";
 import { availableEmotions, type EmotionKey, emotionsMap } from "@/player/data/emotions";
@@ -19,7 +20,7 @@ export const EmotionsOption = () => {
 		if (emotion === currentEmotion) return;
 
 		setEmotion(emotionKey);
-		posthogg.trackEvent("change_emotion", { emotion: emotion.name });
+		posthogg.trackEvent(POSTHOG_EVENT.CHANGE_EMOTION, { emotion: emotion.name });
 	};
 
 	return (

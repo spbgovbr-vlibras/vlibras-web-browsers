@@ -1,5 +1,6 @@
 import { appConfig } from "@/common/hooks/use-config";
 import { posthogg } from "@/common/lib/posthog";
+import { POSTHOG_EVENT } from "@/common/lib/posthog/types";
 import { cn } from "@/common/lib/utils";
 import { toggleAvatar } from "@/player/actions";
 import { usePlayerStore } from "@/player/stores/use-player.store";
@@ -35,7 +36,7 @@ export const ToggleAvatarButton = () => {
 	const handleSelectAvatar = (name: PlayerAvatar) => {
 		toggleAvatar(name);
 		overlayStore.close();
-		posthogg.trackEvent("avatar_selected", { avatar: name });
+		posthogg.trackEvent(POSTHOG_EVENT.AVATAR_SELECTED, { avatar: name });
 	};
 
 	return (

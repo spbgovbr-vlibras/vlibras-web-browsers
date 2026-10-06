@@ -1,5 +1,6 @@
 import { beforeEach, describe, expect, it, vi } from "vitest";
 import { consentStore } from "@/common/stores/use-consent.store";
+import { POSTHOG_EVENT } from "../posthog/types";
 
 describe("posthog - sampling & consent gating (non-PROD)", () => {
 	beforeEach(() => {
@@ -15,15 +16,15 @@ describe("posthog - sampling & consent gating (non-PROD)", () => {
 	it("trackEvent should noop when consent not accepted", async () => {
 		const { posthogg } = await import("@/common/lib/posthog");
 		consentStore.set({ status: "pending" });
-		await expect(posthogg.trackEvent("test_event")).resolves.toBeUndefined();
+		await expect(posthogg.trackEvent(POSTHOG_EVENT.OPEN_TRANSLATOR)).resolves.toBeUndefined();
 		consentStore.set({ status: "declined" });
-		await expect(posthogg.trackEvent("test_event")).resolves.toBeUndefined();
+		await expect(posthogg.trackEvent(POSTHOG_EVENT.OPEN_TRANSLATOR)).resolves.toBeUndefined();
 	});
 
 	it("trackEvent should not throw when consent accepted but not enabled", async () => {
 		const { posthogg } = await import("@/common/lib/posthog");
 		consentStore.set({ status: "accepted" });
-		await expect(posthogg.trackEvent("test_event", { foo: "bar" })).resolves.toBeUndefined();
+		await expect(posthogg.trackEvent(POSTHOG_EVENT.DICTIONARY_GLOSS, { sign: "teste" })).resolves.toBeUndefined();
 	});
 
 	it("trackLoad should noop when not enabled", async () => {
