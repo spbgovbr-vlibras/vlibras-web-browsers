@@ -60,7 +60,7 @@ export const createRoot = () => {
 	}
 
 	const shadowRoot = root.shadowRoot || root.attachShadow({ mode: "open" });
-	const isRootActive = () => root.getAttribute("data-active") === "true";
+	const isRootActive = () => root?.getAttribute("data-active") === "true";
 
 	return { root, shadowRoot, isRootActive };
 };

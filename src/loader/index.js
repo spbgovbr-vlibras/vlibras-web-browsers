@@ -100,11 +100,15 @@
     const initBtn = shadow.querySelector("#vlibras-button");
     const access = shadow.querySelector("#vlibras-access");
 
-    const open = () => {
-      if (widget) {
-        widget.dataset.active = "true";
-        return;
-      }
+    const setActive = (auto = false) => {
+      if (!widget) return;
+
+      widget.dataset.active = "true";
+      widget.dataset.auto = auto;
+    };
+
+    const open = (auto = false) => {
+      if (widget) return setActive(auto);
 
       const script = document.createElement("script");
       script.type = "module";
@@ -112,19 +116,21 @@
       script.async = true;
       script.onload = () => {
         widget = document.getElementById("vlibras-app-root");
-        if (widget) widget.dataset.active = "true";
+        if (widget) setActive(auto);
       };
 
       document.body.appendChild(script);
     };
 
-    initBtn.onclick = open;
+    initBtn.onclick = () => open(false);
     vw.initBtn = initBtn;
     vw.access = access;
     vw.open = open;
 
     try {
-      if (localStorage["@vlibras-widget"]?.includes('"isOpen":true')) open();
+      if (localStorage["@vlibras-widget"]?.includes('"isOpen":true')) {
+        open(true);
+      }
     } catch {
       // Ignore
     }
