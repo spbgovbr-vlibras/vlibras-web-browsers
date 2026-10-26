@@ -5,10 +5,11 @@ import { playerStore, usePlayerStore } from "@/player/stores/use-player.store";
 import { Button } from "@/widget/components/ui/button";
 import { Icon } from "@/widget/components/ui/icon";
 import { Spinner } from "@/widget/components/ui/spinner";
+import { widgetStore } from "@/widget/stores/use-widget.store";
 
 export const UnityLoading = () => {
-	const { progress, isLoaded, isBroken } = usePlayerStore(usePick("progress", "isLoaded", "isBroken"));
 	const [isStarting, setStarting] = useState(false);
+	const { progress, isBroken } = usePlayerStore(usePick("progress", "isBroken"));
 
 	useEffect(() => {
 		if (progress !== 100) return;
@@ -16,9 +17,8 @@ export const UnityLoading = () => {
 		return () => clearTimeout(timer);
 	}, [progress]);
 
-	if (isLoaded) return null;
-
 	const handleRetryLoad = () => playerStore.get().retryLoad();
+	const handleClose = () => widgetStore.get().setOpen(false);
 
 	return (
 		<div
@@ -27,6 +27,16 @@ export const UnityLoading = () => {
 				!__IS_EXTENSION__ && "widget-radius",
 			)}
 		>
+			<Button
+				onClick={handleClose}
+				aria-label="Fechar"
+				size="icon-sm"
+				variant="ghost"
+				className="absolute top-2 right-2"
+			>
+				<Icon name="x" />
+			</Button>
+
 			<div className="grid place-content-center rounded-full border px-2 py-1">
 				<Icon name="govbr" colored className="h-4 w-12" />
 			</div>
