@@ -1,5 +1,14 @@
 # Changelog
 
+## [7.12.3](https://gitlab.lavid.ufpb.br/vlibras2019/vlibras-web-extensions/vlibras-web-browsers/-/compare/v7.12.2...v7.12.3) (2026-10-26)
+
+### Bug Fixes
+
+* **deps:** patch security vulnerabilities ([7118816](https://gitlab.lavid.ufpb.br/vlibras2019/vlibras-web-extensions/vlibras-web-browsers/-/commit/7118816f43d515e6614da353ad3d6926191e1de0))
+* **tracking:** skip widget load tracking on automatic open ([6d9eb05](https://gitlab.lavid.ufpb.br/vlibras2019/vlibras-web-extensions/vlibras-web-browsers/-/commit/6d9eb05446eaafd9c8a87c994d1ff8a887e199fd))
+* **widget:** allow closing widget while unity is loading ([1c90326](https://gitlab.lavid.ufpb.br/vlibras2019/vlibras-web-extensions/vlibras-web-browsers/-/commit/1c9032650afd25abe2a827ba8a1efa045c25cf41))
+* **widget:** render icon tint via drop-shadow instead of mask-image ([ed0b914](https://gitlab.lavid.ufpb.br/vlibras2019/vlibras-web-extensions/vlibras-web-browsers/-/commit/ed0b914d1f8b73f20ba8ded49e468baeb247da2c))
+
 ## [7.12.2](https://gitlab.lavid.ufpb.br/vlibras2019/vlibras-web-extensions/vlibras-web-browsers/compare/v7.12.1...v7.12.2) (2026-09-04)
 
 ### Bug Fixes
