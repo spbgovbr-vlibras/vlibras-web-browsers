@@ -3,6 +3,7 @@ import type { ComponentProps } from "preact";
 import { describe, expect, it, vi } from "vitest";
 import { playerStore, usePlayerStore } from "@/player/stores/use-player.store";
 import { UnityLoading } from "@/widget/components/unity-loading";
+import { widgetStore } from "@/widget/stores/use-widget.store";
 
 vi.mock("@/widget/components/ui/icon", () => ({
 	Icon: ({ name }: { name: string }) => <span>{name}</span>,
@@ -23,12 +24,14 @@ describe("UnityLoading", () => {
 		vi.restoreAllMocks();
 	});
 
-	it("should render nothing when loaded", () => {
-		usePlayerStore.setState({ progress: 100, isLoaded: true, isBroken: false });
-		const state = playerStore.get();
-		playerStore.get = () => ({ ...state, retryLoad: vi.fn() });
-		const { container } = render(<UnityLoading />);
-		expect(container.firstChild).toBeNull();
+	it("should close the widget when close is clicked", () => {
+		const setOpen = vi.fn();
+		usePlayerStore.setState({ progress: 50, isLoaded: false, isBroken: false });
+		const state = widgetStore.get();
+		widgetStore.get = () => ({ ...state, setOpen });
+		render(<UnityLoading />);
+		fireEvent.click(screen.getByRole("button", { name: "Fechar" }));
+		expect(setOpen).toHaveBeenCalledWith(false);
 	});
 
 	it("should render loading UI", () => {
