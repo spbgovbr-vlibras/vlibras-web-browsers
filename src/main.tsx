@@ -22,7 +22,7 @@ function App() {
 	const { path } = useConfig();
 
 	useEffect(() => rootStore.set({ root, shadowRoot }), [root, shadowRoot]);
-	useEffect(() => void posthogg.trackLoad(), []);
+	useEffect(() => void (root?.dataset.auto !== "true" && posthogg.trackLoad()), [root]);
 
 	useEffect(() => {
 		if (!path) return;

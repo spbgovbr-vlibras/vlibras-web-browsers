@@ -13,7 +13,7 @@ interface Window {
 		position?: "r" | "l";
 		isOpen: boolean;
 		initBtn?: Element;
-		open: () => void;
+		open: (auto?: boolean) => void;
 	};
 
 	plugin?: any;

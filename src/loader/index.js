@@ -29,8 +29,15 @@
   let isRendered = false;
   let widget;
 
-  function open() {
-    if (widget) return (widget.dataset.active = true);
+  const setActive = (auto = false) => {
+    if (!widget) return;
+
+    widget.dataset.active = "true";
+    widget.dataset.auto = auto;
+  };
+
+  function open(auto = false) {
+    if (widget) return setActive(auto);
 
     const script = document.createElement("script");
     script.type = "module";
@@ -38,7 +45,7 @@
     script.async = true;
     script.onload = () => {
       widget = document.getElementById("vlibras-app-root");
-      if (widget) widget.dataset.active = "true";
+      setActive(auto);
     };
 
     document.body.appendChild(script);
@@ -132,9 +139,17 @@
       const initBtn = shadow.querySelector("#vlibras-button");
       const access = shadow.querySelector("#vlibras-access");
 
-      initBtn.onclick = open;
+      initBtn.onclick = () => open(false);
       vw.initBtn = initBtn;
       vw.access = access;
+
+      try {
+        if (localStorage["@vlibras-widget"]?.includes('"isOpen":true')) {
+          open(true);
+        }
+      } catch {
+        // Ignore
+      }
     }
   }
 
