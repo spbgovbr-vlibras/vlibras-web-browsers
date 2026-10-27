@@ -30,7 +30,7 @@ export const Icon = ({ className, name, colored = false, style, ...props }: Icon
 						: {
 								...style,
 								filter: `drop-shadow(0 ${TINT_SHIFT_PX}px 0 currentColor)`,
-								transform: `translateY(${-TINT_SHIFT_PX}px)`,
+								transform: `translateY(${-TINT_SHIFT_PX}px) translateZ(0)`,
 							}
 				}
 			/>
