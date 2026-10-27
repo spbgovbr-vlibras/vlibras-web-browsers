@@ -75,11 +75,11 @@
 	},
 	"devDependencies": {
 		"@biomejs/biome": "^2.3.14",
-		"@commitlint/cli": "^21.2.2",
+		"@commitlint/cli": "^21.2.4",
 		"@commitlint/config-conventional": "^21.2.0",
 		"@playwright/test": "^1.63.0",
 		"@preact/preset-vite": "^2.10.6",
-		"@release-it/conventional-changelog": "^12.0.0",
+		"@release-it/conventional-changelog": "^12.0.2",
 		"@testing-library/dom": "^10.4.1",
 		"@testing-library/jest-dom": "^7.0.1",
 		"@testing-library/preact": "^3.2.4",
@@ -90,11 +90,11 @@
 		"husky": "^9.1.7",
 		"jsdom": "^30.0.1",
 		"lint-staged": "^17.3.0",
-		"posthog-js": "^1.430.2",
-		"release-it": "^21.0.1",
+		"posthog-js": "^1.438.23",
+		"release-it": "^21.1.1",
 		"rollup-plugin-visualizer": "^7.0.1",
 		"typescript": "~7.0.2",
-		"vite": "^8.2.0",
+		"vite": "^8.2.4",
 		"vite-plugin-compression2": "^2.5.3",
 		"vite-plugin-static-copy": "^4.1.1",
 		"vitest": "^5.0.0"
@@ -105,8 +105,11 @@
 			"rollup": "4.62.4",
 			"postcss": "8.5.26",
 			"browserslist": "4.28.8",
-			"fast-uri": "3.1.6",
-			"js-yaml": "4.3.2"
+			"fast-uri": "3.1.9",
+			"posthog-js>dompurify": "3.4.17",
+			"undici": "7.30.1",
+			"basic-ftp": "6.2.1",
+			"source-map-js": "1.2.2"
 		},
 		"peerDependencyRules": {
 			"allowAny": [
