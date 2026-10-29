@@ -22,7 +22,7 @@ export const WidgetHeader = () => {
 	};
 
 	return (
-		<div className="relative bottom-auto z-50 bg-primary px-2 py-1.5">
+		<div className="relative bottom-auto z-50 bg-primary px-2 py-1.5 whitespace-nowrap">
 			<DragHandle />
 
 			<div
